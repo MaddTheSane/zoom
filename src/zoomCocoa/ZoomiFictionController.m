@@ -70,8 +70,6 @@ enum {
 + (ZoomiFictionController*) sharediFictionController {
 	if (!sharedController) {
 		NSString* nibName = @"iFiction";
-		if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_2)
-			nibName = @"iFiction-10.2";
 		sharedController = [[ZoomiFictionController alloc] initWithWindowNibName: nibName];
 	}
 	

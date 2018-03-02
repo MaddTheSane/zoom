@@ -41,7 +41,7 @@
 		4B1FEA590ACB1713008B9EFE /* ZoomPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B418ED905961D2C009C44DE /* ZoomPreferences.m */; };
 		4B1FEA5C0ACB1723008B9EFE /* ZoomMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEA9705B4597500A9B6DC /* ZoomMetadata.m */; };
 		4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
-		4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B36C45F0955ED5400874F9F /* Glulxe.plugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 4B36C4540955ED1700874F9F /* Glulxe.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4B36C46A0955EDB600874F9F /* ZoomGlulxe.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B36C4680955EDB600874F9F /* ZoomGlulxe.m */; };
 		4B36C5000955EDD800874F9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCF3F2B050F8E2400A8E303 /* Foundation.framework */; };
@@ -78,7 +78,7 @@
 		4B7522550CC7FAC500F36ECF /* signpost.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B7522540CC7FAC500F36ECF /* signpost.icns */; };
 		4B77DD1E0B87BBBC000D2504 /* displaySettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B77DD1D0B87BBBC000D2504 /* displaySettings.png */; };
 		4B7CB09209362A5600F3B8F6 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
-		4B7CB0AA09362A7200F3B8F6 /* ZoomPlugIns.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4B7CB0AA09362A7200F3B8F6 /* ZoomPlugIns.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B7CB0AB09362A7900F3B8F6 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		4B7CB0AC09362A8D00F3B8F6 /* ZoomStory.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BACEAB505B45BF400A9B6DC /* ZoomStory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B7CB0AD09362A8D00F3B8F6 /* ZoomStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEAB605B45BF400A9B6DC /* ZoomStory.m */; };
@@ -94,7 +94,7 @@
 		4B7CB15809362DFB00F3B8F6 /* ZoomMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEA9705B4597500A9B6DC /* ZoomMetadata.m */; };
 		4B7CB1B10936345D00F3B8F6 /* ZoomGlkPlugIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B7CB1AF0936345D00F3B8F6 /* ZoomGlkPlugIn.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B7CB1B20936345D00F3B8F6 /* ZoomGlkPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB1B00936345D00F3B8F6 /* ZoomGlkPlugIn.m */; };
-		4B7CB1D00936350E00F3B8F6 /* GlkClient.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4B7CB1D00936350E00F3B8F6 /* GlkClient.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B7CB1E90936357900F3B8F6 /* ZoomPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CB0790936294B00F3B8F6 /* ZoomPlugIn.m */; };
 		4B7CB1EA0936357900F3B8F6 /* ZoomPlugIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B7CB0780936294B00F3B8F6 /* ZoomPlugIn.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B7CB2130936361800F3B8F6 /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
@@ -167,7 +167,7 @@
 		4BA8B83A0B1B5F65007CD75E /* typographicSettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8B8390B1B5F65007CD75E /* typographicSettings.png */; };
 		4BA8B9530B1BB3F4007CD75E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F4B050FB2C500A8E303 /* main.m */; };
 		4BB27DA00C592D9100470443 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB27D9F0C592D9100470443 /* Sparkle.framework */; };
-		4BB27DB40C592D9D00470443 /* Sparkle.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BB27D9F0C592D9100470443 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4BB27DB40C592D9D00470443 /* Sparkle.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BB27D9F0C592D9100470443 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BB65ACE08EF02D600E7E28E /* ZoomBlorbFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */; };
 		4BB65AD408EF02DF00E7E28E /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; };
 		4BB8C0DE08C2452E00D7D334 /* operation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F82050F7CC500A8E303 /* operation.h */; };
@@ -288,7 +288,6 @@
 		4BB8C1CE08C249F400D7D334 /* information-in.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B61963005C1AD170019AFF7 /* information-in.png */; };
 		4BB8C1CF08C249F400D7D334 /* information-out.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B61963105C1AD170019AFF7 /* information-out.png */; };
 		4BB8C1D008C249F400D7D334 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C13FD05C5A94B00E5796D /* Credits.rtf */; };
-		4BB8C1D108C249F400D7D334 /* iFiction-10.2.nib in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C14D205C69CAD00E5796D /* iFiction-10.2.nib */; };
 		4BB8C1D208C249F400D7D334 /* Metal-Title.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9ED9CF0602977C0049E468 /* Metal-Title.png */; };
 		4BB8C1D308C249F400D7D334 /* zoom-game.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F46050FB21C00A8E303 /* zoom-game.icns */; };
 		4BB8C1D408C249F400D7D334 /* saveHighlightInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCB09660615D67C00CDFB98 /* saveHighlightInactive.png */; };
@@ -320,7 +319,7 @@
 		4BB8C1F908C249F400D7D334 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCF3F2B050F8E2400A8E303 /* Foundation.framework */; };
 		4BB8C1FB08C249F400D7D334 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5CBB9B069D671200C0AA88 /* Carbon.framework */; };
 		4BB8C1FC08C249F400D7D334 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
-		4BB8C20208C249F400D7D334 /* ZoomView.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4BB8C20208C249F400D7D334 /* ZoomView.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BD2747C08701E6700C1AE15 /* ZoomView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4EF623050FDC6800A8E303 /* ZoomView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BD2747D08701E6700C1AE15 /* ZoomLowerWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B7D1DAD0534999E00A8E303 /* ZoomLowerWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BD2747E08701E6700C1AE15 /* ZoomUpperWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDFA46305358F1200A8E303 /* ZoomUpperWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -785,7 +784,6 @@
 		4B1885B50698B867004D8501 /* Skein-unchanged.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-unchanged.png"; sourceTree = "<group>"; };
 		4B1885B60698B867004D8501 /* Skein-changed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-changed.png"; sourceTree = "<group>"; };
 		4B1C13F905C5A94300E5796D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		4B1C14D205C69CAD00E5796D /* iFiction-10.2.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = "iFiction-10.2.nib"; sourceTree = "<group>"; };
 		4B1E3F60050F7BA000A8E303 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		4B1E3F68050F7C2000A8E303 /* interp_z3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = interp_z3.h; path = build/interp_z3.h; sourceTree = SOURCE_ROOT; };
 		4B1E3F6A050F7C2000A8E303 /* interp_z4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = interp_z4.h; path = build/interp_z4.h; sourceTree = SOURCE_ROOT; };
@@ -1593,6 +1591,7 @@
 		4BCF3F42050FB1D800A8E303 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				55BB926E2048D7FB00AB4B5B /* xibs */,
 				55BB92572048D16B00AB4B5B /* Skein */,
 				55BB92552048CCFE00AB4B5B /* ifdbWeb */,
 				4B7522540CC7FAC500F36ECF /* signpost.icns */,
@@ -1633,16 +1632,6 @@
 				4BBC1F6A062F41E300FE547F /* stars-none.png */,
 				4BBC1F6B062F41E300FE547F /* stars-red.png */,
 				4B7FA9CC06B99EE400EE766A /* NeedDrop.png */,
-				4B43DA8309364C7400F03009 /* GlkWindow.xib */,
-				4BCF3F51050FB42600A8E303 /* MainMenu.xib */,
-				4BCF3F57050FB49F00A8E303 /* ZoomClient.xib */,
-				4B418E140594FCDB009C44DE /* Preferences.xib */,
-				4B2EAF9905B056EC0021A5E6 /* GameInfo.xib */,
-				4BB515B405BC615F00D00C96 /* iFiction.xib */,
-				4B1C14D205C69CAD00E5796D /* iFiction-10.2.nib */,
-				4B18850B069873F0004D8501 /* Skein.xib */,
-				4B152DBD0B46E929008CC1EF /* NoteWindow.xib */,
-				4B1242CD0CAE8D1800CA3374 /* PluginManager.xib */,
 			);
 			name = Resources;
 			path = src/zoomCocoa;
@@ -1811,6 +1800,22 @@
 				4B5CBC5D069D9EB700C0AA88 /* SkeinUnlocked.png */,
 			);
 			path = Skein;
+			sourceTree = "<group>";
+		};
+		55BB926E2048D7FB00AB4B5B /* xibs */ = {
+			isa = PBXGroup;
+			children = (
+				4B43DA8309364C7400F03009 /* GlkWindow.xib */,
+				4BCF3F51050FB42600A8E303 /* MainMenu.xib */,
+				4BCF3F57050FB49F00A8E303 /* ZoomClient.xib */,
+				4B418E140594FCDB009C44DE /* Preferences.xib */,
+				4B2EAF9905B056EC0021A5E6 /* GameInfo.xib */,
+				4BB515B405BC615F00D00C96 /* iFiction.xib */,
+				4B18850B069873F0004D8501 /* Skein.xib */,
+				4B152DBD0B46E929008CC1EF /* NoteWindow.xib */,
+				4B1242CD0CAE8D1800CA3374 /* PluginManager.xib */,
+			);
+			name = xibs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2359,7 +2364,6 @@
 				4BB8C1CE08C249F400D7D334 /* information-in.png in Resources */,
 				4BB8C1CF08C249F400D7D334 /* information-out.png in Resources */,
 				4BB8C1D008C249F400D7D334 /* Credits.rtf in Resources */,
-				4BB8C1D108C249F400D7D334 /* iFiction-10.2.nib in Resources */,
 				4BB8C1D208C249F400D7D334 /* Metal-Title.png in Resources */,
 				4BB8C1D308C249F400D7D334 /* zoom-game.icns in Resources */,
 				4BB8C1D408C249F400D7D334 /* saveHighlightInactive.png in Resources */,
