@@ -278,7 +278,7 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>Zoom</string>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Zoom 1.1.6</string>
 	<key>CFBundleIconFile</key>
@@ -294,7 +294,7 @@
 	<key>CFBundleVersion</key>
 	<string>1.1.6</string>
 	<key>NSMainNibFile</key>
-	<string>MainMenu.nib</string>
+	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>

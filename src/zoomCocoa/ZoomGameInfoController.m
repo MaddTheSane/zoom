@@ -38,14 +38,7 @@
 
 // = Owner =
 
-- (void) setInfoOwner: (id) newOwner {
-	if (infoOwner) [infoOwner release];
-	infoOwner = [newOwner retain];
-}
-
-- (id) infoOwner {
-	return infoOwner;
-}
+@synthesize infoOwner;
 
 // = Interface actions =
 
@@ -162,9 +155,7 @@ static NSString* stringOrEmpty(NSString* str) {
 	}
 }
 
-- (ZoomStory*) gameInfo {
-	return gameInfo;
-}
+@synthesize gameInfo;
 
 // Reading the current (updated) contents of the game info window
 - (NSString*) title {
@@ -200,7 +191,7 @@ static NSString* stringOrEmpty(NSString* str) {
 }
 
 - (unsigned) zarfRating {
-	return [zarfRating indexOfSelectedItem];
+	return (unsigned)[zarfRating indexOfSelectedItem];
 }
 
 - (float) rating {
@@ -217,12 +208,12 @@ static NSString* stringOrEmpty(NSString* str) {
 		[self headline], @"headline",
 		[self author], @"author",
 		[self genre], @"genre",
-		[NSNumber numberWithInt: [self year]], @"year",
+		@([self year]), @"year",
 		[self group], @"group",
 		[self comments], @"comments",
 		[self teaser], @"teaser",
-		[NSNumber numberWithUnsignedInt: [self zarfRating]], @"zarfRating",
-		[NSNumber numberWithFloat: [self rating]], @"rating",
+		@([self zarfRating]), @"zarfRating",
+		@([self rating]), @"rating",
 		nil];
 }
 
@@ -263,7 +254,7 @@ static NSString* stringOrEmpty(NSString* str) {
 						  contextInfo: (void *)contextInfo {
 	if (returnCode != NSOKButton) return;
 	
-	[self setResourceFile: [sheet filename]];
+	[self setResourceFile: [[sheet URL] path]];
 }
 
 - (IBAction)chooseResourceFile:(id)sender {

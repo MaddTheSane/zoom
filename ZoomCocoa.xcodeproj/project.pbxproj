@@ -1594,14 +1594,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7522540CC7FAC500F36ECF /* signpost.icns */,
-				4B926A0E0CD1464B00CE0ADB /* IFDB-error.png */,
-				4B926A100CD1464B00CE0ADB /* ifdb-failed.html */,
-				4B840A390CBECC690071F3B3 /* IFDB-connecting.png */,
-				4B840A3B0CBECC690071F3B3 /* ifdb-loading.html */,
-				4B840A150CBEC1B10071F3B3 /* IFDB-back.png */,
-				4B840A160CBEC1B10071F3B3 /* IFDB-forward.png */,
-				4B840A170CBEC1B10071F3B3 /* IFDB-home.png */,
-				4B840A290CBEC2050071F3B3 /* IFDB-downloading.png */,
+				55BB92552048CCFE00AB4B5B /* ifdbWeb */,
 				4B0D81E10AC5A3C0003E8CCA /* top-shading.png */,
 				4B152A030B440B9D008CC1EF /* SkeinDiffersBadge.png */,
 				4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */,
@@ -1795,6 +1788,21 @@
 				4B71AB5F09E300EF00E27876 /* ifmetaxml.c */,
 			);
 			name = Metadata;
+			sourceTree = "<group>";
+		};
+		55BB92552048CCFE00AB4B5B /* ifdbWeb */ = {
+			isa = PBXGroup;
+			children = (
+				4B926A0E0CD1464B00CE0ADB /* IFDB-error.png */,
+				4B926A100CD1464B00CE0ADB /* ifdb-failed.html */,
+				4B840A390CBECC690071F3B3 /* IFDB-connecting.png */,
+				4B840A3B0CBECC690071F3B3 /* ifdb-loading.html */,
+				4B840A150CBEC1B10071F3B3 /* IFDB-back.png */,
+				4B840A160CBEC1B10071F3B3 /* IFDB-forward.png */,
+				4B840A170CBEC1B10071F3B3 /* IFDB-home.png */,
+				4B840A290CBEC2050071F3B3 /* IFDB-downloading.png */,
+			);
+			name = ifdbWeb;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

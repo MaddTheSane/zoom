@@ -960,10 +960,6 @@ Cg
             </subviews>
             <accessibility description="Backwards"/>
         </customView>
-        <view id="268">
-            <rect key="frame" x="0.0" y="0.0" width="1" height="111"/>
-            <autoresizingMask key="autoresizingMask"/>
-        </view>
     </objects>
     <resources>
         <image name="Blorb" width="128" height="128"/>

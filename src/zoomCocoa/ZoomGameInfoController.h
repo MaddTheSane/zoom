@@ -43,11 +43,9 @@
 - (IBAction)chooseResourceFile:(id)sender;
 
 // Setting up the game info window
-- (void) setGameInfo: (ZoomStory*) info;
-- (ZoomStory*) gameInfo;
+@property (nonatomic, retain) ZoomStory *gameInfo;
 
-- (void) setInfoOwner: (id) owner;
-- (id)   infoOwner;
+@property (retain) id infoOwner;
 
 // Reading the current (updated) contents of the game info window
 - (NSString*) title;
