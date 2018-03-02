@@ -10,7 +10,7 @@
 
 #import "ZoomPreferences.h"
 
-@interface ZoomPreferenceWindow : NSWindowController {
+@interface ZoomPreferenceWindow : NSWindowController <NSToolbarDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 	// The various views
 	IBOutlet NSView* generalSettingsView;
 	IBOutlet NSView* gameSettingsView;

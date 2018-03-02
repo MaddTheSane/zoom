@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 
 #import "ZoomFlipView.h"
 
@@ -14,7 +15,7 @@
 /// A ZoomFlipView category that lets us use Core Animation instead of the standard flip view when
 /// performing animations.
 /// 
-@interface ZoomFlipView(ZoomLeopardFlipView)
+@interface ZoomFlipView(ZoomLeopardFlipView) <CALayerDelegate, CALayoutManager, CAAnimationDelegate>
 
 - (void) leopardPrepareViewForAnimation: (NSView*) view;					// Prepares the specified view for animation
 - (void) leopardAnimateTo: (NSView*) view									// Causes an animation to occur

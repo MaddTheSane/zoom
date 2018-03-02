@@ -10,14 +10,14 @@
 
 #undef FlipUseCoreAnimation
 
-typedef enum ZoomViewAnimationStyle {
+typedef NS_ENUM(NSInteger, ZoomViewAnimationStyle) {
 	ZoomAnimateLeft,
 	ZoomAnimateRight,
 	ZoomAnimateFade,
 	
 	ZoomCubeDown,
 	ZoomCubeUp
-} ZoomViewAnimationStyle;
+};
 
 ///
 /// NSView subclass that allows us to flip between several views

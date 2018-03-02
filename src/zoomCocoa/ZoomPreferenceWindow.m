@@ -78,7 +78,7 @@ static NSDictionary*  itemDictionary = nil;
 	[super dealloc];
 }
 
-static int familyComparer(id a, id b, void* context) {
+static NSComparisonResult familyComparer(id a, id b, void* context) {
 	NSString* family1 = a;
 	NSString* family2 = b;
 	
@@ -306,7 +306,7 @@ static int familyComparer(id a, id b, void* context) {
 	[fontPreview setFont: [[prefs fonts] objectAtIndex: 0]];
 }
 
-- (NSString*) colourNameAtIndex: (int) index {
+- (NSString*) colourNameAtIndex: (NSInteger) index {
 	switch (index) {
 		case 0: return @"Black";
 		case 1: return @"Red";
@@ -388,7 +388,7 @@ static int familyComparer(id a, id b, void* context) {
 	[glulxInterpreter selectItemAtIndex: [glulxInterpreter indexOfItemWithTag: [prefs glulxInterpreter]]];
 	
 	// a kind of chessy way to get the current alpha setting
-	float red, green, blue, alpha;
+	CGFloat red, green, blue, alpha;
 	NSColor * color = [[prefs colours] objectAtIndex:0];
 	[color getRed:&red green:&green blue:&blue alpha:&alpha];
 	[transparencySlider setFloatValue:(alpha * 100.0)];
@@ -418,7 +418,7 @@ static int familyComparer(id a, id b, void* context) {
 
 // == Table data source ==
 
-- (int)numberOfRowsInTableView: (NSTableView *)aTableView {
+- (NSInteger)numberOfRowsInTableView: (NSTableView *)aTableView {
 	if (aTableView == fonts) return [[prefs fonts] count];
 	if (aTableView == colours) return [[prefs colours] count];
 	
@@ -437,7 +437,7 @@ static void appendStyle(NSMutableString* styleName,
 
 - (id)              tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn
-						  row:(int)rowIndex {
+						  row:(NSInteger)rowIndex {
 	if (aTableView == fonts) {
 		// Fonts table
 		NSArray* fontArray = [prefs fonts];
@@ -500,7 +500,7 @@ static void appendStyle(NSMutableString* styleName,
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
 	if ([aNotification object] == fonts) {
-		int selFont = [fonts selectedRow];
+		NSInteger selFont = [fonts selectedRow];
 		
 		if (selFont < 0) {
 			return;
@@ -516,7 +516,7 @@ static void appendStyle(NSMutableString* styleName,
 		[[NSFontPanel sharedFontPanel] orderFront: self];
 		[[NSFontPanel sharedFontPanel] reloadDefaultFontFamilies];
 	} else if ([aNotification object] == colours) {
-		int selColour = [colours selectedRow];
+		NSInteger selColour = [colours selectedRow];
 		
 		if (selColour < 0) {
 			return;
@@ -535,7 +535,7 @@ static void appendStyle(NSMutableString* styleName,
 
 - (void) changeFont:(id) sender {
 	// Change the selected font in the font table
-	int selFont = [fonts selectedRow];
+	NSInteger selFont = [fonts selectedRow];
 	
 	if (selFont < 0) return;
 	
@@ -558,7 +558,7 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (void)changeColor:(id)sender {	
-	int selColour = [colours selectedRow];
+	NSInteger selColour = [colours selectedRow];
 	
 	if (selColour < 0) {
 		return;
@@ -812,8 +812,8 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (IBAction) colourChanged: (id) sender {
-	int newValue = [sender selectedTag];
-	int oldValue = (sender==foregroundColour)?[prefs foregroundColour]:[prefs backgroundColour];
+	NSInteger newValue = [sender selectedTag];
+	NSInteger oldValue = (sender==foregroundColour)?[prefs foregroundColour]:[prefs backgroundColour];
 	
 	if (newValue != oldValue) {
 		if (sender == foregroundColour) {

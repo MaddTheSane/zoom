@@ -553,7 +553,7 @@ static NSArray* DefaultColours(void) {
 	[self preferencesHaveChanged];
 }
 
-- (void) setInterpreter: (int) inter {
+- (void) setInterpreter: (NSInteger) inter {
 	[prefs setObject: [NSNumber numberWithInt: inter]
 			  forKey: interpreter];
 	[self preferencesHaveChanged];
@@ -758,14 +758,14 @@ static NSArray* DefaultColours(void) {
 	[self preferencesHaveChanged];	
 }
 
-- (void) setForegroundColour: (int) value {
-	[prefs setObject: [NSNumber numberWithInt: value]
+- (void) setForegroundColour: (NSInteger) value {
+	[prefs setObject: @(value)
 			  forKey: foregroundColour];
 	[self preferencesHaveChanged];		
 }
 
-- (void) setBackgroundColour: (int) value {
-	[prefs setObject: [NSNumber numberWithInt: value]
+- (void) setBackgroundColour: (NSInteger) value {
+	[prefs setObject: @(value)
 			  forKey: backgroundColour];
 	[self preferencesHaveChanged];	
 }

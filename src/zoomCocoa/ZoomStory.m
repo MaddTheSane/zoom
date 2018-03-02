@@ -59,7 +59,7 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 	return [keyNameDict objectForKey: key];
 }
 
-+ (NSString*) keyForTag: (int) tag {
++ (NSString*) keyForTag: (NSInteger) tag {
 	switch (tag) {
 		case 0: return @"title";
 		case 1: return @"headline";

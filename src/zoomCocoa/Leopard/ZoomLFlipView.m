@@ -8,6 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "ZoomLFlipView.h"
+#include <objc/runtime.h>
 
 #define NORECURSION									// Define to specify that no recursive animation should be allowed
 
@@ -28,7 +29,7 @@
 		[[self propertyDictionary] setObject: rootLayer = [CALayer layer]
 									  forKey: @"RootLayer"];
 		rootLayer.layoutManager = self;
-		rootLayer.backgroundColor = [NSColor whiteColor];
+		rootLayer.backgroundColor = [NSColor whiteColor].CGColor;
 		[rootLayer removeAllAnimations];
 	}
 
@@ -37,7 +38,7 @@
 	if (viewLayer== nil) {
 		static CGFloat white[4] = { 1.0, 1.0, 1.0, 1.0 };
 		viewLayer = [CALayer layer];
-		viewLayer.backgroundColor = [NSColor whiteColor];		
+		viewLayer.backgroundColor = [NSColor whiteColor].CGColor;		
 
 		[view setLayer: viewLayer];
 	}

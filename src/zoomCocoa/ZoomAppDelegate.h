@@ -17,7 +17,7 @@
 #import "ZoomLeopard.h"
 
 @class SUUpdater;
-@interface ZoomAppDelegate : NSObject {
+@interface ZoomAppDelegate : NSObject <NSApplicationDelegate, NSOpenSavePanelDelegate> {
 	ZoomPreferenceWindow* preferencePanel;
 	IBOutlet SUUpdater* updater;
 	

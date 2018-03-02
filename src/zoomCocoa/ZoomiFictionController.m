@@ -412,8 +412,8 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 		return nil;
 	}
 	
-	[[[NSApp delegate] userMetadata] copyStory: theStory];
-	return [[[NSApp delegate] userMetadata] findOrCreateStory: [theStory storyID]];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: theStory];
+	return [[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: [theStory storyID]];
 }
 
 // = Panel actions =
@@ -473,7 +473,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 				
 				[fileID release];
 			}
-		} else if (plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename]) {
+		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename])) {
 			ZoomPlugIn* instance = [[[plugin alloc] initWithFilename: filename] autorelease];
 			ZoomStoryID* fileID = [instance idForStory];
 			
@@ -600,8 +600,8 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 			NSBeginAlertSheet(@"Zoom cannot find this story", 
 							  @"Cancel", nil, nil, [self window], nil, nil, nil, 
 							  nil,
-							  [NSString stringWithFormat: @"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.",
-									[[self selectedStory] title], filename]);
+							  @"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.",
+									[[self selectedStory] title], filename);
 			return;
 		}
 		
@@ -783,7 +783,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	ZoomStoryOrganiser* org = [ZoomStoryOrganiser sharedStoryOrganiser];
 	
 	NSString* filename = [org filenameForIdent: ident];
-	ZoomStory* story = [[NSApp delegate] findStory: ident];
+	ZoomStory* story = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
 	
 	if (filename == nil) filename = @"No filename";
 	
@@ -800,10 +800,10 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 		// Store this in the user metadata for later
 		NSLog(@"Failed to find story for ID: %@", ident);
 		if (story != nil) {
-			[[[NSApp delegate] userMetadata] copyStory: story];
-			[[[NSApp delegate] userMetadata] writeToDefaultFile];
+			[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
+			[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 			
-			story = [[[NSApp delegate] userMetadata] findOrCreateStory: [story storyID]];
+			story = [[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: [story storyID]];
 		}
 	}
 	
@@ -1058,7 +1058,7 @@ int tableSorter(id a, id b, void* context) {
 	[[NSRunLoop currentRunLoop] cancelPerformSelectorsWithTarget: self];	
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
 	if (needsUpdating) [self reloadTableData];
 	
 	if (aTableView == mainTableView) {
@@ -1074,7 +1074,7 @@ int tableSorter(id a, id b, void* context) {
 
 - (id)				tableView: (NSTableView *) aTableView 
 	objectValueForTableColumn: (NSTableColumn *) aTableColumn 
-						  row: (int) rowIndex {
+						  row: (NSInteger) rowIndex {
 		
 	// if (needsUpdating) [self reloadTableData];
 
@@ -1092,10 +1092,10 @@ int tableSorter(id a, id b, void* context) {
 			return [story objectForKey: rowID];
 		}
 	} else if (aTableView == filterTable1) {
-		if (rowIndex == 0) return [NSString stringWithFormat: @"All (%i items)", [filterSet1 count]];
+		if (rowIndex == 0) return [NSString stringWithFormat: @"All (%lu items)", (unsigned long)[filterSet1 count]];
 		return [filterSet1 objectAtIndex: rowIndex-1];
 	} else if (aTableView == filterTable2) {
-		if (rowIndex == 0) return [NSString stringWithFormat: @"All (%i items)", [filterSet2 count]];
+		if (rowIndex == 0) return [NSString stringWithFormat: @"All (%lu items)", (unsigned long)[filterSet2 count]];
 		return [filterSet2 objectAtIndex: rowIndex-1];
 	} else {
 		return nil; // Unknown table view
@@ -2034,7 +2034,7 @@ int tableSorter(id a, id b, void* context) {
 
 // = Various menus =
 
-- (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
+- (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
 	SEL sel = [menuItem action];
 	
 	if (sel == @selector(delete:)) {
@@ -2085,7 +2085,7 @@ int tableSorter(id a, id b, void* context) {
 					  @selector(confirmDelete:returnCode:contextInfo:),
 					  nil,
 					  [storiesToDelete retain],
-					  request);
+					  @"%@", request);
 }
 
 - (void) confirmMoveToTrash: (NSWindow *)sheet 
@@ -2104,7 +2104,7 @@ int tableSorter(id a, id b, void* context) {
 		NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
 																				   create: NO];
 		if (filename != nil) {
-			int tag;
+			NSInteger tag;
 			
 			[[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
 														 source: [filename stringByDeletingLastPathComponent]
@@ -2204,7 +2204,7 @@ int tableSorter(id a, id b, void* context) {
 		NSEnumerator* identEnum = [[story storyIDs] objectEnumerator];
 		
 		while (ident = [identEnum nextObject]) {
-			oldStory = [[NSApp delegate] findStory: ident];
+			oldStory = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
 			if (oldStory != nil) break;
 		}
 		
@@ -2214,11 +2214,11 @@ int tableSorter(id a, id b, void* context) {
 		}
 		
 		// Add this story to the userMetadata
-		[[[NSApp delegate] userMetadata] copyStory: story];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
 	}
 	
 	// Store and reflect any changes
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	
 	[self reloadTableData];
 	[self configureFromMainTableSelection];
@@ -2258,11 +2258,11 @@ int tableSorter(id a, id b, void* context) {
 	NSEnumerator* storyEnum = [replacements objectEnumerator];
 	
 	while (story = [storyEnum nextObject]) {
-		[[[NSApp delegate] userMetadata] copyStory: story];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
 	}
 	
 	// Store and reflect any changes
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];	
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	
 	[self reloadTableData];
 	[self configureFromMainTableSelection];
@@ -2273,19 +2273,16 @@ int tableSorter(id a, id b, void* context) {
 - (IBAction) saveMetadata: (id) sender {
 	NSSavePanel* panel = [NSSavePanel savePanel];
 	
-	[panel setRequiredFileType: @"iFiction"];
-	NSString* directory = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomiFictionSavePath"];
-	
-    [panel beginSheetForDirectory: directory
-                             file: nil
-                   modalForWindow: [self window]
-                    modalDelegate: self
-                   didEndSelector: @selector(saveMetadataDidEnd:returnCode:contextInfo:) 
-                      contextInfo: nil];	
+	panel.allowedFileTypes = @[@"iFiction"];
+	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomiFictionSavePath"];
+	panel.directoryURL = directory;
+	[panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
+		[self saveMetadataDidEnd:panel returnCode:result contextInfo:nil];
+	}];
 }
 
 - (void) saveMetadataDidEnd: (NSSavePanel *) panel 
-				 returnCode: (int) returnCode 
+				 returnCode: (NSModalResponse) returnCode
 				contextInfo: (void*) contextInfo {
 	if (returnCode != NSOKButton) return;
 	
@@ -2297,7 +2294,7 @@ int tableSorter(id a, id b, void* context) {
 	
 	while (selRow = [selEnum nextObject]) {
 		ZoomStoryID* ident = [storyList objectAtIndex: [selRow intValue]];
-		ZoomStory* story = [[NSApp delegate] findStory: ident];
+		ZoomStory* story = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
 		
 		if (story != nil) {
 			[newMetadata copyStory: story];
@@ -2309,8 +2306,8 @@ int tableSorter(id a, id b, void* context) {
 				  atomically: YES];
 	
 	// Store any preference changes
-	[[NSUserDefaults standardUserDefaults] setObject: [panel directory]
-                                              forKey: @"ZoomiFictionSavePath"];
+	[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
+										   forKey: @"ZoomiFictionSavePath"];
 }	
 
 - (IBAction) flipToFilter: (id) sender {
@@ -2434,8 +2431,8 @@ int tableSorter(id a, id b, void* context) {
 		[mainTableView deselectAll: self];
 		NSUInteger storyRow = [storyList indexOfObject: storyToPlay];
 		if (storyRow != NSNotFound) {
-			[mainTableView selectRow: storyRow
-				byExtendingSelection: NO];
+			[mainTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:storyRow]
+					   byExtendingSelection: NO];
 			[mainTableView scrollRowToVisible: storyRow];
 		}
 
@@ -2461,11 +2458,11 @@ int tableSorter(id a, id b, void* context) {
 		
 		// Set the filters to filter by group
 		[mainTableView deselectAll: self];
-		[filterTable1 selectRow: 0
-		   byExtendingSelection: NO];
-		[filterTable2 selectRow: 0
-		   byExtendingSelection: NO];
-		
+		[filterTable1 selectRowIndexes:[NSIndexSet indexSetWithIndex:0]
+				  byExtendingSelection: NO];
+		[filterTable2 selectRowIndexes:[NSIndexSet indexSetWithIndex:0]
+				  byExtendingSelection: NO];
+
 		NSTableColumn* filterColumn = [[filterTable1 tableColumns] objectAtIndex: 0];
 		
 		[filterColumn setIdentifier: @"group"];
@@ -2495,7 +2492,7 @@ int tableSorter(id a, id b, void* context) {
 	}
 
 	// Write any new metadata
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	
 	[signpostId release]; signpostId = nil;
 }
@@ -2509,7 +2506,7 @@ int tableSorter(id a, id b, void* context) {
 }
 
 - (void) finishPopDownload {
-	[[[NSApp delegate] leopard] clearLayersForView: downloadView];
+	[[(ZoomAppDelegate*)[NSApp delegate] leopard] clearLayersForView: downloadView];
 	[[downloadView progress] startAnimation: self];
 }
 
@@ -2531,13 +2528,13 @@ int tableSorter(id a, id b, void* context) {
 	// Start the timer to fade the window in
 	[self cancelFadeTimer];
 	
-	if ([[NSApp delegate] leopard]) {
+	if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 		// Fanicify the animation under leopard
 		NSInvocation* finished = [NSInvocation invocationWithMethodSignature: [self methodSignatureForSelector: @selector(finishPopDownload)]];
 		[finished setTarget: self];
 		[finished setSelector: @selector(finishPopDownload)];
 		
-		[[[NSApp delegate] leopard] popView: downloadView
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: downloadView
 								   duration: 0.5
 								   finished: finished];
 		[downloadWindow setAlphaValue: 1.0];
@@ -2562,7 +2559,7 @@ int tableSorter(id a, id b, void* context) {
 	// Start the timer to fade the window out
 	[self cancelFadeTimer];
 
-	if ([[NSApp delegate] leopard]) {
+	if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 		// Fanicify the animation under leopard
 		[[downloadView progress] stopAnimation: self];
 		[[downloadView progress] setDoubleValue: 0];
@@ -2571,7 +2568,7 @@ int tableSorter(id a, id b, void* context) {
 		[finished setTarget: self];
 		[finished setSelector: @selector(finishPopOutDownload)];
 		
-		[[[NSApp delegate] leopard] popOutView: downloadView
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: downloadView
 									  duration: duration
 									  finished: finished];
 		[downloadWindow setAlphaValue: 1.0];
@@ -2629,7 +2626,7 @@ int tableSorter(id a, id b, void* context) {
 	[[downloadView progress] setIndeterminate: YES];
 	[[downloadView progress] setMinValue: 0];
 	[[downloadView progress] setMaxValue: 100.0];
-	if (![[NSApp delegate] leopard]) [[downloadView progress] startAnimation: self];
+	if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) [[downloadView progress] startAnimation: self];
 }
 
 - (void) downloadComplete: (ZoomDownload*) download {
@@ -2685,8 +2682,8 @@ int tableSorter(id a, id b, void* context) {
 
 	NSBeginAlertSheet(@"Could not complete the download.", @"Cancel", nil, nil, 
 					  [self window], nil, nil, nil, nil, 
-					  [NSString stringWithFormat: @"An error was encountered while trying to download the requested file%@%@.",
-						  reason?@".\n\n":@"", reason]);
+					  @"An error was encountered while trying to download the requested file%@%@.",
+						  reason?@".\n\n":@"", reason);
 	
 	[self hideDownloadWindow: 0.25];
 }
@@ -2772,7 +2769,7 @@ int tableSorter(id a, id b, void* context) {
 		NSBeginAlertSheet(@"Zoom cannot download this type of file", @"Cancel", nil,
 						  nil, [self window], nil, nil,
 						  nil,nil,
-						  [NSString stringWithFormat: @"You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.", type]);
+						  @"You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType \"%@\"", type);
 	} else {
 		[listener use];
 	}
@@ -2855,17 +2852,17 @@ int tableSorter(id a, id b, void* context) {
 		}
 	}
 	
-	if (!browserOn && [[NSApp delegate] leopard]) {
-		[[[NSApp delegate] leopard] popOutView: continueButton
+	if (!browserOn && [(ZoomAppDelegate*)[NSApp delegate] leopard]) {
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: continueButton
 									  duration: 0.25
 									  finished: nil];
-		[[[NSApp delegate] leopard] popOutView: newgameButton
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: newgameButton
 									  duration: 0.20
 									  finished: nil];
-		[[[NSApp delegate] leopard] popOutView: addButton
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: addButton
 									  duration: 0.15
 									  finished: nil];
-		[[[NSApp delegate] leopard] popOutView: infoButton
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: infoButton
 									  duration: 0.20
 									  finished: nil];
 	}
@@ -2891,17 +2888,17 @@ int tableSorter(id a, id b, void* context) {
 	browserOn = NO;
 	[self updateButtons];
 	
-	if (!browserOn && [[NSApp delegate] leopard]) {
-		[[[NSApp delegate] leopard] popView: continueButton
+	if (!browserOn && [(ZoomAppDelegate*)[NSApp delegate] leopard]) {
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: continueButton
 									  duration: 0.15
 									  finished: nil];
-		[[[NSApp delegate] leopard] popView: newgameButton
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: newgameButton
 									  duration: 0.25
 									  finished: nil];
-		[[[NSApp delegate] leopard] popView: addButton
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: addButton
 									  duration: 0.35
 									  finished: nil];
-		[[[NSApp delegate] leopard] popView: infoButton
+		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: infoButton
 									  duration: 0.25
 									  finished: nil];
 	}
@@ -3050,7 +3047,7 @@ int tableSorter(id a, id b, void* context) {
 		// Signpost is OK but just contains an error message
 		NSBeginAlertSheet(@"IFDB has reported a problem with this game", @"Cancel", nil, nil, 
 						  [self window], nil, nil, nil, nil, 
-						  [NSString stringWithFormat: @"%@", [signpost errorMessage]]);
+						  @"%@", [signpost errorMessage]);
 		return;
 	}
 	
@@ -3177,7 +3174,7 @@ int tableSorter(id a, id b, void* context) {
 - (void) failedToInstallPlugin: (NSString*) reason {
 	NSBeginAlertSheet(@"Could not install the plug-in", @"Cancel", nil, nil, 
 					  [self window], nil, nil, nil, nil,
-					  reason);
+					  @"%@", reason);
 }
 
 static unsigned int ValueForHexChar(int hex) {
@@ -3301,7 +3298,7 @@ static unsigned int ValueForHexChar(int hex) {
 	// Restart if necessary
 	if ([[ZoomPlugInManager sharedPlugInManager] restartRequired]) {
 		// Write out a startup signpost file
-		NSString* startupSignpost = [[[NSApp delegate] zoomConfigDirectory] stringByAppendingPathComponent: @"launch.signpost"];
+		NSString* startupSignpost = [[(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory] stringByAppendingPathComponent: @"launch.signpost"];
 		NSData* signpostData = [activeSignpost data];
 		
 		[signpostData writeToFile: startupSignpost

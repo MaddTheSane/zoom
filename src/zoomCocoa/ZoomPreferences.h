@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 - (void) setGlulxInterpreter: (GlulxInterpreter) value;
 
 - (void) setGameTitle: (NSString*) title;
-- (void) setInterpreter: (int) interpreter;
+- (void) setInterpreter: (NSInteger) interpreter;
 - (void) setRevision: (int) revision;
 
 - (void) setFonts: (NSArray*) fonts;
@@ -107,8 +107,8 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 
 - (void) setShowBorders: (BOOL) value;
 - (void) setShowGlkBorders: (BOOL) value;
-- (void) setForegroundColour: (int) value;
-- (void) setBackgroundColour: (int) value;
+- (void) setForegroundColour: (NSInteger) value;
+- (void) setBackgroundColour: (NSInteger) value;
 - (void) setShowCoverPicture: (BOOL) value;
 
 // Notifications

@@ -34,7 +34,7 @@ enum IFMB_Zarfian {
 
 // Information
 + (NSString*) nameForKey: (NSString*) key;
-+ (NSString*) keyForTag: (int) tag;
++ (NSString*) keyForTag: (NSInteger) tag;
 
 // Initialisation
 + (ZoomStory*) defaultMetadataForFile: (NSString*) filename;
