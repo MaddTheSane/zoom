@@ -10,7 +10,7 @@
 
 #import "ZoomClientController.h"
 #import "ZoomPreferenceWindow.h"
-#import "ZoomGameInfoController.h"
+#import <ZoomPlugIns/ZoomGameInfoController.h>
 #import "ZoomNotesController.h"
 #import "ZoomStoryOrganiser.h"
 #import "ZoomSkeinController.h"

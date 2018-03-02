@@ -377,7 +377,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 		}
 		
 		// Set the quicklook data
-		NSData *theRTF = [result RTFFromRange:NSMakeRange(0, [result length]-1) documentAttributes:nil];
+		NSData *theRTF = [result RTFFromRange:NSMakeRange(0, [result length]-1) documentAttributes:@{}];
 		QLPreviewRequestSetDataRepresentation(preview, (CFDataRef)theRTF, kUTTypeRTF, NULL);
 	}
 	

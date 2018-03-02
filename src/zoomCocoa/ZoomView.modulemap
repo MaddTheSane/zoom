@@ -1,0 +1,37 @@
+framework module ZoomView {
+	requires objc
+	umbrella header "ZoomView.h"
+	
+	export *
+	module * { export * }
+	
+	explicit module ZoomConnector {
+		header "ZoomConnector.h"
+		export *
+	}
+	
+	explicit module ZoomLowerWindow {
+		header "ZoomLowerWindow.h"
+		export *
+	}
+	
+	explicit module ZoomPixmapWindow {
+		header "ZoomPixmapWindow.h"
+		export *
+	}
+	
+	explicit module ZoomSkeinLayout {
+		header "ZoomSkeinLayout.h"
+		export *
+	}
+	
+	explicit module ZoomSkeinLayoutItem {
+		header "ZoomSkeinLayoutItem.h"
+		export *
+	}
+	
+	explicit module ZoomSkeinView {
+		header "ZoomSkeinView.h"
+		export *
+	}
+}

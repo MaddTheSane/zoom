@@ -1,0 +1,131 @@
+framework module ZoomPlugIns {
+	
+	explicit module ZoomBabel {
+		requires objc
+		header "ZoomBabel.h"
+		export *
+	}
+	
+	explicit module ZoomDownload {
+		requires objc
+		header "ZoomDownload.h"
+		export *
+	}
+	
+	explicit module ZoomGameInfoController {
+		requires objc
+		header "ZoomGameInfoController.h"
+		export *
+	}
+	
+	explicit module ZoomGlkDocument {
+		requires objc
+		header "ZoomGlkDocument.h"
+		export *
+	}
+	
+	explicit module ZoomGlkPlugIn {
+		requires objc
+		header "ZoomGlkPlugIn.h"
+		export *
+	}
+	
+	explicit module ZoomGlkSaveRef {
+		requires objc
+		header "ZoomGlkSaveRef.h"
+		export *
+	}
+	
+	explicit module ZoomGlkWindowController {
+		requires objc
+		header "ZoomGlkWindowController.h"
+		export *
+	}
+	
+	explicit module ZoomMetadata {
+		requires objc
+		header "ZoomMetadata.h"
+		export *
+	}
+	
+	explicit module ZoomNotesController {
+		requires objc
+		header "ZoomNotesController.h"
+		export *
+	}
+	
+	explicit module ZoomPlugIn {
+		requires objc
+		header "ZoomPlugIn.h"
+		export *
+	}
+	
+	explicit module ZoomPlugInController {
+		requires objc
+		header "ZoomPlugInController.h"
+		export *
+	}
+	
+	explicit module ZoomPlugInInfo {
+		requires objc
+		header "ZoomPlugInInfo.h"
+		export *
+	}
+	
+	explicit module ZoomPlugInManager {
+		requires objc
+		header "ZoomPlugInManager.h"
+		export *
+	}
+	
+	explicit module ZoomResourceDrop {
+		requires objc
+		header "ZoomResourceDrop.h"
+		export *
+	}
+	
+	explicit module ZoomStory {
+		requires objc
+		header "ZoomStory.h"
+		export *
+	}
+	
+	explicit module ZoomStoryID {
+		requires objc
+		header "ZoomStoryID.h"
+		export *
+	}
+	
+	explicit module ifmetabase {
+		header "ifmetabase.h"
+		export *
+	}
+	
+	explicit module ifmetadata {
+		header "ifmetadata.h"
+		export *
+	}
+	
+	explicit module ifmetaxml {
+		header "ifmetaxml.h"
+		export *
+	}
+	
+	explicit module md5 {
+		header "md5.h"
+		export *
+	}
+	
+	explicit module tads {
+		header "tads.h"
+		export *
+	}
+	
+	explicit module treaty {
+		header "treaty.h"
+		export *
+	}
+
+	
+	export *
+}

@@ -13,6 +13,8 @@
 #ifndef TADS_H
 #define TADS_H
 
+#include "treaty.h"
+
 /* match a TADS file signature */
 int tads_match_sig(const void *buf, int32 len, const char *sig);
 

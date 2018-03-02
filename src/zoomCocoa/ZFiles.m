@@ -134,8 +134,8 @@ void write_dword(ZFile* file, ZDWord word) {
 }
 
 ZDWord get_file_size(char* filename) { 
-	return [[[[NSFileManager defaultManager] fileAttributesAtPath: [[NSFileManager defaultManager] stringWithFileSystemRepresentation:filename length:strlen(filename)]
-													 traverseLink: YES] objectForKey: NSFileSize]
+	return [[[[NSFileManager defaultManager] attributesOfItemAtPath: [[[NSFileManager defaultManager] stringWithFileSystemRepresentation:filename length:strlen(filename)] stringByResolvingSymlinksInPath]
+															  error: NULL] objectForKey: NSFileSize]
 		intValue];
     return 0;
 }

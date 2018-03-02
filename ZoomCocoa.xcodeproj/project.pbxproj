@@ -163,7 +163,7 @@
 		4BA8B5820B1B053E007CD75E /* ZoomTextToSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE5F510075121A400C25A70 /* ZoomTextToSpeech.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BA8B5830B1B053E007CD75E /* ZoomTextToSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5F511075121A400C25A70 /* ZoomTextToSpeech.m */; };
 		4BA8B9530B1BB3F4007CD75E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F4B050FB2C500A8E303 /* main.m */; };
-		4BB27DA00C592D9100470443 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB27D9F0C592D9100470443 /* Sparkle.framework */; };
+		4BB27DA00C592D9100470443 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB27D9F0C592D9100470443 /* Sparkle.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4BB27DB40C592D9D00470443 /* Sparkle.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BB27D9F0C592D9100470443 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BB65ACE08EF02D600E7E28E /* ZoomBlorbFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */; };
 		4BB65AD408EF02DF00E7E28E /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; };
@@ -376,6 +376,7 @@
 		4BE175950B792BD90094B73D /* ZoomWindowThatCanBecomeKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA66B2B0906538F000A3852 /* ZoomWindowThatCanBecomeKey.m */; };
 		4BF02D200C4A8141006FC32E /* ZoomGlkSaveRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BF02D1E0C4A8141006FC32E /* ZoomGlkSaveRef.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BF02D210C4A8141006FC32E /* ZoomGlkSaveRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */; };
+		552A03812049E90900A4ECAA /* treaty.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD79A9E0BA2CABF002C82B2 /* treaty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55BB924F2048AC4100AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92502048AC6D00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92512048ACAE00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
@@ -1029,6 +1030,8 @@
 		4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkSaveRef.m; sourceTree = "<group>"; };
 		4BF1576306BAD034001A3C27 /* ZoomBlorbFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomBlorbFile.h; sourceTree = "<group>"; };
 		4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomBlorbFile.m; sourceTree = "<group>"; };
+		552A037F2049E74B00A4ECAA /* ZoomView.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomView.modulemap; sourceTree = "<group>"; };
+		552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomPlugIns.modulemap; sourceTree = "<group>"; };
 		55BB924E2048AC4000AB4B5B /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		55BB92522048ADA500AB4B5B /* quill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quill.c; sourceTree = "<group>"; };
 		55BB926F2048D8D900AB4B5B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1393,6 +1396,7 @@
 			isa = PBXGroup;
 			children = (
 				4B36C44F0955ECDD00874F9F /* Glulxe */,
+				552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */,
 				4B7CB0740936278500F3B8F6 /* README */,
 				4B7CB0780936294B00F3B8F6 /* ZoomPlugIn.h */,
 				4B7CB0790936294B00F3B8F6 /* ZoomPlugIn.m */,
@@ -1570,6 +1574,7 @@
 			name = babel;
 			path = depends/babel;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		4BD79AB60BA2CADA002C82B2 /* treaty */ = {
 			isa = PBXGroup;
@@ -1639,6 +1644,7 @@
 		4BDFA4E80535E9DE00A8E303 /* ZoomView */ = {
 			isa = PBXGroup;
 			children = (
+				552A037F2049E74B00A4ECAA /* ZoomView.modulemap */,
 				4B4D512006E3894F007FAD2B /* ZoomConnector.h */,
 				4B4D512106E3894F007FAD2B /* ZoomConnector.m */,
 				4B418ED805961D2C009C44DE /* ZoomPreferences.h */,
@@ -1762,6 +1768,7 @@
 				4B3E76DD0BA2DF8E00661FE8 /* ZoomResourceDrop.h in Headers */,
 				4BF02D200C4A8141006FC32E /* ZoomGlkSaveRef.h in Headers */,
 				4B123ECA0C9C636200CA3374 /* ZoomPlugInManager.h in Headers */,
+				552A03812049E90900A4ECAA /* treaty.h in Headers */,
 				4B1242D80CAE93D600CA3374 /* ZoomPlugInController.h in Headers */,
 				4B1243050CAE964400CA3374 /* ZoomPlugInCell.h in Headers */,
 				4B12431B0CAE9B2500CA3374 /* ZoomPlugInInfo.h in Headers */,
@@ -2921,6 +2928,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2969,6 +2977,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 				YACC_GENERATED_FILE_STEM = InputFileStem;
@@ -3134,6 +3143,7 @@
 				);
 				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x2e000000,
@@ -3164,6 +3174,7 @@
 				);
 				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x2e000000,
@@ -3312,6 +3323,7 @@
 				HEADER_SEARCH_PATHS = ProjectBuilder/etc;
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_CFLAGS = (
 					"-seg1addr",
 					0x2f000000,
@@ -3357,6 +3369,7 @@
 				HEADER_SEARCH_PATHS = ProjectBuilder/etc;
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_CFLAGS = (
 					"-seg1addr",
 					0x2f000000,
