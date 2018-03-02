@@ -779,12 +779,12 @@
 		4B18850B069873F0004D8501 /* Skein.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Skein.nib; sourceTree = "<group>"; };
 		4B18852906987AC6004D8501 /* ZoomSkeinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinController.h; sourceTree = "<group>"; };
 		4B18852A06987AC6004D8501 /* ZoomSkeinController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinController.m; sourceTree = "<group>"; };
-		4B1885B20698B867004D8501 /* Skein-unplayed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skein-unplayed.png"; path = "Skein/Skein-unplayed.png"; sourceTree = "<group>"; };
-		4B1885B30698B867004D8501 /* Skein-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skein-selected.png"; path = "Skein/Skein-selected.png"; sourceTree = "<group>"; };
-		4B1885B40698B867004D8501 /* Skein-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skein-active.png"; path = "Skein/Skein-active.png"; sourceTree = "<group>"; };
-		4B1885B50698B867004D8501 /* Skein-unchanged.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skein-unchanged.png"; path = "Skein/Skein-unchanged.png"; sourceTree = "<group>"; };
-		4B1885B60698B867004D8501 /* Skein-changed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skein-changed.png"; path = "Skein/Skein-changed.png"; sourceTree = "<group>"; };
-		4B1C13F905C5A94300E5796D /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		4B1885B20698B867004D8501 /* Skein-unplayed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-unplayed.png"; sourceTree = "<group>"; };
+		4B1885B30698B867004D8501 /* Skein-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-selected.png"; sourceTree = "<group>"; };
+		4B1885B40698B867004D8501 /* Skein-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-active.png"; sourceTree = "<group>"; };
+		4B1885B50698B867004D8501 /* Skein-unchanged.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-unchanged.png"; sourceTree = "<group>"; };
+		4B1885B60698B867004D8501 /* Skein-changed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-changed.png"; sourceTree = "<group>"; };
+		4B1C13F905C5A94300E5796D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4B1C14D205C69CAD00E5796D /* iFiction-10.2.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = "iFiction-10.2.nib"; sourceTree = "<group>"; };
 		4B1E3F60050F7BA000A8E303 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		4B1E3F68050F7C2000A8E303 /* interp_z3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = interp_z3.h; path = build/interp_z3.h; sourceTree = SOURCE_ROOT; };
@@ -875,7 +875,7 @@
 		4B418E140594FCDB009C44DE /* Preferences.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Preferences.nib; sourceTree = "<group>"; };
 		4B418ED805961D2C009C44DE /* ZoomPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomPreferences.h; sourceTree = "<group>"; };
 		4B418ED905961D2C009C44DE /* ZoomPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomPreferences.m; sourceTree = "<group>"; };
-		4B43DA7709364C6400F03009 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = PlugIns/English.lproj/GlkWindow.nib; sourceTree = "<group>"; };
+		4B43DA7709364C6400F03009 /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = PlugIns/en.lproj/GlkWindow.nib; sourceTree = "<group>"; };
 		4B43DAAD09364CD100F03009 /* ZoomGlkWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlkWindowController.h; sourceTree = "<group>"; };
 		4B43DAAE09364CD100F03009 /* ZoomGlkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkWindowController.m; sourceTree = "<group>"; };
 		4B4B98E40733EE2400E40F96 /* Skein-annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-annotation.png"; sourceTree = "<group>"; };
@@ -890,12 +890,12 @@
 		4B5CBB78069D656000C0AA88 /* ZoomStoryTableView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZoomStoryTableView.m; sourceTree = "<group>"; };
 		4B5CBB79069D656000C0AA88 /* ZoomStoryTableView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZoomStoryTableView.h; sourceTree = "<group>"; };
 		4B5CBB9B069D671200C0AA88 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SkeinAdd.png; path = Skein/SkeinAdd.png; sourceTree = "<group>"; };
-		4B5CBC5A069D9EB700C0AA88 /* SkeinAnnotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SkeinAnnotate.png; path = Skein/SkeinAnnotate.png; sourceTree = "<group>"; };
-		4B5CBC5B069D9EB700C0AA88 /* SkeinLocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SkeinLocked.png; path = Skein/SkeinLocked.png; sourceTree = "<group>"; };
-		4B5CBC5C069D9EB700C0AA88 /* SkeinTranscript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SkeinTranscript.png; path = Skein/SkeinTranscript.png; sourceTree = "<group>"; };
-		4B5CBC5D069D9EB700C0AA88 /* SkeinUnlocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SkeinUnlocked.png; path = Skein/SkeinUnlocked.png; sourceTree = "<group>"; };
-		4B5CBC5E069D9EB700C0AA88 /* SkeinDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SkeinDelete.png; path = Skein/SkeinDelete.png; sourceTree = "<group>"; };
+		4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinAdd.png; sourceTree = "<group>"; };
+		4B5CBC5A069D9EB700C0AA88 /* SkeinAnnotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinAnnotate.png; sourceTree = "<group>"; };
+		4B5CBC5B069D9EB700C0AA88 /* SkeinLocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinLocked.png; sourceTree = "<group>"; };
+		4B5CBC5C069D9EB700C0AA88 /* SkeinTranscript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinTranscript.png; sourceTree = "<group>"; };
+		4B5CBC5D069D9EB700C0AA88 /* SkeinUnlocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinUnlocked.png; sourceTree = "<group>"; };
+		4B5CBC5E069D9EB700C0AA88 /* SkeinDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinDelete.png; sourceTree = "<group>"; };
 		4B61963005C1AD170019AFF7 /* information-in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "information-in.png"; sourceTree = "<group>"; };
 		4B61963105C1AD170019AFF7 /* information-out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "information-out.png"; sourceTree = "<group>"; };
 		4B65B39F0979B981002D5534 /* ZoomHQImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomHQImageView.h; sourceTree = "<group>"; };
@@ -935,8 +935,8 @@
 		4B840A160CBEC1B10071F3B3 /* IFDB-forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IFDB-forward.png"; sourceTree = "<group>"; };
 		4B840A170CBEC1B10071F3B3 /* IFDB-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IFDB-home.png"; sourceTree = "<group>"; };
 		4B840A290CBEC2050071F3B3 /* IFDB-downloading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IFDB-downloading.png"; sourceTree = "<group>"; };
-		4B840A3A0CBECC690071F3B3 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = "English.lproj/IFDB-connecting.png"; sourceTree = "<group>"; };
-		4B840A3C0CBECC690071F3B3 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = English; path = "English.lproj/ifdb-loading.html"; sourceTree = "<group>"; };
+		4B840A3A0CBECC690071F3B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/IFDB-connecting.png"; sourceTree = "<group>"; };
+		4B840A3C0CBECC690071F3B3 /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = en; path = "en.lproj/ifdb-loading.html"; sourceTree = "<group>"; };
 		4B840AC70CC2BB970071F3B3 /* ZoomDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZoomDownloadView.h; sourceTree = "<group>"; };
 		4B840AC80CC2BB970071F3B3 /* ZoomDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZoomDownloadView.m; sourceTree = "<group>"; };
 		4B840AC90CC2BB970071F3B3 /* ZoomWindowThatIsKey.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZoomWindowThatIsKey.h; sourceTree = "<group>"; };
@@ -949,8 +949,8 @@
 		4B87BA7109C9AAE1005D6722 /* ifmetabase-internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ifmetabase-internal.h"; sourceTree = "<group>"; };
 		4B8CE6F20AD95A3A008235D2 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
 		4B8CE6F30AD95A3A008235D2 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
-		4B926A0F0CD1464B00CE0ADB /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = "English.lproj/IFDB-error.png"; sourceTree = "<group>"; };
-		4B926A110CD1464B00CE0ADB /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = English; path = "English.lproj/ifdb-failed.html"; sourceTree = "<group>"; };
+		4B926A0F0CD1464B00CE0ADB /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/IFDB-error.png"; sourceTree = "<group>"; };
+		4B926A110CD1464B00CE0ADB /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = en; path = "en.lproj/ifdb-failed.html"; sourceTree = "<group>"; };
 		4B926A1D0CD1480B00CE0ADB /* ZoomJSError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomJSError.h; sourceTree = "<group>"; };
 		4B926A1E0CD1480B00CE0ADB /* ZoomJSError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomJSError.m; sourceTree = "<group>"; };
 		4B926F8805E7F9DA00E5C0EA /* ZoomCollapsableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomCollapsableView.h; sourceTree = "<group>"; };
@@ -1593,22 +1593,10 @@
 		4BCF3F42050FB1D800A8E303 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4B7522540CC7FAC500F36ECF /* signpost.icns */,
+				55BB92572048D16B00AB4B5B /* Skein */,
 				55BB92552048CCFE00AB4B5B /* ifdbWeb */,
+				4B7522540CC7FAC500F36ECF /* signpost.icns */,
 				4B0D81E10AC5A3C0003E8CCA /* top-shading.png */,
-				4B152A030B440B9D008CC1EF /* SkeinDiffersBadge.png */,
-				4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */,
-				4B5CBC5E069D9EB700C0AA88 /* SkeinDelete.png */,
-				4B5CBC5B069D9EB700C0AA88 /* SkeinLocked.png */,
-				4B5CBC5D069D9EB700C0AA88 /* SkeinUnlocked.png */,
-				4B5CBC5A069D9EB700C0AA88 /* SkeinAnnotate.png */,
-				4B5CBC5C069D9EB700C0AA88 /* SkeinTranscript.png */,
-				4B1885B20698B867004D8501 /* Skein-unplayed.png */,
-				4B1885B30698B867004D8501 /* Skein-selected.png */,
-				4B1885B40698B867004D8501 /* Skein-active.png */,
-				4B1885B50698B867004D8501 /* Skein-unchanged.png */,
-				4B1885B60698B867004D8501 /* Skein-changed.png */,
-				4B4B98E40733EE2400E40F96 /* Skein-annotation.png */,
 				4B77DD1D0B87BBBC000D2504 /* displaySettings.png */,
 				4B1FEB750ACDBC44008B9EFE /* GlkClient.icns */,
 				4B1C13FD05C5A94B00E5796D /* Credits.rtf */,
@@ -1803,6 +1791,26 @@
 				4B840A290CBEC2050071F3B3 /* IFDB-downloading.png */,
 			);
 			name = ifdbWeb;
+			sourceTree = "<group>";
+		};
+		55BB92572048D16B00AB4B5B /* Skein */ = {
+			isa = PBXGroup;
+			children = (
+				4B1885B40698B867004D8501 /* Skein-active.png */,
+				4B4B98E40733EE2400E40F96 /* Skein-annotation.png */,
+				4B1885B60698B867004D8501 /* Skein-changed.png */,
+				4B1885B30698B867004D8501 /* Skein-selected.png */,
+				4B1885B50698B867004D8501 /* Skein-unchanged.png */,
+				4B1885B20698B867004D8501 /* Skein-unplayed.png */,
+				4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */,
+				4B5CBC5A069D9EB700C0AA88 /* SkeinAnnotate.png */,
+				4B5CBC5E069D9EB700C0AA88 /* SkeinDelete.png */,
+				4B152A030B440B9D008CC1EF /* SkeinDiffersBadge.png */,
+				4B5CBC5B069D9EB700C0AA88 /* SkeinLocked.png */,
+				4B5CBC5C069D9EB700C0AA88 /* SkeinTranscript.png */,
+				4B5CBC5D069D9EB700C0AA88 /* SkeinUnlocked.png */,
+			);
+			path = Skein;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2200,10 +2208,10 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				en,
+				ja,
+				fr,
+				de,
 			);
 			mainGroup = 4B1E3F47050F7AD000A8E303;
 			productRefGroup = 4B1E3F55050F7B0E00A8E303 /* Products */;
@@ -2872,7 +2880,7 @@
 		4B1C13FD05C5A94B00E5796D /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4B1C13F905C5A94300E5796D /* English */,
+				4B1C13F905C5A94300E5796D /* en */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -2880,7 +2888,7 @@
 		4B43DA8309364C7400F03009 /* GlkWindow.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4B43DA7709364C6400F03009 /* English */,
+				4B43DA7709364C6400F03009 /* en */,
 			);
 			name = GlkWindow.nib;
 			sourceTree = "<group>";
@@ -2888,7 +2896,7 @@
 		4B840A390CBECC690071F3B3 /* IFDB-connecting.png */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4B840A3A0CBECC690071F3B3 /* English */,
+				4B840A3A0CBECC690071F3B3 /* en */,
 			);
 			name = "IFDB-connecting.png";
 			sourceTree = "<group>";
@@ -2896,7 +2904,7 @@
 		4B840A3B0CBECC690071F3B3 /* ifdb-loading.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4B840A3C0CBECC690071F3B3 /* English */,
+				4B840A3C0CBECC690071F3B3 /* en */,
 			);
 			name = "ifdb-loading.html";
 			sourceTree = "<group>";
@@ -2904,7 +2912,7 @@
 		4B926A0E0CD1464B00CE0ADB /* IFDB-error.png */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4B926A0F0CD1464B00CE0ADB /* English */,
+				4B926A0F0CD1464B00CE0ADB /* en */,
 			);
 			name = "IFDB-error.png";
 			sourceTree = "<group>";
@@ -2912,7 +2920,7 @@
 		4B926A100CD1464B00CE0ADB /* ifdb-failed.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4B926A110CD1464B00CE0ADB /* English */,
+				4B926A110CD1464B00CE0ADB /* en */,
 			);
 			name = "ifdb-failed.html";
 			sourceTree = "<group>";
