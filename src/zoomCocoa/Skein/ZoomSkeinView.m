@@ -468,13 +468,10 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 					   userData: nil
 				   assumeInside: inside];
 		
-	[trackingRects addObject: [NSNumber numberWithInt: tag]];
+	[trackingRects addObject: @(tag)];
 	
 	for (level = startLevel; level<=endLevel; level++) {
-		NSEnumerator* itemEnum = [[layout itemsOnLevel: level] objectEnumerator];
-		ZoomSkeinItem* item;
-		
-		while (item = [itemEnum nextObject]) {
+		for (ZoomSkeinItem* item in [layout itemsOnLevel: level]) {
 			NSRect itemRect = [layout activeAreaForItem: item];
 			
 			if (!NSIntersectsRect(itemRect, visibleRect)) continue;
@@ -491,7 +488,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 								  owner: self
 							   userData: item
 						   assumeInside: inside];
-			[trackingRects addObject: [NSNumber numberWithInt: tag]];
+			[trackingRects addObject: @(tag)];
 		}
 	}
 }

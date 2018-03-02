@@ -13,7 +13,7 @@
 #import "ZoomMetadata.h"
 #import "ZoomStory.h"
 #import "ZoomiFictionController.h"
-#import "ZoomView.h"
+#import <ZoomView/ZoomView.h>
 #import "ZoomLeopard.h"
 
 @class SUUpdater;

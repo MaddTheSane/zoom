@@ -200,14 +200,7 @@ static NSImage* unchangedDark, *activeDark;
 	itemHeight = newItemHeight;
 }
 
-- (void) setRootItem: (ZoomSkeinItem*) item {
-	if (rootItem) [rootItem release];
-	rootItem = [item retain];
-}
-
-- (ZoomSkeinItem*) rootItem {
-	return rootItem;
-}
+@synthesize rootItem;
 
 - (void) setActiveItem: (ZoomSkeinItem*) item {
 	if (activeItem) {
@@ -234,18 +227,9 @@ static NSImage* unchangedDark, *activeDark;
 	}
 }
 
-- (ZoomSkeinItem*) activeItem {
-	return activeItem;
-}
+@synthesize activeItem;
 
-- (void) setSelectedItem: (ZoomSkeinItem*) item {
-	if (selectedItem) [selectedItem release];
-	selectedItem = [item retain];
-}
-
-- (ZoomSkeinItem*) selectedItem {
-	return selectedItem;
-}
+@synthesize selectedItem;
 
 - (void) updateHighlightDetails {
 	// Update the set of items that use the 'transcript line' style
@@ -711,7 +695,7 @@ static NSImage* unchangedDark, *activeDark;
 				
 				// Set the appropriate colour and dash pattern
 				if ([[child item] temporary]) {
-					float dashPattern[2];
+					CGFloat dashPattern[2];
 					
 					[tempChildLink set];
 					

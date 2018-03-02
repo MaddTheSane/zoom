@@ -17,7 +17,7 @@
 	
 	NSMutableString* lineString;
 	NSMutableDictionary* attributes;
-	int				 insertionPos;
+	NSInteger		 insertionPos;
 }
 
 - (id) initWithCursor: (ZoomCursor*) cursor

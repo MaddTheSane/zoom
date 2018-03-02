@@ -53,9 +53,8 @@
            withStyle: (in bycopy ZStyle*) style {
     [style setFixed: YES];
 
-    int x;
-    int len = [string length];
-    for (x=0; x<len; x++) {
+    NSInteger len = [string length];
+    for (NSInteger x=0; x<len; x++) {
         if ([string characterAtIndex: x] == '\n') {
             [self writeString: [string substringToIndex: x]
                     withStyle: style];
@@ -67,8 +66,7 @@
     }
 
     if (ypos >= [lines count]) {
-        int x;
-        for (x=[lines count]; x<=ypos; x++) {
+        for (NSInteger x=[lines count]; x<=ypos; x++) {
             [lines addObject: [[[NSMutableAttributedString alloc] init] autorelease]];
         }
     }
@@ -149,8 +147,7 @@ static NSString* blankLine(int length) {
 
 - (oneway void) eraseLineWithStyle: (in bycopy ZStyle*) style {
     if (ypos >= [lines count]) {
-        int x;
-        for (x=[lines count]; x<=ypos; x++) {
+        for (NSInteger x=[lines count]; x<=ypos; x++) {
             [lines addObject: [[[NSMutableAttributedString alloc] init] autorelease]];
         }
     }
@@ -188,13 +185,10 @@ static NSString* blankLine(int length) {
 }
 
 - (void) reformatLines {
-	NSEnumerator* lineEnum = [lines objectEnumerator];
-	NSMutableAttributedString* string;
-	
-	while (string = [lineEnum nextObject]) {
+	for (NSMutableAttributedString* string in lines) {
 		NSRange attributedRange;
 		NSDictionary* attr;
-		int len = [string length];
+		NSInteger len = [string length];
 				
 		attributedRange.location = 0;
 		

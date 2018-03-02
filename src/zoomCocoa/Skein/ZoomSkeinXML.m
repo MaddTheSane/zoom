@@ -469,7 +469,7 @@ static XMLCALL void charData    (void *userData,
 	XML_SetUserData(theParser, self);
 	
 	// Perform the parsing
-	int status = XML_Parse(theParser, [xml bytes], [xml length], 1);
+	int status = XML_Parse(theParser, [xml bytes], (int)[xml length], 1);
 	
 	// Tidy up the parser
 	XML_ParserFree(theParser);

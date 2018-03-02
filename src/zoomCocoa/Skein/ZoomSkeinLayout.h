@@ -11,7 +11,7 @@
 #import "ZoomSkein.h"
 #import "ZoomSkeinLayoutItem.h"
 
-enum IFSkeinPackingStyle {
+typedef NS_ENUM(int, IFSkeinPackingStyle) {
 	IFSkeinPackLoose,
 	IFSkeinPackTight
 };
@@ -29,7 +29,7 @@ enum IFSkeinPackingStyle {
 	
 	float itemWidth;
 	float itemHeight;
-	int packingStyle;
+	IFSkeinPackingStyle packingStyle;
 	
 	// Highlighted skein line
 	ZoomSkeinItem* highlightedLineItem;
@@ -48,14 +48,10 @@ enum IFSkeinPackingStyle {
 - (void) setItemHeight: (float) itemHeight;
 - (void) setPackingStyle: (int) packingStyle;
 
-- (void) setRootItem: (ZoomSkeinItem*) item;
-- (void) setActiveItem: (ZoomSkeinItem*) item;
-- (void) setSelectedItem: (ZoomSkeinItem*) item;
+@property (retain) ZoomSkeinItem *rootItem;
+@property (nonatomic, retain) ZoomSkeinItem *activeItem;
+@property (retain) ZoomSkeinItem *selectedItem;
 - (void) highlightSkeinLine: (ZoomSkeinItem*) itemOnLine;
-
-- (ZoomSkeinItem*) rootItem;
-- (ZoomSkeinItem*) activeItem;
-- (ZoomSkeinItem*) selectedItem;
 
 // Performing the layout
 - (void) layoutSkein;
@@ -64,7 +60,7 @@ enum IFSkeinPackingStyle {
 
 // Getting layout data
 - (int) levels;
-- (NSArray*) itemsOnLevel: (int) level;
+- (NSArray<ZoomSkeinItem*>*) itemsOnLevel: (int) level;
 - (NSArray*) dataForLevel: (int) level;
 
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item;

@@ -24,8 +24,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#ifdef __MACH__
+#include <unistd.h>
+#else
 int chdir(const char *);
 char *getcwd(char *, int);
+#endif
 #ifdef __cplusplus
 }
 #endif

@@ -40,7 +40,7 @@ extern NSString* ZoomStyleAttributeName;
     NSTextContainer* upperWindowBuffer; // Things hidden under the upper window
     ZoomScrollView* textScroller;
 
-    int inputPos;
+    NSInteger inputPos;
     BOOL receiving;
     BOOL receivingCharacters;
 
@@ -99,7 +99,7 @@ extern NSString* ZoomStyleAttributeName;
 	
 	// Autosave
 	NSData* lastAutosave;
-	int		upperWindowsToRestore;
+	NSInteger	upperWindowsToRestore;
 	BOOL	restoring;
 	
 	// Output receivers

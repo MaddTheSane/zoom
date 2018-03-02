@@ -8,7 +8,7 @@
 
 #import <AppKit/AppKit.h>
 
-#import "ZoomUpperWindow.h"
+#import <ZoomView/ZoomUpperWindow.h>
 
 @interface ZoomSavePreview : NSView {
 	NSString* filename;

@@ -565,7 +565,7 @@ static int currentScore = 1;
 
 // = Taking part in a set =
 
-- (unsigned)hash {
+- (NSUInteger)hash {
 	// Items are distinguished by their command
 	return [command hash];
 }

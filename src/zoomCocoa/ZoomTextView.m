@@ -264,7 +264,7 @@
 										  range: editRange];
 					}
 					
-					int newPos = editRange.location + editRange.length;
+					NSInteger newPos = editRange.location + editRange.length;
 					if (editRange.length == 0) newPos++;
 					if (newPos >= [editedStr length]) break;
 					

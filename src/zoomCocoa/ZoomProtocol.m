@@ -215,7 +215,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     }
 
     if ((pos + length) > [data length]) {
-        int diff = (pos+length) - [data length];
+        NSInteger diff = (pos+length) - [data length];
 
         length -= diff;
     }

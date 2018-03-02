@@ -52,7 +52,7 @@
         NSArray* lines = [win lines];
 
         // Work out how many to draw
-        int maxY = [win length];
+        NSInteger maxY = [win length];
         if (maxY > [lines count]) maxY = [lines count];
 
         // Fill in the background

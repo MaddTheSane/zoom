@@ -16,7 +16,7 @@
 
     int startLine, endLine;
 
-    NSMutableArray* lines;
+    NSMutableArray<NSMutableAttributedString*>* lines;
     int xpos, ypos;
 
     NSColor* backgroundColour;

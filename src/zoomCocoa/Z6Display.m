@@ -143,10 +143,10 @@ void display_scroll_region(int x, int y,
 // Measuring
 
 static int lastStyle = -12763;
-static float lastWidth = -1;
-static float lastHeight = -1;
-static float lastAscent = -1;
-static float lastDescent = -1;
+static CGFloat lastWidth = -1;
+static CGFloat lastHeight = -1;
+static CGFloat lastAscent = -1;
+static CGFloat lastDescent = -1;
 
 static void measureStyle(int style) {
 	if (style == lastStyle) return;

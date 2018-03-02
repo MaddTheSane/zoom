@@ -486,7 +486,7 @@ static void finalizeViews(void) {
 	float sb = [viewPrefs scrollbackLength];
 	if (sb < 100.0) {
 		// Number of characters to preserve (4096 -> 1 million)
-		int len = [[textView textStorage] length];
+		NSInteger len = [[textView textStorage] length];
 		float preserve = 4096.0 + pow(sb*10.0, 2);
 		
 		if (len > ((int)preserve + 2048)) {
@@ -956,7 +956,7 @@ static void finalizeViews(void) {
 	}
 
     NSRange endGlyph;
-	int length = [[textView textStorage] length];
+	NSInteger length = [[textView textStorage] length];
 	
 	if (length > 0) {
 		endGlyph = [textView selectionRangeForProposedRange:
@@ -1104,7 +1104,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
     
     // Check to see if there's any newlines in the input...
-    int newlinePos = -1;
+    NSInteger newlinePos = -1;
     do {
         NSInteger x;
         NSString* str = [text string];
@@ -1218,14 +1218,14 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		// Up and down arrow keys have a different meaning if the cursor is beyond the
 		// end inputPos.
 		// (Arrow keys won't be caught above thanks to the NSFunctionKeyMask)
-		unsigned cursorPos = [textView selectedRange].location;
+		NSUInteger cursorPos = [textView selectedRange].location;
 		
 		if (modifiers == NSFunctionKeyMask) {
 			int key = [chars characterAtIndex: 0];
 			
 			if (cursorPos >= inputPos && (key == NSUpArrowFunctionKey || key == NSDownArrowFunctionKey)) {
 				// Move historyPos
-				int oldPos = historyPos;
+				NSInteger oldPos = historyPos;
 				
 				if (key == NSUpArrowFunctionKey) historyPos--;
 				if (key == NSDownArrowFunctionKey) historyPos++;
@@ -1285,8 +1285,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
             [self fontWithStyle:ZFixedStyle], NSFontAttributeName, nil];
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 		
-		int charX = floorf(pointInView.x / fixedSize.width);
-		int charY = floorf(pointInView.y / fixedSize.height);
+		int charX = floor(pointInView.x / fixedSize.width);
+		int charY = floor(pointInView.y / fixedSize.height);
 		
 		// Report the position to the remote server
 		[zMachine inputMouseAtPositionX: charX+1
@@ -2348,7 +2348,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	NSMutableAttributedString* storage = [textView textStorage];
 	NSRange attributedRange;
 	NSDictionary* attr;
-	int len = [storage length];
+	NSInteger len = [storage length];
 	
 	attributedRange.location = 0;
 	
@@ -2819,7 +2819,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		NSString* str = [[textView textStorage] string];
 		
 		// 'len' contains the amount of text we'll attempt to backtrack across
-		int len = [prefix length];
+		NSInteger len = [prefix length];
 		if (len > [str length]) len = [str length];
 		
 		// Cut out a substring according to the length (and the current input position)
@@ -2831,8 +2831,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		str = [str lowercaseString];
 		
 		// See how far back we can go
-		int offset = len-1;
-		int prefixOffset = [lowerPrefix length]-1;
+		NSInteger offset = len-1;
+		NSInteger prefixOffset = [lowerPrefix length]-1;
 		
 		while (offset >= 0 && prefixOffset >= 0 && [lowerPrefix characterAtIndex: prefixOffset] == [str characterAtIndex: offset]) {
 			offset--;
@@ -2842,7 +2842,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		// offset, prefixOffset indicate the last character that wasn't matched
 		offset++;
 		
-		int matchLength = len-offset;
+		NSInteger matchLength = len-offset;
 		
 		inputPos -= matchLength;
 		
@@ -3057,7 +3057,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 // = Dealing with the history =
 
 - (NSString*) lastHistoryItem {
-	int oldPos = historyPos;
+	NSInteger oldPos = historyPos;
 	
 	historyPos--;
 				
@@ -3074,7 +3074,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 - (NSString*) nextHistoryItem {
-	int oldPos = historyPos;
+	NSInteger oldPos = historyPos;
 				
 	historyPos++;
 				

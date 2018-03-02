@@ -234,7 +234,6 @@
 		4BB8C18F08C249F400D7D334 /* ZoomClientController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F59050FB57A00A8E303 /* ZoomClientController.h */; };
 		4BB8C19008C249F400D7D334 /* ZoomClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F53050FB47200A8E303 /* ZoomClient.h */; };
 		4BB8C19108C249F400D7D334 /* ZoomLowerWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B7D1DAD0534999E00A8E303 /* ZoomLowerWindow.h */; };
-		4BB8C19208C249F400D7D334 /* ZoomUpperWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDFA46305358F1200A8E303 /* ZoomUpperWindow.h */; };
 		4BB8C19308C249F400D7D334 /* ZoomMoreView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDFA4AC0535C42C00A8E303 /* ZoomMoreView.h */; };
 		4BB8C19408C249F400D7D334 /* ZoomTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDFA4B00535E10200A8E303 /* ZoomTextView.h */; };
 		4BB8C19508C249F400D7D334 /* ZoomScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B2D95C9053706CD00A8E303 /* ZoomScrollView.h */; };
@@ -1826,7 +1825,6 @@
 				4BB8C18F08C249F400D7D334 /* ZoomClientController.h in Headers */,
 				4BB8C19008C249F400D7D334 /* ZoomClient.h in Headers */,
 				4BB8C19108C249F400D7D334 /* ZoomLowerWindow.h in Headers */,
-				4BB8C19208C249F400D7D334 /* ZoomUpperWindow.h in Headers */,
 				4BB8C19308C249F400D7D334 /* ZoomMoreView.h in Headers */,
 				4BB8C19408C249F400D7D334 /* ZoomTextView.h in Headers */,
 				4BB8C19508C249F400D7D334 /* ZoomScrollView.h in Headers */,
@@ -2882,8 +2880,10 @@
 		4B11039708606E2600253E87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2931,8 +2931,10 @@
 		4B11039808606E2600253E87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -3024,6 +3026,7 @@
 		4B39C93108EEF63500BA5E90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3053,6 +3056,7 @@
 		4B39C93208EEF63500BA5E90 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3082,6 +3086,7 @@
 		4B7286E90CD3CB000079D89B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -3098,6 +3103,7 @@
 		4B7286EA0CD3CB000079D89B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -3114,6 +3120,7 @@
 		4B7CB08809362A3B00F3B8F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
 				FRAMEWORK_VERSION = A;
@@ -3144,6 +3151,7 @@
 		4B7CB08909362A3B00F3B8F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
 				FRAMEWORK_VERSION = A;
@@ -3285,6 +3293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 3;
 				FRAMEWORK_VERSION = A;
@@ -3329,6 +3338,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 3;
 				FRAMEWORK_VERSION = A;

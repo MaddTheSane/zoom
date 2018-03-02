@@ -7,7 +7,7 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "ZoomView.h"
+#import <ZoomView/ZoomView.h>
 #import "ZoomClient.h"
 
 

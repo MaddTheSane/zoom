@@ -10,6 +10,7 @@
 
 #import "ZoomPreferenceWindow.h"
 #import "ZoomStoryOrganiser.h"
+#import <ZoomView/ZoomPreferences.h>
 
 
 static NSToolbarItem* generalSettingsItem;

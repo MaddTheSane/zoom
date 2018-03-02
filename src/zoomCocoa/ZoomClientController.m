@@ -631,7 +631,7 @@
 }
 
 - (NSImage*) logo {
-	NSImage* result = [ZoomStoryOrganiser frontispieceForFile: [[self document] fileName]];
+	NSImage* result = [ZoomStoryOrganiser frontispieceForFile: [[self document] fileURL].path];
 	if (result == nil) return nil;
 	
 	return [self resizeLogo: result];
