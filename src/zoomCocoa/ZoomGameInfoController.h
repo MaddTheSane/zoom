@@ -6,7 +6,7 @@
 #import "ZoomStory.h"
 #import "ZoomResourceDrop.h"
 
-@interface ZoomGameInfoController : NSWindowController {
+@interface ZoomGameInfoController : NSWindowController<NSOpenSavePanelDelegate> {
 	IBOutlet NSMenu*      genreMenu;
 	
 	IBOutlet NSTextField* gameName;

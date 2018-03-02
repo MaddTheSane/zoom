@@ -8,12 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
+#import <ZoomPlugIns/ZoomPlugInManager.h>
 
 
 ///
 /// NSWindowController object that runs the plugins window
 ///
-@interface ZoomPlugInController : NSWindowController {
+@interface ZoomPlugInController : NSWindowController<NSTableViewDataSource, ZoomPlugInManagerDelegate> {
 	IBOutlet NSTableView* pluginTable;								// The table of plugins
 	IBOutlet NSProgressIndicator* pluginProgress;					// Download progress indicator
 	IBOutlet NSButton* installButton;								// The 'install' button
@@ -22,7 +23,7 @@
 }
 
 // Initialisation
-+ (ZoomPlugInController*) sharedPlugInController;					// The shared plugin controller window
+@property (class, readonly, retain) ZoomPlugInController*sharedPlugInController;//!< The shared plugin controller window
 
 // Actions
 - (IBAction) installUpdates: (id) sender;							// 'Install' button clicked

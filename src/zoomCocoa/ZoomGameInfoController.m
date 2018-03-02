@@ -259,7 +259,7 @@ static NSString* stringOrEmpty(NSString* str) {
 }
 
 - (void) finishedChoosingResourceFile: (NSOpenPanel *)sheet
-						   returnCode: (int)returnCode
+						   returnCode: (NSModalResponse)returnCode
 						  contextInfo: (void *)contextInfo {
 	if (returnCode != NSOKButton) return;
 	
@@ -274,18 +274,20 @@ static NSString* stringOrEmpty(NSString* str) {
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setCanChooseFiles: YES];
 	[openPanel setDelegate: self];
+	openPanel.allowedFileTypes = filetypes;
 	
 	NSString* directory = nil;
 	if ([self resourceFilename] != nil) {
 		directory = [[self resourceFilename] stringByDeletingLastPathComponent];
 	}
 	
-	[openPanel beginSheetForDirectory: directory
-								 file: [self resourceFilename]
-					   modalForWindow: [self window]
-						modalDelegate: self
-					   didEndSelector: @selector(finishedChoosingResourceFile:returnCode:contextInfo:)
-						  contextInfo: nil];
+	if (directory) {
+		openPanel.directoryURL = [NSURL fileURLWithPath:directory];
+	}
+	
+	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
+		[self finishedChoosingResourceFile:openPanel returnCode:result contextInfo:NULL];
+	}];
 }
 
 - (void) resourceDropFilenameChanged: (ZoomResourceDrop*) drop {

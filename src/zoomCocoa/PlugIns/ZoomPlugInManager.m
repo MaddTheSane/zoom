@@ -39,7 +39,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	NSString* supportDir = [[libDirs objectAtIndex: 0] stringByAppendingPathComponent: @"Application Support"];
 	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir isDirectory: &isDir]) {
 		isDir = YES;
-		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir attributes: nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
 	
 	if (!isDir) {
@@ -51,7 +51,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	supportDir = [supportDir stringByAppendingPathComponent: @"Zoom"];
 	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir isDirectory: &isDir]) {
 		isDir = YES;
-		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir attributes: nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir]) {
@@ -206,7 +206,9 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 		if (morePlugInsPath) {
 			if (![[NSFileManager defaultManager] fileExistsAtPath: morePlugInsPath]) {
 				[[NSFileManager defaultManager] createDirectoryAtPath: morePlugInsPath 
-														   attributes: nil];
+										  withIntermediateDirectories:NO
+														   attributes:nil
+																error:NULL];
 			}
 			[self loadPluginsFrom: morePlugInsPath];
 		}
@@ -295,9 +297,9 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	NSArray* oldVersionArray = [self arrayForVersion: oldVersion];
 	NSArray* newVersionArray = [self arrayForVersion: newVersion];
 	
-	int length = [oldVersionArray count];
+	NSInteger length = [oldVersionArray count];
 	if ([newVersionArray count] > length) length = [newVersionArray count];
-	int x;
+	NSInteger x;
 	for (x=length-1; x>=0; x--) {
 		NSString* old = x<[oldVersionArray count]?[oldVersionArray objectAtIndex: x]:@"0";
 		NSString* new = x<[newVersionArray count]?[newVersionArray objectAtIndex: x]:@"0";
@@ -467,7 +469,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	return 1;
 }
 
-static int SortPlugInInfo(id a, id b, void* context) {
+static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	ZoomPlugInInfo* first = a;
 	ZoomPlugInInfo* second = b;
 	
@@ -476,11 +478,11 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	ZoomPlugInStatus secondStatus = [second status];
 	
 	if (RankForStatus(firstStatus) < RankForStatus(secondStatus))
-		return 1;
+		return NSOrderedDescending;
 	else if (RankForStatus(firstStatus) > RankForStatus(secondStatus))
-		return -1;
+		return NSOrderedAscending;
 	else
-		return 0;
+		return NSOrderedSame;
 	
 	// Then sort by the name of the plugin
 	return [[first name] caseInsensitiveCompare: [second name]];
@@ -648,7 +650,7 @@ static int SortPlugInInfo(id a, id b, void* context) {
 
 - (BOOL) addUpdatedPlugin: (ZoomPlugInInfo*) plugin {
     // This is disabled for now
-    return nil;
+    return NO;
     
 	// Find the old plugin that matches this one
 	ZoomPlugInInfo* oldPlugIn = nil;
@@ -990,8 +992,8 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		&& [existingPlugIn status] == ZoomPlugInUpdated 
 		&& [[existingPlugIn location] isFileURL]) {
 		// Remove any existing update for the plugin
-		if (![[NSFileManager defaultManager] removeFileAtPath: [[existingPlugIn location] path]
-													  handler: nil]) {
+		if (![[NSFileManager defaultManager] removeItemAtPath: [[existingPlugIn location] path]
+														error: NULL]) {
 			return NO;
 		}
 	}
@@ -1009,7 +1011,9 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		
 		if (!exists) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: pendingPlugIns
-															attributes: nil]) {
+										   withIntermediateDirectories:NO
+															attributes:nil
+																 error:NULL]) {
 				return NO;
 			}
 		}
@@ -1018,16 +1022,16 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		
 		// Delete from the pending directory if the plugin already exists there
 		if ([[NSFileManager defaultManager] fileExistsAtPath: pluginBundlePath]) {
-			if (![[NSFileManager defaultManager] removeFileAtPath: pluginBundlePath
-														  handler: nil]) {
+			if (![[NSFileManager defaultManager] removeItemAtPath: pluginBundlePath
+															error: NULL]) {
 				return NO;
 			}
 		}
 		
 		// Copy the bundle to the pending directory
-		if (![[NSFileManager defaultManager] copyPath: pluginBundle
-											   toPath: pluginBundlePath
-											  handler: nil]) {
+		if (![[NSFileManager defaultManager] copyItemAtPath: pluginBundle
+													 toPath: pluginBundlePath
+													  error: NULL]) {
 			return NO;
 		}
 		
@@ -1055,15 +1059,17 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		
 		if (!exists) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: plugins
-															attributes: nil]) {
+										   withIntermediateDirectories:NO
+															attributes:nil
+																 error:NULL]) {
 				return NO;
 			}
 		}
 		
 		// Copy the bundle to the plugin directory
-		if (![[NSFileManager defaultManager] copyPath: pluginBundle
-											   toPath: [plugins stringByAppendingPathComponent: [pluginBundle lastPathComponent]]
-											  handler: nil]) {
+		if (![[NSFileManager defaultManager] copyItemAtPath: pluginBundle
+													 toPath: [plugins stringByAppendingPathComponent: [pluginBundle lastPathComponent]]
+													  error: NULL]) {
 			return NO;
 		}
 		
@@ -1191,9 +1197,9 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		NSString* source = [[[pluginBundle stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"] stringByAppendingPathComponent: iconFile];
 		NSString* dest = [[[mainBundle stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"] stringByAppendingPathComponent: iconFile];
 		
-		if (![[NSFileManager defaultManager] copyPath: source
-											   toPath: dest
-											  handler: nil]) {
+		if (![[NSFileManager defaultManager] copyItemAtPath: source
+													 toPath: dest
+													  error: nil]) {
 			NSLog(@"Couldn't copy icon file %@ to %@", source, dest);
 		}
 	}
@@ -1213,12 +1219,13 @@ static int SortPlugInInfo(id a, id b, void* context) {
 
 	// Re-register the Zoom application
 	if (plistChanged) {
-		LSRegisterURL((CFURLRef)[NSURL fileURLWithPath: [[NSBundle mainBundle] bundlePath]], 1);
+		LSRegisterURL((CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
 	}
 	
 	// Notify of any changes to the plugin information
 	[self sortInformation];
 	[self pluginInformationChanged];
+	return YES;
 }
 
 - (void) finishUpdatingPlugins {
@@ -1277,8 +1284,8 @@ static int SortPlugInInfo(id a, id b, void* context) {
 			}
 			
 			// Remove the old plugin
-			if (![[NSFileManager defaultManager] removeFileAtPath: [[oldPlugIn location] path]
-														  handler: nil]) {
+			if (![[NSFileManager defaultManager] removeItemAtPath: [[oldPlugIn location] path]
+															error: NULL]) {
 				NSLog(@"== While updating: could not delete %@", [oldPlugIn location]);
 				continue;
 			}
@@ -1290,20 +1297,20 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		while ([[NSFileManager defaultManager] fileExistsAtPath: finalHome]) {
 			NSLog(@"== While updating: already have a plugin called %@ - picking a new name", [finalHome lastPathComponent]);
 			count++;
-			NSString* finalHome = [plugins stringByAppendingPathComponent: [NSString stringWithFormat: @"%@-%i", pluginName, count]];
+			finalHome = [plugins stringByAppendingPathComponent: [NSString stringWithFormat: @"%@-%i", pluginName, count]];
 		}
 		
-		if (![[NSFileManager defaultManager] copyPath: pluginPath
-											   toPath: finalHome
-											  handler: nil]) {
+		if (![[NSFileManager defaultManager] copyItemAtPath: pluginPath
+													 toPath: finalHome
+													  error: NULL]) {
 			NSLog(@"== While updating: could not copy %@ to %@", pluginName, finalHome);
 			continue;
 		}
 	}
 	
 	// Finish up: delete the pending directory
-	if (![[NSFileManager defaultManager] removeFileAtPath: pendingPlugIns
-												  handler: nil]) {
+	if (![[NSFileManager defaultManager] removeItemAtPath: pendingPlugIns
+													error: NULL]) {
 		NSLog(@"== While updating: could not remove %@", pendingPlugIns);
 	}
 }

@@ -149,7 +149,7 @@ static NSArray* DefaultFonts(void) {
 }
 
 static NSArray* DefaultColours(void) {
-	NSMutableArray* defaultColours = [[NSArray arrayWithObjects:
+	NSArray* defaultColours = [[NSArray arrayWithObjects:
 		[NSColor colorWithDeviceRed: 0 green: 0 blue: 0 alpha: 1],
 		[NSColor colorWithDeviceRed: 1 green: 0 blue: 0 alpha: 1],
 		[NSColor colorWithDeviceRed: 0 green: 1 blue: 0 alpha: 1],
@@ -174,20 +174,20 @@ static NSArray* DefaultColours(void) {
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 		
 		// Defaults
-		[prefs setObject: [NSNumber numberWithBool: NO]
+		[prefs setObject: @NO
 				  forKey: displayWarnings];
-		[prefs setObject: [NSNumber numberWithBool: NO]
+		[prefs setObject: @NO
 				  forKey: fatalWarnings];
-		[prefs setObject: [NSNumber numberWithBool: NO]
+		[prefs setObject: @NO
 				  forKey: speakGameText];
 		
 		[prefs setObject: @"%s (%i.%.6s.%04x)"
 				  forKey: gameTitle];
-		[prefs setObject: [NSNumber numberWithInt: 3]
+		[prefs setObject: @3
 				  forKey: interpreter];
 		[prefs setObject: [NSNumber numberWithInt: 'Z']
 				  forKey: revision];
-		[prefs setObject: [NSNumber numberWithInt: GlulxGit]
+		[prefs setObject: @(GlulxGit)
 				  forKey: glulxInterpreter];
 		
 		[prefs setObject: DefaultFonts()
@@ -195,13 +195,13 @@ static NSArray* DefaultColours(void) {
 		[prefs setObject: DefaultColours()
 				  forKey: colours];
 		
-		[prefs setObject: [NSNumber numberWithInt: 0]
+		[prefs setObject: @0
 				  forKey: foregroundColour];
-		[prefs setObject: [NSNumber numberWithInt: 7]
+		[prefs setObject: @7
 				  forKey: backgroundColour];
-		[prefs setObject: [NSNumber numberWithBool: YES]
+		[prefs setObject: @YES
 				  forKey: showBorders];
-		[prefs setObject: [NSNumber numberWithBool: YES]
+		[prefs setObject: @YES
 				  forKey: showGlkBorders];
 		
 		[pool release];
@@ -347,11 +347,11 @@ static NSArray* DefaultColours(void) {
 	return result;
 }
 
-- (enum GlulxInterpreter) glulxInterpreter {
+- (GlulxInterpreter) glulxInterpreter {
 	[prefLock lock];
 	NSNumber* glulxInterpreterNum = (NSNumber*)[prefs objectForKey: glulxInterpreter];
 	
-	enum GlulxInterpreter result;
+	GlulxInterpreter result;
 	if (glulxInterpreterNum)	result = [glulxInterpreterNum intValue];
 	else						result = GlulxGit;
 	
@@ -405,7 +405,7 @@ static NSArray* DefaultColours(void) {
 	return [prototypeFont familyName];
 }
 
-- (float) fontSize {
+- (CGFloat) fontSize {
 	// Font 0 forms the prototype for this
 	NSFont* prototypeFont = [[self fonts] objectAtIndex: 0];
 	
@@ -426,7 +426,7 @@ static NSArray* DefaultColours(void) {
 	return res;
 }
 
-- (float) textMargin {
+- (CGFloat) textMargin {
 	[prefLock lock];
 	NSNumber* result = (NSNumber*)[prefs objectForKey: textMargin];
 	if (result == nil) result = [NSNumber numberWithFloat: 10.0];
@@ -547,7 +547,7 @@ static NSArray* DefaultColours(void) {
 	[self preferencesHaveChanged];
 }
 
-- (void) setGlulxInterpreter: (enum GlulxInterpreter) value {
+- (void) setGlulxInterpreter: (GlulxInterpreter) value {
 	[prefs setObject: [NSNumber numberWithInt: value]
 			  forKey: glulxInterpreter];
 	[self preferencesHaveChanged];
@@ -632,12 +632,12 @@ static NSArray* DefaultColours(void) {
 - (void) setFontRange: (NSRange) fontRange
 			 toFamily: (NSString*) newFontFamily {
 	// Sets a given range of fonts to the given family
-	float size = [self fontSize];
+	CGFloat size = [self fontSize];
 	
 	NSMutableArray* newFonts = [[[self fonts] mutableCopy] autorelease];
 	NSFontManager* mgr = [NSFontManager sharedFontManager];
 	
-	int x;
+	NSInteger x;
 	for (x=fontRange.location; x<fontRange.location+fontRange.length; x++) {
 		// Get the traits for this font
 		NSFontTraitMask traits = 0;

@@ -13,7 +13,7 @@ static NSString* babelFolder = nil;
 static NSLock* babelLock;
 static NSMutableDictionary* babelCache = nil;
 
-@interface ZoomBabel(Private)
+@interface ZoomBabel()
 
 - (void) babelTaskFinished: (NSNotification*) not;
 - (void) handleBabelTaskFinished;
@@ -44,7 +44,7 @@ static NSMutableDictionary* babelCache = nil;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: babelFolder
 											  isDirectory: &isDir]) {
 		[[NSFileManager defaultManager] createDirectoryAtPath: babelFolder
-												   attributes: nil];
+												   attributes: @{}];
 		isDir = YES;
 	}
 	
@@ -199,9 +199,7 @@ static NSMutableDictionary* babelCache = nil;
 	
 }
 
-- (void) setTaskTimeout: (float) seconds {
-	timeout = seconds;
-}
+@synthesize taskTimeout=timeout;
 
 - (NSData*) rawMetadata {
 	[self waitForBabel];
@@ -307,7 +305,7 @@ static NSMutableDictionary* babelCache = nil;
 	// Image files have the (size) suffix in the output from babel: remove this, as we don't care
 	if ([file length] <= 0) return file;
 	if ([file characterAtIndex: [file length] - 1] == ')') {
-		int pos = [file length]-1;
+		NSInteger pos = [file length]-1;
 		while (pos >= 0 && [file characterAtIndex: pos] != '(') {
 			if ([file characterAtIndex: pos] == '.') return file;
 			pos--;

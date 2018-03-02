@@ -8,11 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class ZoomStoryID;
 
 ///
 /// Class that deals with understanding IFDB signpost files.
 ///
-@interface ZoomSignPost : NSObject {
+@interface ZoomSignPost : NSObject<NSXMLParserDelegate> {
 	// The signpost data
 	NSMutableArray* ifids;
 	NSString* interpreterDisplayName;
@@ -36,7 +37,7 @@
 
 // = Getting signpost data =
 
-- (NSArray*) ifids;												// The IDs associated with this signpost
+- (NSArray<ZoomStoryID*>*) ifids;								// The IDs associated with this signpost
 - (NSString*) interpreterDisplayName;							// The display name of the interpreter (the interpreter system name)
 - (NSURL*) interpreterURL;										// The URL of the interpreter update page
 - (NSString*) interpreterVersion;								// The requested interpreter version

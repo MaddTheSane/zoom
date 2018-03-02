@@ -490,7 +490,7 @@
 						  @"Finish", @"Continue playing", nil,
 						  [self window], self,
 						  @selector(confirmFinish:returnCode:contextInfo:), nil,
-						  nil, msg);
+						  nil, @"%@", msg);
 		
 		return NO;
 	}
@@ -678,15 +678,12 @@
 		// Create a save dialog
 		NSSavePanel* panel = [NSSavePanel savePanel];
 		
-		[panel setRequiredFileType: @"glksave"];
-		if (preferredDirectory != nil) [panel setDirectory: preferredDirectory];
+		panel.allowedFileTypes = @[@"glksave"];
+		if (preferredDirectory != nil) [panel setDirectoryURL:[NSURL fileURLWithPath:preferredDirectory]];
 		
-		[panel beginSheetForDirectory: preferredDirectory
-								 file: nil
-					   modalForWindow: [self window]
-						modalDelegate: self
-					   didEndSelector: @selector(panelDidEnd:returnCode:contextInfo:)
-						  contextInfo: nil];
+		[panel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
+			[self panelDidEnd:panel returnCode:result contextInfo:nil];
+		}];
 		
 		[lastPanel release]; lastPanel = [panel retain];		
 	} else {
@@ -697,22 +694,14 @@
 		[allowedFiletypes insertObject: @"glksave"
 							   atIndex: 0];
 		
-		[panel setRequiredFileType: [allowedFiletypes objectAtIndex: 0]];
-		if (preferredDirectory != nil) [panel setDirectory: preferredDirectory];
+		if (preferredDirectory != nil) [panel setDirectoryURL: [NSURL fileURLWithPath:preferredDirectory]];
 		
-		if ([panel respondsToSelector: @selector(setAllowedFileTypes:)]) {
-			// Only works on 10.3
-			[panel setAllowedFileTypes: allowedFiletypes];
-		}
+		[panel setAllowedFileTypes: allowedFiletypes];
 		
-		[panel beginSheetForDirectory: preferredDirectory
-								 file: nil
-								types: allowedFiletypes
-					   modalForWindow: [self window]
-						modalDelegate: self
-					   didEndSelector: @selector(panelDidEnd:returnCode:contextInfo:) 
-						  contextInfo: nil];
-		
+		[panel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
+			[self panelDidEnd:panel returnCode:result contextInfo:nil];
+		}];
+
 		[lastPanel release]; lastPanel = [panel retain];
 	}
 	
@@ -720,28 +709,28 @@
 }
 
 - (void) panelDidEnd: (NSSavePanel*) panel
-		  returnCode: (int) returnCode
+		  returnCode: (NSModalResponse) returnCode
 		 contextInfo: (void*) willBeNil {
 	if (!promptHandler) return;
 	
 	if (returnCode == NSOKButton) {
 		// TODO: preview
-		if ([[[[panel filename] pathExtension] lowercaseString] isEqualToString: @"glksave"]) {
+		if ([[[[panel URL] pathExtension] lowercaseString] isEqualToString: @"glksave"]) {
 			ZoomGlkSaveRef* saveRef = [[ZoomGlkSaveRef alloc] initWithPlugIn: [[self document] plugIn]
-																		path: [panel filename]];
+																		path: [[panel URL] path]];
 			[saveRef setSkein: skein];
 			[promptHandler promptedFileRef: saveRef];
 			[saveRef autorelease];
 		} else {
-			GlkFileRef* promptRef = [[GlkFileRef alloc] initWithPath: [panel filename]];
+			GlkFileRef* promptRef = [[GlkFileRef alloc] initWithPath: [panel URL]];
 			[promptHandler promptedFileRef: promptRef];
 			[promptRef autorelease];			
 		}
 		
-		[[NSUserDefaults standardUserDefaults] setObject: [panel directory]
-												  forKey: @"GlkSaveDirectory"];
+		[[NSUserDefaults standardUserDefaults] setURL: [panel URL]
+											   forKey: @"GlkSaveDirectory"];
 		if ([self respondsToSelector: @selector(savePreferredDirectory:)]) {
-			[self savePreferredDirectory: [panel directory]];
+			[self savePreferredDirectory: [[panel directoryURL] path]];
 		}
 	} else {
 		[promptHandler promptCancelled];

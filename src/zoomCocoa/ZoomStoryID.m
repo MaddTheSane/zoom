@@ -12,7 +12,7 @@
 #import "ZoomPlugInManager.h"
 
 #include "ifmetabase.h"
-#include "../md5.h"
+#include <CommonCrypto/CommonDigest.h>
 
 @implementation ZoomStoryID
 
@@ -64,7 +64,7 @@
 	
 	if (self) {
 		const unsigned char* bytes = [gameData bytes];
-		int length = [gameData length];
+		NSInteger length = [gameData length];
 		
 		if ([gameData length] < 64) {
 			// Too little data for this to be a Z-Code file
@@ -173,7 +173,7 @@
 	
 	if (self) {
 		const unsigned char* bytes;
-		int length;
+		NSInteger length;
 		
 		NSFileHandle* fh = [NSFileHandle fileHandleForReadingAtPath: zcodeFile];
 		NSData* data = [fh readDataToEndOfFile];
@@ -296,7 +296,7 @@
 	if (self) {
 		// Read the header of this file
 		const unsigned char* bytes;
-		int length;
+		NSInteger length;
 		
 		NSFileHandle* fh = [NSFileHandle fileHandleForReadingAtPath: glulxFile];
 		NSData* data = [[[fh readDataOfLength: 64] retain] autorelease];
@@ -437,15 +437,15 @@
 	
 	if (self) {
 		// Take MD5 of the data
-		md5_state_t md5state;
+		CC_MD5_CTX md5state;
 		unsigned char r[16];
 		
-		md5_init(&md5state);
-		md5_append(&md5state, [genericGameData bytes], [genericGameData length]);
-		md5_finish(&md5state, r);
+		CC_MD5_Init(&md5state);
+		CC_MD5_Update(&md5state, [genericGameData bytes], (CC_LONG)[genericGameData length]);
+		CC_MD5_Final(r, &md5state);
 		
 		// Build the string
-		int len = ([type length]+32+2);
+		NSInteger len = ([type length]+32+2);
 		char* result = malloc(sizeof(char)*len);
 		
 		snprintf(result, len, "%s-%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
@@ -650,7 +650,7 @@ typedef unsigned char IFMDByte;
 }
 
 // = Hashing/comparing =
-- (unsigned) hash {
+- (NSUInteger) hash {
 	return [[self description] hash];
 }
 

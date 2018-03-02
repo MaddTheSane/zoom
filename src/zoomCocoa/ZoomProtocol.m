@@ -58,23 +58,23 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return (bytes[0]<<8)|bytes[1];
 }
 
-- (NSData*) readBlock: (int) length {
+- (bycopy NSData*) readBlock: (int) length {
     NSData* data = [handle readDataOfLength: length];
     return data;
 }
 
-- (void) seekTo: (int) p {
+- (oneway void) seekTo: (int) p {
     [handle seekToFileOffset: p];
 }
 
 // Write
-- (void) writeByte: (int) byte {
+- (oneway void) writeByte: (int) byte {
     NSData* data = [NSData dataWithBytes: &byte
                                   length: 1];
     [handle writeData: data];
 }
 
-- (void) writeWord: (int) word {
+- (oneway void) writeWord: (int) word {
     unsigned char bytes[2];
 
     bytes[0] = (word>>8);
@@ -86,7 +86,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     [handle writeData: data];
 }
 
-- (void) writeDWord: (unsigned int) dword {
+- (oneway void) writeDWord: (unsigned int) dword {
     unsigned char bytes[4];
 
     bytes[0] = (dword>>24);
@@ -100,7 +100,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     [handle writeData: data];
 }
 
-- (void) writeBlock: (NSData*) block {
+- (oneway void) writeBlock: (in bycopy NSData*) block {
     [handle writeData: block];
 }
 
@@ -108,7 +108,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return NO;
 }
 
-- (NSString*) errorMessage {
+- (bycopy NSString*) errorMessage {
     return @"";
 }
 
@@ -136,7 +136,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 	return NO;
 }
 
-- (void) close {
+- (oneway void) close {
     return; // Do nothing
 }
 
@@ -207,7 +207,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return res;
 }
 
-- (NSData*) readBlock: (int) length {
+- (bycopy NSData*) readBlock: (int) length {
     const unsigned char* bytes = [data bytes];
 
     if (pos >= [data length]) {
@@ -228,26 +228,26 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return res;
 }
 
-- (void) seekTo: (int) p {
+- (oneway void) seekTo: (int) p {
     pos = p;
     if (pos > [data length]) {
         pos = [data length];
     }
 }
 
-- (void) writeByte: (int) byte {
+- (oneway void) writeByte: (int) byte {
     return; // Do nothing
 }
 
-- (void) writeWord: (int) word {
+- (oneway void) writeWord: (int) word {
     return; // Do nothing
 }
 
-- (void) writeDWord: (unsigned int) dword {
+- (oneway void) writeDWord: (unsigned int) dword {
     return; // Do nothing
 }
 
-- (void) writeBlock: (NSData*) block {
+- (oneway void) writeBlock: (NSData*) block {
     return; // Do nothing
 }
 
@@ -255,7 +255,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return NO;
 }
 
-- (NSString*) errorMessage {
+- (bycopy NSString*) errorMessage {
     return @"";
 }
 
@@ -267,7 +267,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 	return pos >= [data length];
 }
 
-- (void) close {
+- (oneway void) close {
     return; // Do nothing
 }
 @end
@@ -944,11 +944,11 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     return res;
 }
 
-- (void) seekTo: (int) p {
+- (oneway void) seekTo: (int) p {
 	pos = p;
 }
 
-- (void) writeByte: (int) byte {
+- (oneway void) writeByte: (int) byte {
 	if (!forWriting) {
 		[NSException raise: @"ZoomFileWriteException" format: @"Tried to write to a file open for reading"];
 		return;
@@ -960,7 +960,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 					length: 1];
 }
 
-- (void) writeWord: (int) word {
+- (oneway void) writeWord: (int) word {
 	if (!forWriting) {
 		[NSException raise: @"ZoomFileWriteException" format: @"Tried to write to a file open for reading"];
 		return;
@@ -975,7 +975,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 					length: 2];
 }
 
-- (void) writeDWord: (unsigned int) dword {
+- (oneway void) writeDWord: (unsigned int) dword {
 	if (!forWriting) {
 		[NSException raise: @"ZoomFileWriteException" format: @"Tried to write to a file open for reading"];
 		return;
@@ -992,7 +992,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 					length: 4];
 }
 
-- (void) writeBlock: (NSData*) block {
+- (oneway void) writeBlock: (in bycopy NSData*) block {
 	if (!forWriting) {
 		[NSException raise: @"ZoomFileWriteException" format: @"Tried to write to a file open for reading"];
 		return;
@@ -1005,7 +1005,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 	return NO;
 }
 
-- (NSString*) errorMessage {
+- (bycopy NSString*) errorMessage {
 	return nil;
 }
 
@@ -1022,7 +1022,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 	return (pos >= [[data regularFileContents] length]);
 }
 
-- (void) close {
+- (oneway void) close {
 	if (forWriting) {
 		// Write out the file
 		if ([[wrapper fileWrappers] objectForKey: defaultFile] != nil) {
@@ -1037,8 +1037,9 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 			 updateFilenames: YES];
 		
 		if (attributes) {
-			[[NSFileManager defaultManager] changeFileAttributes: attributes
-														  atPath: writePath];
+			[[NSFileManager defaultManager] setAttributes: attributes
+											 ofItemAtPath: writePath
+													error: NULL];
 		}
 	}
 }

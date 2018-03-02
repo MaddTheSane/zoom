@@ -11,3 +11,5 @@ depcomp
 install-sh
 missing
 ylwrap
+xcuserdata/
+project.xcworkspace/

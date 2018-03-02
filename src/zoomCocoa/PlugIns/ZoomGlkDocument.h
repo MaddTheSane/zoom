@@ -10,10 +10,13 @@
 
 #import <ZoomPlugIns/ZoomStory.h>
 
+@class ZoomPlugIn;
+
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Document representing a Glk game
 ///
-@class ZoomPlugIn;
 @interface ZoomGlkDocument : NSDocument {
 	NSString* clientPath;											// The Glk executable we'll run to play this game
 	NSString* inputPath;											// The file we'll pass to the executable as the game to run
@@ -26,19 +29,23 @@
 }
 
 // Configuring the client
-- (void) setStoryData: (ZoomStory*) story;							// Sets the metadata associated with this story
-- (void) setClientPath: (NSString*) clientPath;						// Selects which GlkClient executable to run
+//! The metadata associated with this story
+@property (retain) ZoomStory *storyData;
+//! Selects which GlkClient executable to run
+@property (copy) NSString *clientPath;
 - (void) setInputFilename: (NSString*) inputPath;					// The file that should be passed to the client as the file to run
-- (void) setLogo: (NSImage*) logo;									// The logo to display for this story
-- (void) setPlugIn: (ZoomPlugIn*) plugIn;							// The plugin that created this document
-- (void) setSaveGame: (NSString*) saveGame;							// A .glksave file that the game should load on first start up
+//! The logo to display for this story
+@property (retain) NSImage *logo;
+//! The plugin that created this document
+@property (retain) ZoomPlugIn *plugIn;
+//! A .glksave file that the game should load on first start up
+@property (copy, nullable) NSString *saveGame;
 
-- (ZoomStory*) storyData;											// The story data that we stored for this story
-- (ZoomPlugIn*) plugIn;												// The plugin that created this document
-
-- (void) setPreferredSaveDirectory: (NSString*) dir;				// Sets the preferred directory to put savegames into
-- (NSString*) preferredSaveDirectory;								// Returns the preferred save directory
+//! The preferred directory to put savegames into
+@property (copy) NSString *preferredSaveDirectory;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #import <ZoomPlugIns/ZoomPlugIn.h>

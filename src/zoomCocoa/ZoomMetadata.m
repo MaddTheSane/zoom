@@ -127,7 +127,7 @@ NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 	
 	IFStoryIterator iter;
 	IFStory story;
-	for (iter=IFMB_GetStoryIterator(metadata); story=IFMB_NextStory(iter);) {
+	for ((iter=IFMB_GetStoryIterator(metadata)); (story=IFMB_NextStory(iter));) {
 		ZoomStory* zStory = [[ZoomStory alloc] initWithStory: story
 													metadata: self];
 		

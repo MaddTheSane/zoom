@@ -1234,8 +1234,8 @@ IFMDChar* IFMakeStrCF(const CFStringRef src) {
 	/* UTF-16 to UCS-4 */
 	IFMDChar* res;
 	UniChar* buffer;
-	int len = CFStringGetLength(src);
-	int pos, x;
+	CFIndex len = CFStringGetLength(src);
+	CFIndex pos, x;
 	
 	CFRange r;
 	
@@ -1669,7 +1669,7 @@ int IFMD_Save(IFMetadata* data,
 	int story;
 	unsigned char* utf8;
 
-#define ws(s) if (writeFunction((const char*)s, strlen((const char*)s), userData) != 0) return 1;
+#define ws(s) if (writeFunction((const char*)s, (int)strlen((const char*)s), userData) != 0) return 1;
 #define wutf(s) utf8 = makeutf8xml(s, 0); ws(utf8); free(utf8);
 #define wutfblock(s) utf8 = makeutf8xml(s, 1); ws(utf8); free(utf8);
 	

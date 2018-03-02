@@ -10,13 +10,15 @@
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
 
+@protocol ZoomPlugInManagerDelegate;
+
 // Notifications
 extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that the set of plugin information has changed
 
 //
 // Class that manages the plugins installed with Zoom
 //
-@interface ZoomPlugInManager : NSObject {
+@interface ZoomPlugInManager : NSObject<ZoomDownloadDelegate> {
 	NSLock* pluginLock;										// The plugin lock
 	id delegate;											// The delegate for this class
 	
@@ -82,7 +84,8 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 //
 // Delegate methods
 //
-@interface NSObject(ZoomPlugInManagerDelegate)
+@protocol ZoomPlugInManagerDelegate <NSObject>
+@optional
 
 - (void) pluginInformationChanged;							// Indicates that the plugin information has changed
 - (void) needsRestart;										// Indicates that the plug-in manager needs a restart before it can continue
@@ -92,7 +95,7 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 
 - (void) downloadingUpdates;								// Indicates that the manager is downloading updates
 - (void) downloadProgress: (NSString*) status				// Indicates that a download status message should be displayed
-			   percentage: (float) percent;
+			   percentage: (CGFloat) percent;
 - (void) finishedDownloadingUpdates;						// Indicates that downloading has finished
 
 @end

@@ -236,12 +236,12 @@ char* IF_StringForError(IFXmlError errorCode) {
 }
 
 static void Error(IFXmlState* state, IFXmlError errorType, void* errorData) {
-	int line, column;
+	XML_Size line, column;
 	
 	line = XML_GetCurrentLineNumber(state->parser);
 	column = XML_GetCurrentColumnNumber(state->parser);
 	
-	printf("**** Ifiction ERROR: %s <%i> (line=%i, column=%i)\n", IF_StringForError(errorType), errorType, line, column);
+	printf("**** Ifiction ERROR: %s <%i> (line=%lu, column=%lu)\n", IF_StringForError(errorType), errorType, line, column);
 }
 
 /* The XML parser itself */
@@ -447,7 +447,7 @@ static XMLCALL void StartElement(void *userData,
 				strcat(attributePath, "@");
 				strcat(attributePath, atts[x]);
 				
-				attributeValue = Xmdchar(atts[x+1], strlen(atts[x+1]));
+				attributeValue = Xmdchar(atts[x+1], (int)strlen(atts[x+1]));
 				
 				/* Set the value */
 				IFMB_SetValue(state->story, attributePath, attributeValue);
@@ -871,9 +871,9 @@ typedef struct ValueStackItem {
 } ValueStackItem;
 
 void IF_WriteIfiction(IFMetabase meta, int(*writeFunction)(const char* bytes, int length, void* userData), void* userData) {
-#define w(s) { unsigned char* res = s; writeFunction(res, strlen(res), userData); }
-#define wu(s) { unsigned char* res; res = MakeUtf8Xml(s, 1); writeFunction(res, strlen(res), userData); free(res); }
-#define wun(s) { unsigned char* res; res = MakeUtf8Xml(s, 0); writeFunction(res, strlen(res), userData); free(res); }
+#define w(s) { unsigned char* res = s; writeFunction(res, (int)strlen(res), userData); }
+#define wu(s) { unsigned char* res; res = MakeUtf8Xml(s, 1); writeFunction(res, (int)strlen(res), userData); free(res); }
+#define wun(s) { unsigned char* res; res = MakeUtf8Xml(s, 0); writeFunction(res, (int)strlen(res), userData); free(res); }
 	
 	IFStoryIterator stories;
 	ValueStackItem* values;
@@ -888,7 +888,7 @@ void IF_WriteIfiction(IFMetabase meta, int(*writeFunction)(const char* bytes, in
 	/* Iterate through the stories */
 	stories = IFMB_GetStoryIterator(meta);
 	
-	while (story = IFMB_NextStory(stories)) {
+	while ((story = IFMB_NextStory(stories))) {
 		int idCount;
 		IFID singleId[1];
 		IFID* storyIds;

@@ -42,14 +42,14 @@
 
 // = The data source for the plugin table =
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
 	return [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] count];
 }
 
 - (id)				tableView:(NSTableView *)aTableView 
 	objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-						  row:(int)rowIndex {
-	return [NSNumber numberWithInt: rowIndex];
+						  row:(NSInteger)rowIndex {
+	return @(rowIndex);
 }
 
 // = Plugin manager delegate methods =
@@ -122,7 +122,7 @@
 }
 
 - (void) downloadProgress: (NSString*) status
-			   percentage: (float) percent {
+			   percentage: (CGFloat) percent {
 	if (percent >= 0) {
 		[pluginProgress setIndeterminate: NO];
 		[pluginProgress setDoubleValue: percent];

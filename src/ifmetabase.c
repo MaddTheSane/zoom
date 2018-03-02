@@ -192,7 +192,7 @@ IFID IFMB_IdFromString(const char* idString) {
 	 */
 	
 	int x;
-	int idLen;
+	size_t idLen;
 	char lowerPrefix[10];
 	int systemLen;
 	int pos;

@@ -89,8 +89,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 		}
 		
 		// OK, we can get the form ID
-		formID = [[NSString stringWithCString: [header bytes] + 8
-									   length: 4] retain];
+		NSData *dataLen = [header subdataWithRange:NSMakeRange(8, 4)];
+
+		formID = [[NSString alloc] initWithData:dataLen encoding:NSMacOSRomanStringEncoding];
 		
 		// and the theoretical file length
 		const unsigned char* lBytes = [header bytes] + 4;
@@ -118,8 +119,8 @@ static unsigned int Int4(const unsigned char* bytes) {
 			}
 			
 			// Decode it
-			NSString* blockID = [NSString stringWithCString: [blockHeader bytes]
-													 length: 4];
+			NSData *dataLen = [blockHeader subdataWithRange:NSMakeRange(0, 4)];
+			NSString* blockID = [[NSString alloc] initWithData:dataLen encoding:NSMacOSRomanStringEncoding];
 			lBytes = [blockHeader bytes]+4;
 			unsigned int blockLength = (lBytes[0]<<24)|(lBytes[1]<<16)|(lBytes[2]<<8)|(lBytes[3]<<0);
 			
@@ -129,6 +130,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 				[NSNumber numberWithUnsignedInt: blockLength], @"length",
 				[NSNumber numberWithUnsignedInt: pos+8], @"offset",
 				nil];
+			[blockID release];
 			
 			// Store it
 			[iffBlocks addObject: block];
@@ -336,9 +338,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 - (NSData*) imageDataWithNumber: (int) num {
 	// Get the index	
 	if (!resourceIndex) {
-		if (![self parseResourceIndex]) return NO;
+		if (![self parseResourceIndex]) return nil;
 	}
-	if (!resourceIndex) return NO;
+	if (!resourceIndex) return nil;
 	
 	// Get the resource
 	return [self dataForChunk: 
@@ -350,9 +352,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 - (NSData*) soundDataWithNumber: (int) num {
 	// Get the index	
 	if (!resourceIndex) {
-		if (![self parseResourceIndex]) return NO;
+		if (![self parseResourceIndex]) return nil;
 	}
-	if (!resourceIndex) return NO;
+	if (!resourceIndex) return nil;
 	
 	// Get the resource
 	return [self dataForChunk: 
@@ -366,16 +368,15 @@ static unsigned int Int4(const unsigned char* bytes) {
 - (NSData*) paletteForPng: (NSData*) png {
 	// (Appends the CRC to the palette, too)
 	const unsigned char* data = [png bytes];
-	unsigned int length = [png length];
+	NSUInteger length = [png length];
 	
 	unsigned int pos = 8;
 	
 	while (pos+8 < length) {
 		unsigned int blockLength = Int4(data + pos);
-		NSString* type = [NSString stringWithCString: data + pos + 4
-											  length: 4];
-		
-		if ([type isEqualToString: @"PLTE"]) {
+		const void* type = data + pos + 4;
+
+		if (memcmp(type, "PLTE", 4) == 0) {
 			return [png subdataWithRange: NSMakeRange(pos+8, blockLength+4)];
 		}
 		
@@ -392,18 +393,17 @@ static unsigned int Int4(const unsigned char* bytes) {
 	NSMutableData* newPng = [[png mutableCopy] autorelease];
 
 	const unsigned char* data = [newPng bytes];
-	unsigned int length = [newPng length];
+	NSUInteger length = [newPng length];
 	
 	unsigned int pos = 8;
 	
 	while (pos+8 < length) {
 		unsigned int blockLength = Int4(data + pos);
-		NSString* type = [NSString stringWithCString: data + pos + 4
-											  length: 4];
+		const void* type = data + pos + 4;
 		
-		if ([type isEqualToString: @"PLTE"]) {
+		if (memcmp(type, "PLTE", 4) == 0) {
 			unsigned char lenBlock[4];
-			unsigned int newLen = [newPalette length];
+			NSUInteger newLen = [newPalette length];
 			
 			newLen -= 4;
 			lenBlock[0] = (unsigned char)(newLen>>24); lenBlock[1] = (unsigned char)(newLen>>16);
@@ -478,7 +478,7 @@ static const int cacheUpperLimit = 64;
 	
 	// Remove lowest-priority images if the cache gets too full
 	if ([cache count] >= cacheUpperLimit) {
-		NSLog(@"ImageCache: hit %i images (removing oldest entries)", [cache count]);
+		NSLog(@"ImageCache: hit %lu images (removing oldest entries)", (unsigned long)[cache count]);
 		
 		NSEnumerator* keyEnum = [cache keyEnumerator];
 		NSMutableArray* oldestEntries = [NSMutableArray array];
@@ -504,9 +504,9 @@ static const int cacheUpperLimit = 64;
 		
 		// Remove objects from the cache until there are cacheLowerLimit left
 		int x;
-		int numToRemove = [oldestEntries count] - cacheLowerLimit;
+		NSInteger numToRemove = [oldestEntries count] - cacheLowerLimit;
 		
-		NSLog(@"%i entries to remove", numToRemove);
+		NSLog(@"%li entries to remove", (long)numToRemove);
 
 		for (x=0; x<numToRemove; x++) {
 			NSDictionary* entry = [oldestEntries objectAtIndex: x];
@@ -532,7 +532,7 @@ static const int cacheUpperLimit = 64;
 		}
 	}
 	
-	NSLog(@"Removing %i adaptive entries from the cache", [keysToRemove count]);
+	NSLog(@"Removing %lu adaptive entries from the cache", (unsigned long)[keysToRemove count]);
 	
 	keyEnum = [keysToRemove objectEnumerator];
 	while (key = [keyEnum nextObject]) {

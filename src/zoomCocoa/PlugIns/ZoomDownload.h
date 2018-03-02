@@ -8,13 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol ZoomDownloadDelegate;
 
 ///
 /// Class that handles the download and unarchiving of files, such as plugin updates
 ///
 @interface ZoomDownload : NSObject {
 	NSURL* url;													// Where to download from
-	id delegate;												// The download delegate
+	id<ZoomDownloadDelegate> delegate;							// The download delegate
 	NSData* md5;												// The expected MD5 for the downloaded file
 	
 	NSURLConnection* connection;								// The connection that the download will be loaded via
@@ -31,34 +32,36 @@
 
 // Initialisation
 - (id) initWithUrl: (NSURL*) url;								// Prepares to download the specified URL
-- (void) setDelegate: (id) delegate;							// Sets the delegate for this class
+@property (assign) id<ZoomDownloadDelegate> delegate;
 + (void) removeTemporaryDirectory;								// Removes the temporary directory used for downloads (ie, when terminating)
 - (void) setExpectedMD5: (NSData*) md5;							// Sets the expected MD5 for the downloaded file
+@property (copy) NSData *expectedMD5;
 
 // Starting the download
 - (void) startDownload;											// Starts the download running
 
 // Getting the download directory
-- (NSURL*) url;													// The url for this download
-- (NSString*) downloadDirectory;								// The temporary directory where the download was placed (deleted when this object is dealloced)
-- (NSString*) suggestedFilename;								// The filename suggested for this download in the response
+@property (readonly, retain) NSURL *url;						//!< The url for this download
+@property (readonly, copy) NSString *downloadDirectory;			//!< The temporary directory where the download was placed (deleted when this object is dealloced)
+@property (readonly, copy) NSString *suggestedFilename;			//!< The filename suggested for this download in the response
 
 @end
 
 ///
 /// Delegate methods for the download class
 ///
-@interface NSObject(ZoomDownloadDelegate)
+@protocol ZoomDownloadDelegate <NSObject>
+@optional
 
-- (void) downloadStarting: (ZoomDownload*) download;			// A download is starting
-- (void) downloadComplete: (ZoomDownload*) download;			// The download has completed
-- (void) downloadFailed: (ZoomDownload*) download				// The download failed for some reason
+- (void) downloadStarting: (ZoomDownload*) download;			//!< A download is starting
+- (void) downloadComplete: (ZoomDownload*) download;			//!< The download has completed
+- (void) downloadFailed: (ZoomDownload*) download				//!< The download failed for some reason
 				 reason: (NSString*) reason;
 
-- (void) downloadConnecting: (ZoomDownload*) download;			// The download is connecting
-- (void) downloading: (ZoomDownload*) download;					// The download is reading data
-- (void) download: (ZoomDownload*) download						// Value between 0 and 1 indicating how far the download has progressed
+- (void) downloadConnecting: (ZoomDownload*) download;			//!< The download is connecting
+- (void) downloading: (ZoomDownload*) download;					//!< The download is reading data
+- (void) download: (ZoomDownload*) download						//!< Value between 0 and 1 indicating how far the download has progressed
 		completed: (float) complete;
-- (void) downloadUnarchiving: (ZoomDownload*) download;			// Indicates that a .zip or .tar file is being decompressed
+- (void) downloadUnarchiving: (ZoomDownload*) download;			//!M Indicates that a .zip or .tar file is being decompressed
 
 @end

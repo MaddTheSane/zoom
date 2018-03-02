@@ -8,7 +8,7 @@
 
 #import "ZoomDownload.h"
 
-#include "md5.h"
+#include <CommonCrypto/CommonDigest.h>
 
 
 @implementation ZoomDownload
@@ -38,8 +38,8 @@ static int lastDownloadId = 0;
 												  isDirectory: &isDir];
 	if (exists) {
 		NSLog(@"Removing %@", downloadDirectory);
-		[[NSFileManager defaultManager] removeFileAtPath: downloadDirectory
-												 handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: downloadDirectory
+												   error: NULL];
 	}
 }
 
@@ -65,8 +65,8 @@ static int lastDownloadId = 0;
 	// Delete the temporary file
 	if ([[NSFileManager defaultManager] fileExistsAtPath: tmpFile]) {
 		NSLog(@"Removing: %@", tmpFile);
-		[[NSFileManager defaultManager] removeFileAtPath: tmpFile
-												 handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: tmpFile
+												   error: NULL];
 	}
 	
 	// Delete the temporary directory
@@ -76,8 +76,8 @@ static int lastDownloadId = 0;
 												isDirectory: &isDir]) {
 		if (isDir) {
 			NSLog(@"Removing: %@", tmpDirectory);
-			[[NSFileManager defaultManager] removeFileAtPath: tmpDirectory
-													 handler: nil];
+			[[NSFileManager defaultManager] removeItemAtPath: tmpDirectory
+													   error: NULL];
 		}
 	}
 	
@@ -111,15 +111,8 @@ static int lastDownloadId = 0;
 	[super dealloc];
 }
 
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
-
-- (void)setExpectedMD5:(NSData*)newMd5
-{
-	[md5 release];
-	md5 = [newMd5 retain];
-}
+@synthesize delegate;
+@synthesize expectedMD5=md5;
 
 // = Starting the download =
 
@@ -152,7 +145,9 @@ static int lastDownloadId = 0;
 												  isDirectory: &isDir];
 	if (!exists) {
 		[[NSFileManager defaultManager] createDirectoryAtPath: downloadDirectory
-												   attributes: nil];
+												   withIntermediateDirectories: NO
+												   attributes: nil
+														error:NULL];
 	} else if (!isDir) {
 		[downloadDirectory autorelease];
 		downloadDirectory = [[downloadDirectory stringByAppendingString: @"-1"] retain];
@@ -220,12 +215,14 @@ static int lastDownloadId = 0;
 	// Pick a directory name that doesn't already exist
 	while ([[NSFileManager defaultManager] fileExistsAtPath: directory]) {
 		lastDownloadId++;
-		NSString* directory = [downloadDirectory stringByAppendingPathComponent: [NSString stringWithFormat: @"unarchived-%i", lastDownloadId]];
+		directory = [downloadDirectory stringByAppendingPathComponent: [NSString stringWithFormat: @"unarchived-%i", lastDownloadId]];
 	}
 	
 	// Create the directory
 	if ([[NSFileManager defaultManager] createDirectoryAtPath: directory
-												   attributes: nil]) {
+								  withIntermediateDirectories: NO
+												   attributes: nil
+														error: NULL]) {
 		return tmpDirectory = [directory retain];
 	} else {
 		return nil;
@@ -392,14 +389,14 @@ static int lastDownloadId = 0;
 
 - (void)  connection:(NSURLConnection *)conn
   didReceiveResponse:(NSURLResponse *)response {
-	int status = 200;
+	NSInteger status = 200;
 	if ([response isKindOfClass: [NSHTTPURLResponse class]]) {
 		status = [(NSHTTPURLResponse*)response statusCode];
 	}
 	
 	if (status >= 400) {
 		// Failure: give up
-		NSLog(@"Error: %i", status);
+		NSLog(@"Error: %li", (long)status);
 		
 		switch (status)
 		{
@@ -423,7 +420,7 @@ static int lastDownloadId = 0;
 				[self failed: @"The server is currently unavailable"];
 				
 			default:
-				[self failed: [NSString stringWithFormat: @"Server reported code %i", status]];
+				[self failed: [NSString stringWithFormat: @"Server reported code %li", (long)status]];
 		}
 		return;
 	}
@@ -484,8 +481,8 @@ static int lastDownloadId = 0;
 		[downloadFile release];
 		downloadFile = nil;
 		
-		[[NSFileManager defaultManager] removeFileAtPath: tmpFile
-												 handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: tmpFile
+												   error: nil];
 	}
 	
 	[tmpFile release];
@@ -506,7 +503,7 @@ static int lastDownloadId = 0;
 	// Let the delegate know of the progress
 	downloadedSoFar += [data length];
 	
-	if (expectedLength != nil) {
+	if (expectedLength != 0) {
 		float proportion = ((double)downloadedSoFar)/((double)expectedLength);
 		
 		if (delegate && [delegate respondsToSelector: @selector(download:completed:)]) {
@@ -525,8 +522,8 @@ static int lastDownloadId = 0;
 		
 		// If we have an MD5, then verify that the file matches it
 		if (md5) {
-			md5_state_t state;
-			md5_init(&state);
+			CC_MD5_CTX state;
+			CC_MD5_Init(&state);
 			
 			NSFileHandle* readDownload = [NSFileHandle fileHandleForReadingAtPath: tmpFile];
 			if (readDownload == nil) {
@@ -538,7 +535,7 @@ static int lastDownloadId = 0;
 			NSData* readBytes;
 			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 			while ((readBytes = [readDownload readDataOfLength: 65536]) && [readBytes length] > 0) {
-				md5_append(&state, [readBytes bytes], [readBytes length]);
+				CC_MD5_Update(&state, [readBytes bytes], (CC_LONG)[readBytes length]);
 				
 				[pool release];
 				pool = [[NSAutoreleasePool alloc] init];
@@ -546,8 +543,8 @@ static int lastDownloadId = 0;
 			[pool release]; pool = nil;
 			
 			// Finish up and get the MD5 digest
-			md5_byte_t digest[16];
-			md5_finish(&state, digest);
+			unsigned char digest[16];
+			CC_MD5_Final(digest, &state);
 			
 			NSData* digestData = [NSData dataWithBytes: digest
 												length: 16];
@@ -613,17 +610,8 @@ static int lastDownloadId = 0;
 }
 
 // = Getting the download directory =
-
-- (NSURL*) url {
-	return url;
-}
-
-- (NSString*) downloadDirectory {
-	return tmpDirectory;
-}
-
-- (NSString*) suggestedFilename {
-	return suggestedFilename;
-}
+@synthesize url;
+@synthesize downloadDirectory=tmpDirectory;
+@synthesize suggestedFilename;
 
 @end

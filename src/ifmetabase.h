@@ -46,7 +46,7 @@ typedef struct IFValueIterator* IFValueIterator;	/* An iterator that covers the 
 /* Functions - general metabase manipulation */
 
 /* Constructs a new, empty metabase */
-extern IFMetabase IFMB_Create();
+extern IFMetabase IFMB_Create(void);
 
 /* Frees up all the memory associated with a metabase */
 extern void IFMB_Free(IFMetabase meta);

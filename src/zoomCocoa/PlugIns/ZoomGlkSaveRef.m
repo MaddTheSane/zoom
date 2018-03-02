@@ -29,7 +29,7 @@
 			
 		if (![[[newPath pathExtension] lowercaseString] isEqualToString: @"glksave"] || !isDir) {
 			[self autorelease];
-			return [[GlkFileRef alloc] initWithPath: path];
+			return (id)[[GlkFileRef alloc] initWithPath: [NSURL fileURLWithPath:path]];
 		}
 		
 		// Set up the plugin and path for this object
@@ -223,7 +223,7 @@
 	
 // = GlkFileRef implementation =
 
-- (NSObject<GlkStream>*) createReadOnlyStream {
+- (byref NSObject<GlkStream>*) createReadOnlyStream {
 	// Load the skein from the path if it exists
 	NSString* skeinPath = [path stringByAppendingPathComponent: @"Skein.skein"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath: skeinPath]) {
@@ -238,14 +238,14 @@
 	}
 	
 	// Create a read-only stream
-	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
+	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
 	
 	return [stream autorelease];			
 }
 
-- (NSObject<GlkStream>*) createWriteOnlyStream {
+- (byref NSObject<GlkStream>*) createWriteOnlyStream {
 	if ([self createSavePackage]) {
-		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
+		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
 		
 		return [stream autorelease];		
 	}
@@ -254,7 +254,7 @@
 	return nil;
 }
 
-- (NSObject<GlkStream>*) createReadWriteStream {
+- (byref NSObject<GlkStream>*) createReadWriteStream {
 	NSLog(@"WARNING: Save game files should not be opened read/write");
 	
 	// Try creating the savegame file
@@ -263,14 +263,14 @@
 	}
 	
 	// Construct a read/write stream
-	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
+	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
 	
 	return [stream autorelease];			
 }
 
 - (void) deleteFile {
-	[[NSFileManager defaultManager] removeFileAtPath: path 
-											 handler: nil];	
+	[[NSFileManager defaultManager] removeItemAtPath: path
+											   error: NULL];	
 }
 
 - (BOOL) fileExists {

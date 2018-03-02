@@ -11,7 +11,7 @@
 
 extern NSString* ZoomPreferencesHaveChangedNotification;
 
-enum GlulxInterpreter {
+typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 	GlulxGit		= 0,
 	GlulxGlulxe		= 1
 };
@@ -24,9 +24,9 @@ enum GlulxInterpreter {
 // init is the designated initialiser for this class
 
 + (ZoomPreferences*) globalPreferences;
-- (id) initWithDefaultPreferences;
+- (instancetype) initWithDefaultPreferences;
 
-- (id) initWithDictionary: (NSDictionary*) preferences;
+- (instancetype) initWithDictionary: (NSDictionary*) preferences;
 
 // Getting preferences
 + (NSString*) defaultOrganiserDirectory;
@@ -41,19 +41,19 @@ enum GlulxInterpreter {
 // Interpreter preferences
 - (NSString*)     gameTitle;
 - (int)           interpreter;
-- (enum GlulxInterpreter) glulxInterpreter;
+- (GlulxInterpreter) glulxInterpreter;
 - (unsigned char) revision;
 
 // Typographical preferences
-- (NSArray*)      fonts;   // 16 fonts
-- (NSArray*)      colours; // 13 colours
+- (NSArray*)      fonts;   //!< 16 fonts
+- (NSArray<NSColor*>*)      colours; //!< 13 colours
 
 - (NSString*) proportionalFontFamily;
 - (NSString*) fixedFontFamily;
 - (NSString*) symbolicFontFamily;
-- (float) fontSize;
+- (CGFloat) fontSize;
 
-- (float) textMargin;
+- (CGFloat) textMargin;
 - (BOOL) useScreenFonts;
 - (BOOL) useHyphenation;
 
@@ -81,7 +81,7 @@ enum GlulxInterpreter {
 - (void) setSpeakGameText: (BOOL) flag;
 - (void) setConfirmGameClose: (BOOL) flag;
 - (void) setScrollbackLength: (float) value;
-- (void) setGlulxInterpreter: (enum GlulxInterpreter) value;
+- (void) setGlulxInterpreter: (GlulxInterpreter) value;
 
 - (void) setGameTitle: (NSString*) title;
 - (void) setInterpreter: (int) interpreter;

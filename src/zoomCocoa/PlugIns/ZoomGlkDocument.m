@@ -37,53 +37,20 @@
 
 // = Configuring the client =
 
-- (void) setClientPath: (NSString*) newClientPath {
-	[clientPath release];
-	clientPath = [newClientPath copy];
-}
+@synthesize clientPath;
 
 - (void) setInputFilename: (NSString*) newInputPath {
 	[inputPath release];
 	inputPath = [newInputPath copy];
 	
-	[self setFileName: newInputPath];
+	[self setFileURL: [NSURL fileURLWithPath:newInputPath]];
 }
 
-- (void) setStoryData: (ZoomStory*) story {
-	[storyData release];
-	storyData = [story retain];
-}
-
-- (void) setLogo: (NSImage*) newLogo {
-	[logo release];
-	logo = [newLogo retain];
-}
-
-- (ZoomStory*) storyData {
-	return storyData;
-}
-
-- (void) setPreferredSaveDirectory: (NSString*) dir {
-	preferredSaveDir = [dir copy];
-}
-
-- (NSString*) preferredSaveDirectory {
-	return preferredSaveDir;
-}
-
-- (void) setPlugIn: (ZoomPlugIn*) newPlugIn {
-	[plugIn release];
-	plugIn = [newPlugIn retain];
-}
-
-- (ZoomPlugIn*) plugIn {
-	return [[plugIn retain] autorelease];
-}
-
-- (void) setSaveGame: (NSString*) saveGame {
-	[savedGamePath release];
-	savedGamePath = [saveGame copy];
-}
+@synthesize storyData;
+@synthesize logo;
+@synthesize preferredSaveDirectory=preferredSaveDir;
+@synthesize plugIn;
+@synthesize saveGame=savedGamePath;
 
 // = Constructing the window controllers =
 
