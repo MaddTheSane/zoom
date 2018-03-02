@@ -261,7 +261,6 @@
 		4BB8C1B208C249F400D7D334 /* ZoomBlorbFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BF1576306BAD034001A3C27 /* ZoomBlorbFile.h */; };
 		4BB8C1B308C249F400D7D334 /* ZoomConnector.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4D512006E3894F007FAD2B /* ZoomConnector.h */; };
 		4BB8C1B508C249F400D7D334 /* ZoomSkeinLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BAADD7B079053030076ACC4 /* ZoomSkeinLayoutItem.h */; };
-		4BB8C1B808C249F400D7D334 /* zoom-app.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F43050FB21C00A8E303 /* zoom-app.icns */; };
 		4BB8C1B908C249F400D7D334 /* zoom-file.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F45050FB21C00A8E303 /* zoom-file.icns */; };
 		4BB8C1BA08C249F400D7D334 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F51050FB42600A8E303 /* MainMenu.xib */; };
 		4BB8C1BB08C249F400D7D334 /* ZoomClient.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F57050FB49F00A8E303 /* ZoomClient.xib */; };
@@ -960,7 +959,6 @@
 		4BCF3F30050F9E8F00A8E303 /* ZoomServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomServer.m; sourceTree = "<group>"; };
 		4BCF3F33050FAE5700A8E303 /* ZoomZMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomZMachine.h; sourceTree = "<group>"; };
 		4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomZMachine.m; sourceTree = "<group>"; };
-		4BCF3F43050FB21C00A8E303 /* zoom-app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "zoom-app.icns"; path = "../macos/zoom-app.icns"; sourceTree = "<group>"; };
 		4BCF3F44050FB21C00A8E303 /* macreadme.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = macreadme.rtf; path = ../macos/macreadme.rtf; sourceTree = "<group>"; };
 		4BCF3F45050FB21C00A8E303 /* zoom-file.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "zoom-file.icns"; path = "../macos/zoom-file.icns"; sourceTree = "<group>"; };
 		4BCF3F46050FB21C00A8E303 /* zoom-game.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "zoom-game.icns"; path = "../macos/zoom-game.icns"; sourceTree = "<group>"; };
@@ -1546,7 +1544,6 @@
 				55BB926F2048D8D900AB4B5B /* Media.xcassets */,
 				4B1FEB750ACDBC44008B9EFE /* GlkClient.icns */,
 				4B1C13FD05C5A94B00E5796D /* Credits.rtf */,
-				4BCF3F43050FB21C00A8E303 /* zoom-app.icns */,
 				4BCF3F44050FB21C00A8E303 /* macreadme.rtf */,
 				4BCF3F45050FB21C00A8E303 /* zoom-file.icns */,
 				4BCF3F46050FB21C00A8E303 /* zoom-game.icns */,
@@ -2263,7 +2260,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BB8C1B808C249F400D7D334 /* zoom-app.icns in Resources */,
 				4BB8C1B908C249F400D7D334 /* zoom-file.icns in Resources */,
 				4BB8C1BA08C249F400D7D334 /* MainMenu.xib in Resources */,
 				4BB8C1BB08C249F400D7D334 /* ZoomClient.xib in Resources */,
@@ -3273,6 +3269,7 @@
 		4BB8C20408C249F400D7D334 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "zoom-app";
 				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
@@ -3300,6 +3297,7 @@
 		4BB8C20508C249F400D7D334 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "zoom-app";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
