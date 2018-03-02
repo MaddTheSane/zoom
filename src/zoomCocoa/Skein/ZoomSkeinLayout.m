@@ -45,6 +45,9 @@ static NSImage* unchangedDark, *activeDark;
 		if (filename) {
 			img = [[[NSImage alloc] initWithContentsOfFile: filename] autorelease];
 		}
+		if (!img) {
+			img = [[[ourBundle imageForResource:name] copy] autorelease];
+		}
 	}
 	
 	[img setFlipped: YES];

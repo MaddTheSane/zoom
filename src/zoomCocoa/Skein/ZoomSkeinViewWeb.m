@@ -20,7 +20,7 @@
 	}
 }
 
-- (void)dataSourceUpdated:(WebDataSource *)dataSource {
+- (void)dataSourceUpdated:(__unused WebDataSource *)dataSource {
 	NSLog(@"ZoomSkeinView: data source update");
 }
 
@@ -44,7 +44,7 @@
 	NSLog(@"ZoomSkeinView: viewDidMoveToHostWindow");
 }
 
-- (void)viewWillMoveToHostWindow:(NSWindow *)hostWindow {
+- (void)viewWillMoveToHostWindow:(__unused NSWindow *)hostWindow {
 	NSLog(@"ZoomSkeinView: viewWillMoveToHostWindow");
 }
 

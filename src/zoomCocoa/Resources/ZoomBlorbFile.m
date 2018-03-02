@@ -229,8 +229,8 @@ static unsigned int Int4(const unsigned char* bytes) {
 	int pos;
 	for (pos = 4; pos+12 <= [resourceChunk length]; pos += 12) {
 		// Read the chunk
-		NSString* usage = [NSString stringWithCString: data+pos
-											   length: 4];
+		NSData *usageDat = [resourceChunk subdataWithRange:NSMakeRange(pos, 4)];
+		NSString* usage = [[[NSString alloc] initWithData:usageDat encoding:NSMacOSRomanStringEncoding] autorelease];
 		NSNumber* num = [NSNumber numberWithUnsignedInt: (data[pos+4]<<24)|(data[pos+5]<<16)|(data[pos+6]<<8)|(data[pos+7])];
 		NSNumber* start = [NSNumber numberWithUnsignedInt: (data[pos+8]<<24)|(data[pos+9]<<16)|(data[pos+10]<<8)|(data[pos+11])];
 		

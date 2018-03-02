@@ -27,7 +27,9 @@ extern NSString* ZoomStyleAttributeName;
 @class ZoomScrollView;
 @class ZoomTextView;
 @class ZoomPixmapWindow;
-@interface ZoomView : NSView<ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate> {
+@class ZoomLowerWindow;
+@class ZoomUpperWindow;
+@interface ZoomView : NSView<ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate> {
     NSObject<ZMachine>* zMachine;
 
     // Subviews
@@ -52,8 +54,8 @@ extern NSString* ZoomStyleAttributeName;
 	NSArray* originalFonts;			// As for fonts, used to cache the 'original' font definitions when scaling is in effect
     NSArray* colours; // 11 entries
 
-    NSMutableArray* upperWindows;
-    NSMutableArray* lowerWindows; // Not that more than one makes any sort of sense
+    NSMutableArray<ZoomUpperWindow*>* upperWindows;
+    NSMutableArray<ZoomLowerWindow*>* lowerWindows; // Not that more than one makes any sort of sense
     int lastUpperWindowSize;
     int lastTileSize;
     BOOL upperWindowNeedsRedrawing;
@@ -69,17 +71,17 @@ extern NSString* ZoomStyleAttributeName;
     NSObject* delegate;
     
     // Details about the file we're currently saving
-    long creatorCode; // 'YZZY' for Zoom
-    long typeCode;
+    OSType creatorCode; // 'YZZY' for Zoom
+    OSType typeCode;
 	
 	// Preferences
 	ZoomPreferences* viewPrefs;
 	
-	float scaleFactor;
+	CGFloat scaleFactor;
 	
 	// Command history
 	NSMutableArray* commandHistory;
-	int				historyPos;
+	NSInteger		historyPos;
 	
 	// Terminating characters
 	NSSet* terminatingChars;
@@ -166,8 +168,7 @@ extern NSString* ZoomStyleAttributeName;
 - (void) setColours: (NSArray*) colours;
 
 // File saving
-- (long) creatorCode;
-- (void) setCreatorCode: (long) code;
+@property OSType creatorCode;
 
 // The upper window
 - (int)  upperWindowSize;

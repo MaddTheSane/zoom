@@ -27,7 +27,7 @@
 	return YES; // AKA trueYES according to Apple's webkit docs
 }
 
-- (void)setDataSource:(WebDataSource *)dataSource {
+- (void)setDataSource:(__unused WebDataSource *)dataSource {
 	if (webData) [webData release];
 	
 	webData = [[NSMutableData alloc] init];
@@ -35,8 +35,8 @@
 	NSLog(@"ZoomSkein: loading from web");
 }
 
-- (void) receivedError: (NSError *)error 
-		withDataSource: (WebDataSource *)dataSource {
+- (void) receivedError: (__unused NSError *)error
+		withDataSource: (__unused WebDataSource *)dataSource {
 	NSLog(@"ZoomSkein: received error");
 	
 	if (webData) {
@@ -46,7 +46,7 @@
 }
 
 - (void) receivedData:(NSData *)data 
-	   withDataSource:(WebDataSource *)dataSource {
+	   withDataSource:(__unused WebDataSource *)dataSource {
 	NSLog(@"ZoomSkein: received data");
 
 	if (webData) {
@@ -54,7 +54,7 @@
 	}
 }
 
-- (void)finishedLoadingWithDataSource:(WebDataSource *)dataSource {
+- (void)finishedLoadingWithDataSource:(__unused WebDataSource *)dataSource {
 	NSLog(@"ZoomSkein: finished loading");
 
 	if (webData) {

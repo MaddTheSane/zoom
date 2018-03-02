@@ -134,9 +134,8 @@
                 
                 fadeImage = [[NSImage alloc] initWithSize: lineRect.size];
 
-				[fadeImage setFlipped: NO];
                 [fadeImage setSize: lineRect.size];
-                [fadeImage lockFocus];
+                [fadeImage lockFocusFlipped:NO];
 
 				[[NSGraphicsContext currentContext] saveGraphicsState];					
 

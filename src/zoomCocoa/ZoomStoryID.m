@@ -356,11 +356,11 @@
 		}
 		
 		// bytes now contains the Glulx file we want the ID for
-		int memsize = (bytes[16]<<24) | (bytes[17]<<16) | (bytes[18]<<8) | (bytes[19]<<0);
+		NSInteger memsize = (bytes[16]<<24) | (bytes[17]<<16) | (bytes[18]<<8) | (bytes[19]<<0);
 		if (memsize > [data length]) memsize = [data length];
 		
 		// Scan for a UUID
-		int x;
+		NSInteger x;
 		BOOL gotUUID = NO;
 		
 		for (x=0; x<memsize-48; x++) {
@@ -418,7 +418,7 @@
 		} else {
 			int checksum = (bytes[32]<<24) | (bytes[33]<<16) | (bytes[34]<<8) | (bytes[35]<<0);
 
-			ident = IFMB_GlulxIdNotInform(memsize, checksum);
+			ident = IFMB_GlulxIdNotInform((unsigned int)memsize, checksum);
 			needsFreeing = YES;
 		}
 	}

@@ -9,10 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 id SUInfoValueForKey(NSString *key);
-NSString *SUHostAppName();
-NSString *SUHostAppDisplayName();
-NSString *SUHostAppVersion();
-NSString *SUHostAppVersionString();
+NSString *SUHostAppName(void);
+NSString *SUHostAppDisplayName(void);
+NSString *SUHostAppVersion(void);
+NSString *SUHostAppVersionString(void);
 
 NSComparisonResult SUStandardVersionComparison(NSString * versionA, NSString * versionB);
 

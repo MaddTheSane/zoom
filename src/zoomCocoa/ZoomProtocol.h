@@ -147,6 +147,7 @@ enum ZValueTypeMasks {
 // Setting the style that text should be input in
 - (oneway void) setInputStyle: (in bycopy ZStyle*) inputStyle;
 - (bycopy ZStyle*) inputStyle;
+@property (nonatomic, copy) ZStyle *inputStyle;
 
 @end
 
@@ -187,10 +188,10 @@ enum ZValueTypeMasks {
 
 // Gets information about a font
 - (void) getInfoForStyle: (in bycopy ZStyle*) style
-				   width: (out float*) width
-				  height: (out float*) height
-				  ascent: (out float*) ascent
-				 descent: (out float*) descent;
+				   width: (out CGFloat*) width
+				  height: (out CGFloat*) height
+				  ascent: (out CGFloat*) ascent
+				 descent: (out CGFloat*) descent;
 - (bycopy NSDictionary*) attributesForStyle: (in bycopy ZStyle*) style;
 
 // Reading information about the pixmap

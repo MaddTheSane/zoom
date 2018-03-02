@@ -45,7 +45,7 @@
 
 // = Standard window commands =
 
-- (void) clearWithStyle: (ZStyle*) style {
+- (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocus];
 	
     NSColor* backgroundColour = [style reversed]?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
@@ -55,7 +55,7 @@
 	[pixmap unlockFocus];
 }
 
-- (void) setFocus {
+- (oneway void) setFocus {
 }
 
 - (NSSize) sizeOfFont: (NSFont*) font {
@@ -71,8 +71,8 @@
     return NSMakeSize(width, height);
 }
 
-- (void) writeString: (NSString*) string
-		   withStyle: (ZStyle*) style {
+- (oneway void) writeString: (in bycopy NSString*) string
+		   withStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocus];
 	
 	NSLog(@"Warning: should not call standard ZWindow writeString on a pixmap window");
@@ -81,7 +81,7 @@
 }
 
 // Pixmap window commands
-- (void) setSize: (NSSize) windowSize {
+- (void) setSize: (in NSSize) windowSize {
 	if (windowSize.width < 0) {
 		windowSize.width = [zView bounds].size.width;
 	}
@@ -92,8 +92,8 @@
 	[pixmap setSize: windowSize];
 }
 
-- (void) plotRect: (NSRect) rect
-		withStyle: (ZStyle*) style {
+- (void) plotRect: (in NSRect) rect
+		withStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocus];
 	
     NSColor* foregroundColour = [zView foregroundColourForStyle: style];
@@ -104,9 +104,9 @@
 	[zView setNeedsDisplay: YES];
 }
 
-- (void) plotText: (NSString*) text
-		  atPoint: (NSPoint) point
-		withStyle: (ZStyle*) style {
+- (void) plotText: (in bycopy NSString*) text
+		  atPoint: (in NSPoint) point
+		withStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocus];
 		
 	NSMutableDictionary* attr = [[zView attributesForStyle: style] mutableCopy];
@@ -129,7 +129,7 @@
 	backgroundRect.size.width = ceilf(backgroundRect.size.width);
 	backgroundRect.size.height = ceilf(backgroundRect.size.height) + 1.0;
 	
-	[[attr objectForKey: NSBackgroundColorAttributeName] set];
+	[(NSColor*)[attr objectForKey: NSBackgroundColorAttributeName] set];
 	NSRectFill(backgroundRect);
 	
 	// Draw the text
@@ -143,8 +143,8 @@
 	[zView setNeedsDisplay: YES];
 }
 
-- (void) scrollRegion: (NSRect) region
-			  toPoint: (NSPoint) where {
+- (void) scrollRegion: (in NSRect) region
+			  toPoint: (in NSPoint) where {
 	[pixmap lockFocus];
 	
 	// Used to use NSCopyBits but Apple randomly broke it sometime in Snow Leopard. The docs lied anyway.
@@ -169,11 +169,11 @@
 
 // = Measuring =
 
-- (void) getInfoForStyle: (in ZStyle*) style
-				   width: (out float*) width
-				  height: (out float*) height
-				  ascent: (out float*) ascent
-				 descent: (out float*) descent {
+- (void) getInfoForStyle: (in bycopy ZStyle*) style
+				   width: (out CGFloat*) width
+				  height: (out CGFloat*) height
+				  ascent: (out CGFloat*) ascent
+				 descent: (out CGFloat*) descent {
     int fontnum;
 	
     fontnum =
@@ -191,18 +191,18 @@
 	*height = fontSize.height+1;
 }
 
-- (out bycopy NSDictionary*) attributesForStyle: (in bycopy ZStyle*) style {
+- (bycopy NSDictionary*) attributesForStyle: (in bycopy ZStyle*) style {
 	return [zView attributesForStyle: style];
 }
 
-- (NSSize) measureString: (in NSString*) string
-			   withStyle: (in ZStyle*) style {
+- (NSSize) measureString: (in bycopy NSString*) string
+			   withStyle: (in bycopy ZStyle*) style {
 	NSDictionary* attr = [zView attributesForStyle: style];
 	
 	return [string sizeWithAttributes: attr];
 }
 
-- (NSColor*) colourAtPixel: (NSPoint) point {
+- (bycopy NSColor*) colourAtPixel: (NSPoint) point {
 	[pixmap lockFocus];
 	
 	if (point.x <= 0) point.x = 1;
@@ -234,8 +234,8 @@
 	return inputStyle;
 }
 
-- (void) plotImageWithNumber: (int) number
-					 atPoint: (NSPoint) point {
+- (void) plotImageWithNumber: (in int) number
+					 atPoint: (in NSPoint) point {
 	NSImage* img = [[zView resources] imageWithNumber: number];
 
 	NSRect imgRect;
@@ -284,7 +284,7 @@
 
 // = Input styles =
 
-- (void) setInputStyle: (ZStyle*) newInputStyle {
+- (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
 	// Do nothing
 }
 

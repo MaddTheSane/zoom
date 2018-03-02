@@ -425,7 +425,9 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	while (libDir = [libEnum nextObject]) {
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
 		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
-													   attributes: nil]) {
+									  withIntermediateDirectories: NO
+													   attributes: nil
+															error: NULL]) {
 			return zoomLib;
 		}
 	}

@@ -44,7 +44,9 @@ static NSMutableDictionary* babelCache = nil;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: babelFolder
 											  isDirectory: &isDir]) {
 		[[NSFileManager defaultManager] createDirectoryAtPath: babelFolder
-												   attributes: @{}];
+								  withIntermediateDirectories: NO
+												   attributes: nil
+														error: NULL];
 		isDir = YES;
 	}
 	
@@ -374,8 +376,8 @@ static NSMutableDictionary* babelCache = nil;
 		if (![[NSFileManager defaultManager] fileExistsAtPath: fullPath]) {
 			continue;
 		}
-		[[NSFileManager defaultManager] removeFileAtPath: fullPath
-												 handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: fullPath
+												   error: NULL];
 	}
 	
 	// Finish up the task

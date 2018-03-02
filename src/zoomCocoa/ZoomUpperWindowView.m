@@ -145,7 +145,7 @@
 	[self setNeedsDisplay: YES];
 }
 
-- (void) blinkCursor: (ZoomCursor*) sender {
+- (void) blinkCursor: (__unused ZoomCursor*) sender {
 	// Draw the cursor
 	[self setNeedsDisplay: YES];
 	// [self setNeedsDisplayInRect: [cursor cursorRect]]; -- FAILS, for some reason the window does not get redrawn correctly
@@ -207,7 +207,7 @@
 	[self setNeedsDisplay: YES];
 }
 
-- (void) inputLineHasChanged: (ZoomInputLine*) sender {
+- (void) inputLineHasChanged: (__unused ZoomInputLine*) sender {
 	[self setNeedsDisplay: YES];
 }
 
@@ -242,13 +242,13 @@
 
 // = Updating the cursor =
 
-- (void) windowDidBecomeKey: (NSNotification*) not {
+- (void) windowDidBecomeKey: (__unused NSNotification*) not {
 	if (cursor) {
 		[cursor setActive: YES];
 	}
 }
 
-- (void) windowDidResignKey: (NSNotification*) not {
+- (void) windowDidResignKey: (__unused NSNotification*) not {
 	if (cursor) {
 		[cursor setActive: NO];
 	}

@@ -11,8 +11,8 @@
 
 @interface ZoomStoryTableView : NSTableView {
 
-	int selectedRow;
-	int selectedColumn;
+	NSInteger selectedRow;
+	NSInteger selectedColumn;
 	
 	BOOL willEdit;
 }

@@ -33,7 +33,7 @@
 }
 
 // Clears the window
-- (void) clearWithStyle: (ZStyle*) style {
+- (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
     [lines release];
     lines = [[NSMutableArray allocWithZone: [self zone]] init];
     xpos = ypos = 0;
@@ -44,13 +44,13 @@
 }
 
 // Sets the input focus to this window
-- (void) setFocus {
+- (oneway void) setFocus {
 	[theView setFocusedView: self];
 }
 
 // Sending data to a window
-- (void) writeString: (NSString*) string
-           withStyle: (ZStyle*) style {
+- (oneway void) writeString: (in bycopy NSString*) string
+           withStyle: (in bycopy ZStyle*) style {
     [style setFixed: YES];
 
     int x;
@@ -76,7 +76,7 @@
     NSMutableAttributedString* thisLine;
     thisLine = [lines objectAtIndex: ypos];
 
-    int strlen = [string length];
+    NSInteger strlen = [string length];
 
     // Make sure there is enough space on this line for the text
     if ([thisLine length] <= xpos+strlen) {
@@ -84,22 +84,20 @@
         NSDictionary* clearStyle = [NSDictionary dictionaryWithObjectsAndKeys:
             fixedFont, NSFontAttributeName,
             nil];
-        char* spaces = malloc((xpos+strlen)-[thisLine length]);
+		NSInteger spacesLen = (xpos+strlen)-[thisLine length];
+        char* spaces = malloc(spacesLen);
 
-        int x;
-        for (x=0; x<(xpos+strlen)-[thisLine length]; x++) {
-            spaces[x] = ' ';
-        }
+		memset(spaces, ' ', spacesLen);
+		NSData *spacesData = [[NSData alloc] initWithBytesNoCopy:spaces length:spacesLen freeWhenDone:YES];
 
         NSAttributedString* spaceString = [[NSAttributedString alloc]
-            initWithString: [NSString stringWithCString: spaces
-                                                 length: (xpos+strlen)-[thisLine length]]
+            initWithString: [[[NSString alloc] initWithData:spacesData encoding:NSASCIIStringEncoding] autorelease]
                 attributes: clearStyle];
         
         [thisLine appendAttributedString: spaceString];
 
+		[spacesData release];
         [spaceString release];
-        free(spaces);
     }
 
     // Replace the appropriate section of the line
@@ -113,19 +111,19 @@
 }
 
 // Size (-1 to indicate an unsplit window)
-- (void) startAtLine: (int) line {
+- (oneway void) startAtLine: (int) line {
     startLine = line;
 }
 
-- (void) endAtLine:   (int) line {
+- (oneway void) endAtLine:   (int) line {
     endLine = line;
 
     [theView rearrangeUpperWindows];
 }
 
 // Cursor positioning
-- (void) setCursorPositionX: (int) xp
-                          Y: (int) yp {
+- (oneway void) setCursorPositionX: (in int) xp
+								 Y: (in int) yp {
     xpos = xp; ypos = yp-startLine;
 	
 	if (xpos < 0) xpos = 0;
@@ -140,17 +138,16 @@
 // Line erasure
 static NSString* blankLine(int length) {
 	char* cString = malloc(length);
-	int x;
 	
-	for (x=0; x<length; x++) cString[x] = ' ';
+	memset(cString, ' ', length);
+	NSData *cStrDat = [NSData dataWithBytesNoCopy:cString length:length freeWhenDone:YES];
 	
-	NSString* res = [NSString stringWithCString: cString 
-										 length: length];
+	NSString* res = [[NSString alloc] initWithData:cStrDat encoding:NSASCIIStringEncoding];
 	
-	return res;
+	return [res autorelease];
 }
 
-- (void) eraseLineWithStyle: (ZStyle*) style {
+- (oneway void) eraseLineWithStyle: (in bycopy ZStyle*) style {
     if (ypos >= [lines count]) {
         int x;
         for (x=[lines count]; x<=ypos; x++) {
@@ -262,13 +259,15 @@ static NSString* blankLine(int length) {
 
 // = Input styles =
 
-- (void) setInputStyle: (ZStyle*) newInputStyle {
+- (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
 	if (inputStyle) [inputStyle release];
 	inputStyle = [newInputStyle copy];
 }
 
-- (ZStyle*) inputStyle {
+- (bycopy ZStyle*) inputStyle {
 	return inputStyle;
 }
+
+@synthesize inputStyle;
 
 @end

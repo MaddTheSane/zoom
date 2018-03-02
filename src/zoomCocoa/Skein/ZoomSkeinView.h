@@ -12,9 +12,9 @@
 #import "ZoomSkeinItem.h"
 #import "ZoomSkeinLayout.h"
 
-extern NSString* ZoomSkeinItemPboardType;
+extern NSPasteboardType ZoomSkeinItemPboardType;
 
-@interface ZoomSkeinView : NSView {
+@interface ZoomSkeinView : NSView <NSTextViewDelegate>  {
 	ZoomSkein* skein;
 	
 	BOOL skeinNeedsLayout;

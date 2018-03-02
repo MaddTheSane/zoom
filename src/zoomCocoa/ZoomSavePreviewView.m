@@ -140,7 +140,7 @@
 			
 			// Use some defaults if no lines are supplied
 			if (!previewLines) {
-				ZoomStory* story = [[NSApp delegate] findStory: storyId];
+				ZoomStory* story = [(ZoomAppDelegate*)[NSApp delegate] findStory: storyId];
 				
 				if (story) {
 					previewLines = [NSArray arrayWithObjects:

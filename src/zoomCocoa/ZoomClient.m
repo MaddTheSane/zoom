@@ -149,13 +149,13 @@
 		return NO;
 	}
 	
-	ZoomMetadata* userMetadata = [[NSApp delegate] userMetadata];
+	ZoomMetadata* userMetadata = [(ZoomAppDelegate*)[NSApp delegate] userMetadata];
 	
 	story = [userMetadata containsStoryWithIdent: storyId]?[userMetadata findOrCreateStory: storyId]:nil;
 	
 	if (!story) {
 		// If there is no metadata, then make some up
-		story = [[NSApp delegate] findStory: storyId];
+		story = [(ZoomAppDelegate*)[NSApp delegate] findStory: storyId];
 		
 		if (story == nil) {
 			story = [[ZoomStory defaultMetadataForFile: [self fileName]] retain];
@@ -165,10 +165,10 @@
 		
 		[story addID: storyId];
 		
-		[[[NSApp delegate] userMetadata] copyStory: story];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
 		[story release];
 		
-		story = [[[NSApp delegate] userMetadata] findOrCreateStory: storyId];
+		story = [[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: storyId];
 		[story retain];
 	} else {
 		// If there is some metadata, then keep it around
@@ -348,8 +348,8 @@
 	}
 	
 	const unsigned char* bytes = [quetzal bytes];
-	unsigned int len = [quetzal length];
-	unsigned int pos = 16;
+	NSUInteger len = [quetzal length];
+	NSUInteger pos = 16;
 	
 	while (pos < len) {
 		unsigned int blockLength = (bytes[pos]<<24)  | (bytes[pos+1]<<16) | (bytes[pos+2]<<8) | bytes[pos+3];

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -383,6 +383,7 @@
 		55BB92532048ADA500AB4B5B /* quill.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BB92522048ADA500AB4B5B /* quill.c */; };
 		55BB92542048AF1300AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92702048D8D900AB4B5B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BB926F2048D8D900AB4B5B /* Media.xcassets */; };
+		55BB927120490D3100AB4B5B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -1023,7 +1024,6 @@
 		4BE62209068C273400369528 /* ZoomPixmapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomPixmapWindow.m; sourceTree = "<group>"; };
 		4BE6236B068CB86300369528 /* ZoomCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomCursor.h; sourceTree = "<group>"; };
 		4BE6236C068CB86300369528 /* ZoomCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomCursor.m; sourceTree = "<group>"; };
-		4BECA7F705B194AA006840BA /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = /usr/local/lib/libexpat.a; sourceTree = "<absolute>"; };
 		4BECA80005B19BE1006840BA /* ifmetadata.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = ifmetadata.c; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		4BECA81B05B19CFB006840BA /* ifmetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifmetadata.h; sourceTree = "<group>"; };
 		4BF02D1E0C4A8141006FC32E /* ZoomGlkSaveRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlkSaveRef.h; sourceTree = "<group>"; };
@@ -1053,6 +1053,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B39CA8408EEFE8F00BA5E90 /* CoreServices.framework in Frameworks */,
+				55BB927120490D3100AB4B5B /* Cocoa.framework in Frameworks */,
 				55BB92512048ACAE00AB4B5B /* libexpat.tbd in Frameworks */,
 				4B39C94708EEF79300BA5E90 /* Foundation.framework in Frameworks */,
 				4B39CBCB08EF006E00BA5E90 /* CoreFoundation.framework in Frameworks */,
@@ -1236,7 +1237,6 @@
 				4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */,
 				4BB27D9F0C592D9100470443 /* Sparkle.framework */,
 				4B39CA8308EEFE8F00BA5E90 /* CoreServices.framework */,
-				4BECA7F705B194AA006840BA /* libexpat.a */,
 				4B5CBB9B069D671200C0AA88 /* Carbon.framework */,
 				4B39CBCA08EF006E00BA5E90 /* CoreFoundation.framework */,
 				4B1E3F60050F7BA000A8E303 /* Cocoa.framework */,
@@ -2127,7 +2127,7 @@
 				LastUpgradeCheck = 0920;
 			};
 			buildConfigurationList = 4B11039608606E2600253E87 /* Build configuration list for PBXProject "ZoomCocoa" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -3038,21 +3038,6 @@
 				OTHER_CFLAGS = (
 					"-DXMLCALL=",
 					"-DHAVE_COREFOUNDATION",
-					"-framework",
-					CoreServices,
-					"-framework",
-					Foundation,
-					"-framework",
-					CoreFoundation,
-				);
-				OTHER_LDFLAGS = (
-					"-framework",
-					CoreServices,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-					"-L/usr/local/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
@@ -3082,21 +3067,6 @@
 				OTHER_CFLAGS = (
 					"-DXMLCALL=",
 					"-DHAVE_COREFOUNDATION",
-					"-framework",
-					CoreServices,
-					"-framework",
-					Foundation,
-					"-framework",
-					CoreFoundation,
-				);
-				OTHER_LDFLAGS = (
-					"-framework",
-					CoreServices,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-					"-L/usr/local/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
@@ -3118,12 +3088,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "ZoomSaveQuickLook-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.save.quicklook;
 				PRODUCT_NAME = ZoomSaveQuickLook;
 				SDKROOT_ppc = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
@@ -3140,12 +3104,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "ZoomSaveQuickLook-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.save.quicklook;
 				PRODUCT_NAME = ZoomSaveQuickLook;
 				SDKROOT_ppc = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";

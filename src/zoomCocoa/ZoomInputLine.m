@@ -74,10 +74,10 @@
 - (void) keyDown: (NSEvent*) evt {
 	NSString* input = [evt characters];
 	
-	int flags = [evt modifierFlags];
+	NSEventModifierFlags flags = [evt modifierFlags];
 	
 	// Ignore events with modifier keys
-	if (flags&(NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask|NSHelpKeyMask) != 0) {
+	if ((flags&(NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask|NSHelpKeyMask)) != 0) {
 		return;
 	}
 	

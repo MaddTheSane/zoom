@@ -97,7 +97,7 @@
 }
 
 // = Setup =
-- (void) loadStoryFile: (NSData*) storyFile {
+- (void) loadStoryFile: (in bycopy NSData*) storyFile {
     // Create the machine file
 	storyData = [storyFile retain];
     ZDataFile* file = [[ZDataFile alloc] initWithData: storyFile];
@@ -144,7 +144,7 @@
 }
 
 // = Running =
-- (void) startRunningInDisplay: (in byref NSObject<ZDisplay>*) disp {
+- (oneway void) startRunningInDisplay: (in byref NSObject<ZDisplay>*) disp {
     NSAutoreleasePool* mainPool = [[NSAutoreleasePool alloc] init];
     
 	// Remember the display
@@ -321,7 +321,7 @@ void cocoa_debug_handler(ZDWord pc) {
 	waitingForBreakpoint = NO;
 }
 
-- (NSData*) staticMemory {
+- (bycopy NSData*) staticMemory {
 	NSData* result = [NSData dataWithBytesNoCopy: machine.memory 
 										  length: machine.story_length<65536?machine.story_length:65536];
 	
@@ -416,7 +416,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return res;
 }
 
-- (NSString*) descriptionForValue: (unsigned) value {
+- (bycopy NSString*) descriptionForValue: (unsigned) value {
 	NSMutableString* description = [NSMutableString string];
 	unsigned mask = [self typeMasksForValue: value];
 	
@@ -492,7 +492,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 - (void) loadDebugSymbolsFrom: (NSString*) symbolFile
 			   withSourcePath: (NSString*) sourcePath {	
-	debug_load_symbols((char*)[symbolFile cString], (char*)[sourcePath cString]);
+	debug_load_symbols((char*)[symbolFile fileSystemRepresentation], (char*)[sourcePath fileSystemRepresentation]);
 
 	// Setup our debugger callback
 	debug_set_bp_handler(cocoa_debug_handler);
@@ -560,14 +560,14 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 - (int) addressForName: (NSString*) name {
-	return debug_find_named_address([name cString]);
+	return debug_find_named_address([name UTF8String]);
 }
 
 - (NSString*) nameForAddress: (int) address {
 	debug_address addr = debug_find_address(address);
 	
 	if (addr.routine != NULL) {
-		return [NSString stringWithCString: addr.routine->name];
+		return @(addr.routine->name);
 	}
 	
 	return nil;
@@ -578,7 +578,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	
 	if (addr.line == NULL) return nil;
 
-	return [NSString stringWithCString: debug_syms.files[addr.line->fl].realname];
+	return @(debug_syms.files[addr.line->fl].realname);
 }
 
 - (NSString*) routineForAddress: (int) address {
@@ -586,7 +586,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	
 	if (addr.routine == NULL) return nil;
 	
-	return [NSString stringWithCString: addr.routine->name];
+	return @(addr.routine->name);
 }
 
 - (int) lineForAddress: (int) address {
@@ -606,7 +606,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 // = Autosave =
-- (NSData*) createGameSave {
+- (bycopy NSData*) createGameSave {
 	// Create a save game, for autosave purposes
 	int len;
 	
@@ -621,17 +621,17 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return result;
 }
 
-- (NSData*) storyFile {
+- (bycopy NSData*) storyFile {
 	return storyData;
 }
 
-- (NSString*) restoreSaveState: (NSData*) saveData {
+- (bycopy NSString*) restoreSaveState: (in bycopy NSData*) saveData {
 	const ZByte* gameData = [saveData bytes];
 	
 	// NOTE: suppresses a warning (but it should be OK)
-	if (!state_decompile((ZByte*)gameData, &machine.stack, &machine.zpc, [saveData length])) {
+	if (!state_decompile((ZByte*)gameData, &machine.stack, &machine.zpc, (ZDWord)[saveData length])) {
 		NSLog(@"ZoomServer: restoreSaveState: failed");
-		return [NSString stringWithCString: state_fail()];
+		return @(state_fail());
 	} else {
 		zmachine_setup_header();
 		
@@ -671,16 +671,16 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 // = Receiving text/characters =
-- (void) inputText: (NSString*) text {
+- (oneway void) inputText: (in bycopy NSString*) text {
     [inputBuffer appendString: text];
 }
 
-- (void) inputTerminatedWithCharacter: (unsigned int) termChar {
+- (oneway void) inputTerminatedWithCharacter: (unsigned int) termChar {
 	terminatingCharacter = termChar;
 }
 
-- (void) inputMouseAtPositionX: (int) posX
-							 Y: (int) posY {
+- (oneway void) inputMouseAtPositionX: (int) posX
+									Y: (int) posY {
 	mousePosX = posX;
 	mousePosY = posY;
 }
@@ -698,7 +698,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 // = Receiving files =
-- (void) filePromptCancelled {
+- (oneway void) filePromptCancelled {
     if (lastFile) {
         [lastFile release];
         lastFile = nil;
@@ -708,7 +708,7 @@ static NSString* zscii_to_string(ZByte* buf) {
     filePromptFinished = YES;
 }
 
-- (void) promptedFileIs: (NSObject<ZFile>*) file
+- (oneway void) promptedFileIs: (in byref NSObject<ZFile>*) file
                    size: (int) size {
     if (lastFile) [lastFile release];
     

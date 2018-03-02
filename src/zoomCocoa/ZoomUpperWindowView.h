@@ -19,7 +19,7 @@
 	ZoomInputLine* inputLine;
 	NSPoint inputLinePos;
 }
-
+- (instancetype)initWithFrame:(NSRect)frame zoomView:(ZoomView*) view;
 - (NSPoint) cursorPos;
 - (void) updateCursor;
 - (void) setFlashCursor: (BOOL) flash;

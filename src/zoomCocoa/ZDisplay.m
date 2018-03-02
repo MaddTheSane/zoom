@@ -16,6 +16,7 @@
 #include "zmachine.h"
 #include "blorb.h"
 #include "zscii.h"
+#include "rc.h"
 
 #ifdef DEBUG
 # define NOTE(x) NSLog(@"ZDisplay: %@", x)
@@ -297,7 +298,7 @@ void display_prints_c(const char* buf) {
 		return;
 	}
 	
-    NSString* str = [NSString stringWithCString: buf];
+    NSString* str = @(buf);
     [[mainMachine buffer] writeString: str
                             withStyle: zDisplayCurrentStyle
                              toWindow: [mainMachine windowNumber: zDisplayCurrentWindow]];
@@ -440,7 +441,7 @@ int display_readline(int* buf, int len, long int timeout) {
 	NSLog(@"ZDisplay: display_readline = %@", inputBuffer);
 #endif
 
-    int realLen = [inputBuffer length];
+    NSInteger realLen = [inputBuffer length];
     if (realLen > (len-1)) {
         realLen = len-1;
     }
@@ -902,7 +903,7 @@ ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToWrite: convert_file_type(purpose)
-                                    defaultName: [NSString stringWithCString: name]];
+                                    defaultName: @(name)];
     
     wait_for_file();
     res = [[mainMachine lastFile] retain];
@@ -922,7 +923,7 @@ ZFile* get_file_read(int* size, char* name, ZFile_type purpose) {
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToRead: convert_file_type(purpose)
-                                   defaultName: [NSString stringWithCString: name]];
+                                   defaultName: @(name)];
     
     wait_for_file();
     res = [[mainMachine lastFile] retain];

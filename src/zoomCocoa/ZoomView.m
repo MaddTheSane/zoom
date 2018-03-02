@@ -8,6 +8,7 @@
 
 #include <signal.h>
 #include <unistd.h>
+#include <tgmath.h>
 
 #import "ZoomView.h"
 #import "ZoomLowerWindow.h"
@@ -250,7 +251,7 @@ static void finalizeViews(void) {
 }
 
 // Drawing
-- (void) drawRect: (NSRect) rect {
+- (void) drawRect: (__unused NSRect) rect {
 	if (pixmapWindow != nil) {
 		NSRect bounds = [self bounds];
 		NSImage* pixmap = [pixmapWindow pixmap];
@@ -379,7 +380,7 @@ static void finalizeViews(void) {
 	}
 }
 
-- (NSObject<ZLowerWindow>*) createLowerWindow {
+- (byref NSObject<ZLowerWindow>*) createLowerWindow {
 	// Can only have one lower window
 	if ([lowerWindows count] > 0) return [lowerWindows objectAtIndex: 0];
 	
@@ -392,7 +393,7 @@ static void finalizeViews(void) {
     return [win autorelease];
 }
 
-- (out byref NSObject<ZUpperWindow>*) createUpperWindow {
+- (byref NSObject<ZUpperWindow>*) createUpperWindow {
 	if (upperWindowsToRestore > 0) {
 		// Restoring upper windows from autosave
 		upperWindowsToRestore--;
@@ -409,7 +410,7 @@ static void finalizeViews(void) {
     return [win autorelease];
 }
 
-- (out byref NSObject<ZPixmapWindow>*) createPixmapWindow {
+- (byref NSObject<ZPixmapWindow>*) createPixmapWindow {
 	if (pixmapWindow == nil) {
 		pixmapWindow = [[ZoomPixmapWindow alloc] initWithZoomView: self];
 
@@ -433,7 +434,7 @@ static void finalizeViews(void) {
 	return pixmapWindow;
 }
 
-- (void) startExclusive {
+- (oneway void) startExclusive {
     exclusiveMode = YES;
 
     while (exclusiveMode) {
@@ -448,7 +449,7 @@ static void finalizeViews(void) {
     [self rearrangeUpperWindows];
 }
 
-- (void) stopExclusive {
+- (oneway void) stopExclusive {
     exclusiveMode = NO;
 }
 
@@ -467,7 +468,7 @@ static void finalizeViews(void) {
 	return 0;
 }
 
-- (void) flushBuffer: (ZBuffer*) toFlush {
+- (oneway void) flushBuffer: (in bycopy ZBuffer*) toFlush {
 #ifdef ZoomTraceTextEditing
 	NSLog(@"Begin editing: flushBuffer");
 #endif
@@ -486,7 +487,7 @@ static void finalizeViews(void) {
 	if (sb < 100.0) {
 		// Number of characters to preserve (4096 -> 1 million)
 		int len = [[textView textStorage] length];
-		float preserve = 4096.0 + powf(sb*10.0, 2);
+		float preserve = 4096.0 + pow(sb*10.0, 2);
 		
 		if (len > ((int)preserve + 2048)) {
 			// Need to truncate
@@ -597,7 +598,7 @@ static void finalizeViews(void) {
 	}	
 }
 
-- (void) shouldReceiveText: (int) maxLength {
+- (void) shouldReceiveText: (in __unused int) maxLength {
 	if (lastAutosave) [lastAutosave release];
 	lastAutosave = [[zMachine createGameSave] retain];
 	
@@ -776,7 +777,7 @@ static void finalizeViews(void) {
 	}
 }
 
-- (void) boundsChanged: (NSNotification*) not {
+- (void) boundsChanged: (__unused NSNotification*) not {
     if (zMachine) {
         [zMachine displaySizeHasChanged];
     }
@@ -1075,9 +1076,9 @@ static void finalizeViews(void) {
 }
 
 // = TextView delegate methods =
-- (BOOL)    	textView:(NSTextView *)aTextView
+- (BOOL)    	textView:(__unused NSTextView *)aTextView
 shouldChangeTextInRange:(NSRange)affectedCharRange
-    replacementString:(NSString *)replacementString {
+	replacementString:(__unused NSString *)replacementString {
     if (affectedCharRange.location < inputPos) {
         return NO;
     } else {
@@ -1085,7 +1086,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     }
 }
 
-- (void)textStorageDidProcessEditing:(NSNotification *)aNotification {
+- (void)textStorageDidProcessEditing:(__unused NSNotification *)aNotification {
     if (!receiving) return;
     
     // Set the input character attributes to the input style
@@ -1105,9 +1106,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     // Check to see if there's any newlines in the input...
     int newlinePos = -1;
     do {
-        int x;
+        NSInteger x;
         NSString* str = [text string];
-        int len = [str length];
+        NSInteger len = [str length];
 
         newlinePos = -1;
 
@@ -1916,8 +1917,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     NSData* inData = [[zoomTaskStdout fileHandleForReading] availableData];
 
     if ([inData length]) {
-        [zoomTaskData appendString: [NSString stringWithCString: [inData bytes]
-                                                         length: [inData length]]];
+        [zoomTaskData appendString: [[[NSString alloc] initWithData:inData encoding:NSUTF8StringEncoding] autorelease]];
         
 		// Yeesh, it must have been REALLY late at night when I wrote this, umm, thing. Contender for most braindead code ever, I think.
 		//printf("%s", [[NSString stringWithCString: [inData bytes]
@@ -1991,11 +1991,6 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     switch (type) {
         default:
         case ZFileQuetzal:
-			if (usePackage) {
-				[panel setRequiredFileType: @"zoomSave"];
-			} else {
-				[panel setRequiredFileType: @"qut"];
-			}
             typeCode = 'IFZS';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ saved game (quetzal) file", saveOpen]];
@@ -2004,7 +1999,6 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
             break;
             
         case ZFileData:
-            [panel setRequiredFileType: @"dat"];
             typeCode = '\?\?\?\?';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ data file", saveOpen]];
@@ -2016,7 +2010,6 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
             break;
             
         case ZFileRecording:
-            [panel setRequiredFileType: @"txt"];
             typeCode = 'TEXT';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ command recording file", saveOpen]];
@@ -2025,7 +2018,6 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
             break;
             
         case ZFileTranscript:
-            [panel setRequiredFileType: [NSString stringWithFormat: @"txt"]];
             typeCode = 'TEXT';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ transcript recording file", saveOpen]];
@@ -2036,47 +2028,41 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 - (void) storePanelPrefs: (NSSavePanel*) panel {
-    [[NSUserDefaults standardUserDefaults] setObject: [panel directory]
-                                              forKey: @"ZoomSavePath"];
-    [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool: [panel isExtensionHidden]]
-                                              forKey: @"ZoomHiddenExtension"];
+    [[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
+										   forKey: @"ZoomSavePath"];
+    [[NSUserDefaults standardUserDefaults] setBool: [panel isExtensionHidden]
+											forKey: @"ZoomHiddenExtension"];
 }
 
-- (long) creatorCode {
-    return creatorCode;
-}
+@synthesize creatorCode;
 
-- (void) setCreatorCode: (long) code {
-    creatorCode = code;
-}
-
-- (void) promptForFileToWrite: (ZFileType) type
-                  defaultName: (NSString*) name {
+- (void) promptForFileToWrite: (in ZFileType) type
+                  defaultName: (in bycopy __unused NSString*) name {
     NSSavePanel* panel = [NSSavePanel savePanel];
     
     [self setupPanel: panel
                 type: type];
 	
-	NSString* directory = nil;
+	NSURL* directory = nil;
 	
 	if (delegate && [delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
-		directory = [delegate defaultSaveDirectory];
+		directory = [NSURL fileURLWithPath: [delegate defaultSaveDirectory]];
 	}
 	
 	if (directory == nil) {
-		directory = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomSavePath"];
+		directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomSavePath"];
 	}
-    
-    [panel beginSheetForDirectory: directory
-                             file: nil
-                   modalForWindow: [self window]
-                    modalDelegate: self
-                   didEndSelector: @selector(savePanelDidEnd:returnCode:contextInfo:) 
-                      contextInfo: [[NSNumber numberWithInt: type] retain]];
+	
+	if (directory) {
+		panel.directoryURL = directory;
+	}
+	[panel beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse result) {
+		[self savePanelDidEnd:panel returnCode:result contextInfo:[@(type) retain]];
+	}];
 }
 
 - (void)savePanelDidEnd: (NSSavePanel *) panel 
-             returnCode: (int) returnCode 
+             returnCode: (NSModalResponse) returnCode
             contextInfo: (void*) contextInfo {
 	NSNumber* typeNum = [(NSNumber*)contextInfo autorelease];
 	ZFileType type = [typeNum intValue];
@@ -2084,7 +2070,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     if (returnCode != NSOKButton) {
         [zMachine filePromptCancelled];
     } else {
-        NSString* fn = [panel filename];
+        NSString* fn = [panel URL].path;
         NSFileHandle* file = nil;
 		
 		BOOL usePackage = NO;
@@ -2167,38 +2153,40 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     }
 }
 
-- (void) promptForFileToRead: (ZFileType) type
-                 defaultName: (NSString*) name {
+- (void) promptForFileToRead: (in ZFileType) type
+                 defaultName: (in bycopy __unused NSString*) name {
     NSOpenPanel* panel = [NSOpenPanel openPanel];
     
     [self setupPanel: panel
                 type: type];
 
 	
-	NSString* directory = nil;
+	NSURL* directory = nil;
 	if (delegate && [delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
-		directory = [delegate defaultSaveDirectory];
+		directory = [NSURL fileURLWithPath: [delegate defaultSaveDirectory]];
 	}
 	
 	if (directory == nil) {
-		directory = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomSavePath"];
+		directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomSavePath"];
 	}	
-    
-    [panel beginSheetForDirectory: directory
-                             file: nil
-                   modalForWindow: [self window]
-                    modalDelegate: self
-                   didEndSelector: @selector(openPanelDidEnd:returnCode:contextInfo:) 
-                      contextInfo: nil];
+	
+	if (directory) {
+		panel.directoryURL = directory;
+	}
+	[panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
+		[self openPanelDidEnd: panel
+				   returnCode: result
+				  contextInfo: nil];
+	}];
 }
 
 - (void)openPanelDidEnd: (NSOpenPanel *) panel 
-             returnCode: (int) returnCode 
-            contextInfo: (void*) contextInfo {
+             returnCode: (NSModalResponse) returnCode
+            contextInfo: (__unused void*) contextInfo {
     if (returnCode != NSOKButton) {
         [zMachine filePromptCancelled];
     } else {
-        NSString* fn = [panel filename];
+        NSString* fn = [panel URL].path;
         NSFileHandle* file = nil;
 
         [self storePanelPrefs: panel];
@@ -2260,7 +2248,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 // = Warnings/errors =
-- (void) displayWarning: (NSString*) warning {
+- (void) displayWarning: (in bycopy NSString*) warning {
 	// FIXME
 	NSString* warningString;
 	
@@ -2290,7 +2278,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 }
 
-- (void) displayFatalError: (NSString*) error {
+- (void) displayFatalError: (in bycopy NSString*) error {
 	NSBeginCriticalAlertSheet(@"Fatal error", @"Stop", nil, nil, [self window], nil, nil, nil, NULL, @"%@", error);
 }
 
@@ -2778,7 +2766,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		[inputLine setDelegate: self];
 }
 
-- (void) inputLineHasChanged: (ZoomInputLine*) sender {
+- (void) inputLineHasChanged: (__unused ZoomInputLine*) sender {
 	[self setNeedsDisplayInRect: [inputLine rectForPoint: inputLinePos]];
 }
 
@@ -2803,7 +2791,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 }
 
-- (NSString*) receivedTextToDate {
+- (bycopy NSString*) receivedTextToDate {
 	// Used to retrieve the text received in the view so far: for example, to find out what the user typed prior to a timeout
 	
 	if (inputLine != nil) {
@@ -2821,7 +2809,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 }
 
-- (NSString*) backtrackInputOver: (NSString*) prefix {
+- (bycopy NSString*) backtrackInputOver: (in bycopy NSString*) prefix {
 	if (prefix == nil) return nil;
 		
 	if (inputLine != nil) {

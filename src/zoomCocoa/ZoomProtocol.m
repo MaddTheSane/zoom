@@ -113,14 +113,14 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 }
 
 - (int) fileSize {
-    unsigned long pos = [handle offsetInFile];
+    unsigned long long pos = [handle offsetInFile];
 
     [handle seekToEndOfFile];
-    unsigned long res = [handle offsetInFile];
+    unsigned long long res = [handle offsetInFile];
 
     [handle seekToFileOffset: pos];
 
-    return res;
+    return (int)res;
 }
 
 - (BOOL) endOfFile {
@@ -235,19 +235,19 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     }
 }
 
-- (oneway void) writeByte: (int) byte {
+- (oneway void) writeByte: (__unused int) byte {
     return; // Do nothing
 }
 
-- (oneway void) writeWord: (int) word {
+- (oneway void) writeWord: (__unused int) word {
     return; // Do nothing
 }
 
-- (oneway void) writeDWord: (unsigned int) dword {
+- (oneway void) writeDWord: (__unused unsigned int) dword {
     return; // Do nothing
 }
 
-- (oneway void) writeBlock: (NSData*) block {
+- (oneway void) writeBlock: (in bycopy __unused NSData*) block {
     return; // Do nothing
 }
 
@@ -918,7 +918,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     return res;
 }
 
-- (NSData*) readBlock: (int) length {
+- (bycopy NSData*) readBlock: (int) length {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return nil;

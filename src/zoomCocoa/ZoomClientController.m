@@ -58,7 +58,7 @@
 		
 		[zoomView removeFromSuperview];
 		//[zoomView release];
-		zoomView = [[[self document] defaultView] retain];
+		zoomView = [[(ZoomClient*)[self document] defaultView] retain];
 		
 		[superview addSubview: zoomView];
 		[zoomView setFrame: viewFrame];
@@ -101,7 +101,7 @@
 			// Show an alert			
 			NSBeginAlertSheet(@"Problems were encountered while loading this game", @"Continue",nil, nil,
 							  [self window],
-							  nil, nil, nil, nil, errorText);
+							  nil, nil, nil, nil, @"%@", errorText);
 		}
 	}
 	
@@ -114,7 +114,7 @@
 	[[self retain] autorelease];
 	
 	// Get the file we're going to re-open
-	NSString* filename = [[[[self document] fileName] retain] autorelease];
+	NSString* filename = [[[[self document] fileURL].path retain] autorelease];
 	
 	// Close ourselves down
 	[[self document] close];
@@ -224,7 +224,9 @@
 		if (![[NSFileManager defaultManager] fileExistsAtPath: saveDir
 												  isDirectory: &isDir]) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: saveDir
-															attributes: nil]) {
+										   withIntermediateDirectories: NO
+															attributes: nil
+																 error: NULL]) {
 				// Couldn't create the directory
 				return nil;
 			}
@@ -287,7 +289,7 @@
 		[storyInfo setZarfian: [[sgIValues objectForKey: @"zarfRating"] unsignedIntValue]];
 		[storyInfo setRating: [[sgIValues objectForKey: @"rating"] floatValue]];
 		
-		[[[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	}
 }
 
@@ -349,7 +351,7 @@
 						  @"Finish", @"Continue playing", nil,
 						  [self window], self,
 						  @selector(confirmFinish:returnCode:contextInfo:), nil,
-						  nil, msg);
+						  nil, @"%@", msg);
 		
 		return NO;
 	}
@@ -378,8 +380,8 @@
 		[autosaveData release];
 	} else {
 		if ([[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
-			[[NSFileManager defaultManager] removeFileAtPath: autosaveFile
-													 handler: nil];
+			[[NSFileManager defaultManager] removeItemAtPath: autosaveFile
+													   error: NULL];
 		}
 	}
 		
@@ -553,7 +555,7 @@
 				
 		// Resize the window
 		NSRect frame = [[[self window] screen] frame];
-		if (![[NSApp delegate] leopard]) {
+		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 			[[self window] setShowsResizeIndicator: NO];
 			frame = [NSWindow frameRectForContentRect: frame
 											styleMask: NSBorderlessWindowMask];
@@ -586,10 +588,11 @@
 		[zoomView release];
 		
 		// Perform an animation in Leopard
-		if ([[NSApp delegate] leopard]) {
-			[[[NSApp delegate] leopard] fullScreenView: zoomView
-											 fromFrame: oldWindowFrame
-											   toFrame: frame];			
+		if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
+			[[(ZoomAppDelegate*)[NSApp delegate] leopard]
+			 fullScreenView: zoomView
+			 fromFrame: oldWindowFrame
+			 toFrame: frame];			
 		}
 		
 		isFullscreen = YES;

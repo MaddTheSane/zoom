@@ -74,7 +74,7 @@
 	[waitingViews removeObjectIdenticalTo: view];
 }
 
-- (id<ZDisplay>) connectToDisplay: (id<ZMachine>) zMachine {
+- (byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine {
 	// Get the view that's waiting
 	ZoomView* whichView = [[[waitingViews lastObject] retain] autorelease];	
 	if (whichView == nil) {

@@ -315,8 +315,8 @@ static NSImage* saveBackground;
 	}
 	
 	// Delete the game
-	[[NSFileManager defaultManager] removeFileAtPath: saveDir
-											 handler: nil];
+	[[NSFileManager defaultManager] removeItemAtPath: saveDir
+											   error: NULL];
 	
 	// Force an update of the game window (bit of a hack, being lazy)
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryOrganiserChangedNotification

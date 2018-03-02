@@ -39,7 +39,7 @@
     [self setFrame: frame];
 }
 
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(__unused NSRect)rect {
     NSString* more = @"[More]";
     NSDictionary* moreAttributes =
         [NSDictionary dictionaryWithObjectsAndKeys:

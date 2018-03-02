@@ -63,7 +63,7 @@ static SpeechChannel channel = nil;
 	[text appendString: @"\n\n"];
 }
 
-- (void) inputCharacter: (NSString*) character {
+- (void) inputCharacter: (__unused NSString*) character {
 }
 
 - (void) outputText:     (NSString*) outputText {
@@ -95,28 +95,28 @@ static SpeechChannel channel = nil;
 // Notifications about events that have occured in the view (when using this automation object for output)
 
 - (void) receivedCharacters: (NSString*) characters					// Text has arrived at the specified text buffer window (from the game)
-					 window: (int) windowNumber
-				   fromView: (GlkView*) view {
+					 window: (__unused int) windowNumber
+				   fromView: (__unused GlkView*) view {
 	[text appendString: @"\n\n"];
 	[text appendString: characters];
 }
 
 - (void) userTyped: (NSString*) userInput							// The user has typed the specified string into the specified window (which is any window that is waiting for input)
-			window: (int) windowNumber
-		 lineInput: (BOOL) isLineInput
-		  fromView: (GlkView*) view {
+			window: (__unused int) windowNumber
+		 lineInput: (__unused BOOL) isLineInput
+		  fromView: (__unused GlkView*) view {
 	[text appendString: @"\n\n"];
 	[text appendString: userInput];
 	[text appendString: @"...\n"];
 }
 
-- (void) userClickedAtXPos: (int) xpos
-					  ypos: (int) ypos
-					window: (int) windowNumber
-				  fromView: (GlkView*) view {
+- (void) userClickedAtXPos: (__unused int) xpos
+					  ypos: (__unused int) ypos
+					window: (__unused int) windowNumber
+				  fromView: (__unused GlkView*) view {
 }
 
-- (void) viewWaiting: (GlkView*) view {
+- (void) viewWaiting: (__unused GlkView*) view {
 	[self zoomWaitingForInput];
 }
 
@@ -265,7 +265,7 @@ static SpeechChannel channel = nil;
 
 // Using this automation object for input
 
-- (void) viewIsWaitingForInput: (GlkView*) view {
+- (void) viewIsWaitingForInput: (__unused GlkView*) view {
 	[self zoomWaitingForInput];
 }
 

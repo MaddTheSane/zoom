@@ -682,7 +682,7 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	[xmlStack addObject: element];
 }
 
-- (void) endElement: (const XML_Char*) name {
+- (void) endElement: (__unused const XML_Char*) name {
 	// Pop the last element
 	[xmlStack removeLastObject];
 }

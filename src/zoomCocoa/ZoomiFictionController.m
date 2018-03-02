@@ -419,13 +419,13 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 // = Panel actions =
 
 - (void) addFilesFromPanel: (NSOpenPanel *)sheet
-				returnCode: (int)returnCode
+				returnCode: (NSModalResponse)returnCode
 			   contextInfo: (void *)contextInfo {
 	if (returnCode != NSOKButton) return;
 	
 	// Store the defaults
-	[[NSUserDefaults standardUserDefaults] setObject: [sheet directory]
-											  forKey: addDirectory];
+	[[NSUserDefaults standardUserDefaults] setURL: [sheet directoryURL]
+										   forKey: addDirectory];
 	
 	NSArray * filenames = [sheet filenames];
 	[self addFiles:filenames];
@@ -576,20 +576,21 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	[storiesToAdd setCanChooseDirectories: YES];
 	[storiesToAdd setCanChooseFiles: YES];
 	[storiesToAdd setDelegate: self];
+	storiesToAdd.allowedFileTypes = fileTypes;
 	
-	NSString* path = [[NSUserDefaults standardUserDefaults] objectForKey: addDirectory];
+	NSURL* path = [[NSUserDefaults standardUserDefaults] URLForKey: addDirectory];
+	storiesToAdd.directoryURL = path;
 	
-	[storiesToAdd beginSheetForDirectory: path
-									file: nil
-								   types: nil
-						  modalForWindow: [self window]
-						   modalDelegate: self
-						  didEndSelector: @selector(addFilesFromPanel:returnCode:contextInfo:)
-							 contextInfo: nil];
+	[storiesToAdd retain];
+	[storiesToAdd beginSheetModalForWindow: self.window
+						 completionHandler:^(NSModalResponse result) {
+							 [self addFilesFromPanel:storiesToAdd returnCode:result contextInfo:NULL];
+							 [storiesToAdd release];
+						 }];
 }
 
 - (void) autosaveAlertFinished: (NSWindow *)alert 
-					returnCode: (int)returnCode 
+					returnCode: (NSModalResponse)returnCode
 				   contextInfo: (void *)contextInfo {
 	if (returnCode == NSAlertAlternateReturn) {
 		NSString* filename = [self selectedFilename];
@@ -1172,7 +1173,7 @@ int tableSorter(id a, id b, void* context) {
 
 	if (needsUpdating) [self reloadTableData];
 	[self updateButtons];
-	int numSelected = [mainTableView numberOfSelectedRows];
+	NSInteger numSelected = [mainTableView numberOfSelectedRows];
 	
 	NSImage* coverPicture = nil;
 	
@@ -1477,7 +1478,7 @@ int tableSorter(id a, id b, void* context) {
 - (void)tableView:(NSTableView *)tableView 
    setObjectValue:(id)anObject 
    forTableColumn:(NSTableColumn*)aTableColumn 
-			  row:(int)rowIndex {
+			  row:(NSInteger)rowIndex {
 	//if (needsUpdating) [self reloadTableData];
 
 	if (tableView == mainTableView) {		
@@ -1490,7 +1491,7 @@ int tableSorter(id a, id b, void* context) {
 				  forKey: [aTableColumn identifier]];
 	}
 
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard {
@@ -1526,7 +1527,7 @@ int tableSorter(id a, id b, void* context) {
 
 - (NSDragOperation)tableView:(NSTableView *)tv
                 validateDrop:(id <NSDraggingInfo>)sender
-                 proposedRow:(int)row
+                 proposedRow:(NSInteger)row
        proposedDropOperation:(NSTableViewDropOperation)op {
     NSPasteboard * pasteboard = [sender draggingPasteboard];
     NSArray * types = [pasteboard types];
@@ -1552,9 +1553,9 @@ int tableSorter(id a, id b, void* context) {
 }
 
 - (BOOL)tableView:(NSTableView *)tv 
-	acceptDrop:(id <NSDraggingInfo>)sender 
-	row:(int)row
-    dropOperation:(NSTableViewDropOperation)op {
+	   acceptDrop:(id <NSDraggingInfo>)sender
+			  row:(NSInteger)row
+	dropOperation:(NSTableViewDropOperation)op {
     NSPasteboard * pasteboard = [sender draggingPasteboard];
     NSArray * filenames = [pasteboard propertyListForType:NSFilenamesPboardType];
 	[self addFiles:filenames];
@@ -1677,7 +1678,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setTitle: [[ZoomGameInfoController sharedGameInfoController] title]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoHeadlineChanged: (id) sender {
@@ -1686,7 +1687,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setHeadline: [[ZoomGameInfoController sharedGameInfoController] headline]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoAuthorChanged: (id) sender {
@@ -1695,7 +1696,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setAuthor: [[ZoomGameInfoController sharedGameInfoController] author]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoGenreChanged: (id) sender {
@@ -1704,7 +1705,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setGenre: [[ZoomGameInfoController sharedGameInfoController] genre]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoYearChanged: (id) sender {
@@ -1713,7 +1714,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setYear: [[ZoomGameInfoController sharedGameInfoController] year]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoGroupChanged: (id) sender {
@@ -1722,7 +1723,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setGroup: [[ZoomGameInfoController sharedGameInfoController] group]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoCommentsChanged: (id) sender {
@@ -1731,7 +1732,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setComment: [[ZoomGameInfoController sharedGameInfoController] comments]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoTeaserChanged: (id) sender {
@@ -1740,7 +1741,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setTeaser: [[ZoomGameInfoController sharedGameInfoController] teaser]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoResourceChanged: (id) sender {
@@ -1750,7 +1751,7 @@ int tableSorter(id a, id b, void* context) {
 	// Update the resource path
 	[story setObject: [[ZoomGameInfoController sharedGameInfoController] resourceFilename]
 				 forKey: @"ResourceFilename"];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	
 	// Perform organisation
 	if ([[ZoomPreferences globalPreferences] keepGamesOrganised]) {
@@ -1764,7 +1765,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setZarfian: [[ZoomGameInfoController sharedGameInfoController] zarfRating]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 - (IBAction) infoMyRatingChanged: (id) sender {
@@ -1773,7 +1774,7 @@ int tableSorter(id a, id b, void* context) {
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setRating: [[ZoomGameInfoController sharedGameInfoController] rating]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
 // = NSText delegate =
@@ -1857,7 +1858,7 @@ int tableSorter(id a, id b, void* context) {
 - (void) updateStoriesFromDetailView {
 	// We assume that the attributes are contiguous.
 	NSTextStorage* storage = [gameDetailView textStorage];
-	int pos = 0;
+	NSInteger pos = 0;
 
 	ZoomStory* lastStory = nil;
 	NSString* title = nil;
@@ -1952,7 +1953,7 @@ int tableSorter(id a, id b, void* context) {
 	if (textView == (NSControl*)gameDetailView) {
 		// Update each of the stories in the game detail view
 		[self updateStoriesFromDetailView];
-		[[[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	} else if (textView == searchField) {
 		[self controlTextDidEndEditing: aNotification];
 	} else {
@@ -1986,7 +1987,7 @@ int tableSorter(id a, id b, void* context) {
 		if ([field intValue] == ZoomNoField 
 			&& edited.location + edited.length == [storage length]
 			&& [mainTableView numberOfSelectedRows] == 1) {
-			row = [NSNumber numberWithInt: [mainTableView selectedRow]];
+			row = @([mainTableView selectedRow]);
 			field = [NSNumber numberWithInt: ZoomDescriptionField];
 			story = [self selectedStory];
 		}

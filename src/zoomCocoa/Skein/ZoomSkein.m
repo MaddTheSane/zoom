@@ -272,10 +272,6 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 
 // = Annotation lists =
 
-static NSComparisonResult stringCompare(id a, id b, void* context) {
-	return [(NSString*)a compare: b];
-}
-
 - (NSArray*) annotations {
 	if (rootItem == nil) return nil;
 	
@@ -298,8 +294,7 @@ static NSComparisonResult stringCompare(id a, id b, void* context) {
 	}
 	
 	// Return the result
-	return [[resSet allObjects] sortedArrayUsingFunction: stringCompare
-												 context: nil];
+	return [[resSet allObjects] sortedArrayUsingSelector:@selector(compare:)];
 }
 
 - (NSMenu*) populateMenuWithAction: (SEL) action

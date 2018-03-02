@@ -30,7 +30,7 @@
 }
 
 // Clears the window
-- (void) clearWithStyle: (ZStyle*) style {
+- (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
     // Clear the lower part of all the upper windows
     NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
     ZoomUpperWindow* win;
@@ -54,13 +54,13 @@
 }
 
 // Sets the input focus to this window
-- (void) setFocus {
+- (oneway void) setFocus {
 	[zoomView setFocusedView: self];
 }
 
 // Sending data to a window
-- (void) writeString: (NSString*) string
-           withStyle: (ZStyle*) style {
+- (oneway void) writeString: (in bycopy NSString*) string
+           withStyle: (in bycopy ZStyle*) style {
 	[zoomView writeAttributedString: [zoomView formatZString: string
 												   withStyle: style]];
     //[[[zoomView textView] textStorage] appendAttributedString:
@@ -96,13 +96,15 @@
 
 // = Input styles =
 
-- (void) setInputStyle: (ZStyle*) newInputStyle {
+- (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
 	if (inputStyle) [inputStyle release];
 	inputStyle = [newInputStyle copy];
 }
 
-- (ZStyle*) inputStyle {
+- (bycopy ZStyle*) inputStyle {
 	return inputStyle;
 }
+
+@synthesize inputStyle;
 
 @end
