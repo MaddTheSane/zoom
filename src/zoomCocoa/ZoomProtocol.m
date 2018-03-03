@@ -295,92 +295,19 @@ NSString* ZStyleAttributeName = @"ZStyleAttribute";
     [super dealloc];
 }
 
-- (void) setForegroundColour: (int) zColour {
-    foregroundColour = zColour;
-}
+@synthesize foregroundColour;
+@synthesize backgroundColour;
+@synthesize foregroundTrue;
+@synthesize backgroundTrue;
+@synthesize fixed=isFixed;
+@synthesize forceFixed=isForceFixed;
+@synthesize bold=isBold;
+@synthesize underline=isUnderline;
+@synthesize symbolic=isSymbolic;
+@synthesize reversed=isReversed;
 
-- (void) setBackgroundColour: (int) zColour {
-    backgroundColour = zColour;
-}
-
-- (void) setForegroundTrue: (NSColor*) colour {
-    if (foregroundTrue) [foregroundTrue release];
-    if (colour)
-        foregroundTrue = [colour retain];
-    else
-        foregroundTrue = nil;
-}
-
-- (void) setBackgroundTrue: (NSColor*) colour {
-    if (backgroundTrue) [backgroundTrue release];
-    if (colour)
-        backgroundTrue = [colour retain];
-    else
-        backgroundTrue = nil;
-}
-
-- (void) setFixed: (BOOL) fixed {
-    isFixed = fixed;
-}
-
-- (void) setForceFixed: (BOOL) forceFixed {
-	isForceFixed = forceFixed;
-}
-
-- (void) setBold: (BOOL) bold {
-    isBold = bold;
-}
-
-- (void) setUnderline: (BOOL) underline {
-    isUnderline = underline;
-}
-
-- (void) setSymbolic: (BOOL) symbolic {
-    isSymbolic = symbolic;
-}
-
-- (void) setReversed: (BOOL) reversed {
-    isReversed = reversed;
-}
-
-- (int) foregroundColour {
-    return foregroundColour;
-}
-
-- (int) backgroundColour {
-    return backgroundColour;
-}
-
-- (NSColor*) foregroundTrue {
-    return foregroundTrue;
-}
-
-- (NSColor*) backgroundTrue {
-    return backgroundTrue;
-}
-
-- (BOOL) reversed {
-    return isReversed;
-}
-
-- (BOOL) fixed {
+- (BOOL) isFixed {
     return isFixed || isForceFixed;
-}
-
-- (BOOL) forceFixed {
-	return isForceFixed;
-}
-
-- (BOOL) bold {
-    return isBold;
-}
-
-- (BOOL) underline {
-    return isUnderline;
-}
-
-- (BOOL) symbolic {
-    return isSymbolic;
 }
 
 - (id) copyWithZone: (NSZone*) zone {
@@ -456,11 +383,11 @@ NSString* ZStyleAttributeName = @"ZStyleAttribute";
 
     ZStyle* obj = object;
 
-    if ([obj bold]      == isBold &&
-        [obj underline] == isUnderline &&
-        [obj fixed]     == isFixed &&
-        [obj symbolic]  == isSymbolic &&
-        [obj reversed]  == isReversed &&
+    if (obj.bold      == isBold &&
+        obj.underline == isUnderline &&
+        obj.fixed     == isFixed &&
+        obj.symbolic  == isSymbolic &&
+        obj.reversed  == isReversed &&
         [obj foregroundColour] == foregroundColour &&
         [obj backgroundColour] == backgroundColour &&
         ((foregroundTrue == nil && [obj foregroundTrue] == nil) ||

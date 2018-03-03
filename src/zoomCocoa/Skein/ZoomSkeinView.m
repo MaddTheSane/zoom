@@ -1218,17 +1218,17 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	ZoomSkeinItem* item = [layout itemAtPoint: dragPoint];
 	
 	if (item == nil || item == clickedItem || [item hasChildWithCommand: [clickedItem command]]) {
-		SetThemeCursor(kThemeNotAllowedCursor);
+		[[NSCursor operationNotAllowedCursor] set];
 		
 		return NSDragOperationNone;
 	} else {
 		if ([sender draggingSourceOperationMask]&NSDragOperationMove &&
 			![clickedItem hasChild: item]) {
-			SetThemeCursor(kThemeArrowCursor);
+			[[NSCursor arrowCursor] set];
 			
 			return NSDragOperationMove;
 		} else {
-			SetThemeCursor(kThemeCopyArrowCursor);
+			[[NSCursor dragCopyCursor] set];
 			
 			return NSDragOperationCopy;
 		}
@@ -1571,10 +1571,9 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 }
 
 - (void) saveTranscript: (NSSavePanel *) panel 
-             returnCode: (int) returnCode 
+             returnCode: (NSModalResponse) returnCode
             contextInfo: (void*) contextInfo {
 	NSString* data = (NSString*)contextInfo;
-	[data autorelease];
 	
 	if (returnCode != NSOKButton) return;
 	
@@ -1584,6 +1583,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	
 	// Save the data
 	NSData* stringData = [data dataUsingEncoding: NSUTF8StringEncoding];
+	[data release];
 	[stringData writeToURL: [panel URL]
 				atomically: YES];
 }

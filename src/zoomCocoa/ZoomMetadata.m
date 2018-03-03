@@ -197,7 +197,7 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 - (BOOL) writeToDefaultFile {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
-	NSString* configDir = [[NSApp delegate] zoomConfigDirectory];
+	NSString* configDir = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory];
 	
 	return [self writeToFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]
 				  atomically: YES];

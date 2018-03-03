@@ -177,10 +177,10 @@
     int fontnum;
 	
     fontnum =
-        ([style bold]?1:0)|
-        ([style underline]?2:0)|
-        ([style fixed]?4:0)|
-        ([style symbolic]?8:0);
+        (style.bold?1:0)|
+        (style.underline?2:0)|
+        (style.fixed?4:0)|
+        (style.symbolic?8:0);
 
 	NSFont* font = [zView fontWithStyle: fontnum];
     NSSize fontSize = [self sizeOfFont: font];

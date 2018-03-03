@@ -553,10 +553,10 @@ static void finalizeViews(void) {
 	if (pixmapWindow != nil) {
 		ZStyle* style = [pixmapWindow inputStyle];
 		int fontnum =
-			([style bold]?1:0)|
-			([style underline]?2:0)|
-			([style fixed]?4:0)|
-			([style symbolic]?8:0);
+			(style.bold?1:0)|
+			(style.underline?2:0)|
+			(style.fixed?4:0)|
+			(style.symbolic?8:0);
 		
 		[pixmapCursor positionAt: [pixmapWindow inputPos]
 						withFont: [self fontWithStyle: fontnum]];
@@ -650,10 +650,10 @@ static void finalizeViews(void) {
 		// Move the cursor to the appropriate position
 		ZStyle* style = [pixmapWindow inputStyle];
 		int fontnum =
-			([style bold]?1:0)|
-			([style underline]?2:0)|
-			([style fixed]?4:0)|
-			([style symbolic]?8:0);
+			(style.bold?1:0)|
+			(style.underline?2:0)|
+			(style.fixed?4:0)|
+			(style.symbolic?8:0);
 		
 		[pixmapCursor positionAt: [pixmapWindow inputPos]
 						withFont: [self fontWithStyle: fontnum]];
@@ -795,7 +795,7 @@ static void finalizeViews(void) {
 - (void) clearLowerWindowWithStyle: (ZStyle*) style {
     [[[textView textStorage] mutableString] replaceCharactersInRange: NSMakeRange(0, inputPos)
 																	 withString: @""];
-    [textView setBackgroundColor: [style reversed]?[self foregroundColourForStyle: style]:[self backgroundColourForStyle: style]];
+    [textView setBackgroundColor: style.reversed?[self foregroundColourForStyle: style]:[self backgroundColourForStyle: style]];
     [textView clearPastedLines]; 
 	
 	inputPos = 0;
@@ -1324,10 +1324,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     int fontnum;
 	
     fontnum =
-        ([style bold]?1:0)|
-        ([style underline]?2:0)|
-        ([style fixed]?4:0)|
-        ([style symbolic]?8:0);
+        (style.bold?1:0)|
+        (style.underline?2:0)|
+        (style.fixed?4:0)|
+        (style.symbolic?8:0);
 	
     fontToUse = [fonts objectAtIndex: fontnum];
 	
@@ -1342,7 +1342,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         backgroundColour = [colours objectAtIndex: [style backgroundColour]];
     }
 	
-    if ([style reversed]) {
+    if (style.reversed) {
         NSColor* tmp = foregroundColour;
 		
         foregroundColour = backgroundColour;
@@ -1380,10 +1380,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     int fontnum;
 
     fontnum =
-        ([style bold]?1:0)|
-        ([style underline]?2:0)|
-        ([style fixed]?4:0)|
-        ([style symbolic]?8:0);
+        (style.bold?1:0)|
+        (style.underline?2:0)|
+        (style.fixed?4:0)|
+        (style.symbolic?8:0);
 
     fontToUse = [fonts objectAtIndex: fontnum];
 
@@ -1398,7 +1398,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         backgroundColour = [colours objectAtIndex: [style backgroundColour]];
     }
 	
-    if ([style reversed]) {
+    if (style.reversed) {
         NSColor* tmp = foregroundColour;
 
         foregroundColour = backgroundColour;
@@ -1448,14 +1448,14 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 - (NSColor*) foregroundColourForStyle: (ZStyle*) style {
     NSColor* res;
 
-    if ([style reversed]) {
+    if (style.reversed) {
         res = [style backgroundTrue];
     } else {
         res = [style foregroundTrue];
     }
 
     if (res == nil) {
-        if ([style reversed]) {
+        if (style.reversed) {
             res = [colours objectAtIndex: [style backgroundColour]];
         } else {
             res = [colours objectAtIndex: [style foregroundColour]];
@@ -1474,14 +1474,14 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 - (NSColor*) backgroundColourForStyle: (ZStyle*) style {
     NSColor* res;
 
-    if (![style reversed]) {
+    if (!style.reversed) {
         res = [style backgroundTrue];
     } else {
         res = [style foregroundTrue];
     }
 
     if (res == nil) {
-        if (![style reversed]) {
+        if (!style.reversed) {
             res = [colours objectAtIndex: [style backgroundColour]];
         } else {
             res = [colours objectAtIndex: [style foregroundColour]];
@@ -2046,7 +2046,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	NSURL* directory = nil;
 	
 	if (delegate && [delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
-		directory = [NSURL fileURLWithPath: [delegate defaultSaveDirectory]];
+		NSString *preDir = [delegate defaultSaveDirectory];
+		if (preDir) {
+			directory = [NSURL fileURLWithPath:preDir];
+		}
 	}
 	
 	if (directory == nil) {
@@ -2056,16 +2059,19 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	if (directory) {
 		panel.directoryURL = directory;
 	}
+	[panel retain];
 	[panel beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse result) {
 		[self savePanelDidEnd:panel returnCode:result contextInfo:[@(type) retain]];
+		[panel release];
 	}];
 }
 
 - (void)savePanelDidEnd: (NSSavePanel *) panel 
              returnCode: (NSModalResponse) returnCode
             contextInfo: (void*) contextInfo {
-	NSNumber* typeNum = [(NSNumber*)contextInfo autorelease];
+	NSNumber* typeNum = (NSNumber*)contextInfo;
 	ZFileType type = [typeNum intValue];
+	[typeNum release];
 	
     if (returnCode != NSOKButton) {
         [zMachine filePromptCancelled];
@@ -2163,7 +2169,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	
 	NSURL* directory = nil;
 	if (delegate && [delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
-		directory = [NSURL fileURLWithPath: [delegate defaultSaveDirectory]];
+		NSString *preDir = [delegate defaultSaveDirectory];
+		if (preDir) {
+			directory = [NSURL fileURLWithPath:preDir];
+		}
 	}
 	
 	if (directory == nil) {
@@ -2173,10 +2182,13 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	if (directory) {
 		panel.directoryURL = directory;
 	}
-	[panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
+	
+	[panel retain];
+	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
 		[self openPanelDidEnd: panel
 				   returnCode: result
 				  contextInfo: nil];
+		[panel release];
 	}];
 }
 

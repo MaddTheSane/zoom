@@ -1072,7 +1072,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 				changed = YES;
 			
 				// Store the new location of the game, if necessary
-				if (YES || [oldGameLoc isEqualToString: oldGameFile]) {
+				if (/* DISABLES CODE */ (YES) || [oldGameLoc isEqualToString: oldGameFile]) {
 					NSString* newGameFile = [[self directoryForIdent: ident create: NO] stringByAppendingPathComponent: [oldGameLoc lastPathComponent]];
 					newGameFile = [newGameFile stringByStandardizingPath];
 					
@@ -1184,7 +1184,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 			// Have to move the file from the directory its in to the new directory
 			// Really want to move resources and savegames too... Hmm
 			NSString* oldDir = [filename stringByDeletingLastPathComponent];
-			NSEnumerator* dirEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: oldDir] objectEnumerator];
+			NSEnumerator* dirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: oldDir error:NULL] objectEnumerator];
 			
 			NSString* fileToMove;
 			while (fileToMove = [dirEnum nextObject]) {

@@ -206,8 +206,8 @@ static NSImage* saveBackground;
 	infoRect.size.width -= infoSize.width + 4;
 	infoRect.origin.x += infoSize.width + 4;
 	
-	NSDate* fileDate = [[[NSFileManager defaultManager] fileAttributesAtPath: filename
-																traverseLink: YES] objectForKey: NSFileModificationDate];
+	NSDate* fileDate = [[[NSFileManager defaultManager] attributesOfItemAtPath: [filename stringByResolvingSymlinksInPath]
+																		 error: NULL] objectForKey: NSFileModificationDate];
 	
 	if (fileDate) {
 		NSString* dateString = [[fileDate dateWithCalendarFormat: @"%d %b %Y %H:%M" timeZone: [NSTimeZone defaultTimeZone]] description];

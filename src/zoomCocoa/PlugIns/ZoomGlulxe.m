@@ -109,7 +109,6 @@
 				NSSize pixSize = NSMakeSize([coverRep pixelsWide], [coverRep pixelsHigh]);
 				
 				if (!NSEqualSizes(pixSize, [coverPicture size])) {
-					[coverPicture setScalesWhenResized: YES];
 					[coverPicture setSize: pixSize];
 				}
 				
@@ -124,9 +123,7 @@
 	[decodedFile release];
 	
 	// Default to the Glulxe icon
-	return [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"GlkClient"
-																					 ofType: @"icns"]] 
-		autorelease];
+	return [NSImage imageNamed:@"GlkClient"];
 }
 
 - (NSImage*) logo {
@@ -155,7 +152,6 @@
 				NSSize pixSize = NSMakeSize([coverRep pixelsWide], [coverRep pixelsHigh]);
 				
 				if (!NSEqualSizes(pixSize, [coverPicture size])) {
-					[coverPicture setScalesWhenResized: YES];
 					[coverPicture setSize: pixSize];
 				}
 				

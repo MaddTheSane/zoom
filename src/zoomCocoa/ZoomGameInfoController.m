@@ -276,8 +276,10 @@ static NSString* stringOrEmpty(NSString* str) {
 		openPanel.directoryURL = [NSURL fileURLWithPath:directory];
 	}
 	
+	[openPanel retain];
 	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
 		[self finishedChoosingResourceFile:openPanel returnCode:result contextInfo:NULL];
+		[openPanel release];
 	}];
 }
 

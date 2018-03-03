@@ -35,8 +35,8 @@
 	// you compile for release.
 	//
 	// What's even MORE annoying is that even though the objectValue has an integer value, the intValue of this cell doesn't get set...
-	int pos = [[self objectValue] intValue];
-	int count = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] count];
+	NSInteger pos = [[self objectValue] integerValue];
+	NSInteger count = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] count];
 	if (pos >= 0 && pos < count) {
 		[objectValue release];
 		objectValue = [[[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] objectAtIndex: pos] retain];		

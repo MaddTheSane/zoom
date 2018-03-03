@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CAAnimation.h>
 
-@protocol ZoomLeopard
+@protocol ZoomLeopard <NSObject>
 
 // = Animations =
 

@@ -597,11 +597,11 @@ int display_set_style(int style) {
     ZStyle* newStyle = [zDisplayCurrentStyle copy];
 
     int oldStyle =
-        ([newStyle reversed]?1:0)|
-        ([newStyle bold]?2:0)|
-        ([newStyle underline]?4:0)|
-        ([newStyle fixed]?8:0)|
-        ([newStyle symbolic]?16:0);
+        (newStyle.reversed?1:0)|
+        (newStyle.bold?2:0)|
+        (newStyle.underline?4:0)|
+        (newStyle.fixed?8:0)|
+        (newStyle.symbolic?16:0);
     
     // Not using this any more
     if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];

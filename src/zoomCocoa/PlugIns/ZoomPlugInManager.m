@@ -166,7 +166,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 #if VERBOSITY >= 2
 	NSLog(@"= Loading plugins from: %@", pluginPath);
 #endif
-	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: pluginPath] objectEnumerator];
+	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: pluginPath error: NULL] objectEnumerator];
 	
 	NSString* plugin;
 	while (plugin = [pluginEnum nextObject]) {
@@ -502,8 +502,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 												  isDirectory: &isDir];
 	
 	if (exists && isDir) {
-		NSArray* plugins = [[NSFileManager defaultManager] directoryContentsAtPath: 
-			directory];
+		NSArray* plugins = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: directory error:NULL];
 		NSEnumerator* pluginEnum = [plugins objectEnumerator];
 		NSString* pluginName;
 		while (pluginName = [pluginEnum nextObject]) {
@@ -809,7 +808,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 			NSString* downloadDir = [download downloadDirectory];
 			
 			if (downloadDir != nil) {
-				NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: downloadDir] objectEnumerator];
+				NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: downloadDir error: NULL] objectEnumerator];
 				NSString* downloaded;
 				while (downloaded = [downloadDirEnum nextObject]) {
 					// Need to find a .zoomplugin or .plugin file
@@ -1251,7 +1250,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	NSLog(@"Will finish updating plugins");
 	NSMutableDictionary* pluginDictionary = [NSMutableDictionary dictionary];
 	
-	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: plugins] objectEnumerator];
+	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: plugins error: NULL] objectEnumerator];
 	NSString* pluginName;
 	while (pluginName = [pluginEnum nextObject]) {
 		// Get the information for the next plugin
@@ -1265,7 +1264,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	}
 	
 	// Replace the old plugins with the new ones
-	pluginEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: pendingPlugIns] objectEnumerator];
+	pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: pendingPlugIns error:NULL] objectEnumerator];
 	while (pluginName = [pluginEnum nextObject]) {
 		// Get the information for the next plugin
 		NSString* pluginPath = [pendingPlugIns stringByAppendingPathComponent: pluginName];

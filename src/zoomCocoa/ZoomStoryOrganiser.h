@@ -12,7 +12,7 @@
 #import "ZoomBlorbFile.h"
 
 
-@protocol ZoomStoryIDFetcherProtocol
+@protocol ZoomStoryIDFetcherProtocol <NSObject>
 
 - (out bycopy ZoomStoryID*) idForFile: (in bycopy NSString*) filename;
 - (void) renamedIdent: (in bycopy ZoomStoryID*) ident

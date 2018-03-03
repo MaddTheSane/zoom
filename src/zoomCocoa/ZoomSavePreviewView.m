@@ -60,7 +60,7 @@
 	ourFrame.size.height = 0;
 	
 	// Load all the zoomSave files from the given directory
-	NSArray* contents = [[NSFileManager defaultManager] directoryContentsAtPath: directory];
+	NSArray* contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: directory error:NULL];
 	
 	if (contents == nil) {
 		return;

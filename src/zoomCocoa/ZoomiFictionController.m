@@ -78,8 +78,7 @@ enum {
 
 + (void) initialize {
 	// Create user defaults
-	NSString* docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)
-		objectAtIndex: 0];
+	NSURL* docDir = [[NSFileManager defaultManager] URLForDirectory: NSDocumentDirectory inDomain: NSUserDomainMask appropriateForURL:nil create: NO error: NULL];
 	
 	[[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
 		docDir, addDirectory, @"group", sortGroup, nil]];
@@ -453,7 +452,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 		Class plugin;
 		
 		if (isDir) {
-			NSArray* dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: filename];
+			NSArray* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: filename error:NULL];
 			
 			NSEnumerator* dirContentsEnum = [dirContents objectEnumerator];
 			NSString* dirComponent;
@@ -582,11 +581,10 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	storiesToAdd.directoryURL = path;
 	
 	[storiesToAdd retain];
-	[storiesToAdd beginSheetModalForWindow: self.window
-						 completionHandler:^(NSModalResponse result) {
-							 [self addFilesFromPanel:storiesToAdd returnCode:result contextInfo:NULL];
-							 [storiesToAdd release];
-						 }];
+	[storiesToAdd beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
+		[self addFilesFromPanel:storiesToAdd returnCode:result contextInfo:NULL];
+		[storiesToAdd release];
+	}];
 }
 
 - (void) autosaveAlertFinished: (NSWindow *)alert 
@@ -688,8 +686,8 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 		  forTable: filterTable1];
 	//[[filterColumn headerCell] setStringValue: filterTitle];
 	
-	[filterTable1 selectRow: 0 byExtendingSelection: NO];
-	[filterTable2 selectRow: 0 byExtendingSelection: NO];
+	[filterTable1 selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
+	[filterTable2 selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
 	
 	[self reloadTableData]; [mainTableView reloadData];
 }
@@ -710,7 +708,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 		  forTable: filterTable2];
 	//[[filterColumn headerCell] setStringValue: filterTitle];
 	
-	[filterTable2 selectRow: 0 byExtendingSelection: NO];
+	[filterTable2 selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
 	
 	[self reloadTableData]; [mainTableView reloadData];
 }
@@ -811,8 +809,8 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	return story;
 }
 
-- (int) compareRow: (ZoomStoryID*) a
-		   withRow: (ZoomStoryID*) b {
+- (NSComparisonResult) compareRow: (ZoomStoryID*) a
+						  withRow: (ZoomStoryID*) b {
 	ZoomStory* sA = [self storyForID: a];
 	ZoomStory* sB = [self storyForID: b];
 	
@@ -833,7 +831,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	}
 }
 
-int tableSorter(id a, id b, void* context) {
+NSComparisonResult tableSorter(id a, id b, void* context) {
 	ZoomiFictionController* us = context;
 	
 	return [us compareRow: a withRow: b];
@@ -858,7 +856,7 @@ int tableSorter(id a, id b, void* context) {
 	while (selRow = [selEnum nextObject]) {
 		if ([selRow intValue] == 0) {
 			// All selected - no filtering
-			[filterTable1 selectRow: 0 byExtendingSelection: NO];
+			[filterTable1 selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
 			return NO;
 		}
 		
@@ -896,9 +894,9 @@ int tableSorter(id a, id b, void* context) {
 	
 	tableFilter = YES;
 	while (selRow = [selEnum nextObject]) {
-		if ([selRow intValue] == 0) {
+		if ([selRow integerValue] == 0) {
 			// All selected - no filtering
-			[filterTable2 selectRow: 0 byExtendingSelection: NO];
+			[filterTable2 selectRowIndexes: [NSIndexSet indexSetWithIndex:0] byExtendingSelection: NO];
 			tableFilter = NO;
 			break;
 		}
@@ -907,7 +905,7 @@ int tableSorter(id a, id b, void* context) {
 	}
 	
 	// Remove anything that doesn't match the filter (second filter table *or* the search field)
-	int num;
+	NSInteger num;
 	NSString* searchText = [searchField stringValue];
 	
 	if (!tableFilter && [searchText length] <= 0) return NO; // Nothing to do
@@ -951,11 +949,14 @@ int tableSorter(id a, id b, void* context) {
 	
 	// Store the previous list of selected IDs
 	NSMutableArray* previousIDs = [NSMutableArray array];
-	NSEnumerator* selEnum = [mainTableView selectedRowEnumerator];
-	NSNumber* selRow;
+	NSIndexSet *selRowIdxs = [mainTableView selectedRowIndexes];
 	
-	while (selRow = [selEnum nextObject]) {
-		[previousIDs addObject: [storyList objectAtIndex: [selRow intValue]]];
+	{
+		NSInteger currentIdx = selRowIdxs.firstIndex;
+		while (currentIdx != NSNotFound) {
+			[previousIDs addObject: [storyList objectAtIndex: currentIdx]];
+			currentIdx = [selRowIdxs indexGreaterThanIndex:currentIdx];
+		}
 	}
 
 	// Free up the previous table data
@@ -1012,19 +1013,20 @@ int tableSorter(id a, id b, void* context) {
 	[self sortTableData];
 
 	// Joogle the selection
-	[mainTableView deselectAll: self];
-	selEnum = [previousIDs objectEnumerator];
-	
-	ZoomStoryID* selID;
-	
-	while (selID = [selEnum nextObject]) {
-		NSUInteger index = [storyList indexOfObject: selID];
+	{
+		NSMutableIndexSet *rowIdxs = [NSMutableIndexSet indexSet];
 		
-		if (index != NSNotFound) {
-			[mainTableView selectRow: index
-				byExtendingSelection: YES];
+		for (ZoomStoryID* selID in previousIDs) {
+			NSUInteger index = [storyList indexOfObject: selID];
+			
+			if (index != NSNotFound) {
+				[rowIdxs addIndex:index];
+			}
 		}
+		[mainTableView selectRowIndexes: rowIdxs
+				   byExtendingSelection: NO];
 	}
+
 	
 	// Highlight the 'filter' button if some filtering has occurred
 	if (isFiltered != wasFiltered) {
@@ -1137,7 +1139,7 @@ int tableSorter(id a, id b, void* context) {
 
 		// The other buttons depend on the current selection
 		NSEnumerator* rowEnum = [mainTableView selectedRowEnumerator];
-		int numSelected = 0;
+		NSInteger numSelected = 0;
 		
 		NSNumber* row;
 		
@@ -1147,7 +1149,7 @@ int tableSorter(id a, id b, void* context) {
 		while (row = [rowEnum nextObject]) {
 			numSelected++;
 			
-			ZoomStoryID* ident = [storyList objectAtIndex: [row intValue]];
+			ZoomStoryID* ident = [storyList objectAtIndex: [row integerValue]];
 			NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
 			
 			if ([[NSDocumentController sharedDocumentController] documentForFileName: filename] != nil) {
@@ -1268,7 +1270,6 @@ int tableSorter(id a, id b, void* context) {
 						NSSize pixSize = NSMakeSize([coverRep pixelsWide], [coverRep pixelsHigh]);
 						
 						if (!NSEqualSizes(pixSize, [coverPicture size])) {
-							[coverPicture setScalesWhenResized: YES];
 							[coverPicture setSize: pixSize];
 						}
 					}
@@ -1466,7 +1467,7 @@ int tableSorter(id a, id b, void* context) {
 		[self configureFromMainTableSelection];
 	} else if (tableView == filterTable1 || tableView == filterTable2) {
 		if (tableView == filterTable1) {
-			[filterTable2 selectRow: 0 byExtendingSelection: NO];
+			[filterTable2 selectRowIndexes: [NSIndexSet indexSetWithIndex:0] byExtendingSelection: NO];
 		}
 		
 		[self reloadTableData]; [mainTableView reloadData];
@@ -1654,12 +1655,12 @@ int tableSorter(id a, id b, void* context) {
 - (void)collapseSplitView {
 	splitViewCollapsed = YES;
 
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithFloat:splitViewPercentage] forKey:@"iFictionSplitViewPercentage"];
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool:splitViewCollapsed] forKey:@"iFictionSplitViewCollapsed"];
+	[[NSUserDefaults standardUserDefaults] setFloat: splitViewPercentage forKey:@"iFictionSplitViewPercentage"];
+	[[NSUserDefaults standardUserDefaults] setBool: splitViewCollapsed forKey:@"iFictionSplitViewCollapsed"];
 		
 	// reset browser selection, since the browser is getting hidden
-	[filterTable2 selectRow: 0 byExtendingSelection: NO];
-	[filterTable1 selectRow: 0 byExtendingSelection: NO];
+	[filterTable2 selectRowIndexes: [NSIndexSet indexSetWithIndex:0] byExtendingSelection: NO];
+	[filterTable1 selectRowIndexes: [NSIndexSet indexSetWithIndex:0] byExtendingSelection: NO];
 		
 	[self reloadTableData]; [mainTableView reloadData];
 }
@@ -2277,8 +2278,10 @@ int tableSorter(id a, id b, void* context) {
 	panel.allowedFileTypes = @[@"iFiction"];
 	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomiFictionSavePath"];
 	panel.directoryURL = directory;
+	[panel retain];
 	[panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
 		[self saveMetadataDidEnd:panel returnCode:result contextInfo:nil];
+		[panel release];
 	}];
 }
 
@@ -2303,7 +2306,7 @@ int tableSorter(id a, id b, void* context) {
 	}
 	
 	// Save it!
-	[newMetadata writeToFile: [panel filename]
+	[newMetadata writeToFile: [panel URL].path
 				  atomically: YES];
 	
 	// Store any preference changes
@@ -2475,7 +2478,7 @@ int tableSorter(id a, id b, void* context) {
 		// Filter by the group we just added
 		NSUInteger filterRow = [filterSet1 indexOfObject: groupName];
 		if (filterRow != NSNotFound) {
-			[filterTable1 selectRow: filterRow+1
+			[filterTable1 selectRowIndexes: [NSIndexSet indexSetWithIndex:filterRow+1]
 			   byExtendingSelection: NO];
 		}
 		
@@ -2639,7 +2642,7 @@ int tableSorter(id a, id b, void* context) {
 		NSString* xmlFile;
 		NSString* extension = [[activeDownload suggestedFilename] pathExtension];
 		
-		NSEnumerator* dirEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: [activeDownload downloadDirectory]] objectEnumerator];
+		NSEnumerator* dirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [activeDownload downloadDirectory] error: NULL] objectEnumerator];
 		NSString* path;
 		while (path = [dirEnum nextObject]) {
 			if ([[path pathExtension] isEqualToString: extension]) {
@@ -3271,7 +3274,7 @@ static unsigned int ValueForHexChar(int hex) {
 }
 
 - (void) installPluginFrom: (ZoomDownload*) downloadedPlugin {
-	NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: [downloadedPlugin downloadDirectory]] objectEnumerator];
+	NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [downloadedPlugin downloadDirectory] error: NULL] objectEnumerator];
 	NSString* path;
 	BOOL installed = NO;
 	

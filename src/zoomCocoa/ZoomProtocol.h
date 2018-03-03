@@ -31,14 +31,14 @@ extern NSString* ZBufferNeedsFlushingNotification;
 @class ZStyle;
 @class ZBuffer;
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ZFileType) {
     ZFileQuetzal,
     ZFileTranscript,
     ZFileRecording,
     ZFileData
-} ZFileType;
+};
 
-enum ZValueTypeMasks {
+typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 	ZValueRoutine = 1,
 	ZValueObject  = 2,
 	ZValueClass   = 4,
@@ -48,7 +48,7 @@ enum ZValueTypeMasks {
 };
 
 // == Server-side objects ==
-@protocol ZMachine
+@protocol ZMachine <NSObject>
 
 // Setup
 - (void) loadStoryFile: (in bycopy NSData*) storyFile;
@@ -108,7 +108,7 @@ enum ZValueTypeMasks {
 @end
 
 // == Client-side objects ==
-@protocol ZFile
+@protocol ZFile <NSObject>
 - (int)				   readByte;
 - (unsigned int)	   readWord;
 - (unsigned int)	   readDWord;
@@ -131,7 +131,7 @@ enum ZValueTypeMasks {
 - (oneway void) close;
 @end
 
-@protocol ZWindow
+@protocol ZWindow <NSObject>
 // General Z-Machine window protocol (all windows should have this and another
 // protocol)
 
@@ -216,7 +216,7 @@ enum ZValueTypeMasks {
 
 @end
 
-@protocol ZDisplay
+@protocol ZDisplay <NSObject>
 // Overall display functions
 
 - (void) zMachineHasRestarted;
@@ -346,27 +346,16 @@ extern NSString* ZStyleAttributeName;
 	BOOL isForceFixed;
 }
 
-- (void) setForegroundColour: (int) zColour;
-- (void) setBackgroundColour: (int) zColour;
-- (void) setForegroundTrue:   (NSColor*) colour;
-- (void) setBackgroundTrue:   (NSColor*) colour;
-- (void) setFixed:            (BOOL) fixed;
-- (void) setForceFixed:		  (BOOL) forceFixed;
-- (void) setBold:             (BOOL) bold;
-- (void) setUnderline:        (BOOL) underline;
-- (void) setSymbolic:         (BOOL) symbolic;
-- (void) setReversed:         (BOOL) reversed;
-
-- (int)      foregroundColour;
-- (int)      backgroundColour;
-- (NSColor*) foregroundTrue;
-- (NSColor*) backgroundTrue;
-- (BOOL)     reversed;
-- (BOOL)     fixed;
-- (BOOL)	 forceFixed;
-- (BOOL)     bold;
-- (BOOL)     underline;
-- (BOOL)     symbolic;
+@property int foregroundColour;
+@property int backgroundColour;
+@property (retain) NSColor *foregroundTrue;
+@property (retain) NSColor *backgroundTrue;
+@property (getter=isReversed) BOOL reversed;
+@property (nonatomic, getter=isFixed) BOOL fixed;
+@property (getter=isForceFixed) BOOL forceFixed;
+@property (getter=isBold) BOOL bold;
+@property (getter=isUnderline) BOOL underline;
+@property (getter=isSymbolic) BOOL symbolic;
 
 @end
 
@@ -419,6 +408,6 @@ extern NSString* ZStyleAttributeName;
 @end
 
 // Connecting to the client
-@protocol ZClient
+@protocol ZClient <NSObject>
 - (byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine;
 @end

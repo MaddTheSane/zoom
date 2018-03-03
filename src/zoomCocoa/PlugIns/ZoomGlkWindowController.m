@@ -422,7 +422,7 @@
 		[storyInfo setZarfian: [[sgIValues objectForKey: @"zarfRating"] unsignedIntValue]];
 		[storyInfo setRating: [[sgIValues objectForKey: @"rating"] floatValue]];
 		
-		[[(id)[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	}
 }
 
@@ -549,7 +549,7 @@
 			[fullscreenWindow setHidesOnDeactivate: YES];
 			[fullscreenWindow setReleasedWhenClosed: NO];
 			[fullscreenWindow setOpaque: NO];
-			if ([[NSApp delegate] leopard]) {
+			if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 				[fullscreenWindow setBackgroundColor: [NSColor clearColor]];				
 			}
 			
@@ -595,7 +595,7 @@
 		
 		// Resize the window
 		NSRect frame = [[[self window] screen] frame];
-		if (![[NSApp delegate] leopard]) {
+		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 			[[self window] setShowsResizeIndicator: NO];
 			frame = [NSWindow frameRectForContentRect: frame
 											styleMask: NSBorderlessWindowMask];
@@ -626,10 +626,11 @@
 		[glkView release];
 		
 		// Perform an animation in Leopard
-		if ([[NSApp delegate] leopard]) {
-			[[[NSApp delegate] leopard] fullScreenView: glkView
-											 fromFrame: oldWindowFrame
-											   toFrame: frame];			
+		if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
+			[[(ZoomAppDelegate*)[NSApp delegate] leopard]
+			 fullScreenView: glkView
+			 fromFrame: oldWindowFrame
+			 toFrame: frame];			
 		}
 		
 		isFullscreen = YES;
@@ -681,8 +682,10 @@
 		panel.allowedFileTypes = @[@"glksave"];
 		if (preferredDirectory != nil) [panel setDirectoryURL:[NSURL fileURLWithPath:preferredDirectory]];
 		
-		[panel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
+		[panel retain];
+		[panel beginSheetModalForWindow: [self window] completionHandler: ^(NSModalResponse result) {
 			[self panelDidEnd:panel returnCode:result contextInfo:nil];
+			[panel release];
 		}];
 		
 		[lastPanel release]; lastPanel = [panel retain];		
@@ -698,8 +701,10 @@
 		
 		[panel setAllowedFileTypes: allowedFiletypes];
 		
+		[panel retain];
 		[panel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
 			[self panelDidEnd:panel returnCode:result contextInfo:nil];
+			[panel release];
 		}];
 
 		[lastPanel release]; lastPanel = [panel retain];
@@ -724,10 +729,10 @@
 		} else {
 			GlkFileRef* promptRef = [[GlkFileRef alloc] initWithPath: [panel URL]];
 			[promptHandler promptedFileRef: promptRef];
-			[promptRef autorelease];			
+			[promptRef release];
 		}
 		
-		[[NSUserDefaults standardUserDefaults] setURL: [panel URL]
+		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
 											   forKey: @"GlkSaveDirectory"];
 		if ([self respondsToSelector: @selector(savePreferredDirectory:)]) {
 			[self savePreferredDirectory: [[panel directoryURL] path]];

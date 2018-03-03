@@ -651,12 +651,12 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (void) changeOrganiserDirTo: (NSOpenPanel *)sheet
-				   returnCode: (int)returnCode
+				   returnCode: (NSModalResponse)returnCode
 				  contextInfo: (void *)contextInfo {
 	if (returnCode != NSOKButton) return;
 	
-	[[ZoomStoryOrganiser sharedStoryOrganiser] reorganiseStoriesTo: [sheet directory]];
-	[prefs setOrganiserDirectory: [sheet directory]];
+	[[ZoomStoryOrganiser sharedStoryOrganiser] reorganiseStoriesTo: [sheet URL].path];
+	[prefs setOrganiserDirectory: [sheet URL].path];
 	[organiseDir setString: [prefs organiserDirectory]];
 }
 
@@ -669,14 +669,16 @@ static void appendStyle(NSMutableString* styleName,
 	[dirChooser setCanCreateDirectories: YES];
 	
 	NSString* path = [prefs organiserDirectory];
+	if (path) {
+		NSURL *pathURL = [NSURL fileURLWithPath:path];
+		dirChooser.directoryURL = pathURL;
+	}
 	
-	[dirChooser beginSheetForDirectory: path
-								  file: nil
-								 types: nil
-						modalForWindow: [self window]
-						 modalDelegate: self
-						didEndSelector: @selector(changeOrganiserDirTo:returnCode:contextInfo:)
-						   contextInfo: nil];
+	[dirChooser retain];
+	[dirChooser beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse result) {
+		[self changeOrganiserDirTo:dirChooser returnCode:result contextInfo:nil];
+		[dirChooser release];
+	}];
 }
 
 - (IBAction) resetOrganiseDir: (id) sender {

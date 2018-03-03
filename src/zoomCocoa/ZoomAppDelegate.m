@@ -108,7 +108,7 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 												  isDirectory: &isDir]) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: saveDir
 										   withIntermediateDirectories:NO
-															attributes:nil
+															attributes: nil
 																 error:NULL]) {
 				// Couldn't create the directory
 				return nil;
@@ -564,17 +564,20 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	NSSavePanel* panel = [NSSavePanel savePanel];
 	panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
 
-	NSString* directory = nil;
+	NSURL* directory = nil;
 	if (directory == nil) {
-		directory = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomTranscriptPath"];
+		directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomTranscriptPath"];
 	}
 	if (directory == nil) {
-		directory = NSHomeDirectory();
+		directory = [NSURL fileURLWithPath:NSHomeDirectory()];
 	}
 	
-	[panel beginSheetModalForWindow: [NSApp mainWindow]
-				  completionHandler:^(NSModalResponse result) {
+	panel.directoryURL = directory;
+	
+	[panel retain];
+	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
 		[self saveTranscript:panel returnCode:result contextInfo:[[[[ZoomSkeinController sharedSkeinController] skein] transcriptToPoint: nil] retain]];
+		[panel release];
 	}];
 }
 
@@ -607,10 +610,9 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	panel.directoryURL = directoryURL;
 	
-	[panel beginSheetModalForWindow: [NSApp mainWindow]
-				  completionHandler:^(NSModalResponse result) {
-					  [self saveTranscript:panel returnCode:result contextInfo:[[[[ZoomSkeinController sharedSkeinController] skein] recordingToPoint: nil] retain]];
-				  }];
+	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
+		[self saveTranscript:panel returnCode:result contextInfo:[[[[ZoomSkeinController sharedSkeinController] skein] recordingToPoint: nil] retain]];
+	}];
 }
 
 - (IBAction) saveSkein: (id) sender {
@@ -631,29 +633,30 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	ZoomSkein* skein = [[ZoomSkeinController sharedSkeinController] skein];
 	NSString* xml = [skein xmlData];
 	panel.directoryURL = directory;
+	[panel retain];
 	
-	[panel beginSheetModalForWindow: [NSApp mainWindow]
-				  completionHandler:^(NSModalResponse result) {
-					  [self saveTranscript:panel returnCode:result contextInfo:[xml retain]];
-				  }];
+	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
+		[self saveTranscript:panel returnCode:result contextInfo:[xml retain]];
+		[panel release];
+	}];
 }
 
 - (void) saveTranscript: (NSSavePanel *) panel 
              returnCode: (NSModalResponse) returnCode
             contextInfo: (void*) contextInfo {
 	NSString* data = (NSString*)contextInfo;
-	[data autorelease];
 
 	if (returnCode != NSOKButton) return;
 	
 	// Remember the directory we last saved in
-	[[NSUserDefaults standardUserDefaults] setURL: [panel URL]
-											  forKey: @"ZoomTranscriptPath"];
+	[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
+										   forKey: @"ZoomTranscriptPath"];
 	
 	// Save the data
 	NSData* charData = [data dataUsingEncoding: NSUTF8StringEncoding];
+	[data release];
 	[charData writeToURL: [panel URL]
-			  atomically:YES];
+			  atomically: YES];
 }
 
 - (IBAction) showPluginManager: (id) sender {

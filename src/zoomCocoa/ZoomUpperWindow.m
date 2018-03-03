@@ -39,7 +39,7 @@
     xpos = ypos = 0;
 
     [backgroundColour release];
-    backgroundColour = [[style reversed]?[theView foregroundColourForStyle: style]:[theView backgroundColourForStyle: style]
+    backgroundColour = [style.reversed?[theView foregroundColourForStyle: style]:[theView backgroundColourForStyle: style]
 		retain];
 }
 
