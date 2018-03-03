@@ -69,7 +69,7 @@ int zoom_main(int argc, char** argv)
   /* Seed RNG */
 #ifdef HAVE_GETTIMEOFDAY
   gettimeofday(&tv, NULL);
-  random_seed(tv.tv_sec^tv.tv_usec);
+  random_seed((ZDWord)(tv.tv_sec^tv.tv_usec));
 #else
   random_seed((unsigned int)time(NULL));
 #endif
@@ -132,7 +132,7 @@ int zoom_main(int argc, char** argv)
   {
     char  title[256];
     char* name;
-    int x, len, slashpos;
+    long x, len, slashpos;
 
     len = strlen(args.story_file);
 
@@ -306,7 +306,7 @@ int zoom_main(int argc, char** argv)
 	{
 	  char* filename;
 	  char* pathname;
-	  int x;
+	  long x;
 	  debug_symbol* start;
 	  
 	  filename = malloc(strlen(args.story_file) + strlen("gameinfo.dbg") + 1);

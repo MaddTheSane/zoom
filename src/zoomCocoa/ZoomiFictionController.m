@@ -850,21 +850,24 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	// Get the selected items from the first filter table
 	NSMutableSet* filterFor = [NSMutableSet set];
-	NSEnumerator* selEnum = [filterTable1 selectedRowEnumerator];
-	NSNumber* selRow;
+	NSIndexSet* selEnum = [filterTable1 selectedRowIndexes];
 	
-	while (selRow = [selEnum nextObject]) {
-		if ([selRow intValue] == 0) {
-			// All selected - no filtering
-			[filterTable1 selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
-			return NO;
+	{
+		NSInteger selRow = selEnum.firstIndex;
+		while (selRow != NSNotFound) {
+			if (selRow == 0) {
+				// All selected - no filtering
+				[filterTable1 selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
+				return NO;
+			}
+			
+			[filterFor addObject: [filterSet1 objectAtIndex: selRow-1]];
+			selRow = [selEnum indexGreaterThanIndex:selRow];
 		}
-		
-		[filterFor addObject: [filterSet1 objectAtIndex: [selRow intValue]-1]];
 	}
 	
 	// Remove anything that doesn't match the filter
-	int num;
+	NSInteger num;
 	
 	for (num = 0; num < [storyList count]; num++) {
 		ZoomStoryID* ident = [storyList objectAtIndex: num];
@@ -887,21 +890,24 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	// Get the selected items from the first filter table
 	NSMutableSet* filterFor = [NSMutableSet set];
-	NSEnumerator* selEnum = [filterTable2 selectedRowEnumerator];
-	NSNumber* selRow;
+	NSIndexSet* selEnum = [filterTable2 selectedRowIndexes];
 	
 	BOOL tableFilter;
 	
-	tableFilter = YES;
-	while (selRow = [selEnum nextObject]) {
-		if ([selRow integerValue] == 0) {
-			// All selected - no filtering
-			[filterTable2 selectRowIndexes: [NSIndexSet indexSetWithIndex:0] byExtendingSelection: NO];
-			tableFilter = NO;
-			break;
+	{
+		NSInteger selRow = selEnum.firstIndex;
+		tableFilter = YES;
+		while (selRow != NSNotFound) {
+			if (selRow == 0) {
+				// All selected - no filtering
+				[filterTable2 selectRowIndexes: [NSIndexSet indexSetWithIndex:0] byExtendingSelection: NO];
+				tableFilter = NO;
+				break;
+			}
+			
+			[filterFor addObject: [filterSet2 objectAtIndex: selRow-1]];
+			selRow = [selEnum indexGreaterThanIndex:selRow];
 		}
-		
-		[filterFor addObject: [filterSet2 objectAtIndex: [selRow intValue]-1]];
 	}
 	
 	// Remove anything that doesn't match the filter (second filter table *or* the search field)
@@ -1138,18 +1144,18 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 		[infoButton setEnabled: YES];		
 
 		// The other buttons depend on the current selection
-		NSEnumerator* rowEnum = [mainTableView selectedRowEnumerator];
+		NSIndexSet* rowEnum = [mainTableView selectedRowIndexes];
 		NSInteger numSelected = 0;
 		
-		NSNumber* row;
+		NSInteger row = rowEnum.firstIndex;
 		
 		[continueButton setEnabled: NO];
 		[newgameButton setEnabled: NO];
 		
-		while (row = [rowEnum nextObject]) {
+		while (row != NSNotFound) {
 			numSelected++;
 			
-			ZoomStoryID* ident = [storyList objectAtIndex: [row integerValue]];
+			ZoomStoryID* ident = [storyList objectAtIndex: row];
 			NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
 			
 			if ([[NSDocumentController sharedDocumentController] documentForFileName: filename] != nil) {
@@ -1166,6 +1172,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 					[continueButton setEnabled: YES];
 				}
 			}
+			row = [rowEnum indexGreaterThanIndex:row];
 		}
 	}
 }
@@ -1313,22 +1320,22 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	if (numSelected >= 1) {
 		// Get the story and ident
-		NSEnumerator* rowEnum = [mainTableView selectedRowEnumerator];
-		NSNumber* row;
+		NSIndexSet* rowEnum = [mainTableView selectedRowIndexes];
+		NSInteger row = rowEnum.firstIndex;
 		BOOL extraNewline = NO;
 		NSAttributedString* newlineString = [[[NSAttributedString alloc] initWithString: @"\n"
 																			 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																				 [NSNumber numberWithInt: ZoomNoField], ZoomFieldAttribute,
-																				 [NSNumber numberWithInt: 0], ZoomRowAttribute,
+																				 @(ZoomNoField), ZoomFieldAttribute,
+																				 @0, ZoomRowAttribute,
 																				 nil]] autorelease];
 		
-		while (row = [rowEnum nextObject]) {
-			ZoomStoryID* ident = [storyList objectAtIndex: [row intValue]];
+		while (row != NSNotFound) {
+			ZoomStoryID* ident = [storyList objectAtIndex: row];
 			ZoomStory* story = [self storyForID: ident];
 			
 			// Append the title
 			NSString* title = [story title];
-			NSString* extraText;
+			//NSString* extraText;
 			if (title == nil) title = @"Untitled";
 			if (extraNewline) {
 				[gameDetails appendAttributedString: newlineString];
@@ -1387,6 +1394,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 			
 			// Always flip if the description view is already displayed
 			if (topPanelView == infoView) flipToDescription = YES;
+			row = [rowEnum indexGreaterThanIndex:row];
 		}
 	} else {
 		// Note that there are multiple or no games selected
@@ -2071,14 +2079,9 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	// dialog that way (it appears as a sheet in the drawer. You'd expect a drawer to be a child
 	// window, but it isn't, so there doesn't seem to be a way of retrieving the window to display
 	// under. Well, I can think of a couple of ways around this, but they all feel like ugly hacks)
-	NSEnumerator* rowEnum = [mainTableView selectedRowEnumerator];
-	NSNumber* row;
+	NSIndexSet* rowEnum = [mainTableView selectedRowIndexes];
 	
-	NSMutableArray* storiesToDelete = [NSMutableArray array];
-	
-	while (row = [rowEnum nextObject]) {
-		[storiesToDelete addObject: [storyList objectAtIndex: [row intValue]]];
-	}
+	NSArray *storiesToDelete = [storyList objectsAtIndexes:rowEnum];
 	
 	NSBeginAlertSheet(@"Are you sure?",
 					  @"Delete", @"Keep", nil,
@@ -2293,16 +2296,17 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	// Generate the data to save
 	ZoomMetadata* newMetadata = [[[ZoomMetadata alloc] init] autorelease];
 	
-	NSEnumerator* selEnum = [mainTableView selectedRowEnumerator];
-	NSNumber* selRow;
+	NSIndexSet* selEnum = [mainTableView selectedRowIndexes];
+	NSInteger selRow = selEnum.firstIndex;
 	
-	while (selRow = [selEnum nextObject]) {
-		ZoomStoryID* ident = [storyList objectAtIndex: [selRow intValue]];
+	while (selRow != NSNotFound) {
+		ZoomStoryID* ident = [storyList objectAtIndex: selRow];
 		ZoomStory* story = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
 		
 		if (story != nil) {
 			[newMetadata copyStory: story];
 		}
+		selRow = [selEnum indexGreaterThanIndex:selRow];
 	}
 	
 	// Save it!

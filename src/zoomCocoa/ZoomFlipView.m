@@ -233,9 +233,9 @@
 	}
 }
 
-- (float) percentDone {
+- (CGFloat) percentDone {
 	NSTimeInterval timePassed = -[whenStarted timeIntervalSinceNow];
-	float done = ((float)timePassed)/((float)animationTime);
+	CGFloat done = ((CGFloat)timePassed)/((CGFloat)animationTime);
 	
 	if (done < 0) done = 0;
 	if (done > 1) done = 1.0;
@@ -259,8 +259,8 @@
 		return;
 	}
 		
-	float percentDone = [self percentDone];
-	float percentNotDone = 1.0-percentDone;
+	CGFloat percentDone = [self percentDone];
+	CGFloat percentNotDone = 1.0-percentDone;
 	
 	NSRect bounds = [self bounds];
 	NSSize startSize = [startImage size];

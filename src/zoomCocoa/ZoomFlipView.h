@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#undef FlipUseCoreAnimation
+#define FlipUseCoreAnimation
 
 typedef NS_ENUM(NSInteger, ZoomViewAnimationStyle) {
 	ZoomAnimateLeft,

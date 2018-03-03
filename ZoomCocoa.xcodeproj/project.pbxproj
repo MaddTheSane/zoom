@@ -627,6 +627,13 @@
 			remoteGlobalIDString = 4BF0852A0E166E8300DB5C6B;
 			remoteInfo = GlkSound;
 		};
+		552A0387204B360700A4ECAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BD2747808701E6700C1AE15;
+			remoteInfo = ZoomView;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1956,6 +1963,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				552A0388204B360700A4ECAA /* PBXTargetDependency */,
 			);
 			name = ZoomMetadataImporter;
 			productName = ZoomMetadataImporter;
@@ -2767,6 +2775,11 @@
 			name = git;
 			targetProxy = 4BD093980FACAF0B001F7EF0 /* PBXContainerItemProxy */;
 		};
+		552A0388204B360700A4ECAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BD2747808701E6700C1AE15 /* ZoomView */;
+			targetProxy = 552A0387204B360700A4ECAA /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2995,12 +3008,6 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Glulxe;
 				PRODUCT_NAME = Glulxe;
 				SKIP_INSTALL = YES;
@@ -3018,12 +3025,6 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Glulxe;
 				PRODUCT_NAME = Glulxe;
 				SKIP_INSTALL = YES;
@@ -3035,6 +3036,7 @@
 		4B39C93108EEF63500BA5E90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_MODULES = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -3046,18 +3048,12 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "ZoomMetadataImporter-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				OTHER_CFLAGS = (
 					"-DXMLCALL=",
 					"-DHAVE_COREFOUNDATION",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = mdimporter;
 			};
 			name = Debug;
@@ -3065,6 +3061,7 @@
 		4B39C93208EEF63500BA5E90 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_MODULES = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -3076,18 +3073,12 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "ZoomMetadataImporter-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				OTHER_CFLAGS = (
 					"-DXMLCALL=",
 					"-DHAVE_COREFOUNDATION",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = mdimporter;
 			};
 			name = Release;
@@ -3147,10 +3138,6 @@
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x2e000000,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
@@ -3178,10 +3165,6 @@
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x2e000000,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
@@ -3219,9 +3202,8 @@
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
-					/usr/local/include,
+					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 			};
@@ -3233,9 +3215,8 @@
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
-					/usr/local/include,
+					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -3324,24 +3305,13 @@
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
-				OTHER_CFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-					"-I/usr/local/include",
-				);
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x2f000000,
-					"-L/usr/local/lib",
 				);
 				PRODUCT_NAME = ZoomView;
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -3370,26 +3340,15 @@
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
-				OTHER_CFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-					"-I/usr/local/include",
-				);
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x2f000000,
-					"-L/usr/local/lib",
 				);
 				PRODUCT_NAME = ZoomView;
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;

@@ -20,11 +20,11 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 //
 @interface ZoomPlugInManager : NSObject<ZoomDownloadDelegate> {
 	NSLock* pluginLock;										// The plugin lock
-	id delegate;											// The delegate for this class
+	id<ZoomPlugInManagerDelegate> delegate;					// The delegate for this class
 	
-	NSMutableArray* pluginBundles;							// The bundles containing the loaded plugins
-	NSMutableArray* pluginClasses;							// The ZoomPlugIn classes from the bundles
-	NSMutableDictionary* pluginsToVersions;					// Array mapping plugin versions to names
+	NSMutableArray<NSBundle*>* pluginBundles;				// The bundles containing the loaded plugins
+	NSMutableArray<Class>* pluginClasses;					// The ZoomPlugIn classes from the bundles
+	NSMutableDictionary<NSString*,NSString*>* pluginsToVersions;// Array mapping plugin versions to names
 	
 	NSMutableArray* pluginInformation;						// Information about all plugins known about by this object (including those that live elsewhere)
 	
@@ -47,15 +47,15 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 + (NSString*) plugInsPath;									// The plug-in installation directory
 
 // Setting the delegate
-- (void) setDelegate: (id) delegate;						// Sets a new plug-in delegate
+@property (assign) id<ZoomPlugInManagerDelegate> delegate;	// Sets a new plug-in delegate
 
 // Dealing with existing plugins
 - (void) loadPlugIns;										// Causes this class to load all of the plugins
 - (Class) plugInForFile: (NSString*) fileName;				// Gets the plugin for the specified file
 - (ZoomPlugIn*) instanceForFile: (NSString*) filename;		// Gets a plug-in instance for the specified file
 
-- (NSArray*) pluginBundles;									// The loaded plugin bundles
-- (NSArray*) loadedPlugIns;									// Array of strings indicating the names of the loaded plugins
+- (NSArray<NSBundle*>*) pluginBundles;						// The loaded plugin bundles
+- (NSArray<NSString*>*) loadedPlugIns;						// Array of strings indicating the names of the loaded plugins
 - (NSString*) versionForPlugIn: (NSString*) plugin;			// Returns the version of the plugin with the specified name
 - (BOOL) version: (NSString*) oldVersion					// Compares 
 	 isNewerThan: (NSString*) newVerison;
@@ -75,8 +75,8 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 - (NSString*) versionForBundle: (NSString*) pluginBundle;	// Retrieves the version number of the specified plugin bundle
 
 // Getting information about plugins
-- (NSArray*) informationForPlugins;							// Array of ZoomPlugInInfo objects containing the information about all the plugins known about by this object
-- (void) checkForUpdatesFrom: (NSArray*) urls;				// Performs a check for updates operation on the specified URLs
+- (NSArray<ZoomPlugInInfo*>*) informationForPlugins;		// Array of ZoomPlugInInfo objects containing the information about all the plugins known about by this object
+- (void) checkForUpdatesFrom: (NSArray<NSURL*>*) urls;		// Performs a check for updates operation on the specified URLs
 - (void) checkForUpdates;									// Performs a general check for updates operation
 
 @end
