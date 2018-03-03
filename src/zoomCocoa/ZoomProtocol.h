@@ -112,19 +112,20 @@ enum ZValueTypeMasks {
 - (int)				   readByte;
 - (unsigned int)	   readWord;
 - (unsigned int)	   readDWord;
-- (bycopy NSData*) readBlock: (int) length;
+- (bycopy NSData*) readBlock: (NSInteger) length;
 
-- (oneway void)		   seekTo: (int) pos;
+- (oneway void)		   seekTo: (off_t) pos;
 
 - (oneway void) writeByte:  (int) byte;
 - (oneway void) writeWord:  (int) word;
 - (oneway void) writeDWord: (unsigned int) dword;
 - (oneway void) writeBlock: (in bycopy NSData*) block;
 
-- (BOOL)					sufferedError;
+@property (readonly) BOOL sufferedError;
 - (bycopy NSString*)    errorMessage;
 
-- (int)			fileSize;
+@property (readonly) off_t fileSize;
+@property (readonly) BOOL endOfFile;
 - (BOOL)		endOfFile;
 
 - (oneway void) close;
@@ -293,7 +294,7 @@ enum ZValueTypeMasks {
 // File from data stored in memory
 @interface ZDataFile : NSObject<ZFile> {
     NSData* data;
-    int pos;
+    NSInteger pos;
 }
 
 - (id) initWithData: (NSData*) data;
@@ -311,7 +312,7 @@ enum ZValueTypeMasks {
 	
 	NSDictionary* attributes;
 	
-	int pos;
+	off_t pos;
 }
 
 - (id) initWithPath: (NSString*) path

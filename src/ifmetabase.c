@@ -811,7 +811,7 @@ IFID IFMB_CopyId(IFID ident) {
 		strcpy(result->data.generic.idString, ident->data.generic.idString);
 	} else if (ident->type == ID_MD5) {
 		if (ident->data.md5.systemId != NULL) {
-			int len = strlen(ident->data.md5.systemId);
+			size_t len = strlen(ident->data.md5.systemId);
 			result->data.md5.systemId = malloc(sizeof(char)*(len+1));
 			strcpy(result->data.md5.systemId, ident->data.md5.systemId);
 		}

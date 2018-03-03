@@ -58,12 +58,12 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return (bytes[0]<<8)|bytes[1];
 }
 
-- (bycopy NSData*) readBlock: (int) length {
+- (bycopy NSData*) readBlock: (NSInteger) length {
     NSData* data = [handle readDataOfLength: length];
     return data;
 }
 
-- (oneway void) seekTo: (int) p {
+- (oneway void) seekTo: (off_t) p {
     [handle seekToFileOffset: p];
 }
 
@@ -112,7 +112,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return @"";
 }
 
-- (int) fileSize {
+- (off_t) fileSize {
     unsigned long long pos = [handle offsetInFile];
 
     [handle seekToEndOfFile];
@@ -120,7 +120,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 
     [handle seekToFileOffset: pos];
 
-    return (int)res;
+    return res;
 }
 
 - (BOOL) endOfFile {
@@ -207,7 +207,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return res;
 }
 
-- (bycopy NSData*) readBlock: (int) length {
+- (bycopy NSData*) readBlock: (NSInteger) length {
     const unsigned char* bytes = [data bytes];
 
     if (pos >= [data length]) {
@@ -228,7 +228,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return res;
 }
 
-- (oneway void) seekTo: (int) p {
+- (oneway void) seekTo: (off_t) p {
     pos = p;
     if (pos > [data length]) {
         pos = [data length];
@@ -259,7 +259,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return @"";
 }
 
-- (int) fileSize {
+- (off_t) fileSize {
     return [data length];
 }
 
@@ -918,7 +918,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     return res;
 }
 
-- (bycopy NSData*) readBlock: (int) length {
+- (bycopy NSData*) readBlock: (NSInteger) length {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return nil;
@@ -931,7 +931,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     }
 	
     if ((pos + length) > [[data regularFileContents] length]) {
-        int diff = (pos+length) - [[data regularFileContents] length];
+        NSInteger diff = (pos+length) - [[data regularFileContents] length];
 		
         length -= diff;
     }
@@ -944,7 +944,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     return res;
 }
 
-- (oneway void) seekTo: (int) p {
+- (oneway void) seekTo: (off_t) p {
 	pos = p;
 }
 
@@ -1009,7 +1009,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 	return nil;
 }
 
-- (int) fileSize {
+- (off_t) fileSize {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;

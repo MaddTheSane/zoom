@@ -94,7 +94,7 @@ void IF_ReadIfiction(IFMetabase meta, const unsigned char* xml, size_t size) {
 	XML_SetUserData(theParser, currentState);
 	
 	/* Ready? Go! */
-	XML_Parse(theParser, (const char*)xml, size, 1);
+	XML_Parse(theParser, (const char*)xml, (int)size, 1);
 	
 	/* Clear up any temp stuff we may have created */
 	if (currentState->storyId) IFMB_FreeId(currentState->storyId);

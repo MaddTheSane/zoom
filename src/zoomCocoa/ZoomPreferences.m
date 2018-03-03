@@ -554,13 +554,13 @@ static NSArray* DefaultColours(void) {
 }
 
 - (void) setInterpreter: (NSInteger) inter {
-	[prefs setObject: [NSNumber numberWithInt: inter]
+	[prefs setObject: @(inter)
 			  forKey: interpreter];
 	[self preferencesHaveChanged];
 }
 
 - (void) setRevision: (int) rev {
-	[prefs setObject: [NSNumber numberWithInt: rev]
+	[prefs setObject: @(rev)
 			  forKey: revision];
 	[self preferencesHaveChanged];
 }
