@@ -63,8 +63,7 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	
 	if (image == nil) {
 		// If there's no image, then we need to use a default one
-		image = [[[NSImage alloc] initWithContentsOfFile: [[NSBundle bundleWithIdentifier: @"uk.org.logicalshift.zoom.save.quicklook"] pathForResource: @"zoom-game"
-																																				ofType: @"icns"]] autorelease];
+		image = [[NSBundle bundleWithIdentifier: @"uk.org.logicalshift.zoom.save.quicklook"] imageForResource:@"zoom-game"];
 	}
 
 	// Try to use babel to work out the story ID, if we have no metadata

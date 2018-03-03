@@ -713,7 +713,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4B0A32AE06A5966D00BB8878 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		4B0A32AE06A5966D00BB8878 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4B0A32B506A596DB00BB8878 /* ZoomSkeinWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinWeb.m; sourceTree = "<group>"; };
 		4B0A32E406A59ADA00BB8878 /* ZoomSkeinViewWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinViewWeb.m; sourceTree = "<group>"; };
 		4B0CAB4D097F07C000867EF4 /* ZoomGlkDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlkDocument.h; sourceTree = "<group>"; };
@@ -751,7 +751,7 @@
 		4B1885B50698B867004D8501 /* Skein-unchanged.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-unchanged.png"; sourceTree = "<group>"; };
 		4B1885B60698B867004D8501 /* Skein-changed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-changed.png"; sourceTree = "<group>"; };
 		4B1C13F905C5A94300E5796D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		4B1E3F60050F7BA000A8E303 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		4B1E3F60050F7BA000A8E303 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4B1E3F68050F7C2000A8E303 /* interp_z3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = interp_z3.h; path = build/interp_z3.h; sourceTree = SOURCE_ROOT; };
 		4B1E3F6A050F7C2000A8E303 /* interp_z4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = interp_z4.h; path = build/interp_z4.h; sourceTree = SOURCE_ROOT; };
 		4B1E3F6B050F7C2000A8E303 /* interp_gen.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = interp_gen.h; path = build/interp_gen.h; sourceTree = SOURCE_ROOT; };
@@ -824,8 +824,8 @@
 		4B39C94008EEF75600BA5E90 /* MetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MetadataImporter.h; sourceTree = "<group>"; };
 		4B39C94108EEF75600BA5E90 /* MetadataImporter.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MetadataImporter.m; sourceTree = "<group>"; };
 		4B39C94208EEF75600BA5E90 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
-		4B39CA8308EEFE8F00BA5E90 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
-		4B39CBCA08EF006E00BA5E90 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		4B39CA8308EEFE8F00BA5E90 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		4B39CBCA08EF006E00BA5E90 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		4B3DA126068DAEA800B7090F /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Makefile.am; path = src/Makefile.am; sourceTree = "<group>"; tabWidth = 8; };
 		4B3DA12F068DAF9E00B7090F /* ZoomInputLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomInputLine.h; sourceTree = "<group>"; };
 		4B3DA130068DAF9E00B7090F /* ZoomInputLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomInputLine.m; sourceTree = "<group>"; };
@@ -850,7 +850,7 @@
 		4B5CBB2E069D640900C0AA88 /* ZoomCollapsingSplitView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZoomCollapsingSplitView.m; sourceTree = "<group>"; };
 		4B5CBB78069D656000C0AA88 /* ZoomStoryTableView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZoomStoryTableView.m; sourceTree = "<group>"; };
 		4B5CBB79069D656000C0AA88 /* ZoomStoryTableView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZoomStoryTableView.h; sourceTree = "<group>"; };
-		4B5CBB9B069D671200C0AA88 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		4B5CBB9B069D671200C0AA88 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinAdd.png; sourceTree = "<group>"; };
 		4B5CBC5A069D9EB700C0AA88 /* SkeinAnnotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinAnnotate.png; sourceTree = "<group>"; };
 		4B5CBC5B069D9EB700C0AA88 /* SkeinLocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinLocked.png; sourceTree = "<group>"; };
@@ -864,7 +864,7 @@
 		4B7284880CD37E980079D89B /* ZoomLFlipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomLFlipView.h; sourceTree = "<group>"; };
 		4B7284890CD37E980079D89B /* ZoomLFlipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomLFlipView.m; sourceTree = "<group>"; };
 		4B7284AB0CD37FF50079D89B /* LeopardExtns-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LeopardExtns-Info.plist"; sourceTree = "<group>"; };
-		4B7284FA0CD383C80079D89B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		4B7284FA0CD383C80079D89B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4B7286E60CD3CAFF0079D89B /* ZoomSaveQuickLook.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoomSaveQuickLook.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7286E70CD3CAFF0079D89B /* ZoomSaveQuickLook-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ZoomSaveQuickLook-Info.plist"; sourceTree = "<group>"; };
 		4B7522540CC7FAC500F36ECF /* signpost.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = signpost.icns; sourceTree = "<group>"; };
@@ -894,7 +894,7 @@
 		4B840AC80CC2BB970071F3B3 /* ZoomDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZoomDownloadView.m; sourceTree = "<group>"; };
 		4B840AC90CC2BB970071F3B3 /* ZoomWindowThatIsKey.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZoomWindowThatIsKey.h; sourceTree = "<group>"; };
 		4B840ACA0CC2BB970071F3B3 /* ZoomWindowThatIsKey.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZoomWindowThatIsKey.m; sourceTree = "<group>"; };
-		4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4B84304B0B139F6000679417 /* TADS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TADS.icns; sourceTree = "<group>"; };
 		4B84304D0B139F7200679417 /* HUGO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HUGO.icns; sourceTree = "<group>"; };
 		4B84FDDB0CAFC9970071F3B3 /* ZoomDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomDownload.h; sourceTree = "<group>"; };
@@ -918,9 +918,9 @@
 		4BA2BCEC06949E730082C022 /* ZoomSkein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkein.m; sourceTree = "<group>"; };
 		4BA2BCF20694A0830082C022 /* ZoomSkeinItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinItem.h; sourceTree = "<group>"; };
 		4BA2BCF30694A0830082C022 /* ZoomSkeinItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinItem.m; sourceTree = "<group>"; };
-		4BA373A30CD3CB7B00C7B1D4 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
-		4BA373A40CD3CB7B00C7B1D4 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
-		4BA373A50CD3CB7B00C7B1D4 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
+		4BA373A30CD3CB7B00C7B1D4 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		4BA373A40CD3CB7B00C7B1D4 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		4BA373A50CD3CB7B00C7B1D4 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		4BA377D70CD3CFF700C7B1D4 /* ZoomSaveQuickLook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ZoomSaveQuickLook.c; sourceTree = "<group>"; };
 		4BA377DA0CD3D01000C7B1D4 /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenerateThumbnailForURL.m; sourceTree = "<group>"; };
 		4BA377DB0CD3D01000C7B1D4 /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratePreviewForURL.m; sourceTree = "<group>"; };
@@ -954,7 +954,7 @@
 		4BCB09630615D0D800CDFB98 /* ZoomSavePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSavePreview.m; sourceTree = "<group>"; };
 		4BCF3F27050F8BB200A8E303 /* ZoomProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomProtocol.h; sourceTree = "<group>"; };
 		4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomProtocol.m; sourceTree = "<group>"; };
-		4BCF3F2B050F8E2400A8E303 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4BCF3F2B050F8E2400A8E303 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4BCF3F2D050F8ECD00A8E303 /* display.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = display.h; sourceTree = "<group>"; };
 		4BCF3F2F050F9E8F00A8E303 /* ZoomServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomServer.h; sourceTree = "<group>"; };
 		4BCF3F30050F9E8F00A8E303 /* ZoomServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomServer.m; sourceTree = "<group>"; };
@@ -1543,8 +1543,8 @@
 				55BB926E2048D7FB00AB4B5B /* xibs */,
 				55BB92572048D16B00AB4B5B /* Skein */,
 				55BB92552048CCFE00AB4B5B /* ifdbWeb */,
-				4B7522540CC7FAC500F36ECF /* signpost.icns */,
 				55BB926F2048D8D900AB4B5B /* Media.xcassets */,
+				4B7522540CC7FAC500F36ECF /* signpost.icns */,
 				4B1FEB750ACDBC44008B9EFE /* GlkClient.icns */,
 				4B1C13FD05C5A94B00E5796D /* Credits.rtf */,
 				4BCF3F44050FB21C00A8E303 /* macreadme.rtf */,

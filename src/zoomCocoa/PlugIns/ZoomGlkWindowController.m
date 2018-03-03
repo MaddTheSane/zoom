@@ -301,17 +301,10 @@
 	[self maybeStartView];
 }
 
-- (void) setLogo: (NSImage*) newLogo {
-	[logo release];
-	logo = [newLogo copy];
-}
+@synthesize logo;
 
 - (BOOL) disableLogo {
 	return logo == nil || ![[ZoomPreferences globalPreferences] showCoverPicture];
-}
-
-- (NSImage*) logo {
-	return logo;
 }
 
 - (NSString*) preferredSaveDirectory {

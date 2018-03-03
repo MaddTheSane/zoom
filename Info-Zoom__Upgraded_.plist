@@ -44,7 +44,7 @@
 				<string>signpost</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>signpost.icns</string>
+			<string>signpost</string>
 			<key>CFBundleTypeName</key>
 			<string>Interactive Fiction signpost file</string>
 			<key>CFBundleTypeRole</key>
@@ -69,7 +69,7 @@
 				<string>z8</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>zoom-game.icns</string>
+			<string>zoom-game</string>
 			<key>CFBundleTypeName</key>
 			<string>ZCode story</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -109,7 +109,7 @@
 				<string>zoomSave</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>zoom-file.icns</string>
+			<string>zoom-file</string>
 			<key>CFBundleTypeName</key>
 			<string>Zoom savegame</string>
 			<key>CFBundleTypeRole</key>
@@ -129,7 +129,7 @@
 				<string>iFiction</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>iFiction.icns</string>
+			<string>iFiction</string>
 			<key>CFBundleTypeName</key>
 			<string>iFiction metadata</string>
 			<key>CFBundleTypeRole</key>
@@ -143,7 +143,7 @@
 				<string>qut</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>zoom-file.icns</string>
+			<string>zoom-file</string>
 			<key>CFBundleTypeName</key>
 			<string>Quetzal saved game</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -163,7 +163,7 @@
 				<string>blb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>Blorb.icns</string>
+			<string>Blorb</string>
 			<key>CFBundleTypeName</key>
 			<string>Blorb resource file</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -187,7 +187,7 @@
 				<string>ulx</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>GlkClient.icns</string>
+			<string>GlkClient</string>
 			<key>CFBundleTypeName</key>
 			<string>Glulx game</string>
 			<key>CFBundleTypeRole</key>
@@ -206,7 +206,7 @@
 				<string>zblorb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>zoom-game.icns</string>
+			<string>zoom-game</string>
 			<key>CFBundleTypeName</key>
 			<string>ZCode story</string>
 			<key>CFBundleTypeRole</key>
@@ -227,7 +227,7 @@
 				<string>gblorb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>GlkClient.icns</string>
+			<string>GlkClient</string>
 			<key>CFBundleTypeName</key>
 			<string>Glulx story</string>
 			<key>CFBundleTypeRole</key>
@@ -246,7 +246,7 @@
 				<string>t3</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>TADS.icns</string>
+			<string>TADS</string>
 			<key>CFBundleTypeName</key>
 			<string>TADS story</string>
 			<key>CFBundleTypeRole</key>
@@ -264,7 +264,7 @@
 				<string>hex</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>HUGO.icns</string>
+			<string>HUGO</string>
 			<key>CFBundleTypeName</key>
 			<string>Hugo story</string>
 			<key>CFBundleTypeRole</key>
@@ -309,7 +309,7 @@
 			<key>UTTypeDescription</key>
 			<string>Zoom savegame</string>
 			<key>UTTypeIconFile</key>
-			<string>zoom-file.icns</string>
+			<string>zoom-file</string>
 			<key>UTTypeIdentifier</key>
 			<string>uk.org.logicalshift.glksave</string>
 			<key>UTTypeTagSpecification</key>
@@ -328,7 +328,7 @@
 			<key>UTTypeDescription</key>
 			<string>Zoom savegame</string>
 			<key>UTTypeIconFile</key>
-			<string>zoom-file.icns</string>
+			<string>zoom-file</string>
 			<key>UTTypeIdentifier</key>
 			<string>uk.org.logicalshift.zoomsave</string>
 			<key>UTTypeTagSpecification</key>
@@ -351,7 +351,7 @@
 			<key>UTTypeDescription</key>
 			<string>ZCode story</string>
 			<key>UTTypeIconFile</key>
-			<string>zoom-game.icns</string>
+			<string>zoom-game</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.zcode</string>
 			<key>UTTypeTagSpecification</key>
@@ -380,7 +380,7 @@
 			<key>UTTypeDescription</key>
 			<string>Blorb resource file</string>
 			<key>UTTypeIconFile</key>
-			<string>Blorb.icns</string>
+			<string>Blorb</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.blorb</string>
 			<key>UTTypeTagSpecification</key>
@@ -403,7 +403,7 @@
 			<key>UTTypeDescription</key>
 			<string>Interactive Fiction signpost file</string>
 			<key>UTTypeIconFile</key>
-			<string>signpost.icns</string>
+			<string>signpost</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.IFsignpost</string>
 			<key>UTTypeTagSpecification</key>
@@ -423,7 +423,7 @@
 			<key>UTTypeDescription</key>
 			<string>ZCode story</string>
 			<key>UTTypeIconFile</key>
-			<string>zoom-game.icns</string>
+			<string>zoom-game</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.blorb.zcode</string>
 			<key>UTTypeTagSpecification</key>
@@ -444,7 +444,7 @@
 			<key>UTTypeDescription</key>
 			<string>Glulx Story</string>
 			<key>UTTypeIconFile</key>
-			<string>GlkClient.icns</string>
+			<string>GlkClient</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.blorb.glulx</string>
 			<key>UTTypeTagSpecification</key>
@@ -465,7 +465,7 @@
 			<key>UTTypeDescription</key>
 			<string>Glulx Story</string>
 			<key>UTTypeIconFile</key>
-			<string>GlkClient.icns</string>
+			<string>GlkClient</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.glulx</string>
 			<key>UTTypeTagSpecification</key>
@@ -485,7 +485,7 @@
 			<key>UTTypeDescription</key>
 			<string>Hugo Story</string>
 			<key>UTTypeIconFile</key>
-			<string>HUGO.icns</string>
+			<string>HUGO</string>
 			<key>UTTypeIdentifier</key>
 			<string>public.hugo</string>
 			<key>UTTypeTagSpecification</key>
