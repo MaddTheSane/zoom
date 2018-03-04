@@ -10,6 +10,8 @@
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <GlkView/GlkFileRefProtocol.h>
 
+@protocol ZoomGlkSaveRefDelegate;
+
 ///
 /// GlkFileRef object that can be used to create a .glksave package
 ///
@@ -21,20 +23,21 @@
 	NSArray* preview;										// The preview lines to save for this object
 	ZoomSkein* skein;										// The skein to save for this object (or the skein loaded for this object)
 	
-	id delegate;											// The delegate for this object
+	id<ZoomGlkSaveRefDelegate> delegate;					// The delegate for this object
 	BOOL autoflush;											// The autoflush flag
 }
 
 // Initialisation
-- (id) initWithPlugIn: (ZoomPlugIn*) plugin					// Initialises a saveref that saves files from the specified plugin object to the specified path
+- (id) initWithPlugIn: (ZoomPlugIn*) plugin					//!< Initialises a saveref that saves files from the specified plugin object to the specified path
 				 path: (NSString*) path;
 
 // Extra properties
-- (void) setDelegate: (id) delegate;						// Sets the delegate for this object (the delegate is retained)
+@property (retain) id<ZoomGlkSaveRefDelegate> delegate;		//!< Sets the delegate for this object (the delegate is retained)
 
-- (void) setPreview: (NSArray*) preview;					// An array of strings that can be used for the preview for this file
-- (void) setSkein: (ZoomSkein*) skein;						// Sets the skein that will be saved with this reference
-- (ZoomSkein*) skein;										// Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file
+- (void) setPreview: (NSArray<NSString*>*) preview;			//!< An array of strings that can be used for the preview for this file
+//! Sets the skein that will be saved with this reference
+//! Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file
+@property (retain) ZoomSkein *skein;
 
 @end
 
@@ -42,8 +45,9 @@
 /// ZoomGlkSaveRef delegate methods
 ///
 
-@interface NSObject(ZoomGlkSaveRefDelegate)
+@protocol ZoomGlkSaveRefDelegate <NSObject>
+@optional
 
-- (void) readingFromSaveFile: (ZoomGlkSaveRef*) file;		// Call back to indicate that we're reading from a specific save file
+- (void) readingFromSaveFile: (ZoomGlkSaveRef*) file;		//!< Call back to indicate that we're reading from a specific save file
 
 @end

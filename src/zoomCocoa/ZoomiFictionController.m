@@ -9,6 +9,7 @@
 // Incorporates changes contributed by Collin Pieper
 
 #import <objc/objc-runtime.h>
+#include <tgmath.h>
 
 #import "ZoomiFictionController.h"
 #import "ZoomStoryOrganiser.h"
@@ -1345,13 +1346,13 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																					  titleFont, NSFontAttributeName, 
 																					  [NSNumber numberWithInt: ZoomTitleField], ZoomFieldAttribute,
-																					  row, ZoomRowAttribute,
+																					  @(row), ZoomRowAttribute,
 																					  story, ZoomStoryAttribute,
 																					  nil]] autorelease]];
 			[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n"
 																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																					  [NSNumber numberWithInt: ZoomTitleNewlineField], ZoomFieldAttribute,
-																					  row, ZoomRowAttribute,
+																					  @(row), ZoomRowAttribute,
 																					  story, ZoomStoryAttribute,
 																					  nil]] autorelease]];
 				
@@ -1363,13 +1364,13 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
 																						  yearFont, NSFontAttributeName, 
 																						  [NSNumber numberWithInt: ZoomYearField], ZoomFieldAttribute,
-																						  row, ZoomRowAttribute,
+																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
 																						  nil]] autorelease]];
 				[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n"
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																						  [NSNumber numberWithInt: ZoomYearNewlineField], ZoomFieldAttribute,
-																						  row, ZoomRowAttribute,
+																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
 																						  nil]] autorelease]];
 			}
@@ -1384,7 +1385,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
 																						  descFont, NSFontAttributeName, 
 																						  [NSNumber numberWithInt: ZoomDescriptionField], ZoomFieldAttribute,
-																						  row, ZoomRowAttribute,
+																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
 																						  nil]] autorelease]];
 				
@@ -1435,15 +1436,15 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 		if (previewSize.width > screenSize.width-128.0) {
 			float ratio = (screenSize.width-128.0)/previewSize.width;
 
-			previewSize.width = floorf(previewSize.width*ratio);
-			previewSize.height = floorf(previewSize.height*ratio);
+			previewSize.width = floor(previewSize.width*ratio);
+			previewSize.height = floor(previewSize.height*ratio);
 		}
 		
 		if (previewSize.height > screenSize.height-128.0) {
 			float ratio = (screenSize.height-128.0)/previewSize.height;
 			
-			previewSize.width = floorf(previewSize.width*ratio);
-			previewSize.height = floorf(previewSize.height*ratio);
+			previewSize.width = floor(previewSize.width*ratio);
+			previewSize.height = floor(previewSize.height*ratio);
 		}
 		
 		[picturePreview setContentSize: previewSize];

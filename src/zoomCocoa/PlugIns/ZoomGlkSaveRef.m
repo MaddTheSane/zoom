@@ -158,7 +158,7 @@
 		[[NSColor clearColor] set];
 		NSRectFill(NSMakeRect(0,0,128,128));
 		
-		float scaleFactor;
+		CGFloat scaleFactor;
 		
 		if (originalImage == nil || iconSize.width > 256 || iconSize.height > 256) {
 			// Just use the cover image as the image for this save game
@@ -201,10 +201,7 @@
 
 // = Properties =
 
-- (void) setDelegate: (id) newDelegate {
-	[delegate release];
-	delegate = [newDelegate retain];
-}
+@synthesize delegate;
 
 - (void) setPreview: (NSArray*) newPreview {
 	[preview release];
@@ -212,14 +209,7 @@
 								   copyItems: YES];
 }
 
-- (void) setSkein: (ZoomSkein*) newSkein {
-	[skein release];
-	skein = [newSkein retain];
-}
-
-- (ZoomSkein*) skein {
-	return skein;
-}
+@synthesize skein;
 	
 // = GlkFileRef implementation =
 
@@ -277,12 +267,6 @@
 	return [[NSFileManager defaultManager] fileExistsAtPath: path];	
 }
 
-- (BOOL) autoflushStream {
-	return autoflush;
-}
-
-- (void) setAutoflush: (BOOL) newAutoflush {
-	autoflush = newAutoflush;
-}
+@synthesize autoflush;
 
 @end

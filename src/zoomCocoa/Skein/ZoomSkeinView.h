@@ -12,6 +12,8 @@
 #import "ZoomSkeinItem.h"
 #import "ZoomSkeinLayout.h"
 
+@protocol ZoomSkeinViewDelegate;
+
 extern NSPasteboardType ZoomSkeinItemPboardType;
 
 @interface ZoomSkeinView : NSView <NSTextViewDelegate, NSDraggingDestination>  {
@@ -55,29 +57,28 @@ extern NSPasteboardType ZoomSkeinItemPboardType;
 	
 	BOOL editingAnnotation;
 	
-	float itemWidth;
-	float itemHeight;
+	CGFloat itemWidth;
+	CGFloat itemHeight;
 	
 	// The delegate
-	NSObject* delegate;
+	id<ZoomSkeinViewDelegate> delegate;
 	
 	// Context menu
 	ZoomSkeinItem* contextItem;
 }
 
 // Setting/getting the source
-- (ZoomSkein*) skein;
+@property (nonatomic, retain) ZoomSkein* skein;
 - (void)       setSkein: (ZoomSkein*) skein;
 
 // Laying things out
 - (void) skeinNeedsLayout;
 
-- (void) setItemWidth: (float) itemWidth;
-- (void) setItemHeight: (float) itemHeight;
+- (void) setItemWidth: (CGFloat) itemWidth;
+- (void) setItemHeight: (CGFloat) itemHeight;
 
 // The delegate
-- (void) setDelegate: (id) delegate;
-- (id)   delegate;
+@property (assign) id<ZoomSkeinViewDelegate> delegate;
 
 // Affecting the display
 - (void) scrollToItem: (ZoomSkeinItem*) item;
@@ -101,7 +102,8 @@ extern NSPasteboardType ZoomSkeinItemPboardType;
 @end
 
 // = Delegate =
-@interface NSObject(ZoomSkeinViewDelegate)
+@protocol ZoomSkeinViewDelegate <NSObject>
+@optional
 
 // Playing the game
 - (void) restartGame;

@@ -6,6 +6,8 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
+
 #import "ZoomSkeinView.h"
 #import "ZoomSkeinLayout.h"
 
@@ -217,9 +219,9 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	
 	// Draw the control icons for the tracked item
 	if (trackedItem != nil) {
-		float xpos = [layout xposForItem: trackedItem];
-		float ypos = ((float)[layout levelForItem: trackedItem])*itemHeight + (itemHeight / 2.0);
-		float bgWidth =	[[trackedItem command] sizeWithAttributes: itemTextAttributes].width;
+		CGFloat xpos = [layout xposForItem: trackedItem];
+		CGFloat ypos = ((float)[layout levelForItem: trackedItem])*itemHeight + (itemHeight / 2.0);
+		CGFloat bgWidth =	[[trackedItem command] sizeWithAttributes: itemTextAttributes].width;
 		
 		// Layout is:
 		//    A T        x +
@@ -227,11 +229,11 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		//                 L
 		// 
 		// Where A = Annotate, T = transcript, x = delete, + = add, L = lock
-		float w = bgWidth;
+		CGFloat w = bgWidth;
 		if (w < itemButtonBarWidth) w = itemButtonBarWidth;
 		w += 40.0;
-		float left = xpos - w/2.0;
-		float right = xpos + w/2.0;
+		CGFloat left = xpos - w/2.0;
+		CGFloat right = xpos + w/2.0;
 		
 		ZoomSkeinItem* itemParent = [trackedItem parent];
 		
@@ -281,9 +283,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 
 // = Setting/getting the source =
 
-- (ZoomSkein*) skein {
-	return skein;
-}
+@synthesize skein;
 
 - (void) setSkein: (ZoomSkein*) sk {
 	if (skein == sk) return;
@@ -335,7 +335,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	}
 }
 
-- (void) setItemWidth: (float) newItemWidth {
+- (void) setItemWidth: (CGFloat) newItemWidth {
 	if (newItemWidth < 16.0) newItemWidth = 16.0;
 	if (newItemWidth == itemWidth) return;
 	itemWidth = newItemWidth;
@@ -343,7 +343,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	[self skeinNeedsLayout];
 }
 
-- (void) setItemHeight: (float) newItemHeight {
+- (void) setItemHeight: (CGFloat) newItemHeight {
 	if (newItemHeight < 16.0) newItemHeight = 16.0;
 	if (newItemHeight == itemHeight) return;
 	itemHeight = newItemHeight;
@@ -392,7 +392,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	ZoomSkeinLayoutItem* foundItem = [layout dataForItem: item];
 	
 	if (foundItem) {
-		float xpos, ypos;
+		CGFloat xpos, ypos;
 		
 		xpos = [layout xposForItem: item];
 		ypos = [layout levelForItem: item]*itemHeight + (itemHeight / 2);
@@ -402,7 +402,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		xpos -= visRect.size.width / 2.0;
 		ypos -= visRect.size.height / 3.0;
 		
-		[self scrollPoint: NSMakePoint(floorf(xpos), floorf(ypos))];
+		[self scrollPoint: NSMakePoint(floor(xpos), floor(ypos))];
 	} else {
 		NSLog(@"ZoomSkeinView: Attempt to scroll to nonexistent item");
 	}
@@ -445,8 +445,8 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	if (trackedItem) [trackedItem release];
 	trackedItem = nil;
 
-	int startLevel = floorf(NSMinY(visibleRect) / itemHeight)-1;
-	int endLevel = ceilf(NSMaxY(visibleRect) / itemHeight);
+	int startLevel = floor(NSMinY(visibleRect) / itemHeight)-1;
+	int endLevel = ceil(NSMaxY(visibleRect) / itemHeight);
 	
 	NSTrackingRectTag tag;
 	BOOL inside = NO;
@@ -1149,13 +1149,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 
 // = Delegate =
 
-- (void) setDelegate: (id) dg {
-	delegate = dg;
-}
-
-- (id) delegate {
-	return delegate;
-}
+@synthesize delegate;
 
 // = Moving around =
 

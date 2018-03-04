@@ -38,6 +38,7 @@
 	if (flag) {
 		skeinNeedsLayout = YES;
 	}
+	[super setNeedsLayout:flag];
 }
 
 - (void)viewDidMoveToHostWindow {
