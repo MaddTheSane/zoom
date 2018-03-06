@@ -616,9 +616,7 @@ static void finalizeViews(void) {
 		historyPos = [commandHistory count];
 
 		// Paste stuff
-		NSEnumerator* upperEnum = [upperWindows objectEnumerator];
-		ZoomUpperWindow* win;
-		while (win = [upperEnum nextObject]) {
+		for (ZoomUpperWindow* win in upperWindows) {
 			[textView pasteUpperWindowLinesFrom: win];
 		}
     
@@ -642,6 +640,8 @@ static void finalizeViews(void) {
 		if (!isUpperWindow) {
 			[self scrollToEnd];
 			// inputPos = [[textView textStorage] length];
+			// TODO: update to use this:
+			//[self textStorage:textView.textStorage didProcessEditing:NSTextStorageEditedCharacters range:NSMakeRange(0, 0) changeInLength:0];
 			[self textStorageDidProcessEditing: nil];
 		}
 	} else {
@@ -1516,7 +1516,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     return height;
 }
 
-- (void) setUpperBuffer: (double) bufHeight {
+- (void) setUpperBuffer: (CGFloat) bufHeight {
     // Update the upper window buffer
 	BOOL wasEditingTextView = editingTextView;
 	editingTextView = NO;
@@ -1539,7 +1539,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 }
 
-- (double) upperBufferHeight {
+- (CGFloat) upperBufferHeight {
     return [upperWindowBuffer containerSize].height;
 }
 
@@ -1569,7 +1569,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
                                                                        attributes: fixedAttributes]
             autorelease];
 
-        double sepHeight = fixedSize.height * (double)newSize;
+        CGFloat sepHeight = fixedSize.height * (CGFloat)newSize;
         sepHeight -= [upperWindowBuffer containerSize].height;
 		
 		if (inputPos > [[textView textStorage] length])

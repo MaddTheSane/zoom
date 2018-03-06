@@ -11,16 +11,16 @@
 
 @class ZoomUpperWindow;
 @interface ZoomTextView : NSTextView {
-    NSMutableArray* pastedLines; // Array of arrays ([NSValue<rect>, NSAttributedString])
+    NSMutableArray<NSArray*>* pastedLines; // Array of arrays ([NSValue<rect>, NSAttributedString])
 	
 	BOOL dragged;
-	float pastedScaleFactor;
+	CGFloat pastedScaleFactor;
 }
 
 - (void) pasteUpperWindowLinesFrom: (ZoomUpperWindow*) win;
 - (void) clearPastedLines;
 
-- (void) setPastedLineScaleFactor: (float) scaleFactor;
-- (void) offsetPastedLines: (float) offset;
+@property CGFloat pastedLineScaleFactor;
+- (void) offsetPastedLines: (CGFloat) offset;
 
 @end

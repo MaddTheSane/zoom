@@ -172,8 +172,8 @@ extern NSString* ZoomStyleAttributeName;
 
 // The upper window
 - (int)  upperWindowSize;
-- (void) setUpperBuffer: (double) bufHeight;
-- (double) upperBufferHeight;
+- (void) setUpperBuffer: (CGFloat) bufHeight;
+- (CGFloat) upperBufferHeight;
 - (void) rearrangeUpperWindows;
 - (NSArray*) upperWindows;
 - (void) padToLowerWindow;

@@ -177,9 +177,7 @@
     [pastedLines removeAllObjects];
 }
 
-- (void) setPastedLineScaleFactor: (float) scaleFactor {
-	pastedScaleFactor = scaleFactor;
-}
+@synthesize pastedLineScaleFactor=pastedScaleFactor;
 
 - (void) pasteUpperWindowLinesFrom: (ZoomUpperWindow*) win {
     NSArray* lines = [win lines];
@@ -215,9 +213,9 @@
 	//ourBounds = [self convertRect: ourBounds toView: container];
 	containerBounds = [self convertRect: containerBounds fromView: container];
 
-    double offset = [zoomView upperBufferHeight];
+    CGFloat offset = [zoomView upperBufferHeight];
 
-    double topPoint = NSMaxY(ourBounds) - containerBounds.size.height;
+    CGFloat topPoint = NSMaxY(ourBounds) - containerBounds.size.height;
     
     NSSize fixedSize = [@"M" sizeWithAttributes:
         [NSDictionary dictionaryWithObjectsAndKeys:
@@ -230,7 +228,7 @@
 
     NSRect drawRect = NSZeroRect;
     
-    int l;
+    NSInteger l;
     for (l=[win length]; l<[lines count]; l++) {
         NSRect r;
         NSAttributedString* str = [lines objectAtIndex: l];
