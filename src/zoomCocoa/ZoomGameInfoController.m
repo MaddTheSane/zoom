@@ -1,6 +1,14 @@
 #import "ZoomGameInfoController.h"
 #import "ZoomPreferences.h"
 
+@interface UnknownSelectors: NSObject
+- (IBAction)infoGenreChanged:(id)sender;
+- (IBAction)infoCommentsChanged:(id)sender;
+- (IBAction)infoMyRatingChanged:(id)sender;
+- (IBAction)infoTeaserChanged:(id)sender;
+- (IBAction)infoResourceChanged:(id)sender;
+@end
+
 @implementation ZoomGameInfoController
 
 // = Shared info controller =

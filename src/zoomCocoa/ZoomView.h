@@ -183,7 +183,7 @@ extern NSString* ZoomStyleAttributeName;
 // Event handling
 - (BOOL) handleKeyDown: (NSEvent*) theEvent;
 - (void) clickAtPointInWindow: (NSPoint) windowPos
-					withCount: (int) count;
+					withCount: (NSInteger) count;
 
 // Setting/updating preferences
 - (void) setPreferences: (ZoomPreferences*) prefs;

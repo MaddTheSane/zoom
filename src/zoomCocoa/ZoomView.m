@@ -1269,7 +1269,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 - (void) clickAtPointInWindow: (NSPoint) windowPos
-					withCount: (int) count {
+					withCount: (NSInteger) count {
 	// Note that clicking can only be accurate in the 'upper' window
 	// We'll have problems if the lower window is scrolled, too.
 	NSPoint pointInView = [self convertPoint: windowPos

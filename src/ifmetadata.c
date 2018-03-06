@@ -378,7 +378,7 @@ IFMetadata* IFMD_Parse(const IFMDByte* data, size_t length) {
 	XML_SetUserData(theParser, currentState);
 	
 	/* Go! */
-	status = XML_Parse(theParser, (const char*)data, length, 1);
+	status = XML_Parse(theParser, (const char*)data, (int)length, 1);
 	
 	if (status != XML_STATUS_OK) {
 		enum XML_Error error = XML_GetErrorCode(theParser);

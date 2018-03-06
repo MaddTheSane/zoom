@@ -230,10 +230,10 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			if (saveFilename) {
 				pluginDocument = [pluginInstance gameDocumentWithMetadata: story
 																 saveGame: saveFilename];
-				[pluginDocument setFileName: saveFilename];
+				[pluginDocument setFileURL: [NSURL fileURLWithPath: saveFilename]];
 			} else {
 				pluginDocument = [pluginInstance gameDocumentWithMetadata: story];
-				[pluginDocument setFileName: filename];
+				[pluginDocument setFileURL: [NSURL fileURLWithPath: filename]];
 			}
 			
 			[[NSDocumentController sharedDocumentController] addDocument: pluginDocument];
@@ -248,8 +248,9 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 	// See if there's a built-in document handler for this file type (basically, this means z-code files)
 	// TODO: we should probably do this with a plug-in now
-	if ([[NSDocumentController sharedDocumentController] openDocumentWithContentsOfFile: filename
-																				display: YES]) {
+	if ([[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: [NSURL fileURLWithPath: filename]
+																			   display: YES
+																				 error: NULL]) {
 		return YES;
 	}
 	

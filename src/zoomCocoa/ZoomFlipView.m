@@ -336,6 +336,9 @@
 					   operation: NSCompositeSourceOver
 						fraction: percentDone];			
 			break;
+			
+		default:
+			break;
 	}
 }
 

@@ -21,8 +21,8 @@
 }
 
 - (id) initWithItem: (ZoomSkeinItem*) newItem
-			  width: (float) newWidth
-		  fullWidth: (float) newFullWidth
+			  width: (CGFloat) newWidth
+		  fullWidth: (CGFloat) newFullWidth
 			  level: (int) newLevel {
 	self = [super init];
 	
@@ -46,86 +46,29 @@
 
 // = Getting properties =
 
-- (ZoomSkeinItem*) item {
-	return item;
-}
-
-- (float) width {
-	return width;
-}
-
-- (float) fullWidth {
-	return fullWidth;
-}
-
-- (float) position {
-	return position;
-}
-
-- (NSArray*) children {
-	return children;
-}
-
-- (int)	level {
-	return level;
-}
-
-- (BOOL) onSkeinLine {
-	return onSkeinLine;
-}
-
-- (int) depth {
-	return depth;
-}
-
-- (BOOL) recentlyPlayed {
-	return recentlyPlayed;
-}
+@synthesize item;
+@synthesize width;
+@synthesize fullWidth;
+@synthesize position;
+@synthesize children;
+@synthesize level;
+@synthesize onSkeinLine;
+@synthesize depth;
+@synthesize recentlyPlayed;
 
 // = Setting properties =
-
-- (void) setItem: (ZoomSkeinItem*) newItem {
-	if (item) [item release];
-	item = [newItem retain];
-}
-
-- (void) setWidth: (float) newWidth {
-	width = newWidth;
-}
-
-- (void) setFullWidth: (float) newFullWidth {
-	fullWidth = newFullWidth;
-}
-
-- (void) setPosition: (float) newPosition {
-	position = newPosition;
-}
 
 - (void) setChildren: (NSArray*) newChildren {
 	if (children) [children release];
 	children = [newChildren retain];
 	
-	int maxDepth = -1;
-	NSEnumerator* childEnum = [children objectEnumerator];
-	ZoomSkeinLayoutItem* child;
+	NSInteger maxDepth = -1;
 	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinLayoutItem* child in children) {
 		if ([child depth] > maxDepth) maxDepth = [child depth];
 	}
 	
 	depth = maxDepth+1;
-}
-
-- (void) setLevel: (int) newLevel {
-	level = newLevel;
-}
-
-- (void) setOnSkeinLine: (BOOL) online {
-	onSkeinLine = online;
-}
-
-- (void) setRecentlyPlayed: (BOOL) played {
-	recentlyPlayed = played;
 }
 
 - (void) findItemsOnLevel: (int) findLevel

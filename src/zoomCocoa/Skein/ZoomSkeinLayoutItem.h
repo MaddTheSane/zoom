@@ -23,41 +23,33 @@
 	ZoomSkeinItem* item;
 	BOOL		   onSkeinLine;
 	BOOL		   recentlyPlayed;
-	float          width;
-	float		   fullWidth;
-	float		   position;
+	CGFloat        width;
+	CGFloat		   fullWidth;
+	CGFloat		   position;
 	NSArray*	   children;
 	int			   level;
-	int			   depth;
+	NSInteger	   depth;
 }
 
 // Initialisation
 
-- (id) initWithItem: (ZoomSkeinItem*) item
-			  width: (float) width
-		  fullWidth: (float) fullWidth
-			  level: (int) level;
+- (instancetype) init;
+- (instancetype) initWithItem: (ZoomSkeinItem*) item
+						width: (CGFloat) width
+					fullWidth: (CGFloat) fullWidth
+						level: (int) level NS_DESIGNATED_INITIALIZER;
 
 // Setting/getting properties
 
-- (ZoomSkeinItem*) item;
-- (float)		   width;
-- (float)		   fullWidth;
-- (float)		   position;
-- (NSArray*)	   children;
-- (int)			   level;
-- (BOOL)		   onSkeinLine;
-- (BOOL)		   recentlyPlayed;
-- (int)			   depth;
-
-- (void) setItem: (ZoomSkeinItem*) newItem;
-- (void) setWidth: (float) newWidth;
-- (void) setFullWidth: (float) newFullWidth;
-- (void) setPosition: (float) newPosition;
-- (void) setChildren: (NSArray*) newChildren;
-- (void) setLevel: (int) newLevel;
-- (void) setOnSkeinLine: (BOOL) onSkeinLine;
-- (void) setRecentlyPlayed: (BOOL) recentlyPlayed;
+@property (retain) ZoomSkeinItem *item;
+@property CGFloat width;
+@property CGFloat fullWidth;
+@property CGFloat position;
+@property (nonatomic, retain) NSArray *children;
+@property int level;
+@property BOOL onSkeinLine;
+@property BOOL recentlyPlayed;
+@property (readonly) NSInteger depth;
 
 - (NSArray*) itemsOnLevel: (int) level;
 

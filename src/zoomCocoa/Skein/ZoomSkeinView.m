@@ -220,7 +220,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	// Draw the control icons for the tracked item
 	if (trackedItem != nil) {
 		CGFloat xpos = [layout xposForItem: trackedItem];
-		CGFloat ypos = ((float)[layout levelForItem: trackedItem])*itemHeight + (itemHeight / 2.0);
+		CGFloat ypos = ((CGFloat)[layout levelForItem: trackedItem])*itemHeight + (itemHeight / 2.0);
 		CGFloat bgWidth =	[[trackedItem command] sizeWithAttributes: itemTextAttributes].width;
 		
 		// Layout is:
@@ -756,7 +756,7 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 							 inItem: (ZoomSkeinItem*) item {
 	// Calculate info about the location of this item
 	CGFloat xpos = [layout xposForItem: item];
-	CGFloat ypos = ((float)[layout levelForItem: item]) * itemHeight + (itemHeight/2.0);
+	CGFloat ypos = ((CGFloat)[layout levelForItem: item]) * itemHeight + (itemHeight/2.0);
 
 	NSDictionary* fontAttrs = itemTextAttributes;
 	

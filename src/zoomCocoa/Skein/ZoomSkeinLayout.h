@@ -25,10 +25,10 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 	// The layout
 	ZoomSkeinLayoutItem* tree;
 	NSMutableArray* levels;
-	float globalOffset, globalWidth;
+	CGFloat globalOffset, globalWidth;
 	
-	float itemWidth;
-	float itemHeight;
+	CGFloat itemWidth;
+	CGFloat itemHeight;
 	IFSkeinPackingStyle packingStyle;
 	
 	// Highlighted skein line
@@ -44,8 +44,8 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 - (id) initWithRootItem: (ZoomSkeinItem*) item;
 
 // Setting skein data
-- (void) setItemWidth: (float) itemWidth;
-- (void) setItemHeight: (float) itemHeight;
+- (void) setItemWidth: (CGFloat) itemWidth;
+- (void) setItemHeight: (CGFloat) itemHeight;
 - (void) setPackingStyle: (int) packingStyle;
 
 @property (retain) ZoomSkeinItem *rootItem;
@@ -66,10 +66,10 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item;
 
 // General item data
-- (float)    xposForItem:      (ZoomSkeinItem*) item;
+- (CGFloat)  xposForItem:      (ZoomSkeinItem*) item;
 - (int)      levelForItem:     (ZoomSkeinItem*) item;
-- (float)    widthForItem:     (ZoomSkeinItem*) item;
-- (float)    fullWidthForItem: (ZoomSkeinItem*) item;
+- (CGFloat)  widthForItem:     (ZoomSkeinItem*) item;
+- (CGFloat)  fullWidthForItem: (ZoomSkeinItem*) item;
 
 // Item positioning data
 - (NSSize) size;

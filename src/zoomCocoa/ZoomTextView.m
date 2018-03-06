@@ -295,16 +295,14 @@
     [win cutLines];
 }
 
-- (void) offsetPastedLines: (float) offset {
+- (void) offsetPastedLines: (CGFloat) offset {
 	if (offset == 0) return;
 	offset /= pastedScaleFactor;
 	
 	// Subtract offset from all of the pasted lines, and remove any that have disappeared
 	NSMutableArray* newLines = [[NSMutableArray alloc] init];
 	
-	NSEnumerator* pastedEnum = [pastedLines objectEnumerator];
-	NSArray* line;
-	while (line = [pastedEnum nextObject]) {
+	for (NSArray* line in pastedLines) {
 		// Work out the new position of this line
 		NSRect lineRect = [[line objectAtIndex: 0] rectValue];;
 		NSAttributedString* str = [line objectAtIndex: 1];

@@ -6,6 +6,7 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import <objc/objc-runtime.h>
 
 #import "ZoomSkeinLayout.h"
@@ -450,7 +451,7 @@ static NSImage* unchangedDark, *activeDark;
 	return [itemForItem objectForKey: [NSValue valueWithPointer: item]]; // Yeah, yeah. Items are distinguished by command, not location in the tree
 }
 
-- (float) xposForItem: (ZoomSkeinItem*) item {
+- (CGFloat) xposForItem: (ZoomSkeinItem*) item {
 	return [[self dataForItem: item] position] + globalOffset;
 }
 
@@ -458,11 +459,11 @@ static NSImage* unchangedDark, *activeDark;
 	return [[self dataForItem: item] level];
 }
 
-- (float) widthForItem: (ZoomSkeinItem*) item {
+- (CGFloat) widthForItem: (ZoomSkeinItem*) item {
 	return [[self dataForItem: item] width];
 }
 
-- (float) fullWidthForItem: (ZoomSkeinItem*) item {
+- (CGFloat) fullWidthForItem: (ZoomSkeinItem*) item {
 	return [[self dataForItem: item] fullWidth];
 }
 
@@ -470,9 +471,9 @@ static NSImage* unchangedDark, *activeDark;
 
 - (NSRect) activeAreaForData: (ZoomSkeinLayoutItem*) item {
 	NSRect itemRect;
-	float ypos = ((float)[item level]) * itemHeight + (itemHeight/2.0);
-	float position = [item position];
-	float width = [item width];
+	CGFloat ypos = ((CGFloat)[item level]) * itemHeight + (itemHeight/2.0);
+	CGFloat position = [item position];
+	CGFloat width = [item width];
 	
 	// Basic rect
 	itemRect.origin.x = position + globalOffset - (width/2.0) - 20.0;
@@ -496,9 +497,9 @@ static NSImage* unchangedDark, *activeDark;
 
 - (NSRect) textAreaForData: (ZoomSkeinLayoutItem*) item {
 	NSRect itemRect;
-	float ypos = ((float)[item level]) * itemHeight + (itemHeight/2.0);
-	float position = [item position];
-	float width = [item width];
+	CGFloat ypos = ((CGFloat)[item level]) * itemHeight + (itemHeight/2.0);
+	CGFloat position = [item position];
+	CGFloat width = [item width];
     
     NSLayoutManager* layoutManager = [[[NSLayoutManager alloc] init] autorelease];
 	
@@ -535,13 +536,13 @@ static NSImage* unchangedDark, *activeDark;
 	//		Labels appear above the item (in the control space: so you can't directly click on a label)
 	
 	// Check for level
-	int level = floorf(point.y/itemHeight);
+	int level = floor(point.y/itemHeight);
 	
 	if (level < 0 || level >= [levels count]) return nil;
 	
 	// Position in level
-	float levelPos = ((float)level)*itemHeight + (itemHeight / 2.0);
-	float levelOffset = point.y - levelPos;
+	CGFloat levelPos = ((CGFloat)level)*itemHeight + (itemHeight / 2.0);
+	CGFloat levelOffset = point.y - levelPos;
 	
 	// Must correspond to the lozenge
 	//if (levelOffset < -8) return nil;
@@ -556,8 +557,8 @@ static NSImage* unchangedDark, *activeDark;
 	ZoomSkeinLayoutItem* item;
 	
 	while (item = [levelEnum nextObject]) {
-		float thisItemWidth = [item width];
-		float itemPos = [item position] + globalOffset;
+		CGFloat thisItemWidth = [item width];
+		CGFloat itemPos = [item position] + globalOffset;
 		
 		// There's a +40 border either side of the item
 		thisItemWidth += 40.0;
@@ -601,8 +602,8 @@ static NSImage* unchangedDark, *activeDark;
 	NSRectFill(rect);
 	
 	// Actually draw the skein
-	int startLevel = floorf(NSMinY(rect) / itemHeight)-1;
-	int endLevel = ceilf(NSMaxY(rect) / itemHeight);
+	int startLevel = floor(NSMinY(rect) / itemHeight)-1;
+	int endLevel = ceil(NSMaxY(rect) / itemHeight);
 	int level;
 	
 	for (level = startLevel; level < endLevel; level++) {
@@ -617,12 +618,12 @@ static NSImage* unchangedDark, *activeDark;
 		
 		while (item = [levelEnum nextObject]) {
 			ZoomSkeinItem* skeinItem = [item item];
-			float xpos = [item position] + globalOffset;
+			CGFloat xpos = [item position] + globalOffset;
 			NSSize size = [skeinItem commandSize];
 			
 			// Draw the background
 			NSImage* background = unchanged;
-			float bgWidth = size.width;
+			CGFloat bgWidth = size.width;
 			//if (bgWidth < 90.0) bgWidth = 90.0;
 			
 #ifdef SkeinDrawingStyleNew
@@ -664,8 +665,8 @@ static NSImage* unchangedDark, *activeDark;
 			[[NSColor blackColor] set];
 			NSEnumerator* childEnumerator = [[item children] objectEnumerator];
 			
-			float startYPos = ypos + 10.0 + size.height;
-			float endYPos = ypos - 10.0 + itemHeight;
+			CGFloat startYPos = ypos + 10.0 + size.height;
+			CGFloat endYPos = ypos - 10.0 + itemHeight;
 			
 #ifdef SkeinDrawingStyleNew
 			NSColor* tempChildLink = [NSColor grayColor];
@@ -676,7 +677,7 @@ static NSImage* unchangedDark, *activeDark;
 			
 			ZoomSkeinLayoutItem* child;
 			while (child = [childEnumerator nextObject]) {
-				float childXPos = [child position] + globalOffset;
+				CGFloat childXPos = [child position] + globalOffset;
 				BOOL annotated = [[child item] annotation]!=nil;
 				
 				BOOL highlightLine = [child onSkeinLine];
@@ -720,8 +721,8 @@ static NSImage* unchangedDark, *activeDark;
 			
 			// Draw the annotation, if present
 			if ([[skeinItem annotation] length] > 0) {
-				float thisItemWidth = [self widthForItem: skeinItem];
-				float labelWidth = [skeinItem annotationSize].width;
+				CGFloat thisItemWidth = [self widthForItem: skeinItem];
+				CGFloat labelWidth = [skeinItem annotationSize].width;
 				
 				[[self class] drawImage: annotation
 								atPoint: NSMakePoint(xpos - thisItemWidth/2.0, ypos-30)
