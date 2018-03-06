@@ -634,6 +634,13 @@
 			remoteGlobalIDString = 4BD2747808701E6700C1AE15;
 			remoteInfo = ZoomView;
 		};
+		554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55C6BB36204DED96001AE7E5;
+			remoteInfo = SwiftGlk;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1444,6 +1451,7 @@
 				4B7CB1CB093634DD00F3B8F6 /* glulxe */,
 				4B7CB1CD093634DD00F3B8F6 /* imagetest */,
 				4BD093970FACAEEE001F7EF0 /* git */,
+				554E440D204E6DD4000A7D6D /* SwiftGlk.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2229,6 +2237,13 @@
 			fileType = wrapper.framework;
 			path = GlkSound.framework;
 			remoteRef = 4BF6A8C40E2D5F8800A9CD10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		554E440D204E6DD4000A7D6D /* SwiftGlk.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = SwiftGlk.app;
+			remoteRef = 554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -3006,8 +3006,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	}	
 }
 
-- (void)					webView:(WebView *)sender
-		windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject {
+- (void)webView:(WebView *)sender windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject {
 	// Attach the error object
 	if (lastError == nil) {
 		lastError = [[ZoomJSError alloc] init];

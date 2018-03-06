@@ -37,13 +37,6 @@
 
 // = Dealing with errors =
 
-- (NSString*) lastError {
-	return lastError;
-}
-
-- (void) setLastError: (NSString*) newLastError {
-	[lastError release];
-	lastError = [newLastError copy];
-}
+@synthesize lastError;
 
 @end

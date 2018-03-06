@@ -293,6 +293,11 @@
 	<string>YZZY</string>
 	<key>CFBundleVersion</key>
 	<string>1.1.7</string>
+	<key>LSArchitecturePriority</key>
+	<array>
+		<string>i386</string>
+		<string>x86_64</string>
+	</array>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
