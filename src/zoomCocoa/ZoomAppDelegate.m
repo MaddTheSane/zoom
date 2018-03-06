@@ -131,7 +131,7 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 - (BOOL)application: (NSApplication *)theApplication 
 		   openFile: (NSString *)filename {
 	// Just show the existing document if it already exists
-	NSDocument* existingDocument = [[NSDocumentController sharedDocumentController] documentForFileName: filename];
+	NSDocument* existingDocument = [[NSDocumentController sharedDocumentController] documentForURL: [NSURL fileURLWithPath: filename]];
 	if (existingDocument && [[existingDocument windowControllers] count] > 0) {
 		[[[existingDocument windowControllers] objectAtIndex: 0] showWindow: self];
 		return YES;

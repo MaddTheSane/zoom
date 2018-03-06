@@ -649,8 +649,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	
 	// FIXME: multiple selections?, actually save/restore autosaves
 	if (filename) {
-		ZoomClient* newDoc = [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfFile: filename
-																									display: NO];
+		ZoomClient* newDoc = [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filename] display:NO error:NULL];
 		
 		if ([[newDoc windowControllers] count] == 0) {
 			[newDoc makeWindowControllers];
@@ -1159,7 +1158,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 			ZoomStoryID* ident = [storyList objectAtIndex: row];
 			NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
 			
-			if ([[NSDocumentController sharedDocumentController] documentForFileName: filename] != nil) {
+			if ([[NSDocumentController sharedDocumentController] documentForURL: [NSURL fileURLWithPath:filename]] != nil) {
 				[continueButton setEnabled: YES];
 			} else {
 				[newgameButton setEnabled: YES];
@@ -2062,6 +2061,10 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	}
 	
 	return YES;
+}
+
+- (IBAction) deleteSavegame: (id) sender {
+	NSBeep();
 }
 
 - (IBAction) delete: (id) sender {
@@ -3027,7 +3030,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 - (IBAction) goHome: (id) sender; {
 	NSString* ifdbUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"ZoomIfdbUrl"];
 	if (!ifdbUrl) {
-		ifdbUrl = @"http://ifdb.tads.org/";
+		ifdbUrl = @"https://ifdb.tads.org/";
 	}
 	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: ifdbUrl]]];	
 }

@@ -7,6 +7,7 @@
 //
 
 #import "ZoomStoryTableView.h"
+#import "ZoomiFictionController.h"
 
 #import <Carbon/Carbon.h>
 
@@ -50,7 +51,7 @@
             
 			if( [self numberOfSelectedRows] > 0 )
 			{
-                [[self dataSource] delete:self];
+                [(ZoomiFictionController*)[self dataSource] delete:self];
             }
         
 			break;

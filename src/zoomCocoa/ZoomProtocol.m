@@ -229,7 +229,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 }
 
 - (oneway void) seekTo: (off_t) p {
-    pos = p;
+    pos = (NSInteger)p;
     if (pos > [data length]) {
         pos = [data length];
     }
@@ -858,7 +858,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     }
 	
     if ((pos + length) > [[data regularFileContents] length]) {
-        NSInteger diff = (pos+length) - [[data regularFileContents] length];
+        NSInteger diff = (NSInteger)((pos+length) - [[data regularFileContents] length]);
 		
         length -= diff;
     }

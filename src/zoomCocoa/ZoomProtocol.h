@@ -70,7 +70,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 // Recieving files
 - (oneway void) filePromptCancelled;
 - (oneway void) promptedFileIs: (in byref NSObject<ZFile>*) file
-                          size: (int) size;
+                          size: (NSInteger) size;
 
 // Obtaining game state
 - (bycopy NSData*) createGameSave;

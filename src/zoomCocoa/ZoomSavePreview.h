@@ -25,4 +25,6 @@
 - (void) setHighlighted: (BOOL) value;
 - (NSString*) filename;
 
+- (IBAction) deleteSavegame: (id) sender;
+
 @end

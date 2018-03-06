@@ -56,7 +56,7 @@
 	[pluginImage setFlipped: [controlView isFlipped]];
 	
 	// Draw the image for this plugin
-	float drawHeight, drawWidth;
+	CGFloat drawHeight, drawWidth;
 	
 	if (pluginImage != nil) {
 		NSSize imageSize = [pluginImage size];

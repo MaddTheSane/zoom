@@ -121,6 +121,7 @@
 - (IBAction) searchFieldChanged: (id) sender;
 - (IBAction) changeFilter1: (id) sender;
 - (IBAction) changeFilter2: (id) sender;
+- (IBAction) delete: (id) sender;
 - (IBAction) deleteSavegame: (id) sender;
 
 - (IBAction) flipToFilter: (id) sender;

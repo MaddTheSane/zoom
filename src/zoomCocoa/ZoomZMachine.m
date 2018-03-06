@@ -709,7 +709,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 - (oneway void) promptedFileIs: (in byref NSObject<ZFile>*) file
-                   size: (int) size {
+						  size: (NSInteger) size {
     if (lastFile) [lastFile release];
     
     lastFile = [file retain];

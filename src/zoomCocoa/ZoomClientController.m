@@ -114,14 +114,15 @@
 	[[self retain] autorelease];
 	
 	// Get the file we're going to re-open
-	NSString* filename = [[[[self document] fileURL].path retain] autorelease];
+	NSString* filename = [[[(NSDocument*)[self document] fileURL].path retain] autorelease];
 	
 	// Close ourselves down
 	[[self document] close];
 	
 	// Reload the story
-	[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: [[[NSURL alloc] initFileURLWithPath: filename] autorelease]
-																		   display: YES];
+	[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filename] display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+		//Do nothing
+	}];
 	
 	// Done: now we can die happy
 }

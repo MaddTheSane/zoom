@@ -2219,7 +2219,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 				}
 				
 				[zMachine promptedFileIs: [f autorelease]
-									size: [f fileSize]];
+									size: (NSInteger)[f fileSize]];
 			} else {
 				[zMachine filePromptCancelled];
 			}

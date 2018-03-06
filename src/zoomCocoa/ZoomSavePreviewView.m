@@ -219,8 +219,7 @@
 								 openFile: directory];
 		} else {
 			//ZoomClient* newDoc = 
-			[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfFile: directory
-																					display: YES];
+			[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:directory] display:YES error:NULL];
 		}
 	}
 }
