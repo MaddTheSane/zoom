@@ -17,10 +17,10 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 
 + (ZoomPlugInManager*) sharedPlugInManager {
 	static ZoomPlugInManager* sharedManager = nil;
-	
-	if (!sharedManager) {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
 		sharedManager = [[ZoomPlugInManager alloc] init];
-	}
+	});
 	
 	return sharedManager;
 }
