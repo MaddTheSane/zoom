@@ -48,7 +48,7 @@
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocus];
 	
-    NSColor* backgroundColour = [style reversed]?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
+    NSColor* backgroundColour = style.reversed?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
 	[backgroundColour set];
 	NSRectFill(NSMakeRect(0, 0, [pixmap size].width, [pixmap size].height));
 			   
