@@ -303,7 +303,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
-	<string>http://www.logicalshift.co.uk/unix/zoom/update.xml</string>
+	<string>https://www.logicalshift.co.uk/unix/zoom/update.xml</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -564,10 +564,10 @@
 		</dict>
 	</array>
 	<key>ZoomIfdbUrl</key>
-	<string>http://ifdb.tads.org/</string>
+	<string>https://ifdb.tads.org/</string>
 	<key>ZoomPluginFeedTestURL</key>
-	<string>http://www.logicalshift.co.uk/unix/zoom/plugins-test2.xml</string>
+	<string>https://www.logicalshift.co.uk/unix/zoom/plugins-test2.xml</string>
 	<key>ZoomPluginFeedURL</key>
-	<string>http://www.logicalshift.co.uk/unix/zoom/plugins.xml</string>
+	<string>https://www.logicalshift.co.uk/unix/zoom/plugins.xml</string>
 </dict>
 </plist>
