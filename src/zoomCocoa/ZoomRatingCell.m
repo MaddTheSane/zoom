@@ -58,8 +58,8 @@ static NSSize starsSize;
 	// Work out the rectangle to draw in
 	NSRect drawRect;
 	
-	drawRect.origin.x = cellFrame.origin.x + (cellFrame.size.width - starsSize.width)/CGF(2);
-	drawRect.origin.y = cellFrame.origin.y + (cellFrame.size.height - starsSize.height)/CGF(2);
+	drawRect.origin.x = cellFrame.origin.x + (cellFrame.size.width - starsSize.width)/CGF(2.0);
+	drawRect.origin.y = cellFrame.origin.y + (cellFrame.size.height - starsSize.height)/CGF(2.0);
 	drawRect.size = size;
 	
 	drawRect.origin.y -= 1;
@@ -100,8 +100,8 @@ static NSSize starsSize;
 	// Work out the rectangle we're in
 	NSRect drawRect;
 	
-	drawRect.origin.x = currentFrame.origin.x + (currentFrame.size.width - starsSize.width)/CGF(2);
-	drawRect.origin.y = currentFrame.origin.y + (currentFrame.size.height - starsSize.height)/CGF(2);
+	drawRect.origin.x = currentFrame.origin.x + (currentFrame.size.width - starsSize.width)/CGF(2.0);
+	drawRect.origin.y = currentFrame.origin.y + (currentFrame.size.height - starsSize.height)/CGF(2.0);
 	drawRect.size = starsSize;
 	
 	CGFloat value = (point.x - drawRect.origin.x) / drawRect.size.width;
