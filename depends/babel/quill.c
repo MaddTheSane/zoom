@@ -22,13 +22,6 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-#ifdef __MACH__
-#include <CommonCrypto/CommonDigest.h>
-typedef CC_MD5_CTX babelMD5;
-#else
-#include "md5.h"
-typedef md5_state_t babelMD5;
-#endif
 
 enum { ARCH_SPECTRUM = 'S', ARCH_CPC = 'C', ARCH_C64 = '6' };
 

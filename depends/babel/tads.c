@@ -20,10 +20,12 @@
 #include "tads.h"
 #ifdef __MACH__
 #include <CommonCrypto/CommonDigest.h>
-typedef CC_MD5_CTX babelMD5;
+typedef CC_MD5_CTX md5_state_t;
+#define md5_init CC_MD5_Init
+#define md5_append CC_MD5_Update
+#define md5_finish(__x, __y) CC_MD5_Final(__y, __x)
 #else
 #include "md5.h"
-typedef md5_state_t babelMD5;
 #endif
 
 #define ASSERT_OUTPUT_SIZE(x) \
@@ -273,21 +275,15 @@ int32 tads_get_story_file_cover(void *story_file, int32 story_len,
 static int32 generate_md5_ifid(void *story_file, int32 extent,
                                char *output, int32 output_extent)
 {
-    babelMD5 md5;
+    md5_state_t md5;
     unsigned char md5_buf[16];
     char *p;
     int i;
 
     /* calculate the MD5 hash of the story file */
-#ifdef __MACH__
-    CC_MD5_Init(&md5);
-    CC_MD5_Update(&md5, story_file, extent);
-    CC_MD5_Final(md5_buf, &md5);
-#else
     md5_init(&md5);
     md5_append(&md5, story_file, extent);
     md5_finish(&md5, md5_buf);
-#endif
 
     /* make sure we have room to store the result */
     ASSERT_OUTPUT_SIZE(39);
