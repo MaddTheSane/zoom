@@ -12,10 +12,12 @@
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.4.5</string>
 	<key>CFBundleSignature</key>
 	<string>YZZY</string>
 	<key>CFBundleVersion</key>
-	<string>0.4.3</string>
+	<string>0.4.5</string>
 	<key>NSPrincipalClass</key>
 	<string>ZoomGlulxe</string>
 	<key>ZoomPlugin</key>
@@ -29,9 +31,9 @@
 		<key>InterpreterAuthor</key>
 		<string>Andrew Plotkin</string>
 		<key>InterpreterVersion</key>
-		<string>0.4.3</string>
+		<string>0.4.5</string>
 		<key>Version</key>
-		<string>1.0.3</string>
+		<string>1.0.4</string>
 		<key>ZoomVersion</key>
 		<integer>112</integer>
 	</dict>
