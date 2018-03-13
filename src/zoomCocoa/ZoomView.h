@@ -113,6 +113,8 @@ extern NSString* ZoomStyleAttributeName;
 	ZoomBlorbFile* resources;
 }
 
+- (id)initWithCoder:(NSCoder *)decoder;
+
 // The delegate
 - (void) setDelegate: (id) delegate;
 - (id)   delegate;

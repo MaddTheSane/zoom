@@ -53,7 +53,13 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#ifdef __MACH__
+#include <CommonCrypto/CommonDigest.h>
+typedef CC_MD5_CTX babelMD5;
+#else
 #include "md5.h"
+typedef md5_state_t babelMD5;
+#endif
 
 void *my_malloc(int, char *);
 
@@ -251,14 +257,20 @@ void babel_release()
 int32 babel_md5_ifid_ctx(char *buffer, int32 extent, void *bhp)
 {
  struct babel_handler *bh=(struct babel_handler *) bhp;
- md5_state_t md5;
+ babelMD5 md5;
  int i;
  unsigned char ob[16];
  if (extent <33 || bh->story_file==NULL)
   return 0;
+#ifdef __MACH__
+ CC_MD5_Init(&md5);
+ CC_MD5_Update(&md5,bh->story_file,bh->story_file_extent);
+ CC_MD5_Final(ob, &md5);
+#else
  md5_init(&md5);
  md5_append(&md5,bh->story_file,bh->story_file_extent);
  md5_finish(&md5,ob);
+#endif
  for(i=0;i<16;i++)
   sprintf(buffer+(2*i),"%02X",ob[i]);
  buffer[32]=0;
