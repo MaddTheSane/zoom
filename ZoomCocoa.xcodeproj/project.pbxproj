@@ -3338,6 +3338,7 @@
 					"-seg1addr",
 					0x2f000000,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoomview;
 				PRODUCT_NAME = ZoomView;
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
@@ -3374,6 +3375,7 @@
 					"-seg1addr",
 					0x2f000000,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoomview;
 				PRODUCT_NAME = ZoomView;
 				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
