@@ -62,7 +62,7 @@
 - (void) updateCursor {
 	[cursor positionInString: lineString
 			  withAttributes: attributes
-			atCharacterIndex: insertionPos];
+			atCharacterIndex: (int)insertionPos];
 }
 
 - (void) stringHasUpdated {

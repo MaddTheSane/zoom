@@ -1147,7 +1147,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		// Deal with terminating characters
 		NSString* chars = [theEvent characters];
 		unichar chr = [chars characterAtIndex: 0];
-		NSNumber* recv = [NSNumber numberWithInt: chr];
+		NSNumber* recv = [NSNumber numberWithUnsignedShort: chr];
 		
 		BOOL canTerminate = YES;
 		if (chr == 252 || chr == 253 || chr == 254) {
