@@ -545,8 +545,8 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     [buffer addObject:
         [NSArray arrayWithObjects:
             ZBufferSetWindow,
-            [NSNumber numberWithInt: startLine],
-            [NSNumber numberWithInt: endLine],
+            @(startLine),
+            @(endLine),
             window,
             nil]];
 	[self addedToBuffer];
@@ -597,12 +597,10 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 		   atPoint: (NSPoint) point
 		  inWindow: (NSObject<ZPixmapWindow>*) win {
 	[buffer addObject:
-		[NSArray arrayWithObjects:
-			ZBufferPlotImage,
-			[NSNumber numberWithInt: number],
-			[NSValue valueWithPoint: point],
-			win,
-			nil]];
+	 @[ZBufferPlotImage,
+	   @(number),
+	   [NSValue valueWithPoint: point],
+	   win]];
 }
 
 // Unbuffering

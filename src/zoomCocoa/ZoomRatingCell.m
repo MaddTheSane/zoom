@@ -6,8 +6,14 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "ZoomRatingCell.h"
 
+#if CGFLOAT_IS_DOUBLE
+#define CGF(__x) __x
+#else
+#define CGF(__x) __x ## f
+#endif
 
 @implementation ZoomRatingCell
 
@@ -18,11 +24,14 @@ static NSImage* dots   = nil;
 static NSSize starsSize;
 
 + (void) initialize {
-	stars1 = [[NSImage imageNamed: @"stars-grey"] retain];
-	stars2 = [[NSImage imageNamed: @"stars-red"] retain];
-	dots   = [[NSImage imageNamed: @"stars-none"] retain];
-	
-	starsSize = [stars1 size];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		stars1 = [[NSImage imageNamed: @"stars-grey"] retain];
+		stars2 = [[NSImage imageNamed: @"stars-red"] retain];
+		dots   = [[NSImage imageNamed: @"stars-none"] retain];
+		
+		starsSize = [stars1 size];
+	});
 }
 
 - (void)drawInteriorWithFrame: (NSRect)cellFrame 
@@ -30,7 +39,7 @@ static NSSize starsSize;
 	[super drawInteriorWithFrame: cellFrame
 						  inView: controlView];
 	
-	float value = 0;
+	CGFloat value = 0;
 	BOOL flipped = [controlView isFlipped];
 	
 	if ([[self objectValue] isKindOfClass: [NSNumber class]])
@@ -49,8 +58,8 @@ static NSSize starsSize;
 	// Work out the rectangle to draw in
 	NSRect drawRect;
 	
-	drawRect.origin.x = cellFrame.origin.x + (cellFrame.size.width - starsSize.width)/2;
-	drawRect.origin.y = cellFrame.origin.y + (cellFrame.size.height - starsSize.height)/2;
+	drawRect.origin.x = cellFrame.origin.x + (cellFrame.size.width - starsSize.width)/CGF(2);
+	drawRect.origin.y = cellFrame.origin.y + (cellFrame.size.height - starsSize.height)/CGF(2);
 	drawRect.size = size;
 	
 	drawRect.origin.y -= 1;
@@ -91,20 +100,20 @@ static NSSize starsSize;
 	// Work out the rectangle we're in
 	NSRect drawRect;
 	
-	drawRect.origin.x = currentFrame.origin.x + (currentFrame.size.width - starsSize.width)/2;
-	drawRect.origin.y = currentFrame.origin.y + (currentFrame.size.height - starsSize.height)/2;
+	drawRect.origin.x = currentFrame.origin.x + (currentFrame.size.width - starsSize.width)/CGF(2);
+	drawRect.origin.y = currentFrame.origin.y + (currentFrame.size.height - starsSize.height)/CGF(2);
 	drawRect.size = starsSize;
 	
-	float value = (point.x - drawRect.origin.x) / drawRect.size.width;
+	CGFloat value = (point.x - drawRect.origin.x) / drawRect.size.width;
 	
 	if (value > 1.0) value = 1.0;
 	if (value < -1.0) value = 0.0;
 	
-	value *= 10.0;
+	value *= CGF(10.0);
 	
-	value = floor(value + 0.5);
+	value = floor(value + CGF(0.5));
 	
-	[self setObjectValue: [NSNumber numberWithFloat: value]];
+	[self setObjectValue: @(value)];
 	[(NSControl*)controlView updateCell: self];
 }
 

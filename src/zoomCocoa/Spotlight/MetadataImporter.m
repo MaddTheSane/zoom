@@ -146,7 +146,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	int year = [story year];
 	if( year )
 	{
-		NSNumber * year_object = [NSNumber numberWithUnsignedInt:year];
+		NSNumber * year_object = @(year);
 		[(NSMutableDictionary *)attributes setObject:year_object forKey:(NSString *)@"public_zcode_year"];
 	}
 	
@@ -225,7 +225,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	float rating = [story rating];
 	if( rating != -1.0 )
 	{
-		NSNumber * rating_object = [NSNumber numberWithFloat:rating];
+		NSNumber * rating_object = @(rating);
 		[(NSMutableDictionary *)attributes setObject:rating_object forKey:(NSString *)kMDItemStarRating];
 	}
 

@@ -22,80 +22,84 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 }
 
 // init is the designated initialiser for this class
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithCoder: (NSCoder*) coder NS_DESIGNATED_INITIALIZER;
 
 + (ZoomPreferences*) globalPreferences;
+@property (class, readonly, retain) ZoomPreferences* globalPreferences;
 - (instancetype) initWithDefaultPreferences;
 
-- (instancetype) initWithDictionary: (NSDictionary*) preferences;
+- (instancetype) initWithDictionary: (NSDictionary<NSString*,id>*) preferences NS_DESIGNATED_INITIALIZER;
 
 // Getting preferences
 + (NSString*) defaultOrganiserDirectory;
+@property (class, readonly, retain) NSString* defaultOrganiserDirectory;
 
 // Warnings and game text prefs
-- (BOOL)  displayWarnings;
-- (BOOL)  fatalWarnings;
-- (BOOL)  speakGameText;
-- (BOOL)  confirmGameClose;
-- (float) scrollbackLength;	// 0-100
+@property (nonatomic) BOOL displayWarnings;
+@property (nonatomic) BOOL fatalWarnings;
+@property (nonatomic) BOOL speakGameText;
+@property (nonatomic) BOOL confirmGameClose;
+@property (nonatomic) CGFloat scrollbackLength;	//!< 0-100
 
 // Interpreter preferences
-- (NSString*)     gameTitle;
-- (int)           interpreter;
-- (GlulxInterpreter) glulxInterpreter;
-- (unsigned char) revision;
+@property (nonatomic, copy) NSString *gameTitle;
+@property (nonatomic) int interpreter;
+@property (nonatomic) GlulxInterpreter glulxInterpreter;
+@property (nonatomic) unsigned char revision;
 
 // Typographical preferences
-- (NSArray*)      fonts;   //!< 16 fonts
-- (NSArray<NSColor*>*)      colours; //!< 13 colours
+@property (nonatomic, copy) NSArray<NSFont*> *fonts;   //!< 16 fonts
+@property (nonatomic, copy) NSArray<NSColor*> *colours; //!< 13 colours
 
-- (NSString*) proportionalFontFamily;
-- (NSString*) fixedFontFamily;
-- (NSString*) symbolicFontFamily;
-- (CGFloat) fontSize;
+@property (nonatomic, copy) NSString *proportionalFontFamily;
+@property (nonatomic, copy) NSString *fixedFontFamily;
+@property (nonatomic, copy) NSString *symbolicFontFamily;
+@property (nonatomic) CGFloat fontSize;
 
-- (CGFloat) textMargin;
-- (BOOL) useScreenFonts;
-- (BOOL) useHyphenation;
+@property (nonatomic) CGFloat textMargin;
+@property (nonatomic) BOOL useScreenFonts;
+@property (nonatomic) BOOL useHyphenation;
 
-- (BOOL) useKerning;
-- (BOOL) useLigatures;
+@property (nonatomic) BOOL useKerning;
+@property (nonatomic) BOOL useLigatures;
 
 // Organiser preferences
-- (NSString*) organiserDirectory;
-- (BOOL)	  keepGamesOrganised;
-- (BOOL)      autosaveGames;
+@property (nonatomic, retain) NSString *organiserDirectory;
+@property (nonatomic) BOOL keepGamesOrganised;
+@property (nonatomic) BOOL autosaveGames;
 
 // Display preferences
-- (int) foregroundColour;
-- (int) backgroundColour;
-- (BOOL) showBorders;
-- (BOOL) showGlkBorders;
-- (BOOL) showCoverPicture;
+@property (nonatomic) int foregroundColour;
+@property (nonatomic) int backgroundColour;
+@property (nonatomic) BOOL showBorders;
+@property (nonatomic) BOOL showGlkBorders;
+@property (nonatomic) BOOL showCoverPicture;
 
 // The dictionary
-- (NSDictionary*) dictionary;
+@property (readonly, copy) NSDictionary<NSString*,id> *dictionary;
 
 // Setting preferences
 - (void) setDisplayWarnings: (BOOL) flag;
 - (void) setFatalWarnings: (BOOL) flag;
 - (void) setSpeakGameText: (BOOL) flag;
 - (void) setConfirmGameClose: (BOOL) flag;
-- (void) setScrollbackLength: (float) value;
+- (void) setScrollbackLength: (CGFloat) value;
 - (void) setGlulxInterpreter: (GlulxInterpreter) value;
 
 - (void) setGameTitle: (NSString*) title;
-- (void) setInterpreter: (NSInteger) interpreter;
-- (void) setRevision: (int) revision;
+- (void) setInterpreter: (int) interpreter;
+- (void) setRevision: (unsigned char) revision;
 
-- (void) setFonts: (NSArray*) fonts;
-- (void) setColours: (NSArray*) colours;
+- (void) setFonts: (NSArray<NSFont*>*) fonts;
+- (void) setColours: (NSArray<NSColor*>*) colours;
 
 - (void) setProportionalFontFamily: (NSString*) fontFamily;
 - (void) setFixedFontFamily: (NSString*) fontFamily;
 - (void) setSymbolicFontFamily: (NSString*) fontFamily;
-- (void) setFontSize: (float) size;
+- (void) setFontSize: (CGFloat) size;
 
-- (void) setTextMargin: (float) textMargin;
+- (void) setTextMargin: (CGFloat) textMargin;
 - (void) setUseScreenFonts: (BOOL) useScreenFonts;
 - (void) setUseHyphenation: (BOOL) useHyphenation;
 - (void) setUseKerning: (BOOL) useKerning;
@@ -107,8 +111,8 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 
 - (void) setShowBorders: (BOOL) value;
 - (void) setShowGlkBorders: (BOOL) value;
-- (void) setForegroundColour: (NSInteger) value;
-- (void) setBackgroundColour: (NSInteger) value;
+- (void) setForegroundColour: (int) value;
+- (void) setBackgroundColour: (int) value;
 - (void) setShowCoverPicture: (BOOL) value;
 
 // Notifications

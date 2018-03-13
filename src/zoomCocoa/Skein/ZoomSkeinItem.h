@@ -68,7 +68,7 @@ extern NSString* ZoomSIChild;								// Child item (if relevant)
 
 // Skein tree
 - (ZoomSkeinItem*) parent;
-- (NSSet*)         children;
+- (NSSet<ZoomSkeinItem*>*)children;
 - (ZoomSkeinItem*) childWithCommand: (NSString*) command;
 
 - (ZoomSkeinItem*) addChild: (ZoomSkeinItem*) childItem;

@@ -1096,7 +1096,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 				
 		// Return the value of the appropriate field
 		if ([rowID isEqualToString: @"rating"]) {
-			return [NSNumber numberWithFloat: [story rating]];
+			return @([story rating]);
 		} else {
 			return [story objectForKey: rowID];
 		}
@@ -1344,13 +1344,13 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 			[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: title
 																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																					  titleFont, NSFontAttributeName, 
-																					  [NSNumber numberWithInt: ZoomTitleField], ZoomFieldAttribute,
+																					  @(ZoomTitleField), ZoomFieldAttribute,
 																					  @(row), ZoomRowAttribute,
 																					  story, ZoomStoryAttribute,
 																					  nil]] autorelease]];
 			[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n"
 																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																					  [NSNumber numberWithInt: ZoomTitleNewlineField], ZoomFieldAttribute,
+																					  @(ZoomTitleNewlineField), ZoomFieldAttribute,
 																					  @(row), ZoomRowAttribute,
 																					  story, ZoomStoryAttribute,
 																					  nil]] autorelease]];
@@ -1362,13 +1362,13 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 				[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: yearText
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
 																						  yearFont, NSFontAttributeName, 
-																						  [NSNumber numberWithInt: ZoomYearField], ZoomFieldAttribute,
+																						  @(ZoomYearField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
 																						  nil]] autorelease]];
 				[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n"
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																						  [NSNumber numberWithInt: ZoomYearNewlineField], ZoomFieldAttribute,
+																						  @(ZoomYearNewlineField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
 																						  nil]] autorelease]];
@@ -1383,7 +1383,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 				[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: descText
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
 																						  descFont, NSFontAttributeName, 
-																						  [NSNumber numberWithInt: ZoomDescriptionField], ZoomFieldAttribute,
+																						  @(ZoomDescriptionField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
 																						  nil]] autorelease]];
@@ -1633,8 +1633,8 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 		splitViewPercentage = pos;
 		splitViewCollapsed = NO;
 	
-		[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithFloat:splitViewPercentage] forKey:@"iFictionSplitViewPercentage"];
-		[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool:splitViewCollapsed] forKey:@"iFictionSplitViewCollapsed"];
+		[[NSUserDefaults standardUserDefaults] setFloat: splitViewPercentage forKey:@"iFictionSplitViewPercentage"];
+		[[NSUserDefaults standardUserDefaults] setBool: splitViewCollapsed forKey:@"iFictionSplitViewCollapsed"];
 	}
 }
 
@@ -1997,7 +1997,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 			&& edited.location + edited.length == [storage length]
 			&& [mainTableView numberOfSelectedRows] == 1) {
 			row = @([mainTableView selectedRow]);
-			field = [NSNumber numberWithInt: ZoomDescriptionField];
+			field = @(ZoomDescriptionField);
 			story = [self selectedStory];
 		}
 		
@@ -2014,17 +2014,17 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 		NSFont* font;
 		switch ([field intValue]) {
 			case ZoomTitleNewlineField:
-				field = [NSNumber numberWithInt: ZoomTitleField];
+				field = @(ZoomTitleField);
 			case ZoomTitleField:
 				font = titleFont;
 				break;
 			case ZoomYearNewlineField:
-				field = [NSNumber numberWithInt: ZoomYearField];
+				field = @(ZoomYearField);
 			case ZoomYearField:
 				font = yearFont;
 				break;
 			case ZoomDescriptionNewlineField:
-				field = [NSNumber numberWithInt: ZoomDescriptionField];
+				field = @(ZoomDescriptionField);
 			default:
 				font = descFont;
 				break;

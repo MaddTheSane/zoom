@@ -134,7 +134,7 @@
 	
 	if (subviewIndex != NSNotFound) {
 		[states replaceObjectAtIndex: subviewIndex
-						  withObject: [NSNumber numberWithBool: !isHidden]];
+						  withObject: @(!isHidden)];
 	}
 	
 	[self rearrangeSubviews];
@@ -144,7 +144,7 @@
 		  withTitle: (NSString*) title {
 	[views addObject: subview];
 	[titles addObject: title];
-	[states addObject: [NSNumber numberWithBool: YES]];
+	[states addObject: @YES];
 
 	NSRect bounds = [self bounds];
 	

@@ -84,8 +84,8 @@
 	CABasicAnimation* fadeAnimation = [CABasicAnimation animation];
 	
 	fadeAnimation.keyPath		= @"opacity";
-	fadeAnimation.fromValue		= [NSNumber numberWithDouble: 0];
-	fadeAnimation.toValue		= [NSNumber numberWithDouble: 1];
+	fadeAnimation.fromValue		= @0.0;
+	fadeAnimation.toValue		= @1.0;
 	fadeAnimation.repeatCount	= 1;
 	fadeAnimation.timingFunction= [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
 	fadeAnimation.duration		= seconds*0.5;
@@ -147,8 +147,8 @@
 	CABasicAnimation* fadeAnimation = [CABasicAnimation animation];
 	
 	fadeAnimation.keyPath		= @"opacity";
-	fadeAnimation.fromValue		= [NSNumber numberWithDouble: 1];
-	fadeAnimation.toValue		= [NSNumber numberWithDouble: 0];
+	fadeAnimation.fromValue		= @1.0;
+	fadeAnimation.toValue		= @0.0;
 	fadeAnimation.repeatCount	= 1;
 	fadeAnimation.timingFunction= [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
 	fadeAnimation.duration		= seconds;

@@ -127,8 +127,8 @@ static unsigned int Int4(const unsigned char* bytes) {
 			// Create the block data
 			NSDictionary* block = [NSDictionary dictionaryWithObjectsAndKeys:
 				blockID, @"id",
-				[NSNumber numberWithUnsignedInt: blockLength], @"length",
-				[NSNumber numberWithUnsignedInt: pos+8], @"offset",
+				@(blockLength), @"length",
+				@(pos+8), @"offset",
 				nil];
 			[blockID release];
 			
@@ -144,7 +144,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 			[typeBlocks addObject: block];
 			
 			[locationsToBlocks setObject: block
-								  forKey: [NSNumber numberWithUnsignedInt: pos]];
+								  forKey: @(pos)];
 			
 			// Next position
 			pos += 8 + blockLength;
@@ -262,7 +262,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		adaptiveImages = [[NSMutableSet alloc] init];
 		
 		for (pos=0; pos+4<=[aPal length]; pos+=4) {
-			NSNumber* num = [NSNumber numberWithUnsignedInt: Int4(pal + pos)];
+			NSNumber* num = @(Int4(pal + pos));
 			[adaptiveImages addObject: num];
 		}
 	}
@@ -292,22 +292,22 @@ static unsigned int Int4(const unsigned char* bytes) {
 	int x;
 	
 	for (x=24; x<[resData length]; x += 28) {
-		NSNumber* imageNum = [NSNumber numberWithUnsignedInt: Int4(data + x)];
+		NSNumber* imageNum = @(Int4(data + x));
 
 		unsigned int num, denom;
 		double ratio;
 		
 		num = Int4(data + x + 4); denom = Int4(data + x + 8);
 		if (denom == 0) ratio = 0; else ratio = ((double)num)/((double)denom);
-		NSNumber* stdRatio = [NSNumber numberWithDouble: ratio];
+		NSNumber* stdRatio = @(ratio);
 		
 		num = Int4(data + x + 12); denom = Int4(data + x + 16);
 		if (denom == 0) ratio = 0; else ratio = ((double)num)/((double)denom);
-		NSNumber* minRatio = [NSNumber numberWithDouble: ratio];
+		NSNumber* minRatio = @(ratio);
 		
 		num = Int4(data + x + 20); denom = Int4(data + x + 24);
 		if (denom == 0) ratio = 0; else ratio = ((double)num)/((double)denom);
-		NSNumber* maxRatio = [NSNumber numberWithDouble: ratio];
+		NSNumber* maxRatio = @(ratio);
 		
 		NSDictionary* entry = [NSDictionary dictionaryWithObjectsAndKeys:
 			stdRatio, @"stdRatio", minRatio, @"minRatio", maxRatio, @"maxRatio", nil];
@@ -326,7 +326,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return 
 		[locationsToBlocks objectForKey: 
 			[[resourceIndex objectForKey: @"Pict"] objectForKey: 
-				[NSNumber numberWithUnsignedInt: num]]] != nil;
+				@(num)]] != nil;
 }
 
 // = Typed data =
@@ -346,7 +346,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return [self dataForChunk: 
 		[locationsToBlocks objectForKey: 
 			[[resourceIndex objectForKey: @"Pict"] objectForKey: 
-				[NSNumber numberWithUnsignedInt: num]]]];
+				@(num)]]];
 }
 
 - (NSData*) soundDataWithNumber: (int) num {
@@ -360,7 +360,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return [self dataForChunk: 
 		[locationsToBlocks objectForKey: 
 			[[resourceIndex objectForKey: @"Snd "] objectForKey: 
-				[NSNumber numberWithUnsignedInt: num]]]];
+				@(num)]]];
 }
 
 // = Fiddling with PNG palettes =
@@ -442,19 +442,19 @@ static const int cacheLowerLimit = 32;
 static const int cacheUpperLimit = 64;
 
 - (NSImage*) cachedImageWithNumber: (int) num {
-	NSDictionary* entry = [cache objectForKey: [NSNumber numberWithUnsignedInt: num]];
+	NSDictionary* entry = [cache objectForKey: @(num)];
 	[self setActivePalette: [entry objectForKey: @"palette"]];
 	return [entry objectForKey: @"image"];
 }
 
 - (NSData*) cachedPaletteForImage: (int) num {
-	return [[cache objectForKey: [NSNumber numberWithUnsignedInt: num]] objectForKey: @"palette"];
+	return [[cache objectForKey: @(num)] objectForKey: @"palette"];
 }
 
 - (void) usedImageInCache: (int) num {
-	NSMutableDictionary* entry = [cache objectForKey: [NSNumber numberWithUnsignedInt: num]];
+	NSMutableDictionary* entry = [cache objectForKey: @(num)];
 	
-	[entry setObject: [NSNumber numberWithUnsignedInt: maxCacheNum++]
+	[entry setObject: @(maxCacheNum++)
 			  forKey: @"usageNumber"];
 }
 
@@ -469,12 +469,12 @@ static const int cacheUpperLimit = 64;
 	// Add to the cache
 	[cache setObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
 		img, @"image",
-		[NSNumber numberWithBool: isAdaptive], @"adaptive",
-		[NSNumber numberWithUnsignedInt: maxCacheNum++], @"usageNumber",
-		[NSNumber numberWithUnsignedInt: num], @"number",
+		@(isAdaptive), @"adaptive",
+		@(maxCacheNum++), @"usageNumber",
+		@(num), @"number",
 		palette, @"palette",
 		nil]
-			  forKey: [NSNumber numberWithUnsignedInt: num]];
+			  forKey: @(num)];
 	
 	// Remove lowest-priority images if the cache gets too full
 	if ([cache count] >= cacheUpperLimit) {
@@ -552,7 +552,7 @@ static const int cacheUpperLimit = 64;
 
 	NSDictionary* imageBlock = [locationsToBlocks objectForKey: 
 		[[resourceIndex objectForKey: @"Pict"] objectForKey: 
-			[NSNumber numberWithUnsignedInt: num]]];
+			@(num)]];
 	
 	if (imageBlock == nil) return NSMakeSize(0,0);
 	
@@ -576,7 +576,7 @@ static const int cacheUpperLimit = 64;
 	}
 	
 	// Get the resolution data
-	NSDictionary* resData = [resolution objectForKey: [NSNumber numberWithUnsignedInt: num]];
+	NSDictionary* resData = [resolution objectForKey: @(num)];
 	if (resData == nil) return result;
 	
 	// Work out the scaling factor
@@ -616,7 +616,7 @@ static const int cacheUpperLimit = 64;
 - (NSImage*) imageWithNumber: (int) num {
 	NSDictionary* imageBlock = [locationsToBlocks objectForKey: 
 		[[resourceIndex objectForKey: @"Pict"] objectForKey: 
-			[NSNumber numberWithUnsignedInt: num]]];
+			@(num)]];
 	
 	if (imageBlock == nil) return nil;
 	
@@ -653,7 +653,7 @@ static const int cacheUpperLimit = 64;
 		NSData* pngData = [self dataForChunk: imageBlock];
 		
 		if (adaptive) {
-			if ([adaptiveImages containsObject: [NSNumber numberWithUnsignedInt: num]]) {
+			if ([adaptiveImages containsObject: @(num)]) {
 				pngData = [self adaptPng: pngData
 							 withPalette: activePalette];
 				wasAdaptive = YES;

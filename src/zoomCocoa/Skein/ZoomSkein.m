@@ -229,13 +229,11 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		
 		// Add this item to the list of items in use
 		if ([item temporary]) {
-			[itemsInUse addObject: [NSNumber numberWithInt: [item temporaryScore]]];
+			[itemsInUse addObject: @([item temporaryScore])];
 		}
 		
 		// Push this item's children onto the stack
-		NSEnumerator* childEnum = [[item children] objectEnumerator];
-		ZoomSkeinItem* child;
-		while (child = [childEnum nextObject]) {
+		for (ZoomSkeinItem* child in item.children) {
 			[itemStack addObject: child];
 		}
 	}
@@ -256,13 +254,11 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		[itemStack removeLastObject];
 
 		// Remove this item if necessary
-		if ([item temporary] && [itemsToRemove containsObject: [NSNumber numberWithInt: [item temporaryScore]]]) {
+		if ([item temporary] && [itemsToRemove containsObject: @([item temporaryScore])]) {
 			[item removeFromParent];
 		} else {
 			// Push this item's children onto the stack
-			NSEnumerator* childEnum = [[item children] objectEnumerator];
-			ZoomSkeinItem* child;
-			while (child = [childEnum nextObject]) {
+			for (ZoomSkeinItem* child in item.children) {
 				[itemStack addObject: child];
 			}
 		}

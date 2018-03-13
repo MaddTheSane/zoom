@@ -644,7 +644,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryOrganiserProgressNotification
 														object: self
 													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-														  [NSNumber numberWithBool: YES], @"ActionStarting",
+														  @YES, @"ActionStarting",
 														  nil]];
 }
 
@@ -652,7 +652,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryOrganiserProgressNotification
 														object: self
 													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-														  [NSNumber numberWithBool: NO], @"ActionStarting",
+														  @NO, @"ActionStarting",
 														  nil]];
 }
 

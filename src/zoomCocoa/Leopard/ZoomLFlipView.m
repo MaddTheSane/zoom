@@ -204,12 +204,12 @@
 // = Animation properties =
 
 - (void) setAnimationStyle: (ZoomViewAnimationStyle) style {
-	[[self propertyDictionary] setObject: [NSNumber numberWithInt: style]
+	[[self propertyDictionary] setObject: @(style)
 								  forKey: @"AnimationStyle"];
 }
 
 - (ZoomViewAnimationStyle) animationStyle {
-	return [(NSNumber*)[[self propertyDictionary] objectForKey: @"AnimationStyle"] intValue];
+	return [(NSNumber*)[[self propertyDictionary] objectForKey: @"AnimationStyle"] integerValue];
 }
 
 // = Performing layout =

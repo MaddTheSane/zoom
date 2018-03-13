@@ -1360,7 +1360,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         fontToUse, NSFontAttributeName,
         foregroundColour, NSForegroundColorAttributeName,
         backgroundColour, NSBackgroundColorAttributeName,
-		[NSNumber numberWithBool: [viewPrefs useLigatures]], NSLigatureAttributeName,
+		@([viewPrefs useLigatures]), NSLigatureAttributeName,
 		[[style copy] autorelease], ZoomStyleAttributeName,
         nil];
 	
@@ -2098,9 +2098,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 				ZoomUpperWindow* previewWin;
 				
 				[f setAttributes: [NSDictionary dictionaryWithObjectsAndKeys: 
-						[NSNumber numberWithLong: creatorCode], NSFileHFSCreatorCode,
-						[NSNumber numberWithLong: typeCode], NSFileHFSTypeCode,
-						[NSNumber numberWithBool: [panel isExtensionHidden]], NSFileExtensionHidden,
+						@(creatorCode), NSFileHFSCreatorCode,
+						@(typeCode), NSFileHFSTypeCode,
+						@([panel isExtensionHidden]), NSFileExtensionHidden,
 						nil]];
 				
 				if ([upperWindows count] <= 0 || [(ZoomUpperWindow*)[upperWindows objectAtIndex: 0] length] > 0) {
@@ -2138,9 +2138,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 														   contents:[NSData data]
 														 attributes:
 				[NSDictionary dictionaryWithObjectsAndKeys: 
-					[NSNumber numberWithLong: creator], NSFileHFSCreatorCode,
-					[NSNumber numberWithLong: typeCode], NSFileHFSTypeCode,
-					[NSNumber numberWithBool: [panel isExtensionHidden]], NSFileExtensionHidden,
+					@(creator), NSFileHFSCreatorCode,
+					@(typeCode), NSFileHFSTypeCode,
+					@([panel isExtensionHidden]), NSFileExtensionHidden,
 					nil]]) {
 				file = [NSFileHandle fileHandleForWritingAtPath: fn];
 			}
@@ -3156,13 +3156,13 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		NSView* viewResponder = (NSView*)[[self window] firstResponder];
 		if ([viewResponder isKindOfClass: [NSView class]]) {
 			while (viewResponder != nil) {
-				if (viewResponder == self) return [NSNumber numberWithBool: YES];
+				if (viewResponder == self) return @YES;
 				
 				viewResponder = [viewResponder superview];
 			}
 		}
 		
-		return [NSNumber numberWithBool: NO];
+		return @NO;
 	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		//return nil;
 	}

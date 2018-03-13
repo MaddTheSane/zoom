@@ -166,11 +166,10 @@ static NSString* convertCommand(NSString* command) {
 }
 
 - (ZoomSkeinItem*) childWithCommand: (NSString*) com {
-	NSEnumerator* objEnum = [children objectEnumerator];
-	ZoomSkeinItem* skeinItem;
-	
-	while (skeinItem = [objEnum nextObject]) {
-		if ([[skeinItem command] isEqualToString: com]) return skeinItem;
+	for (ZoomSkeinItem* skeinItem in children) {
+		if ([[skeinItem command] isEqualToString: com]) {
+			return skeinItem;
+		}
 	}
 	
 	return nil;

@@ -105,7 +105,7 @@ static NSLock*          globalLock = nil;
 	
 	if (self) {
 		prefLock = [[NSLock alloc] init];
-		prefs = [[NSMutableDictionary allocWithZone: [self zone]] init];		
+		prefs = [[NSMutableDictionary alloc] init];
 	}
 	
 	return self;
@@ -304,10 +304,10 @@ static NSArray* DefaultColours(void) {
 	return result;
 }
 
-- (float) scrollbackLength {
+- (CGFloat) scrollbackLength {
 	[prefLock lock];
 	
-	float result;
+	CGFloat result;
 	if ([prefs objectForKey: scrollbackLength] == nil)
 		result = 100.0;
 	else
@@ -352,7 +352,7 @@ static NSArray* DefaultColours(void) {
 	NSNumber* glulxInterpreterNum = (NSNumber*)[prefs objectForKey: glulxInterpreter];
 	
 	GlulxInterpreter result;
-	if (glulxInterpreterNum)	result = [glulxInterpreterNum intValue];
+	if (glulxInterpreterNum)	result = [glulxInterpreterNum integerValue];
 	else						result = GlulxGit;
 	
 	[prefLock unlock];
@@ -362,7 +362,7 @@ static NSArray* DefaultColours(void) {
 
 - (unsigned char) revision {
 	[prefLock lock];
-	unsigned char result = [[prefs objectForKey: revision] intValue];
+	unsigned char result = [[prefs objectForKey: revision] unsignedCharValue];
 	[prefLock unlock];
 	
 	return result;
@@ -429,7 +429,7 @@ static NSArray* DefaultColours(void) {
 - (CGFloat) textMargin {
 	[prefLock lock];
 	NSNumber* result = (NSNumber*)[prefs objectForKey: textMargin];
-	if (result == nil) result = [NSNumber numberWithFloat: 10.0];
+	if (result == nil) result = @10.0;
 	[prefLock unlock];
 	
 	return [result floatValue];
@@ -512,31 +512,31 @@ static NSArray* DefaultColours(void) {
 
 // Setting preferences
 - (void) setDisplayWarnings: (BOOL) flag {
-	[prefs setObject: [NSNumber numberWithBool: flag]
+	[prefs setObject: @(flag)
 			  forKey: displayWarnings];
 	[self preferencesHaveChanged];
 }
 
 - (void) setFatalWarnings: (BOOL) flag {
-	[prefs setObject: [NSNumber numberWithBool: flag]
+	[prefs setObject: @(flag)
 			  forKey: fatalWarnings];
 	[self preferencesHaveChanged];
 }
 
 - (void) setSpeakGameText: (BOOL) flag {
-	[prefs setObject: [NSNumber numberWithBool: flag]
+	[prefs setObject: @(flag)
 			  forKey: speakGameText];
 	[self preferencesHaveChanged];
 }
 
-- (void) setScrollbackLength: (float) length {
-	[prefs setObject: [NSNumber numberWithFloat: length]
+- (void) setScrollbackLength: (CGFloat) length {
+	[prefs setObject: @(length)
 			  forKey: scrollbackLength];
 	[self preferencesHaveChanged];
 }
 
 - (void) setConfirmGameClose: (BOOL) flag {
-	[prefs setObject: [NSNumber numberWithBool: flag]
+	[prefs setObject: @(flag)
 			  forKey: confirmGameClose];
 	[self preferencesHaveChanged];
 }
@@ -548,18 +548,18 @@ static NSArray* DefaultColours(void) {
 }
 
 - (void) setGlulxInterpreter: (GlulxInterpreter) value {
-	[prefs setObject: [NSNumber numberWithInt: value]
+	[prefs setObject: @(value)
 			  forKey: glulxInterpreter];
 	[self preferencesHaveChanged];
 }
 
-- (void) setInterpreter: (NSInteger) inter {
+- (void) setInterpreter: (int) inter {
 	[prefs setObject: @(inter)
 			  forKey: interpreter];
 	[self preferencesHaveChanged];
 }
 
-- (void) setRevision: (int) rev {
+- (void) setRevision: (unsigned char) rev {
 	[prefs setObject: @(rev)
 			  forKey: revision];
 	[self preferencesHaveChanged];
@@ -588,43 +588,43 @@ static NSArray* DefaultColours(void) {
 }
 
 - (void) setKeepGamesOrganised: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: keepGamesOrganised];
 	[self preferencesHaveChanged];
 }
 
 - (void) setAutosaveGames: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: autosaveGames];
 	[self preferencesHaveChanged];
 }
 
-- (void) setTextMargin: (float) value {
-	[prefs setObject: [NSNumber numberWithFloat: value]
+- (void) setTextMargin: (CGFloat) value {
+	[prefs setObject: @(value)
 			  forKey: textMargin];
 	[self preferencesHaveChanged];
 }
 
 - (void) setUseScreenFonts: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: useScreenFonts];
 	[self preferencesHaveChanged];
 }
 
 - (void) setUseHyphenation: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: useHyphenation];
 	[self preferencesHaveChanged];
 }
 
 - (void) setUseKerning: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: useKerning];
 	[self preferencesHaveChanged];	
 }
 
 - (void) setUseLigatures: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: useLigatures];
 	[self preferencesHaveChanged];	
 }
@@ -685,7 +685,7 @@ static NSArray* DefaultColours(void) {
 			  toFamily: fontFamily];
 }
 
-- (void) setFontSize: (float) size {
+- (void) setFontSize: (CGFloat) size {
 	// Change the font size of all the fonts
 	NSMutableArray* newFonts = [NSMutableArray array];
 	
@@ -741,30 +741,30 @@ static NSArray* DefaultColours(void) {
 }
 
 - (void) setShowCoverPicture: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: showCoverPicture];
 	[self preferencesHaveChanged];	
 }
 
 - (void) setShowBorders: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: showBorders];
 	[self preferencesHaveChanged];	
 }
 
 - (void) setShowGlkBorders: (BOOL) value {
-	[prefs setObject: [NSNumber numberWithBool: value]
+	[prefs setObject: @(value)
 			  forKey: showGlkBorders];
 	[self preferencesHaveChanged];	
 }
 
-- (void) setForegroundColour: (NSInteger) value {
+- (void) setForegroundColour: (int) value {
 	[prefs setObject: @(value)
 			  forKey: foregroundColour];
 	[self preferencesHaveChanged];		
 }
 
-- (void) setBackgroundColour: (NSInteger) value {
+- (void) setBackgroundColour: (int) value {
 	[prefs setObject: @(value)
 			  forKey: backgroundColour];
 	[self preferencesHaveChanged];	
