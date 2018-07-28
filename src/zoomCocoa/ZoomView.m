@@ -1929,6 +1929,32 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     }
 }
 
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
+{
+	NSSavePanel* panel = sender;
+	id tmp = nil;
+	
+	if ([url getResourceValue:&tmp forKey:NSURLTypeIdentifierKey error:NULL]) {
+		NSArray *types = [panel allowedFileTypes];
+	}
+	
+	if ([[url pathExtension] isEqualToString: [panel requiredFileType]]) return YES;
+	
+	if ([[panel requiredFileType] isEqualToString: @"zoomSave"]) {
+		if ([[url pathExtension] isEqualToString: @"qut"]) {
+			return YES;
+		}
+	}
+	
+	BOOL isDir;
+	
+	if ([[NSFileManager defaultManager] fileExistsAtPath: url.path isDirectory: &isDir]) {
+		if (isDir) return YES;
+	}
+	
+	return NO;
+}
+
 - (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename {
 	NSSavePanel* panel = sender;
 	

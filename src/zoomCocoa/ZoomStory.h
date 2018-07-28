@@ -11,7 +11,7 @@
 @class ZoomMetadata;
 
 // Notifications
-extern NSString* ZoomStoryDataHasChangedNotification;
+extern NSNotificationName ZoomStoryDataHasChangedNotification;
 
 enum IFMB_Zarfian {
 	IFMD_Unrated = 0x0,

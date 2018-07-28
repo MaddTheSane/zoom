@@ -9,7 +9,7 @@
 #import "ZoomPlugInManager.h"
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
 
-NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
+NSString* const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
 
 @implementation ZoomPlugInManager
 
@@ -17,10 +17,10 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 
 + (ZoomPlugInManager*) sharedPlugInManager {
 	static ZoomPlugInManager* sharedManager = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
+	
+	if (!sharedManager) {
 		sharedManager = [[ZoomPlugInManager alloc] init];
-	});
+	}
 	
 	return sharedManager;
 }
@@ -78,31 +78,11 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	return self;
 }
 
-- (void) dealloc {
-	[pluginLock release];
-	[pluginBundles release];
-	[pluginClasses release];
-	[pluginsToVersions release];
-	
-	[lastPlist release];
-	[lastPlistPlugin release];
-	
-	[pluginInformation release];
-	
-	[currentDownload release];
-	currentDownload = nil;
-	
-	[super dealloc];
-}
-
 - (void) finishedWithObject {
-	[currentDownload release];
 	currentDownload = nil;
 	
-	[downloadInfo release];
 	downloadInfo = nil;
 	
-	[pluginInformation release];
 	pluginInformation = nil;
 }
 
@@ -113,7 +93,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 // = Dealing with existing plugins =
 
 - (void) loadPlugIn: (NSString*) pluginBundlePath {
-	NSBundle* pluginBundle = [NSBundle bundleWithPath: pluginBundlePath];
+	NSBundle* pluginBundle = [[NSBundle alloc] initWithPath: pluginBundlePath];
 	
 	NSString* version = [self versionForBundle: pluginBundlePath];
 	NSString* name = [self nameForBundle: pluginBundlePath];
@@ -123,22 +103,33 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	}
 	
 	if (pluginBundle != nil && name != nil) {
-		if ([pluginBundle load]) {
+		@try {
+			NSError *errOut = nil;
+			[pluginBundle principalClass];
+			if ([pluginBundle loadAndReturnError:&errOut]) {
 #if VERBOSITY >= 1
-			NSLog(@"== Plugin loaded: %@", [plugin stringByDeletingPathExtension]);
+				NSLog(@"== Plugin loaded: %@", [pluginBundlePath stringByDeletingPathExtension]);
 #endif
-			[pluginBundles addObject: pluginBundle];
-			
-			[pluginsToVersions setObject: version
-								  forKey: name];
-			
-			Class primaryClass = [pluginBundle principalClass];
-			[pluginClasses addObject: primaryClass];
+				[pluginBundles addObject: pluginBundle];
+				
+				[pluginsToVersions setObject: version
+									  forKey: name];
+				
+				Class primaryClass = [pluginBundle principalClass];
+				[pluginClasses addObject: primaryClass];
 #if VERBOSITY >= 2
-			NSLog(@"=== Principal class: %@", [primaryClass description]);
+				NSLog(@"=== Principal class: %@", [primaryClass description]);
 #endif
+			} else {
+				NSLog(@"%@", errOut);
+			}
+		} @catch (NSException *exception) {
+#if VERBOSITY >= 1
+			NSLog(@"== Plugin failed: %@, exception %@", [pluginBundlePath stringByDeletingPathExtension], exception);
+#endif
+		} @finally {
 		}
-	}	
+	}
 }
 
 - (void) loadPluginsFrom: (NSString*) pluginPath {
@@ -146,7 +137,6 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	if (!pluginClasses) pluginClasses = [[NSMutableArray alloc] init];
 	if (!pluginsToVersions) pluginsToVersions = [[NSMutableDictionary alloc] init];
 	
-	[pluginInformation release];
 	pluginInformation = nil;
 	
 #if VERBOSITY >= 2
@@ -238,7 +228,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 #if VERBOSITY >= 3
 	NSLog(@"= Instantiating %@ for %@", [pluginClass description], filename);
 #endif
-	ZoomPlugIn* instance = [[[pluginClass alloc] initWithFilename: filename] autorelease];
+	ZoomPlugIn* instance = [[pluginClass alloc] initWithFilename: filename];
 	
 	[pluginLock unlock];
 	return instance;	
@@ -310,8 +300,8 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	}
 	
 	// Clear the cache
-	[lastPlistPlugin release];
-	[lastPlist release];
+	lastPlistPlugin = nil;
+	lastPlist = nil;
 		
 	lastPlistPlugin = [pluginBundle copy];
 	lastPlist = nil;
@@ -351,7 +341,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	}
 	
 	// Plugin is OK: return the result
-	return lastPlist = [plistDictionary retain];
+	return lastPlist = plistDictionary;
 }
 
 - (NSString*) nameForBundle: (NSString*) pluginBundle {
@@ -477,7 +467,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 - (void) sortInformation {
 	// Sorts the plugin information array
 	[pluginInformation sortUsingFunction: SortPlugInInfo
-								 context: self];
+								 context: (__bridge void * _Nullable)(self)];
 }
 
 - (void) addPlugInsFromDirectory: (NSString*) directory
@@ -500,14 +490,13 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 			[information setStatus: status];
 			
 			// Store in the array
-			[pluginInformation addObject: [information autorelease]];
+			[pluginInformation addObject: information];
 		}
 	}	
 }
 
 - (void) setupInformation {
 	// Sets up the initial plugin information array
-	[pluginInformation release];
 	pluginInformation = [[NSMutableArray alloc] init];
 	
 	// Get the information for all of the loaded plugins
@@ -519,7 +508,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		if (information == nil) continue;
 		
 		// Store in the array
-		[pluginInformation addObject: [information autorelease]];
+		[pluginInformation addObject: information];
 	}
 	
 	// Get the information for any plugins that are installed but disabled
@@ -563,13 +552,12 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	// Get the next URL to check
 	NSURL* nextUrl = nil;
 	if ([checkUrls count] > 0) {
-		nextUrl = [[[checkUrls lastObject] retain] autorelease];
+		nextUrl = [checkUrls lastObject];
 		[checkUrls removeLastObject];
 	}
 	
 	// We've finished if the next URL is nil
 	if (nextUrl == nil) {
-		[checkUrls release];
 		checkUrls = nil;
 		
 		if (delegate && [delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
@@ -580,12 +568,11 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	
 	// Create a new request
 	NSLog(@"Checking for plug-in updates from %@", nextUrl);
-	lastRequest = [[NSURLRequest requestWithURL: nextUrl
+	lastRequest = [NSURLRequest requestWithURL: nextUrl
 									cachePolicy: NSURLRequestReloadIgnoringCacheData
-								timeoutInterval: 20] retain];
-	[checkConnection release];
-	checkConnection = [[NSURLConnection connectionWithRequest: lastRequest
-													 delegate: self] retain];
+								timeoutInterval: 20];
+	checkConnection = [NSURLConnection connectionWithRequest: lastRequest
+													 delegate: self];
 }
 
 - (void) checkForUpdatesFrom: (NSArray*) urls {
@@ -593,7 +580,6 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	NSSet* uniqueUrls = [NSSet setWithArray: urls];
 	
 	// Store the set of URLs to check
-	[checkUrls release];
 	checkUrls = [[uniqueUrls allObjects] mutableCopy];
 	
 	// Notify the delegate that we're starting to check for updates
@@ -630,7 +616,6 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	
 	// Start the check
 	[self checkForUpdatesFrom: whereToCheck];
-	[whereToCheck release];
 }
 
 - (BOOL) addUpdatedPlugin: (ZoomPlugInInfo*) plugin {
@@ -644,7 +629,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	ZoomPlugInInfo* maybePlugin;
 	while (maybePlugin = [pluginEnum nextObject]) {
 		if ([[plugin name] isEqualToString: [maybePlugin name]]) {
-			oldPlugIn = [[maybePlugin retain] autorelease];
+			oldPlugIn = maybePlugin;
 		}
 	}
 	
@@ -689,9 +674,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
   didReceiveResponse:(NSURLResponse *)response {
 	if (connection == checkConnection) {
 		// Got a response to the last check for updates URL
-		[checkResponse release];
-		checkResponse = [response retain];
-		[checkData release];
+		checkResponse = response;
 		checkData = [[NSMutableData alloc] init];
 	}
 }
@@ -700,7 +683,6 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
   didFailWithError:(NSError *)error {
 	if (connection == checkConnection) {
 		// Got a response to the last check for updates URL
-		[checkResponse release];
 		checkResponse = nil;
 		
 		NSLog(@"Error while checking for updates: %@", error);
@@ -736,7 +718,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 					continue;
 				
 				// Work out the plugin information for this entry
-				ZoomPlugInInfo* info = [[[ZoomPlugInInfo alloc] initFromPList: value] autorelease];
+				ZoomPlugInInfo* info = [[ZoomPlugInInfo alloc] initFromPList: value];
 				if (info == nil)
 					continue;
 				
@@ -755,10 +737,10 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		}
 		
 		// Move on to the next URL
-		[lastRequest release]; lastRequest = nil;
-		[checkConnection autorelease]; checkConnection = nil;
-		[checkResponse autorelease]; checkResponse = nil;
-		[checkData autorelease]; checkData = nil;
+		lastRequest = nil;
+		checkConnection = nil;
+		checkResponse = nil;
+		checkData = nil;
 		
 		[self startNextCheck];
 	}	
@@ -786,7 +768,6 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		
 		if (download) {
 			// Don't re-use this download
-			[[download retain] autorelease];
 			[info setDownload: nil];
 			[info setUpdateInfo: nil];
 			
@@ -866,7 +847,6 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		[self installPendingPlugins];
 		
 		// Finish up, and let the delegate know that we're ready
-		[currentDownload release];
 		currentDownload = nil;
 		downloading = NO;
 		
@@ -885,7 +865,6 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	}
 	
 	// Start the new download
-	[currentDownload release];
 	currentDownload = nil;
 	
 	NSURL* url = [nextUpdate location];
@@ -925,8 +904,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	[currentDownload setDelegate: self];
 	[currentDownload startDownload];
 	
-	[downloadInfo release];
-	downloadInfo = [nextUpdate retain];
+	downloadInfo = nextUpdate;
 	
 	[nextUpdate setDownload: currentDownload];
 	[nextUpdate setStatus: ZoomPlugInDownloading];
@@ -946,7 +924,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 
 - (BOOL) installPlugIn: (NSString*) pluginBundle {
 	// Get the information for the bundle
-	ZoomPlugInInfo* bundleInfo = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundle] autorelease];
+	ZoomPlugInInfo* bundleInfo = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundle];
 	
 	// Failed if we can't get the info for the plugin
 	if (!bundleInfo) return NO;
@@ -1021,11 +999,10 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		}
 		
 		// Update the previous plugin
-		ZoomPlugInInfo* newInfo = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundlePath] autorelease];
+		ZoomPlugInInfo* newInfo = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundlePath];
 		[newInfo setStatus: ZoomPlugInUpdated];
 		restartRequired = YES;
 		
-		[[existingPlugIn retain] autorelease];
 		[pluginInformation removeObjectIdenticalTo: existingPlugIn];
 		[pluginInformation addObject: newInfo];
 	} else {
@@ -1064,11 +1041,10 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		
 		// Add the information for this plugin
 		if (existingPlugIn) {
-			[[existingPlugIn retain] autorelease];
 			[pluginInformation removeObjectIdenticalTo: existingPlugIn];
 		}
 		
-		bundleInfo = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundlePath] autorelease];
+		bundleInfo = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundlePath];
 		[bundleInfo setStatus: ZoomPlugInInstalled];
 		[pluginInformation addObject: bundleInfo];
 	}
@@ -1133,7 +1109,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 			if (!alreadyExists && [fileDict objectForKey: @"CFBundleTypeExtensions"]) {
 				plistChanged = YES;
 				restartRequired = YES;
-				[zoomFiles addObject: [[fileDict copy] autorelease]];
+				[zoomFiles addObject: [fileDict copy]];
 			}
 		}
 	}
@@ -1169,7 +1145,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 			if (!alreadyExists)  {
 				plistChanged = YES;
 				restartRequired = YES;
-				[zoomUti addObject: [[utiDict copy] autorelease]];
+				[zoomUti addObject: [utiDict copy]];
 			}
 		}
 	}
@@ -1204,7 +1180,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 
 	// Re-register the Zoom application
 	if (plistChanged) {
-		LSRegisterURL((CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
+		LSRegisterURL((__bridge CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
 	}
 	
 	// Notify of any changes to the plugin information
@@ -1241,7 +1217,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	while (pluginName = [pluginEnum nextObject]) {
 		// Get the information for the next plugin
 		NSString* pluginPath = [plugins stringByAppendingPathComponent: pluginName];
-		ZoomPlugInInfo* info = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath] autorelease];
+		ZoomPlugInInfo* info = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath];
 		if (!info) continue;
 		
 		// File it by the display name
@@ -1254,7 +1230,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	while (pluginName = [pluginEnum nextObject]) {
 		// Get the information for the next plugin
 		NSString* pluginPath = [pendingPlugIns stringByAppendingPathComponent: pluginName];
-		ZoomPlugInInfo* info = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath] autorelease];
+		ZoomPlugInInfo* info = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath];
 		if (!info) {
 			NSLog(@"== While updating: %@ is not a valid plugin", pluginName);
 			continue;

@@ -22,17 +22,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	[clientPath release]; clientPath = nil;
-	
-	if (document) [document release];
-	document = nil;
-	
-	[preferredSaveDir release];
-	
-	[super dealloc];
-}
-
 // = Overrides from ZoomPlugIn =
 
 + (BOOL) canLoadSavegames {
@@ -80,8 +69,6 @@
 // = Configuring the client =
 
 - (void) setClientPath: (NSString*) newPath {
-	[clientPath release];
-	clientPath = nil;
 	clientPath = [newPath copy];
 }
 

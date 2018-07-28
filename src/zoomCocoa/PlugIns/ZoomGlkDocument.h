@@ -30,14 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Configuring the client
 //! The metadata associated with this story
-@property (retain) ZoomStory *storyData;
+@property (strong) ZoomStory *storyData;
 //! Selects which GlkClient executable to run
 @property (copy) NSString *clientPath;
 - (void) setInputFilename: (NSString*) inputPath;					// The file that should be passed to the client as the file to run
 //! The logo to display for this story
-@property (retain) NSImage *logo;
+@property (strong) NSImage *logo;
 //! The plugin that created this document
-@property (retain) ZoomPlugIn *plugIn;
+@property (strong) ZoomPlugIn *plugIn;
 //! A .glksave file that the game should load on first start up
 @property (copy, nullable) NSString *saveGame;
 

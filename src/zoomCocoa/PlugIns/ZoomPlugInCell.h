@@ -14,7 +14,7 @@
 /// NSCell implementation for the plugin table
 ///
 @interface ZoomPlugInCell : NSCell {
-	ZoomPlugInInfo* objectValue;							// The value for this cell
+	ZoomPlugInInfo* objectValue;							//!< The value for this cell
 }
 
 @end

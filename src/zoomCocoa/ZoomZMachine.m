@@ -111,7 +111,7 @@
     // RNG
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    random_seed(tv.tv_sec^tv.tv_usec);
+    random_seed((int)(tv.tv_sec^tv.tv_usec));
 	
     // Some default options
 	// rc_load(); // DELETEME: TEST FOR BUG

@@ -9,18 +9,18 @@
 #import <Cocoa/Cocoa.h>
 #import <ZoomPlugIns/ZoomDownload.h>
 
-typedef enum ZoomPlugInStatus {
-	ZoomPlugInInstalled,									// Installed plugin
-	ZoomPlugInDisabled,										// Installed plugin that has been disabled
-	ZoomPlugInUpdated,										// Installed plugin, update to be installed
-	ZoomPlugInDownloaded,									// Downloaded plugin available to install
-	ZoomPluginUpdateAvailable,								// Update available to download
-	ZoomPlugInNew,											// Not yet installed, available to download
-	ZoomPlugInDownloadFailed,								// Marked as having an update, but it failed to download
-	ZoomPlugInInstallFailed,								// Downloaded, but the installation failed for some reason
-	ZoomPlugInDownloading,									// Currently downloading
-	ZoomPlugInNotKnown,										// Unknown status
-} ZoomPlugInStatus;
+typedef NS_ENUM(NSInteger, ZoomPlugInStatus) {
+	ZoomPlugInInstalled,									//!< Installed plugin
+	ZoomPlugInDisabled,										//!< Installed plugin that has been disabled
+	ZoomPlugInUpdated,										//!< Installed plugin, update to be installed
+	ZoomPlugInDownloaded,									//!< Downloaded plugin available to install
+	ZoomPluginUpdateAvailable,								//!< Update available to download
+	ZoomPlugInNew,											//!< Not yet installed, available to download
+	ZoomPlugInDownloadFailed,								//!< Marked as having an update, but it failed to download
+	ZoomPlugInInstallFailed,								//!< Downloaded, but the installation failed for some reason
+	ZoomPlugInDownloading,									//!< Currently downloading
+	ZoomPlugInNotKnown,										//!< Unknown status
+};
 
 ///
 /// Class representing information about a known plugin
@@ -42,8 +42,8 @@ typedef enum ZoomPlugInStatus {
 }
 
 // Initialisation
-- (id) initWithBundleFilename: (NSString*) bundle;			// Initialise with an existing plugin bundle
-- (id) initFromPList: (NSDictionary*) plist;				// Initialise with the contents of a particular plist dictionary
+- (id) initWithBundleFilename: (NSString*) bundle;			//!< Initialise with an existing plugin bundle
+- (id) initFromPList: (NSDictionary*) plist;				//!< Initialise with the contents of a particular plist dictionary
 
 // Retrieving the information
 - (NSString*) name;											// The name of this plugin

@@ -149,14 +149,14 @@
 		4BA3785E0CD3DC7500C7B1D4 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B8CE6F20AD95A3A008235D2 /* md5.c */; };
 		4BA3785F0CD3DC7700C7B1D4 /* ifmetabase.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BB8BED408B785B200D7D334 /* ifmetabase.c */; };
 		4BA378600CD3DC7700C7B1D4 /* ifmetaxml.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B71AB5F09E300EF00E27876 /* ifmetaxml.c */; };
-		4BA378610CD3DC7D00C7B1D4 /* ZoomMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEA9705B4597500A9B6DC /* ZoomMetadata.m */; };
-		4BA378620CD3DC7E00C7B1D4 /* ZoomStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEAB605B45BF400A9B6DC /* ZoomStory.m */; };
-		4BA378630CD3DC7F00C7B1D4 /* ZoomStoryID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEABC05B45C0500A9B6DC /* ZoomStoryID.m */; };
+		4BA378610CD3DC7D00C7B1D4 /* ZoomMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEA9705B4597500A9B6DC /* ZoomMetadata.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		4BA378620CD3DC7E00C7B1D4 /* ZoomStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEAB605B45BF400A9B6DC /* ZoomStory.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		4BA378630CD3DC7F00C7B1D4 /* ZoomStoryID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEABC05B45C0500A9B6DC /* ZoomStoryID.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		4BA378650CD3DCA600C7B1D4 /* ZoomPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B418ED905961D2C009C44DE /* ZoomPreferences.m */; };
 		4BA378660CD3DCB100C7B1D4 /* ZoomBlorbFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */; };
-		4BA378690CD3DCD100C7B1D4 /* ZoomPlugInManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B123EC90C9C636200CA3374 /* ZoomPlugInManager.m */; };
+		4BA378690CD3DCD100C7B1D4 /* ZoomPlugInManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B123EC90C9C636200CA3374 /* ZoomPlugInManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		4BA3786B0CD3DCD900C7B1D4 /* ZoomDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B84FDDC0CAFC9970071F3B3 /* ZoomDownload.m */; };
-		4BA3786D0CD3DCE000C7B1D4 /* ZoomPlugInInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B12431A0CAE9B2500CA3374 /* ZoomPlugInInfo.m */; };
+		4BA3786D0CD3DCE000C7B1D4 /* ZoomPlugInInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B12431A0CAE9B2500CA3374 /* ZoomPlugInInfo.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		4BA3786E0CD3DCE700C7B1D4 /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; };
 		4BA8B5770B1B0479007CD75E /* ZoomInputLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B3DA12F068DAF9E00B7090F /* ZoomInputLine.h */; };
 		4BA8B5780B1B047A007CD75E /* ZoomTextToSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE5F510075121A400C25A70 /* ZoomTextToSpeech.h */; };
@@ -170,7 +170,7 @@
 		4BB8C0DE08C2452E00D7D334 /* operation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F82050F7CC500A8E303 /* operation.h */; };
 		4BB8C0E008C2452E00D7D334 /* gram.y in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F83050F7CC500A8E303 /* gram.y */; };
 		4BB8C0E108C2452E00D7D334 /* lex.l in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F81050F7CC500A8E303 /* lex.l */; };
-		4BB8C0E208C2452E00D7D334 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F80050F7CC500A8E303 /* main.c */; };
+		4BB8C0E208C2452E00D7D334 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F80050F7CC500A8E303 /* main.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4BB8C12808C2497700D7D334 /* interp_z3.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F68050F7C2000A8E303 /* interp_z3.h */; };
 		4BB8C12908C2497700D7D334 /* interp_z4.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F6A050F7C2000A8E303 /* interp_z4.h */; };
 		4BB8C12A08C2497700D7D334 /* interp_gen.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F6B050F7C2000A8E303 /* interp_gen.h */; };
@@ -201,32 +201,32 @@
 		4BB8C14308C2497700D7D334 /* v6display.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F5F050FBAAF00A8E303 /* v6display.h */; };
 		4BB8C14408C2497700D7D334 /* image.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F62050FBB3F00A8E303 /* image.h */; };
 		4BB8C14508C2497700D7D334 /* blorb.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F99050F7D5200A8E303 /* blorb.h */; };
-		4BB8C14708C2497700D7D334 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F89050F7D5200A8E303 /* iff.c */; };
-		4BB8C14808C2497700D7D334 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8C050F7D5200A8E303 /* main.c */; };
+		4BB8C14708C2497700D7D334 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F89050F7D5200A8E303 /* iff.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C14808C2497700D7D334 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8C050F7D5200A8E303 /* main.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4BB8C14908C2497700D7D334 /* rc_parse.y in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8D050F7D5200A8E303 /* rc_parse.y */; };
-		4BB8C14A08C2497700D7D334 /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8E050F7D5200A8E303 /* options.c */; };
-		4BB8C14B08C2497700D7D334 /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8F050F7D5200A8E303 /* file.c */; };
-		4BB8C14C08C2497700D7D334 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F90050F7D5200A8E303 /* hash.c */; };
-		4BB8C14D08C2497700D7D334 /* rc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F92050F7D5200A8E303 /* rc.c */; };
-		4BB8C14E08C2497700D7D334 /* font3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F94050F7D5200A8E303 /* font3.c */; };
-		4BB8C14F08C2497700D7D334 /* menu.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F95050F7D5200A8E303 /* menu.c */; };
+		4BB8C14A08C2497700D7D334 /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8E050F7D5200A8E303 /* options.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C14B08C2497700D7D334 /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8F050F7D5200A8E303 /* file.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C14C08C2497700D7D334 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F90050F7D5200A8E303 /* hash.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C14D08C2497700D7D334 /* rc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F92050F7D5200A8E303 /* rc.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C14E08C2497700D7D334 /* font3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F94050F7D5200A8E303 /* font3.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C14F08C2497700D7D334 /* menu.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F95050F7D5200A8E303 /* menu.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4BB8C15008C2497700D7D334 /* rc_lex.l in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F96050F7D5200A8E303 /* rc_lex.l */; };
-		4BB8C15108C2497700D7D334 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB3050F7DE200A8E303 /* state.c */; };
-		4BB8C15208C2497700D7D334 /* tokenise.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB5050F7DE200A8E303 /* tokenise.c */; };
+		4BB8C15108C2497700D7D334 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB3050F7DE200A8E303 /* state.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15208C2497700D7D334 /* tokenise.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB5050F7DE200A8E303 /* tokenise.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4BB8C15308C2497700D7D334 /* eval.y in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB6050F7DE200A8E303 /* eval.y */; };
-		4BB8C15408C2497700D7D334 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB7050F7DE200A8E303 /* debug.c */; };
-		4BB8C15508C2497700D7D334 /* zmachine.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB9050F7DE200A8E303 /* zmachine.c */; };
-		4BB8C15608C2497700D7D334 /* zscii.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBA050F7DE200A8E303 /* zscii.c */; };
-		4BB8C15708C2497700D7D334 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBC050F7DE200A8E303 /* stream.c */; };
-		4BB8C15808C2497700D7D334 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBD050F7DE200A8E303 /* random.c */; };
-		4BB8C15908C2497700D7D334 /* interp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FC0050F7DE200A8E303 /* interp.c */; };
-		4BB8C15A08C2497700D7D334 /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; };
-		4BB8C15B08C2497700D7D334 /* ZoomServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F30050F9E8F00A8E303 /* ZoomServer.m */; };
-		4BB8C15C08C2497700D7D334 /* ZoomZMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */; };
-		4BB8C15D08C2497700D7D334 /* v6display.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F5E050FBAAF00A8E303 /* v6display.c */; };
-		4BB8C15E08C2497700D7D334 /* ZFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF620050FD66E00A8E303 /* ZFiles.m */; };
-		4BB8C15F08C2497700D7D334 /* ZDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE447B80510DE5900A8E303 /* ZDisplay.m */; };
-		4BB8C16008C2497700D7D334 /* Z6Display.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE621CF068C20D500369528 /* Z6Display.m */; };
+		4BB8C15408C2497700D7D334 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB7050F7DE200A8E303 /* debug.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15508C2497700D7D334 /* zmachine.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FB9050F7DE200A8E303 /* zmachine.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15608C2497700D7D334 /* zscii.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBA050F7DE200A8E303 /* zscii.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15708C2497700D7D334 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBC050F7DE200A8E303 /* stream.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15808C2497700D7D334 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBD050F7DE200A8E303 /* random.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15908C2497700D7D334 /* interp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FC0050F7DE200A8E303 /* interp.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15A08C2497700D7D334 /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15B08C2497700D7D334 /* ZoomServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F30050F9E8F00A8E303 /* ZoomServer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15C08C2497700D7D334 /* ZoomZMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15D08C2497700D7D334 /* v6display.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F5E050FBAAF00A8E303 /* v6display.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15E08C2497700D7D334 /* ZFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF620050FD66E00A8E303 /* ZFiles.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C15F08C2497700D7D334 /* ZDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE447B80510DE5900A8E303 /* ZDisplay.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BB8C16008C2497700D7D334 /* Z6Display.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE621CF068C20D500369528 /* Z6Display.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4BB8C16208C2497700D7D334 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 		4BB8C16308C2497700D7D334 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCF3F2B050F8E2400A8E303 /* Foundation.framework */; };
 		4BB8C17608C249B100D7D334 /* ZoomServer in Resources */ = {isa = PBXBuildFile; fileRef = 4BB8C16A08C2497700D7D334 /* ZoomServer */; };
@@ -348,30 +348,30 @@
 		4BD274BA08701E6700C1AE15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCF3F2B050F8E2400A8E303 /* Foundation.framework */; };
 		4BD274BC08701E6700C1AE15 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0A32AE06A5966D00BB8878 /* WebKit.framework */; };
 		4BD274BD08701E6700C1AE15 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5CBB9B069D671200C0AA88 /* Carbon.framework */; };
-		4BD79ACA0BA2CB44002C82B2 /* adrift.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ABC0BA2CB44002C82B2 /* adrift.c */; };
-		4BD79ACB0BA2CB44002C82B2 /* advsys.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ABD0BA2CB44002C82B2 /* advsys.c */; };
-		4BD79ACC0BA2CB44002C82B2 /* agt.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ABE0BA2CB44002C82B2 /* agt.c */; };
-		4BD79ACD0BA2CB44002C82B2 /* alan.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ABF0BA2CB44002C82B2 /* alan.c */; };
-		4BD79ACE0BA2CB44002C82B2 /* blorb.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC00BA2CB44002C82B2 /* blorb.c */; };
-		4BD79ACF0BA2CB44002C82B2 /* executable.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC10BA2CB44002C82B2 /* executable.c */; };
-		4BD79AD00BA2CB44002C82B2 /* glulx.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC20BA2CB44002C82B2 /* glulx.c */; };
-		4BD79AD10BA2CB44002C82B2 /* hugo.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC30BA2CB44002C82B2 /* hugo.c */; };
-		4BD79AD20BA2CB44002C82B2 /* level9.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC40BA2CB44002C82B2 /* level9.c */; };
-		4BD79AD30BA2CB44002C82B2 /* magscrolls.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC50BA2CB44002C82B2 /* magscrolls.c */; };
-		4BD79AD40BA2CB44002C82B2 /* tads.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC60BA2CB44002C82B2 /* tads.c */; };
-		4BD79AD50BA2CB44002C82B2 /* tads2.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC70BA2CB44002C82B2 /* tads2.c */; };
-		4BD79AD60BA2CB44002C82B2 /* tads3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC80BA2CB44002C82B2 /* tads3.c */; };
-		4BD79AD70BA2CB44002C82B2 /* zcode.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC90BA2CB44002C82B2 /* zcode.c */; };
-		4BD79AE20BA2CB78002C82B2 /* babel_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADD0BA2CB78002C82B2 /* babel_handler.c */; };
-		4BD79AE30BA2CB78002C82B2 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADE0BA2CB78002C82B2 /* md5.c */; };
-		4BD79AE40BA2CB78002C82B2 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADF0BA2CB78002C82B2 /* misc.c */; };
-		4BD79AE60BA2CB78002C82B2 /* register.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AE10BA2CB78002C82B2 /* register.c */; };
-		4BD79AEA0BA2CBE9002C82B2 /* ifiction.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AE70BA2CBE9002C82B2 /* ifiction.c */; };
-		4BD79AEB0BA2CBE9002C82B2 /* register_ifiction.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AE90BA2CBE9002C82B2 /* register_ifiction.c */; };
-		4BD79AEF0BA2CC06002C82B2 /* babel_ifiction_functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AEC0BA2CC06002C82B2 /* babel_ifiction_functions.c */; };
-		4BD79AF00BA2CC06002C82B2 /* babel_multi_functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AED0BA2CC06002C82B2 /* babel_multi_functions.c */; };
-		4BD79AF10BA2CC06002C82B2 /* babel_story_functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AEE0BA2CC06002C82B2 /* babel_story_functions.c */; };
-		4BD79AF30BA2CC13002C82B2 /* babel.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AF20BA2CC13002C82B2 /* babel.c */; };
+		4BD79ACA0BA2CB44002C82B2 /* adrift.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ABC0BA2CB44002C82B2 /* adrift.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79ACB0BA2CB44002C82B2 /* advsys.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ABD0BA2CB44002C82B2 /* advsys.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79ACC0BA2CB44002C82B2 /* agt.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ABE0BA2CB44002C82B2 /* agt.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79ACD0BA2CB44002C82B2 /* alan.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ABF0BA2CB44002C82B2 /* alan.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79ACE0BA2CB44002C82B2 /* blorb.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC00BA2CB44002C82B2 /* blorb.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79ACF0BA2CB44002C82B2 /* executable.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC10BA2CB44002C82B2 /* executable.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AD00BA2CB44002C82B2 /* glulx.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC20BA2CB44002C82B2 /* glulx.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AD10BA2CB44002C82B2 /* hugo.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC30BA2CB44002C82B2 /* hugo.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AD20BA2CB44002C82B2 /* level9.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC40BA2CB44002C82B2 /* level9.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AD30BA2CB44002C82B2 /* magscrolls.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC50BA2CB44002C82B2 /* magscrolls.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AD40BA2CB44002C82B2 /* tads.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC60BA2CB44002C82B2 /* tads.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AD50BA2CB44002C82B2 /* tads2.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC70BA2CB44002C82B2 /* tads2.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AD60BA2CB44002C82B2 /* tads3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC80BA2CB44002C82B2 /* tads3.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AD70BA2CB44002C82B2 /* zcode.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC90BA2CB44002C82B2 /* zcode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AE20BA2CB78002C82B2 /* babel_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADD0BA2CB78002C82B2 /* babel_handler.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AE30BA2CB78002C82B2 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADE0BA2CB78002C82B2 /* md5.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AE40BA2CB78002C82B2 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADF0BA2CB78002C82B2 /* misc.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AE60BA2CB78002C82B2 /* register.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AE10BA2CB78002C82B2 /* register.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AEA0BA2CBE9002C82B2 /* ifiction.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AE70BA2CBE9002C82B2 /* ifiction.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AEB0BA2CBE9002C82B2 /* register_ifiction.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AE90BA2CBE9002C82B2 /* register_ifiction.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AEF0BA2CC06002C82B2 /* babel_ifiction_functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AEC0BA2CC06002C82B2 /* babel_ifiction_functions.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AF00BA2CC06002C82B2 /* babel_multi_functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AED0BA2CC06002C82B2 /* babel_multi_functions.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AF10BA2CC06002C82B2 /* babel_story_functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AEE0BA2CC06002C82B2 /* babel_story_functions.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD79AF30BA2CC13002C82B2 /* babel.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AF20BA2CC13002C82B2 /* babel.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4BE175940B792BD80094B73D /* ZoomWindowThatCanBecomeKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BA66B2A0906538F000A3852 /* ZoomWindowThatCanBecomeKey.h */; };
 		4BE175950B792BD90094B73D /* ZoomWindowThatCanBecomeKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA66B2B0906538F000A3852 /* ZoomWindowThatCanBecomeKey.m */; };
 		4BF02D200C4A8141006FC32E /* ZoomGlkSaveRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BF02D1E0C4A8141006FC32E /* ZoomGlkSaveRef.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -380,7 +380,7 @@
 		55BB924F2048AC4100AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92502048AC6D00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92512048ACAE00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
-		55BB92532048ADA500AB4B5B /* quill.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BB92522048ADA500AB4B5B /* quill.c */; };
+		55BB92532048ADA500AB4B5B /* quill.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BB92522048ADA500AB4B5B /* quill.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		55BB92542048AF1300AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92702048D8D900AB4B5B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BB926F2048D8D900AB4B5B /* Media.xcassets */; };
 		55BB927120490D3100AB4B5B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
@@ -1953,7 +1953,6 @@
 				4B36C4510955ED1700874F9F /* Sources */,
 				4B36C4520955ED1700874F9F /* Frameworks */,
 				4B36C5080955EE2900874F9F /* ShellScript */,
-				4B94AF040CD4B4D2003C75A6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1993,7 +1992,6 @@
 				4B7286E30CD3CAFF0079D89B /* Sources */,
 				4B7286E40CD3CAFF0079D89B /* Frameworks */,
 				4B94B0D70CD4FD12003C75A6 /* Copy babel */,
-				4B94AF0E0CD4B512003C75A6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2014,7 +2012,6 @@
 				4B7CB07E09362A3B00F3B8F6 /* Sources */,
 				4B7CB07F09362A3B00F3B8F6 /* Frameworks */,
 				4B3E77590BA2EFED00661FE8 /* Copy babel */,
-				4B94AF080CD4B4E9003C75A6 /* All done */,
 			);
 			buildRules = (
 			);
@@ -2053,8 +2050,6 @@
 				4BB8C12708C2497700D7D334 /* Headers */,
 				4BB8C14608C2497700D7D334 /* Sources */,
 				4BB8C16108C2497700D7D334 /* Frameworks */,
-				4BB8C16508C2497700D7D334 /* Rez */,
-				4B94AEFC0CD4B481003C75A6 /* All done */,
 			);
 			buildRules = (
 				4B51A94D08FAC6B300232D0B /* PBXBuildRule */,
@@ -2085,7 +2080,6 @@
 				4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */,
 				4B7284CA0CD380A50079D89B /* Copy Leopard executables */,
 				4BA375E60CD3CC1500C7B1D4 /* Copy QuickLook plugins */,
-				4B94AEE20CD4AF3A003C75A6 /* All Done */,
 			);
 			buildRules = (
 				4B51A95208FAC71D00232D0B /* PBXBuildRule */,
@@ -2115,7 +2109,6 @@
 				4BD2749008701E6700C1AE15 /* Resources */,
 				4BD274A008701E6700C1AE15 /* Sources */,
 				4BD274B808701E6700C1AE15 /* Frameworks */,
-				4B94AEFE0CD4B4AE003C75A6 /* All done */,
 			);
 			buildRules = (
 				4B51A95C08FAC74000232D0B /* PBXBuildRule */,
@@ -2153,7 +2146,7 @@
 		4B1E3F4B050F7AD000A8E303 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = 4B11039608606E2600253E87 /* Build configuration list for PBXProject "ZoomCocoa" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2352,13 +2345,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXRezBuildPhase section */
-		4BB8C16508C2497700D7D334 /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4BB8C1FD08C249F400D7D334 /* Rez */ = {
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
@@ -2395,88 +2381,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ -e ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE} ]; then\n\techo Installing plugin bundles from ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}\n    #ls ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}/*.plugin\n    #cp -Rf ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}/*.plugin ${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/PlugIns\nfi\n";
-		};
-		4B94AEE20CD4AF3A003C75A6 /* All Done */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "All Done";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "echo Notifying that we\\'re done\n\nif [ -e /sw/bin/growlnotify ]; then\n  /sw/bin/growlnotify Finished building <<END\nZoom has finished building\nEND\nfi\n";
-		};
-		4B94AEFC0CD4B481003C75A6 /* All done */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "All done";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo Notifying that we\\'re done\n\nif [ -e /sw/bin/growlnotify ]; then\n  /sw/bin/growlnotify Finished building <<END\nBuilt ZoomServer\nEND\nfi\n";
-		};
-		4B94AEFE0CD4B4AE003C75A6 /* All done */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "All done";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -e /sw/bin/growlnotify ]; then\n  /sw/bin/growlnotify Finished building <<END\nBuilt ZoomView\nEND\nfi\n";
-		};
-		4B94AF040CD4B4D2003C75A6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -e /sw/bin/growlnotify ]; then\n  /sw/bin/growlnotify Finished building <<END\nBuilt Glulxe\nEND\nfi\n";
-		};
-		4B94AF080CD4B4E9003C75A6 /* All done */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "All done";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -e /sw/bin/growlnotify ]; then\n  /sw/bin/growlnotify Finished building <<END\nBuilt ZoomPlugIns\nEND\nfi\n";
-		};
-		4B94AF0E0CD4B512003C75A6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -e /sw/bin/growlnotify ]; then\n  /sw/bin/growlnotify Finished building <<END\nBuilt ZoomSaveQuickLook\nEND\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2865,6 +2769,7 @@
 		4B11038708606E2600253E87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -2897,6 +2802,7 @@
 		4B11038808606E2600253E87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -2929,18 +2835,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -2981,18 +2888,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -3028,17 +2936,24 @@
 		4B36C4570955ED1700874F9F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"VERBOSITY=4",
+				);
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Glulxe;
 				PRODUCT_NAME = Glulxe;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				WRAPPER_EXTENSION = plugin;
 			};
 			name = Debug;
@@ -3046,9 +2961,11 @@
 		4B36C4580955ED1700874F9F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "Glulxe-Info.plist";
@@ -3066,6 +2983,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3091,6 +3009,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3115,6 +3034,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -3132,6 +3052,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -3148,6 +3069,10 @@
 		4B7CB08809362A3B00F3B8F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
@@ -3160,23 +3085,27 @@
 					"DEVELOPMENT=1",
 					HAVE_COREFOUNDATION,
 					"$(GCC_PREPROCESSOR_DEFINITIONS)",
+					"VERBOSITY=4",
 				);
 				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
-					0x2e000000,
+					0x2e0000000,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
 		};
 		4B7CB08909362A3B00F3B8F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
@@ -3193,7 +3122,7 @@
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
-					0x2e000000,
+					0x2e0000000,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
@@ -3206,6 +3135,8 @@
 		4BB8C0E608C2452E00D7D334 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
@@ -3217,6 +3148,8 @@
 		4BB8C0E708C2452E00D7D334 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
@@ -3228,6 +3161,8 @@
 		4BB8C16708C2497700D7D334 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
@@ -3241,6 +3176,8 @@
 		4BB8C16808C2497700D7D334 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
@@ -3257,6 +3194,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "zoom-app";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
@@ -3285,6 +3223,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "zoom-app";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
@@ -3313,7 +3252,9 @@
 		4BD274BF08701E6700C1AE15 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 3;
@@ -3321,7 +3262,6 @@
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_PEDANTIC = NO;
@@ -3336,11 +3276,10 @@
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
-					0x2f000000,
+					0x2f0000000,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoomview;
 				PRODUCT_NAME = ZoomView;
-				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -3349,8 +3288,9 @@
 		4BD274C008701E6700C1AE15 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 3;
@@ -3373,11 +3313,10 @@
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
-					0x2f000000,
+					0x2f0000000,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoomview;
 				PRODUCT_NAME = ZoomView;
-				SECTORDER_FLAGS = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
@@ -3388,6 +3327,8 @@
 		4BD79A920BA2C9C9002C82B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -3400,6 +3341,8 @@
 		4BD79A930BA2C9C9002C82B2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;

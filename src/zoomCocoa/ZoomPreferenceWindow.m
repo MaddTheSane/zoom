@@ -816,7 +816,7 @@ static void appendStyle(NSMutableString* styleName,
 
 - (IBAction) colourChanged: (id) sender {
 	NSInteger newValue = [sender selectedTag];
-	NSInteger oldValue = (sender==foregroundColour)?[prefs foregroundColour]:[prefs backgroundColour];
+	int oldValue = (sender==foregroundColour)?[prefs foregroundColour]:[prefs backgroundColour];
 	
 	if (newValue != oldValue) {
 		if (sender == foregroundColour) {

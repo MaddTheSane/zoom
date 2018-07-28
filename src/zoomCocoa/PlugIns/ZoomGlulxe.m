@@ -28,11 +28,8 @@
 		ZoomBlorbFile* blorb = [[ZoomBlorbFile alloc] initWithContentsOfFile: path];
 		
 		if (blorb != nil && [blorb dataForChunkWithType: @"GLUL"] != nil) {
-			[blorb release];
 			return YES;
 		}
-		
-		[blorb release];
 	}
 	
 	return [super canRunPath: path];
@@ -75,7 +72,7 @@
 
 - (ZoomStoryID*) idForStory {
 	// Generate an MD5-based ID
-	return [[[ZoomStoryID alloc] initWithGlulxFile: [self gameFilename]] autorelease];
+	return [[ZoomStoryID alloc] initWithGlulxFile: [self gameFilename]];
 }
 
 - (ZoomStory*) defaultMetadata {
@@ -102,7 +99,7 @@
 			NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
 			
 			if (coverPictureData) {
-				NSImage* coverPicture = [[[NSImage alloc] initWithData: coverPictureData] autorelease];
+				NSImage* coverPicture = [[NSImage alloc] initWithData: coverPictureData];
 				
 				// Sometimes the image size and pixel size do not match up
 				NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
@@ -113,14 +110,11 @@
 				}
 				
 				if (coverPicture != nil) {
-					[decodedFile release];
 					return coverPicture;
 				}
 			}
 		}
 	}
-	
-	[decodedFile release];
 	
 	// Default to the Glulxe icon
 	return [NSImage imageNamed:@"GlkClient"];
@@ -145,7 +139,7 @@
 			NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
 			
 			if (coverPictureData) {
-				NSImage* coverPicture = [[[NSImage alloc] initWithData: coverPictureData] autorelease];
+				NSImage* coverPicture = [[NSImage alloc] initWithData: coverPictureData];
 				
 				// Sometimes the image size and pixel size do not match up
 				NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
@@ -156,14 +150,11 @@
 				}
 				
 				if (coverPicture != nil) {
-					[decodedFile release];
 					return [self resizeLogo: coverPicture];
 				}
 			}
 		}
 	}
-	
-	[decodedFile release];
 	
 	return nil;
 }

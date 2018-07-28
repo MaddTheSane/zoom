@@ -52,8 +52,6 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 			@"Description", @"description",
 			@"Cover picture number", @"coverpicture",
 			nil];
-		
-		[keyNameDict retain];
 	}
 	
 	return [keyNameDict objectForKey: key];
@@ -88,16 +86,16 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 	
 	// Get the ID for this file
 	// NSData* fileData = [NSData dataWithContentsOfFile: filename];
-	ZoomStoryID* fileID = [[ZoomStoryID idForFile: filename] retain];
+	ZoomStoryID* fileID = [ZoomStoryID idForFile: filename];
 	ZoomMetadata* fileMetadata = nil;
 	
 	if (fileID == nil) {
-		fileID = [[[ZoomStoryID alloc] initWithData: [NSData dataWithContentsOfFile: filename]] autorelease];
+		fileID = [[ZoomStoryID alloc] initWithData: [NSData dataWithContentsOfFile: filename]];
 	}
 	
 	// If this file is a blorb file, then extract the IFmd chunk
 	NSFileHandle* fh = [NSFileHandle fileHandleForReadingAtPath: filename];
-	NSData* data = [[[fh readDataOfLength: 64] retain] autorelease];
+	NSData* data = [fh readDataOfLength: 64];
 	const unsigned char* bytes = [data bytes];
 	[fh closeFile];
 	
@@ -111,15 +109,13 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 		} else {
 			NSLog(@"Warning: found a game with an IFmd chunk, but was not able to parse it");
 		}
-		
-		[blorb autorelease];
 	}
 	
 	// If we've got an ifMD chunk, then see if we can extract the story from it
 	ZoomStory* result = nil;
 	
 	if (fileMetadata && [fileMetadata containsStoryWithIdent: fileID]) {
-		result = [[fileMetadata findOrCreateStory: fileID] retain];
+		result = [fileMetadata findOrCreateStory: fileID];
 		
 		if (result == nil) {
 			NSLog(@"Warning: found a game with an IFmd chunk, but which did not appear to contain any relevant metadata (looked for ID: %@)", fileID); 
@@ -128,7 +124,7 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 	
 	// If there's no result, then make up the data from the filename
 	if (result == nil) {
-		result = [[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: fileID] retain];
+		result = [[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: fileID];
 		
 		// Add the ID
 		[result addID: fileID];
@@ -176,12 +172,8 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 		}
 	}
 	
-	// Clean up
-	[fileID release];
-	[fileMetadata release];
-	
 	// Return the result
-	return [result autorelease];
+	return result;
 }
 
 // = Initialisation =
@@ -199,7 +191,7 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 	if (self) {
 		story = s;
 		needsFreeing = NO;
-		metadata = [metadataContainer retain];
+		metadata = metadataContainer;
 		
 		extraMetadata = nil;
 		
@@ -216,12 +208,7 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 	if (needsFreeing && story) {
 	}
 	
-	if (metadata) [metadata release];
-	if (extraMetadata) [extraMetadata release];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-		
-	[super dealloc];
 }
 
 // = Notifications =
@@ -469,10 +456,10 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 
 - (void) storeExtraMetadata {
 	// Make a mutable copy of the metadata dictionary
-	NSMutableDictionary* newExtraData = [[[[NSUserDefaults standardUserDefaults] objectForKey: ZoomStoryExtraMetadata] mutableCopy] autorelease];
+	NSMutableDictionary* newExtraData = [[[NSUserDefaults standardUserDefaults] objectForKey: ZoomStoryExtraMetadata] mutableCopy];
 	
 	if (newExtraData == nil || ![newExtraData isKindOfClass: [NSMutableDictionary class]]) {
-		newExtraData = [[[NSMutableDictionary alloc] init] autorelease];
+		newExtraData = [[NSMutableDictionary alloc] init];
 	}
 	
 	// Add the data for all our story IDs
@@ -496,7 +483,6 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 - (void) extraDataChanged: (NSNotification*) not {
 	// Respond to notifications about changing metadata
 	if (extraMetadata) {
-		[extraMetadata release];
 		extraMetadata = nil;
 		
 		// (Reloading prevents a potential bug in the future. It's not absolutely required right now)
@@ -659,9 +645,6 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 	// Finish up
 	BOOL success = [words count] <= 0;
 	
-	[words release];
-	[stringsToCheck release];
-	
 	// Is true if there are no words left to match
 	return success;
 }
@@ -677,7 +660,7 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 
 - (ZoomStoryID*) storyID {
 	if (story == NULL) return nil;
-	return [[[ZoomStoryID alloc] initWithIdent: IFMB_IdForStory(story)] autorelease];
+	return [[ZoomStoryID alloc] initWithIdent: IFMB_IdForStory(story)];
 }
 
 - (NSArray*) storyIDs {
@@ -702,7 +685,6 @@ NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataCh
 		ZoomStoryID* theId = [[ZoomStoryID alloc] initWithIdent: ids[ident]];
 		if (theId) {
 			[idArray addObject: theId];
-			[theId release];
 		}
 	}
 	

@@ -13,14 +13,9 @@
 
 // = Initialisation =
 
-- (void) dealloc {
-	[objectValue release];
-	[super dealloc];
-}
-
 - (id) copyWithZone: (NSZone*) zone {
 	ZoomPlugInCell* copy = [super copyWithZone: zone];
-	copy->objectValue = [objectValue retain];
+	copy->objectValue = objectValue;
 	return copy;
 }
 
@@ -38,15 +33,14 @@
 	NSInteger pos = [[self objectValue] integerValue];
 	NSInteger count = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] count];
 	if (pos >= 0 && pos < count) {
-		[objectValue release];
-		objectValue = [[[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] objectAtIndex: pos] retain];		
+		objectValue = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] objectAtIndex: pos];		
 	}
 	
 	// Load the image for this plugin
 	NSString* imageFile = [objectValue imagePath];
 	NSImage* pluginImage = nil;
 	if (imageFile != nil && [[NSFileManager defaultManager] fileExistsAtPath: imageFile]) {
-		pluginImage = [[[NSImage alloc] initWithContentsOfFile: imageFile] autorelease];
+		pluginImage = [[NSImage alloc] initWithContentsOfFile: imageFile];
 	} else {
 		pluginImage = [NSImage imageNamed: @"zoom-app"];
 	}
@@ -223,7 +217,7 @@
 }
 
 - (NSString*) stringValue {
-	NSMutableString* result = [[[objectValue name] mutableCopy] autorelease];
+	NSMutableString* result = [[objectValue name] mutableCopy];
 	
 	switch ([objectValue status]) {
 		case ZoomPlugInDisabled:

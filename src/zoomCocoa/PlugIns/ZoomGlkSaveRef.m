@@ -28,26 +28,15 @@
 		}
 			
 		if (![[[newPath pathExtension] lowercaseString] isEqualToString: @"glksave"] || !isDir) {
-			[self autorelease];
 			return (id)[[GlkFileRef alloc] initWithPath: [NSURL fileURLWithPath:path]];
 		}
 		
 		// Set up the plugin and path for this object
-		plugin = [newPlugin retain];
+		plugin = newPlugin;
 		path = [newPath copy];
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	[delegate release];
-	[skein release];
-	[preview release];
-	[plugin release];
-	[path release];
-	
-	[super dealloc];
 }
 
 // = Creating the glksave package =
@@ -68,17 +57,16 @@
 																		  format: NSPropertyListXMLFormat_v1_0
 																errorDescription: &error]; 
 	if (error) {
-		[error release];
 		error = nil;
 	}
 	
-	NSFileWrapper* savePropertyWrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: savePropertyList] autorelease];
+	NSFileWrapper* savePropertyWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: savePropertyList];
 	[savePropertyWrapper setPreferredFilename: @"Info.plist"];
 	
 	// Build the save game file itself
 	NSData* emptySaveGame = [NSData data];
 	
-	NSFileWrapper* saveGameWrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: emptySaveGame] autorelease];
+	NSFileWrapper* saveGameWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: emptySaveGame];
 	[saveGameWrapper setPreferredFilename: @"Save.data"];
 	
 	// Build the skein data
@@ -87,7 +75,7 @@
 	if (skein) {
 		NSData* skeinData = [[skein xmlData] dataUsingEncoding: NSUTF8StringEncoding];
 		if (skeinData) {
-			skeinWrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: skeinData] autorelease];
+			skeinWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: skeinData];
 			[skeinWrapper setPreferredFilename: @"Skein.skein"];
 		}
 	}
@@ -100,23 +88,21 @@
 																		 format: NSPropertyListXMLFormat_v1_0
 															   errorDescription: &error];
 		if (error) {
-			[error release];
 			error = nil;
 		}
 		
 		if (previewData) {
-			previewWrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: previewData] autorelease];
+			previewWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: previewData];
 			[previewWrapper setPreferredFilename: @"Preview.plist"];
 		}
 	}
 	
 	// Build the final save wrapper
-	NSFileWrapper* saveWrapper = [[[NSFileWrapper alloc] initDirectoryWithFileWrappers:
+	NSFileWrapper* saveWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:
 		[NSDictionary dictionaryWithObjectsAndKeys:
 			savePropertyWrapper, @"Info.plist",
 			saveGameWrapper, @"Save.data",
-			nil, nil]]
-		autorelease];
+			nil, nil]];
 	
 	if (skeinWrapper) {
 		[saveWrapper addFileWrapper: skeinWrapper];
@@ -146,7 +132,7 @@
 		}
 		
 		if (rep != nil) {
-			originalImage = [[[NSImage alloc] init] autorelease];
+			originalImage = [[NSImage alloc] init];
 			[originalImage addRepresentation: rep];
 		}
 		
@@ -204,7 +190,6 @@
 @synthesize delegate;
 
 - (void) setPreview: (NSArray*) newPreview {
-	[preview release];
 	preview = [[NSArray alloc] initWithArray: newPreview
 								   copyItems: YES];
 }
@@ -230,14 +215,14 @@
 	// Create a read-only stream
 	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
 	
-	return [stream autorelease];			
+	return stream;			
 }
 
 - (byref NSObject<GlkStream>*) createWriteOnlyStream {
 	if ([self createSavePackage]) {
 		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
 		
-		return [stream autorelease];		
+		return stream;		
 	}
 	
 	// Couldn't (re)create the file
@@ -255,7 +240,7 @@
 	// Construct a read/write stream
 	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
 	
-	return [stream autorelease];			
+	return stream;			
 }
 
 - (void) deleteFile {

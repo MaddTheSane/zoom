@@ -13,14 +13,14 @@
 @protocol ZoomPlugInManagerDelegate;
 
 // Notifications
-extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that the set of plugin information has changed
+extern NSNotificationName const ZoomPlugInInformationChangedNotification;	// Notification that the set of plugin information has changed
 
 //
 // Class that manages the plugins installed with Zoom
 //
 @interface ZoomPlugInManager : NSObject<ZoomDownloadDelegate> {
 	NSLock* pluginLock;										// The plugin lock
-	id<ZoomPlugInManagerDelegate> delegate;					// The delegate for this class
+	id<ZoomPlugInManagerDelegate> __unsafe_unretained delegate;					// The delegate for this class
 	
 	NSMutableArray<NSBundle*>* pluginBundles;				// The bundles containing the loaded plugins
 	NSMutableArray<Class>* pluginClasses;					// The ZoomPlugIn classes from the bundles
@@ -47,7 +47,7 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 + (NSString*) plugInsPath;									// The plug-in installation directory
 
 // Setting the delegate
-@property (assign) id<ZoomPlugInManagerDelegate> delegate;	// Sets a new plug-in delegate
+@property (unsafe_unretained) id<ZoomPlugInManagerDelegate> delegate;	// Sets a new plug-in delegate
 
 // Dealing with existing plugins
 - (void) loadPlugIns;										// Causes this class to load all of the plugins
@@ -87,15 +87,15 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 @protocol ZoomPlugInManagerDelegate <NSObject>
 @optional
 
-- (void) pluginInformationChanged;							// Indicates that the plugin information has changed
-- (void) needsRestart;										// Indicates that the plug-in manager needs a restart before it can continue
+- (void) pluginInformationChanged;							//!< Indicates that the plugin information has changed
+- (void) needsRestart;										//!< Indicates that the plug-in manager needs a restart before it can continue
 
-- (void) checkingForUpdates;								// Indicates that a check for updates has started
-- (void) finishedCheckingForUpdates;						// Indicates that the check for updates has finished
+- (void) checkingForUpdates;								//!< Indicates that a check for updates has started
+- (void) finishedCheckingForUpdates;						//!< Indicates that the check for updates has finished
 
-- (void) downloadingUpdates;								// Indicates that the manager is downloading updates
-- (void) downloadProgress: (NSString*) status				// Indicates that a download status message should be displayed
+- (void) downloadingUpdates;								//!< Indicates that the manager is downloading updates
+- (void) downloadProgress: (NSString*) status				//!< Indicates that a download status message should be displayed
 			   percentage: (CGFloat) percent;
-- (void) finishedDownloadingUpdates;						// Indicates that downloading has finished
+- (void) finishedDownloadingUpdates;						//!< Indicates that downloading has finished
 
 @end

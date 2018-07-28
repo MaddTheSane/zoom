@@ -43,9 +43,6 @@ static NSMutableDictionary* notesDictionary = nil;
 
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[story release];
-	[super dealloc];
 }
 
 // = Editing delegate =
@@ -94,15 +91,15 @@ static NSMutableDictionary* notesDictionary = nil;
 		}
 		NSData* rtfNotes = [notesDictionary objectForKey: [storyId description]];
 		if (rtfNotes) {
-			currentNotes = [[[NSAttributedString alloc] initWithRTF: rtfNotes
-												 documentAttributes: nil] autorelease];
+			currentNotes = [[NSAttributedString alloc] initWithRTF: rtfNotes
+												 documentAttributes: nil];
 		}
 		
 		if (currentNotes == nil) {
-			currentNotes = [[[NSAttributedString alloc] initWithString: @"" 
+			currentNotes = [[NSAttributedString alloc] initWithString: @"" 
 															attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																[NSFont systemFontOfSize: 10], NSFontAttributeName,
-																nil]] autorelease];
+																nil]];
 		}
 		
 		[[notes textStorage] setAttributedString: currentNotes];
@@ -120,8 +117,7 @@ static NSMutableDictionary* notesDictionary = nil;
 - (void) setGameInfo: (ZoomStory*) newStory {
 	[self textDidEndEditing: nil];
 	
-	[story release];
-	story = [newStory retain];
+	story = newStory;
 	
 	[self updateFromStory];
 }

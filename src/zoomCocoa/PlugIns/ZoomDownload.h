@@ -15,7 +15,7 @@
 ///
 @interface ZoomDownload : NSObject {
 	NSURL* url;													// Where to download from
-	id<ZoomDownloadDelegate> delegate;							// The download delegate
+	id<ZoomDownloadDelegate> __unsafe_unretained delegate;							// The download delegate
 	NSData* md5;												// The expected MD5 for the downloaded file
 	
 	NSURLConnection* connection;								// The connection that the download will be loaded via
@@ -32,7 +32,7 @@
 
 // Initialisation
 - (id) initWithUrl: (NSURL*) url;								// Prepares to download the specified URL
-@property (assign) id<ZoomDownloadDelegate> delegate;
+@property (unsafe_unretained) id<ZoomDownloadDelegate> delegate;
 + (void) removeTemporaryDirectory;								// Removes the temporary directory used for downloads (ie, when terminating)
 - (void) setExpectedMD5: (NSData*) md5;							// Sets the expected MD5 for the downloaded file
 @property (copy) NSData *expectedMD5;
@@ -41,7 +41,7 @@
 - (void) startDownload;											// Starts the download running
 
 // Getting the download directory
-@property (readonly, retain) NSURL *url;						//!< The url for this download
+@property (readonly, strong) NSURL *url;						//!< The url for this download
 @property (readonly, copy) NSString *downloadDirectory;			//!< The temporary directory where the download was placed (deleted when this object is dealloced)
 @property (readonly, copy) NSString *suggestedFilename;			//!< The filename suggested for this download in the response
 

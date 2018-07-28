@@ -19,7 +19,7 @@
 /// WindowController for windows running a Glk interpreter
 ///
 @interface ZoomGlkWindowController : NSWindowController<NSWindowDelegate, GlkViewDelegate> {
-	IBOutlet GlkView* glkView;										// The view onto the game this controller is running
+	IBOutlet __weak GlkView* glkView;										// The view onto the game this controller is running
 
 	IBOutlet NSDrawer* logDrawer;									// The drawer that's opened while dealing with log messages
 	IBOutlet NSTextView* logText;									// The text contained in the drawer

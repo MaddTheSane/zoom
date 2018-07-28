@@ -32,12 +32,12 @@
 				 path: (NSString*) path;
 
 // Extra properties
-@property (retain) id<ZoomGlkSaveRefDelegate> delegate;		//!< Sets the delegate for this object (the delegate is retained)
+@property (strong) id<ZoomGlkSaveRefDelegate> delegate;		//!< Sets the delegate for this object (the delegate is retained)
 
 - (void) setPreview: (NSArray<NSString*>*) preview;			//!< An array of strings that can be used for the preview for this file
 //! Sets the skein that will be saved with this reference
 //! Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file
-@property (retain) ZoomSkein *skein;
+@property (strong) ZoomSkein *skein;
 
 @end
 
