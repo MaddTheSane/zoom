@@ -3103,7 +3103,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
 		return [NSArray arrayWithObjects: [textScroller upperWindowView], textView, nil];
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return [NSString stringWithFormat: @"Zoom view"];
+		return @"Zoom view";
 	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
 		return NSAccessibilityUnknownRole;
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {

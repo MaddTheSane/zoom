@@ -33,7 +33,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 @class ZoomPixmapWindow;
 @class ZoomLowerWindow;
 @class ZoomUpperWindow;
-@interface ZoomView : NSView <ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate> {
+@interface ZoomView : NSView <ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate, ZoomCursorDelegate, ZoomInputLineDelegate> {
     NSObject<ZMachine>* zMachine;
 
     // Subviews
@@ -229,6 +229,8 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 //! Terminating characters
 @property (copy) NSSet<NSNumber*> *terminatingCharacters;
 
+
+- (void) endOfLineReached: (ZoomInputLine*) sender;
 @end
 
 //! ZoomView delegate methods

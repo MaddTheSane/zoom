@@ -102,8 +102,9 @@
     return gameData;
 }
 
-- (BOOL)loadDataRepresentation:(NSData *)data
-						ofType:(NSString *)type {
+- (BOOL)readFromData:(NSData *)data
+			  ofType:(NSString *)type
+			   error:(NSError * _Nullable * _Nullable)outError {
 	const unsigned char* bytes = [data bytes];
 	BOOL isForm = NO;
 	
@@ -126,6 +127,9 @@
 		NSArray* zcodChunks = [newRes chunksWithType: @"ZCOD"];
 		if (zcodChunks == nil || [zcodChunks count] <= 0) {
 			NSLog(@"Not a Z-Code file");
+			if (outError) {
+				*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+			}
 			return NO;
 		}
 		
@@ -146,6 +150,9 @@
 		// Can't ID this story
 		[gameData release];
 		gameData = nil;
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+		}
 		return NO;
 	}
 	
@@ -158,7 +165,7 @@
 		story = [(ZoomAppDelegate*)[NSApp delegate] findStory: storyId];
 		
 		if (story == nil) {
-			story = [[ZoomStory defaultMetadataForFile: [self fileName]] retain];
+			story = [[ZoomStory defaultMetadataForFile: [[self fileURL] path]] retain];
 		} else {
 			[story retain];
 		}
@@ -200,7 +207,7 @@
 	}
 	
 	// Store/organise this story
-	[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: [self fileName]
+	[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: [[self fileURL] path]
 											  withIdent: storyId
 											   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
     
@@ -312,20 +319,25 @@
 	}
 }
 
-- (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper 
-							   ofType:(NSString *)docType {
+- (BOOL)readFromFileWrapper:(NSFileWrapper *)wrapper
+					 ofType:(NSString *)docType
+					  error:(NSError * _Nullable * _Nullable)outError {
 	if (![[docType lowercaseString] isEqualToString: @"quetzal saved game"] && ![wrapper isDirectory]) {		
 		// Note that resources might come from elsewhere later on in the load process, too
-		[self findResourcesForFile: [self fileName]];
+		[self findResourcesForFile: [[self fileURL] path]];
 		
 		// Pass files onto the data loader
-		return [self loadDataRepresentation: [wrapper regularFileContents] 
-									 ofType: docType];
+		return [self readFromData: [wrapper regularFileContents]
+						   ofType: docType
+							error: outError];
 	}
 
 	if (![[docType lowercaseString] isEqualToString: @"zoom savegame"] &&
 		![[docType lowercaseString] isEqualToString: @"quetzal saved game"]) {
 		// Process only zoomSave files
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+		}
 		return NO;
 	}
 	
@@ -344,6 +356,9 @@
 						   @"Cancel", nil, nil, nil, nil, nil, nil, nil,
 						   @"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]);
 		
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+		}
 		return NO;
 	}
 	
@@ -385,6 +400,9 @@
 							  @"%@ is not a valid Quetzal file", [[wrapper filename] lastPathComponent]);
 		}
 		
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+		}
 		return NO;
 	}
 	
@@ -414,7 +432,10 @@
 						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
 						  @"Zoom does not know where a valid story file for '%@' is and so is unable to load it", [[wrapper filename] lastPathComponent]);
 		
-		return NO;		
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+		}
+		return NO;
 	}
 	
 	NSData* data = [NSData dataWithContentsOfFile: gameFile];
@@ -425,6 +446,9 @@
 						  @"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent],
 						  gameFile);
 		
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+		}
 		return NO;		
 	}
 	
@@ -436,8 +460,9 @@
 		wasRestored = YES;
 		
 		[self setFileName: gameFile];
-		return [self loadDataRepresentation: data
-									 ofType: @"ZCode story"];
+		return [self readFromData: data
+						   ofType: @"ZCode story"
+							error: outError];
 	}
 	
 	// Get the saved view state for this game
@@ -451,6 +476,9 @@
 		NSBeginAlertSheet(@"Unable to load saved screen state", 
 						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
 						  @"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", [[wrapper filename] lastPathComponent]);
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+		}
 		return NO;
 	}
 	
@@ -472,8 +500,9 @@
 	wasRestored = YES;
 	
 	[self setFileName: gameFile];
-	return [self loadDataRepresentation: data
-								 ofType: @"ZCode story"];
+	return [self readFromData: data
+					   ofType: @"ZCode story"
+						error: outError];
 }
 
 - (ZoomView*) defaultView {

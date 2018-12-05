@@ -12,7 +12,7 @@
 #import "ZoomInputLine.h"
 
 @class ZoomView;
-@interface ZoomUpperWindowView : NSView {
+@interface ZoomUpperWindowView : NSView <ZoomInputLineDelegate, ZoomCursorDelegate, NSAccessibilityStaticText> {
     ZoomView* zoomView;	
 	ZoomCursor* cursor;
 	
@@ -20,13 +20,13 @@
 	NSPoint inputLinePos;
 }
 - (instancetype)initWithFrame:(NSRect)frame zoomView:(ZoomView*) view;
-- (NSPoint) cursorPos;
+@property (readonly) NSPoint cursorPos;
 - (void) updateCursor;
 - (void) setFlashCursor: (BOOL) flash;
 
 - (void) activateInputLine;
 
-- (void) windowDidBecomeKey: (NSNotification*) not;
-- (void) windowDidResignKey: (NSNotification*) not;
+- (void) windowDidBecomeKey: (NSNotification*) noti;
+- (void) windowDidResignKey: (NSNotification*) noti;
 
 @end

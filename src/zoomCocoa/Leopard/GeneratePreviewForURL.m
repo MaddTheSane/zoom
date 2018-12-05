@@ -178,7 +178,7 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	if (image) {
 		NSSize imageSize = [image size];
 		imageRect = NSMakeRect(8,8, previewSize.height - 16, previewSize.height - 16);
-		float ratio = imageSize.height / imageSize.width;
+		CGFloat ratio = imageSize.height / imageSize.width;
 		if (ratio < 1) {
 			imageRect.size.height *= ratio;			
 		} else {

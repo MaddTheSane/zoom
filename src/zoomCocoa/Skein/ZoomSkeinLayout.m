@@ -51,7 +51,6 @@ static NSImage* unchangedDark, *activeDark;
 		}
 	}
 	
-	[img setFlipped: YES];
 	return img;
 }
 
@@ -119,10 +118,10 @@ static NSImage* unchangedDark, *activeDark;
 
 + (void) drawImage: (NSImage*) img
 		   atPoint: (NSPoint) pos
-		 withWidth: (float) width {
-	pos.x = floorf(pos.x);
-	pos.y = floorf(pos.y);
-	width = floorf(width);
+		 withWidth: (CGFloat) width {
+	pos.x = floor(pos.x);
+	pos.y = floor(pos.y);
+	width = floor(width);
 	
 	// Images must be 90x30
 	if (width <= 0.0) width = 1.0;
@@ -130,7 +129,7 @@ static NSImage* unchangedDark, *activeDark;
 	// Draw the middle bit
 	NSRect bitToDraw = NSMakeRect(pos.x, pos.y, 50, 30);
 	NSRect bitToDrawFrom = NSMakeRect(20, 0, 50, 30);
-	float p;
+	CGFloat p;
 	
 	for (p=width; p>=0.0; p-=50.0) {
 		if (p < 50.0) {
@@ -142,18 +141,24 @@ static NSImage* unchangedDark, *activeDark;
 		[img drawInRect: bitToDraw
 			   fromRect: bitToDrawFrom
 			  operation: NSCompositeSourceOver
-			   fraction: 1.0];	
+			   fraction: 1.0
+		 respectFlipped: YES
+				  hints: nil];
 	}
 	
 	// Draw the edge bits
 	[img drawInRect: NSMakeRect(pos.x-20, pos.y, 20, 30)
 		   fromRect: NSMakeRect(0,0,20,30)
 		  operation: NSCompositeSourceOver
-		   fraction: 1.0];	
+		   fraction: 1.0
+	 respectFlipped: YES
+			  hints: nil];
 	[img drawInRect: NSMakeRect(pos.x+width, pos.y, 20, 30)
 		   fromRect: NSMakeRect(70,0,20,30)
 		  operation: NSCompositeSourceOver
-		   fraction: 1.0];	
+		   fraction: 1.0
+	 respectFlipped: YES
+			  hints: nil];
 }
 
 // = Initialisation =
@@ -298,9 +303,9 @@ static NSImage* unchangedDark, *activeDark;
 	
 	NSEnumerator* childEnum = [[item children] objectEnumerator];
 	ZoomSkeinItem* child;
-	float position = 0.0;
-	float lastPosition = 0.0;
-	float lastWidth = 0.0;
+	CGFloat position = 0.0;
+	CGFloat lastPosition = 0.0;
+	CGFloat lastWidth = 0.0;
 	ZoomSkeinLayoutItem* childItem;
 	
 	NSMutableArray* children = [NSMutableArray array];
@@ -330,7 +335,7 @@ static NSImage* unchangedDark, *activeDark;
 	if (position == 0.0) position = itemWidth;
 	
 	// Center the children	
-	float center = position / 2.0;
+	CGFloat center = position / 2.0;
 	
 	childEnum = [children objectEnumerator];
 	while (childItem = [childEnum nextObject]) {
@@ -369,13 +374,13 @@ static NSImage* unchangedDark, *activeDark;
 }
 
 - (void) fixPositions: (ZoomSkeinLayoutItem*) item
-		   withOffset: (float) offset {
+		   withOffset: (CGFloat) offset {
 	// After running through layoutSkeinItem, all positions are relative to the 'parent' item
 	// This routine fixes this
 	
 	// Move this item by the offset (fixing it with an absolute position)
-	float oldPos = [item position];
-	float newPos = oldPos + offset;
+	CGFloat oldPos = [item position];
+	CGFloat newPos = oldPos + offset;
 	[item setPosition: newPos];
 	
 	// Fix the children to have absolute positions
@@ -387,7 +392,7 @@ static NSImage* unchangedDark, *activeDark;
 				withOffset: newPos];
 	}
 	
-	float leftPos = newPos - ([item fullWidth]/2.0);
+	CGFloat leftPos = newPos - ([item fullWidth]/2.0);
 	if ((-leftPos) > globalOffset)
 		globalOffset = -leftPos;
 	if (newPos > globalWidth)
@@ -742,7 +747,7 @@ static NSImage* unchangedDark, *activeDark;
 		  atPoint: (NSPoint) point {
 	// Draw the background
 	NSImage* background = unchanged;
-	float bgWidth = [self widthForItem: skeinItem];
+	CGFloat bgWidth = [self widthForItem: skeinItem];
 	
 	if (![skeinItem played]) background = unplayed;
 	if ([skeinItem changed]) background = changed;
@@ -752,11 +757,9 @@ static NSImage* unchangedDark, *activeDark;
 	
 	// Temporarily unflip the background image before drawing
 	// (Doing this means this call will not work in flipped views. Well, it will, but it will look dreadful)
-	[background setFlipped: NO];
 	[[self class] drawImage: background
 					atPoint: NSMakePoint(point.x + 20, point.y + (background==selected?2.0:0.0))
 				  withWidth: bgWidth];
-	[background setFlipped: YES];
 	
 	// Draw the item
 	[skeinItem drawCommandAtPosition: NSMakePoint(point.x+20, point.y+8 + (background==selected?2.0:0.0))];
@@ -765,25 +768,25 @@ static NSImage* unchangedDark, *activeDark;
 - (NSImage*) imageForItem: (ZoomSkeinItem*) item {
 	NSRect imgRect;
 	
-	imgRect.origin = NSMakePoint(0,0);
+	imgRect.origin = NSZeroPoint;
 	imgRect.size = NSMakeSize([self widthForItem: item] + 40.0, 30.0);
 	
-	NSImage* img = [[[NSImage alloc] initWithSize: imgRect.size] autorelease];
+	NSImage* img = [[NSImage alloc] initWithSize: imgRect.size];
 	
-	[img lockFocus];
+	[img lockFocusFlipped:NO];
 	[[NSColor clearColor] set];
 	NSRectFill(imgRect);
 	[self drawItem: item
 		   atPoint: NSMakePoint(0,0)];	
 	[img unlockFocus];
 	
-	return img;
+	return [img autorelease];
 }
 
 - (NSImage*) image {
-	NSImage* res = [[[NSImage alloc] initWithSize: [self size]] autorelease];
+	NSImage* res = [[NSImage alloc] initWithSize: [self size]];
 	
-	[res lockFocus];
+	[res lockFocusFlipped:YES];
 	
 	NSAffineTransform* flip = [NSAffineTransform transform];
 	
@@ -802,7 +805,7 @@ static NSImage* unchangedDark, *activeDark;
 		
 	[res unlockFocus];
 	
-	return res;
+	return [res autorelease];
 }
 
 // = Alternative packing style(s) =
@@ -911,7 +914,7 @@ static NSImage* unchangedDark, *activeDark;
 	if (position == 0.0) position = itemWidth;
 	
 	// Center the children	
-	float center = position / 2.0;
+	CGFloat center = position / 2.0;
 	
 	childEnum = [children objectEnumerator];
 	while (childItem = [childEnum nextObject]) {
@@ -919,8 +922,8 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	// Adjust the width to fit the text, if required
-	float ourWidth = [item commandSize].width;
-	float labelWidth = [item annotationSize].width;
+	CGFloat ourWidth = [item commandSize].width;
+	CGFloat labelWidth = [item annotationSize].width;
 	
 	if (labelWidth > ourWidth) ourWidth = labelWidth;
 	

@@ -39,14 +39,14 @@
     
     NSEnumerator* upperEnum;
     int ypos = 0;
-	float width = [self bounds].size.width;
+	CGFloat width = [self bounds].size.width;
 
     upperEnum = [[zoomView upperWindows] objectEnumerator];
 
     // Draw each window in turn
     ZoomUpperWindow* win;
     while (win = [upperEnum nextObject]) {
-        int y;
+        NSInteger y;
 
         // Get the lines from the window
         NSArray* lines = [win lines];
@@ -176,7 +176,7 @@
 		return;
 	}
 
-	// FOXME: send input styles over from the server
+	// FIXME: send input styles over from the server
 	ZStyle* style = [activeWindow inputStyle];
 	if (style == nil) {
 		style = [[ZStyle alloc] init];
@@ -286,6 +286,7 @@
 		
 		return status;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
+#if 0
 		NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
 		NSMutableString* status = [NSMutableString string];
 		
@@ -299,13 +300,35 @@
 				[status appendString: @"%@"];
 			}
 		}
-
+#endif
 		return [NSString stringWithFormat: @"Status bar"];
 	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		return zoomView;
 	}
 	
 	return [super accessibilityAttributeValue: attribute];
+}
+
+- (NSString *)accessibilityValue
+{
+	NSMutableString* status = [NSMutableString string];
+	
+	for (ZoomUpperWindow* win in [zoomView upperWindows]) {
+		NSArray* lines = [win lines];
+		NSEnumerator* linesEnum = [lines objectEnumerator];
+		NSMutableAttributedString* lineText;
+		while (lineText = [linesEnum nextObject]) {
+			[status appendString: [lineText string]];
+			[status appendString: @" "];
+		}
+	}
+	
+	return status;
+}
+
+- (id)accessibilityParent
+{
+	return zoomView;
 }
 
 - (BOOL)accessibilityIsIgnored {

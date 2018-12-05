@@ -24,13 +24,14 @@
 	[super dealloc];
 }
 
-- (NSData *)dataRepresentationOfType:(NSString *)type {
+- (NSData *)dataOfType:(NSString *)type error:(NSError * _Nullable *)outError  {
 	// Glk documents are never saved
     return nil;
 }
 
-- (BOOL) loadDataRepresentation: (NSData*) data
-						 ofType: (NSString*) type {
+- (BOOL) readFromData: (NSData*) data
+			   ofType: (NSString*) type
+				error: (NSError * _Nullable *)outError {
 	// Neither are they really loaded: we initialise via the plugin
     return YES;
 }

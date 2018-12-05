@@ -470,10 +470,11 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 }
 
-- (BOOL)		panel:(id)sender 
-   shouldShowFilename:(NSString *)filename {
+-(BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
+{
 	BOOL exists;
 	BOOL isDirectory;
+	NSString *filename = [url path];
 	
 	exists = [[NSFileManager defaultManager] fileExistsAtPath: filename
 												  isDirectory: &isDirectory];
@@ -494,44 +495,40 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 	
 	// Show files that have a valid plugin
-	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename];
+	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: [url path]];
 	
 	if (pluginClass != nil) {
 		return YES;
 	}
+	NSString *urlUTI;
+	if (![url getResourceValue:&urlUTI forKey:NSURLTypeIdentifierKey error:NULL]) {
+		urlUTI = CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)url.pathExtension, isDirectory ? kUTTypeDirectory : kUTTypeData));
+	}
 	
 	// Show files that we can open with the ZoomClient document type
-	NSArray* extensions = [[NSDocumentController sharedDocumentController] fileExtensionsFromType: @"ZCode story"];
-	NSEnumerator* extnEnum = [extensions objectEnumerator];
-	NSString* extn;
-	NSString* fileExtension = [[filename pathExtension] lowercaseString];
-	while (extn = [extnEnum nextObject]) {
-		if ([extn isEqualToString: fileExtension]) return YES;
-	}
-
-	extensions = [NSArray arrayWithObjects: @"zblorb", @"zlb", nil];
-	extnEnum = [extensions objectEnumerator];
-	while (extn = [extnEnum nextObject]) {
-		if ([extn isEqualToString: fileExtension]) return YES;
-	}
+	NSString* type = @"public.zcode";
+	[[NSWorkspace sharedWorkspace] type:type conformsToType:urlUTI];
+	if ([[NSWorkspace sharedWorkspace] type:type conformsToType:urlUTI]) return YES;
 	
-	extensions = [[NSDocumentController sharedDocumentController] fileExtensionsFromType: @"Blorb resource file"];
-	extnEnum = [extensions objectEnumerator];
-	while (extn = [extnEnum nextObject]) {
-		if ([extn isEqualToString: fileExtension]) return YES;
-	}
+	type = @"public.blorb.zcode";
+	if ([[NSWorkspace sharedWorkspace] type:type conformsToType:urlUTI]) return YES;
+	
+	
+	type = @"public.blorb";
+	if ([[NSWorkspace sharedWorkspace] type:type conformsToType:urlUTI]) return YES;
 	
 	return NO;
 }
 
-- (BOOL)        panel:(id)sender
-	  isValidFilename:(NSString *)filename {
-	if (![self panel: sender shouldShowFilename: filename]) return NO; 
-
+-(BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError * _Nullable *)outError {
+	if (![self panel: sender shouldEnableURL: url]) {
+		return NO;
+	}
+	
 	BOOL exists;
 	BOOL isDirectory;
 	
-	exists = [[NSFileManager defaultManager] fileExistsAtPath: filename
+	exists = [[NSFileManager defaultManager] fileExistsAtPath: [url path]
 												  isDirectory: &isDirectory];
 	
 	if (!exists) return NO;
