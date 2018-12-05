@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 };
 
 @interface ZoomPreferences : NSObject<NSCoding> {
-	NSMutableDictionary* prefs;
+	NSMutableDictionary<NSString*,id>* prefs;
 	NSLock* prefLock;
 }
 

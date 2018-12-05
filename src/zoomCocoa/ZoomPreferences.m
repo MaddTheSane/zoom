@@ -341,7 +341,7 @@ static NSArray* DefaultColours(void) {
 
 - (int) interpreter {
 	[prefLock lock];
-	BOOL result = [[prefs objectForKey: interpreter] intValue];
+	int result = [[prefs objectForKey: interpreter] intValue];
 	[prefLock unlock];
 	
 	return result;
