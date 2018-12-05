@@ -152,7 +152,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 
 @end
 
-@protocol ZUpperWindow<ZWindow>
+@protocol ZUpperWindow <ZWindow>
 // Functions supported by an upper window
 
 // Size (-1 to indicate an unsplit window)
@@ -168,10 +168,10 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (oneway void) eraseLineWithStyle: (in bycopy ZStyle*) style;
 @end
 
-@protocol ZLowerWindow<ZWindow>
+@protocol ZLowerWindow <ZWindow>
 @end
 
-@protocol ZPixmapWindow<ZWindow>
+@protocol ZPixmapWindow <ZWindow>
 // Pixmap windows are used by version 6 Z-Machines
 // You can't combine pixmap and ordinary windows (as yet)
 

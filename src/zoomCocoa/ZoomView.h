@@ -16,6 +16,7 @@
 #import "ZoomInputLine.h"
 #import "ZoomBlorbFile.h"
 #import "ZoomTextToSpeech.h"
+#import "ZoomViewProtocols.h"
 
 typedef NS_OPTIONS(unsigned int, ZFontStyle) {
 	ZBoldStyle = 1,
@@ -26,15 +27,13 @@ typedef NS_OPTIONS(unsigned int, ZFontStyle) {
 
 extern NSAttributedStringKey const ZoomStyleAttributeName;
 @protocol ZoomViewDelegate;
-@protocol ZoomViewOutputReceiver;
-@protocol ZoomViewInputSource;
 
 @class ZoomScrollView;
 @class ZoomTextView;
 @class ZoomPixmapWindow;
 @class ZoomLowerWindow;
 @class ZoomUpperWindow;
-@interface ZoomView : NSView<ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate> {
+@interface ZoomView : NSView <ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate> {
     NSObject<ZMachine>* zMachine;
 
     // Subviews
@@ -253,33 +252,5 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (void) beep;
 
 - (void) inputSourceHasFinished: (id<ZoomViewInputSource>) inputSource;
-
-@end
-
-// ZoomView input/output receivers
-//! ZoomView output receiver
-@protocol ZoomViewOutputReceiver <NSObject>
-@optional
-
-// Direct output
-- (void) inputCommand:   (NSString*) command;
-- (void) inputCharacter: (NSString*) character;
-- (void) outputText:     (NSString*) outputText;
-
-// Status notifications
-- (void) zoomWaitingForInput;
-- (void) zoomInterpreterRestart;
-
-@end
-
-//! ZoomView input receiver
-@protocol ZoomViewInputSource <NSObject>
-@optional
-
-//! Retrieve the next command
-- (NSString*) nextCommand;
-
-//! Return YES if you want to turn off more prompts
-- (BOOL) disableMorePrompt;
 
 @end

@@ -51,9 +51,7 @@
 		pluginImage = [NSImage imageNamed: @"zoom-app"];
 	}
 	
-	BOOL wasFlipped = [pluginImage isFlipped];
 	[pluginImage setCacheMode: NSImageCacheNever];
-	[pluginImage setFlipped: [controlView isFlipped]];
 	
 	// Draw the image for this plugin
 	CGFloat drawHeight, drawWidth;
@@ -66,14 +64,14 @@
 		[pluginImage drawInRect: NSMakeRect(NSMinX(cellFrame) + 2, NSMinY(cellFrame)+2, drawWidth, drawHeight)
 					   fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
 					  operation: NSCompositeSourceOver
-					   fraction: 1.0];
+					   fraction: 1.0
+				 respectFlipped: YES
+						  hints: nil];
 	} else {
 		drawWidth = drawHeight = cellFrame.size.height - 4;
 	}
 	
 	if (drawWidth < drawHeight) drawWidth = drawHeight;
-	
-	[pluginImage setFlipped: wasFlipped];
 	
 	// Decide on the fonts and colours to use
 	NSColor* standardColour = [NSColor blackColor];

@@ -45,17 +45,22 @@
 }
 
 // = Delegate =
-- (id) delegate {
-	return delegate;
-}
-
-- (void) setDelegate: (id<NSObject>) dg {
-	delegate = dg;
-}
+@synthesize delegate;
 
 // = Blinking =
+
++ (NSSet<NSString *> *)keyPathsForValuesAffectingVisible
+{
+	return [NSSet setWithObjects:@"shown", @"blinking", @"blink", nil];
+}
+
 - (BOOL) visible {
 	return (isShown&&(!isBlinking||blink));
+}
+
++ (NSSet<NSString *> *)keyPathsForValuesAffectingActiveStyle
+{
+	return [NSSet setWithObjects:@"active", @"first", nil];
 }
 
 - (BOOL) activeStyle {
@@ -78,7 +83,7 @@
 
 	// Notify the delegate that we have blinked
 	if ([delegate respondsToSelector: @selector(blinkCursor:)]) {
-		[(NSObject*)delegate blinkCursor: self];
+		[delegate blinkCursor: self];
 	}
 }
 
@@ -117,10 +122,10 @@
     NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
     
     // Width is one 'en'
-    float width = [@"n" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: NSFontAttributeName, font, nil]].width;
+    CGFloat width = [@"n" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: NSFontAttributeName, font, nil]].width;
     
     // Height is decided by the layout manager
-    float height = [layoutManager defaultLineHeightForFont: font];
+    CGFloat height = [layoutManager defaultLineHeightForFont: font];
     
     return NSMakeSize(width, height);
 }
@@ -151,7 +156,7 @@
 
 - (void) positionInString: (NSString*) string
 		   withAttributes: (NSDictionary*) attributes
-		 atCharacterIndex: (int) index {
+		 atCharacterIndex: (NSInteger) index {
 	// Cause the delegate to undraw any previous cursor
 	BOOL wasShown = isShown;
 	isShown = NO;
@@ -161,7 +166,7 @@
 	
 	// Move the cursor
     NSSize fontSize = [self sizeOfFont: font];
-	float offset = [[string substringToIndex: index] sizeWithAttributes: attributes].width;
+	CGFloat offset = [[string substringToIndex: index] sizeWithAttributes: attributes].width;
 	
 	cursorRect = NSMakeRect(cursorPos.x+offset, cursorPos.y, fontSize.width, fontSize.height);
 

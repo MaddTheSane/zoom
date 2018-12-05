@@ -10,10 +10,11 @@
 #import <WebKit/WebKit.h>
 
 #import "ZoomSkeinItem.h"
+#import "ZoomViewProtocols.h"
 
 extern NSNotificationName const ZoomSkeinChangedNotification;
 
-@interface ZoomSkein : NSObject {
+@interface ZoomSkein : NSObject <ZoomViewOutputReceiver> {
 	ZoomSkeinItem* rootItem;
 	
 	NSMutableString* currentOutput;

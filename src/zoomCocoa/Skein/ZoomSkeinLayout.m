@@ -114,7 +114,7 @@ static NSImage* unchangedDark, *activeDark;
 		labelShadow, ZoomNSShadowAttributeName,
 		nil] retain];
 	
-	if (labelShadow) [labelShadow release];
+	[labelShadow release];
 }
 
 + (void) drawImage: (NSImage*) img
@@ -196,12 +196,12 @@ static NSImage* unchangedDark, *activeDark;
 
 // = Setting skein data =
 
-- (void) setItemWidth: (float) newItemWidth {
+- (void) setItemWidth: (CGFloat) newItemWidth {
 	if (newItemWidth < 82.0) newItemWidth = 82.0;
 	itemWidth = newItemWidth;
 }
 
-- (void) setItemHeight: (float) newItemHeight {
+- (void) setItemHeight: (CGFloat) newItemHeight {
 	itemHeight = newItemHeight;
 }
 
@@ -865,8 +865,8 @@ static NSImage* unchangedDark, *activeDark;
 	NSEnumerator* childEnum = [[item children] objectEnumerator];
 	ZoomSkeinItem* child;
 	ZoomSkeinLayoutItem* lastItem = nil;
-	float position = 0.0;
-	float lastWidth = 0.0;
+	CGFloat position = 0.0;
+	CGFloat lastWidth = 0.0;
 	ZoomSkeinLayoutItem* childItem;
 	
 	NSMutableArray* children = [NSMutableArray array];
@@ -877,12 +877,12 @@ static NSImage* unchangedDark, *activeDark;
 									 withLevel: level+1];
 		
 		// Pick an effective item width
-		float effectiveWidthLeft = lastWidth;
-		float effectiveWidthRight = [childItem fullWidth];
+		CGFloat effectiveWidthLeft = lastWidth;
+		CGFloat effectiveWidthRight = [childItem fullWidth];
 		
 		if (lastItem) {
-			int leftDepth = [lastItem depth];
-			int rightDepth = [childItem depth];
+			NSInteger leftDepth = [lastItem depth];
+			NSInteger rightDepth = [childItem depth];
 			
 			if (leftDepth < rightDepth && leftDepth < MaxTightDepth) {
 				

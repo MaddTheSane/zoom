@@ -11,7 +11,7 @@
 @implementation ZoomSkeinView(ZoomSkeinViewWeb)
 
 - (void)setDataSource:(WebDataSource *)dataSource {
-	ZoomSkein* newSkein = [dataSource representation];
+	ZoomSkein* newSkein = (id)[dataSource representation];
 	
 	if ([newSkein isKindOfClass: [ZoomSkein class]]) {
 		[self setSkein: newSkein];

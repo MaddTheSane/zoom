@@ -1929,33 +1929,35 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     }
 }
 
-- (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename {
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
 	NSSavePanel* panel = sender;
+
+	if ([[panel allowedFileTypes] containsObject:[url pathExtension]]) return YES;
 	
-	if ([[filename pathExtension] isEqualToString: [panel requiredFileType]]) return YES;
-	
-	if ([[panel requiredFileType] isEqualToString: @"zoomSave"]) {
-		if ([[filename pathExtension] isEqualToString: @"qut"]) {
+	if ([[panel allowedFileTypes] containsObject: @"zoomSave"]) {
+		if ([[url pathExtension] isEqualToString: @"qut"]) {
 			return YES;
 		}
 	}
 	
-	BOOL isDir;
-	
-	if ([[NSFileManager defaultManager] fileExistsAtPath: filename isDirectory: &isDir]) {
-		if (isDir) return YES;
+	NSURLFileResourceType isDir;
+	if ([url getResourceValue:&isDir forKey:NSURLFileResourceTypeKey error:nil]) {
+		if ([isDir isEqualToString:NSURLFileResourceTypeDirectory]) return YES;
 	}
 	
 	return NO;
+
 }
 
-- (BOOL)panel:(id)sender isValidFilename:(NSString *)filename {
+- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError * _Nullable *)outError {
 	NSSavePanel* panel = sender;
+
+	if ([[panel allowedFileTypes] containsObject:[url pathExtension]]) {
+		return YES;
+	}
 	
-	if ([[filename pathExtension] isEqualToString: [panel requiredFileType]]) return YES;
-	
-	if ([[panel requiredFileType] isEqualToString: @"zoomSave"]) {
-		if ([[filename pathExtension] isEqualToString: @"qut"]) {
+	if ([[panel allowedFileTypes] containsObject: @"zoomSave"]) {
+		if ([[url pathExtension] isEqualToString: @"qut"]) {
 			return YES;
 		}
 	}
@@ -1979,8 +1981,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     }
     
     [panel setExtensionHidden: 
-        [[[NSUserDefaults standardUserDefaults] objectForKey: 
-            @"ZoomHiddenExtension"] boolValue]];
+        [[NSUserDefaults standardUserDefaults] boolForKey:
+            @"ZoomHiddenExtension"]];
 	
 	BOOL usePackage = NO;
 	
@@ -2021,7 +2023,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
             typeCode = 'TEXT';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ transcript recording file", saveOpen]];
-                [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"txt", nil]];
+                [panel setAllowedFileTypes: [NSArray arrayWithObject: (NSString*)kUTTypePlainText]];
             }
             break;
     }
@@ -2061,102 +2063,92 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 	[panel retain];
 	[panel beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse result) {
-		[self savePanelDidEnd:panel returnCode:result contextInfo:[@(type) retain]];
+		if (result != NSOKButton) {
+			[zMachine filePromptCancelled];
+		} else {
+			NSString* fn = [panel URL].path;
+			NSFileHandle* file = nil;
+			
+			BOOL usePackage = NO;
+			
+			[self storePanelPrefs: panel];
+			
+			if (type == ZFileQuetzal && delegate && [delegate respondsToSelector: @selector(useSavePackage)]) {
+				usePackage = [delegate useSavePackage];
+			}
+			
+			if (usePackage) {
+				// We store information about the current screen state in the package
+				ZPackageFile* f = [[ZPackageFile alloc] initWithPath: fn
+														 defaultFile: @"save.qut"
+														  forWriting: YES];
+				
+				if (f) {
+					int windowNumber = 0;
+					ZoomUpperWindow* previewWin;
+					
+					[f setAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+									   @(creatorCode), NSFileHFSCreatorCode,
+									   @(typeCode), NSFileHFSTypeCode,
+									   @([panel isExtensionHidden]), NSFileExtensionHidden,
+									   nil]];
+					
+					if ([upperWindows count] <= 0 || [(ZoomUpperWindow*)[upperWindows objectAtIndex: 0] length] > 0) {
+						windowNumber = 0;
+					} else {
+						windowNumber = 1;
+					}
+					
+					if ([upperWindows count] <= 0) {
+						previewWin = nil;
+					} else {
+						previewWin = [upperWindows objectAtIndex: windowNumber];
+					}
+					
+					[f addData: [NSArchiver archivedDataWithRootObject: previewWin]
+				   forFilename: @"ZoomPreview.dat"];
+					[f addData: [NSArchiver archivedDataWithRootObject: self]
+				   forFilename: @"ZoomStatus.dat"];
+					
+					if (delegate && [delegate respondsToSelector: @selector(prepareSavePackage:)]) {
+						[delegate prepareSavePackage: f];
+					}
+					
+					[zMachine promptedFileIs: [f autorelease]
+										size: 0];
+				} else {
+					[zMachine filePromptCancelled];
+				}
+			} else {
+				int creator = creatorCode;
+				
+				if (typeCode == 'TEXT') creator = 0;
+				
+				if ([[NSFileManager defaultManager] createFileAtPath:fn
+															contents:[NSData data]
+														  attributes:
+					 [NSDictionary dictionaryWithObjectsAndKeys:
+					  @(creator), NSFileHFSCreatorCode,
+					  @(typeCode), NSFileHFSTypeCode,
+					  @([panel isExtensionHidden]), NSFileExtensionHidden,
+					  nil]]) {
+						 file = [NSFileHandle fileHandleForWritingAtPath: fn];
+					 }
+				
+				if (file) {
+					ZHandleFile* f;
+					
+					f = [[ZHandleFile alloc] initWithFileHandle: file];
+					
+					[zMachine promptedFileIs: [f autorelease]
+										size: 0];
+				} else {
+					[zMachine filePromptCancelled];
+				}
+			}
+		}
 		[panel release];
 	}];
-}
-
-- (void)savePanelDidEnd: (NSSavePanel *) panel 
-             returnCode: (NSModalResponse) returnCode
-            contextInfo: (void*) contextInfo {
-	NSNumber* typeNum = (NSNumber*)contextInfo;
-	ZFileType type = [typeNum intValue];
-	[typeNum release];
-	
-    if (returnCode != NSOKButton) {
-        [zMachine filePromptCancelled];
-    } else {
-        NSString* fn = [panel URL].path;
-        NSFileHandle* file = nil;
-		
-		BOOL usePackage = NO;
-        
-        [self storePanelPrefs: panel];
-		
-		if (type == ZFileQuetzal && delegate && [delegate respondsToSelector: @selector(useSavePackage)]) {
-			usePackage = [delegate useSavePackage];
-		}
-        
-		if (usePackage) {
-			// We store information about the current screen state in the package
-			ZPackageFile* f = [[ZPackageFile alloc] initWithPath: fn
-													 defaultFile: @"save.qut"
-													  forWriting: YES];
-			
-			if (f) {
-				int windowNumber = 0;
-				ZoomUpperWindow* previewWin;
-				
-				[f setAttributes: [NSDictionary dictionaryWithObjectsAndKeys: 
-						@(creatorCode), NSFileHFSCreatorCode,
-						@(typeCode), NSFileHFSTypeCode,
-						@([panel isExtensionHidden]), NSFileExtensionHidden,
-						nil]];
-				
-				if ([upperWindows count] <= 0 || [(ZoomUpperWindow*)[upperWindows objectAtIndex: 0] length] > 0) {
-					windowNumber = 0;
-				} else {
-					windowNumber = 1;
-				}
-				
-				if ([upperWindows count] <= 0) {
-					previewWin = nil;
-				} else {
-					previewWin = [upperWindows objectAtIndex: windowNumber];
-				}
-				
-				[f addData: [NSArchiver archivedDataWithRootObject: previewWin]
-			   forFilename: @"ZoomPreview.dat"];
-				[f addData: [NSArchiver archivedDataWithRootObject: self]
-			   forFilename: @"ZoomStatus.dat"];
-				
-				if (delegate && [delegate respondsToSelector: @selector(prepareSavePackage:)]) {
-					[delegate prepareSavePackage: f];
-				}
-				
-				[zMachine promptedFileIs: [f autorelease]
-									size: 0];
-			} else {
-				[zMachine filePromptCancelled];				
-			}
-		} else {
-			int creator = creatorCode;
-			
-			if (typeCode == 'TEXT') creator = 0;
-			
-			if ([[NSFileManager defaultManager] createFileAtPath:fn
-														   contents:[NSData data]
-														 attributes:
-				[NSDictionary dictionaryWithObjectsAndKeys: 
-					@(creator), NSFileHFSCreatorCode,
-					@(typeCode), NSFileHFSTypeCode,
-					@([panel isExtensionHidden]), NSFileExtensionHidden,
-					nil]]) {
-				file = [NSFileHandle fileHandleForWritingAtPath: fn];
-			}
-        
-			if (file) {
-				ZHandleFile* f;
-            
-				f = [[ZHandleFile alloc] initWithFileHandle: file];
-            
-				[zMachine promptedFileIs: [f autorelease]
-									size: 0];
-			} else {
-				[zMachine filePromptCancelled];
-			}
-		}
-    }
 }
 
 - (void) promptForFileToRead: (in ZFileType) type
@@ -2847,7 +2839,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 // = Output receivers =
 
-- (void) addOutputReceiver: (id) receiver {
+- (void) addOutputReceiver: (id<ZoomViewOutputReceiver>) receiver {
 	if (!outputReceivers) {
 		outputReceivers = [[NSMutableArray alloc] init];
 	}
@@ -2857,7 +2849,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 }
 
-- (void) removeOutputReceiver: (id) receiver {
+- (void) removeOutputReceiver: (id<ZoomViewOutputReceiver>) receiver {
 	if (!outputReceivers) return;
 	[outputReceivers removeObjectIdenticalTo: receiver];
 	
@@ -2870,10 +2862,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 // These functions are really for internal use only: they actually call the output receivers as appropriate
 - (void) orInputCommand: (NSString*) command {
 	if (!outputReceivers) return;
-	NSEnumerator* orEnum = [outputReceivers objectEnumerator];
-	NSObject* or;
 	
-	while (or = [orEnum nextObject]) {
+	for (id<ZoomViewOutputReceiver> or in outputReceivers) {
 		if ([or respondsToSelector: @selector(inputCommand:)]) {
 			[or inputCommand: command];
 		}
@@ -2882,10 +2872,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 - (void) orInputCharacter: (NSString*) character {
 	if (!outputReceivers) return;
-	NSEnumerator* orEnum = [outputReceivers objectEnumerator];
-	NSObject* or;
 	
-	while (or = [orEnum nextObject]) {
+	for (id<ZoomViewOutputReceiver> or in outputReceivers) {
 		if ([or respondsToSelector: @selector(inputCharacter:)]) {
 			[or inputCharacter: character];
 		}
@@ -2894,10 +2882,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 - (void) orOutputText:   (NSString*) outputText {
 	if (!outputReceivers) return;
-	NSEnumerator* orEnum = [outputReceivers objectEnumerator];
-	NSObject* or;
 	
-	while (or = [orEnum nextObject]) {
+	for (id<ZoomViewOutputReceiver> or in outputReceivers) {
 		if ([or respondsToSelector: @selector(outputText:)]) {
 			[or outputText: outputText];
 		}
@@ -2906,14 +2892,12 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 - (void) orWaitingForInput {
 	if (!outputReceivers) return;
-	NSEnumerator* orEnum = [outputReceivers objectEnumerator];
-	NSObject* or;
 	
 	if (delegate && [delegate respondsToSelector: @selector(zoomWaitingForInput)]) {
 		[delegate zoomWaitingForInput];
 	}
 	
-	while (or = [orEnum nextObject]) {
+	for (id<ZoomViewOutputReceiver> or in outputReceivers) {
 		if ([or respondsToSelector: @selector(zoomWaitingForInput)]) {
 			[or zoomWaitingForInput];
 		}
@@ -2922,10 +2906,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 - (void) orInterpreterRestart {
 	if (!outputReceivers) return;
-	NSEnumerator* orEnum = [outputReceivers objectEnumerator];
-	NSObject* or;
 	
-	while (or = [orEnum nextObject]) {
+	for (id<ZoomViewOutputReceiver> or in outputReceivers) {
 		if ([or respondsToSelector: @selector(zoomInterpreterRestart)]) {
 			[or zoomInterpreterRestart];
 		}
@@ -3022,6 +3004,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 - (NSSize) sizeOfImageWithNumber: (int) number {
 	return [resources sizeForImageWithNumber: number
 							   forPixmapSize: [pixmapWindow size]];
+#if 0
 	NSImage* img = [resources imageWithNumber: number];
 	
 	if (img != nil) {
@@ -3029,6 +3012,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	} else {
 		return NSMakeSize(0,0);
 	}
+#endif
 }
 
 // = Terminating characters =

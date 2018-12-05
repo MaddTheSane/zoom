@@ -12,16 +12,16 @@
 #import "ZoomView.h"
 
 @interface ZoomLowerWindow : NSObject<ZLowerWindow, NSCoding> {
-    ZoomView* zoomView;
+    __unsafe_unretained ZoomView* zoomView;
 	
 	ZStyle* backgroundStyle;
 	ZStyle* inputStyle;
 }
 
-- (id) initWithZoomView: (ZoomView*) zoomView;
+- (instancetype) initWithZoomView: (ZoomView*) zoomView;
 
-- (ZStyle*) backgroundStyle;
+@property (readonly, retain) ZStyle *backgroundStyle;
 
-- (void) setZoomView: (ZoomView*) view;
+@property (assign) ZoomView *zoomView;
 
 @end

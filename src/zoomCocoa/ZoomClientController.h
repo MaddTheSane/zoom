@@ -11,7 +11,7 @@
 #import "ZoomClient.h"
 
 
-@interface ZoomClientController : NSWindowController <NSWindowDelegate> {
+@interface ZoomClientController : NSWindowController <NSWindowDelegate, ZoomViewDelegate> {
     IBOutlet ZoomView* zoomView;
 	BOOL isFullscreen;
 	BOOL finished;

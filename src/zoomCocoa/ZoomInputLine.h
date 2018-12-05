@@ -10,29 +10,30 @@
 
 #import "ZoomCursor.h"
 
+@protocol ZoomInputLineDelegate;
+
 @interface ZoomInputLine : NSObject {
 	ZoomCursor* cursor;
 	
-	NSObject* delegate;
+	id<ZoomInputLineDelegate> delegate;
 	
 	NSMutableString* lineString;
-	NSMutableDictionary* attributes;
+	NSMutableDictionary<NSAttributedStringKey, id>* attributes;
 	NSInteger		 insertionPos;
 }
 
 - (id) initWithCursor: (ZoomCursor*) cursor
-		   attributes: (NSDictionary*) attr;
+		   attributes: (NSDictionary<NSAttributedStringKey, id>*) attr;
 
 - (void) drawAtPoint: (NSPoint) point;
-- (NSSize) size;
+@property (readonly) NSSize size;
 - (NSRect) rectForPoint: (NSPoint) point;
 
 - (void) keyDown: (NSEvent*) evt;
 
 - (NSString*) inputLine;
 
-- (void) setDelegate: (id) delegate;
-- (id)   delegate;
+@property (assign) id<ZoomInputLineDelegate> delegate;
 
 - (NSString*) lastHistoryItem;
 - (NSString*) nextHistoryItem;
@@ -41,7 +42,8 @@
 
 @end
 
-@interface NSObject(ZoomInputLineDelegate)
+@protocol ZoomInputLineDelegate <NSObject>
+@optional
 
 - (void) inputLineHasChanged: (ZoomInputLine*) sender;
 - (void) endOfLineReached: (ZoomInputLine*) sender;

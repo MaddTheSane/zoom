@@ -33,8 +33,7 @@
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
     // Clear the lower part of all the upper windows
     NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
-    ZoomUpperWindow* win;
-    while (win = [upperEnum nextObject]) {
+    for (ZoomUpperWindow* win in upperEnum) {
         [win cutLines];
     }
     
@@ -49,9 +48,7 @@
 	backgroundStyle = [style copy];
 }
 
-- (ZStyle*) backgroundStyle {
-	return backgroundStyle;
-}
+@synthesize backgroundStyle;
 
 // Sets the input focus to this window
 - (oneway void) setFocus {
@@ -90,20 +87,9 @@
     return self;
 }
 
-- (void) setZoomView: (ZoomView*) view {
-	zoomView = view;
-}
+@synthesize zoomView;
 
 // = Input styles =
-
-- (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
-	if (inputStyle) [inputStyle release];
-	inputStyle = [newInputStyle copy];
-}
-
-- (bycopy ZStyle*) inputStyle {
-	return inputStyle;
-}
 
 @synthesize inputStyle;
 

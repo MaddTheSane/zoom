@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 
-// Blinking cursor thing
+@protocol ZoomCursorDelegate;
 
+//! Blinking cursor thing
 @interface ZoomCursor : NSObject {
 	NSRect cursorRect;
 	BOOL isBlinking, isShown, isActive, isFirst;
@@ -20,38 +21,38 @@
 	
 	BOOL lastVisible, lastActive;
 	
-	id<NSObject> delegate;
+	id<ZoomCursorDelegate> delegate;
 	
 	NSTimer* flasher;
 }
 
 // Drawing
 - (void) draw;
-- (BOOL) visible;
-- (BOOL) activeStyle;
+@property (readonly) BOOL visible;
+@property (readonly) BOOL activeStyle;
 
 // Positioning
 - (void) positionAt: (NSPoint) pt
 		   withFont: (NSFont*) font;
 - (void) positionInString: (NSString*) string
-		   withAttributes: (NSDictionary*) attributes
-		 atCharacterIndex: (int) index;
+		   withAttributes: (NSDictionary<NSAttributedStringKey, id>*) attributes
+		 atCharacterIndex: (NSInteger) index;
 
-- (NSRect) cursorRect;
+@property (readonly) NSRect cursorRect;
 
 // Display status
-- (void) setBlinking: (BOOL) blink;  // Cursor blinks on/off
-- (void) setShown:    (BOOL) shown;  // Cursor shown/hidden
-- (void) setActive:   (BOOL) active; // Whether or not the cursor is 'active' (ie the window has focus)
-- (void) setFirst:    (BOOL) first;  // Whether or not the cursor's view is the first responder
+- (void) setBlinking: (BOOL) blink;  //!< Cursor blinks on/off
+- (void) setShown:    (BOOL) shown;  //!< Cursor shown/hidden
+- (void) setActive:   (BOOL) active; //!< Whether or not the cursor is 'active' (ie the window has focus)
+- (void) setFirst:    (BOOL) first;  //!< Whether or not the cursor's view is the first responder
 
-// Delegate
-- (id) delegate;
-- (void) setDelegate: (id<NSObject>) delegate;
+//! Delegate
+@property (assign) id<ZoomCursorDelegate> delegate;
 
 @end
 
-@interface NSObject(ZoomCursorDelegate)
+@protocol ZoomCursorDelegate <NSObject>
+@optional
 
 - (void) blinkCursor: (ZoomCursor*) sender;
 

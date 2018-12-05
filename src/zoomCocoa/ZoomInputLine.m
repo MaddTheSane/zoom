@@ -13,11 +13,11 @@
 
 // Initialisation
 - (id) initWithCursor: (ZoomCursor*) csr
-		   attributes: (NSDictionary*) attr {
+		   attributes: (NSDictionary<NSAttributedStringKey, id>*) attr {
 	self = [super init];
 	
 	if (self) {
-		lineString = [@"" mutableCopy];
+		lineString = [[NSMutableString alloc] init];
 		cursor = [csr retain];
 		attributes = [attr mutableCopy];
 		
@@ -84,11 +84,10 @@
 	[self stringHasUpdated];
 	
 	// Deal with/strip characters 0xf700-0xf8ff from the input string
-	int x;
 	BOOL endOfLine = NO;
 	NSMutableString* inString = [[NSMutableString alloc] init];
 		
-	for (x=0; x<[input length]; x++) {
+	for (NSInteger x=0; x<[input length]; x++) {
 		unichar chr = [input characterAtIndex: x];
 		
 		if (chr == 13 || chr == 10) {
@@ -199,13 +198,7 @@
 }
 
 // Delegate
-- (void) setDelegate: (id) dg {
-	delegate = dg;
-}
-
-- (id) delegate {
-	return delegate;
-}
+@synthesize delegate;
 
 - (NSString*) lastHistoryItem {
 	if (delegate && [delegate respondsToSelector: @selector(lastHistoryItem)]) {

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -44,7 +43,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="iFiction" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="iFiction" animationBehavior="default" id="5" userLabel="Window">
+        <window title="iFiction" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="iFiction" animationBehavior="default" id="5" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="284" y="145" width="584" height="384"/>
@@ -217,7 +216,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" id="HW7-b1-y43">
                                                         <rect key="frame" x="1" y="0.0" width="568" height="204"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowHeight="14" headerView="398" id="148" customClass="ZoomStoryTableView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="1002.5" height="181"/>
@@ -315,11 +314,11 @@
                                                             </tableView>
                                                         </subviews>
                                                     </clipView>
-                                                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="397">
+                                                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="397">
                                                         <rect key="frame" x="1" y="188" width="568" height="16"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
-                                                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="399">
+                                                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="399">
                                                         <rect key="frame" x="553" y="23" width="16" height="181"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
@@ -459,7 +458,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="Cover art" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="CoverArt" animationBehavior="default" id="198" userLabel="CoverArtPreview">
+        <window title="Cover art" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="CoverArt" animationBehavior="default" id="198" userLabel="CoverArtPreview">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="193" y="91" width="513" height="429"/>
@@ -484,7 +483,7 @@
                 <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="286">
                     <rect key="frame" x="136" y="0.0" width="429" height="113"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <clipView key="contentView" id="UB6-ym-eLH">
+                    <clipView key="contentView" drawsBackground="NO" id="UB6-ym-eLH">
                         <rect key="frame" x="0.0" y="0.0" width="429" height="113"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -492,7 +491,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="429" height="195"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <size key="minSize" width="429" height="113"/>
                                 <size key="maxSize" width="429" height="10000000"/>
                                 <attributedString key="textStorage">
@@ -534,19 +533,18 @@ Cg
                                         </attributes>
                                     </fragment>
                                 </attributedString>
-                                <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <outlet property="delegate" destination="-2" id="293"/>
                                 </connections>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="400">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="400">
                         <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="401">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="401">
                         <rect key="frame" x="413" y="0.0" width="16" height="113"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -608,11 +606,11 @@ Cg
                             </tableView>
                         </subviews>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="405">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="405">
                         <rect key="frame" x="-100" y="-100" width="229" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="407">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="407">
                         <rect key="frame" x="268" y="23" width="16" height="97"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -657,11 +655,11 @@ Cg
                             </tableView>
                         </subviews>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="402">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="402">
                         <rect key="frame" x="-100" y="-100" width="229" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="404">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="404">
                         <rect key="frame" x="267" y="23" width="16" height="97"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -700,11 +698,11 @@ Cg
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="408">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="408">
                         <rect key="frame" x="-100" y="-100" width="521" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="409">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="409">
                         <rect key="frame" x="520" y="0.0" width="16" height="127"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -729,7 +727,7 @@ Cg
                                     <button hidden="YES" verticalHuggingPriority="750" imageHugsTitle="YES" id="348">
                                         <rect key="frame" x="69" y="1" width="42" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                        <buttonCell key="cell" type="squareTextured" title="Play" bezelStyle="texturedSquare" image="IFDB-forward" imagePosition="leading" alignment="center" controlSize="small" borderStyle="border" inset="2" id="387">
+                                        <buttonCell key="cell" type="squareTextured" title="Play" bezelStyle="texturedSquare" image="IFDB-forward" imagePosition="left" alignment="center" controlSize="small" borderStyle="border" inset="2" id="387">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>

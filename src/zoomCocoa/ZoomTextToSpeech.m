@@ -120,9 +120,7 @@ static SpeechChannel channel = nil;
 	[self zoomWaitingForInput];
 }
 
-- (void) setImmediate: (BOOL) immediateSpeech {
-	isImmediate = immediateSpeech;
-}
+@synthesize immediate=isImmediate;
 
 - (void) speakLastText {
 	if (lastText) {
@@ -204,10 +202,7 @@ static SpeechChannel channel = nil;
 #endif
 }
 
-- (void) setSkein: (ZoomSkein*) newSkein {
-	[skein release];
-	skein = [newSkein retain];
-}
+@synthesize skein;
 
 - (BOOL) speakBehind: (int) position {
 	// Iterate up the skein until we get to the move we want
