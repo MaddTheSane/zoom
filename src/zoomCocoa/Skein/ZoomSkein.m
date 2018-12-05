@@ -63,7 +63,7 @@
 
 // = Notifications =
 
-NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
+NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 
 - (void) zoomSkeinChanged {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinChangedNotification

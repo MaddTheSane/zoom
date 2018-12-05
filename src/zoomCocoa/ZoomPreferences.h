@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
-extern NSString* ZoomPreferencesHaveChangedNotification;
+extern NSNotificationName const ZoomPreferencesHaveChangedNotification;
 
 typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 	GlulxGit		= 0,

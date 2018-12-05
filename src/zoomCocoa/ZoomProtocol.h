@@ -23,7 +23,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString* ZBufferNeedsFlushingNotification;
+extern NSNotificationName const ZBufferNeedsFlushingNotification;
 
 @protocol ZMachine;
 @protocol ZDisplay;
@@ -328,7 +328,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 @end
 
 // Style attributes
-extern NSString* ZStyleAttributeName;
+extern NSString* const ZStyleAttributeName;
 @interface ZStyle : NSObject<NSCopying,NSCoding> {
     // Colour
     int foregroundColour;
@@ -402,8 +402,8 @@ extern NSString* ZStyleAttributeName;
 		  inWindow: (NSObject<ZPixmapWindow>*) win;
 
 // Unbuffering
-- (BOOL) empty; // YES if the buffer has no data
-- (void) blat; // Like blitting, only messier
+- (BOOL) empty; //!< YES if the buffer has no data
+- (void) blat; //!< Like blitting, only messier
 
 @end
 

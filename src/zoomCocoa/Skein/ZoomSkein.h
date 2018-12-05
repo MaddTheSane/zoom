@@ -11,7 +11,7 @@
 
 #import "ZoomSkeinItem.h"
 
-extern NSString* ZoomSkeinChangedNotification;
+extern NSNotificationName const ZoomSkeinChangedNotification;
 
 @interface ZoomSkein : NSObject {
 	ZoomSkeinItem* rootItem;

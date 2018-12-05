@@ -24,8 +24,8 @@
 // (Mainly to build up the iFiction window)
 
 // Notifications
-extern NSString* ZoomStoryOrganiserChangedNotification;
-extern NSString* ZoomStoryOrganiserProgressNotification;
+extern NSNotificationName const ZoomStoryOrganiserChangedNotification;
+extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 
 @interface ZoomStoryOrganiser : NSObject<ZoomStoryIDFetcherProtocol> {
 	// Arrays of the stories and their idents

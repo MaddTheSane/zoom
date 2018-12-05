@@ -11,16 +11,20 @@
 #import "ZoomSkeinItem.h"
 
 // Skein item notifications
-NSString* ZoomSkeinItemIsBeingReplaced = @"ZoomSkeinItemIsBeingReplaced";
-NSString* ZoomSkeinItemHasBeenRemovedFromTree = @"ZoomSkeinItemHasBeenRemovedFromTree";	
-NSString* ZoomSkeinItemHasChanged = @"ZoomSkeinItemHasChanged";
-NSString* ZoomSkeinItemHasNewChild = @"ZoomSkeinItemHasNewChild";
+NSString*const ZoomSkeinItemIsBeingReplaced = @"ZoomSkeinItemIsBeingReplaced";
+NSString*const ZoomSkeinItemHasBeenRemovedFromTree = @"ZoomSkeinItemHasBeenRemovedFromTree";
+NSString*const ZoomSkeinItemHasChanged = @"ZoomSkeinItemHasChanged";
+NSString*const ZoomSkeinItemHasNewChild = @"ZoomSkeinItemHasNewChild";
 
 // Skein item notification dictionary keys
-NSString* ZoomSIItem = @"ZoomSIItem";
-NSString* ZoomSIOldItem = @"ZoomSIOldItem";
-NSString* ZoomSIOldParent = @"ZoomSIOldParent";
-NSString* ZoomSIChild = @"ZoomSIChild";
+NSString*const ZoomSIItem = @"ZoomSIItem";
+NSString*const ZoomSIOldItem = @"ZoomSIOldItem";
+NSString*const ZoomSIOldParent = @"ZoomSIOldParent";
+NSString*const ZoomSIChild = @"ZoomSIChild";
+
+@interface ZoomSkeinItem ()
+@property (readwrite, assign) ZoomSkeinItem* parent;
+@end
 
 @implementation ZoomSkeinItem
 
@@ -152,14 +156,7 @@ static NSString* convertCommand(NSString* command) {
 // **** Data accessors ****
 
 // = Skein tree =
-
-- (void) setParent: (ZoomSkeinItem*) newParent {
-	parent = newParent;
-}
-
-- (ZoomSkeinItem*) parent {
-	return parent;
-}
+@synthesize parent;
 
 - (NSSet*) children {
 	return children;
@@ -410,9 +407,7 @@ static int currentScore = 1;
 
 // = Annotation =
 
-- (NSString*) annotation {
-	return annotation;
-}
+@synthesize annotation;
 
 - (void) setAnnotation: (NSString*) newAnnotation {
 	if (annotation == nil || ![newAnnotation isEqualToString: annotation]) 
@@ -432,9 +427,7 @@ static int currentScore = 1;
 
 // = Commentary =
 
-- (NSString*) commentary {
-	return commentary;
-}
+@synthesize commentary;
 
 - (void) setCommentary: (NSString*) newCommentary {
 	if ([newCommentary isEqualToString: commentary]) return;				// Nothing to do

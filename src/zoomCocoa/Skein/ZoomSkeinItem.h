@@ -9,30 +9,30 @@
 #import <Foundation/Foundation.h>
 
 // Commentary comparison results
-typedef enum ZoomSkeinComparison {
-	ZoomSkeinNoResult,										// One side of the comparison doesn't exist (eg, no commentary for an item)
-	ZoomSkeinIdentical,										// Sides are identical
-	ZoomSkeinDiffersOnlyByWhitespace,						// Sides are different, but only in terms of whitespace
-	ZoomSkeinDifferent,										// Sides are different
+typedef NS_ENUM(NSInteger, ZoomSkeinComparison) {
+	ZoomSkeinNoResult,										//!< One side of the comparison doesn't exist (eg, no commentary for an item)
+	ZoomSkeinIdentical,										//!< Sides are identical
+	ZoomSkeinDiffersOnlyByWhitespace,						//!< Sides are different, but only in terms of whitespace
+	ZoomSkeinDifferent,										//!< Sides are different
 	
-	ZoomSkeinNotCompared									// (Placeholder: sides have not been compared)
-} ZoomSkeinComparison;
+	ZoomSkeinNotCompared									//!< (Placeholder: sides have not been compared)
+};
 
 // Skein item notifications
-extern NSString* ZoomSkeinItemIsBeingReplaced;				// One skein item is being replaced by another
-extern NSString* ZoomSkeinItemHasBeenRemovedFromTree;		// A skein item is being removed from the tree (may be associated with the previous)
-extern NSString* ZoomSkeinItemHasChanged;					// A skein item has been changed in some way
-extern NSString* ZoomSkeinItemHasNewChild;					// A skein item has gained a new child item
+extern NSNotificationName const ZoomSkeinItemIsBeingReplaced;				//!< One skein item is being replaced by another
+extern NSNotificationName const ZoomSkeinItemHasBeenRemovedFromTree;		//!< A skein item is being removed from the tree (may be associated with the previous)
+extern NSNotificationName const ZoomSkeinItemHasChanged;					//!< A skein item has been changed in some way
+extern NSNotificationName const ZoomSkeinItemHasNewChild;					//!< A skein item has gained a new child item
 
 // Skein item notification dictionary keys
-extern NSString* ZoomSIItem;								// Item the operation applies to
-extern NSString* ZoomSIOldItem;								// Previous item, if there is one
-extern NSString* ZoomSIOldParent;							// Parent item of an item that's been removed
-extern NSString* ZoomSIChild;								// Child item (if relevant)
+extern NSString* const ZoomSIItem;							//!< Item the operation applies to
+extern NSString* const ZoomSIOldItem;						//!< Previous item, if there is one
+extern NSString* const ZoomSIOldParent;						//!< Parent item of an item that's been removed
+extern NSString* const ZoomSIChild;							//!< Child item (if relevant)
 
-//
-// Represents a single 'knot' in the skein
-//
+//!
+//! Represents a single 'knot' in the skein
+//!
 @interface ZoomSkeinItem : NSObject<NSCoding> {
 	ZoomSkeinItem* parent;
 	NSMutableSet* children;
@@ -60,14 +60,14 @@ extern NSString* ZoomSIChild;								// Child item (if relevant)
 }
 
 // Initialisation
-+ (ZoomSkeinItem*) skeinItemWithCommand: (NSString*) command;
++ (instancetype) skeinItemWithCommand: (NSString*) command;
 
-- (id) initWithCommand: (NSString*) command;
+- (instancetype) initWithCommand: (NSString*) command;
 
 // Data accessors
 
 // Skein tree
-- (ZoomSkeinItem*) parent;
+@property (readonly, assign) ZoomSkeinItem* parent;
 - (NSSet<ZoomSkeinItem*>*)children;
 - (ZoomSkeinItem*) childWithCommand: (NSString*) command;
 
@@ -101,25 +101,23 @@ extern NSString* ZoomSIChild;								// Child item (if relevant)
 
 // Annotation
 
-// Allows the player to designate certain areas of the skein as having specific annotations and colours
-// (So, for example an area can be called 'solution to the maximum mouse melee puzzle')
-// Each 'annotation' colours a new area of the skein.
-- (NSString*) annotation;
-- (void)      setAnnotation: (NSString*) newAnnotation;
+//! Allows the player to designate certain areas of the skein as having specific annotations and colours
+//! (So, for example an area can be called 'solution to the maximum mouse melee puzzle')
+//! Each 'annotation' colours a new area of the skein.
+@property (nonatomic, copy) NSString *annotation;
 
 // Commentary
 
 // Could be used by an IDE to store commentary or perhaps the 'ideal' text the game should be
 // producing for this item
-- (NSString*) commentary;
-- (void)      setCommentary: (NSString*) commentary;
+@property (nonatomic, copy) NSString *commentary;
 - (ZoomSkeinComparison) commentaryComparison;
-- (ZoomSkeinItem*) nextDiff;									// Finds the first item following this one that has a difference
+- (ZoomSkeinItem*) nextDiff;									//!< Finds the first item following this one that has a difference
 
 // Drawing/sizing
-- (NSSize) commandSize;
+@property (readonly) NSSize commandSize;
 - (void) drawCommandAtPosition: (NSPoint) position;
-- (NSSize) annotationSize;
+@property (readonly) NSSize annotationSize;
 - (void) drawAnnotationAtPosition: (NSPoint) position;
 
 @end

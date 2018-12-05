@@ -13,7 +13,7 @@
 
 // == Preference keys ==
 
-NSString* ZoomPreferencesHaveChangedNotification = @"ZoomPreferencesHaveChangedNotification";
+NSString* const ZoomPreferencesHaveChangedNotification = @"ZoomPreferencesHaveChangedNotification";
 
 static NSString* displayWarnings	= @"DisplayWarnings";
 static NSString* fatalWarnings		= @"FatalWarnings";
@@ -149,7 +149,7 @@ static NSArray* DefaultFonts(void) {
 }
 
 static NSArray* DefaultColours(void) {
-	NSArray* defaultColours = [[NSArray arrayWithObjects:
+	NSArray* defaultColours = [NSArray arrayWithObjects:
 		[NSColor colorWithDeviceRed: 0 green: 0 blue: 0 alpha: 1],
 		[NSColor colorWithDeviceRed: 1 green: 0 blue: 0 alpha: 1],
 		[NSColor colorWithDeviceRed: 0 green: 1 blue: 0 alpha: 1],
@@ -162,17 +162,15 @@ static NSArray* DefaultColours(void) {
 		[NSColor colorWithDeviceRed: .73 green: .73 blue: .73 alpha: 1],
 		[NSColor colorWithDeviceRed: .53 green: .53 blue: .53 alpha: 1],
 		[NSColor colorWithDeviceRed: .26 green: .26 blue: .26 alpha: 1],
-		nil] retain];
+		nil];
 	
-	return [defaultColours autorelease];
+	return defaultColours;
 }
 
 - (id) initWithDefaultPreferences {
 	self = [self init];
 	
-	if (self) {
-		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-		
+	if (self) @autoreleasepool {
 		// Defaults
 		[prefs setObject: @NO
 				  forKey: displayWarnings];
@@ -203,8 +201,6 @@ static NSArray* DefaultColours(void) {
 				  forKey: showBorders];
 		[prefs setObject: @YES
 				  forKey: showGlkBorders];
-		
-		[pool release];
 	}
 	
 	return self;

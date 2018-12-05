@@ -12,7 +12,7 @@
 #import "ZoomStoryID.h"
 
 // Notifications
-extern NSString* ZoomMetadataWillDestroyStory;			// A story with a particular ID will be destroyed
+extern NSNotificationName const ZoomMetadataWillDestroyStory;			//!< A story with a particular ID will be destroyed
 
 // Cocoa interface to the C ifmetadata class
 

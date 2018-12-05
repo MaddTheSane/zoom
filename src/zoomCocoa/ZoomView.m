@@ -30,7 +30,7 @@
 static ZoomView** allocatedViews = nil;
 static int        nAllocatedViews = 0;
 
-NSString* ZoomStyleAttributeName = @"ZoomStyleAttributeName";
+NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
 static void finalizeViews(void);
 
@@ -299,8 +299,10 @@ static void finalizeViews(void) {
 	return YES;
 }
 
+@synthesize scaleFactor;
+
 // Scaling
-- (void) setScaleFactor: (float) scaling {
+- (void) setScaleFactor: (CGFloat) scaling {
 	scaleFactor = scaling;
 	[textView setPastedLineScaleFactor: 1.0/scaling];
 	
@@ -357,9 +359,7 @@ static void finalizeViews(void) {
     [zMachine startRunningInDisplay: self];
 }
 
-- (NSObject<ZMachine>*) zMachine {
-    return zMachine;
-}
+@synthesize zMachine;
 
 // = ZDisplay functions =
 
@@ -1491,7 +1491,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     return res;
 }
 
-- (NSFont*) fontWithStyle: (int) style {
+- (NSFont*) fontWithStyle: (ZFontStyle) style {
     if (style < 0 || style >= 16) {
         return nil;
     }
@@ -1622,7 +1622,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 - (NSArray*) upperWindows {
-    return upperWindows;
+    return [NSArray arrayWithArray:upperWindows];
 }
 
 - (void) upperWindowNeedsRedrawing {
@@ -2242,14 +2242,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 // = The delegate =
-- (void) setDelegate: (id) dg {
-    // (Not retained)
-    delegate = dg;
-}
-
-- (id) delegate {
-    return delegate;
-}
+@synthesize delegate;
 
 - (void) killTask {
     if (zoomTask) [zoomTask terminate];
@@ -2686,13 +2679,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 // = Focused view =
-- (void) setFocusedView: (NSObject<ZWindow>*) view {
-	focusedView = view;
-}
-
-- (NSObject<ZWindow>*) focusedView {
-	return focusedView;
-}
+@synthesize focusedView;
 
 // = Cursor delegate =
 - (void) viewWillMoveToWindow: (NSWindow*) newWindow {
@@ -2763,13 +2750,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 // = Manual input =
 
-- (void) setInputLinePos: (NSPoint) pos {
-	inputLinePos = pos;
-}
-
-- (ZoomInputLine*) inputLine {
-	return inputLine;
-}
+@synthesize inputLinePos;
+@synthesize inputLine;
 
 - (void) setInputLine: (ZoomInputLine*) input {
 	if (inputLine) [inputLine release];
@@ -2956,7 +2938,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 // = Input sources =
 
-- (void) setInputSource: (id) source {
+@synthesize inputSource;
+
+- (void) setInputSource: (id<ZoomViewInputSource>) source {
 	if (inputSource) [inputSource release];
 	inputSource = [source retain];
 	
@@ -3018,7 +3002,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 }
 
-- (void) removeInputSource: (id) source {
+- (void) removeInputSource: (id<ZoomViewInputSource>) source {
 	if (source == inputSource) {
 		[inputSource release];
 		inputSource = nil;
@@ -3027,14 +3011,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 // = Resources =
 
-- (void) setResources: (ZoomBlorbFile*) res {
-	if (resources) [resources release];
-	resources = [res retain];
-}
-
-- (ZoomBlorbFile*) resources {
-	return resources;
-}
+@synthesize resources;
 
 - (BOOL) containsImageWithNumber: (int) number {
 	if (resources == nil) return NO;
@@ -3056,15 +3033,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 // = Terminating characters =
 
-- (void) setTerminatingCharacters: (NSSet*) termChars {
-	if (terminatingChars) [terminatingChars release];
-	
-	terminatingChars = [termChars copy];
-}
-
-- (NSSet*) terminatingCharacters {
-	return terminatingChars;
-}
+@synthesize terminatingCharacters=terminatingChars;
 
 
 // = Dealing with the history =

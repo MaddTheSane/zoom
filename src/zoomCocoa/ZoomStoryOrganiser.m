@@ -18,13 +18,13 @@
 #import "ZoomPlugInManager.h"
 #import "ZoomPlugIn.h"
 
-NSString* ZoomStoryOrganiserChangedNotification = @"ZoomStoryOrganiserChangedNotification";
-NSString* ZoomStoryOrganiserProgressNotification = @"ZoomStoryOrganiserProgressNotification";
+NSString*const ZoomStoryOrganiserChangedNotification = @"ZoomStoryOrganiserChangedNotification";
+NSString*const ZoomStoryOrganiserProgressNotification = @"ZoomStoryOrganiserProgressNotification";
 
-static NSString* defaultName = @"ZoomStoryOrganiser";
-static NSString* extraDefaultsName = @"ZoomStoryOrganiserExtra";
-static NSString* ZoomGameDirectories = @"ZoomGameDirectories";
-static NSString* ZoomIdentityFilename = @".zoomIdentity";
+static NSString*const defaultName = @"ZoomStoryOrganiser";
+static NSString*const extraDefaultsName = @"ZoomStoryOrganiserExtra";
+static NSString*const ZoomGameDirectories = @"ZoomGameDirectories";
+static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 
 @implementation ZoomStoryOrganiser
 

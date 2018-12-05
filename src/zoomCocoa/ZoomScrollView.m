@@ -72,9 +72,11 @@
 		//contentFrame.size = [self contentSize];
 		contentFrame.origin = [self bounds].origin;
 		contentFrame.size = [[self class] contentSizeForFrameSize: [self frame].size
-											hasHorizontalScroller: [self hasHorizontalScroller]
-											  hasVerticalScroller: [self hasVerticalScroller]
-													   borderType: [self borderType]];
+										  horizontalScrollerClass: [[self horizontalScroller] class]
+											verticalScrollerClass: [[self verticalScroller] class]
+													   borderType: [self borderType]
+													  controlSize: NSControlSizeRegular
+													scrollerStyle: NSScrollerStyleOverlay];
 
 		contentFrame.size.height -= upperMargin;
 		contentFrame.origin.y    += upperMargin;

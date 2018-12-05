@@ -14,7 +14,7 @@
 
 #define ReportErrors
 
-NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
+NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 
 @implementation ZoomMetadata
 

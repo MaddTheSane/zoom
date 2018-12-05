@@ -17,10 +17,10 @@
 
 #include "ifmetabase.h"
 
-NSString* ZoomStoryDataHasChangedNotification = @"ZoomStoryDataHasChangedNotification";
-NSString* ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
+NSString* const ZoomStoryDataHasChangedNotification = @"ZoomStoryDataHasChangedNotification";
+NSString* const ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
 
-NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
+NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
 
 @interface ZoomStory ()
 - (NSString*) newKeyForOld: (NSString*) key NS_RETURNS_NOT_RETAINED;

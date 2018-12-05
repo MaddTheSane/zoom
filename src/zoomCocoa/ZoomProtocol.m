@@ -2,7 +2,7 @@
 #import "ZoomProtocol.h"
 
 #define maxBufferCount 1024
-NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification";
+NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification";
 
 // Implementation of the various standard classes
 @implementation ZHandleFile
@@ -273,7 +273,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 @end
 
 // = ZStyle =
-NSString* ZStyleAttributeName = @"ZStyleAttribute";
+NSString* const ZStyleAttributeName = @"ZStyleAttribute";
 
 @implementation ZStyle
 
