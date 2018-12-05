@@ -115,7 +115,6 @@
 		4B87BA7309C9AB13005D6722 /* ifmetabase-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B87BA7109C9AAE1005D6722 /* ifmetabase-internal.h */; };
 		4B8CE6F40AD95A3A008235D2 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B8CE6F20AD95A3A008235D2 /* md5.c */; };
 		4B8CE6F50AD95A3A008235D2 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B8CE6F30AD95A3A008235D2 /* md5.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B8CE6F80AD95A6C008235D2 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B8CE6F20AD95A3A008235D2 /* md5.c */; };
 		4B926A120CD1464B00CE0ADB /* IFDB-error.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B926A0E0CD1464B00CE0ADB /* IFDB-error.png */; };
 		4B926A130CD1464B00CE0ADB /* ifdb-failed.html in Resources */ = {isa = PBXBuildFile; fileRef = 4B926A100CD1464B00CE0ADB /* ifdb-failed.html */; };
 		4B926A1F0CD1480B00CE0ADB /* ZoomJSError.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B926A1D0CD1480B00CE0ADB /* ZoomJSError.h */; };
@@ -2506,7 +2505,6 @@
 				4B1FEA510ACB1690008B9EFE /* ifmetaxml.c in Sources */,
 				4B1FEA590ACB1713008B9EFE /* ZoomPreferences.m in Sources */,
 				4B1FEA5C0ACB1723008B9EFE /* ZoomMetadata.m in Sources */,
-				4B8CE6F80AD95A6C008235D2 /* md5.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
