@@ -123,20 +123,25 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	}
 	
 	if (pluginBundle != nil && name != nil) {
-		if ([pluginBundle load]) {
+		@try {
+			if ([pluginBundle load]) {
 #if VERBOSITY >= 1
-			NSLog(@"== Plugin loaded: %@", [plugin stringByDeletingPathExtension]);
+				NSLog(@"== Plugin loaded: %@", [plugin stringByDeletingPathExtension]);
 #endif
-			[pluginBundles addObject: pluginBundle];
-			
-			[pluginsToVersions setObject: version
-								  forKey: name];
-			
-			Class primaryClass = [pluginBundle principalClass];
-			[pluginClasses addObject: primaryClass];
+				[pluginBundles addObject: pluginBundle];
+				
+				[pluginsToVersions setObject: version
+									  forKey: name];
+				
+				Class primaryClass = [pluginBundle principalClass];
+				[pluginClasses addObject: primaryClass];
 #if VERBOSITY >= 2
-			NSLog(@"=== Principal class: %@", [primaryClass description]);
+				NSLog(@"=== Principal class: %@", [primaryClass description]);
 #endif
+			}
+		} @catch (NSException *exception) {
+			NSLog(@"Plugin %@ failed %@", pluginBundle, exception);
+		} @finally {
 		}
 	}	
 }

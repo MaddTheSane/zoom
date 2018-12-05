@@ -22,6 +22,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	BOOL res = [self zfileIsBlorb: fl];
 	
 	[fl close];
+	[fl release];
 	
 	return res;
 }
@@ -31,7 +32,8 @@ static unsigned int Int4(const unsigned char* bytes) {
 	
 	BOOL res = [self zfileIsBlorb: fl];
 	[fl close];
-	
+	[fl release];
+
 	return res;
 }
 

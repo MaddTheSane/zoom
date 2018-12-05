@@ -107,7 +107,7 @@ static int lastDownloadId = 0;
 	if (task)				[task release];
 	if (subtasks)			[subtasks release];
 	if (suggestedFilename)	[suggestedFilename release];
-	
+	if (md5)				[md5 release];
 	[super dealloc];
 }
 

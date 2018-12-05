@@ -2287,6 +2287,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		
 		[[lowerWindows objectAtIndex: 0] writeString: warningString
 										   withStyle: warningStyle];
+		[warningStyle release];
 	}
 }
 

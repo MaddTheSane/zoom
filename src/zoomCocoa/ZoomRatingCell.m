@@ -72,25 +72,22 @@ static NSSize starsSize;
 	
 	// Draw the dots?
 	if ([self isHighlighted]) {
-		[dots setFlipped: flipped];
 		[dots drawInRect: NSMakeRect(drawRect.origin.x, drawRect.origin.y, starsSize.width, starsSize.height)
 				fromRect: NSMakeRect(0,0, starsSize.width, starsSize.height)
 			   operation: NSCompositeSourceOver
-				fraction: 1.0];
+				fraction: 1.0 respectFlipped: YES hints: nil];
 	}
 	
 	// Draw the image
-	[stars1 setFlipped: flipped];
 	[stars1 drawInRect: drawRect
 			  fromRect: clipRect
 			 operation: NSCompositeSourceOver
-			  fraction: 1.0];
+			  fraction: 1.0 respectFlipped: YES hints: nil];
 
-	[stars2 setFlipped: flipped];
 	[stars2 drawInRect: drawRect
 			  fromRect: clipRect
 			 operation: NSCompositeSourceOver
-			  fraction: value*value];
+			  fraction: value*value respectFlipped: YES hints: nil];
 	
 	// Done
 }

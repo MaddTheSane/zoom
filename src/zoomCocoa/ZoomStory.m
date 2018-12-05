@@ -22,6 +22,11 @@ NSString* ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
 
 NSString* ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
 
+@interface ZoomStory ()
+- (NSString*) newKeyForOld: (NSString*) key NS_RETURNS_NOT_RETAINED;
+
+@end
+
 @implementation ZoomStory
 
 + (void) initialize {

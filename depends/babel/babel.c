@@ -97,7 +97,7 @@ int main(int argc, char **argv)
  char *todir=".";
  char cwd[512];
  int ok=1,i, l, ll;
- FILE *f;
+ FILE *f=NULL;
  char *md=NULL;
  /* Set the input filename.  Note that if this is invalid, babel should
    abort before anyone notices

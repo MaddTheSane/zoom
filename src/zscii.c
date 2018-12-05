@@ -130,7 +130,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 	if (maxlen <= 0)
     {
 		maxlen += 512;
-		buf = realloc(buf, sizeof(int)*maxlen);
+		buf = realloc(buf, sizeof(unsigned int)*maxlen);
     }
 	
 	while (!fin)
@@ -573,7 +573,7 @@ void zscii_install_alphabet(void)
 			
 			if (conv == NULL)
 			{
-			  conv = malloc(sizeof(int*)*3);
+			  conv = malloc(sizeof(unsigned int*)*3);
 			  for (x=0; x<3; x++) {
 				conv[x] = malloc(sizeof(int)*32);
 				

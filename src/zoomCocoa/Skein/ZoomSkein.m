@@ -262,6 +262,7 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 				[itemStack addObject: child];
 			}
 		}
+		[item release];
 	}
 }
 

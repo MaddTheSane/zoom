@@ -187,6 +187,10 @@ static NSImage* unchangedDark, *activeDark;
 	if (highlightedSet) [highlightedSet release];
 	if (highlightedLineItem) [highlightedLineItem release];
 	
+	if (selectedItem) {
+		[selectedItem release];
+	}
+	
 	[super dealloc];
 }
 
@@ -422,11 +426,11 @@ static NSImage* unchangedDark, *activeDark;
 
 // = Getting layout data =
 
-- (int) levels {
+- (NSInteger) levels {
 	return [levels count];
 }
 
-- (NSArray*) itemsOnLevel: (int) level {
+- (NSArray*) itemsOnLevel: (NSInteger) level {
 	if (level < 0 || level >= [levels count]) return nil;
 	
 	NSMutableArray* res = [NSMutableArray array];
@@ -440,7 +444,7 @@ static NSImage* unchangedDark, *activeDark;
 	return res;
 }
 
-- (NSArray*) dataForLevel: (int) level {
+- (NSArray*) dataForLevel: (NSInteger) level {
 	if (level < 0 || level >= [levels count]) return nil;
 	return [levels objectAtIndex: level];
 }

@@ -59,9 +59,9 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 - (void) layoutSkeinTight;
 
 // Getting layout data
-- (int) levels;
-- (NSArray<ZoomSkeinItem*>*) itemsOnLevel: (int) level;
-- (NSArray*) dataForLevel: (int) level;
+- (NSInteger) levels;
+- (NSArray<ZoomSkeinItem*>*) itemsOnLevel: (NSInteger) level;
+- (NSArray*) dataForLevel: (NSInteger) level;
 
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item;
 

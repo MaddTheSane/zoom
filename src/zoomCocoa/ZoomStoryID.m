@@ -158,11 +158,10 @@
 				if (gotUUID) break;
 			}
 		}
-	}
-	
-	if (ident == nil) {
-		[self release];
-		return nil;
+		if (ident == nil) {
+			[self release];
+			return nil;
+		}
 	}
 	
 	return self;
@@ -280,11 +279,11 @@
 				if (gotUUID) break;
 			}
 		}
-	}
-	
-	if (ident == nil) {
-		[self release];
-		return nil;
+		
+		if (ident == nil) {
+			[self release];
+			return nil;
+		}
 	}
 	
 	return self;
@@ -421,11 +420,10 @@
 			ident = IFMB_GlulxIdNotInform((unsigned int)memsize, checksum);
 			needsFreeing = YES;
 		}
-	}
-	
-	if (ident == nil) {
-		[self release];
-		return nil;
+		if (ident == nil) {
+			[self release];
+			return nil;
+		}
 	}
 	
 	return self;
@@ -457,11 +455,11 @@
 		needsFreeing = YES;
 			
 		free(result);
-	}
-	
-	if (ident == nil) {
-		[self release];
-		return nil;
+		if (ident == nil) {
+			[self release];
+			return nil;
+		}
+
 	}
 	
 	return self;
@@ -483,11 +481,11 @@
 	if (self) {
 		ident = IFMB_CopyId(idt);
 		needsFreeing = YES;
-	}
-	
-	if (ident == nil) {
-		[self release];
-		return nil;
+		
+		if (ident == nil) {
+			[self release];
+			return nil;
+		}
 	}
 	
 	return self;
@@ -639,11 +637,10 @@ typedef unsigned char IFMDByte;
 			
 			return nil;
 		}
-	}
-	
-	if (ident == nil) {
-		[self release];
-		return nil;
+		if (ident == nil) {
+			[self release];
+			return nil;
+		}
 	}
 	
 	return self;
