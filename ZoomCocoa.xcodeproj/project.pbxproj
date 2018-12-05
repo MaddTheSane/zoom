@@ -384,6 +384,7 @@
 		55BB92542048AF1300AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92702048D8D900AB4B5B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BB926F2048D8D900AB4B5B /* Media.xcassets */; };
 		55BB927120490D3100AB4B5B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
+		55BD080D21B7638800A8DD5F /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BD080F21B7638800A8DD5F /* schema.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -844,7 +845,7 @@
 		4B39C92C08EEF63400BA5E90 /* ZoomMetadataImporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ZoomMetadataImporter-Info.plist"; path = "../../../ZoomMetadataImporter-Info.plist"; sourceTree = "<group>"; };
 		4B39C94008EEF75600BA5E90 /* MetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MetadataImporter.h; sourceTree = "<group>"; };
 		4B39C94108EEF75600BA5E90 /* MetadataImporter.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MetadataImporter.m; sourceTree = "<group>"; };
-		4B39C94208EEF75600BA5E90 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
+		4B39C94208EEF75600BA5E90 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
 		4B39CA8308EEFE8F00BA5E90 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		4B39CBCA08EF006E00BA5E90 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		4B3DA126068DAEA800B7090F /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Makefile.am; path = src/Makefile.am; sourceTree = "<group>"; tabWidth = 8; };
@@ -1056,6 +1057,7 @@
 		55BB924E2048AC4000AB4B5B /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		55BB92522048ADA500AB4B5B /* quill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = quill.c; sourceTree = "<group>"; };
 		55BB926F2048D8D900AB4B5B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		55BD080E21B7638800A8DD5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1387,6 +1389,7 @@
 				4B39C94108EEF75600BA5E90 /* MetadataImporter.m */,
 				4B39C94208EEF75600BA5E90 /* schema.xml */,
 				4B39C92C08EEF63400BA5E90 /* ZoomMetadataImporter-Info.plist */,
+				55BD080F21B7638800A8DD5F /* schema.strings */,
 			);
 			path = Spotlight;
 			sourceTree = "<group>";
@@ -2271,6 +2274,7 @@
 				4B39C9FD08EEF84D00BA5E90 /* infocom.iFiction in Resources */,
 				4B39C9FE08EEF84D00BA5E90 /* archive.iFiction in Resources */,
 				4B39C94408EEF75600BA5E90 /* schema.xml in Resources */,
+				55BD080D21B7638800A8DD5F /* schema.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2857,6 +2861,14 @@
 				4B926A110CD1464B00CE0ADB /* en */,
 			);
 			name = "ifdb-failed.html";
+			sourceTree = "<group>";
+		};
+		55BD080F21B7638800A8DD5F /* schema.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55BD080E21B7638800A8DD5F /* en */,
+			);
+			name = schema.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
