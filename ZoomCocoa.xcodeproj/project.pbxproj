@@ -669,16 +669,6 @@
 			name = "Copy babel";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4B7284CA0CD380A50079D89B /* Copy Leopard executables */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-			);
-			name = "Copy Leopard executables";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4B94B0D70CD4FD12003C75A6 /* Copy babel */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2041,7 +2031,6 @@
 				4B39CA0408EEF8C600BA5E90 /* Copy Metadata importer */,
 				4B36C45C0955ED3F00874F9F /* Copy Glulxe plugin */,
 				4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */,
-				4B7284CA0CD380A50079D89B /* Copy Leopard executables */,
 				4BA375E60CD3CC1500C7B1D4 /* Copy QuickLook plugins */,
 				4B94AEE20CD4AF3A003C75A6 /* All Done */,
 			);
@@ -2898,6 +2887,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -2920,6 +2910,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = NO;
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
 			name = Debug;
