@@ -24,7 +24,7 @@
 
 #import <Sparkle/Sparkle.h>
 
-NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
+static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 @implementation ZoomAppDelegate
 

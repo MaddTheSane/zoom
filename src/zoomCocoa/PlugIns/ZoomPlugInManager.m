@@ -9,7 +9,7 @@
 #import "ZoomPlugInManager.h"
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
 
-NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
+NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
 
 @implementation ZoomPlugInManager
 
@@ -126,7 +126,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 		@try {
 			if ([pluginBundle load]) {
 #if VERBOSITY >= 1
-				NSLog(@"== Plugin loaded: %@", [plugin stringByDeletingPathExtension]);
+				NSLog(@"== Plugin loaded: %@", [pluginBundlePath stringByDeletingPathExtension]);
 #endif
 				[pluginBundles addObject: pluginBundle];
 				
@@ -140,7 +140,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 #endif
 			}
 		} @catch (NSException *exception) {
-			NSLog(@"Plugin %@ failed %@", pluginBundle, exception);
+			NSLog(@"Plugin %@ failed %@", pluginBundle, exception.callStackSymbols);
 		} @finally {
 		}
 	}	

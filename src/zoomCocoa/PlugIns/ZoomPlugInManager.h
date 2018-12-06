@@ -13,7 +13,7 @@
 @protocol ZoomPlugInManagerDelegate;
 
 // Notifications
-extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that the set of plugin information has changed
+extern NSNotificationName const ZoomPlugInInformationChangedNotification;	// Notification that the set of plugin information has changed
 
 //
 // Class that manages the plugins installed with Zoom
