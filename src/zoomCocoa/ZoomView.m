@@ -773,7 +773,7 @@ static void finalizeViews(void) {
         NSLayoutManager*    layoutManager   = [textView layoutManager];
 	
 		*width  = [@"m" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil]].width;
-		*height = ceilf([layoutManager defaultLineHeightForFont: font])+1.0;
+		*height = ceil([layoutManager defaultLineHeightForFont: font])+1.0;
 	}
 }
 

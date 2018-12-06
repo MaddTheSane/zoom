@@ -8,6 +8,7 @@
 
 // Modifications by Collin Pieper to add transparency support
 
+#import <tgmath.h>
 #import "ZoomPreferenceWindow.h"
 #import "ZoomStoryOrganiser.h"
 #import <ZoomView/ZoomPreferences.h>
@@ -694,7 +695,7 @@ static void appendStyle(NSMutableString* styleName,
 	// This action applies to all the font controls
 	
 	// Set the size, if it has changed
-	float newSize = floorf([fontSizeSlider floatValue]);
+	CGFloat newSize = floor([fontSizeSlider doubleValue]);
 	if (newSize != [prefs fontSize]) [prefs setFontSize: newSize];
 	
 	// Set the families, if they've changed
@@ -714,8 +715,8 @@ static void appendStyle(NSMutableString* styleName,
 
 - (IBAction) marginsChanged: (id) sender {
 	// Work out the new margin size
-	float oldSize = [prefs textMargin];
-	float newSize;
+	CGFloat oldSize = [prefs textMargin];
+	CGFloat newSize;
 	
 	if ([showMargins state] == NSOffState) {
 		newSize = 0;
@@ -724,7 +725,7 @@ static void appendStyle(NSMutableString* styleName,
 		newSize = 10.0;
 		[marginWidth setEnabled: YES];
 	} else {
-		newSize = floorf([marginWidth floatValue]);
+		newSize = floor([marginWidth doubleValue]);
 		[marginWidth setEnabled: YES];
 	}
 	

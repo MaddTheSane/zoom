@@ -1027,10 +1027,10 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	// 'overflow' border
 	itemFrame = NSInsetRect(itemFrame, -2.0, -2.0);	
 	
-	itemFrame.origin.x = floorf(itemFrame.origin.x);
-	itemFrame.origin.y = floorf(itemFrame.origin.y)-1.0;
-	itemFrame.size.width = floorf(itemFrame.size.width);
-	itemFrame.size.height = floorf(itemFrame.size.height);
+	itemFrame.origin.x = floor(itemFrame.origin.x);
+	itemFrame.origin.y = floor(itemFrame.origin.y)-1.0;
+	itemFrame.size.width = floor(itemFrame.size.width);
+	itemFrame.size.height = floor(itemFrame.size.height);
 	
 	itemToEdit = [skeinItem retain];
 	

@@ -6,6 +6,7 @@
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "ZoomTextView.h"
 #import "ZoomView.h"
 #import "ZoomPreferences.h"
@@ -88,7 +89,7 @@
     }
     ZoomView* zoomView = (ZoomView*) superview;
 
-    double offset = [zoomView upperBufferHeight]/pastedScaleFactor;
+    CGFloat offset = [zoomView upperBufferHeight]/pastedScaleFactor;
     
     // Draw pasted lines
     NSEnumerator* lineEnum = [pastedLines objectEnumerator];
@@ -114,10 +115,10 @@
 		lineRect.size.width *= pastedScaleFactor;
 		lineRect.size.height *= pastedScaleFactor;
 		
-		lineRect.origin.x = floorf(lineRect.origin.x+0.5);
-		lineRect.origin.y = floorf(lineRect.origin.y+0.5);
-		lineRect.size.width = floorf(lineRect.size.width+0.5);
-		lineRect.size.height = floorf(lineRect.size.height+0.5);
+		lineRect.origin.x = floor(lineRect.origin.x+0.5);
+		lineRect.origin.y = floor(lineRect.origin.y+0.5);
+		lineRect.size.width = floor(lineRect.size.width+0.5);
+		lineRect.size.height = floor(lineRect.size.height+0.5);
 		
         if (NSIntersectsRect(r, lineRect)) {
             NSAttributedString* str = [line objectAtIndex: 1];
@@ -126,7 +127,7 @@
                 // Draw it faded out (so text underneath becomes increasingly visible)
                 NSImage* fadeImage;
 
-                double fadeAmount = (NSMaxY(ourBounds)-superBounds.size.height) - NSMaxY(lineRect);
+                CGFloat fadeAmount = (NSMaxY(ourBounds)-superBounds.size.height) - NSMaxY(lineRect);
                 fadeAmount /= 2048;
                 fadeAmount += 0.25;
                 if (fadeAmount > 0.75) fadeAmount = 0.75;

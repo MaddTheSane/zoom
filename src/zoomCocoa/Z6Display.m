@@ -6,6 +6,7 @@
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "ZoomProtocol.h"
 #import "ZoomZMachine.h"
 #import "ZoomServer.h"
@@ -228,7 +229,7 @@ float display_get_font_height(int style) {
 	NSLog(@"display_get_font_height = %g", lastHeight);
 #endif
 	
-	return ceilf(lastHeight)+1.0;
+	return ceil(lastHeight)+1.0;
 }
 
 float display_get_font_ascent(int style) {
@@ -238,7 +239,7 @@ float display_get_font_ascent(int style) {
 	NSLog(@"display_get_font_ascent = %g", lastAscent);
 #endif
 	
-	return ceilf(lastAscent);
+	return ceil(lastAscent);
 }
 
 float display_get_font_descent(int style) { 
@@ -248,7 +249,7 @@ float display_get_font_descent(int style) {
 	NSLog(@"display_get_font_descent = %g", -lastDescent);
 #endif
 	
-	return ceilf(-lastDescent);
+	return ceil(-lastDescent);
 }
 
 int display_get_pix_colour(int x, int y) {
@@ -256,9 +257,9 @@ int display_get_pix_colour(int x, int y) {
 	
 	NSColor* pixColour = [(NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0] colourAtPixel: NSMakePoint(x, y)];
 	
-	int redComponent = floorf([pixColour redComponent] * 31.0);
-	int greenComponent = floorf([pixColour greenComponent] * 31.0);
-	int blueComponent = floorf([pixColour blueComponent] * 31.0);
+	int redComponent = floor([pixColour redComponent] * 31.0);
+	int greenComponent = floor([pixColour greenComponent] * 31.0);
+	int blueComponent = floor([pixColour blueComponent] * 31.0);
 	
 	return ((redComponent)|(greenComponent<<5)|(blueComponent<<10)) + 16;
 }
@@ -282,7 +283,7 @@ void display_wait_for_more(void) {
 
 // = Mouse =
 
-extern void  display_read_mouse      (void) { NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__); }
+extern void  display_read_mouse      (void) { NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__); }
 
 int display_get_pix_mouse_b (void) { 
 	return 1;
@@ -296,7 +297,7 @@ int display_get_pix_mouse_y (void) {
 	return [mainMachine mousePosY];
 }
 
-extern void  display_set_mouse_win   (int x, int y, int width, int height) { NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__); }
+extern void  display_set_mouse_win   (int x, int y, int width, int height) { NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__); }
 
 void display_flush(void) {
 	[mainMachine flushBuffers];
@@ -382,8 +383,8 @@ BlorbImage* blorb_findimage(BlorbFile* blorb, int num) {
 	res->loaded = (image_data*)res; // HACK! See below
 	res->in_use = 1;
 	
-	res->width = ceilf(imageSize.width);
-	res->height = ceilf(imageSize.height);
+	res->width = ceil(imageSize.width);
+	res->height = ceil(imageSize.height);
 	
 	res->std_n = 1; res->std_d = 1;
 	res->min_n = 1; res->min_d = 1;
