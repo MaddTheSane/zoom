@@ -73,7 +73,6 @@
 		4B71AB6309E300FF00E27876 /* ifmetaxml.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B71AB5F09E300EF00E27876 /* ifmetaxml.c */; };
 		4B7520090CC6A08200F36ECF /* tads.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD79A9C0BA2CABF002C82B2 /* tads.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B7520130CC6A08B00F36ECF /* tads.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC60BA2CB44002C82B2 /* tads.c */; };
-		4B7522550CC7FAC500F36ECF /* signpost.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4B7522540CC7FAC500F36ECF /* signpost.icns */; };
 		4B7CB09209362A5600F3B8F6 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		4B7CB0AA09362A7200F3B8F6 /* ZoomPlugIns.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B7CB0AB09362A7900F3B8F6 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
@@ -258,18 +257,14 @@
 		4BB8C1B208C249F400D7D334 /* ZoomBlorbFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BF1576306BAD034001A3C27 /* ZoomBlorbFile.h */; };
 		4BB8C1B308C249F400D7D334 /* ZoomConnector.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4D512006E3894F007FAD2B /* ZoomConnector.h */; };
 		4BB8C1B508C249F400D7D334 /* ZoomSkeinLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BAADD7B079053030076ACC4 /* ZoomSkeinLayoutItem.h */; };
-		4BB8C1B908C249F400D7D334 /* zoom-file.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F45050FB21C00A8E303 /* zoom-file.icns */; };
 		4BB8C1BA08C249F400D7D334 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F51050FB42600A8E303 /* MainMenu.xib */; };
 		4BB8C1BB08C249F400D7D334 /* ZoomClient.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F57050FB49F00A8E303 /* ZoomClient.xib */; };
 		4BB8C1C008C249F400D7D334 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B418E140594FCDB009C44DE /* Preferences.xib */; };
 		4BB8C1C208C249F400D7D334 /* infocom.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4BACE9FA05B428C700A9B6DC /* infocom.iFiction */; };
 		4BB8C1C308C249F400D7D334 /* iFiction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BB515B405BC615F00D00C96 /* iFiction.xib */; };
 		4BB8C1D008C249F400D7D334 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C13FD05C5A94B00E5796D /* Credits.rtf */; };
-		4BB8C1D308C249F400D7D334 /* zoom-game.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F46050FB21C00A8E303 /* zoom-game.icns */; };
-		4BB8C1D708C249F400D7D334 /* iFiction.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BAE0EF6062ADA19009426D5 /* iFiction.icns */; };
 		4BB8C1DB08C249F400D7D334 /* Skein.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B18850B069873F0004D8501 /* Skein.xib */; };
 		4BB8C1DC08C249F400D7D334 /* zcode.ops in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E3FD5050F7E1A00A8E303 /* zcode.ops */; };
-		4BB8C1DD08C249F400D7D334 /* Blorb.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BD81B4D06B6E9F400AD14E1 /* Blorb.icns */; };
 		4BB8C1DF08C249F400D7D334 /* archive.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4B5983DA070F059E0078165F /* archive.iFiction */; };
 		4BB8C1E208C249F400D7D334 /* ZoomClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F54050FB47200A8E303 /* ZoomClient.m */; };
 		4BB8C1E308C249F400D7D334 /* ZoomAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B23C64F053C9C8C00A8E303 /* ZoomAppDelegate.m */; };
@@ -2259,18 +2254,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BB8C1B908C249F400D7D334 /* zoom-file.icns in Resources */,
 				4BB8C1BA08C249F400D7D334 /* MainMenu.xib in Resources */,
 				4BB8C1BB08C249F400D7D334 /* ZoomClient.xib in Resources */,
 				55BB92702048D8D900AB4B5B /* Media.xcassets in Resources */,
 				4BB8C1C008C249F400D7D334 /* Preferences.xib in Resources */,
 				4BB8C1C308C249F400D7D334 /* iFiction.xib in Resources */,
 				4BB8C1D008C249F400D7D334 /* Credits.rtf in Resources */,
-				4BB8C1D308C249F400D7D334 /* zoom-game.icns in Resources */,
-				4BB8C1D708C249F400D7D334 /* iFiction.icns in Resources */,
 				4BB8C1DB08C249F400D7D334 /* Skein.xib in Resources */,
 				4BB8C1DC08C249F400D7D334 /* zcode.ops in Resources */,
-				4BB8C1DD08C249F400D7D334 /* Blorb.icns in Resources */,
 				4BB8C1C208C249F400D7D334 /* infocom.iFiction in Resources */,
 				4BB8C1DF08C249F400D7D334 /* archive.iFiction in Resources */,
 				4B84304C0B139F6000679417 /* TADS.icns in Resources */,
@@ -2282,7 +2273,6 @@
 				4B840A2B0CBEC20E0071F3B3 /* IFDB-downloading.png in Resources */,
 				4B840A450CBECCE60071F3B3 /* IFDB-connecting.png in Resources */,
 				4B840A460CBECCE60071F3B3 /* ifdb-loading.html in Resources */,
-				4B7522550CC7FAC500F36ECF /* signpost.icns in Resources */,
 				4B926A120CD1464B00CE0ADB /* IFDB-error.png in Resources */,
 				4B926A130CD1464B00CE0ADB /* ifdb-failed.html in Resources */,
 				4B4D67490CE60F9E00943422 /* GlkClient.icns in Resources */,
