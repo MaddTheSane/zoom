@@ -100,10 +100,9 @@
 
 - (void)startEditTimer
 {
-	extern UInt32 GetDblTime(void);
 	[self performSelector:@selector(editSelectedCell:)
 		withObject:NULL
-		afterDelay:(GetDblTime()/60.0)];
+		afterDelay:[NSEvent doubleClickInterval]];
 }
 
 // cancelEditTimer
