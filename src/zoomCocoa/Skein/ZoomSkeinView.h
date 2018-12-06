@@ -14,7 +14,7 @@
 
 @protocol ZoomSkeinViewDelegate;
 
-extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME("zoomSkeinItem");
+extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinItem);
 
 @interface ZoomSkeinView : NSView <NSTextViewDelegate, NSDraggingDestination>  {
 	ZoomSkein* skein;
