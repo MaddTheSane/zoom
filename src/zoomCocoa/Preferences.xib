@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -52,7 +51,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="6" userLabel="Window">
+        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="6" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="180" y="198" width="426" height="384"/>
@@ -73,7 +72,7 @@
                 <button imageHugsTitle="YES" id="332">
                     <rect key="frame" x="18" y="233" width="207" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <buttonCell key="cell" type="check" title="Check for updates on startup" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="451">
+                    <buttonCell key="cell" type="check" title="Check for updates on startup" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="451">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -84,7 +83,7 @@
                 <button toolTip="If this is unchecked, Zoom will not ask for confirmation when you close a running story." imageHugsTitle="YES" id="186">
                     <rect key="frame" x="18" y="102" width="286" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Ask for confirmation when closing a story" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="450">
+                    <buttonCell key="cell" type="check" title="Ask for confirmation when closing a story" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="450">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -139,7 +138,7 @@
                 <button toolTip="Autosave games will be created, so you can close and resume a game without having to save it first" imageHugsTitle="YES" id="83">
                     <rect key="frame" x="18" y="122" width="80" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Autosave" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="445">
+                    <buttonCell key="cell" type="check" title="Autosave" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="445">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -151,7 +150,7 @@
                 <button toolTip="Zoom will keep games organised in a separate folder" imageHugsTitle="YES" id="78">
                     <rect key="frame" x="18" y="142" width="166" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Keep games organised" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="444">
+                    <buttonCell key="cell" type="check" title="Keep games organised" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="444">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -163,7 +162,7 @@
                 <button toolTip="Game text will be spoken out loud" imageHugsTitle="YES" id="14">
                     <rect key="frame" x="18" y="162" width="128" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Speak game text" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="443">
+                    <buttonCell key="cell" type="check" title="Speak game text" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="443">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -179,7 +178,7 @@
                 <button toolTip="Any warning message will be treated as a fatal error" imageHugsTitle="YES" id="11">
                     <rect key="frame" x="18" y="193" width="136" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Warnings are fatal" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="442">
+                    <buttonCell key="cell" type="check" title="Warnings are fatal" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="442">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -191,7 +190,7 @@
                 <button toolTip="Non-fatal errors will be displayed while playing game" imageHugsTitle="YES" id="10">
                     <rect key="frame" x="18" y="213" width="130" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Display warnings" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="441">
+                    <buttonCell key="cell" type="check" title="Display warnings" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="441">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -287,22 +286,22 @@
                     <rect key="frame" x="17" y="41" width="246" height="87"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <view key="contentView" id="q6C-Zl-VeP">
-                        <rect key="frame" x="2" y="2" width="242" height="70"/>
+                        <rect key="frame" x="3" y="3" width="240" height="69"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" id="87">
-                                <rect key="frame" x="8" y="9" width="224" height="53"/>
+                                <rect key="frame" x="8" y="9" width="222" height="52"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="a5X-Mo-Yyd">
-                                    <rect key="frame" x="0.0" y="0.0" width="224" height="53"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="222" height="52"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="88">
-                                            <rect key="frame" x="0.0" y="0.0" width="225" height="53"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="225" height="52"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.88686131999999995" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="224" height="53"/>
+                                            <size key="minSize" width="222" height="52"/>
                                             <size key="maxSize" width="345" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="/Users/somone/Documents/Interactive Fiction">
@@ -313,16 +312,16 @@
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
-                                            <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.88686131999999995" alpha="1" colorSpace="calibratedWhite"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="494">
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="494">
                                     <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="495">
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="495">
                                     <rect key="frame" x="-100" y="-100" width="15" height="68"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -382,7 +381,7 @@
                     <string key="toolTip">Set this to change the interpreter revision reported to games. Most games just report this at the start and make no further use of it.</string>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="452">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -407,31 +406,31 @@
                         <tabViewItem label="Simple" identifier="" id="121">
                             <view key="view" id="123">
                                 <rect key="frame" x="10" y="33" width="353" height="342"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" id="124">
-                                        <rect key="frame" x="20" y="326" width="88" height="13"/>
+                                        <rect key="frame" x="20" y="326" width="93" height="11"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Proportional font" id="461">
-                                            <font key="font" metaFont="label"/>
+                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Proportional font" id="461">
+                                            <font key="font" metaFont="miniSystem"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="125">
-                                        <rect key="frame" x="20" y="279" width="84" height="13"/>
+                                        <rect key="frame" x="20" y="279" width="88" height="11"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Fixed-pitch font" id="462">
-                                            <font key="font" metaFont="label"/>
+                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Fixed-pitch font" id="462">
+                                            <font key="font" metaFont="miniSystem"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="126">
-                                        <rect key="frame" x="20" y="232" width="78" height="12"/>
+                                        <rect key="frame" x="20" y="232" width="93" height="11"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="&quot;Symbolic&quot; font" id="463">
-                                            <font key="font" metaFont="label"/>
+                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="&quot;Symbolic&quot; font" id="463">
+                                            <font key="font" metaFont="miniSystem"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -496,9 +495,9 @@
                                     <textField verticalHuggingPriority="750" id="143">
                                         <rect key="frame" x="20" y="10" width="313" height="40"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="467">
-                                            <font key="font" metaFont="label"/>
-                                            <string key="title">The other font styles will be automatically generated from the base fonts you select here. If you want a fine-grained control over the fonts that Zoom will use, use the 'Advanced' tab</string>
+                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" id="467">
+                                            <font key="font" metaFont="miniSystem"/>
+                                            <string key="title">The other font styles will be automatically generated from the base fonts you select here. If you want a fine-grained control over the fonts that Zoom will use, use the 'Advanced' tab.</string>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -508,10 +507,10 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     </box>
                                     <textField verticalHuggingPriority="750" id="160">
-                                        <rect key="frame" x="17" y="166" width="58" height="14"/>
+                                        <rect key="frame" x="17" y="166" width="58" height="11"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Font size" id="468">
-                                            <font key="font" metaFont="smallSystem"/>
+                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Font size" id="468">
+                                            <font key="font" metaFont="miniSystem"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -579,14 +578,14 @@
                         <tabViewItem label="Advanced" identifier="" id="120">
                             <view key="view" id="122">
                                 <rect key="frame" x="10" y="33" width="353" height="342"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="32">
                                         <rect key="frame" x="20" y="20" width="313" height="322"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="FJN-wJ-7kj">
                                             <rect key="frame" x="1" y="0.0" width="311" height="321"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" headerView="497" id="34">
                                                     <rect key="frame" x="0.0" y="0.0" width="311" height="298"/>
@@ -625,11 +624,11 @@
                                                 </tableView>
                                             </subviews>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="496">
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="496">
                                             <rect key="frame" x="-100" y="-100" width="309" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="498">
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="498">
                                             <rect key="frame" x="-30" y="17" width="15" height="182"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -650,6 +649,7 @@
             <connections>
                 <outlet property="nextKeyView" destination="127" id="276"/>
             </connections>
+            <point key="canvasLocation" x="-333.5" y="-122"/>
         </customView>
         <customView id="36" userLabel="Colour settings">
             <rect key="frame" x="0.0" y="0.0" width="327" height="306"/>
@@ -676,10 +676,8 @@
                             <textField verticalHuggingPriority="750" id="102">
                                 <rect key="frame" x="11" y="19" width="85" height="14"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="475">
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Transparency:" id="475">
                                     <font key="font" metaFont="smallSystem"/>
-                                    <string key="title">Transparency:
-</string>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -692,7 +690,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="H2f-eZ-aMj">
                         <rect key="frame" x="1" y="0.0" width="285" height="226"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" headerView="500" id="40">
                                 <rect key="frame" x="0.0" y="0.0" width="285" height="203"/>
@@ -731,11 +729,11 @@
                             </tableView>
                         </subviews>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="499">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="499">
                         <rect key="frame" x="-100" y="-100" width="270" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="501">
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="501">
                         <rect key="frame" x="-30" y="17" width="15" height="182"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -760,7 +758,7 @@
                     <rect key="frame" x="18" y="18" width="128" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <string key="toolTip">Turn this option on to enable the display of ligatures in the game text. These are alternative characters displayed for common sequences such as 'fi' in English. Turning this option off does not affect mandatory ligatures found in languages such as Arabic.</string>
-                    <buttonCell key="cell" type="check" title="Display ligatures" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="483">
+                    <buttonCell key="cell" type="check" title="Display ligatures" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="483">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -773,7 +771,7 @@
                     <rect key="frame" x="18" y="38" width="116" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <string key="toolTip">Turn this option on to use kerning when displaying game text. This will move character sequences like 'AV' closer together so there does not appear to be a space between them.</string>
-                    <buttonCell key="cell" type="check" title="Enable kerning" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="482">
+                    <buttonCell key="cell" type="check" title="Enable kerning" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="482">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -790,7 +788,7 @@
                     <rect key="frame" x="18" y="69" width="128" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Turn this option on to instruct Zoom to hyphenate text wherever possible. Note that some types of game may not support hyphenation.</string>
-                    <buttonCell key="cell" type="check" title="Use hyphenation" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="481">
+                    <buttonCell key="cell" type="check" title="Use hyphenation" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="481">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -803,7 +801,7 @@
                     <rect key="frame" x="18" y="89" width="127" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.</string>
-                    <buttonCell key="cell" type="check" title="Use screen fonts" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="480">
+                    <buttonCell key="cell" type="check" title="Use screen fonts" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="480">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -844,7 +842,7 @@
                 <button toolTip="Check this option to tell Zoom to add margins to any text windows it creates. This can improve the appearance of the display." imageHugsTitle="YES" id="191">
                     <rect key="frame" x="18" y="152" width="110" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Show Margins" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="476">
+                    <buttonCell key="cell" type="check" title="Show Margins" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="476">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -865,7 +863,7 @@
                 <button toolTip="If a game has suppied a cover picture, then it will be briefly displayed while the game is loading" imageHugsTitle="YES" id="328">
                     <rect key="frame" x="18" y="18" width="263" height="18"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <buttonCell key="cell" type="check" title="Show cover picture when game starts" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="489">
+                    <buttonCell key="cell" type="check" title="Show cover picture when game starts" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="489">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -936,7 +934,7 @@
                 <button toolTip="Show a double line between the windows opened by a story" imageHugsTitle="YES" id="233">
                     <rect key="frame" x="18" y="38" width="232" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Show interpreter window borders" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="484">
+                    <buttonCell key="cell" type="check" title="Show interpreter window borders" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="484">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

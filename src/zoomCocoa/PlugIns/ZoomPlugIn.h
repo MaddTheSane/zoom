@@ -25,20 +25,20 @@
 }
 
 // Informational functions (subclasses should normally override)
-+ (NSString*) pluginVersion;									// The version of this plugin
-+ (NSString*) pluginDescription;								// The description of this plugin
-+ (NSString*) pluginAuthor;										// The author of this plugin
++ (NSString*) pluginVersion;									//!< The version of this plugin
++ (NSString*) pluginDescription;								//!< The description of this plugin
++ (NSString*) pluginAuthor;										//!< The author of this plugin
 
-+ (BOOL) canLoadSavegames;										// YES if this plugin can load savegames as well as game files
++ (BOOL) canLoadSavegames;										//!< YES if this plugin can load savegames as well as game files
 
-+ (BOOL) canRunPath: (NSString*) path;							// YES if the specified file is one that the plugin can run
++ (BOOL) canRunPath: (NSString*) path;							//!< YES if the specified file is one that the plugin can run
 
 // Designated initialiser
-- (id) initWithFilename: (NSString*) gameFile;					// Initialises this plugin to play a specific game
+- (id) initWithFilename: (NSString*) gameFile;					//!< Initialises this plugin to play a specific game
 
 // Getting information about what this plugin should be doing
-- (NSString*) gameFilename;										// Gets the game associated with this plugin
-- (NSData*) gameData;											// Gets the data for the game associated with this plugin
+@property (readonly, copy) NSString *gameFilename;				//!< Gets the game associated with this plugin
+@property (readonly, copy) NSData *gameData;					//!< Gets the data for the game associated with this plugin
 
 // The game document + windows
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story;	// Retrieves/creates the document associated with this game (should not create window controllers immediately)

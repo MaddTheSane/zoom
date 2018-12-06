@@ -21,11 +21,11 @@
 }
 
 // The shared controller
-+ (ZoomNotesController*) sharedNotesController;					// The shared notes controller
++ (ZoomNotesController*) sharedNotesController;					//!< The shared notes controller
 
 // Setting up the window
-- (void) setGameInfo: (ZoomStory*) story;						// Set the story whose notes we should show (nil for no notes)
-- (void) setInfoOwner: (id) owner;								// Sets the 'owner' for the notes window [NOT RETAINED]
-- (id) infoOwner;													// Retrieves the 'owner' for the notes window
+- (void) setGameInfo: (ZoomStory*) story;						//!< Set the story whose notes we should show (nil for no notes)
+- (void) setInfoOwner: (id) owner;								//!< Sets the 'owner' for the notes window [NOT RETAINED]
+- (id) infoOwner;												//!< Retrieves the 'owner' for the notes window
 
 @end

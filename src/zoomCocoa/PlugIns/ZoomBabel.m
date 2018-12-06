@@ -172,7 +172,7 @@ static NSMutableDictionary* babelCache = nil;
 		[babelLock lock];
 		
 		NSRunLoop* rl = [NSRunLoop currentRunLoop];
-		NSDate* now = [NSDate date];
+		//NSDate* now = [NSDate date];
 		NSDate* terminate = [NSDate dateWithTimeIntervalSinceNow: timeout];
 		
 		[waitingForTask addObject: rl];

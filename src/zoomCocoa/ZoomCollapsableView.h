@@ -10,9 +10,9 @@
 
 
 @interface ZoomCollapsableView : NSView {
-	NSMutableArray* views;
-	NSMutableArray* titles;
-	NSMutableArray* states; // Booleans, indicating if this is shown or not
+	NSMutableArray<NSView*>* views;
+	NSMutableArray<NSString*>* titles;
+	NSMutableArray<NSNumber*>* states; // Booleans, indicating if this is shown or not
 	
 	BOOL rearranging;
 	BOOL reiterate;

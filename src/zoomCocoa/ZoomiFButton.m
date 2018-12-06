@@ -36,6 +36,7 @@ static NSImage* disabledImage;
 	[super dealloc];
 }
 
+@synthesize pushedImage;
 - (void) setPushedImage: (NSImage*) newPushedImage {
 	if (pushedImage) [pushedImage release];
 	pushedImage = [newPushedImage retain];

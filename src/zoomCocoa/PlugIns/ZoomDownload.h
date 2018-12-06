@@ -31,14 +31,14 @@
 }
 
 // Initialisation
-- (id) initWithUrl: (NSURL*) url;								// Prepares to download the specified URL
+- (id) initWithUrl: (NSURL*) url;								//!< Prepares to download the specified URL
 @property (assign) id<ZoomDownloadDelegate> delegate;
-+ (void) removeTemporaryDirectory;								// Removes the temporary directory used for downloads (ie, when terminating)
-- (void) setExpectedMD5: (NSData*) md5;							// Sets the expected MD5 for the downloaded file
++ (void) removeTemporaryDirectory;								//!< Removes the temporary directory used for downloads (ie, when terminating)
+- (void) setExpectedMD5: (NSData*) md5;							//!< Sets the expected MD5 for the downloaded file
 @property (copy) NSData *expectedMD5;
 
 // Starting the download
-- (void) startDownload;											// Starts the download running
+- (void) startDownload;											//!< Starts the download running
 
 // Getting the download directory
 @property (readonly, retain) NSURL *url;						//!< The url for this download
@@ -62,6 +62,6 @@
 - (void) downloading: (ZoomDownload*) download;					//!< The download is reading data
 - (void) download: (ZoomDownload*) download						//!< Value between 0 and 1 indicating how far the download has progressed
 		completed: (float) complete;
-- (void) downloadUnarchiving: (ZoomDownload*) download;			//!M Indicates that a .zip or .tar file is being decompressed
+- (void) downloadUnarchiving: (ZoomDownload*) download;			//!< Indicates that a .zip or .tar file is being decompressed
 
 @end

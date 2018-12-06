@@ -33,20 +33,20 @@
 
 // = Initialisation =
 
-- (id) initWithFilename: (NSString*) story;					// Initialise this object with the specified story (metadata and image extraction will start immediately)
+- (id) initWithFilename: (NSString*) story;					//!< Initialise this object with the specified story (metadata and image extraction will start immediately)
 
 // = Raw reading =
 
 @property NSTimeInterval taskTimeout;
-- (void) setTaskTimeout: (NSTimeInterval) seconds;			// Sets the maximum time to wait for the babel command to respond when blocking (default is 0.2 seconds)
+- (void) setTaskTimeout: (NSTimeInterval) seconds;			//!< Sets the maximum time to wait for the babel command to respond when blocking (default is 0.2 seconds)
 
-- (NSData*) rawMetadata;									// Retrieves a raw XML metadata record (or nil)
-- (NSData*) rawCoverImage;									// Retrieves the raw cover image data (or nil)
+- (NSData*) rawMetadata;									//!< Retrieves a raw XML metadata record (or nil)
+- (NSData*) rawCoverImage;									//!< Retrieves the raw cover image data (or nil)
 
 // = Interpreted reading =
 
-- (ZoomStoryID*) storyID;									// Requests the IFID for the story file
-- (ZoomStory*) metadata;									// Retrieves the metadata for this file
-- (NSImage*) coverImage;									// Retrieves the cover image for this file
+- (ZoomStoryID*) storyID;									//!< Requests the IFID for the story file
+- (ZoomStory*) metadata;									//!< Retrieves the metadata for this file
+- (NSImage*) coverImage;									//!< Retrieves the cover image for this file
 
 @end

@@ -16,14 +16,14 @@
 	NSString*       formID;
 	unsigned int    formLength;
 
-	NSMutableArray*		 iffBlocks;
-	NSMutableDictionary* typesToBlocks;
-	NSMutableDictionary* locationsToBlocks;
+	NSMutableArray<NSDictionary<NSString*,id>*>*		 iffBlocks;
+	NSMutableDictionary<NSString*,NSMutableArray<NSDictionary<NSString*,id>*>*>* typesToBlocks;
+	NSMutableDictionary<NSNumber*,NSDictionary<NSString*,id>*>* locationsToBlocks;
 	
-	NSMutableDictionary* resourceIndex;
+	NSMutableDictionary<NSString*,NSMutableDictionary<NSNumber*,NSNumber*>*>* resourceIndex;
 	
 	BOOL adaptive;
-	NSMutableSet* adaptiveImages;
+	NSMutableSet<NSNumber*>* adaptiveImages;
 	NSData*       activePalette;
 	
 	NSSize stdSize;
@@ -41,7 +41,7 @@
 + (BOOL) zfileIsBlorb: (NSObject<ZFile>*) file;
 
 // Initialisation
-- (id) initWithZFile: (NSObject<ZFile>*) file; // Designated initialiser
+- (id) initWithZFile: (NSObject<ZFile>*) file; //!< Designated initialiser
 - (id) initWithData: (NSData*) blorbFile;
 - (id) initWithContentsOfFile: (NSString*) filename;
 

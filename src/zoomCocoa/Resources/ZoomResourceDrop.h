@@ -9,33 +9,33 @@
 #import <AppKit/AppKit.h>
 
 
-@interface ZoomResourceDrop : NSView {
+@protocol ZoomResourceDropDelegate;
+
+@interface ZoomResourceDrop : NSView <NSDraggingDestination> {
 	NSString* droppedFilename;
 	NSData*   droppedData;
 	
 	int willOrganise;
 	BOOL enabled;
 	
-	IBOutlet id delegate;
+	id<ZoomResourceDropDelegate> delegate;
 }
 
 // Flags
-- (void) setWillOrganise: (BOOL) willOrganise;
-- (BOOL) willOrganise;
+@property BOOL willOrganise;
 
-- (void) setEnabled: (BOOL) enabled;
-- (BOOL) enabled;
+@property (nonatomic) BOOL enabled;
 
-- (void) setDroppedFilename: (NSString*) filename;
-- (NSString*) droppedFilename;
+@property (copy) NSString *droppedFilename;
 
 // Delegate
-- (void) setDelegate: (id) delegate;
+@property (assign) IBOutlet id<ZoomResourceDropDelegate> delegate;
 
 @end
 
 // Delegate methods
-@interface NSObject(ZoomResourceDropDelegate)
+@protocol ZoomResourceDropDelegate <NSObject>
+@optional
 
 - (void) resourceDropFilenameChanged: (ZoomResourceDrop*) drop;
 - (void) resourceDropDataChanged: (ZoomResourceDrop*) drop;

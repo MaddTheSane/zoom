@@ -18,6 +18,6 @@
 	BOOL inside;
 }
 
-- (void) setPushedImage: (NSImage*) newPushedImage;
+@property (nonatomic, retain) NSImage *pushedImage;
 
 @end

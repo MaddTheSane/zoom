@@ -110,18 +110,8 @@ static NSImage* blorbImage;
 	}
 }
 
-- (BOOL) enabled {
-	return enabled;
-}
-
-- (void) setDroppedFilename: (NSString*) filename {
-	if (droppedFilename) [droppedFilename release];
-	droppedFilename = [filename copy];
-}
-
-- (NSString*) droppedFilename {
-	return droppedFilename;
-}
+@synthesize enabled;
+@synthesize droppedFilename;
 
 // = NSDraggingDestination methods =
 
@@ -215,10 +205,7 @@ notAFilename:
 }
 
 // Delegate
-
-- (void) setDelegate: (id) dg {
-	delegate = dg;
-}
+@synthesize delegate;
 
 - (void) resourceDropFilenameChanged: (ZoomResourceDrop*) drop {
 	if ([delegate respondsToSelector: @selector(resourceDropFilenameChanged:)]) {

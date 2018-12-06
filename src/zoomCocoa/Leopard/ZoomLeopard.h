@@ -13,15 +13,15 @@
 
 // = Animations =
 
-- (void) popView: (NSView*) view									// Causes a view to do a 'pop up' animation
+- (void) popView: (NSView*) view									//!< Causes a view to do a 'pop up' animation
 		duration: (NSTimeInterval) seconds
 		finished: (NSInvocation*) finished;
-- (void) popOutView: (NSView*) view									// Causes a view to do a 'pop out' animation
+- (void) popOutView: (NSView*) view									//!< Causes a view to do a 'pop out' animation
 		   duration: (NSTimeInterval) seconds
 		   finished: (NSInvocation*) finished;
-- (void) clearLayersForView: (NSView*) view;						// Removes the layers for the specified view
+- (void) clearLayersForView: (NSView*) view;						//!< Removes the layers for the specified view
 
-- (void) fullScreenView: (NSView*) view								// Animates a view to full screen
+- (void) fullScreenView: (NSView*) view								//!< Animates a view to full screen
 			  fromFrame: (NSRect) oldWindowFrame
 				toFrame: (NSRect) newWindowFrame;
 @end

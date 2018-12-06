@@ -54,8 +54,6 @@
 	return NO;
 }
 
-- (NSProgressIndicator*) progress {
-	return progress;
-}
+@synthesize progress;
 
 @end

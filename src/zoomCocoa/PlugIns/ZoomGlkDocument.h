@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain) ZoomStory *storyData;
 //! Selects which GlkClient executable to run
 @property (copy) NSString *clientPath;
-- (void) setInputFilename: (NSString*) inputPath;					// The file that should be passed to the client as the file to run
+- (void) setInputFilename: (NSString*) inputPath;					//!< The file that should be passed to the client as the file to run
 //! The logo to display for this story
 @property (retain) NSImage *logo;
 //! The plugin that created this document

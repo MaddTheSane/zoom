@@ -507,15 +507,14 @@ NSString* ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	// Show files that we can open with the ZoomClient document type
 	NSString* type = @"public.zcode";
-	[[NSWorkspace sharedWorkspace] type:type conformsToType:urlUTI];
-	if ([[NSWorkspace sharedWorkspace] type:type conformsToType:urlUTI]) return YES;
+	if ([[NSWorkspace sharedWorkspace] type:urlUTI conformsToType:type]) return YES;
 	
 	type = @"public.blorb.zcode";
-	if ([[NSWorkspace sharedWorkspace] type:type conformsToType:urlUTI]) return YES;
+	if ([[NSWorkspace sharedWorkspace] type:urlUTI conformsToType:type]) return YES;
 	
 	
 	type = @"public.blorb";
-	if ([[NSWorkspace sharedWorkspace] type:type conformsToType:urlUTI]) return YES;
+	if ([[NSWorkspace sharedWorkspace] type:urlUTI conformsToType:type]) return YES;
 	
 	return NO;
 }

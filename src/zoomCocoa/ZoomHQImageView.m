@@ -21,10 +21,10 @@
 	NSRect bounds = [self bounds];
 	NSSize imageSize = [[self image] size];
 	NSRect imageBounds = [self bounds];
-	float scaleFactor1 = (imageBounds.size.height-6)/imageSize.height;
-	float scaleFactor2 = (imageBounds.size.width-6)/imageSize.width;
+	CGFloat scaleFactor1 = (imageBounds.size.height-6)/imageSize.height;
+	CGFloat scaleFactor2 = (imageBounds.size.width-6)/imageSize.width;
 	
-	float scaleFactor = scaleFactor1 < scaleFactor2?scaleFactor1:scaleFactor2;
+	CGFloat scaleFactor = MIN(scaleFactor1, scaleFactor2);
 	
 	imageBounds.size.width = imageSize.width * scaleFactor;
 	imageBounds.size.height = imageSize.height * scaleFactor;

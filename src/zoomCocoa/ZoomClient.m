@@ -96,7 +96,7 @@
     [self addWindowController: [controller autorelease]];
 }
 
-- (NSData *)dataRepresentationOfType:(NSString *)type {
+- (NSData *)dataOfType:(NSString *)type error:(NSError * _Nullable * _Nullable)outError {
     // Can't save, really
 
     return gameData;

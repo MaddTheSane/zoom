@@ -132,7 +132,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 				@(blockLength), @"length",
 				@(pos+8), @"offset",
 				nil];
-			[blockID release];
 			
 			// Store it
 			[iffBlocks addObject: block];
@@ -143,6 +142,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 				[typesToBlocks setObject: typeBlocks
 								  forKey: blockID];
 			}
+			[blockID release];
 			[typeBlocks addObject: block];
 			
 			[locationsToBlocks setObject: block

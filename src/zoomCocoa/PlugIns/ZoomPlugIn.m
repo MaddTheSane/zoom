@@ -69,9 +69,8 @@
 
 // = Getting information about what this plugin should be doing =
 
-- (NSString*) gameFilename {
-	return gameFile;
-}
+@synthesize gameFilename=gameFile;
+@synthesize gameData;
 
 - (NSData*) gameData {
 	if (gameData == nil) {

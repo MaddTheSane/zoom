@@ -17,9 +17,9 @@
 /// 
 @interface ZoomFlipView(ZoomLeopardFlipView) <CALayerDelegate, CALayoutManager, CAAnimationDelegate>
 
-- (void) leopardPrepareViewForAnimation: (NSView*) view;					// Prepares the specified view for animation
-- (void) leopardAnimateTo: (NSView*) view									// Causes an animation to occur
+- (void) leopardPrepareViewForAnimation: (NSView*) view;					//!< Prepares the specified view for animation
+- (void) leopardAnimateTo: (NSView*) view									//!< Causes an animation to occur
 					style: (ZoomViewAnimationStyle) style;
-- (void) leopardFinishAnimation;											// Causes the animation to stop
+- (void) leopardFinishAnimation;											//!< Causes the animation to stop
 
 @end

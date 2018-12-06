@@ -42,26 +42,26 @@ typedef enum ZoomPlugInStatus {
 }
 
 // Initialisation
-- (id) initWithBundleFilename: (NSString*) bundle;			// Initialise with an existing plugin bundle
-- (id) initFromPList: (NSDictionary*) plist;				// Initialise with the contents of a particular plist dictionary
+- (id) initWithBundleFilename: (NSString*) bundle;			//!< Initialise with an existing plugin bundle
+- (id) initFromPList: (NSDictionary<NSString*, id>*) plist;	//!< Initialise with the contents of a particular plist dictionary
 
 // Retrieving the information
-- (NSString*) name;											// The name of this plugin
-- (NSString*) author;										// The author of the plugin bundle
-- (NSString*) version;										// The version of the plugin bundle
-- (NSString*) interpreterAuthor;							// The author of the interpreter in the plugin
-- (NSString*) interpreterVersion;							// The version of the interpreter in the plugin
-- (NSString*) imagePath;									// The path to an image that represents this plugin
-- (NSURL*) location;										// Where this plugin is located
-- (NSURL*) updateUrl;										// The URL for updates to this plugin
-- (ZoomPlugInStatus) status;								// The status for this plugin
-- (NSData*) md5;											// The MD5 for the archive containing the plugin
-- (void) setStatus: (ZoomPlugInStatus) status;				// Updates the status for this plugin
+- (NSString*) name;											//!< The name of this plugin
+- (NSString*) author;										//!< The author of the plugin bundle
+- (NSString*) version;										//!< The version of the plugin bundle
+- (NSString*) interpreterAuthor;							//!< The author of the interpreter in the plugin
+- (NSString*) interpreterVersion;							//!< The version of the interpreter in the plugin
+- (NSString*) imagePath;									//!< The path to an image that represents this plugin
+- (NSURL*) location;										//!< Where this plugin is located
+- (NSURL*) updateUrl;										//!< The URL for updates to this plugin
+- (ZoomPlugInStatus) status;								//!< The status for this plugin
+- (NSData*) md5;											//!< The MD5 for the archive containing the plugin
+- (void) setStatus: (ZoomPlugInStatus) status;				//!< Updates the status for this plugin
 
-- (ZoomPlugInInfo*) updateInfo;								// The plugin info for any known updates to this plugin
+- (ZoomPlugInInfo*) updateInfo;								//!< The plugin info for any known updates to this plugin
 - (void) setUpdateInfo: (ZoomPlugInInfo*) info;				// Sets the update plugin info
 
-- (ZoomDownload*) download;									// The download for the update for this plugin
+- (ZoomDownload*) download;									//!< The download for the update for this plugin
 - (void) setDownload: (ZoomDownload*) download;
 
 @end

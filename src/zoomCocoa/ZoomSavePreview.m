@@ -36,6 +36,11 @@ static NSImage* saveBackground;
     return self;
 }
 
+-(instancetype)initWithCoder:(NSCoder *)decoder
+{
+	return self = [super initWithCoder:decoder];
+}
+
 - (id) initWithPreview: (ZoomUpperWindow*) prev
 			  filename: (NSString*) file {
 	self = [self init];
@@ -69,6 +74,8 @@ static NSImage* saveBackground;
 	
 	[super dealloc];
 }
+
+@synthesize highlighted;
 
 - (void) setHighlighted: (BOOL) value {
 	highlighted = value;
@@ -121,7 +128,7 @@ static NSImage* saveBackground;
 		backgroundColour, NSBackgroundColorAttributeName,
 		nil];
 	
-	float ypos = 4;
+	CGFloat ypos = 4;
 	int lines = 0;
 	
 	NSArray* upperLines = nil;
@@ -242,9 +249,7 @@ static NSImage* saveBackground;
 	return YES;
 }
 
-- (NSString*) filename {
-	return filename;
-}
+@synthesize filename;
 
 - (IBAction) deleteSavegame: (id) sender {
 	// Display a confirmation dialog
@@ -256,7 +261,7 @@ static NSImage* saveBackground;
 	return;
 }
 
-- (void) confirmDelete:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void) confirmDelete:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	// Check the user confirmed the delete
 	if (returnCode != NSAlertDefaultReturn) return;
 	

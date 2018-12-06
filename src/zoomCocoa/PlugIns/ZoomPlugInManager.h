@@ -43,41 +43,41 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 	ZoomDownload* currentDownload;							// The active download for this object
 }
 
-+ (ZoomPlugInManager*) sharedPlugInManager;					// The shared plug-in manager
-+ (NSString*) plugInsPath;									// The plug-in installation directory
++ (ZoomPlugInManager*) sharedPlugInManager;					//!< The shared plug-in manager
++ (NSString*) plugInsPath;									//!< The plug-in installation directory
 
 // Setting the delegate
-@property (assign) id<ZoomPlugInManagerDelegate> delegate;	// Sets a new plug-in delegate
+@property (assign) id<ZoomPlugInManagerDelegate> delegate;	//!< Sets a new plug-in delegate
 
 // Dealing with existing plugins
-- (void) loadPlugIns;										// Causes this class to load all of the plugins
-- (Class) plugInForFile: (NSString*) fileName;				// Gets the plugin for the specified file
-- (ZoomPlugIn*) instanceForFile: (NSString*) filename;		// Gets a plug-in instance for the specified file
+- (void) loadPlugIns;										//!< Causes this class to load all of the plugins
+- (Class) plugInForFile: (NSString*) fileName;				//!< Gets the plugin for the specified file
+- (ZoomPlugIn*) instanceForFile: (NSString*) filename;		//!< Gets a plug-in instance for the specified file
 
-- (NSArray<NSBundle*>*) pluginBundles;						// The loaded plugin bundles
-- (NSArray<NSString*>*) loadedPlugIns;						// Array of strings indicating the names of the loaded plugins
-- (NSString*) versionForPlugIn: (NSString*) plugin;			// Returns the version of the plugin with the specified name
+- (NSArray<NSBundle*>*) pluginBundles;						//!< The loaded plugin bundles
+- (NSArray<NSString*>*) loadedPlugIns;						//!< Array of strings indicating the names of the loaded plugins
+- (NSString*) versionForPlugIn: (NSString*) plugin;			//!< Returns the version of the plugin with the specified name
 - (BOOL) version: (NSString*) oldVersion					// Compares 
 	 isNewerThan: (NSString*) newVerison;
 
 // Installing new plugins
-- (void) finishedWithObject;								// Indicates that this object has been finished with and any files should be deleted
+- (void) finishedWithObject;								//!< Indicates that this object has been finished with and any files should be deleted
 
-- (void) downloadUpdates;									// Request that all known updates and new plugins be downloaded
-- (BOOL) installPlugIn: (NSString*) pluginBundle;			// Requests that the specified plugin be installed
-- (void) finishUpdatingPlugins;								// Causes Zoom to finish updating any plugins after a restart
-- (BOOL) restartRequired;									// YES if a restart is required
+- (void) downloadUpdates;									//!< Request that all known updates and new plugins be downloaded
+- (BOOL) installPlugIn: (NSString*) pluginBundle;			//!< Requests that the specified plugin be installed
+- (void) finishUpdatingPlugins;								//!< Causes Zoom to finish updating any plugins after a restart
+- (BOOL) restartRequired;									//!< YES if a restart is required
 
-- (NSDictionary*) plistForBundle: (NSString*) pluginBundle;	// Retrieves the plist dictionary for the specified plugin bundle
-- (NSString*) nameForBundle: (NSString*) pluginBundle;		// Retrieves the display name of the specified plugin bundle
-- (NSString*) authorForBundle: (NSString*) pluginBundle;	// Retrieves the author of the specified plugin
-- (NSString*) terpAuthorForBundle: (NSString*) pluginBundle;	// Retrieves the author of the interpreter of the specified plugin
-- (NSString*) versionForBundle: (NSString*) pluginBundle;	// Retrieves the version number of the specified plugin bundle
+- (NSDictionary*) plistForBundle: (NSString*) pluginBundle;	//!< Retrieves the plist dictionary for the specified plugin bundle
+- (NSString*) nameForBundle: (NSString*) pluginBundle;		//!< Retrieves the display name of the specified plugin bundle
+- (NSString*) authorForBundle: (NSString*) pluginBundle;	//!< Retrieves the author of the specified plugin
+- (NSString*) terpAuthorForBundle: (NSString*) pluginBundle;	//!< Retrieves the author of the interpreter of the specified plugin
+- (NSString*) versionForBundle: (NSString*) pluginBundle;	//!< Retrieves the version number of the specified plugin bundle
 
 // Getting information about plugins
-- (NSArray<ZoomPlugInInfo*>*) informationForPlugins;		// Array of ZoomPlugInInfo objects containing the information about all the plugins known about by this object
-- (void) checkForUpdatesFrom: (NSArray<NSURL*>*) urls;		// Performs a check for updates operation on the specified URLs
-- (void) checkForUpdates;									// Performs a general check for updates operation
+- (NSArray<ZoomPlugInInfo*>*) informationForPlugins;		//!< Array of ZoomPlugInInfo objects containing the information about all the plugins known about by this object
+- (void) checkForUpdatesFrom: (NSArray<NSURL*>*) urls;		//!< Performs a check for updates operation on the specified URLs
+- (void) checkForUpdates;									//!< Performs a general check for updates operation
 
 @end
 
@@ -87,15 +87,15 @@ extern NSString* ZoomPlugInInformationChangedNotification;	// Notification that 
 @protocol ZoomPlugInManagerDelegate <NSObject>
 @optional
 
-- (void) pluginInformationChanged;							// Indicates that the plugin information has changed
-- (void) needsRestart;										// Indicates that the plug-in manager needs a restart before it can continue
+- (void) pluginInformationChanged;							//!< Indicates that the plugin information has changed
+- (void) needsRestart;										//!< Indicates that the plug-in manager needs a restart before it can continue
 
-- (void) checkingForUpdates;								// Indicates that a check for updates has started
-- (void) finishedCheckingForUpdates;						// Indicates that the check for updates has finished
+- (void) checkingForUpdates;								//!< Indicates that a check for updates has started
+- (void) finishedCheckingForUpdates;						//!< Indicates that the check for updates has finished
 
-- (void) downloadingUpdates;								// Indicates that the manager is downloading updates
-- (void) downloadProgress: (NSString*) status				// Indicates that a download status message should be displayed
+- (void) downloadingUpdates;								//!< Indicates that the manager is downloading updates
+- (void) downloadProgress: (NSString*) status				//!< Indicates that a download status message should be displayed
 			   percentage: (CGFloat) percent;
-- (void) finishedDownloadingUpdates;						// Indicates that downloading has finished
+- (void) finishedDownloadingUpdates;						//!< Indicates that downloading has finished
 
 @end

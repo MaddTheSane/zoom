@@ -18,12 +18,14 @@
 	BOOL highlighted;
 }
 
+- (instancetype)initWithFrame:(NSRect)frame NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 - (id) initWithPreview: (ZoomUpperWindow*) prev
 			  filename: (NSString*) filename;
-- (id) initWithPreviewStrings: (NSArray*) prev
+- (id) initWithPreviewStrings: (NSArray<NSString*>*) prev
 					 filename: (NSString*) filename;
-- (void) setHighlighted: (BOOL) value;
-- (NSString*) filename;
+@property (nonatomic, getter=isHighlighted) BOOL highlighted;
+@property (readonly, copy) NSString *filename;
 
 - (IBAction) deleteSavegame: (id) sender;
 
