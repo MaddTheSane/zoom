@@ -505,7 +505,8 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 			[information setStatus: status];
 			
 			// Store in the array
-			[pluginInformation addObject: [information autorelease]];
+			[pluginInformation addObject: information];
+			[information release];
 		}
 	}	
 }
@@ -524,7 +525,8 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		if (information == nil) continue;
 		
 		// Store in the array
-		[pluginInformation addObject: [information autorelease]];
+		[pluginInformation addObject: information];
+		[information release];
 	}
 	
 	// Get the information for any plugins that are installed but disabled
@@ -1078,6 +1080,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		[pluginInformation addObject: bundleInfo];
 	}
 	
+#if 0
 	// Add the file information for this plugin to Zoom's plist file
 	NSMutableArray* icons = [NSMutableArray array];
 	
@@ -1211,6 +1214,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	if (plistChanged) {
 		LSRegisterURL((CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
 	}
+#endif
 	
 	// Notify of any changes to the plugin information
 	[self sortInformation];
