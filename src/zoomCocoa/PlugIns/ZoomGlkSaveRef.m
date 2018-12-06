@@ -228,14 +228,14 @@
 	}
 	
 	// Create a read-only stream
-	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
+	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
 	
 	return [stream autorelease];			
 }
 
 - (byref NSObject<GlkStream>*) createWriteOnlyStream {
 	if ([self createSavePackage]) {
-		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
+		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
 		
 		return [stream autorelease];		
 	}
@@ -253,7 +253,7 @@
 	}
 	
 	// Construct a read/write stream
-	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFilename: [[NSURL fileURLWithPath:path] URLByAppendingPathComponent:@"Save.data" isDirectory:NO]];
+	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
 	
 	return [stream autorelease];			
 }
