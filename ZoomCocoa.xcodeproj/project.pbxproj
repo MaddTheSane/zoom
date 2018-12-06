@@ -368,6 +368,7 @@
 		55BD080D21B7638800A8DD5F /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BD080F21B7638800A8DD5F /* schema.strings */; };
 		55BD081721B85E8600A8DD5F /* ZoomViewProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BD081821B8C16800A8DD5F /* Skein.xcassets */; };
+		55F0A41021B9278200ACA664 /* IFDB-forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F0A40A21B9278200ACA664 /* IFDB-forward@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -1029,6 +1030,7 @@
 		55BD080E21B7638800A8DD5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
 		55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomViewProtocols.h; sourceTree = "<group>"; };
 		55BD081821B8C16800A8DD5F /* Skein.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Skein.xcassets; path = Skein/Skein.xcassets; sourceTree = "<group>"; };
+		55F0A40A21B9278200ACA664 /* IFDB-forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IFDB-forward@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1696,6 +1698,7 @@
 				4B840A3B0CBECC690071F3B3 /* ifdb-loading.html */,
 				4B840A150CBEC1B10071F3B3 /* IFDB-back.png */,
 				4B840A160CBEC1B10071F3B3 /* IFDB-forward.png */,
+				55F0A40A21B9278200ACA664 /* IFDB-forward@2x.png */,
 				4B840A170CBEC1B10071F3B3 /* IFDB-home.png */,
 				4B840A290CBEC2050071F3B3 /* IFDB-downloading.png */,
 			);
@@ -2264,6 +2267,7 @@
 				4BB8C1DF08C249F400D7D334 /* archive.iFiction in Resources */,
 				4B84304C0B139F6000679417 /* TADS.icns in Resources */,
 				4B84304E0B139F7200679417 /* HUGO.icns in Resources */,
+				55F0A41021B9278200ACA664 /* IFDB-forward@2x.png in Resources */,
 				4B1242CE0CAE8D1800CA3374 /* PluginManager.xib in Resources */,
 				4B840A1B0CBEC1CE0071F3B3 /* IFDB-back.png in Resources */,
 				4B840A1C0CBEC1D40071F3B3 /* IFDB-forward.png in Resources */,

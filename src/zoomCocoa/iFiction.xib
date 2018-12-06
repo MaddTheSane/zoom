@@ -727,7 +727,7 @@ Cg
                                     <button hidden="YES" verticalHuggingPriority="750" imageHugsTitle="YES" id="348">
                                         <rect key="frame" x="69" y="1" width="42" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                        <buttonCell key="cell" type="squareTextured" title="Play" bezelStyle="texturedSquare" image="IFDB-forward" imagePosition="left" alignment="center" controlSize="small" borderStyle="border" inset="2" id="387">
+                                        <buttonCell key="cell" type="squareTextured" title="Play" bezelStyle="texturedSquare" image="IFDB-forward" imagePosition="left" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="387">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
@@ -739,7 +739,7 @@ Cg
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" id="347">
                                         <rect key="frame" x="43" y="1" width="18" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="IFDB-home" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" inset="2" id="386">
+                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSHomeTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="386">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
@@ -752,7 +752,7 @@ Cg
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" id="346">
                                         <rect key="frame" x="21" y="1" width="18" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="IFDB-forward" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" inset="2" id="385">
+                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="385">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
@@ -765,7 +765,7 @@ Cg
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" id="345">
                                         <rect key="frame" x="4" y="1" width="18" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="IFDB-back" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" inset="2" id="384">
+                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSGoLeftTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="384">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
@@ -805,9 +805,10 @@ Cg
     </objects>
     <resources>
         <image name="Blorb" width="128" height="128"/>
-        <image name="IFDB-back" width="8" height="10"/>
         <image name="IFDB-forward" width="8" height="10"/>
-        <image name="IFDB-home" width="10" height="9"/>
+        <image name="NSGoLeftTemplate" width="9" height="12"/>
+        <image name="NSGoRightTemplate" width="9" height="12"/>
+        <image name="NSHomeTemplate" width="14" height="14"/>
         <image name="Z-Decal" width="32" height="32"/>
         <image name="add-out" width="32" height="32"/>
         <image name="continue-out" width="32" height="32"/>
