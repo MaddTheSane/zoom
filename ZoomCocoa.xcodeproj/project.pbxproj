@@ -24,7 +24,6 @@
 		4B1243060CAE964400CA3374 /* ZoomPlugInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1243040CAE964400CA3374 /* ZoomPlugInCell.m */; };
 		4B12431B0CAE9B2500CA3374 /* ZoomPlugInInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1243190CAE9B2500CA3374 /* ZoomPlugInInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B12431C0CAE9B2500CA3374 /* ZoomPlugInInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B12431A0CAE9B2500CA3374 /* ZoomPlugInInfo.m */; };
-		4B152A040B440B9D008CC1EF /* SkeinDiffersBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B152A030B440B9D008CC1EF /* SkeinDiffersBadge.png */; };
 		4B152CE20B46CBEB008CC1EF /* ZoomGameInfoController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B2EAFAD05B08D1E0021A5E6 /* ZoomGameInfoController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B152CE30B46CBED008CC1EF /* ZoomGameInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2EAFAE05B08D1E0021A5E6 /* ZoomGameInfoController.m */; };
 		4B152CE40B46CC07008CC1EF /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B2EAF9905B056EC0021A5E6 /* GameInfo.xib */; };
@@ -309,19 +308,7 @@
 		4BD2748D08701E6700C1AE15 /* ZoomConnector.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4D512006E3894F007FAD2B /* ZoomConnector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BD2748F08701E6700C1AE15 /* ZoomSkeinLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BAADD7B079053030076ACC4 /* ZoomSkeinLayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C13FD05C5A94B00E5796D /* Credits.rtf */; };
-		4BD2749208701E6700C1AE15 /* Skein-unplayed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1885B20698B867004D8501 /* Skein-unplayed.png */; };
-		4BD2749308701E6700C1AE15 /* Skein-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1885B30698B867004D8501 /* Skein-selected.png */; };
-		4BD2749408701E6700C1AE15 /* Skein-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1885B40698B867004D8501 /* Skein-active.png */; };
-		4BD2749508701E6700C1AE15 /* Skein-unchanged.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1885B50698B867004D8501 /* Skein-unchanged.png */; };
-		4BD2749608701E6700C1AE15 /* Skein-changed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1885B60698B867004D8501 /* Skein-changed.png */; };
-		4BD2749708701E6700C1AE15 /* SkeinAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */; };
-		4BD2749808701E6700C1AE15 /* SkeinAnnotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B5CBC5A069D9EB700C0AA88 /* SkeinAnnotate.png */; };
-		4BD2749908701E6700C1AE15 /* SkeinLocked.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B5CBC5B069D9EB700C0AA88 /* SkeinLocked.png */; };
-		4BD2749A08701E6700C1AE15 /* SkeinTranscript.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B5CBC5C069D9EB700C0AA88 /* SkeinTranscript.png */; };
-		4BD2749B08701E6700C1AE15 /* SkeinUnlocked.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B5CBC5D069D9EB700C0AA88 /* SkeinUnlocked.png */; };
-		4BD2749C08701E6700C1AE15 /* SkeinDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B5CBC5E069D9EB700C0AA88 /* SkeinDelete.png */; };
 		4BD2749E08701E6700C1AE15 /* archive.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4B5983DA070F059E0078165F /* archive.iFiction */; };
-		4BD2749F08701E6700C1AE15 /* Skein-annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B4B98E40733EE2400E40F96 /* Skein-annotation.png */; };
 		4BD274A108701E6700C1AE15 /* ZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF624050FDC6800A8E303 /* ZoomView.m */; };
 		4BD274A208701E6700C1AE15 /* ZoomLowerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D1DAE0534999E00A8E303 /* ZoomLowerWindow.m */; };
 		4BD274A308701E6700C1AE15 /* ZoomUpperWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFA46405358F1200A8E303 /* ZoomUpperWindow.m */; };
@@ -758,7 +745,6 @@
 		4B13ECD2060F93F200021429 /* ZoomSavePreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSavePreviewView.h; sourceTree = "<group>"; };
 		4B13ECD3060F93F200021429 /* ZoomSavePreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSavePreviewView.m; sourceTree = "<group>"; };
 		4B14632106A2DD9E00398650 /* ZoomSkeinXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinXML.m; sourceTree = "<group>"; };
-		4B152A030B440B9D008CC1EF /* SkeinDiffersBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinDiffersBadge.png; sourceTree = "<group>"; };
 		4B152D2D0B46D2F9008CC1EF /* ZoomNotesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomNotesController.h; sourceTree = "<group>"; };
 		4B152D2E0B46D2F9008CC1EF /* ZoomNotesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomNotesController.m; sourceTree = "<group>"; };
 		4B152DBD0B46E929008CC1EF /* NoteWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteWindow.xib; sourceTree = "<group>"; };
@@ -767,11 +753,6 @@
 		4B18850B069873F0004D8501 /* Skein.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Skein.xib; sourceTree = "<group>"; };
 		4B18852906987AC6004D8501 /* ZoomSkeinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinController.h; sourceTree = "<group>"; };
 		4B18852A06987AC6004D8501 /* ZoomSkeinController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinController.m; sourceTree = "<group>"; };
-		4B1885B20698B867004D8501 /* Skein-unplayed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-unplayed.png"; sourceTree = "<group>"; };
-		4B1885B30698B867004D8501 /* Skein-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-selected.png"; sourceTree = "<group>"; };
-		4B1885B40698B867004D8501 /* Skein-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-active.png"; sourceTree = "<group>"; };
-		4B1885B50698B867004D8501 /* Skein-unchanged.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-unchanged.png"; sourceTree = "<group>"; };
-		4B1885B60698B867004D8501 /* Skein-changed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-changed.png"; sourceTree = "<group>"; };
 		4B1C13F905C5A94300E5796D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4B1E3F60050F7BA000A8E303 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4B1E3F68050F7C2000A8E303 /* interp_z3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = interp_z3.h; path = build/interp_z3.h; sourceTree = SOURCE_ROOT; };
@@ -861,7 +842,6 @@
 		4B43DA7709364C6400F03009 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PlugIns/en.lproj/GlkWindow.xib; sourceTree = "<group>"; };
 		4B43DAAD09364CD100F03009 /* ZoomGlkWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlkWindowController.h; sourceTree = "<group>"; };
 		4B43DAAE09364CD100F03009 /* ZoomGlkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkWindowController.m; sourceTree = "<group>"; };
-		4B4B98E40733EE2400E40F96 /* Skein-annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Skein-annotation.png"; sourceTree = "<group>"; };
 		4B4D512006E3894F007FAD2B /* ZoomConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomConnector.h; sourceTree = "<group>"; };
 		4B4D512106E3894F007FAD2B /* ZoomConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomConnector.m; sourceTree = "<group>"; };
 		4B4EF620050FD66E00A8E303 /* ZFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFiles.m; sourceTree = "<group>"; };
@@ -873,12 +853,6 @@
 		4B5CBB78069D656000C0AA88 /* ZoomStoryTableView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZoomStoryTableView.m; sourceTree = "<group>"; };
 		4B5CBB79069D656000C0AA88 /* ZoomStoryTableView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZoomStoryTableView.h; sourceTree = "<group>"; };
 		4B5CBB9B069D671200C0AA88 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinAdd.png; sourceTree = "<group>"; };
-		4B5CBC5A069D9EB700C0AA88 /* SkeinAnnotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinAnnotate.png; sourceTree = "<group>"; };
-		4B5CBC5B069D9EB700C0AA88 /* SkeinLocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinLocked.png; sourceTree = "<group>"; };
-		4B5CBC5C069D9EB700C0AA88 /* SkeinTranscript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinTranscript.png; sourceTree = "<group>"; };
-		4B5CBC5D069D9EB700C0AA88 /* SkeinUnlocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinUnlocked.png; sourceTree = "<group>"; };
-		4B5CBC5E069D9EB700C0AA88 /* SkeinDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SkeinDelete.png; sourceTree = "<group>"; };
 		4B65B39F0979B981002D5534 /* ZoomHQImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomHQImageView.h; sourceTree = "<group>"; };
 		4B65B3A00979B981002D5534 /* ZoomHQImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomHQImageView.m; sourceTree = "<group>"; };
 		4B71AB5E09E300EF00E27876 /* ifmetaxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifmetaxml.h; sourceTree = "<group>"; };
@@ -1567,7 +1541,6 @@
 			isa = PBXGroup;
 			children = (
 				55BB926E2048D7FB00AB4B5B /* xibs */,
-				55BB92572048D16B00AB4B5B /* Skein */,
 				55BB92552048CCFE00AB4B5B /* ifdbWeb */,
 				55BB926F2048D8D900AB4B5B /* Media.xcassets */,
 				4B7522540CC7FAC500F36ECF /* signpost.icns */,
@@ -1731,26 +1704,6 @@
 				4B840A290CBEC2050071F3B3 /* IFDB-downloading.png */,
 			);
 			name = ifdbWeb;
-			sourceTree = "<group>";
-		};
-		55BB92572048D16B00AB4B5B /* Skein */ = {
-			isa = PBXGroup;
-			children = (
-				4B1885B40698B867004D8501 /* Skein-active.png */,
-				4B4B98E40733EE2400E40F96 /* Skein-annotation.png */,
-				4B1885B60698B867004D8501 /* Skein-changed.png */,
-				4B1885B30698B867004D8501 /* Skein-selected.png */,
-				4B1885B50698B867004D8501 /* Skein-unchanged.png */,
-				4B1885B20698B867004D8501 /* Skein-unplayed.png */,
-				4B5CBC59069D9EB700C0AA88 /* SkeinAdd.png */,
-				4B5CBC5A069D9EB700C0AA88 /* SkeinAnnotate.png */,
-				4B5CBC5E069D9EB700C0AA88 /* SkeinDelete.png */,
-				4B152A030B440B9D008CC1EF /* SkeinDiffersBadge.png */,
-				4B5CBC5B069D9EB700C0AA88 /* SkeinLocked.png */,
-				4B5CBC5C069D9EB700C0AA88 /* SkeinTranscript.png */,
-				4B5CBC5D069D9EB700C0AA88 /* SkeinUnlocked.png */,
-			);
-			path = Skein;
 			sourceTree = "<group>";
 		};
 		55BB926E2048D7FB00AB4B5B /* xibs */ = {
@@ -2339,20 +2292,7 @@
 			files = (
 				4BB8C17608C249B100D7D334 /* ZoomServer in Resources */,
 				4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */,
-				4BD2749208701E6700C1AE15 /* Skein-unplayed.png in Resources */,
-				4BD2749308701E6700C1AE15 /* Skein-selected.png in Resources */,
-				4BD2749408701E6700C1AE15 /* Skein-active.png in Resources */,
-				4BD2749508701E6700C1AE15 /* Skein-unchanged.png in Resources */,
-				4BD2749608701E6700C1AE15 /* Skein-changed.png in Resources */,
-				4BD2749708701E6700C1AE15 /* SkeinAdd.png in Resources */,
-				4BD2749808701E6700C1AE15 /* SkeinAnnotate.png in Resources */,
-				4BD2749908701E6700C1AE15 /* SkeinLocked.png in Resources */,
-				4BD2749A08701E6700C1AE15 /* SkeinTranscript.png in Resources */,
-				4BD2749B08701E6700C1AE15 /* SkeinUnlocked.png in Resources */,
-				4BD2749C08701E6700C1AE15 /* SkeinDelete.png in Resources */,
 				4BD2749E08701E6700C1AE15 /* archive.iFiction in Resources */,
-				4BD2749F08701E6700C1AE15 /* Skein-annotation.png in Resources */,
-				4B152A040B440B9D008CC1EF /* SkeinDiffersBadge.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
