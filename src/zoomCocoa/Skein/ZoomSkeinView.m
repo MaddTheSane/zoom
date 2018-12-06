@@ -37,7 +37,7 @@ typedef NS_ENUM(NSInteger, ZSVbutton)
 	ZSVmainItem = 256
 };
 
-NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
+NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 
 // Our sooper sekrit interface
 @interface ZoomSkeinView()
@@ -89,11 +89,9 @@ NSString* ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		NSString* filename = [ourBundle pathForResource: name
 												 ofType: @"png"];
 		
-		if (filename) {
+		img = [ourBundle imageForResource:name];
+		if (filename && !img) {
 			img = [[[NSImage alloc] initWithContentsOfFile: filename] autorelease];
-		}
-		if (!img) {
-			img = [[[ourBundle imageForResource:name] copy] autorelease];
 		}
 	}
 	

@@ -14,7 +14,7 @@
 
 @protocol ZoomSkeinViewDelegate;
 
-extern NSPasteboardType ZoomSkeinItemPboardType;
+extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME("zoomSkeinItem");
 
 @interface ZoomSkeinView : NSView <NSTextViewDelegate, NSDraggingDestination>  {
 	ZoomSkein* skein;
@@ -69,7 +69,6 @@ extern NSPasteboardType ZoomSkeinItemPboardType;
 
 // Setting/getting the source
 @property (nonatomic, retain) ZoomSkein* skein;
-- (void)       setSkein: (ZoomSkein*) skein;
 
 // Laying things out
 - (void) skeinNeedsLayout;
@@ -85,8 +84,7 @@ extern NSPasteboardType ZoomSkeinItemPboardType;
 
 - (void) editItem: (ZoomSkeinItem*) skeinItem;
 - (void) editItemAnnotation: (ZoomSkeinItem*) skeinItem;
-- (void) setSelectedItem: (ZoomSkeinItem*) skeinItem;
-- (ZoomSkeinItem*) selectedItem;
+@property (retain) ZoomSkeinItem *selectedItem;
 
 - (void) highlightSkeinLine: (ZoomSkeinItem*) itemOnLine;
 
@@ -114,7 +112,7 @@ extern NSPasteboardType ZoomSkeinItemPboardType;
 - (void) transcriptToPoint: (ZoomSkeinItem*) point;
 
 // Various types of possible error
-- (void) cantDeleteActiveBranch;										// User attempted to delete an item on the active skein branch (which can't be done)
-- (void) cantEditRootItem;												// User attemptted to edit the root skein item
+- (void) cantDeleteActiveBranch;										//!< User attempted to delete an item on the active skein branch (which can't be done)
+- (void) cantEditRootItem;												//!< User attemptted to edit the root skein item
 
 @end
