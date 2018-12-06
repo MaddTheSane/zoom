@@ -1170,9 +1170,9 @@
 				4B1E3F5E050F7B2C00A8E303 /* Zoom */,
 				4BCF3F41050FB1C300A8E303 /* ZoomClient */,
 				4BCF3F42050FB1D800A8E303 /* Resources */,
+				4BD79A8A0BA2C95A002C82B2 /* babel */,
 				4B1E3F5F050F7B8100A8E303 /* Frameworks */,
 				4B1E3F55050F7B0E00A8E303 /* Products */,
-				4BD79A8A0BA2C95A002C82B2 /* babel */,
 				4BD274C408701E6700C1AE15 /* Info-ZoomView__Upgraded_.plist */,
 				4BB8C20708C249F400D7D334 /* Info-Zoom__Upgraded_.plist */,
 				4B7CB08209362A3B00F3B8F6 /* ZoomPlugIns-Info.plist */,
@@ -1232,7 +1232,6 @@
 				4B0A32AE06A5966D00BB8878 /* WebKit.framework */,
 			);
 			name = Frameworks;
-			path = src;
 			sourceTree = "<group>";
 		};
 		4B1E3F7F050F7C9500A8E303 /* builder */ = {
@@ -2969,8 +2968,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../../Frameworks @loader_path/../Frameworks";
@@ -2988,8 +2985,6 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../../Frameworks @loader_path/../Frameworks";
