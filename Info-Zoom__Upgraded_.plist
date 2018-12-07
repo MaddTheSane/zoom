@@ -376,6 +376,10 @@
 					<string>z7</string>
 					<string>z8</string>
 				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-zmachine</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -399,6 +403,11 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>blb</string>
+					<string>blorb</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-blorb</string>
 				</array>
 			</dict>
 		</dict>
@@ -516,6 +525,11 @@
 			<string>org.tads.tads-game</string>
 			<key>UTTypeReferenceURL</key>
 			<string>http://www.tads.org/howto/mediatypes.htm</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -537,6 +551,10 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>gam</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-tads</string>
 				</array>
 			</dict>
 		</dict>
@@ -561,6 +579,10 @@
 				<array>
 					<string>t3x</string>
 					<string>t3</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-t3vm-image</string>
 				</array>
 			</dict>
 		</dict>
