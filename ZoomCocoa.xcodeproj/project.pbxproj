@@ -40,7 +40,7 @@
 		4B1FEA5C0ACB1723008B9EFE /* ZoomMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEA9705B4597500A9B6DC /* ZoomMetadata.m */; };
 		4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
 		4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4B36C45F0955ED5400874F9F /* Glulxe.plugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 4B36C4540955ED1700874F9F /* Glulxe.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4B36C46A0955EDB600874F9F /* ZoomGlulxe.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B36C4680955EDB600874F9F /* ZoomGlulxe.m */; };
 		4B36C5000955EDD800874F9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCF3F2B050F8E2400A8E303 /* Foundation.framework */; };
 		4B36C5010955EDD800874F9F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
@@ -160,8 +160,6 @@
 		4BA8B5820B1B053E007CD75E /* ZoomTextToSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE5F510075121A400C25A70 /* ZoomTextToSpeech.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BA8B5830B1B053E007CD75E /* ZoomTextToSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5F511075121A400C25A70 /* ZoomTextToSpeech.m */; };
 		4BA8B9530B1BB3F4007CD75E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F4B050FB2C500A8E303 /* main.m */; };
-		4BB27DA00C592D9100470443 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB27D9F0C592D9100470443 /* Sparkle.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		4BB27DB40C592D9D00470443 /* Sparkle.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BB27D9F0C592D9100470443 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BB65ACE08EF02D600E7E28E /* ZoomBlorbFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */; };
 		4BB65AD408EF02DF00E7E28E /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; };
 		4BB8C0DE08C2452E00D7D334 /* operation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F82050F7CC500A8E303 /* operation.h */; };
@@ -642,7 +640,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4B36C45F0955ED5400874F9F /* Glulxe.plugin in Copy Glulxe plugin */,
+				4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glulxe plugin */,
 			);
 			name = "Copy Glulxe plugin";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -697,7 +695,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4BB27DB40C592D9D00470443 /* Sparkle.framework in Copy frameworks */,
 				4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */,
 				4B7CB1D00936350E00F3B8F6 /* GlkClient.framework in Copy frameworks */,
 				4B7CB0AA09362A7200F3B8F6 /* ZoomPlugIns.framework in Copy frameworks */,
@@ -805,7 +802,7 @@
 		4B2EAF9905B056EC0021A5E6 /* GameInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameInfo.xib; sourceTree = "<group>"; };
 		4B2EAFAD05B08D1E0021A5E6 /* ZoomGameInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGameInfoController.h; sourceTree = "<group>"; };
 		4B2EAFAE05B08D1E0021A5E6 /* ZoomGameInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGameInfoController.m; sourceTree = "<group>"; };
-		4B36C4540955ED1700874F9F /* Glulxe.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Glulxe.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoomGlulxe.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B36C4550955ED1700874F9F /* Glulxe-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Glulxe-Info.plist"; path = "../../../Glulxe-Info.plist"; sourceTree = "<group>"; };
 		4B36C4670955EDB600874F9F /* ZoomGlulxe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlulxe.h; sourceTree = "<group>"; };
 		4B36C4680955EDB600874F9F /* ZoomGlulxe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlulxe.m; sourceTree = "<group>"; };
@@ -918,7 +915,6 @@
 		4BACEABB05B45C0500A9B6DC /* ZoomStoryID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomStoryID.h; sourceTree = "<group>"; };
 		4BACEABC05B45C0500A9B6DC /* ZoomStoryID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomStoryID.m; sourceTree = "<group>"; };
 		4BAE0EF6062ADA19009426D5 /* iFiction.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iFiction.icns; sourceTree = "<group>"; };
-		4BB27D9F0C592D9100470443 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = depends/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		4BB515B405BC615F00D00C96 /* iFiction.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iFiction.xib; sourceTree = "<group>"; };
 		4BB8BED308B785B200D7D334 /* ifmetabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifmetabase.h; sourceTree = "<group>"; };
 		4BB8BED408B785B200D7D334 /* ifmetabase.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ifmetabase.c; sourceTree = "<group>"; };
@@ -1101,7 +1097,6 @@
 				4B7CB0AB09362A7900F3B8F6 /* ZoomPlugIns.framework in Frameworks */,
 				4B9DC7F11502877B003DF057 /* QuartzCore.framework in Frameworks */,
 				4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */,
-				4BB27DA00C592D9100470443 /* Sparkle.framework in Frameworks */,
 				4B840B100CC2C3B10071F3B3 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1195,7 +1190,7 @@
 				4BB8C20808C249F400D7D334 /* Zoom.app */,
 				4B39C92B08EEF63400BA5E90 /* ZoomMetadataImporter.mdimporter */,
 				4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */,
-				4B36C4540955ED1700874F9F /* Glulxe.plugin */,
+				4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */,
 				4BD79A8F0BA2C9AA002C82B2 /* babel */,
 				4B7286E60CD3CAFF0079D89B /* ZoomSaveQuickLook.qlgenerator */,
 			);
@@ -1222,7 +1217,6 @@
 				4BA373A40CD3CB7B00C7B1D4 /* CoreServices.framework */,
 				4BA373A50CD3CB7B00C7B1D4 /* QuickLook.framework */,
 				4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */,
-				4BB27D9F0C592D9100470443 /* Sparkle.framework */,
 				4B39CA8308EEFE8F00BA5E90 /* CoreServices.framework */,
 				4B5CBB9B069D671200C0AA88 /* Carbon.framework */,
 				4B39CBCA08EF006E00BA5E90 /* CoreFoundation.framework */,
@@ -1892,14 +1886,14 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
-		4B36C4530955ED1700874F9F /* Glulxe */ = {
+		4B36C4530955ED1700874F9F /* ZoomGlulxe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4B36C4560955ED1700874F9F /* Build configuration list for PBXNativeTarget "Glulxe" */;
+			buildConfigurationList = 4B36C4560955ED1700874F9F /* Build configuration list for PBXNativeTarget "ZoomGlulxe" */;
 			buildPhases = (
-				4B36C4500955ED1700874F9F /* Resources */,
 				4B36C4510955ED1700874F9F /* Sources */,
 				4B36C4520955ED1700874F9F /* Frameworks */,
 				4B36C5080955EE2900874F9F /* ShellScript */,
+				4B36C4500955ED1700874F9F /* Resources */,
 				4B94AF040CD4B4D2003C75A6 /* ShellScript */,
 			);
 			buildRules = (
@@ -1909,9 +1903,9 @@
 				4B36C4630955ED7A00874F9F /* PBXTargetDependency */,
 				4BD093990FACAF0B001F7EF0 /* PBXTargetDependency */,
 			);
-			name = Glulxe;
+			name = ZoomGlulxe;
 			productName = Glulxe;
-			productReference = 4B36C4540955ED1700874F9F /* Glulxe.plugin */;
+			productReference = 4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 		4B39C92A08EEF63400BA5E90 /* ZoomMetadataImporter */ = {
@@ -2129,7 +2123,7 @@
 				4BD2747808701E6700C1AE15 /* ZoomView */,
 				4B39C92A08EEF63400BA5E90 /* ZoomMetadataImporter */,
 				4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */,
-				4B36C4530955ED1700874F9F /* Glulxe */,
+				4B36C4530955ED1700874F9F /* ZoomGlulxe */,
 				4BD79A8E0BA2C9AA002C82B2 /* babel */,
 				4B7286E50CD3CAFF0079D89B /* ZoomSaveQuickLook */,
 			);
@@ -2305,13 +2299,19 @@
 			buildActionMask = 12;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/git",
+				"$(BUILT_PRODUCTS_DIR)/glulxe",
 			);
 			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/git-client",
+				"$(BUILT_PRODUCTS_DIR)/glulxe-client",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#\n# Fix for xcode thickness\n#\n\necho \"Copying plugin (${BUILT_PRODUCTS_DIR}/glulxe)\"\ncp -RH ${BUILT_PRODUCTS_DIR}/glulxe ${BUILT_PRODUCTS_DIR}/glulxe-client || exit 1\ncp -RH ${BUILT_PRODUCTS_DIR}/git ${BUILT_PRODUCTS_DIR}/git-client || exit 1\n\ncp -RH ${BUILT_PRODUCTS_DIR}/glulxe-client ${BUILT_PRODUCTS_DIR}/Glulxe.plugin/Contents/MacOS/glulxe-client\ncp -RH ${BUILT_PRODUCTS_DIR}/git-client ${BUILT_PRODUCTS_DIR}/Glulxe.plugin/Contents/MacOS/git-client\n";
+			shellScript = "#\n# Fix for xcode thickness\n#\n\necho \"Copying plugin (${BUILT_PRODUCTS_DIR}/glulxe)\"\ncp -RH ${BUILT_PRODUCTS_DIR}/glulxe ${BUILT_PRODUCTS_DIR}/glulxe-client || exit 1\ncp -RH ${BUILT_PRODUCTS_DIR}/git ${BUILT_PRODUCTS_DIR}/git-client || exit 1\n\nmkdir -p ${BUILT_PRODUCTS_DIR}/ZoomGlulxe.plugin/Contents/MacOS\ncp -RH ${BUILT_PRODUCTS_DIR}/glulxe-client ${BUILT_PRODUCTS_DIR}/ZoomGlulxe.plugin/Contents/MacOS/glulxe-client\ncp -RH ${BUILT_PRODUCTS_DIR}/git-client ${BUILT_PRODUCTS_DIR}/ZoomGlulxe.plugin/Contents/MacOS/git-client\n";
 		};
 		4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2645,7 +2645,7 @@
 		};
 		4B36C45B0955ED3B00874F9F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4B36C4530955ED1700874F9F /* Glulxe */;
+			target = 4B36C4530955ED1700874F9F /* ZoomGlulxe */;
 			targetProxy = 4B36C45A0955ED3B00874F9F /* PBXContainerItemProxy */;
 		};
 		4B36C4630955ED7A00874F9F /* PBXTargetDependency */ = {
@@ -2972,8 +2972,8 @@
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Glulxe;
-				PRODUCT_NAME = Glulxe;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomGlulxe;
+				PRODUCT_NAME = ZoomGlulxe;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = plugin;
 			};
@@ -2990,8 +2990,8 @@
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Glulxe;
-				PRODUCT_NAME = Glulxe;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomGlulxe;
+				PRODUCT_NAME = ZoomGlulxe;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = plugin;
@@ -3372,7 +3372,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4B36C4560955ED1700874F9F /* Build configuration list for PBXNativeTarget "Glulxe" */ = {
+		4B36C4560955ED1700874F9F /* Build configuration list for PBXNativeTarget "ZoomGlulxe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4B36C4570955ED1700874F9F /* Debug */,
