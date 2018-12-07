@@ -36,7 +36,6 @@
 	// Set up the layers for this view
 	CALayer* viewLayer = [view layer];
 	if (viewLayer== nil) {
-		static CGFloat white[4] = { 1.0, 1.0, 1.0, 1.0 };
 		viewLayer = [CALayer layer];
 		viewLayer.backgroundColor = [NSColor whiteColor].CGColor;		
 

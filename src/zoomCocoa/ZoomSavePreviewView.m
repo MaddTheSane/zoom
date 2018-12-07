@@ -219,7 +219,9 @@
 								 openFile: directory];
 		} else {
 			//ZoomClient* newDoc = 
-			[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:directory] display:YES error:NULL];
+			[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:directory] display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+				//Do nothing..
+			}];
 		}
 	}
 }

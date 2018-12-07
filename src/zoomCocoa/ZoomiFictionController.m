@@ -642,16 +642,18 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	
 	// FIXME: multiple selections?, actually save/restore autosaves
 	if (filename) {
-		ZoomClient* newDoc = [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filename] display:NO error:NULL];
-		
-		if ([[newDoc windowControllers] count] == 0) {
-			[newDoc makeWindowControllers];
-			[newDoc loadDefaultAutosave];
-		}
-		
-		[[[newDoc windowControllers] objectAtIndex: 0] showWindow: self];
-		
-		[self configureFromMainTableSelection];
+		[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filename] display:NO completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+			ZoomClient* newDoc = (id)document;
+			
+			if ([[newDoc windowControllers] count] == 0) {
+				[newDoc makeWindowControllers];
+				[newDoc loadDefaultAutosave];
+			}
+			
+			[[[newDoc windowControllers] objectAtIndex: 0] showWindow: self];
+			
+			[self configureFromMainTableSelection];
+		}];
 	}
 }
 

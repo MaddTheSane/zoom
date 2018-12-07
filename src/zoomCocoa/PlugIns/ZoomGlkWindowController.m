@@ -474,7 +474,7 @@
 - (BOOL) windowShouldClose: (id) sender {
 	// Get confirmation if required
 	if (!closeConfirmed && running && [[ZoomPreferences globalPreferences] confirmGameClose]) {
-		BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
+		//BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
 		NSString* msg;
 		
 		msg = @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.";
