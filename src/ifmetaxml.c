@@ -845,6 +845,10 @@ static unsigned char* MakeUtf8Xml(IFChar* string, int allowNewlines) {
 				} else if (chr < 0x800) {
 					add(0xc0 | (chr>>6));
 					add(0x80 | (chr&0x3f));
+				} else if (chr <= 0xffff) {
+					add(0xe0 | (chr>>12));
+					add(0x80 | ((chr>>6)&0x3f));
+					add(0x80 | (chr&0x3f));
 				} else {
 					/* These characters can't be represented by unicode anyway */
 				}
