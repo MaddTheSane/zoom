@@ -216,17 +216,9 @@
 
 // = Document info =
 
-- (NSData*) gameData {
-    return gameData;
-}
-
-- (ZoomStory*) storyInfo {
-	return story;
-}
-
-- (ZoomStoryID*) storyId {
-	return storyId;
-}
+@synthesize gameData;
+@synthesize storyInfo;
+@synthesize storyId;
 
 - (NSString*) displayName {
 	if (story && [story title]) {
@@ -242,14 +234,7 @@
 
 // = Autosave =
 
-- (void) setAutosaveData: (NSData*) data {
-	if (autosaveData) [autosaveData release];
-	autosaveData = [data retain];
-}
-
-- (NSData*) autosaveData {
-	return autosaveData;
-}
+@synthesize autosaveData;
 
 - (void) loadDefaultAutosave {
 	if (autosaveData) [autosaveData release];
@@ -459,7 +444,7 @@
 
 		wasRestored = YES;
 		
-		[self setFileName: gameFile];
+		[self setFileURL: [NSURL fileURLWithPath: gameFile]];
 		return [self readFromData: data
 						   ofType: @"ZCode story"
 							error: outError];
@@ -499,37 +484,16 @@
 	// (which doesn't use this chunk)
 	wasRestored = YES;
 	
-	[self setFileName: gameFile];
+	[self setFileURL: [NSURL fileURLWithPath: gameFile]];
 	return [self readFromData: data
 					   ofType: @"ZCode story"
 						error: outError];
 }
 
-- (ZoomView*) defaultView {
-	return defaultView;
-}
-
-- (NSData*) saveData {
-	return saveData;
-}
-
-- (void) setSaveData: (NSData*) newSaveData {
-	[saveData release];
-	saveData = [newSaveData copy];
-}
-
-- (ZoomSkein*) skein {
-	return skein;
-}
-
-- (void) setResources: (ZoomBlorbFile*) res {
-	if (resources) [resources release];
-	resources = [res retain];
-}
-
-- (ZoomBlorbFile*) resources {
-	return resources;
-}
+@synthesize defaultView;
+@synthesize saveData;
+@synthesize skein;
+@synthesize resources;
 
 // = Errors that might have happened but we recovered from =
 

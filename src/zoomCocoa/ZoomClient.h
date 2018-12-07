@@ -32,27 +32,24 @@
 	NSMutableArray* loadingErrors;
 }
 
-- (NSData*) gameData;
-- (ZoomStory*) storyInfo;
-- (ZoomStoryID*) storyId;
-- (ZoomSkein*)   skein;
+@property (readonly, retain) NSData *gameData;
+@property (readonly, retain) ZoomStory *storyInfo;
+@property (readonly, retain) ZoomStoryID *storyId;
+@property (readonly, retain) ZoomSkein *skein;
 
 // Restoring from an autosave
 - (void) loadDefaultAutosave;
-- (void) setAutosaveData: (NSData*) data;
-- (NSData*) autosaveData;
+@property (retain) NSData *autosaveData;
 
 // Loading a zoomSave file
-- (ZoomView*) defaultView;
-- (NSData*)   saveData;
-- (void)	  setSaveData: (NSData*) saveData;
+@property (readonly, retain) ZoomView *defaultView;
+@property (copy) NSData *saveData;
 
 // Resources
-- (void)           setResources: (ZoomBlorbFile*) resources;
-- (ZoomBlorbFile*) resources;
+@property (retain) ZoomBlorbFile *resources;
 
 // Errors that might have happened but we recovered from (for example, resources not found)
 - (void) addLoadingError: (NSString*) loadingError;
-- (NSArray*) loadingErrors;
+- (NSArray<NSString*>*) loadingErrors;
 
 @end

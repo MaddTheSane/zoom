@@ -21,15 +21,15 @@
 	ZoomPreferenceWindow* preferencePanel;
 	IBOutlet SUUpdater* updater;
 	
-	NSMutableArray* gameIndices;
+	NSMutableArray<ZoomMetadata*>* gameIndices;
 	id<ZoomLeopard> leopard;
 }
 
-- (NSArray*) gameIndices;
+@property (readonly, copy) NSArray<ZoomMetadata*> *gameIndices;
 - (ZoomStory*) findStory: (ZoomStoryID*) gameID;
 - (ZoomMetadata*) userMetadata;
 
-- (NSString*) zoomConfigDirectory;
+@property (readonly, copy) NSString *zoomConfigDirectory;
 - (id<ZoomLeopard>) leopard;
 
 - (IBAction) fixedOpenDocument: (id) sender;

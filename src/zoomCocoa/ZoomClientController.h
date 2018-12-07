@@ -23,8 +23,8 @@
 	NSWindow* fullscreenWindow;							// Alternative window used for full-screen view
 	NSWindow* normalWindow;								// The usual window
 
-	float fadeTime;
-	float waitTime;
+	NSTimeInterval fadeTime;
+	NSTimeInterval waitTime;
 	NSDate* fadeStart;
 	NSTimer* fadeTimer;
 	NSWindow* logoWindow;

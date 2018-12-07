@@ -531,14 +531,13 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	
 	// Show files that we can open with the ZoomClient document type
 	NSString* type = @"public.zcode";
-	if ([[NSWorkspace sharedWorkspace] type:urlUTI conformsToType:type]) return YES;
+	if ([urlUTI isEqualToString:type]) return YES;
 	
 	type = @"public.blorb.zcode";
-	if ([[NSWorkspace sharedWorkspace] type:urlUTI conformsToType:type]) return YES;
-	
+	if ([urlUTI isEqualToString:type]) return YES;
 	
 	type = @"public.blorb";
-	if ([[NSWorkspace sharedWorkspace] type:urlUTI conformsToType:type]) return YES;
+	if ([urlUTI isEqualToString:type]) return YES;
 	
 	return NO;
 }
