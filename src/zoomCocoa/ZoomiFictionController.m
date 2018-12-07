@@ -2639,7 +2639,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	if (downloadUpdateList) {
 		// We've downloaded a list of plugins, and we want to pick one to install as part of a signpost file
 		downloadUpdateList = NO;
-		NSString* xmlFile;
+		NSString* xmlFile=nil;
 		NSString* extension = [[activeDownload suggestedFilename] pathExtension];
 		
 		NSEnumerator* dirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [activeDownload downloadDirectory] error: NULL] objectEnumerator];

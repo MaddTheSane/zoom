@@ -535,7 +535,7 @@ struct IFMDUUID IFMD_ReadUUID(const char* uuidString) {
      * ... but this is slightly more generic, only paying attention to the hexadecimal bits until we reach the end of the 
      * string or we get enough bytes to make a UUID.
      */
-    struct IFMDUUID res;            /* The result */
+    struct IFMDUUID res={0};            /* The result */
     int x;
     
     int hexValue;                   /* Hex characters read to date */

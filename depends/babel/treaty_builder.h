@@ -106,7 +106,7 @@ int32 TREATY_FUNCTION(FORMAT)(int32 selector,
                    void *story_file, int32 extent,
                    void *output, int32 output_extent)
 {
- int32 ll, csf;
+ int32 ll, csf=0;
  if ((TREATY_SELECTOR_INPUT & selector) &&
      (csf=claim_story_file(story_file, extent))<NO_REPLY_RV)
          return INVALID_STORY_FILE_RV;

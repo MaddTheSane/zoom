@@ -95,7 +95,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		}
 	}
 	
-	[img setFlipped: YES];
+	//[img setFlipped: YES];
 	return img;
 }
 

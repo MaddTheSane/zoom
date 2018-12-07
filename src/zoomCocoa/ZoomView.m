@@ -1949,7 +1949,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 }
 
-- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError * _Nullable *)outError {
+- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(__unused NSError * _Nullable *)outError {
 	NSSavePanel* panel = sender;
 
 	if ([[panel allowedFileTypes] containsObject:[url pathExtension]]) {

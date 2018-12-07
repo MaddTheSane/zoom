@@ -1403,7 +1403,7 @@ static int t2_find_res(const void *story_file, int32 story_len,
         /* check the type */
         if (p[0] == 7 && memcmp(p + 1, "HTMLRES", 7) == 0)
         {
-            unsigned long found_ofs;
+            unsigned long found_ofs=0;
             int found;
             unsigned long entry_cnt;
 

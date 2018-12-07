@@ -133,7 +133,7 @@ void write_int(int32 i, FILE *f)
 }
 static void _babel_multi_blorb(char *outfile, char **args, char *todir , int argc)
 {
- int32 total, storyl, coverl, i;
+ int32 total, storyl, coverl=0, i;
  char buffer[TREATY_MINIMUM_EXTENT+10];
  char b2[TREATY_MINIMUM_EXTENT];
 

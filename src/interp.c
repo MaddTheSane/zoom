@@ -1710,7 +1710,7 @@ void zmachine_runsome(const int version,
    */
   register ZByte     instr;
   register int       st     = 0;
-  int                padding;
+  int                padding= 0;
   int                tmp;
   int                negate = 0;
   int                result = 0;

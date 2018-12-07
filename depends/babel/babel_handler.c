@@ -86,7 +86,7 @@ extern TREATY container_registry[];
 static char *deeper_babel_init(char *story_name, void *bhp)
 {
  struct babel_handler *bh=(struct babel_handler *) bhp;
- int i;
+ int i=0;
  char *ext;
 
  static char buffer[TREATY_MINIMUM_EXTENT];
