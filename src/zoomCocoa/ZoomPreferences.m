@@ -58,20 +58,18 @@ static NSLock*          globalLock = nil;
 }
 
 + (void)initialize {
-	NSAutoreleasePool* apool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
 	ZoomPreferences* defaultPrefs = [[[self class] alloc] initWithDefaultPreferences];
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObject: [defaultPrefs dictionary]
 															forKey: @"ZoomGlobalPreferences"];
 	
-	[defaultPrefs release];
-	
     [defaults registerDefaults: appDefaults];
 	
 	globalLock = [[NSLock alloc] init];
 	
-	[apool release];
+	}
 }
 
 + (ZoomPreferences*) globalPreferences {
@@ -88,7 +86,6 @@ static NSLock*          globalLock = nil;
 		// Must contain valid fonts and colours
 		if ([globalPreferences fonts] == nil || [globalPreferences colours] == nil) {
 			NSLog(@"Missing element in global preferences: replacing");
-			[globalPreferences release];
 			globalPreferences = [[ZoomPreferences alloc] initWithDefaultPreferences];
 		}
 	}
@@ -145,7 +142,7 @@ static NSArray* DefaultFonts(void) {
 		[defaultFonts addObject: thisFont];
 	}
 	
-	return [defaultFonts autorelease];
+	return defaultFonts;
 }
 
 static NSArray* DefaultColours(void) {
@@ -265,14 +262,7 @@ static NSArray* DefaultColours(void) {
 	}
 
 	
-	return [newDict autorelease];
-}
-
-- (void) dealloc {
-	[prefs release];
-	[prefLock release];
-	
-	[super dealloc];
+	return newDict;
 }
 
 // Getting preferences
@@ -538,7 +528,7 @@ static NSArray* DefaultColours(void) {
 }
 
 - (void) setGameTitle: (NSString*) title {
-	[prefs setObject: [[title copy] autorelease]
+	[prefs setObject: [title copy]
 			  forKey: gameTitle];
 	[self preferencesHaveChanged];
 }
@@ -630,7 +620,7 @@ static NSArray* DefaultColours(void) {
 	// Sets a given range of fonts to the given family
 	CGFloat size = [self fontSize];
 	
-	NSMutableArray* newFonts = [[[self fonts] mutableCopy] autorelease];
+	NSMutableArray* newFonts = [[self fonts] mutableCopy];
 	NSFontManager* mgr = [NSFontManager sharedFontManager];
 	
 	NSInteger x;
@@ -784,7 +774,7 @@ static NSArray* DefaultColours(void) {
 	self = [super init];
 	
 	if (self) {
-		prefs = [[coder decodeObject] retain];
+		prefs = [coder decodeObject];
 	}
 	
 	return self;

@@ -11,8 +11,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 
     if (self) {
         // Can't initialise without a valid file handle
-        [self release];
-        self = NULL;
+        return NULL;
     }
 
     return self;
@@ -22,16 +21,10 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     self = [super init];
 
     if (self) {
-        handle = [hdl retain];
+        handle = hdl;
     }
 
     return self;
-}
-
-- (void) dealloc {
-    [handle release];
-
-    [super dealloc];
 }
 
 // Read
@@ -148,8 +141,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 
     if (self) {
         // Can't initialise without valid data
-        [self release];
-        self = NULL;
+        return NULL;
     }
 
     return self;
@@ -159,17 +151,11 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     self = [super init];
 
     if (self) {
-        data = [dt retain];
+        data = dt;
         pos = 0;
     }
 
     return self;
-}
-
-- (void) dealloc {
-    [data release];
-    
-    [super dealloc];
 }
 
 - (int) readByte {
@@ -289,12 +275,6 @@ NSString* const ZStyleAttributeName = @"ZStyleAttribute";
     return self;
 }
 
-- (void) dealloc {
-    if (foregroundTrue) [foregroundTrue release];
-    if (backgroundTrue) [backgroundTrue release];
-    [super dealloc];
-}
-
 @synthesize foregroundColour;
 @synthesize backgroundColour;
 @synthesize foregroundTrue;
@@ -361,8 +341,8 @@ NSString* const ZStyleAttributeName = @"ZStyleAttribute";
         isReversed = (flags&16)?YES:NO;
 		isForceFixed = (flags&32)?YES:NO;
 
-        foregroundTrue   = [[coder decodeObject] retain];
-        backgroundTrue   = [[coder decodeObject] retain];
+        foregroundTrue   = [coder decodeObject];
+        backgroundTrue   = [coder decodeObject];
         
         [coder decodeValueOfObjCType: @encode(int) at: &foregroundColour];
         [coder decodeValueOfObjCType: @encode(int) at: &backgroundColour];
@@ -422,14 +402,9 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 - (id) init {
     self = [super init];
     if (self) {
-        buffer = [[NSMutableArray allocWithZone: [self zone]] init];
+        buffer = [[NSMutableArray alloc] init];
     }
     return self;
-}
-
-- (void) dealloc {
-    [buffer release];
-    [super dealloc];
 }
 
 // NSCopying
@@ -438,7 +413,6 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     ZBuffer* buf;
     buf = [[[self class] allocWithZone: zone] init];
 
-    [buf->buffer release];
     buf->buffer = [buffer mutableCopyWithZone: zone];
 
     return buf;
@@ -460,8 +434,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 - (id) initWithCoder: (NSCoder*) coder {
     self = [super init];
     if (self) {
-        [buffer release];
-        buffer = [[coder decodeObject] retain];
+        buffer = [coder decodeObject];
     }
     return self;
 }
@@ -573,7 +546,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     [buffer addObject:
         [NSArray arrayWithObjects:
             ZBufferPlotText,
-			[[text copy] autorelease],
+			[text copy],
 			[NSValue valueWithPoint: point],
 			style,
 			win,
@@ -760,7 +733,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 				failed = YES;
 			}
 			
-			data = [[[wrapper fileWrappers] objectForKey: defaultFile] retain];
+			data = [[wrapper fileWrappers] objectForKey: defaultFile];
 			
 			if (![data isRegularFile]) {
 				failed = YES;
@@ -769,7 +742,6 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 		
 		if (wrapper == nil || failed) {
 			// Couldn't open file
-			[self release];
 			return nil;
 		}
 	}
@@ -778,21 +750,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 }
 
 - (void) setAttributes: (NSDictionary*) attr {
-	if (attributes) [attributes release];
 	attributes = [attr copy];
-}
-
-- (void) dealloc {
-	if (wrapper) [wrapper release];
-	if (writePath) [writePath release];
-	if (defaultFile) [defaultFile release];
-
-	if (data) [data release];
-	if (writeData) [writeData release];
-	
-	if (attributes) [attributes release];
-	
-	[super dealloc];
 }
 
 - (int) readByte {

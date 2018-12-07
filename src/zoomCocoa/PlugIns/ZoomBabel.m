@@ -36,7 +36,7 @@ static NSMutableDictionary* babelCache = nil;
 		NSString* tempDir = NSTemporaryDirectory();
 		NSString* dirID = [NSString stringWithFormat: @"Zoom-Babel-%i", getpid()];
 		
-		babelFolder = [[tempDir stringByAppendingPathComponent: dirID] retain];
+		babelFolder = [tempDir stringByAppendingPathComponent: dirID];
 	}
 
 	// Create the directory if necessary
@@ -60,7 +60,6 @@ static NSMutableDictionary* babelCache = nil;
 
 - (id) init {
 	self = [super init];
-	if (self) [self autorelease];
 	return nil;
 }
 
@@ -74,15 +73,12 @@ static NSMutableDictionary* babelCache = nil;
 	ZoomBabel* cachedVersion = [babelCache objectForKey: story];
 	if (cachedVersion != nil) {
 		// Use the cached version instead if possible
-		[cachedVersion retain];
-		[self autorelease];
 		[babelLock unlock];
 		return cachedVersion;
 	}
 	
 	// Empty the cache if it's too full (fairly dumb, but works for the expected usage patterns)
 	if ([babelCache count] > 10) {
-		[babelCache release];
 		babelCache = [[NSMutableDictionary alloc] init];
 	}
 	
@@ -137,25 +133,13 @@ static NSMutableDictionary* babelCache = nil;
 
 		[self babelTaskFinished: nil];
 		
-		[babelTask release];
 		babelTask = nil;
 	}
 	
 	if (ifidTask) {
 		[ifidTask terminate];
-		[ifidTask release];
 		ifidTask = nil;
 	}
-
-	[filename release]; filename = nil;
-	[babelStdOut release]; babelStdOut = nil;
-	[ifidStdOut release]; ifidStdOut = nil;
-	
-	[storyID release];
-	[metadata release];
-	[babelImage release];
-	
-	[super dealloc];
 }
 
 // = Raw reading =
@@ -223,7 +207,7 @@ static NSMutableDictionary* babelCache = nil;
 	
 	// If non-nil, then extract the first ifiction record
 	if (storyData != nil) {
-		ZoomMetadata* storyMetadata = [[[ZoomMetadata alloc] initWithData: storyData] autorelease];
+		ZoomMetadata* storyMetadata = [[ZoomMetadata alloc] initWithData: storyData];
 		if (storyMetadata != nil) {
 			NSArray* stories = [storyMetadata stories];
 			if ([stories count] >= 1) {
@@ -241,7 +225,7 @@ static NSMutableDictionary* babelCache = nil;
 	
 	// If non-nil, create a new image
 	if (imageData != nil) {
-		return [[[NSImage alloc] initWithData: imageData] autorelease];
+		return [[NSImage alloc] initWithData: imageData];
 	}
 	
 	return nil;
@@ -331,7 +315,7 @@ static NSMutableDictionary* babelCache = nil;
 	[[babelStdOut fileHandleForWriting] closeFile];
 	
 	NSData* output = [[babelStdOut fileHandleForReading] readDataToEndOfFile];
-	NSString* outputString = [[[NSString alloc] initWithData: output encoding: NSUTF8StringEncoding] autorelease];
+	NSString* outputString = [[NSString alloc] initWithData: output encoding: NSUTF8StringEncoding];
 	NSLog(@"Babel> %@", outputString);
 	
 	NSArray* files = [self filesFromBabelOutput: outputString];
@@ -356,7 +340,7 @@ static NSMutableDictionary* babelCache = nil;
 			// Check for known extensions
 			if ([extension isEqualToString: @"ifiction"]) {
 				// This is an iFiction record
-				metadata = [[NSData dataWithContentsOfFile: fullPath] retain];
+				metadata = [NSData dataWithContentsOfFile: fullPath];
 			} else if ([extension isEqualToString: @"jpg"]
 					   || [extension isEqualToString: @"jpeg"]
 					   || [extension isEqualToString: @"png"]
@@ -364,7 +348,7 @@ static NSMutableDictionary* babelCache = nil;
 					   || [extension isEqualToString: @"tif"]
 					   || [extension isEqualToString: @"tiff"]) {
 				// This is an image file
-				babelImage = [[NSData dataWithContentsOfFile: fullPath] retain];
+				babelImage = [NSData dataWithContentsOfFile: fullPath];
 			}
 		}
 	}
@@ -381,9 +365,7 @@ static NSMutableDictionary* babelCache = nil;
 	}
 	
 	// Finish up the task
-	[babelTask release];
 	babelTask = nil;
-	[babelStdOut release];
 	babelStdOut = nil;
 }
 	
@@ -417,7 +399,7 @@ static NSMutableDictionary* babelCache = nil;
 	[[ifidStdOut fileHandleForWriting] closeFile];
 	
 	NSData* output = [[ifidStdOut fileHandleForReading] readDataToEndOfFile];
-	NSString* outputString = [[[NSString alloc] initWithData: output encoding: NSUTF8StringEncoding] autorelease];
+	NSString* outputString = [[NSString alloc] initWithData: output encoding: NSUTF8StringEncoding];
 	NSLog(@"Babel> %@", outputString);
 	
 	// Check the return code

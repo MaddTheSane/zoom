@@ -34,7 +34,7 @@ extern NSString* const ZoomSIChild;							//!< Child item (if relevant)
 //! Represents a single 'knot' in the skein
 //!
 @interface ZoomSkeinItem : NSObject<NSCoding> {
-	ZoomSkeinItem* parent;
+	__weak ZoomSkeinItem* parent;
 	NSMutableSet* children;
 	
 	NSString*     command;
@@ -67,7 +67,7 @@ extern NSString* const ZoomSIChild;							//!< Child item (if relevant)
 // Data accessors
 
 // Skein tree
-@property (readonly, assign) ZoomSkeinItem* parent;
+@property (readonly, weak) ZoomSkeinItem* parent;
 - (NSSet<ZoomSkeinItem*>*)children;
 - (ZoomSkeinItem*) childWithCommand: (NSString*) command;
 

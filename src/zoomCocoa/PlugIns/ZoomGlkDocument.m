@@ -13,17 +13,6 @@
 
 // = Initialisation/finalisation =
 
-- (void) dealloc {
-	if (clientPath)		[clientPath release];
-	if (inputPath)		[inputPath release];
-	if (storyData)		[storyData release];
-	if (logo)			[logo release];
-	if (plugIn)			[plugIn release];
-	if (savedGamePath)	[savedGamePath release];
-	
-	[super dealloc];
-}
-
 - (NSData *)dataOfType:(NSString *)type error:(NSError * _Nullable *)outError  {
 	// Glk documents are never saved
     return nil;
@@ -41,7 +30,6 @@
 @synthesize clientPath;
 
 - (void) setInputFilename: (NSString*) newInputPath {
-	[inputPath release];
 	inputPath = [newInputPath copy];
 	
 	[self setFileURL: [NSURL fileURLWithPath:newInputPath]];
@@ -67,7 +55,7 @@
 	[controller setLogo: logo];
 	
 	// Add it as a controller for this document
-	[self addWindowController: [controller autorelease]];
+	[self addWindowController: controller];
 }
 
 // = The display name =

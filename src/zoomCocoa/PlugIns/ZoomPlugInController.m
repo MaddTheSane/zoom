@@ -37,7 +37,7 @@
 
 - (void) windowDidLoad {
 	NSTableColumn* pluginColumn = [pluginTable tableColumnWithIdentifier: @"Plugin"];
-	[pluginColumn setDataCell: [[[ZoomPlugInCell alloc] init] autorelease]];	
+	[pluginColumn setDataCell: [[ZoomPlugInCell alloc] init]];
 }
 
 // = The data source for the plugin table =
@@ -153,7 +153,7 @@
 
 - (void) restartZoom {
 	// Force Zoom to restart
-	NSMutableString* zoomPath = [[[[NSBundle mainBundle] bundlePath] mutableCopy] autorelease];
+	NSMutableString* zoomPath = [[[NSBundle mainBundle] bundlePath] mutableCopy];
 	
 	int x;
 	for (x=0; x<[zoomPath length]; x++) {

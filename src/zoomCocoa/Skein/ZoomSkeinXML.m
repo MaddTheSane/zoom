@@ -136,7 +136,7 @@ static NSString* xmlEncode(NSString* str) {
 	// All item fields are optional.
 	// Root item usually has the command '- start -'
 	
-	NSMutableString* result = [[[NSMutableString alloc] init] autorelease];
+	NSMutableString* result = [[NSMutableString alloc] init];
 	
 	// Write header
 	[result appendFormat: 
@@ -151,7 +151,7 @@ static NSString* xmlEncode(NSString* str) {
 	
 	while ([itemStack count] > 0) {
 		// Pop from the stack
-		ZoomSkeinItem* node = [[itemStack lastObject] retain];
+		ZoomSkeinItem* node = [itemStack lastObject];
 		[itemStack removeLastObject];
 		
 		// Push any children of this node
@@ -198,8 +198,6 @@ static NSString* xmlEncode(NSString* str) {
 		}
 		
 		[result appendString: @"  </item>\n"];
-		
-		[node release];
 	}
 	
 	// Write footer
@@ -213,7 +211,7 @@ static NSString* xmlEncode(NSString* str) {
 // Have to use expat: Apple's own XML parser is not available in Jaguar
 
 - (BOOL) parseXmlData: (NSData*) data {
-	NSAutoreleasePool* xmlAutorelease = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
 	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
 	
@@ -222,14 +220,8 @@ static NSString* xmlEncode(NSString* str) {
 		// Failed to parse
 		NSLog(@"ZoomSkein: Failed to parse skein XML data");
 		
-		[inputParser release];
-
-		[xmlAutorelease release];
 		return NO;
 	}
-	
-	// Free up the XML data when we return
-	[inputParser autorelease];
 	
 	// OK, actually process the data
 	NSDictionary* skein = [inputParser childForElement: [inputParser processedXML]
@@ -238,7 +230,6 @@ static NSString* xmlEncode(NSString* str) {
 	if (skein == nil) {
 		NSLog(@"ZoomSkein: Failed to find root 'Skein' element");
 
-		[xmlAutorelease release];
 		return NO;
 	}
 	
@@ -257,7 +248,6 @@ static NSString* xmlEncode(NSString* str) {
 	if (rootNodeId == nil) {
 		NSLog(@"ZoomSkein: No root node ID specified");
 
-		[xmlAutorelease release];
 		return NO;
 	}
 	
@@ -286,7 +276,6 @@ static NSString* xmlEncode(NSString* str) {
 		ZoomSkeinItem* newItem = [[ZoomSkeinItem alloc] initWithCommand: @"- PLACEHOLDER -"];
 		[itemDictionary setObject: newItem
 						   forKey: itemNodeId];
-		[newItem release];
 	}
 	
 	// Item dictionary II: fill in the node data
@@ -305,7 +294,6 @@ static NSString* xmlEncode(NSString* str) {
 			// Should never happen
 			// (Hahaha)
 			NSLog(@"ZoomSkein: Programmer is a spoon (item ID: %@)", itemNodeId);
-			[xmlAutorelease release];
 			return NO;
 		}
 		
@@ -360,7 +348,6 @@ static NSString* xmlEncode(NSString* str) {
 			// Should never happen
 			// (Hahaha)
 			NSLog(@"ZoomSkein: Programmer is a spoon (item ID: %@)", itemNodeId);
-			[xmlAutorelease release];
 			return NO;
 		}
 
@@ -397,23 +384,20 @@ static NSString* xmlEncode(NSString* str) {
 	ZoomSkeinItem* newRoot = [itemDictionary objectForKey: rootNodeId];
 	if (newRoot == nil) {
 		NSLog(@"ZoomSkein: No root node");
-		[xmlAutorelease release];
 		return NO;
 	}
 	
-	[rootItem release];
-	rootItem = [newRoot retain];
+	rootItem = newRoot;
 	
-	[activeItem release];
 	if (activeNode != nil)
-		activeItem = [[itemDictionary objectForKey: activeNode] retain];
+		activeItem = [itemDictionary objectForKey: activeNode];
 	else
-		activeItem = [rootItem retain];
+		activeItem = rootItem;
 	
 	[self zoomSkeinChanged];
 
-	[xmlAutorelease release];
 	return YES;
+	}
 }
 
 @end
@@ -434,13 +418,6 @@ static NSString* xmlEncode(NSString* str) {
 	return self;
 }
 
-- (void) dealloc {
-	[result release];
-	[xmlStack release];
-	
-	[super dealloc];
-}
-
 // XML processing functions
 static XMLCALL void startElement(void *userData,
 								 const XML_Char *name,
@@ -453,8 +430,8 @@ static XMLCALL void charData    (void *userData,
 
 - (BOOL) processXML: (NSData*) xml {
 	// Setup our state
-	[result release]; result = [[NSMutableDictionary alloc] init];
-	[xmlStack release]; xmlStack = [[NSMutableArray alloc] init];
+	result = [[NSMutableDictionary alloc] init];
+	xmlStack = [[NSMutableArray alloc] init];
 	
 	// Initial element on the stack
 	[xmlStack addObject: result];
@@ -466,7 +443,7 @@ static XMLCALL void charData    (void *userData,
 	
 	XML_SetElementHandler(theParser, startElement, endElement);
 	XML_SetCharacterDataHandler(theParser, charData);
-	XML_SetUserData(theParser, self);
+	XML_SetUserData(theParser, (__bridge void *)(self));
 	
 	// Perform the parsing
 	int status = XML_Parse(theParser, [xml bytes], (int)[xml length], 1);
@@ -501,7 +478,7 @@ static XMLCALL void charData    (void *userData,
 		}
 	}
 	
-	return [res autorelease];
+	return res;
 }
 
 - (NSArray*) childrenForElement: (NSDictionary*) element
@@ -522,7 +499,7 @@ static XMLCALL void charData    (void *userData,
 		}
 	}
 	
-	return [res autorelease];
+	return res;
 }
 
 - (NSDictionary*) childForElement: (NSDictionary*) element
@@ -707,7 +684,7 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 		
 		[element setObject: xmlCharData
 					forKey: xmlType];
-		[element setObject: [[makeStringLen(s, len) mutableCopy] autorelease]
+		[element setObject: [makeStringLen(s, len) mutableCopy]
 					forKey: xmlChars];
 		
 		addAsChild = YES;
@@ -729,20 +706,20 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 static XMLCALL void startElement(void *userData,
 								 const XML_Char *name,
 								 const XML_Char **atts) {
-	[(ZoomSkeinXMLInput*)userData startElement: name
-								withAttributes: atts];
+	[(__bridge ZoomSkeinXMLInput*)userData startElement: name
+										 withAttributes: atts];
 }
 
 static XMLCALL void endElement(void *userData,
 								 const XML_Char *name) {
-	[(ZoomSkeinXMLInput*)userData endElement: name];
+	[(__bridge ZoomSkeinXMLInput*)userData endElement: name];
 }
 
 static XMLCALL void charData(void *userData,
 							 const XML_Char *s,
 							 int len) {
-	[(ZoomSkeinXMLInput*)userData charData: s
-								withLength: len];
+	[(__bridge ZoomSkeinXMLInput*)userData charData: s
+										 withLength: len];
 }
 
 @end

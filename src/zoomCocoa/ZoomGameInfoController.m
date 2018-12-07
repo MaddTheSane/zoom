@@ -37,11 +37,7 @@
 }
 
 - (void) dealloc {
-	if (gameInfo) [gameInfo release];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-	[super dealloc];
 }
 
 // = Owner =
@@ -107,7 +103,6 @@ static NSString* stringOrEmpty(NSString* str) {
 	[self window]; // (Make sure the window is loaded)
 	
 	if (info == nil) {
-		if (gameInfo) [gameInfo release];
 		gameInfo = nil;
 		
 		[gameName setEnabled: NO];		[gameName setStringValue: @"No game selected"];
@@ -126,8 +121,7 @@ static NSString* stringOrEmpty(NSString* str) {
 		
 		[resourceDrop setEnabled: NO]; [chooseResourceButton setEnabled: NO];
 	} else {		
-		if (gameInfo) [gameInfo release];
-		gameInfo = [info retain];
+		gameInfo = info;
 
 		[gameName setEnabled: YES];		[gameName setStringValue: stringOrEmpty([info title])];
 		[headline setEnabled: YES];		[headline setStringValue: stringOrEmpty([info headline])];
@@ -284,10 +278,8 @@ static NSString* stringOrEmpty(NSString* str) {
 		openPanel.directoryURL = [NSURL fileURLWithPath:directory];
 	}
 	
-	[openPanel retain];
 	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
 		[self finishedChoosingResourceFile:openPanel returnCode:result contextInfo:NULL];
-		[openPanel release];
 	}];
 }
 

@@ -60,13 +60,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	[gameData release]; gameData = nil;
-	[gameFile release]; gameFile = nil;
-	
-	[super dealloc];
-}
-
 // = Getting information about what this plugin should be doing =
 
 @synthesize gameFilename=gameFile;
@@ -101,7 +94,7 @@
 
 - (ZoomStoryID*) idForStory {
 	// Generate an MD5-based ID
-	return [[[ZoomStoryID alloc] initWithData: [self gameData]] autorelease];
+	return [[ZoomStoryID alloc] initWithData: [self gameData]];
 }
 
 - (ZoomStory*) defaultMetadata {
@@ -134,7 +127,7 @@
 		
 		NSSize newSize = NSMakeSize(scaleFactor * oldSize.width, scaleFactor * oldSize.height);
 		
-		result = [[[NSImage alloc] initWithSize: newSize] autorelease];
+		result = [[NSImage alloc] initWithSize: newSize];
 		[result lockFocus];
 		[[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationHigh];
 		

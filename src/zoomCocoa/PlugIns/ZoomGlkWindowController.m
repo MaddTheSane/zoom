@@ -41,15 +41,10 @@
 	self = [super init];
 	
 	if (self) {
-		skein = [newSkein retain];
+		skein = newSkein;
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	[skein release];
-	[super dealloc];
 }
 
 - (IBAction) glkTaskHasStarted: (id) sender {
@@ -148,7 +143,7 @@
 	
 	[prefs setStyles: newStyles];
 	
-	return [prefs autorelease];
+	return prefs;
 }
 
 // = Initialisation =
@@ -173,29 +168,17 @@
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
-	[clientPath release];
-	[inputPath release];
-	[savedGamePath release];
-	[logo release];
-	[tts release];
-	[skein release];
-	[normalWindow release];
-	[fullscreenWindow release];
-	
 	if (glkView) [glkView setDelegate: nil];
-	
-	[super dealloc];
 }
 
 - (void) maybeStartView {
 	// If we're sufficiently configured to start the application, then do so
 	if (glkView && clientPath && inputPath) {
-		[tts release];
 		tts = [[ZoomTextToSpeech alloc] init];
 		[tts setSkein: skein];
 
 		[glkView setDelegate: self];
-		[glkView addOutputReceiver: [[[ZoomGlkSkeinOutputReceiver alloc] initWithSkein: skein] autorelease]];
+		[glkView addOutputReceiver: [[ZoomGlkSkeinOutputReceiver alloc] initWithSkein: skein]];
 		[glkView setPreferences: [ZoomGlkWindowController glkPreferencesFromZoomPreferences]];
 		[glkView setInputFilename: inputPath];
 		
@@ -273,8 +256,6 @@
 
 - (void) setClientPath: (NSString*) newPath {
 	// Set the client path
-	[clientPath release];
-	clientPath = nil;
 	clientPath = [newPath copy];
 	
 	// Start it if we've got enough information
@@ -283,7 +264,6 @@
 
 - (void) setSaveGame: (NSString*) path {
 	// Set the saved game path
-	[savedGamePath release];
 	savedGamePath = [path copy];
 }
 
@@ -293,8 +273,6 @@
 
 - (void) setInputFilename: (NSString*) newPath {
 	// Set the input path
-	[inputPath release];
-	inputPath = nil;
 	inputPath = [newPath copy];
 	
 	// Start it if we've got enough information
@@ -379,7 +357,7 @@
 																 attributes: msgAttributes];
 	
 	// Append this message to the log
-	[[logText textStorage] appendAttributedString: [newMsg autorelease]];
+	[[logText textStorage] appendAttributedString: newMsg];
 	
 	// Show the log drawer
 	if (status >= GlkLogWarning && (status >= GlkLogFatalError || [[ZoomPreferences globalPreferences] displayWarnings])) {
@@ -499,13 +477,13 @@
 		[NSMenu setMenuBarVisible: YES];
 		
 		// Stop being fullscreen
-		[glkView retain];
-		[glkView removeFromSuperview];
+		__strong GlkView *tmpView = glkView;
+		[tmpView removeFromSuperview];
 		
-		[glkView setScaleFactor: 1.0];
-		[glkView setFrame: [[normalWindow contentView] bounds]];
-		[[normalWindow contentView] addSubview: glkView];
-		[glkView release];
+		[tmpView setScaleFactor: 1.0];
+		[tmpView setFrame: [[normalWindow contentView] bounds]];
+		[[normalWindow contentView] addSubview: tmpView];
+		tmpView = nil;
 		
 		// Swap windows back
 		if (normalWindow) {
@@ -521,7 +499,6 @@
 			[normalWindow makeKeyAndOrderFront: self];
 			
 			[fullscreenWindow orderOut: self];
-			[fullscreenWindow release]; fullscreenWindow = nil;
  		}
 		
 		//[self setWindowFrameAutosaveName: @"ZoomClientWindow"];
@@ -531,7 +508,7 @@
 		if (!running) return;
 		
 		// As of 10.4, we need to create a separate full-screen window (10.4 tries to be 'clever' with the window borders, which messes things up
-		if (!normalWindow) normalWindow = [[self window] retain];
+		if (!normalWindow) normalWindow = [self window];
 		if (!fullscreenWindow) {
 			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
 																			 styleMask: NSBorderlessWindowMask
@@ -558,10 +535,10 @@
 						   display: NO];
 		[fullscreenWindow makeKeyAndOrderFront: self];
 		
-		[glkView retain];
-		[glkView removeFromSuperview];
-		[[fullscreenWindow contentView] addSubview: glkView];
-		[glkView release];
+		__strong GlkView *tmpView = glkView;
+		[tmpView removeFromSuperview];
+		[[fullscreenWindow contentView] addSubview: tmpView];
+		tmpView = nil;
 		
 		[normalWindow setInitialFirstResponder: nil];
 		[normalWindow setDelegate: nil];
@@ -580,8 +557,8 @@
 		// Finish off glkView
 		NSSize oldGlkViewSize = [glkView frame].size;
 		
-		[glkView retain];
-		[glkView removeFromSuperviewWithoutNeedingDisplay];
+		tmpView = glkView;
+		[tmpView removeFromSuperviewWithoutNeedingDisplay];
 		
 		// Hide the menubar
 		[NSMenu setMenuBarVisible: NO];
@@ -597,7 +574,7 @@
 							animate: YES];			
 			[normalWindow orderOut: self];
 		} else {
-			[[self window] setContentView: [[[ZoomClearView alloc] init] autorelease]];
+			[[self window] setContentView: [[ZoomClearView alloc] init]];
 			[[self window] setFrame: frame
 							display: YES
 							animate: NO];
@@ -611,12 +588,11 @@
 		newGlkViewBounds.size   = newGlkViewFrame.size;
 		
 		double ratio = newGlkViewFrame.size.width/oldGlkViewSize.width;
-		[glkView setFrame: newGlkViewFrame];
-		[glkView setScaleFactor: ratio];
+		[tmpView setFrame: newGlkViewFrame];
+		[tmpView setScaleFactor: ratio];
 		
 		// Add it back in again
-		[[[self window] contentView] addSubview: glkView];
-		[glkView release];
+		[[[self window] contentView] addSubview: tmpView];
 		
 		// Perform an animation in Leopard
 		if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
@@ -664,8 +640,7 @@
 	}
 	
 	// Remember the handler
-	[promptHandler release];
-	promptHandler = [handler retain];
+	promptHandler = handler;
 	
 	// Create the prompt window
 	if (writing) {
@@ -675,18 +650,16 @@
 		panel.allowedFileTypes = @[@"glksave"];
 		if (preferredDirectory != nil) [panel setDirectoryURL:[NSURL fileURLWithPath:preferredDirectory]];
 		
-		[panel retain];
 		[panel beginSheetModalForWindow: [self window] completionHandler: ^(NSModalResponse result) {
 			[self panelDidEnd:panel returnCode:result contextInfo:nil];
-			[panel release];
 		}];
 		
-		[lastPanel release]; lastPanel = [panel retain];		
+		lastPanel = panel;
 	} else {
 		// Create an open dialog
 		NSOpenPanel* panel = [NSOpenPanel openPanel];
 		
-		NSMutableArray* allowedFiletypes = [[[glkView fileTypesForUsage: usage] mutableCopy] autorelease];
+		NSMutableArray* allowedFiletypes = [[glkView fileTypesForUsage: usage] mutableCopy];
 		[allowedFiletypes insertObject: @"glksave"
 							   atIndex: 0];
 		
@@ -694,13 +667,11 @@
 		
 		[panel setAllowedFileTypes: allowedFiletypes];
 		
-		[panel retain];
 		[panel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
 			[self panelDidEnd:panel returnCode:result contextInfo:nil];
-			[panel release];
 		}];
 
-		[lastPanel release]; lastPanel = [panel retain];
+		lastPanel = panel;
 	}
 	
 	return YES;
@@ -718,11 +689,9 @@
 																		path: [[panel URL] path]];
 			[saveRef setSkein: skein];
 			[promptHandler promptedFileRef: saveRef];
-			[saveRef autorelease];
 		} else {
 			GlkFileRef* promptRef = [[GlkFileRef alloc] initWithPath: [panel URL]];
 			[promptHandler promptedFileRef: promptRef];
-			[promptRef release];
 		}
 		
 		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
@@ -734,8 +703,8 @@
 		[promptHandler promptCancelled];
 	}
 	
-	[promptHandler release]; promptHandler = nil;
-	[lastPanel release]; lastPanel = nil;
+	promptHandler = nil;
+	lastPanel = nil;
 }
 
 // = Speech commands =

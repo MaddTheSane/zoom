@@ -20,7 +20,6 @@
 	// No information available if there's no plist for this bundle
 	if (plist == nil) {
 		self = [super init];
-		[self release];
 		return nil;
 	}
 	
@@ -28,14 +27,12 @@
 	
 	if (self) {
 		// Get the information out of the plist
-		[image release]; image = nil;
+		image = nil;
 		image				= [[plist objectForKey: @"ZoomPlugin"] objectForKey: @"Image"];		
 		
 		if (image != nil) {
 			image = [[bundle stringByAppendingPathComponent: image] stringByStandardizingPath];
 		}
-		
-		[image retain];
 		
 		// Work out the status (installed or downloaded as we're working from a path)
 		NSString* standardPath = [bundle stringByStandardizingPath];
@@ -51,8 +48,7 @@
 			status = ZoomPlugInDownloaded;
 		}
 		
-		[location release]; location = nil;
-		location = [[NSURL fileURLWithPath: bundle] copy];
+		location = [NSURL fileURLWithPath: bundle];
 	}
 	
 	return self;
@@ -71,16 +67,15 @@ static unsigned int ValueForHexChar(int hex) {
 	if (self) {
 		// No information available if there's no plist for this bundle
 		if (plist == nil) {
-			[self release];
 			return nil;
 		}
 		
 		// Get the information out of the plist
-		name				= [[plist objectForKey: @"DisplayName"] retain];
-		author				= [[plist objectForKey: @"Author"] retain];
-		interpreterAuthor	= [[plist objectForKey: @"InterpreterAuthor"] retain];
-		interpreterVersion	= [[plist objectForKey: @"InterpreterVersion"] retain];
-		version				= [[plist objectForKey: @"Version"] retain];
+		name				= [plist objectForKey: @"DisplayName"];
+		author				= [plist objectForKey: @"Author"];
+		interpreterAuthor	= [plist objectForKey: @"InterpreterAuthor"];
+		interpreterVersion	= [plist objectForKey: @"InterpreterVersion"];
+		version				= [plist objectForKey: @"Version"];
 		image				= nil;		
 		status				= ZoomPlugInNotKnown;
 		
@@ -93,7 +88,7 @@ static unsigned int ValueForHexChar(int hex) {
 		
 		if ([md5raw isKindOfClass: [NSData class]]) {
 			// Just use data values directly
-			md5 = [md5raw retain];
+			md5 = [md5raw copy];
 		} else if ([md5raw isKindOfClass: [NSString class]]) {
 			// Build a digest from string values
 			unsigned char digest[16];
@@ -118,42 +113,23 @@ static unsigned int ValueForHexChar(int hex) {
 		
 		// Check the plist entries
 		if (name == nil) {
-			[self release];
 			return nil;
 		}
 		if (author == nil) {
 			if (interpreterAuthor == nil) {
-				[self release];
 				return nil;
 			}
-			author = [interpreterAuthor retain];
+			author = interpreterAuthor;
 		}
 		if (interpreterAuthor == nil) {
-			interpreterAuthor = [author retain];
+			interpreterAuthor = author;
 		}
 		if (version == nil || interpreterVersion == nil) {
-			[self release];
 			return nil;
 		}
 	}
 	
 	return self;	
-}
-
-- (void) dealloc {
-	[name release];
-	[author release];
-	[interpreterVersion release];
-	[interpreterAuthor release];
-	[version release];
-	[image release];
-	[location release];
-	[updated release];
-	[updateDownload release];
-	[md5 release];
-	[updateUrl release];
-	
-	[super dealloc];
 }
 
 // = Copying =
@@ -178,70 +154,22 @@ static unsigned int ValueForHexChar(int hex) {
 
 // = Retrieving the information =
 
-- (NSString*) name {
-	return name;
-}
-
-- (NSString*) author {
-	return author;
-}
-
-- (NSString*) version {
-	return version;
-}
-
-- (NSString*) interpreterAuthor {
-	return interpreterAuthor;
-}
-
-- (NSString*) interpreterVersion {
-	return interpreterVersion;
-}
-
-- (NSString*) imagePath {
-	return image;
-}
-
-- (ZoomPlugInStatus) status {
-	return status;
-}
-
-- (void) setStatus: (ZoomPlugInStatus) newStatus {
-	status = newStatus;
-}
+@synthesize name;
+@synthesize author;
+@synthesize version;
+@synthesize interpreterAuthor;
+@synthesize interpreterVersion;
+@synthesize imagePath;
+@synthesize status;
 
 - (NSString*) description {
 	return [NSString stringWithFormat: @"Plug in: %@, version %@", [self name], [self version]];
 }
 
-- (NSURL*) location {
-	return location;
-}
-
-- (ZoomPlugInInfo*) updateInfo {
-	return updated;
-}
-
-- (void) setUpdateInfo: (ZoomPlugInInfo*) info {
-	[updated release];
-	updated = [info copy];
-}
-
-- (ZoomDownload*) download {
-	return updateDownload;
-}
-
-- (void) setDownload: (ZoomDownload*) download {
-	[updateDownload release];
-	updateDownload = [download retain];
-}
-
-- (NSData*) md5 {
-	return md5;
-}
-
-- (NSURL*) updateUrl {
-	return updateUrl;
-}
+@synthesize location;
+@synthesize updateInfo=updated;
+@synthesize download=updateDownload;
+@synthesize md5;
+@synthesize updateUrl;
 
 @end

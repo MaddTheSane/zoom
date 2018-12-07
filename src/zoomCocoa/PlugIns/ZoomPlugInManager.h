@@ -20,7 +20,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;	// Not
 //
 @interface ZoomPlugInManager : NSObject<ZoomDownloadDelegate> {
 	NSLock* pluginLock;										// The plugin lock
-	id<ZoomPlugInManagerDelegate> delegate;					// The delegate for this class
+	__weak id<ZoomPlugInManagerDelegate> delegate;					// The delegate for this class
 	
 	NSMutableArray<NSBundle*>* pluginBundles;				// The bundles containing the loaded plugins
 	NSMutableArray<Class>* pluginClasses;					// The ZoomPlugIn classes from the bundles
@@ -47,7 +47,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;	// Not
 + (NSString*) plugInsPath;									//!< The plug-in installation directory
 
 // Setting the delegate
-@property (assign) id<ZoomPlugInManagerDelegate> delegate;	//!< Sets a new plug-in delegate
+@property (weak) id<ZoomPlugInManagerDelegate> delegate;	//!< Sets a new plug-in delegate
 
 // Dealing with existing plugins
 - (void) loadPlugIns;										//!< Causes this class to load all of the plugins

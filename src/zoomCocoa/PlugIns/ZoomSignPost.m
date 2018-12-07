@@ -19,7 +19,6 @@
 	
 	if (self) {
 		if (![self parseData: data]) {
-			[self autorelease];
 			return nil;
 		}
 	}
@@ -29,22 +28,22 @@
 
 - (BOOL) parseData: (NSData*) data {
 	// Reset the state of this object
-	[ifids release];					ifids					= nil;
-	[interpreterDisplayName release];	interpreterDisplayName	= nil;
-	[interpreterURL release];			interpreterURL			= nil;
-	[interpreterVersion release];		interpreterVersion		= nil;
-	[pluginVersion release];			pluginVersion			= nil;
-	[downloadURL release];				downloadURL				= nil;
-	[errorMessage release];				errorMessage			= nil;
+	ifids					= nil;
+	interpreterDisplayName	= nil;
+	interpreterURL			= nil;
+	interpreterVersion		= nil;
+	pluginVersion			= nil;
+	downloadURL				= nil;
+	errorMessage			= nil;
 	
 	reparseAsPlist = NO;
 	parseError = NO;
 	
-	[pathStack release];				pathStack	= [[NSMutableArray alloc] init];
-	[cDataStack release];				cDataStack	= [[NSMutableArray alloc] init];
+	pathStack	= [[NSMutableArray alloc] init];
+	cDataStack	= [[NSMutableArray alloc] init];
 	
 	// Begin parsing
-	NSXMLParser* parser = [[[NSXMLParser alloc] initWithData: data] autorelease];
+	NSXMLParser* parser = [[NSXMLParser alloc] initWithData: data];
 	[parser setDelegate: self];
 	
 	[parser parse];
@@ -59,13 +58,7 @@
 		if (!plist) return NO;
 		if (![plist isKindOfClass: [NSDictionary class]]) return NO;
 		
-		[ifids release]; 
 		ifids = [[NSArray arrayWithObjects: [plist objectForKey: @"IFID"], nil] mutableCopy];
-		[interpreterDisplayName release];
-		[interpreterURL release];
-		[interpreterVersion release];
-		[pluginVersion release];
-		[downloadURL release];
 		interpreterDisplayName	= [[plist objectForKey: @"Interpreter"] copy];
 		interpreterURL			= [[plist objectForKey: @"InterpreterURL"] copy];
 		interpreterVersion		= [[plist objectForKey: @"InterpreterVersion"] copy];
@@ -95,7 +88,7 @@
 	
 	// Push this element on to the path stack
 	[pathStack addObject: elementName];
-	[cDataStack addObject: [[@"" mutableCopy] autorelease]];
+	[cDataStack addObject: [NSMutableString string]];
 }
 
 - (void)   parser:(NSXMLParser *)parser 
@@ -116,7 +109,7 @@
 	NSString* cData = [cDataStack lastObject];
 	
 	// Build up the path string
-	NSMutableString* pathString = [[@"" mutableCopy] autorelease];
+	NSMutableString* pathString = [NSMutableString string];
 	NSEnumerator* pathEnum = [pathStack objectEnumerator];
 	NSString* pathComponent;
 	while (pathComponent = [pathEnum nextObject]) {
@@ -124,7 +117,7 @@
 		[pathString appendString: pathComponent];
 	}
 	
-	pathString = [[[pathString lowercaseString] mutableCopy] autorelease];
+	pathString = [[pathString lowercaseString] mutableCopy];
 	
 	// Perform an action if this is a recognised path string
 	if ([pathString isEqualToString: @"/autoinstall/ifids/ifid"]) {
@@ -134,32 +127,26 @@
 		
 	} else if ([pathString isEqualToString: @"/autoinstall/download/game/href"]) {
 		
-		[downloadURL release];
 		downloadURL = [cData copy];
 		
 	} else if ([pathString isEqualToString: @"/autoinstall/download/game/format/interpreter/plugin/displayname"]) {
 		
-		[interpreterDisplayName release];
 		interpreterDisplayName = [cData copy];
 		
 	} else if ([pathString isEqualToString: @"/autoinstall/download/game/format/interpreter/plugin/url"]) {
 		
-		[interpreterURL release];
 		interpreterURL = [cData copy];
 		
 	} else if ([pathString isEqualToString: @"/autoinstall/download/game/format/interpreter/plugin/interpreterversion"]) {
 		
-		[interpreterVersion release];
 		interpreterVersion = [cData copy];
 		
 	} else if ([pathString isEqualToString: @"/autoinstall/download/game/format/interpreter/plugin/version"]) {
 		
-		[pluginVersion release];
 		pluginVersion = [cData copy];
 		
 	} else if ([pathString isEqualToString: @"/autoinstall/error/message"]) {
 		
-		[errorMessage release];
 		errorMessage = [cData copy];
 		
 	}
@@ -187,31 +174,22 @@
 	return result;
 }
 
-- (NSString*) interpreterDisplayName {
-	return interpreterDisplayName;
-}
+@synthesize interpreterDisplayName;
 
 - (NSURL*) interpreterURL {
 	if (!interpreterURL) return nil;
 	return [NSURL URLWithString: interpreterURL];
 }
 
-- (NSString*) interpreterVersion {
-	return interpreterVersion;
-}
-
-- (NSString*) pluginVersion {
-	return pluginVersion;
-}
+@synthesize interpreterVersion;
+@synthesize pluginVersion;
 
 - (NSURL*) downloadURL {
 	if (!downloadURL) return nil;
 	return [NSURL URLWithString: downloadURL];
 }
 
-- (NSString*) errorMessage {
-	return errorMessage;
-}
+@synthesize errorMessage;
 
 // = Serializing =
 

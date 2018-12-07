@@ -22,7 +22,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 	BOOL res = [self zfileIsBlorb: fl];
 	
 	[fl close];
-	[fl release];
 	
 	return res;
 }
@@ -32,7 +31,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 	
 	BOOL res = [self zfileIsBlorb: fl];
 	[fl close];
-	[fl release];
 
 	return res;
 }
@@ -52,8 +50,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 	
 	if (![fl parseResourceIndex]) res = NO;
 	
-	[fl release];
-	
 	return res;
 }
 
@@ -64,29 +60,25 @@ static unsigned int Int4(const unsigned char* bytes) {
 	
 	if (self) {
 		if (f == nil) {
-			[self release];
 			return nil;
 		}
 		
-		file = [f retain];
+		file = f;
 		
 		// Attempt to read the file
 		[file seekTo: 0];
 		NSData* header = [file readBlock: 12];
 		
 		if (header == nil) {
-			[self release];
 			return nil;
 		}
 		
 		if ([header length] != 12) {
-			[self release];
 			return nil;
 		}
 		
 		// File must begin with 'FORM'
 		if (memcmp([header bytes], "FORM", 4) != 0) {
-			[self release];
 			return nil;
 		}
 		
@@ -100,7 +92,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 		formLength = (lBytes[0]<<24)|(lBytes[1]<<16)|(lBytes[2]<<8)|(lBytes[3]<<0);
 		
 		if (formLength + 8 > (unsigned)[file fileSize]) {
-			[self release];
 			return nil;
 		}
 		
@@ -116,7 +107,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 			NSData* blockHeader = [file readBlock: 8];
 			
 			if (blockHeader == nil || [blockHeader length] != 8) {
-				[self release];
 				return nil;
 			}
 			
@@ -142,7 +132,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 				[typesToBlocks setObject: typeBlocks
 								  forKey: blockID];
 			}
-			[blockID release];
 			[typeBlocks addObject: block];
 			
 			[locationsToBlocks setObject: block
@@ -158,32 +147,18 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 - (id) initWithData: (NSData*) blorbFile {
-	return [self initWithZFile: [[[ZDataFile alloc] initWithData: blorbFile] autorelease]];
+	return [self initWithZFile: [[ZDataFile alloc] initWithData: blorbFile]];
 }
 
 - (id) initWithContentsOfFile: (NSString*) filename {
-	return [self initWithZFile: [[[ZHandleFile alloc] initWithFileHandle:
-		[NSFileHandle fileHandleForReadingAtPath: filename]] autorelease]];
+	return [self initWithZFile: [[ZHandleFile alloc] initWithFileHandle:
+								 [NSFileHandle fileHandleForReadingAtPath: filename]]];
 }
 
 - (void) dealloc {
 	if (file) {
 		[file close];
-		[file release];
 	}
-	
-	if (formID) [formID release];
-	
-	if (iffBlocks) [iffBlocks release];
-	if (typesToBlocks) [typesToBlocks release];
-	if (locationsToBlocks) [locationsToBlocks release];
-	
-	if (resourceIndex)  [resourceIndex release];
-	if (resolution)		[resolution release];
-	if (adaptiveImages) [adaptiveImages release];
-	if (activePalette)  [activePalette release];
-	
-	[super dealloc];
 }
 
 // = Generic IFF data =
@@ -213,7 +188,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 
 - (BOOL) parseResourceIndex {
 	if (resourceIndex) {
-		[resourceIndex release];
 		resourceIndex = nil;
 	}
 
@@ -232,7 +206,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	for (pos = 4; pos+12 <= [resourceChunk length]; pos += 12) {
 		// Read the chunk
 		NSData *usageDat = [resourceChunk subdataWithRange:NSMakeRange(pos, 4)];
-		NSString* usage = [[[NSString alloc] initWithData:usageDat encoding:NSMacOSRomanStringEncoding] autorelease];
+		NSString* usage = [[NSString alloc] initWithData:usageDat encoding:NSMacOSRomanStringEncoding];
 		NSNumber* num = [NSNumber numberWithUnsignedInt: (data[pos+4]<<24)|(data[pos+5]<<16)|(data[pos+6]<<8)|(data[pos+7])];
 		NSNumber* start = [NSNumber numberWithUnsignedInt: (data[pos+8]<<24)|(data[pos+9]<<16)|(data[pos+10]<<8)|(data[pos+11])];
 		
@@ -392,7 +366,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		 withPalette: (NSData*) newPalette {
 	if (newPalette == nil) return png;
 	
-	NSMutableData* newPng = [[png mutableCopy] autorelease];
+	NSMutableData* newPng = [png mutableCopy];
 
 	const unsigned char* data = [newPng bytes];
 	NSUInteger length = [newPng length];
@@ -432,8 +406,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		if (![activePalette isEqualToData: palette]) {
 			NSLog(@"Palette shift");
 			
-			[activePalette release];
-			activePalette = [palette retain];
+			activePalette = palette;
 			
 			[self removeAdaptiveImagesFromCache];
 		}
@@ -626,7 +599,7 @@ static const int cacheUpperLimit = 64;
 	NSImage* res = nil;
 	
 	// Retrieve the image from the cache if possible
-	res = [[[self cachedImageWithNumber: num] retain] autorelease];
+	res = [self cachedImageWithNumber: num];
 	if (res != nil) {
 		[self usedImageInCache: num];
 		return res;
@@ -649,7 +622,7 @@ static const int cacheUpperLimit = 64;
 		}
 		
 		NSLog(@"Warning: drawing Rect image");
-		res = [[[NSImage alloc] initWithSize: NSMakeSize(width, height)] autorelease];
+		res = [[NSImage alloc] initWithSize: NSMakeSize(width, height)];
 	} else if ([type isEqualToString: @"PNG "]) {
 		// PNG file
 		NSData* pngData = [self dataForChunk: imageBlock];
@@ -665,14 +638,14 @@ static const int cacheUpperLimit = 64;
 			}
 		}
 		
-		res = [[[NSImage alloc] initWithData: pngData] autorelease];
+		res = [[NSImage alloc] initWithData: pngData];
 	} else if ([type isEqualToString: @"JPEG"]) {
 		// JPEG file (no patent worries here, really)
-		res = [[[NSImage alloc] initWithData: [self dataForChunk: imageBlock]] autorelease];
+		res = [[NSImage alloc] initWithData: [self dataForChunk: imageBlock]];
 	} else {
 		// Could be anything
 		NSLog(@"WARNING: Unknown image chunk type: %@", type);
-		res = [[[NSImage alloc] initWithData: [self dataForChunk: imageBlock]] autorelease];
+		res = [[NSImage alloc] initWithData: [self dataForChunk: imageBlock]];
 	}
 	
 	// Cache the image

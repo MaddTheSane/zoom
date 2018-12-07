@@ -25,9 +25,8 @@ extern NSNotificationName const ZoomSkeinChangedNotification;
 }
 
 // Retrieving the root skein item
-- (ZoomSkeinItem*) rootItem;
-- (ZoomSkeinItem*) activeItem;
-- (void) setActiveItem: (ZoomSkeinItem*) active;
+@property (readonly, strong) ZoomSkeinItem *rootItem;
+@property (strong) ZoomSkeinItem *activeItem;
 
 // Acting as a Zoom output receiver
 - (void) inputCommand:   (NSString*) command;

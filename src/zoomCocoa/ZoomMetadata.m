@@ -77,11 +77,6 @@ NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 
 - (void) dealloc {
 	IFMB_Free(metadata);
-	[dataLock release];
-	
-	if (filename) [filename release];
-	
-	[super dealloc];
 }
 
 // = Locking =
@@ -115,7 +110,7 @@ NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 												 metadata: self];
 		
 		[dataLock unlock];
-		return [res autorelease];
+		return res;
 	} else {
 		[dataLock unlock];
 		return nil;
@@ -132,7 +127,6 @@ NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 													metadata: self];
 		
 		[res addObject: zStory];
-		[zStory release];
 	}
 	IFMB_FreeStoryIterator(iter);
 	
@@ -173,7 +167,7 @@ NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 // = Saving the file =
 
 static int dataWrite(const char* bytes, int length, void* userData) {
-	NSMutableData* data = userData;
+	NSMutableData* data = (__bridge NSMutableData *)(userData);
 	[data appendBytes: bytes
 			   length: length];
 	return 0;
@@ -183,10 +177,10 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 	[dataLock lock];
 	NSMutableData* res = [[NSMutableData alloc] init];
 	
-	IF_WriteIfiction(metadata, dataWrite, res);
+	IF_WriteIfiction(metadata, dataWrite, (__bridge void *)(res));
 	
 	[dataLock unlock];
-	return [res autorelease];
+	return res;
 }
 
 - (BOOL) writeToFile: (NSString*)path

@@ -79,19 +79,16 @@ Boolean GetMetadataForFile(void *thisInterface,
 			   CFStringRef contentTypeUTI,
 			   CFStringRef pathToFile)
 {
+	@autoreleasepool {
+		NSMutableDictionary *nsAttribs = (__bridge NSMutableDictionary *)(attributes);
 	/* Pull any available metadata from the file at the specified path */
 	/* Return the attribute keys and attribute values in the dict */
 	/* Return TRUE if successful, FALSE if there was no data provided */
 
     Boolean success = NO;
 
-    NSAutoreleasePool * pool;
-
-	// Don't assume that there is an autorelease pool around the calling of this function.
-    pool = [[NSAutoreleasePool alloc] init];
-
 	// Get the story from the metadata database
-	ZoomStoryID * story_id = [[ZoomStoryID alloc] initWithZCodeFile:(NSString*)pathToFile];
+	ZoomStoryID * story_id = [[ZoomStoryID alloc] initWithZCodeFile:(__bridge NSString*)pathToFile];
 	ZoomStory * story = FindStory( story_id );
 
 //	NSLog( @"story_id = 0x%08lx story = 0x%08lx path = %@\n", story_id, story, pathToFile );
@@ -105,7 +102,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * title = [story title];
 	if( title )
 	{
-		[(NSMutableDictionary *)attributes setObject:title forKey:(NSString *)kMDItemTitle];
+		[nsAttribs setObject:title forKey:(NSString *)kMDItemTitle];
 	}
 
 	//
@@ -115,7 +112,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * headline = [story headline];
 	if( headline )
 	{
-		[(NSMutableDictionary *)attributes setObject:headline forKey:(NSString *)kMDItemHeadline];
+		[nsAttribs setObject:headline forKey:(NSString *)kMDItemHeadline];
 	}
 	
 	//
@@ -125,7 +122,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * author = [story author];
 	if( author )
 	{
-		[(NSMutableDictionary *)attributes setObject:[NSArray arrayWithObject:author] forKey:(NSString *)kMDItemAuthors];
+		[nsAttribs setObject:[NSArray arrayWithObject:author] forKey:(NSString *)kMDItemAuthors];
 	}
 
 	//
@@ -135,7 +132,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * genre = [story genre];
 	if( genre )
 	{
-		[(NSMutableDictionary *)attributes setObject:genre forKey:(NSString *)@"public_zcode_genre"];
+		[nsAttribs setObject:genre forKey:@"public_zcode_genre"];
 	}
 
 	//
@@ -147,7 +144,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	if( year )
 	{
 		NSNumber * year_object = @(year);
-		[(NSMutableDictionary *)attributes setObject:year_object forKey:(NSString *)@"public_zcode_year"];
+		[nsAttribs setObject:year_object forKey:@"public_zcode_year"];
 	}
 	
 	//
@@ -157,7 +154,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * group = [story group];
 	if( group )
 	{
-		[(NSMutableDictionary *)attributes setObject:group forKey:(NSString *)@"public_zcode_group"];
+		[nsAttribs setObject:group forKey:(NSString *)@"public_zcode_group"];
 	}
 
 	//
@@ -169,7 +166,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	switch( zarfian ) 
 	{
 		case IFMD_Merciful: 
-			zarf_string = @"Merciful\n"; 
+			zarf_string = @"Merciful";
 			break;
 			
 		case IFMD_Polite: 
@@ -195,7 +192,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	
 	if( zarf_string )
 	{
-		[(NSMutableDictionary *)attributes setObject:zarf_string forKey:(NSString *)@"public_zcode_cruelty"];
+		[nsAttribs setObject:zarf_string forKey:@"public_zcode_cruelty"];
 	}
 
 	//
@@ -205,7 +202,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * teaser = [story teaser];
 	if( teaser )
 	{
-		[(NSMutableDictionary *)attributes setObject:teaser forKey:(NSString *)@"public_zcode_teaser"];
+		[nsAttribs setObject:teaser forKey:@"public_zcode_teaser"];
 	}
 
 	//
@@ -215,7 +212,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * comment = [story comment];
 	if( comment )
 	{
-		[(NSMutableDictionary *)attributes setObject:comment forKey:(NSString *)kMDItemComment];
+		[nsAttribs setObject:comment forKey:(NSString *)kMDItemComment];
 	}
 
 	//
@@ -226,7 +223,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	if( rating != -1.0 )
 	{
 		NSNumber * rating_object = @(rating);
-		[(NSMutableDictionary *)attributes setObject:rating_object forKey:(NSString *)kMDItemStarRating];
+		[nsAttribs setObject:rating_object forKey:(NSString *)kMDItemStarRating];
 	}
 
 	//
@@ -238,17 +235,14 @@ Boolean GetMetadataForFile(void *thisInterface,
 							@"Adventure Games", @"Text Game", @"Text Games", @"Game", @"Games", nil];	
 	if( keywords )
 	{
-		[(NSMutableDictionary *)attributes setObject:keywords forKey:(NSString *)kMDItemKeywords];
+		[nsAttribs setObject:keywords forKey:(NSString *)kMDItemKeywords];
 	}
-		
-	[story_id release];
 	
 	// return YES so that the attributes are imported
 	success=YES;
-	
-    [pool release];
-    
+		
 	return success;
+	}
 }
 
 // FindStory
@@ -300,21 +294,21 @@ NSArray * GetGameIndices( void )
 		
 		if( userData ) 
 		{
-			[game_indices addObject:[[[ZoomMetadata alloc] initWithData:userData] autorelease]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData:userData]];
 		}
 		else
 		{
-			[game_indices addObject:[[[ZoomMetadata alloc] init] autorelease]];
+			[game_indices addObject:[[ZoomMetadata alloc] init]];
 		}
 		
 		if( infocomData ) 
 		{
-			[game_indices addObject:[[[ZoomMetadata alloc] initWithData: infocomData] autorelease]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData: infocomData]];
 		}
 		
 		if( archiveData ) 
 		{
-			[game_indices addObject:[[[ZoomMetadata alloc] initWithData: archiveData] autorelease]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData: archiveData]];
 		}
 	}
 	

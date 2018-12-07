@@ -42,7 +42,7 @@
 		|| [extension isEqualToString: @"blb"]
 		|| [extension isEqualToString: @"zlb"]
 		|| [extension isEqualToString: @"zblorb"]) {
-		result = [[[ZoomStoryID alloc] initWithZCodeFile: filename] autorelease];
+		result = [[ZoomStoryID alloc] initWithZCodeFile: filename];
 	}	
 	
 	return result;
@@ -68,7 +68,6 @@
 		
 		if ([gameData length] < 64) {
 			// Too little data for this to be a Z-Code file
-			[self release];
 			return nil;
 		}
 
@@ -79,29 +78,24 @@
 			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithData: gameData];
 			
 			if (blorbFile == nil) {
-				[self release];
 				return nil;
 			}
 			
 			// See if we can get the ZCOD chunk
 			NSData* data = [blorbFile dataForChunkWithType: @"ZCOD"];
 			if (data == nil) {
-				[blorbFile release];
-				[self release];
 				return nil;
 			}
 			
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
-				[blorbFile release];
-				[self release];
 				return nil;
 			}
 			
 			// Change to using the blorb data instead
-			bytes = [[[data retain] autorelease] bytes];
+			bytes = [data bytes];
 			length = [data length];
-			[blorbFile release];
+			blorbFile=nil;
 		}
 		
 		// Interpret the Z-Code data into an identification
@@ -159,7 +153,6 @@
 			}
 		}
 		if (ident == nil) {
-			[self release];
 			return nil;
 		}
 	}
@@ -180,7 +173,6 @@
 		
 		if ([data length] < 64) {
 			// This file is too short to be a Z-Code file
-			[self release];
 			return nil;
 		}
 		
@@ -194,34 +186,27 @@
 			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: zcodeFile];
 			
 			if (blorbFile == nil) {
-				[self release];
 				return nil;
 			}
 			
 			// See if we can get the ZCOD chunk
 			data = [blorbFile dataForChunkWithType: @"ZCOD"];
 			if (data == nil) {
-				[blorbFile release];
-				[self release];
 				return nil;
 			}
 			
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
-				[blorbFile release];
-				[self release];
 				return nil;
 			}
 			
 			// Change to using the blorb data instead
-			bytes = [[[data retain] autorelease] bytes];
+			bytes = [data bytes];
 			length = [data length];
-			[blorbFile release];
 		}
 		
 		if (bytes[0] > 8) {
 			// This cannot be a Z-Code file
-			[self release];
 			return nil;
 		}
 		
@@ -281,7 +266,6 @@
 		}
 		
 		if (ident == nil) {
-			[self release];
 			return nil;
 		}
 	}
@@ -298,12 +282,11 @@
 		NSInteger length;
 		
 		NSFileHandle* fh = [NSFileHandle fileHandleForReadingAtPath: glulxFile];
-		NSData* data = [[[fh readDataOfLength: 64] retain] autorelease];
+		NSData* data = [fh readDataOfLength: 64];
 		[fh closeFile];
 		
 		if ([data length] < 64) {
 			// This file is too short to be a Glulx file
-			[self release];
 			return nil;
 		}
 		
@@ -317,40 +300,32 @@
 			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: glulxFile];
 			
 			if (blorbFile == nil) {
-				[self release];
 				return nil;
 			}
 			
 			// See if we can get the ZCOD chunk
 			data = [blorbFile dataForChunkWithType: @"GLUL"];
 			if (data == nil) {
-				[blorbFile release];
-				[self release];
 				return nil;
 			}
 			
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
-				[blorbFile release];
-				[self release];
 				return nil;
 			}
 			
 			// Change to using the blorb data instead
-			bytes = [[[data retain] autorelease] bytes];
+			bytes = [data bytes];
 			length = [data length];
-			[blorbFile release];
 		} else if (bytes[0] == 'G' && bytes[1] == 'l' && bytes[2] == 'u' && bytes[3] == 'l') {
 			data = [NSData dataWithContentsOfFile: glulxFile];
 			bytes = [data bytes];
 			
 			if ([data length] < 64) {
-				[self release];
 				return nil;
 			}
 		} else {
 			// Not a Glulx file
-			[self release];
 			return nil;
 		}
 		
@@ -421,7 +396,6 @@
 			needsFreeing = YES;
 		}
 		if (ident == nil) {
-			[self release];
 			return nil;
 		}
 	}
@@ -456,7 +430,6 @@
 			
 		free(result);
 		if (ident == nil) {
-			[self release];
 			return nil;
 		}
 
@@ -474,7 +447,6 @@
 	self = [super init];
 	
 	if (idt == nil) {
-		[self release];
 		return nil;
 	}
 	
@@ -483,7 +455,6 @@
 		needsFreeing = YES;
 		
 		if (ident == nil) {
-			[self release];
 			return nil;
 		}
 	}
@@ -508,8 +479,6 @@
 	if (needsFreeing && ident != NULL) {
 		IFMB_FreeId(ident);
 	}
-	
-	[super dealloc];
 }
 
 - (struct IFID*) ident {
@@ -631,14 +600,12 @@ typedef unsigned char IFMDByte;
 			needsFreeing = YES;
 		} else {
 			// Only v1 and v2 decodes supported ATM
-			[self release];
 			
 			NSLog(@"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2)", version);
 			
 			return nil;
 		}
 		if (ident == nil) {
-			[self release];
 			return nil;
 		}
 	}

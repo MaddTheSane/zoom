@@ -23,7 +23,7 @@ NSString*const ZoomSIOldParent = @"ZoomSIOldParent";
 NSString*const ZoomSIChild = @"ZoomSIChild";
 
 @interface ZoomSkeinItem ()
-@property (readwrite, assign) ZoomSkeinItem* parent;
+@property (readwrite, weak) ZoomSkeinItem* parent;
 @end
 
 @implementation ZoomSkeinItem
@@ -64,7 +64,7 @@ static NSString* convertCommand(NSString* command) {
 }
 
 + (ZoomSkeinItem*) skeinItemWithCommand: (NSString*) com {
-	return [[[[self class] alloc] initWithCommand: com] autorelease];
+	return [[[self class] alloc] initWithCommand: com];
 }
 
 - (id) initWithCommand: (NSString*) com {
@@ -106,15 +106,8 @@ static NSString* convertCommand(NSString* command) {
 	// Luke, I am your father
 	[childrenToDestroy makeObjectsPerformSelector: @selector(removeFromParent)];
 	
-	// Then just release everything
-	[children release];
-
-	if (command)	[command release];
-	if (result)		[result release];
-	if (annotation) [annotation release];
-	
 	// NOOOOOOO
-	[super dealloc];
+	//[super dealloc];
 }
 
 // **** Notification convienience functions ****
@@ -210,7 +203,6 @@ static NSString* convertCommand(NSString* command) {
 		
 		return oldChild;
 	} else {
-		[[childItem retain] autorelease];
 		[childItem removeFromParent];
 		
 		// Otherwise, just add the new item
@@ -227,8 +219,6 @@ static NSString* convertCommand(NSString* command) {
 - (void) removeChild: (ZoomSkeinItem*) childItem {
 	if ([childItem parent] != self) return;
 
-	[[childItem retain] autorelease];
-	
 	[childItem setParent: nil];
 	[children removeObject: childItem];
 
@@ -274,17 +264,16 @@ static NSString* convertCommand(NSString* command) {
 // = Item data =
 
 - (NSString*) command {
-	return [[command copy] autorelease];
+	return [command copy];
 }
 
 - (NSString*) result {
-	return [[result copy] autorelease];
+	return [result copy];
 }
 
 - (void) setCommand: (NSString*) newCommand {
 	if ([newCommand isEqualToString: command]) return;			// Nothing to do
 	
-	if (command) [command release];
 	command = nil;
 	if (![newCommand isEqualToString: command]) commandSizeDidChange = YES;
 	if (newCommand) command = [convertCommand(newCommand) copy];
@@ -300,7 +289,6 @@ static NSString* convertCommand(NSString* command) {
 		return;							// Nothing else to do
 	}
 	
-	if (result) [result release];
 	result = nil;
 	if (newResult) result = [newResult copy];
 	
@@ -414,7 +402,6 @@ static int currentScore = 1;
 		annotationSizeDidChange = YES;
 	else
 		return;					// Nothing to do
-	if (annotation) [annotation release];
 	annotation = nil;
 	if (newAnnotation && ![newAnnotation isEqualToString: @""]) annotation = [newAnnotation copy];
 	
@@ -432,7 +419,6 @@ static int currentScore = 1;
 - (void) setCommentary: (NSString*) newCommentary {
 	if ([newCommentary isEqualToString: commentary]) return;				// Nothing to do
 	
-	[commentary release]; commentary = nil;
 	commentary = [newCommentary copy];
 
 	commentaryComparison = ZoomSkeinNotCompared;
@@ -445,7 +431,7 @@ static int currentScore = 1;
 }
 
 - (NSString*) stripWhitespace: (NSString*) otherString {
-	NSMutableString* res = [[otherString mutableCopy] autorelease];
+	NSMutableString* res = [otherString mutableCopy];
 	
 	// Sigh. Need perl. (stringByTrimmingCharactersInSet would have been perfect if it applied across the whole string)
 	int pos;
@@ -605,11 +591,11 @@ static int currentScore = 1;
 	self = [super init];
 	
 	if (self) {
-		children = [[decoder decodeObjectForKey: @"children"] retain];
+		children = [decoder decodeObjectForKey: @"children"];
 		
-		command = [[decoder decodeObjectForKey: @"command"] retain];
-		result = [[decoder decodeObjectForKey: @"result"] retain];
-		annotation = [[decoder decodeObjectForKey: @"annotation"] retain];
+		command = [decoder decodeObjectForKey: @"command"];
+		result = [decoder decodeObjectForKey: @"result"];
+		annotation = [decoder decodeObjectForKey: @"annotation"];
 		
 		played = [decoder decodeBoolForKey: @"played"];
 		changed = [decoder decodeBoolForKey: @"changed"];
@@ -641,10 +627,10 @@ static NSDictionary* labelTextAttributes = nil;
 
 - (NSSize) commandSize {
 	if (!itemTextAttributes) {
-		itemTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSFont systemFontOfSize: 10], NSFontAttributeName,
-			[NSColor blackColor], NSForegroundColorAttributeName,
-			nil] retain];
+		itemTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+							  [NSFont systemFontOfSize: 10], NSFontAttributeName,
+							  [NSColor blackColor], NSForegroundColorAttributeName,
+							  nil];
 	}
 	
 	if (commandSizeDidChange) {
@@ -662,11 +648,11 @@ static NSDictionary* labelTextAttributes = nil;
 
 - (NSSize) annotationSize {
 	if (!labelTextAttributes) {
-		labelTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
+		labelTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSFont systemFontOfSize: 13], NSFontAttributeName,
 			[NSColor blackColor], NSForegroundColorAttributeName,
 			//labelShadow, ZoomNSShadowAttributeName,
-			nil] retain];
+			nil];
 	}
 	
 	if (annotationSizeDidChange) {

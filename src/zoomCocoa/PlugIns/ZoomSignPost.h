@@ -32,18 +32,18 @@
 
 // = Initialising =
 
-- (id) initWithData: (NSData*) data;							//!< Parses the specified signpost data
+- (instancetype) initWithData: (NSData*) data;					//!< Parses the specified signpost data
 - (BOOL) parseData: (NSData*) data;								//!< Replaces the data stored in this signpost with the specified data
 
 // = Getting signpost data =
 
-- (NSArray<ZoomStoryID*>*) ifids;								//!< The IDs associated with this signpost
-- (NSString*) interpreterDisplayName;							//!< The display name of the interpreter (the interpreter system name)
-- (NSURL*) interpreterURL;										//!< The URL of the interpreter update page
-- (NSString*) interpreterVersion;								//!< The requested interpreter version
-- (NSString*) pluginVersion;									//!< The requested plugin version
-- (NSURL*) downloadURL;											//!< The download URL for the game
-- (NSString*) errorMessage;										//!< The error contained in this signpost (or nil)
+@property (readonly, copy) NSArray<ZoomStoryID*> *ifids;		//!< The IDs associated with this signpost
+@property (readonly, copy) NSString *interpreterDisplayName;	//!< The display name of the interpreter (the interpreter system name)
+@property (readonly, copy) NSURL *interpreterURL;				//!< The URL of the interpreter update page
+@property (readonly, copy) NSString *interpreterVersion;		//!< The requested interpreter version
+@property (readonly, copy) NSString *pluginVersion;				//!< The requested plugin version
+@property (readonly, copy) NSURL *downloadURL;					//!< The download URL for the game
+@property (readonly, copy) NSString *errorMessage;				//!< The error contained in this signpost (or nil)
 
 - (NSData*) data;												//!< Returns a serialized NSData object for this signpost (can be passed back to initWithData: to reload the signpost later)
 

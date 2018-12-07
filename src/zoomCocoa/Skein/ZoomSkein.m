@@ -26,7 +26,7 @@
 	
 	if (self) {
 		rootItem = [[ZoomSkeinItem alloc] initWithCommand: @"- start -"];		
-		activeItem = [rootItem retain];
+		activeItem = rootItem;
 		currentOutput = [[NSMutableString alloc] init];
 		
 		[rootItem setTemporary: NO];
@@ -38,28 +38,11 @@
 	return self;
 }
 
-- (void) dealloc {
-	[activeItem release];
-	[rootItem release];
-	[currentOutput release];
-	
-	if (webData) [webData release];
-	
-	[super dealloc];
-}
-
 - (ZoomSkeinItem*) rootItem {
 	return rootItem;
 }
-
-- (ZoomSkeinItem*) activeItem {
-	return activeItem;
-}
-
-- (void) setActiveItem: (ZoomSkeinItem*) active {
-	[activeItem release];
-	activeItem = [active retain];
-}
+@synthesize rootItem;
+@synthesize activeItem;
 
 // = Notifications =
 
@@ -77,15 +60,13 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	ZoomSkeinItem* newItem = [activeItem addChild: [ZoomSkeinItem skeinItemWithCommand: command]];
 	
 	// Move the 'active' item
-	[activeItem release];
-	activeItem = [newItem retain];
+	activeItem = newItem;
 	
 	// Some values for this item
 	[activeItem setPlayed: YES];
 	[activeItem increaseTemporaryScore];
 	
 	// Create a buffer for any new output
-	if (currentOutput) [currentOutput release];
 	currentOutput = [[NSMutableString alloc] init];
 	
 	// Notify anyone who's watching that we've updated
@@ -134,7 +115,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 									withString: [NSString stringWithCharacters: &key
 																		length: 1]];
 		
-		character = [newCharacter autorelease];
+		character = newCharacter;
 	}
 	
 	
@@ -155,7 +136,6 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	if ([currentOutput length] > 0) {
 		[activeItem setResult: currentOutput];
 
-		[currentOutput release];
 		currentOutput = [[NSMutableString alloc] init];
 	}
 }
@@ -164,8 +144,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	[self zoomWaitingForInput];
 	
 	// Back to the top
-	[activeItem release];
-	activeItem = [rootItem retain];
+	activeItem = rootItem;
 	
 	[self zoomSkeinChanged];
 	
@@ -197,7 +176,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	ZoomSkeinInputSource* source = [[ZoomSkeinInputSource alloc] init];
 	
 	[source setCommandStack: commandsToExecute];
-	return [source autorelease];
+	return source;
 }
 
 - (id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
@@ -250,7 +229,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	
 	while ([itemStack count] > 0) {
 		// Pop the latest item from the stack
-		ZoomSkeinItem* item = [[itemStack lastObject] retain];
+		ZoomSkeinItem* item = [itemStack lastObject];
 		[itemStack removeLastObject];
 
 		// Remove this item if necessary
@@ -262,7 +241,6 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 				[itemStack addObject: child];
 			}
 		}
-		[item release];
 	}
 }
 
@@ -296,7 +274,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 
 - (NSMenu*) populateMenuWithAction: (SEL) action
 							target: (id) target {
-	NSMenu* result = [[[NSMenu alloc] init] autorelease];
+	NSMenu* result = [[NSMenu alloc] init];
 	
 	NSArray* items = [self annotations];
 	NSEnumerator* itemEnum = [items objectEnumerator];
@@ -309,7 +287,6 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		[newItem setTarget: target];
 		
 		[result addItem: newItem];
-		[newItem release];
 	}
 	
 	return result;
@@ -381,7 +358,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		}
 	}
 	
-	return [result autorelease];
+	return result;
 }
 
 - (NSString*) recordingToPoint: (ZoomSkeinItem*) item {
@@ -408,7 +385,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		}
 	}
 	
-	return [result autorelease];
+	return result;
 }
 
 @end
@@ -427,22 +404,16 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	return self;
 }
 
-- (void) dealloc {
-	[commandStack release];
-	[super dealloc];
-}
-
 - (void) setCommandStack: (NSMutableArray*) stack {
-	[commandStack release];
-	commandStack = [stack retain];
+	commandStack = stack;
 }
 
 - (NSString*) nextCommand {
 	if ([commandStack count] <= 0) return nil;
 	
-	NSString* nextCommand = [[commandStack lastObject] retain];
+	NSString* nextCommand = [commandStack lastObject];
 	[commandStack removeLastObject];
-	return [nextCommand autorelease];
+	return nextCommand;
 }
 
 - (BOOL) disableMorePrompt {
