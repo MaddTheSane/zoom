@@ -263,13 +263,8 @@ static NSString* convertCommand(NSString* command) {
 
 // = Item data =
 
-- (NSString*) command {
-	return [command copy];
-}
-
-- (NSString*) result {
-	return [result copy];
-}
+@synthesize command;
+@synthesize result;
 
 - (void) setCommand: (NSString*) newCommand {
 	if ([newCommand isEqualToString: command]) return;			// Nothing to do
@@ -299,21 +294,10 @@ static NSString* convertCommand(NSString* command) {
 
 // = Item state =
 
-- (BOOL) temporary {
-	return temporary;
-}
-
-- (int)  temporaryScore {
-	return tempScore;
-}
-
-- (BOOL) played {
-	return played;
-}
-
-- (BOOL) changed {
-	return changed;
-}
+@synthesize temporary;
+@synthesize temporaryScore=tempScore;
+@synthesize played;
+@synthesize changed;
 
 - (void) setTemporary: (BOOL) isTemporary {
 	temporary = isTemporary;
@@ -362,10 +346,6 @@ static int currentScore = 1;
 
 - (void) zoomSetTemporaryScore {
 	tempScore = currentScore;
-}
-
-- (void) setTemporaryScore: (int) score {
-	tempScore = score;
 }
 
 - (void) increaseTemporaryScore {

@@ -27,7 +27,7 @@
 	self = [super init];
 	
 	if (self) {
-		item = [newItem retain];
+		item = newItem;
 		width = newWidth;
 		fullWidth = newFullWidth;
 		level = newLevel;
@@ -35,13 +35,6 @@
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	if (item) [item release];
-	if (children) [children release];
-	
-	[super dealloc];
 }
 
 // = Getting properties =
@@ -59,8 +52,7 @@
 // = Setting properties =
 
 - (void) setChildren: (NSArray*) newChildren {
-	if (children) [children release];
-	children = [newChildren retain];
+	children = newChildren;
 	
 	NSInteger maxDepth = -1;
 	

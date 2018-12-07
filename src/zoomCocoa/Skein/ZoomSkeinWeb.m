@@ -28,8 +28,6 @@
 }
 
 - (void)setDataSource:(__unused WebDataSource *)dataSource {
-	if (webData) [webData release];
-	
 	webData = [[NSMutableData alloc] init];
 	
 	NSLog(@"ZoomSkein: loading from web");
@@ -40,7 +38,6 @@
 	NSLog(@"ZoomSkein: received error");
 	
 	if (webData) {
-		[webData release];
 		webData = nil;
 	}
 }
@@ -59,7 +56,6 @@
 
 	if (webData) {
 		[self parseXmlData: webData];
-		[webData release];
 		webData = nil;
 	}
 }

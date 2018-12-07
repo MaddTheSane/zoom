@@ -79,25 +79,18 @@ extern NSString* const ZoomSIChild;							//!< Child item (if relevant)
 - (BOOL)           hasChildWithCommand: (NSString*) command; // Not recursive
 
 // Item data
-- (NSString*)      command; // Command input
-- (NSString*)      result;  // Command result
-
-- (void) setCommand: (NSString*) command;
-- (void) setResult:  (NSString*) result;
+@property (nonatomic, copy) NSString *command; // Command input
+@property (nonatomic, copy) NSString *result;  // Command result
 
 // Item state
-- (BOOL) temporary;			// Whether or not this item has been made permanent by saving
-- (int)  temporaryScore;	// Lower values are more likely to be removed
-- (BOOL) played;			// Whether or not this item has actually been played
-- (BOOL) changed;			// Whether or not this item's result has changed since this was last played
-							// (Automagically updated by setResult:)
+@property (nonatomic) BOOL temporary;		//!< Whether or not this item has been made permanent by saving
+@property int temporaryScore;				//!< Lower values are more likely to be removed
+@property (nonatomic) BOOL played;			//!< Whether or not this item has actually been played
+@property (nonatomic) BOOL changed;			//!< Whether or not this item's result has changed since this was last played
+											//!< (Automagically updated by setResult:)
 
-- (void) setTemporary: (BOOL) isTemporary;
 - (void) setBranchTemporary: (BOOL) isTemporary;
-- (void) setTemporaryScore: (int) score;
 - (void) increaseTemporaryScore;
-- (void) setPlayed: (BOOL) played;
-- (void) setChanged: (BOOL) changed;
 
 // Annotation
 

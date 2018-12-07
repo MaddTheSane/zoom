@@ -91,7 +91,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		
 		img = [ourBundle imageForResource:name];
 		if (filename && !img) {
-			img = [[[NSImage alloc] initWithContentsOfFile: filename] autorelease];
+			img = [[NSImage alloc] initWithContentsOfFile: filename];
 		}
 	}
 	
@@ -102,12 +102,12 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 + (void) initialize {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		add        = [[[self class] imageNamed: @"SkeinAdd"] retain];
-		delete     = [[[self class] imageNamed: @"SkeinDelete"] retain];
-		locked     = [[[self class] imageNamed: @"SkeinLocked"] retain];
-		unlocked   = [[[self class] imageNamed: @"SkeinUnlocked"] retain];
-		annotate   = [[[self class] imageNamed: @"SkeinAnnotate"] retain];
-		transcript = [[[self class] imageNamed: @"SkeinTranscript"] retain];
+		add        = [[self class] imageNamed: @"SkeinAdd"];
+		delete     = [[self class] imageNamed: @"SkeinDelete"];
+		locked     = [[self class] imageNamed: @"SkeinLocked"];
+		unlocked   = [[self class] imageNamed: @"SkeinUnlocked"];
+		annotate   = [[self class] imageNamed: @"SkeinAnnotate"];
+		transcript = [[self class] imageNamed: @"SkeinTranscript"];
 		
 		itemTextAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
 							   [NSFont systemFontOfSize: 10], NSFontAttributeName,
@@ -136,23 +136,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 }
 
 - (void) dealloc {
-	[skein release];
-	
-	if (trackingRects)  [trackingRects release];
-
-	if (itemToEdit)     [itemToEdit release];
-	if (fieldScroller)  [fieldScroller release];
-	if (fieldStorage)   [fieldStorage release];
-	
-	if (trackedItem)    [trackedItem release];
-	if (clickedItem)    [clickedItem release];
-	if (trackingItems)  [trackingItems release];
-	if (mostRecentItem) [mostRecentItem release];
-
-	[layout release];
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-	[super dealloc];
 }
 
 // = Drawing =
@@ -195,9 +179,6 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 						fromRect: imgRect
 					   operation: NSCompositeSourceOver
 						fraction: 1.0];
-		
-		// Release
-		[highlighted release];
 	}
 }
 
@@ -290,10 +271,9 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		[[NSNotificationCenter defaultCenter] removeObserver: self
 														name: ZoomSkeinChangedNotification
 													  object: skein];
-		[skein release];
 	}
 	
-	skein = [sk retain];
+	skein = sk;
 	[layout setRootItem: [sk rootItem]];
 	
 	if (skein) {
@@ -319,7 +299,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	[self skeinNeedsLayout];
 	
 	[self scrollToItem: mostRecentItem];
-	[mostRecentItem release]; mostRecentItem = nil;
+	mostRecentItem = nil;
 }
 
 - (void) skeinNeedsLayout {
@@ -382,8 +362,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	if (item == nil) item = [skein activeItem];
 	if ([self superview] == nil) return;
 	
-	[mostRecentItem release];
-	mostRecentItem = [item retain];
+	mostRecentItem = item;
 	
 	if (skeinNeedsLayout) [self layoutSkein];
 	
@@ -416,10 +395,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		[self removeTrackingRect: [val intValue]];
 	}
 	
-	[trackingRects release];
 	trackingRects = [[NSMutableArray alloc] init];
 	
-	[trackingItems release];
 	trackingItems = [[NSMutableArray alloc] init];
 }
 
@@ -440,7 +417,6 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	if (overWindow) [self mouseLeftView];
 	overWindow = NO;
 	overItem = NO;
-	if (trackedItem) [trackedItem release];
 	trackedItem = nil;
 
 	int startLevel = floor(NSMinY(visibleRect) / itemHeight)-1;
@@ -484,7 +460,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 			}
 			tag = [self addTrackingRect: itemRect
 								  owner: self
-							   userData: item
+							   userData: (__bridge void * _Nullable)(item)
 						   assumeInside: inside];
 			[trackingRects addObject: @(tag)];
 		}
@@ -528,10 +504,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		[[NSCursor pointingHandCursor] push];
 	}
 	
-	if (trackedItem) {
-		[trackedItem release];
-	}
-	trackedItem = [item retain];
+	trackedItem = item;
 	overItem = YES;
 	
 	if (trackedItem) {
@@ -543,7 +516,6 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	if (overItem) [NSCursor pop];
 	if (trackedItem) [self setNeedsDisplay: YES];
 	overItem = NO;
-	if (trackedItem) [trackedItem release];
 	trackedItem = nil;
 	
 	[self iHateEditing];
@@ -597,8 +569,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		if (realItem) [self mouseEnteredItem: realItem];
 	}
 	
-	if (clickedItem) [clickedItem release];
-	clickedItem = [realItem retain];
+	clickedItem = realItem;
 	
 	if (trackedItem == nil) {
 		// We're dragging to move the view around
@@ -674,7 +645,6 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	[self iHateEditing];
 	
 	if (clickedItem) {
-		[clickedItem release];
 		clickedItem = nil;
 	}
 	
@@ -963,7 +933,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	
 	fieldEditor = nil;
 	
-	[itemToEdit release]; itemToEdit = nil;
+	itemToEdit = nil;
 }
 
 - (void)controlTextDidEndEditing:(__unused NSNotification *)aNotification {
@@ -1030,7 +1000,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	itemFrame.size.width = floor(itemFrame.size.width);
 	itemFrame.size.height = floor(itemFrame.size.height);
 	
-	itemToEdit = [skeinItem retain];
+	itemToEdit = skeinItem;
 	
 	editingAnnotation = annotation;
 	
@@ -1047,7 +1017,6 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	fieldEditor = (NSTextView*)[[self window] fieldEditor: YES
 												forObject: self];
 	
-	if (fieldStorage) [fieldStorage release];
 	fieldStorage = [[NSTextStorage alloc] initWithString: itemText
 											  attributes: itemTextAttributes];	
 	[[fieldEditor textStorage] setAttributedString: fieldStorage];
@@ -1368,7 +1337,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 					keyEquivalent: @""];
 	
 	// Return the menu
-	return [contextMenu autorelease];
+	return contextMenu;
 }
 
 // = Menu actions =
@@ -1415,7 +1384,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	ZoomSkeinItem* parent = [contextItem parent];
 	
 	// Remove any child items (these will become children of the new item)
-	NSArray* children = [[[[parent children] allObjects] copy] autorelease];
+	NSArray* children = [[[parent children] allObjects] copy];
 	ZoomSkeinItem* child;
 	NSEnumerator* childEnum = [children objectEnumerator];;
 	
@@ -1484,7 +1453,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	if (![self checkDelete: contextItem]) return;
 
 	// Remember the children of this item
-	NSArray* children = [[[[contextItem children] allObjects] copy] autorelease];
+	NSArray* children = [[[contextItem children] allObjects] copy];
 
 	// Remove them from the tree
 	ZoomSkeinItem* child;
@@ -1555,29 +1524,19 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		panel.directoryURL = directory;
 	}
 	
-	[panel retain];
 	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript:panel returnCode:result contextInfo:[[skein transcriptToPoint: contextItem] retain]];
-		[panel release];
+		NSString *data = [skein transcriptToPoint: contextItem];
+		if (result != NSOKButton) return;
+		
+		// Remember the directory we last saved in
+		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
+											   forKey: @"ZoomTranscriptPath"];
+		
+		// Save the data
+		NSData* stringData = [data dataUsingEncoding: NSUTF8StringEncoding];
+		[stringData writeToURL: [panel URL]
+					atomically: YES];
 	}];
-}
-
-- (void) saveTranscript: (NSSavePanel *) panel 
-             returnCode: (NSModalResponse) returnCode
-            contextInfo: (void*) contextInfo {
-	NSString* data = (NSString*)contextInfo;
-	
-	if (returnCode != NSOKButton) return;
-	
-	// Remember the directory we last saved in
-	[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
-										   forKey: @"ZoomTranscriptPath"];
-	
-	// Save the data
-	NSData* stringData = [data dataUsingEncoding: NSUTF8StringEncoding];
-	[data release];
-	[stringData writeToURL: [panel URL]
-				atomically: YES];
 }
 
 @end

@@ -61,14 +61,14 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 	CGFloat itemHeight;
 	
 	// The delegate
-	id<ZoomSkeinViewDelegate> delegate;
+	__weak id<ZoomSkeinViewDelegate> delegate;
 	
 	// Context menu
 	ZoomSkeinItem* contextItem;
 }
 
 // Setting/getting the source
-@property (nonatomic, retain) ZoomSkein* skein;
+@property (nonatomic, strong) ZoomSkein* skein;
 
 // Laying things out
 - (void) skeinNeedsLayout;
@@ -77,7 +77,7 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 - (void) setItemHeight: (CGFloat) itemHeight;
 
 // The delegate
-@property (assign) id<ZoomSkeinViewDelegate> delegate;
+@property (weak) id<ZoomSkeinViewDelegate> delegate;
 
 // Affecting the display
 - (void) scrollToItem: (ZoomSkeinItem*) item;
