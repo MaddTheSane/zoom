@@ -1395,10 +1395,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	
 	// Remove any child items (these will become children of the new item)
 	NSArray* children = [[[parent children] allObjects] copy];
-	ZoomSkeinItem* child;
-	NSEnumerator* childEnum = [children objectEnumerator];;
 	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in children) {
 		[parent removeChild: child];
 	}
 	
@@ -1406,9 +1404,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	ZoomSkeinItem* newItem = [parent addChild: [ZoomSkeinItem skeinItemWithCommand: @""]];
 	
 	// Add the child items back in again
-	childEnum = [children objectEnumerator];;
-	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in children) {
 		[newItem addChild: child];
 	}
 	
@@ -1534,8 +1530,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		panel.directoryURL = directory;
 	}
 	
+	NSString *data = [skein transcriptToPoint: contextItem];
 	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
-		NSString *data = [self->skein transcriptToPoint: contextItem];
 		if (result != NSOKButton) return;
 		
 		// Remember the directory we last saved in
@@ -1543,9 +1539,10 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 											   forKey: @"ZoomTranscriptPath"];
 		
 		// Save the data
-		NSData* stringData = [data dataUsingEncoding: NSUTF8StringEncoding];
-		[stringData writeToURL: [panel URL]
-					atomically: YES];
+		[data writeToURL: [panel URL]
+			  atomically: YES
+				encoding: NSUTF8StringEncoding
+				   error: NULL];
 	}];
 }
 
