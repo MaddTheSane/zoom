@@ -73,8 +73,8 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 // Laying things out
 - (void) skeinNeedsLayout;
 
-- (void) setItemWidth: (CGFloat) itemWidth;
-- (void) setItemHeight: (CGFloat) itemHeight;
+@property (nonatomic) CGFloat itemWidth;
+@property (nonatomic) CGFloat itemHeight;
 
 // The delegate
 @property (weak) id<ZoomSkeinViewDelegate> delegate;
@@ -90,10 +90,12 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 
 - (void) layoutSkein;
 
+- (void)updateSkein:(id)sender;
+
 @end
 
 // = Using with the web kit =
-#import <WebKit/WebKit.h>
+#import <WebKit/WebDocument.h>
 
 @interface ZoomSkeinView(ZoomSkeinViewWeb)<WebDocumentView>
 

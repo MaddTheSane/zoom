@@ -302,6 +302,12 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	mostRecentItem = nil;
 }
 
+- (void)updateSkein:(__unused id)sender
+{
+	[self skeinNeedsLayout];
+	[self setNeedsDisplay: YES];
+}
+
 - (void) skeinNeedsLayout {
 	if (!skeinNeedsLayout) {
 		[[NSRunLoop currentRunLoop] performSelector: @selector(layoutSkein)
@@ -313,6 +319,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	}
 }
 
+@synthesize itemWidth;
+
 - (void) setItemWidth: (CGFloat) newItemWidth {
 	if (newItemWidth < 16.0) newItemWidth = 16.0;
 	if (newItemWidth == itemWidth) return;
@@ -320,6 +328,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	
 	[self skeinNeedsLayout];
 }
+
+@synthesize itemHeight;
 
 - (void) setItemHeight: (CGFloat) newItemHeight {
 	if (newItemHeight < 16.0) newItemHeight = 16.0;
@@ -1525,7 +1535,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	}
 	
 	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
-		NSString *data = [skein transcriptToPoint: contextItem];
+		NSString *data = [self->skein transcriptToPoint: contextItem];
 		if (result != NSOKButton) return;
 		
 		// Remember the directory we last saved in
