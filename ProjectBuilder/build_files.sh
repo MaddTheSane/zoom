@@ -29,13 +29,13 @@ else
     
     if [ ./src/zcode.ops -nt ${TARGETDIR}/interp_gen.h ]; then
         echo interp_gen.h
-        ${BUILDER} ${TARGETDIR}/interp_gen.h -1 ./src/zcode.ops
+        ${BUILDER} ${TARGETDIR}/interp_gen.h -1 ${SRCROOT}/src/zcode.ops
     fi
     
     for i in {3,4,5,6}; do
         if [ ./src/zcode.ops -nt ${TARGETDIR}/interp_z${i}.h ]; then
             echo interp_z${i}.h
-            ${BUILDER} ${TARGETDIR}/interp_z${i}.h $i ./src/zcode.ops
+            ${BUILDER} ${TARGETDIR}/interp_z${i}.h $i ${SRCROOT}/src/zcode.ops
         fi
     done
     
