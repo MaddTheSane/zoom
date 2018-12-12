@@ -910,7 +910,7 @@ ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
     [mainMachine clearFile];
 
     if (res) {
-        if (size) *size = [mainMachine lastSize];
+        if (size) *size = (int)[mainMachine lastSize];
         return open_file_from_object([res autorelease]);
     } else {
         if (size) *size = -1;
@@ -930,7 +930,7 @@ ZFile* get_file_read(int* size, char* name, ZFile_type purpose) {
     [mainMachine clearFile];
 
     if (res) {
-        if (size) *size = [mainMachine lastSize];
+        if (size) *size = (int)[mainMachine lastSize];
         return open_file_from_object([res autorelease]);
     } else {
         if (size) *size = -1;

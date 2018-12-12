@@ -1436,8 +1436,8 @@
 				4B7CB1CD093634DD00F3B8F6 /* imagetest */,
 				4BD093970FACAEEE001F7EF0 /* git */,
 				554E440D204E6DD4000A7D6D /* SwiftGlk.app */,
-				55982BE621C0B8F5002B601B /* GlkView-iOS.framework */,
-				55982BE821C0B8F5002B601B /* GlkClient-iOS.framework */,
+				55982BE621C0B8F5002B601B /* GlkView.framework */,
+				55982BE821C0B8F5002B601B /* GlkClient.framework */,
 				55982BEA21C0B8F5002B601B /* GlkSound-iOS.framework */,
 			);
 			name = Products;
@@ -2210,14 +2210,14 @@
 			remoteRef = 554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		55982BE621C0B8F5002B601B /* GlkView-iOS.framework */ = {
+		55982BE621C0B8F5002B601B /* GlkView.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = GlkView.framework;
 			remoteRef = 55982BE521C0B8F5002B601B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		55982BE821C0B8F5002B601B /* GlkClient-iOS.framework */ = {
+		55982BE821C0B8F5002B601B /* GlkClient.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = GlkClient.framework;
@@ -2967,14 +2967,12 @@
 				GCC_PREFIX_HEADER = "$(PREFIX_HEADER)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BUILDING_SPOTLIGHT=1",
+					HAVE_COREFOUNDATION,
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "ZoomMetadataImporter-Info.plist";
-				OTHER_CFLAGS = (
-					"-DXMLCALL=",
-					"-DHAVE_COREFOUNDATION",
-				);
+				OTHER_CFLAGS = "-DXMLCALL=";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
 				WRAPPER_EXTENSION = mdimporter;
@@ -2994,14 +2992,12 @@
 				GCC_PREFIX_HEADER = "$(PREFIX_HEADER)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"BUILDING_SPOTLIGHT=1",
+					HAVE_COREFOUNDATION,
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "ZoomMetadataImporter-Info.plist";
-				OTHER_CFLAGS = (
-					"-DXMLCALL=",
-					"-DHAVE_COREFOUNDATION",
-				);
+				OTHER_CFLAGS = "-DXMLCALL=";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
 				WRAPPER_EXTENSION = mdimporter;
@@ -3134,6 +3130,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					HAVE_COREFOUNDATION,
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
@@ -3148,6 +3148,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					HAVE_COREFOUNDATION,
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
@@ -3168,7 +3172,6 @@
 				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)/build/$(BUILD_STYLE)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/depends\"";
@@ -3197,7 +3200,6 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)/build/$(BUILD_STYLE)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/depends\"";

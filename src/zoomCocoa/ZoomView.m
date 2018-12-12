@@ -1418,7 +1418,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 - (NSFont*) fontWithStyle: (ZFontStyle) style {
-    if (style < 0 || style >= 16) {
+    if (style < 0 || (unsigned)style >= 16) {
         return nil;
     }
 
@@ -1983,7 +1983,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			
 			[self storePanelPrefs: panel];
 			
-			if (type == ZFileQuetzal && delegate && [self->delegate respondsToSelector: @selector(useSavePackage)]) {
+			if (type == ZFileQuetzal && self->delegate && [self->delegate respondsToSelector: @selector(useSavePackage)]) {
 				usePackage = [self->delegate useSavePackage];
 			}
 			

@@ -42,7 +42,7 @@
 
 static void center(char* text, int columns)
 {
-  display_set_cursor((columns>>1)-(strlen(text)>>1), display_get_cur_y());
+  display_set_cursor((int)((columns>>1)-(strlen(text)>>1)), display_get_cur_y());
   display_prints_c(text);
 }
 
@@ -94,7 +94,7 @@ char* menu_get_story(void)
   /* Read the files in this directory, and work out their names */
   while ((dent=readdir(gamedir)))
     {
-      int len;
+      size_t len;
 
       len = strlen(dent->d_name);
       
@@ -108,7 +108,7 @@ char* menu_get_story(void)
 	      
 	      if (file)
 		{
-		  int x,len;
+		  size_t x,len;
 		  ZByte* header;
 
 		  header = read_block(file, 0, 64);
