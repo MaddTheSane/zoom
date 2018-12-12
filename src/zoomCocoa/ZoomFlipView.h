@@ -7,8 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-#define FlipUseCoreAnimation
+#import <Quartz/Quartz.h>
 
 typedef NS_ENUM(NSInteger, ZoomViewAnimationStyle) {
 	ZoomAnimateLeft,
@@ -20,9 +19,9 @@ typedef NS_ENUM(NSInteger, ZoomViewAnimationStyle) {
 };
 
 ///
-/// NSView subclass that allows us to flip between several views
+/// NSView subclass that allows us to flip between several views using Core Animation.
 ///
-@interface ZoomFlipView : NSView {
+@interface ZoomFlipView : NSView <CALayerDelegate, CALayoutManager, CAAnimationDelegate> {
 	// The start and the end of the animation
 	NSImage* startImage;
 	NSImage* endImage;
@@ -35,19 +34,12 @@ typedef NS_ENUM(NSInteger, ZoomViewAnimationStyle) {
 	NSMutableDictionary* props;
 	
 	// Information used while animating
-	NSOpenGLPixelBuffer* pixelBuffer;
 	NSTimer* animationTimer;
 	NSRect originalFrame;
 	NSView* originalView;
 	NSView* originalSuperview;
 	NSDate* whenStarted;	
-	
-	BOOL useCoreAnimation;
 }
-
-// Caching views
-+ (NSImage*) cacheView: (NSView*) view;								// Returns an image with the contents of the specified view
-- (void) cacheStartView: (NSView*) view;							// Caches a specific image as the start of an animation
 
 // Animating
 - (void) setAnimationTime: (NSTimeInterval) animationTime;			// Changes the animation time
