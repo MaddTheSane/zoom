@@ -59,7 +59,7 @@ static NSMutableDictionary* babelCache = nil;
 // = Initialisation =
 
 - (id) init {
-	[super init];
+	self = [super init];
 	return nil;
 }
 

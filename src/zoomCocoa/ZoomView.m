@@ -2050,10 +2050,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 					
 					f = [[ZHandleFile alloc] initWithFileHandle: file];
 					
-					[zMachine promptedFileIs: f
-										size: 0];
+					[self->zMachine promptedFileIs: f
+											  size: 0];
 				} else {
-					[zMachine filePromptCancelled];
+					[self->zMachine filePromptCancelled];
 				}
 			}
 		}
