@@ -111,7 +111,7 @@
     // RNG
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    random_seed(tv.tv_sec^tv.tv_usec);
+    random_seed((ZDWord)(tv.tv_sec^tv.tv_usec));
 	
     // Some default options
 	// rc_load(); // DELETEME: TEST FOR BUG
@@ -685,17 +685,9 @@ static NSString* zscii_to_string(ZByte* buf) {
 	mousePosY = posY;
 }
 
-- (int)	terminatingCharacter {
-	return terminatingCharacter;
-}
-
-- (int) mousePosX {
-	return mousePosX;
-}
-
-- (int) mousePosY {
-	return mousePosY;
-}
+@synthesize terminatingCharacter;
+@synthesize mousePosX;
+@synthesize mousePosY;
 
 // = Receiving files =
 - (oneway void) filePromptCancelled {
@@ -726,17 +718,9 @@ static NSString* zscii_to_string(ZByte* buf) {
     }
 }
 
-- (BOOL) filePromptFinished {
-    return filePromptFinished;
-}
-
-- (NSObject<ZFile>*) lastFile {
-    return lastFile;
-}
-
-- (int) lastSize {
-    return lastSize;
-}
+@synthesize filePromptFinished;
+@synthesize lastFile;
+@synthesize lastSize;
 
 - (void) clearFile {
     if (lastFile) {
@@ -755,19 +739,12 @@ static NSString* zscii_to_string(ZByte* buf) {
     return windows[num];
 }
 
-- (NSObject<ZDisplay>*) display {
-    return display;
-}
-
-- (NSMutableString*) inputBuffer {
-    return inputBuffer;
-}
+@synthesize display;
+@synthesize inputBuffer;
 
 // = Buffering =
 
-- (ZBuffer*) buffer {
-    return outputBuffer;
-}
+@synthesize buffer=outputBuffer;
 
 - (void) flushBuffers {
     [display flushBuffer: outputBuffer];

@@ -36,7 +36,7 @@ extern int zoomImageCacheSize;
     
     BOOL             filePromptFinished;
     NSObject<ZFile>* lastFile;
-    int              lastSize;
+    NSInteger        lastSize;
 	
 	BOOL wasRestored;
 	
@@ -46,21 +46,21 @@ extern int zoomImageCacheSize;
 	BOOL waitingForBreakpoint;
 }
 
-- (NSObject<ZDisplay>*) display;
+@property (readonly, retain) NSObject<ZDisplay> *display;
 - (NSObject<ZWindow>*)  windowNumber: (int) num;
-- (NSMutableString*)    inputBuffer;
-- (int)					terminatingCharacter;
+@property (readonly, retain) NSMutableString *inputBuffer;
+@property (readonly) int terminatingCharacter;
 
-- (int) mousePosX;
-- (int) mousePosY;
+@property (readonly) int mousePosX;
+@property (readonly) int mousePosY;
 
 - (void)                filePromptStarted;
-- (BOOL)                filePromptFinished;
-- (NSObject<ZFile>*)    lastFile;
-- (int)                 lastSize;
+@property (readonly) BOOL filePromptFinished;
+@property (readonly, retain) NSObject<ZFile> *lastFile;
+@property (readonly) NSInteger lastSize;
 - (void)                clearFile;
 
-- (ZBuffer*) buffer;
+@property (readonly, retain) ZBuffer *buffer;
 - (void) flushBuffers;
 
 - (void) breakpoint: (int) pc;
