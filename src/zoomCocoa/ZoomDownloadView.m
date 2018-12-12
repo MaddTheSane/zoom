@@ -29,6 +29,7 @@
 
 - (void) dealloc {
 	[downloadImage release];
+	[progress release];
 	
 	[super dealloc];
 }

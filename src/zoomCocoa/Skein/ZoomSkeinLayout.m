@@ -196,6 +196,10 @@ static NSImage* unchangedDark, *activeDark;
 		[selectedItem release];
 	}
 	
+	if (activeItem) {
+		[activeItem release];
+	}
+	
 	[super dealloc];
 }
 

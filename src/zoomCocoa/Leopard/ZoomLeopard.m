@@ -37,13 +37,17 @@
 		[view setWantsLayer: YES];
 	}
 	
-	[view layer].backgroundColor = CGColorCreateGenericRGB(0, 0,0,0);
+	CGColorRef aColor = CGColorCreateGenericRGB(0, 0,0,0);
+	[view layer].backgroundColor = aColor;
+	CGColorRelease(aColor);
 }
 
 - (void) prepareToAnimateView: (NSView*) view {
 	CALayer* viewLayer = [CALayer layer];
 	
-	viewLayer.backgroundColor = CGColorCreateGenericRGB(0, 0,0,0);
+	CGColorRef aColor = CGColorCreateGenericRGB(0, 0,0,0);
+	viewLayer.backgroundColor = aColor;
+	CGColorRelease(aColor);
 
 	[self prepareToAnimateView: view
 						 layer: viewLayer];

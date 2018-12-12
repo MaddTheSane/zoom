@@ -84,7 +84,9 @@
 	if (resources) [resources release];
 	
 	[skein release];
-    
+	
+	[autosaveData release];
+	
     [super dealloc];
 }
 
@@ -217,7 +219,7 @@
 // = Document info =
 
 @synthesize gameData;
-@synthesize storyInfo;
+@synthesize storyInfo=story;
 @synthesize storyId;
 
 - (NSString*) displayName {

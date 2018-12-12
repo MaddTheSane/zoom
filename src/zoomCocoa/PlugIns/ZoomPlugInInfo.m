@@ -19,7 +19,7 @@
 
 	// No information available if there's no plist for this bundle
 	if (plist == nil) {
-		self = [super init];
+		[super init];
 		return nil;
 	}
 	

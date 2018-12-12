@@ -176,8 +176,8 @@
 	
 	// If we're trying to re-animate a view that already has an animation, then continue to use that view
 	if ([[view superview] isKindOfClass: [self class]] && [[view layer] superlayer] != nil) {
-		[(ZoomFlipView*)[view superview] leopardAnimateTo: view
-													style: style];
+		[(ZoomFlipView*)[view superview] animateTo: view
+											 style: style];
 		return;
 	}
 	

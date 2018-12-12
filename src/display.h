@@ -42,7 +42,7 @@ extern void printf_info_done(void);
 extern void printf_error(char* format, ...);
 extern void printf_error_done(void);
 
-extern void display_exit(int code);
+extern void display_exit(int code) __dead2;
 
 /***                           ----// 888 \\----                           ***/
 

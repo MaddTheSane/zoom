@@ -34,7 +34,6 @@ typedef NS_ENUM(NSInteger, ZoomViewAnimationStyle) {
 	NSMutableDictionary* props;
 	
 	// Information used while animating
-	NSTimer* animationTimer;
 	NSRect originalFrame;
 	NSView* originalView;
 	NSView* originalSuperview;
