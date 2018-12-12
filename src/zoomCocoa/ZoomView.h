@@ -72,7 +72,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
     NSMutableString* zoomTaskData;
 
     // The delegate
-    id<ZoomViewDelegate> delegate;
+    __weak id<ZoomViewDelegate> delegate;
     
     // Details about the file we're currently saving
     OSType creatorCode; // 'YZZY' for Zoom
@@ -91,7 +91,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 	NSSet<NSNumber*>* terminatingChars;
 	
 	// View with input focus
-	NSObject<ZWindow>* focusedView;
+	__unsafe_unretained NSObject<ZWindow>* focusedView;
 	
 	// Pixmap view
 	ZoomCursor*       pixmapCursor;
@@ -121,7 +121,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (instancetype)initWithCoder:(NSCoder *)decoder;
 
 //! The delegate
-@property (assign) id<ZoomViewDelegate> delegate;
+@property (weak) id<ZoomViewDelegate> delegate;
 
 - (void) killTask;
 
@@ -134,7 +134,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 
 // Specifying what to run
 - (void) runNewServer: (NSString*) serverName;
-@property (nonatomic, retain) NSObject<ZMachine> *zMachine;
+@property (nonatomic, strong) NSObject<ZMachine> *zMachine;
 
 // Scrolling, more prompt
 - (void) scrollToEnd;
@@ -152,7 +152,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (NSAttributedString*) formatZString: (NSString*) zString
                             withStyle: (ZStyle*) style;
 
-- (ZoomTextView*) textView;
+@property (readonly, strong) ZoomTextView *textView;
 - (void) writeAttributedString: (NSAttributedString*) string;
 - (void) clearLowerWindowWithStyle: (ZStyle*) style;
 
@@ -205,7 +205,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 
 // 'Manual' input
 @property NSPoint inputLinePos;
-@property (nonatomic, retain) ZoomInputLine *inputLine;
+@property (nonatomic, strong) ZoomInputLine *inputLine;
 
 // Output receivers
 - (void) addOutputReceiver: (id<ZoomViewOutputReceiver>) receiver;
@@ -220,11 +220,11 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (ZoomTextToSpeech*) textToSpeech;
 
 // Input sources (nil = default, window input source)
-@property (nonatomic, retain) id<ZoomViewInputSource> inputSource;
+@property (nonatomic, strong) id<ZoomViewInputSource> inputSource;
 - (void) removeInputSource: (id<ZoomViewInputSource>) source;
 
 //! Resources
-@property (retain) ZoomBlorbFile *resources;
+@property (strong) ZoomBlorbFile *resources;
 
 //! Terminating characters
 @property (copy) NSSet<NSNumber*> *terminatingCharacters;

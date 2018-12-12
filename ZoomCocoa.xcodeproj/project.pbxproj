@@ -299,7 +299,7 @@
 		4BD2748F08701E6700C1AE15 /* ZoomSkeinLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BAADD7B079053030076ACC4 /* ZoomSkeinLayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C13FD05C5A94B00E5796D /* Credits.rtf */; };
 		4BD2749E08701E6700C1AE15 /* archive.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4B5983DA070F059E0078165F /* archive.iFiction */; };
-		4BD274A108701E6700C1AE15 /* ZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF624050FDC6800A8E303 /* ZoomView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD274A108701E6700C1AE15 /* ZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF624050FDC6800A8E303 /* ZoomView.m */; };
 		4BD274A208701E6700C1AE15 /* ZoomLowerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D1DAE0534999E00A8E303 /* ZoomLowerWindow.m */; };
 		4BD274A308701E6700C1AE15 /* ZoomUpperWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFA46405358F1200A8E303 /* ZoomUpperWindow.m */; };
 		4BD274A408701E6700C1AE15 /* ZoomMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFA4AD0535C42C00A8E303 /* ZoomMoreView.m */; };
