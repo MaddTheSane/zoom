@@ -111,7 +111,7 @@ static inline void push(ZStack* stack, const ZWord word)
   
   if (stack->stack_size <= 0)
     {
-      int stack_offset = stack->stack_top - stack->stack;
+      int stack_offset = (int)(stack->stack_top - stack->stack);
     
       stack->stack_total += 2048;
       if (!(stack->stack = realloc(stack->stack,
