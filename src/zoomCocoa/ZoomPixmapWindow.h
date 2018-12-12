@@ -11,7 +11,7 @@
 #import "ZoomView.h"
 
 @interface ZoomPixmapWindow : NSObject<ZPixmapWindow, NSCoding> {
-	ZoomView* zView;
+	__unsafe_unretained ZoomView* zView;
 	NSImage* pixmap;
 	
 	NSPoint inputPos;
@@ -24,7 +24,7 @@
 
 // Getting the pixmap
 @property (readonly) NSSize size;
-@property (readonly, retain) NSImage *pixmap;
+@property (readonly, strong) NSImage *pixmap;
 
 // Input information
 @property (readonly) NSPoint inputPos;

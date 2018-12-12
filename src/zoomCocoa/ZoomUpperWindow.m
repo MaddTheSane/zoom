@@ -15,32 +15,21 @@
     self = [super init];
     if (self) {
         theView = view;
-        lines = [[NSMutableArray allocWithZone: [self zone]] init];
+        lines = [[NSMutableArray alloc] init];
 
-        backgroundColour = [[NSColor blueColor] retain];
+        backgroundColour = [NSColor blueColor];
 
         endLine = startLine = 0;
     }
     return self;
 }
 
-- (void) dealloc {
-    //[theView release];
-    [lines release];
-	[inputStyle release];
-    [backgroundColour release];
-    [super dealloc];
-}
-
 // Clears the window
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
-    [lines release];
-    lines = [[NSMutableArray allocWithZone: [self zone]] init];
+    lines = [[NSMutableArray alloc] init];
     xpos = ypos = 0;
 
-    [backgroundColour release];
-    backgroundColour = [style.reversed?[theView foregroundColourForStyle: style]:[theView backgroundColourForStyle: style]
-		retain];
+    backgroundColour = style.reversed?[theView foregroundColourForStyle: style]:[theView backgroundColourForStyle: style];
 }
 
 // Sets the input focus to this window
@@ -67,7 +56,7 @@
 
     if (ypos >= [lines count]) {
         for (NSInteger x=[lines count]; x<=ypos; x++) {
-            [lines addObject: [[[NSMutableAttributedString alloc] init] autorelease]];
+            [lines addObject: [[NSMutableAttributedString alloc] init]];
         }
     }
 
@@ -89,13 +78,10 @@
 		NSData *spacesData = [[NSData alloc] initWithBytesNoCopy:spaces length:spacesLen freeWhenDone:YES];
 
         NSAttributedString* spaceString = [[NSAttributedString alloc]
-            initWithString: [[[NSString alloc] initWithData:spacesData encoding:NSASCIIStringEncoding] autorelease]
+            initWithString: [[NSString alloc] initWithData:spacesData encoding:NSASCIIStringEncoding]
                 attributes: clearStyle];
         
         [thisLine appendAttributedString: spaceString];
-
-		[spacesData release];
-        [spaceString release];
     }
 
     // Replace the appropriate section of the line
@@ -142,13 +128,13 @@ static NSString* blankLine(int length) {
 	
 	NSString* res = [[NSString alloc] initWithData:cStrDat encoding:NSASCIIStringEncoding];
 	
-	return [res autorelease];
+	return res;
 }
 
 - (oneway void) eraseLineWithStyle: (in bycopy ZStyle*) style {
     if (ypos >= [lines count]) {
         for (NSInteger x=[lines count]; x<=ypos; x++) {
-            [lines addObject: [[[NSMutableAttributedString alloc] init] autorelease]];
+            [lines addObject: [[NSMutableAttributedString alloc] init]];
         }
     }
 
@@ -240,8 +226,8 @@ static NSString* blankLine(int length) {
 									at: &xpos];
 		[decoder decodeValueOfObjCType: @encode(int)
 									at: &ypos];
-		lines = [[decoder decodeObject] retain];
-		backgroundColour = [[decoder decodeObject] retain];
+		lines = [decoder decodeObject];
+		backgroundColour = [decoder decodeObject];
     }
 	
     return self;
@@ -252,15 +238,6 @@ static NSString* blankLine(int length) {
 }
 
 // = Input styles =
-
-- (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
-	if (inputStyle) [inputStyle release];
-	inputStyle = [newInputStyle copy];
-}
-
-- (bycopy ZStyle*) inputStyle {
-	return inputStyle;
-}
 
 @synthesize inputStyle;
 

@@ -16,15 +16,10 @@
 - (id) initWithFrame: (NSRect) frame {
     self = [super initWithFrame: frame];
     if (self) {
-        pastedLines = [[NSMutableArray allocWithZone: [self zone]] init];
+        pastedLines = [[NSMutableArray alloc] init];
 		pastedScaleFactor = 1.0;
     }
     return self;
-}
-
-- (void) dealloc {
-    [pastedLines release];
-    [super dealloc];
 }
 
 // Key event handling
@@ -157,8 +152,6 @@
 												 lineRect.size.height)
 							operation:NSCompositeSourceOver
 							 fraction:fadeAmount];
-
-                [fadeImage release];
             } else {
 				[[NSGraphicsContext currentContext] saveGraphicsState];	
 				[scaleTransform concat];
@@ -247,7 +240,7 @@
 				r.size.height /= pastedScaleFactor;
 
 				// Scale down the font size by the scale factor
-				NSMutableAttributedString* editedStr = [[str mutableCopy] autorelease];
+				NSMutableAttributedString* editedStr = [str mutableCopy];
 				
 				NSRange editRange;
 				NSDictionary* currentAttributes = [editedStr attributesAtIndex: 0
@@ -320,7 +313,6 @@
 	}
 	
 	// Replace the pasted lines with the new set of lines
-	[pastedLines autorelease];
 	pastedLines = newLines;
 }
 

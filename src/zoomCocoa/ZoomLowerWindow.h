@@ -12,7 +12,7 @@
 #import "ZoomView.h"
 
 @interface ZoomLowerWindow : NSObject<ZLowerWindow, NSCoding> {
-    __unsafe_unretained ZoomView* zoomView;
+    __weak ZoomView* zoomView;
 	
 	ZStyle* backgroundStyle;
 	ZStyle* inputStyle;
@@ -20,8 +20,8 @@
 
 - (instancetype) initWithZoomView: (ZoomView*) zoomView;
 
-@property (readonly, retain) ZStyle *backgroundStyle;
+@property (readonly, strong) ZStyle *backgroundStyle;
 
-@property (assign) ZoomView *zoomView;
+@property (weak) ZoomView *zoomView;
 
 @end

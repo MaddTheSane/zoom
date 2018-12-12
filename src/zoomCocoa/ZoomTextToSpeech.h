@@ -29,7 +29,7 @@
 - (void) speak: (NSString*) text;										//!< Speaks the specified text
 - (void) beQuiet;														//!< Stops speaking
 
-@property (retain) ZoomSkein *skein;									//!< Sets the skein this object should use
+@property (strong) ZoomSkein *skein;									//!< Sets the skein this object should use
 - (void) speakPreviousMove;												//!< Speaks one move behind (if a skein is set)
 - (void) speakNextMove;													//!< Speaks one move ahead
 - (void) resetMoves;													//!< Resets the number of moves for the previous/next move

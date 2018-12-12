@@ -31,7 +31,7 @@
 		4B152D300B46D2F9008CC1EF /* ZoomNotesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B152D2E0B46D2F9008CC1EF /* ZoomNotesController.m */; };
 		4B152DBE0B46E929008CC1EF /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B152DBD0B46E929008CC1EF /* NoteWindow.xib */; };
 		4B1FEA240ACB159D008B9EFE /* ZoomPreferences.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B418ED805961D2C009C44DE /* ZoomPreferences.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B1FEA250ACB15B0008B9EFE /* ZoomPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B418ED905961D2C009C44DE /* ZoomPreferences.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		4B1FEA250ACB15B0008B9EFE /* ZoomPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B418ED905961D2C009C44DE /* ZoomPreferences.m */; };
 		4B1FEA4D0ACB1687008B9EFE /* ZoomStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEAB605B45BF400A9B6DC /* ZoomStory.m */; };
 		4B1FEA4E0ACB1688008B9EFE /* ZoomStoryID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BACEABC05B45C0500A9B6DC /* ZoomStoryID.m */; };
 		4B1FEA500ACB168F008B9EFE /* ifmetabase.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BB8BED408B785B200D7D334 /* ifmetabase.c */; };
@@ -120,7 +120,7 @@
 		4B94B1600CD537B8003C75A6 /* ZoomSignPost.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B94B15E0CD537B8003C75A6 /* ZoomSignPost.h */; };
 		4B94B1610CD537B8003C75A6 /* ZoomSignPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B94B15F0CD537B8003C75A6 /* ZoomSignPost.m */; };
 		4B95CDA1C5B03AD500FD9F27 /* ZoomSkeinController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B18852906987AC6004D8501 /* ZoomSkeinController.h */; };
-		4B95CDA2C5B03AD500FD9F27 /* ZoomSkeinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B18852A06987AC6004D8501 /* ZoomSkeinController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		4B95CDA2C5B03AD500FD9F27 /* ZoomSkeinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B18852A06987AC6004D8501 /* ZoomSkeinController.m */; };
 		4B95CDB9C5B03AD500FD9F27 /* ZoomSkeinController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B18852906987AC6004D8501 /* ZoomSkeinController.h */; };
 		4B9DC7EA15027DF0003DF057 /* ZoomLFlipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B7284880CD37E980079D89B /* ZoomLFlipView.h */; };
 		4B9DC7EB15027DF0003DF057 /* ZoomLFlipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7284890CD37E980079D89B /* ZoomLFlipView.m */; };
@@ -299,27 +299,27 @@
 		4BD2748F08701E6700C1AE15 /* ZoomSkeinLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BAADD7B079053030076ACC4 /* ZoomSkeinLayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C13FD05C5A94B00E5796D /* Credits.rtf */; };
 		4BD2749E08701E6700C1AE15 /* archive.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4B5983DA070F059E0078165F /* archive.iFiction */; };
-		4BD274A108701E6700C1AE15 /* ZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF624050FDC6800A8E303 /* ZoomView.m */; };
+		4BD274A108701E6700C1AE15 /* ZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF624050FDC6800A8E303 /* ZoomView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4BD274A208701E6700C1AE15 /* ZoomLowerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D1DAE0534999E00A8E303 /* ZoomLowerWindow.m */; };
 		4BD274A308701E6700C1AE15 /* ZoomUpperWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFA46405358F1200A8E303 /* ZoomUpperWindow.m */; };
 		4BD274A408701E6700C1AE15 /* ZoomMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFA4AD0535C42C00A8E303 /* ZoomMoreView.m */; };
 		4BD274A508701E6700C1AE15 /* ZoomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFA4B10535E10200A8E303 /* ZoomTextView.m */; };
-		4BD274A608701E6700C1AE15 /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		4BD274A608701E6700C1AE15 /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; };
 		4BD274A708701E6700C1AE15 /* ZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D95CA053706CD00A8E303 /* ZoomScrollView.m */; };
 		4BD274A808701E6700C1AE15 /* ZoomUpperWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D95CF05372EF900A8E303 /* ZoomUpperWindowView.m */; };
 		4BD274AA08701E6700C1AE15 /* ZoomPixmapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE62209068C273400369528 /* ZoomPixmapWindow.m */; };
 		4BD274AB08701E6700C1AE15 /* ZoomCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6236C068CB86300369528 /* ZoomCursor.m */; };
 		4BD274AC08701E6700C1AE15 /* ZoomInputLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3DA130068DAF9E00B7090F /* ZoomInputLine.m */; };
-		4BD274AD08701E6700C1AE15 /* ZoomSkein.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2BCEC06949E730082C022 /* ZoomSkein.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		4BD274AE08701E6700C1AE15 /* ZoomSkeinItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2BCF30694A0830082C022 /* ZoomSkeinItem.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		4BD274AF08701E6700C1AE15 /* ZoomSkeinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1884B006975647004D8501 /* ZoomSkeinView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		4BD274B008701E6700C1AE15 /* ZoomSkeinXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B14632106A2DD9E00398650 /* ZoomSkeinXML.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		4BD274B108701E6700C1AE15 /* ZoomSkeinWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0A32B506A596DB00BB8878 /* ZoomSkeinWeb.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		4BD274B208701E6700C1AE15 /* ZoomSkeinViewWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0A32E406A59ADA00BB8878 /* ZoomSkeinViewWeb.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		4BD274B308701E6700C1AE15 /* ZoomSkeinLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC3B03606AE8563008FCD35 /* ZoomSkeinLayout.m */; };
-		4BD274B408701E6700C1AE15 /* ZoomBlorbFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		4BD274AD08701E6700C1AE15 /* ZoomSkein.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2BCEC06949E730082C022 /* ZoomSkein.m */; };
+		4BD274AE08701E6700C1AE15 /* ZoomSkeinItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2BCF30694A0830082C022 /* ZoomSkeinItem.m */; };
+		4BD274AF08701E6700C1AE15 /* ZoomSkeinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1884B006975647004D8501 /* ZoomSkeinView.m */; };
+		4BD274B008701E6700C1AE15 /* ZoomSkeinXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B14632106A2DD9E00398650 /* ZoomSkeinXML.m */; };
+		4BD274B108701E6700C1AE15 /* ZoomSkeinWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0A32B506A596DB00BB8878 /* ZoomSkeinWeb.m */; };
+		4BD274B208701E6700C1AE15 /* ZoomSkeinViewWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0A32E406A59ADA00BB8878 /* ZoomSkeinViewWeb.m */; };
+		4BD274B308701E6700C1AE15 /* ZoomSkeinLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC3B03606AE8563008FCD35 /* ZoomSkeinLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4BD274B408701E6700C1AE15 /* ZoomBlorbFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */; };
 		4BD274B508701E6700C1AE15 /* ZoomConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4D512106E3894F007FAD2B /* ZoomConnector.m */; };
-		4BD274B708701E6700C1AE15 /* ZoomSkeinLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAADD7C079053030076ACC4 /* ZoomSkeinLayoutItem.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		4BD274B708701E6700C1AE15 /* ZoomSkeinLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAADD7C079053030076ACC4 /* ZoomSkeinLayoutItem.m */; };
 		4BD274B908701E6700C1AE15 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 		4BD274BA08701E6700C1AE15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCF3F2B050F8E2400A8E303 /* Foundation.framework */; };
 		4BD274BC08701E6700C1AE15 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0A32AE06A5966D00BB8878 /* WebKit.framework */; };
@@ -3230,6 +3230,7 @@
 		4BD274BF08701E6700C1AE15 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3263,6 +3264,7 @@
 		4BD274C008701E6700C1AE15 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

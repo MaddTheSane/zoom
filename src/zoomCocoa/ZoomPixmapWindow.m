@@ -26,13 +26,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	[pixmap release];
-	[inputStyle release];
-	
-	[super dealloc];
-}
-
 // = Getting the pixmap =
 
 - (NSSize) size {
@@ -137,8 +130,6 @@
 	[text drawAtPoint: point
 	   withAttributes: attr];
 	
-	[attr release];
-	
 	[pixmap unlockFocus];
 	[zView setNeedsDisplay: YES];
 }
@@ -152,13 +143,11 @@
 	NSBitmapImageRep*	copiedBits	= [[NSBitmapImageRep alloc] initWithFocusedViewRect: region];
 	NSImage*			copiedImage	= [[NSImage alloc] init];
 	[copiedImage addRepresentation: copiedBits];
-	[copiedBits release];
 	[copiedImage drawInRect: NSMakeRect(where.x, where.y, region.size.width, region.size.height)
 				   fromRect: NSMakeRect(0,0, region.size.width, region.size.height)
 				  operation: NSCompositeSourceOver
 				   fraction: 1.0];
 	
-	[copiedImage release];
 	
 	// Uh, docs say we should use NSNullObject here, but it's not defined. Making a guess at its value (sigh)
 	// This would be less of a problem in a view, because we can get the view's own graphics state. But you
@@ -212,7 +201,7 @@
 	
 	[pixmap unlockFocus];
 	
-	return [[res copy] autorelease];
+	return [res copy];
 }
 
 // = Input =
@@ -221,7 +210,6 @@
 				withStyle: (in bycopy ZStyle*) style {
 	inputPos = point;
 	if (inputStyle) {
-		[inputStyle release];
 		inputStyle = style;
 	}
 }
@@ -267,9 +255,9 @@
 	self = [super init];
 	
     if (self) {
-		pixmap = [[decoder decodeObject] retain];
+		pixmap = [decoder decodeObject];
 		inputPos = [decoder decodePoint];
-		inputStyle = [[decoder decodeObject] retain];
+		inputStyle = [decoder decodeObject];
     }
 	
     return self;

@@ -13,7 +13,7 @@
 
 @class ZoomView;
 @interface ZoomUpperWindowView : NSView <ZoomInputLineDelegate, ZoomCursorDelegate, NSAccessibilityStaticText> {
-    ZoomView* zoomView;	
+    __unsafe_unretained ZoomView* zoomView;	
 	ZoomCursor* cursor;
 	
 	ZoomInputLine* inputLine;

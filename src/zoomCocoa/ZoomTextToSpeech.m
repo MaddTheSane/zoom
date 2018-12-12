@@ -42,19 +42,6 @@ static SpeechChannel channel = nil;
 	return self;
 }
 
-- (void) dealloc {
-	[text release];
-	[lastText release];
-	[skein release];
-	
-	if (synth) {
-		[synth stopSpeaking];
-		[synth release];
-	}
-	
-	[super dealloc];
-}
-
 // = Direct output =
 
 - (void) inputCommand: (NSString*) command {
@@ -77,10 +64,8 @@ static SpeechChannel channel = nil;
 		[self speak: text];		
 	}
 	
-	[lastText release];
 	lastText = [text copy];
 	
-	[text release];
 	text = [[NSMutableString alloc] init];
 	[self resetMoves];
 }

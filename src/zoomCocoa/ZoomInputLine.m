@@ -18,21 +18,13 @@
 	
 	if (self) {
 		lineString = [[NSMutableString alloc] init];
-		cursor = [csr retain];
+		cursor = csr;
 		attributes = [attr mutableCopy];
 		
 		[attributes removeObjectForKey: NSBackgroundColorAttributeName];
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	[cursor release];
-	[lineString release];
-	[attributes release];
-	
-	[super dealloc];
 }
 
 // Drawing
@@ -187,8 +179,6 @@
 		[self updateCursor];
 	}
 	
-	[inString release];
-	
 	// Deal with end of line
 	if (endOfLine) {
 		if (delegate && [delegate respondsToSelector: @selector(endOfLineReached:)]) {
@@ -218,7 +208,7 @@
 
 // Results
 - (NSString*) inputLine {
-	return [[lineString copy] autorelease];
+	return [lineString copy];
 }
 
 @end

@@ -22,13 +22,6 @@
     return self;
 }
 
-- (void) dealloc {
-    // [zoomView release];
-	[backgroundStyle release];
-	[inputStyle release];
-    [super dealloc];
-}
-
 // Clears the window
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
     // Clear the lower part of all the upper windows
@@ -44,7 +37,6 @@
     [zoomView resetMorePrompt];
 	[zoomView padToLowerWindow];
 	
-	[backgroundStyle release];
 	backgroundStyle = [style copy];
 }
 
@@ -81,7 +73,7 @@
 	self = [super init];
 	
     if (self) {
-		backgroundStyle = [[decoder decodeObject] retain];
+		backgroundStyle = [decoder decodeObject];
     }
 	
     return self;

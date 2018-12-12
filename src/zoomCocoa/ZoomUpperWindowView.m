@@ -27,9 +27,6 @@
 
 - (void) dealloc {
 	[cursor setDelegate: nil];
-	[cursor release];
-	
-	[super dealloc];
 }
 
 - (void)drawRect:(NSRect)rect {
@@ -180,7 +177,6 @@
 	ZStyle* style = [activeWindow inputStyle];
 	if (style == nil) {
 		style = [[ZStyle alloc] init];
-		[style autorelease];
 		
 		[style setFixed: YES];
 		[style setReversed: YES];
@@ -217,7 +213,6 @@
 	[cursor setShown: NO];
 	
 	if (sender == inputLine) {
-		[inputLine release];
 		inputLine = nil;
 	}
 }

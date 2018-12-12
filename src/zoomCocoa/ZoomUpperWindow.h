@@ -12,7 +12,7 @@
 
 @class ZoomView;
 @interface ZoomUpperWindow : NSObject<ZUpperWindow, NSCoding> {
-    ZoomView* theView;
+    __unsafe_unretained ZoomView* theView;
 
     int startLine, endLine;
 

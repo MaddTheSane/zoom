@@ -41,8 +41,8 @@
 		NSString* connectionName = [NSString stringWithFormat: @"Zoom-%i", getpid()];
 		NSPort* port = [NSMachPort port];
 		
-		connection = [[NSConnection connectionWithReceivePort: port
-													 sendPort: port] retain];
+		connection = [NSConnection connectionWithReceivePort: port
+													sendPort: port];
 		[connection setRootObject: self];
 		[connection addRunLoop: [NSRunLoop currentRunLoop]];
 		if (![connection registerName: connectionName]) {
@@ -56,11 +56,7 @@
 }
 
 - (void) dealloc {
-	[waitingViews release];
 	[connection registerName: nil];
-	[connection release];
-
-	[super dealloc];
 }
 
 // = Connecting views to Z-Machines =
@@ -76,7 +72,7 @@
 
 - (byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine {
 	// Get the view that's waiting
-	ZoomView* whichView = [[[waitingViews lastObject] retain] autorelease];	
+	ZoomView* whichView = [waitingViews lastObject];	
 	if (whichView == nil) {
 		NSLog(@"WARNING: attempt to connect to a display when no objects are available to connect to");
 		return nil;

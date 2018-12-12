@@ -15,7 +15,7 @@
 @interface ZoomInputLine : NSObject {
 	ZoomCursor* cursor;
 	
-	id<ZoomInputLineDelegate> delegate;
+	__weak id<ZoomInputLineDelegate> delegate;
 	
 	NSMutableString* lineString;
 	NSMutableDictionary<NSAttributedStringKey, id>* attributes;
@@ -33,7 +33,7 @@
 
 - (NSString*) inputLine;
 
-@property (assign) id<ZoomInputLineDelegate> delegate;
+@property (weak) id<ZoomInputLineDelegate> delegate;
 
 - (NSString*) lastHistoryItem;
 - (NSString*) nextHistoryItem;

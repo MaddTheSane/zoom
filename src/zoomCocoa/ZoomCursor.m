@@ -38,10 +38,7 @@
 - (void) dealloc {
 	if (flasher) {
 		[flasher invalidate];
-		[flasher release];
 	}
-	
-	[super dealloc];
 }
 
 // = Delegate =
@@ -192,7 +189,6 @@
 		
 		if (flasher) {
 			[flasher invalidate];
-			[flasher release];
 			flasher = nil;
 		}
 	} else {
@@ -202,7 +198,7 @@
 											selector: @selector(ZCblinky)
 											userInfo: nil
 											 repeats: YES];
-			[[NSRunLoop currentRunLoop] addTimer: [flasher retain]
+			[[NSRunLoop currentRunLoop] addTimer: flasher
 										 forMode: NSDefaultRunLoopMode];
 		}
 	}

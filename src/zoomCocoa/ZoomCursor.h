@@ -21,7 +21,7 @@
 	
 	BOOL lastVisible, lastActive;
 	
-	id<ZoomCursorDelegate> delegate;
+	__weak id<ZoomCursorDelegate> delegate;
 	
 	NSTimer* flasher;
 }
@@ -47,7 +47,7 @@
 - (void) setFirst:    (BOOL) first;  //!< Whether or not the cursor's view is the first responder
 
 //! Delegate
-@property (assign) id<ZoomCursorDelegate> delegate;
+@property (weak) id<ZoomCursorDelegate> delegate;
 
 @end
 

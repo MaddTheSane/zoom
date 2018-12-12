@@ -16,7 +16,7 @@
     if (self) {
         zoomView = nil;
 
-        upperDivider = [[NSBox allocWithZone: [self zone]] initWithFrame:
+        upperDivider = [[NSBox alloc] initWithFrame:
             NSMakeRect(0,0,2,2)];
         [upperDivider setBoxType: NSBoxSeparator];
 		
@@ -34,16 +34,10 @@
         zoomView = zView; // Not retained, as this is a component of a ZoomView
 		scaleFactor = 1.0;
         
-        upperView = [[ZoomUpperWindowView allocWithZone: [self zone]] initWithFrame: frame
-                                                                           zoomView: zView];
+        upperView = [[ZoomUpperWindowView alloc] initWithFrame: frame
+													  zoomView: zView];
     }
     return self;
-}
-
-- (void) dealloc {
-    [upperDivider release];
-    [upperView release];
-    [super dealloc];
 }
 
 - (void) tile {

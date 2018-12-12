@@ -14,7 +14,7 @@
 @class ZoomView;
 @class ZoomUpperWindowView;
 @interface ZoomScrollView : NSScrollView {
-    ZoomView*            zoomView;
+    __unsafe_unretained ZoomView*            zoomView;
     ZoomUpperWindowView* upperView;
         
     NSBox* upperDivider;
