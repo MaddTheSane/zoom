@@ -24,8 +24,6 @@
 - (void) dealloc {
 	[self finishAnimation];
 	
-	[startImage release];
-	[endImage release];
 	[whenStarted release];
 	[props autorelease];
 	
@@ -160,13 +158,7 @@
 	[originalSuperview addSubview: self];
 }
 
-- (void) setAnimationTime: (NSTimeInterval) newAnimationTime {
-	animationTime = newAnimationTime;
-}
-
-- (NSTimeInterval) animationTime {
-	return animationTime;
-}
+@synthesize animationTime;
 
 - (void) animateTo: (NSView*) view
 			 style: (ZoomViewAnimationStyle) style {
