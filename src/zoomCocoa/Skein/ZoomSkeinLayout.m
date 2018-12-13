@@ -15,7 +15,7 @@
 #define SkeinDrawingStyleNew
 
 // Constants
-static const float itemPadding = 56.0;
+static const CGFloat itemPadding = 56.0;
 
 static NSDictionary* itemTextAttributes = nil;
 static NSDictionary* labelTextAttributes = nil;
@@ -347,8 +347,8 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	// Adjust the width to fit the text, if required
-	float ourWidth = [item commandSize].width;
-	float labelWidth = [item annotationSize].width;
+	CGFloat ourWidth = [item commandSize].width;
+	CGFloat labelWidth = [item annotationSize].width;
 	
 	if (labelWidth > ourWidth) ourWidth = labelWidth;
 	
@@ -599,7 +599,7 @@ static NSImage* unchangedDark, *activeDark;
 		NSSize res;
 		
 		res.width = [tree fullWidth];
-		res.height = ((float)[levels count]) * itemHeight;
+		res.height = ((CGFloat)[levels count]) * itemHeight;
 		
 		return res;
 	} else {
@@ -627,7 +627,7 @@ static NSImage* unchangedDark, *activeDark;
 		NSEnumerator* levelEnum = [[self dataForLevel: level] objectEnumerator];
 		ZoomSkeinLayoutItem* item;
 		
-		float ypos = ((float)level)*itemHeight + (itemHeight / 2.0);
+		CGFloat ypos = ((CGFloat)level)*itemHeight + (itemHeight / 2.0);
 		
 		while (item = [levelEnum nextObject]) {
 			ZoomSkeinItem* skeinItem = [item item];

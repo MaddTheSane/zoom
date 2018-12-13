@@ -1427,14 +1427,14 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 		NSSize screenSize = [[picturePreview screen] frame].size;
 		
 		if (previewSize.width > screenSize.width-128.0) {
-			float ratio = (screenSize.width-128.0)/previewSize.width;
+			CGFloat ratio = (screenSize.width-128.0)/previewSize.width;
 
 			previewSize.width = floor(previewSize.width*ratio);
 			previewSize.height = floor(previewSize.height*ratio);
 		}
 		
 		if (previewSize.height > screenSize.height-128.0) {
-			float ratio = (screenSize.height-128.0)/previewSize.height;
+			CGFloat ratio = (screenSize.height-128.0)/previewSize.height;
 			
 			previewSize.width = floor(previewSize.width*ratio);
 			previewSize.height = floor(previewSize.height*ratio);
@@ -1605,7 +1605,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 //
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {
-	float pos = [splitView getSplitPercentage];
+	CGFloat pos = [splitView getSplitPercentage];
 	
 	if( pos == 0.0 )
 	{
@@ -1619,7 +1619,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 
 - (void)splitViewMouseDownProcessed:(NSSplitView *)aSplitView 
 {
-    float pos = [splitView getSplitPercentage];
+    CGFloat pos = [splitView getSplitPercentage];
 	
 	if( pos > 0.0 ) 
 	{
@@ -1636,7 +1636,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 //
 
 - (void)splitViewDoubleClickedOnDivider:(NSSplitView *)aSplitView {
-    float pos = [splitView getSplitPercentage];
+    CGFloat pos = [splitView getSplitPercentage];
 	
     if (pos == 0.0) 
 	{

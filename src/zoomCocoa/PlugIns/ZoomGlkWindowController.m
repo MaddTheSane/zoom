@@ -300,7 +300,7 @@
 - (void) showLogMessage: (NSString*) message
 			 withStatus: (GlkLogStatus) status {
 	// Choose a style for this message
-	float msgSize = 10;
+	CGFloat msgSize = 10;
 	NSColor* msgColour = [NSColor grayColor];
 	BOOL isBold = NO;
 	

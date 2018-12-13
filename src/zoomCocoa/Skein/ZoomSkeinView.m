@@ -628,7 +628,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		NSPoint origin;
 		
 		origin.x = [layout xposForItem: clickedItem] - [layout widthForItem: clickedItem]/2.0 - 20.0;
-		origin.y = ((float)[layout levelForItem: clickedItem])*itemHeight + (itemHeight/2.0);
+		origin.y = ((CGFloat)[layout levelForItem: clickedItem])*itemHeight + (itemHeight/2.0);
 		origin.y += 22.0;
 		
 		[self dragImage: itemImage
@@ -996,7 +996,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	if (annotation) itemFrame.origin.y -= 18;
 	
 	// Make sure the item is the right size
-	float minItemWidth = itemWidth - 32.0;
+	CGFloat minItemWidth = itemWidth - 32.0;
 	if (itemFrame.size.width < minItemWidth) {
 		itemFrame.origin.x  -= (minItemWidth - itemFrame.size.width)/2.0;
 		itemFrame.size.width = minItemWidth;

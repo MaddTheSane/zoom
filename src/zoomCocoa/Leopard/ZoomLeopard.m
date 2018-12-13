@@ -200,8 +200,8 @@
 	[view setWantsLayer: YES];
 	[[view layer] display];
 	
-	float ratioX = oldWindowFrame.size.width / newWindowFrame.size.width;
-	float ratioY = oldWindowFrame.size.height / newWindowFrame.size.height;
+	CGFloat ratioX = oldWindowFrame.size.width / newWindowFrame.size.width;
+	CGFloat ratioY = oldWindowFrame.size.height / newWindowFrame.size.height;
 	
 	CATransform3D scaleFrom = CATransform3DIdentity;
 	scaleFrom = CATransform3DScale(scaleFrom, ratioX, ratioY, 1.0);

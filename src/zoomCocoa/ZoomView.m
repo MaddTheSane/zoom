@@ -389,7 +389,7 @@ static void finalizeViews(void) {
     exclusiveMode = NO;
 }
 
-- (float) bufferHeight {
+- (CGFloat) bufferHeight {
 	NSLayoutManager* mgr = [textView layoutManager];
 	NSTextStorage* textStorage = [textView textStorage];
 	
@@ -411,7 +411,7 @@ static void finalizeViews(void) {
 	
 	[[textView layoutManager] setBackgroundLayoutEnabled: NO];
 	BOOL truncated = NO;
-	float oldHeight = [self bufferHeight];
+	CGFloat oldHeight = [self bufferHeight];
 
 	[[textView textStorage] beginEditing];
 	editingTextView = YES;
@@ -419,11 +419,11 @@ static void finalizeViews(void) {
     [toFlush blat];
 	
 	// Cut down the scrollback if the user has requested it
-	float sb = [viewPrefs scrollbackLength];
+	CGFloat sb = [viewPrefs scrollbackLength];
 	if (sb < 100.0) {
 		// Number of characters to preserve (4096 -> 1 million)
 		NSInteger len = [[textView textStorage] length];
-		float preserve = 4096.0 + pow(sb*10.0, 2);
+		CGFloat preserve = 4096.0 + pow(sb*10.0, 2);
 		
 		if (len > ((int)preserve + 2048)) {
 			// Need to truncate
@@ -439,7 +439,7 @@ static void finalizeViews(void) {
 	[[textView textStorage] endEditing];
 	editingTextView = NO;
 	
-	float newHeight = [self bufferHeight];
+	CGFloat newHeight = [self bufferHeight];
 	if (newHeight != oldHeight && truncated) {
 		[textView offsetPastedLines: oldHeight-newHeight];
 	}

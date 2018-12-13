@@ -300,7 +300,7 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	   toFontFamily: [prefs symbolicFontFamily]];
 	
 	// Set the size display
-	float fontSize = [prefs fontSize];
+	CGFloat fontSize = [prefs fontSize];
 	[fontSizeSlider setFloatValue: fontSize];
 	[fontSizeDisplay setStringValue: [NSString stringWithFormat: @"%.1fpt", fontSize]];
 	

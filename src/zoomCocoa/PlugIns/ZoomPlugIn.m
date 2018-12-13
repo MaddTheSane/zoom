@@ -117,7 +117,7 @@
 	NSImage* result = input;
 		
 	if (oldSize.width > 256 || oldSize.height > 256) {
-		float scaleFactor;
+		CGFloat scaleFactor;
 		
 		if (oldSize.width > oldSize.height) {
 			scaleFactor = 256/oldSize.width;

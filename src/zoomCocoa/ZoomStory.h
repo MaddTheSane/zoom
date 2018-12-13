@@ -49,16 +49,16 @@ enum IFMB_Zarfian {
 - (BOOL) containsText: (NSString*) text;
 
 // Accessors
-- (NSString*) title;
-- (NSString*) headline;
-- (NSString*) author;
-- (NSString*) genre;
-- (int)       year;
-- (NSString*) group;
-- (unsigned)  zarfian;
-- (NSString*) teaser;
-- (NSString*) comment;
-- (float)     rating;
+@property (copy)	NSString *title;
+@property (copy)	NSString *headline;
+@property (copy)	NSString *author;
+@property (copy)	NSString *genre;
+@property int		year;
+@property (copy)	NSString *group;
+@property unsigned	zarfian;
+@property (copy)	NSString *teaser;
+@property (copy)	NSString *comment;
+@property float		rating;
 
 - (int)		  coverPicture;
 - (NSString*) description;
@@ -84,13 +84,13 @@ enum IFMB_Zarfian {
 			forKey: (id) key;
 
 // Identifying and comparing stories
-- (ZoomStoryID*) storyID;								// Compound ID
-- (NSArray*) storyIDs;									// Array of ZoomStoryIDs
-- (BOOL)     hasID: (ZoomStoryID*) storyID;				// Story answers to this ID
-- (BOOL)     isEquivalentToStory: (ZoomStory*) story;   // Stories share an ID
+- (ZoomStoryID*) storyID;								//!< Compound ID
+- (NSArray<ZoomStoryID*>*) storyIDs;					//!< Array of ZoomStoryIDs
+- (BOOL)     hasID: (ZoomStoryID*) storyID;				//!< Story answers to this ID
+- (BOOL)     isEquivalentToStory: (ZoomStory*) story;   //!< Stories share an ID
 
 // Sending notifications
-- (void) heyLookThingsHaveChangedOohShiney; // Sends ZoomStoryDataHasChangedNotification
+- (void) heyLookThingsHaveChangedOohShiney; //!< Sends ZoomStoryDataHasChangedNotification
 
 - (id) init;								// New story (DEPRECATED)
 

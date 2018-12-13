@@ -607,7 +607,7 @@
 	NSImage* result = input;
 	
 	if (oldSize.width > 256 || oldSize.height > 256) {
-		float scaleFactor;
+		CGFloat scaleFactor;
 		
 		if (oldSize.width > oldSize.height) {
 			scaleFactor = 256/oldSize.width;
@@ -714,8 +714,8 @@
 }
 
 - (void) fadeLogo {
-	float timePassed = [[NSDate date] timeIntervalSinceDate: fadeStart];
-	float fadeAmount = timePassed/fadeTime;
+	NSTimeInterval timePassed = [[NSDate date] timeIntervalSinceDate: fadeStart];
+	CGFloat fadeAmount = timePassed/fadeTime;
 	
 	if (fadeAmount < 0 || fadeAmount > 1) {
 		// Finished fading: get rid of the window + the timer

@@ -82,8 +82,8 @@
 		NSSize titleSize = [thisTitle sizeWithAttributes: titleAttributes];
 		NSRect thisFrame = [thisView frame];
 		
-		float ypos = thisFrame.origin.y;
-		float titleHeight;
+		CGFloat ypos = thisFrame.origin.y;
+		CGFloat titleHeight;
 		
 		if (![thisTitle isEqualToString: @""]) 
 			titleHeight = (titleSize.height*1.2);
@@ -203,11 +203,11 @@
 	NSEnumerator* titleEnum;
 	NSView* subview;
 	
-	float bestWidth;
-	float newHeight;
+	CGFloat bestWidth;
+	CGFloat newHeight;
 	
 	NSFont* titleFont = [NSFont boldSystemFontOfSize: FONTSIZE];
-	float titleHeight = [titleFont ascender] - [titleFont descender];
+	CGFloat titleHeight = [titleFont ascender] - [titleFont descender];
 	
 	oldBounds = newBounds;
 	
@@ -258,7 +258,7 @@
 	newBounds = [self bounds];
 	
 	// Stage three: Position the views appropriately
-	float ypos = BORDER;
+	CGFloat ypos = BORDER;
 	
 	viewEnum = [views objectEnumerator];
 	stateEnum = [states objectEnumerator];
@@ -304,7 +304,7 @@
 		
 		// Decide if we need to show a scrollbar or not
 		NSView* docView = [scrollView contentView];
-		float maxHeight = [docView bounds].size.height;
+		CGFloat maxHeight = [docView bounds].size.height;
 		
 		if (newHeight > maxHeight || iterationCount > 1)
 			showVerticalBar = YES;

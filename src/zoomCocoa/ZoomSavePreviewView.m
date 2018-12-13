@@ -166,7 +166,7 @@
 	}
 	
 	// Arrange the views, resize ourselves
-	float size = 2;
+	CGFloat size = 2;
 	NSRect bounds = [self bounds];
 	
 	NSEnumerator* viewEnum = [upperWindowViews objectEnumerator];

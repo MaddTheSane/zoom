@@ -61,7 +61,7 @@
 	
 	IBOutlet ZoomCollapsingSplitView* splitView;
 	
-	float splitViewPercentage;
+	CGFloat splitViewPercentage;
 	BOOL splitViewCollapsed;
 	
 	IBOutlet ZoomStoryTableView* mainTableView;

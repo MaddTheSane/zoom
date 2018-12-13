@@ -19,7 +19,7 @@
         
     NSBox* upperDivider;
 	
-	float scaleFactor;
+	CGFloat scaleFactor;
 	
 	NSSize lastFixedSize;
 	NSSize lastTileSize;
@@ -31,7 +31,7 @@
 - (id) initWithFrame: (NSRect) frame
             zoomView: (ZoomView*) zView;
 
-- (void) setScaleFactor: (float) factor;
+@property (nonatomic) CGFloat scaleFactor;
 - (void) updateUpperWindows;
 - (ZoomUpperWindowView*) upperWindowView;
 

@@ -137,7 +137,8 @@
     [upperView setNeedsDisplay: YES];
 }
 
-- (void) setScaleFactor: (float) factor {
+@synthesize scaleFactor;
+- (void) setScaleFactor: (CGFloat) factor {
 	scaleFactor = factor;
 	[self tile];
 }
