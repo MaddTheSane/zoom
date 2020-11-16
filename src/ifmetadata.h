@@ -70,6 +70,7 @@ struct IFMDData {
 	IFMDChar* genre;
 	unsigned int year;
 	IFMDChar* group;
+#ifndef __OBJC__
 	enum {
 		IFMD_Unrated = 0x0,
 		IFMD_Merciful,
@@ -77,7 +78,11 @@ struct IFMDData {
 		IFMD_Tough,
 		IFMD_Nasty,
 		IFMD_Cruel
-	} zarfian;
+	}
+#else
+	enum IFMB_Zarfian
+#endif
+	zarfian;
 	IFMDChar* teaser;
 	IFMDChar* comment;
 	float rating;

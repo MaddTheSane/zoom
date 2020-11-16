@@ -357,21 +357,17 @@
 		55BD080D21B7638800A8DD5F /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BD080F21B7638800A8DD5F /* schema.strings */; };
 		55BD081721B85E8600A8DD5F /* ZoomViewProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BD081821B8C16800A8DD5F /* Skein.xcassets */; };
+		55EFEC4F25627335001E0823 /* glulxe in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55EFEC5025627335001E0823 /* git in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
-		4B51A94B08FAC67700232D0B /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.gcc;
-			fileType = sourcecode.c;
-			isEditable = 1;
-			outputFiles = (
-			);
-		};
 		4B51A94D08FAC6B300232D0B /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.gcc;
 			fileType = sourcecode.asm;
+			inputFiles = (
+			);
 			isEditable = 1;
 			outputFiles = (
 			);
@@ -380,6 +376,8 @@
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.gcc;
 			fileType = sourcecode.c;
+			inputFiles = (
+			);
 			isEditable = 1;
 			outputFiles = (
 			);
@@ -388,22 +386,8 @@
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.gcc;
 			fileType = sourcecode.asm;
-			isEditable = 1;
-			outputFiles = (
+			inputFiles = (
 			);
-		};
-		4B51A95B08FAC73B00232D0B /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.gcc;
-			fileType = sourcecode.c;
-			isEditable = 1;
-			outputFiles = (
-			);
-		};
-		4B51A95C08FAC74000232D0B /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.gcc;
-			fileType = sourcecode.c;
 			isEditable = 1;
 			outputFiles = (
 			);
@@ -719,6 +703,17 @@
 				4BB8C20208C249F400D7D334 /* ZoomView.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55EFEC46256272BD001E0823 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				55EFEC4F25627335001E0823 /* glulxe in CopyFiles */,
+				55EFEC5025627335001E0823 /* git in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -1898,8 +1893,8 @@
 			buildPhases = (
 				4B36C4510955ED1700874F9F /* Sources */,
 				4B36C4520955ED1700874F9F /* Frameworks */,
-				4B36C5080955EE2900874F9F /* ShellScript */,
 				4B36C4500955ED1700874F9F /* Resources */,
+				55EFEC46256272BD001E0823 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2002,7 +1997,6 @@
 			);
 			buildRules = (
 				4B51A94D08FAC6B300232D0B /* PBXBuildRule */,
-				4B51A94B08FAC67700232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
 				4BB8C12308C2497700D7D334 /* PBXTargetDependency */,
@@ -2059,8 +2053,6 @@
 				4BD274B808701E6700C1AE15 /* Frameworks */,
 			);
 			buildRules = (
-				4B51A95C08FAC74000232D0B /* PBXBuildRule */,
-				4B51A95B08FAC73B00232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
 				4BB8C16F08C2498A00D7D334 /* PBXTargetDependency */,
@@ -2101,6 +2093,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
+				English,
 				en,
 				ja,
 				fr,
@@ -2308,25 +2301,6 @@
 /* End PBXRezBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4B36C5080955EE2900874F9F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/git",
-				"$(BUILT_PRODUCTS_DIR)/glulxe",
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/git-client",
-				"$(BUILT_PRODUCTS_DIR)/glulxe-client",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#\n# Fix for xcode thickness\n#\n\necho \"Copying plugin (${BUILT_PRODUCTS_DIR}/glulxe)\"\ncp -RH ${BUILT_PRODUCTS_DIR}/glulxe ${BUILT_PRODUCTS_DIR}/glulxe-client || exit 1\ncp -RH ${BUILT_PRODUCTS_DIR}/git ${BUILT_PRODUCTS_DIR}/git-client || exit 1\n\nmkdir -p ${BUILT_PRODUCTS_DIR}/ZoomGlulxe.plugin/Contents/MacOS\ncp -RH ${BUILT_PRODUCTS_DIR}/glulxe-client ${BUILT_PRODUCTS_DIR}/ZoomGlulxe.plugin/Contents/MacOS/glulxe-client\ncp -RH ${BUILT_PRODUCTS_DIR}/git-client ${BUILT_PRODUCTS_DIR}/ZoomGlulxe.plugin/Contents/MacOS/git-client\n";
-		};
 		4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

@@ -465,10 +465,9 @@ static int currentScore = 1;
 - (ZoomSkeinItem*) nextDiffDown {
 	// Finds the next difference (below this item)
 	NSEnumerator* childEnum = [[self children] objectEnumerator];
-	ZoomSkeinItem* child;
 	
-	while (child = [childEnum nextObject]) {
-		int compare = [child commentaryComparison];
+	for (ZoomSkeinItem* child in childEnum) {
+		ZoomSkeinComparison compare = [child commentaryComparison];
 		if (compare == ZoomSkeinDifferent
 			|| compare == ZoomSkeinDiffersOnlyByWhitespace) {
 			return child;
