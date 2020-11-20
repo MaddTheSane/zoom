@@ -357,8 +357,8 @@
 		55BD080D21B7638800A8DD5F /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BD080F21B7638800A8DD5F /* schema.strings */; };
 		55BD081721B85E8600A8DD5F /* ZoomViewProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BD081821B8C16800A8DD5F /* Skein.xcassets */; };
-		55EFEC4F25627335001E0823 /* glulxe in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		55EFEC5025627335001E0823 /* git in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -711,8 +711,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				55EFEC4F25627335001E0823 /* glulxe in CopyFiles */,
-				55EFEC5025627335001E0823 /* git in CopyFiles */,
+				55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */,
+				55EFEC5025627335001E0823 /* git-client in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1417,9 +1417,9 @@
 				4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */,
 				4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */,
 				4B7CB1C9093634DD00F3B8F6 /* multiwin */,
-				4B7CB1CB093634DD00F3B8F6 /* glulxe */,
+				4B7CB1CB093634DD00F3B8F6 /* glulxe-client */,
 				4B7CB1CD093634DD00F3B8F6 /* imagetest */,
-				4BD093970FACAEEE001F7EF0 /* git */,
+				4BD093970FACAEEE001F7EF0 /* git-client */,
 				554E440D204E6DD4000A7D6D /* SwiftGlk.app */,
 				55982BE621C0B8F5002B601B /* GlkView.framework */,
 				55982BE821C0B8F5002B601B /* GlkClient.framework */,
@@ -2086,14 +2086,14 @@
 		4B1E3F4B050F7AD000A8E303 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = Zoom;
 				LastUpgradeCheck = 1010;
 			};
 			buildConfigurationList = 4B11039608606E2600253E87 /* Build configuration list for PBXProject "ZoomCocoa" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
 				en,
 				ja,
 				fr,
@@ -2153,10 +2153,10 @@
 			remoteRef = 4B7CB1C8093634DD00F3B8F6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4B7CB1CB093634DD00F3B8F6 /* glulxe */ = {
+		4B7CB1CB093634DD00F3B8F6 /* glulxe-client */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = glulxe;
+			path = "glulxe-client";
 			remoteRef = 4B7CB1CA093634DD00F3B8F6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2167,10 +2167,10 @@
 			remoteRef = 4B7CB1CC093634DD00F3B8F6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4BD093970FACAEEE001F7EF0 /* git */ = {
+		4BD093970FACAEEE001F7EF0 /* git-client */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
-			path = git;
+			path = "git-client";
 			remoteRef = 4BD093960FACAEEE001F7EF0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2779,6 +2779,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2831,6 +2832,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2874,14 +2876,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 0.4.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../../Frameworks @loader_path/../Frameworks";
+				MARKETING_VERSION = 0.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomGlulxe;
 				PRODUCT_NAME = ZoomGlulxe;
 				SKIP_INSTALL = YES;
@@ -2893,13 +2896,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 0.4.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = "Glulxe-Info.plist";
 				INSTALL_PATH = "@executable_path/../Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../../Frameworks @loader_path/../Frameworks";
+				MARKETING_VERSION = 0.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomGlulxe;
 				PRODUCT_NAME = ZoomGlulxe;
 				SKIP_INSTALL = YES;
@@ -2913,8 +2917,8 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.4.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2926,6 +2930,7 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "ZoomMetadataImporter-Info.plist";
+				MARKETING_VERSION = 1.4.1;
 				OTHER_CFLAGS = "-DXMLCALL=";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
@@ -2938,8 +2943,8 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.4.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2951,6 +2956,7 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "ZoomMetadataImporter-Info.plist";
+				MARKETING_VERSION = 1.4.1;
 				OTHER_CFLAGS = "-DXMLCALL=";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
@@ -2963,7 +2969,6 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -2981,7 +2986,6 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "ZoomSaveQuickLook-Info.plist";
@@ -2997,7 +3001,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
+				CURRENT_PROJECT_VERSION = 1.1.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3010,9 +3014,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEVELOPMENT=1",
 					HAVE_COREFOUNDATION,
-					"$(GCC_PREPROCESSOR_DEFINITIONS)",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
+				MARKETING_VERSION = 1.1.7;
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -3028,7 +3033,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
+				CURRENT_PROJECT_VERSION = 1.1.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3040,9 +3045,10 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_COREFOUNDATION,
-					"$(GCC_PREPROCESSOR_DEFINITIONS)",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
+				MARKETING_VERSION = 1.1.7;
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -3059,7 +3065,6 @@
 		4BB8C0E608C2452E00D7D334 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
@@ -3071,7 +3076,6 @@
 		4BB8C0E708C2452E00D7D334 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				HEADER_SEARCH_PATHS = (
 					ProjectBuilder/etc,
 					build,
@@ -3083,7 +3087,6 @@
 		4BB8C16708C2497700D7D334 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_COREFOUNDATION,
 					"$(inherited)",
@@ -3101,7 +3104,6 @@
 		4BB8C16808C2497700D7D334 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_COREFOUNDATION,
 					"$(inherited)",
@@ -3122,23 +3124,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "zoom-app";
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1.1.7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/depends\"";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					APPLE_IS_ARBITRARY,
 					HAVE_COREFOUNDATION,
-					"XMLCALL=",
-					DEVELOPMENT_BUILD,
+					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MARKETING_VERSION = 1.1.7;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom;
 				PRODUCT_NAME = Zoom;
@@ -3150,22 +3151,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "zoom-app";
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CURRENT_PROJECT_VERSION = 1.1.7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/depends\"";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					APPLE_IS_ARBITRARY,
 					HAVE_COREFOUNDATION,
-					"XMLCALL=",
+					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MARKETING_VERSION = 1.1.7;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom;
 				PRODUCT_NAME = Zoom;
@@ -3179,8 +3180,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.1.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3197,6 +3198,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ProjectBuilder/etc;
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
+				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -3213,8 +3215,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 2.1.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3231,6 +3233,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ProjectBuilder/etc;
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
+				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -3248,7 +3251,6 @@
 		4BD79A920BA2C9C9002C82B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -3261,7 +3263,6 @@
 		4BD79A930BA2C9C9002C82B2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
