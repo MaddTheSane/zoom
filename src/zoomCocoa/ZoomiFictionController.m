@@ -816,7 +816,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 		if ([cB length] == 0) return -1;
 	}
 	
-	int res = [cA caseInsensitiveCompare: cB];
+	NSComparisonResult res = [cA caseInsensitiveCompare: cB];
 	
 	if (res == 0) {
 		return [[sA title] caseInsensitiveCompare: [sB title]];

@@ -30,7 +30,7 @@
 /// Implementation of the ZoomLeopard protocol
 ///
 @interface ZoomLeopard : NSObject<ZoomLeopard, CAAnimationDelegate> {
-	NSMutableArray* animationsWillFinish;							// Array of animations that will finished
+	NSMutableArray* animationsWillFinish;							//!< Array of animations that will finished
 	NSMutableArray* finishInvocations;
 }
 
