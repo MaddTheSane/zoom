@@ -16,18 +16,21 @@
 
 + (ZoomStoryID*) idForFile: (NSString*) filename;
 
-- (id) initWithZCodeStory: (NSData*) gameData;
-- (id) initWithZCodeFile: (NSString*) zcodeFile;
-- (id) initWithGlulxFile: (NSString*) glulxFile;
+- (instancetype)init UNAVAILABLE_ATTRIBUTE;
+- (id) initWithZCodeStory: (NSData*) gameData NS_DESIGNATED_INITIALIZER;
+- (id) initWithZCodeFile: (NSString*) zcodeFile NS_DESIGNATED_INITIALIZER;
+- (id) initWithGlulxFile: (NSString*) glulxFile NS_DESIGNATED_INITIALIZER;
 - (id) initWithData: (NSData*) genericGameData;
 - (id) initWithData: (NSData*) genericGameData
-			   type: (NSString*) type;
-- (id) initWithIdent: (struct IFID*) ident;
-- (id) initWithIdString: (NSString*) idString;
+			   type: (NSString*) type NS_DESIGNATED_INITIALIZER;
+- (id) initWithIdent: (struct IFID*) ident NS_DESIGNATED_INITIALIZER;
+- (id) initWithIdString: (NSString*) idString NS_DESIGNATED_INITIALIZER;
 - (id) initWithZcodeRelease: (int) release
 					 serial: (const unsigned char*) serial
-				   checksum: (int) checksum;
+				   checksum: (int) checksum NS_DESIGNATED_INITIALIZER;
 
 - (struct IFID*) ident;
+
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 
 @end

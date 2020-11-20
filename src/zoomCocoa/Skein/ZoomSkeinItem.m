@@ -99,7 +99,7 @@ static NSString* convertCommand(NSString* command) {
 	NSMutableArray* childrenToDestroy = [NSMutableArray array];
 	NSEnumerator* objEnum = [children objectEnumerator];
 	ZoomSkeinItem* child;
-	while (child = [objEnum nextObject]) {
+	for (child in objEnum) {
 		[childrenToDestroy addObject: child];
 	}
 	
@@ -152,7 +152,7 @@ static NSString* convertCommand(NSString* command) {
 @synthesize parent;
 
 - (NSSet*) children {
-	return children;
+	return [children copy];
 }
 
 - (ZoomSkeinItem*) childWithCommand: (NSString*) com {
@@ -168,9 +168,8 @@ static NSString* convertCommand(NSString* command) {
 - (void) mergeWith: (ZoomSkeinItem*) newItem {
 	// Merges this item with another
 	NSEnumerator* objEnum = [[newItem children] objectEnumerator];
-	ZoomSkeinItem* childItem;
 	
-	while (childItem = [objEnum nextObject]) {
+	for (ZoomSkeinItem* childItem in objEnum) {
 		ZoomSkeinItem* oldChild = [self childWithCommand: [childItem command]];
 		
 		// Same reasoning as addChild: - this saves us a message call, which might allow us to deal with deeper skeins
@@ -582,8 +581,7 @@ static int currentScore = 1;
 		tempScore = [decoder decodeIntForKey: @"tempScore"];
 		
 		NSEnumerator* childEnum = [children objectEnumerator];
-		ZoomSkeinItem* child;
-		while (child = [childEnum nextObject]) {
+		for (ZoomSkeinItem* child in childEnum) {
 			child->parent = self;
 		}
 

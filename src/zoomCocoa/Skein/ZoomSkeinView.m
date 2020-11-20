@@ -109,10 +109,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		annotate   = [[self class] imageNamed: @"SkeinAnnotate"];
 		transcript = [[self class] imageNamed: @"SkeinTranscript"];
 		
-		itemTextAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-							   [NSFont systemFontOfSize: 10], NSFontAttributeName,
-							   [NSColor blackColor], NSForegroundColorAttributeName,
-							   nil];
+		itemTextAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 10],
+							   NSForegroundColorAttributeName: [NSColor blackColor]};
 	});
 }
 
@@ -640,7 +638,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 			  slideBack: YES];
 	} else if (trackedItem != nil && lastButton != ZSVnoButton) {
 		// If the cursor moves away from a button, then unhighlight it
-		int lastActiveButton = activeButton;
+		NSInteger lastActiveButton = activeButton;
 		
 		activeButton = [self buttonUnderPoint: [self convertPoint: [event locationInWindow] 
 														 fromView: nil]
@@ -730,8 +728,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	lastButton = ZSVnoButton;
 }
 
-- (enum ZSVbutton) buttonUnderPoint: (NSPoint) point
-							 inItem: (ZoomSkeinItem*) item {
+- (ZSVbutton) buttonUnderPoint: (NSPoint) point
+						inItem: (ZoomSkeinItem*) item {
 	// Calculate info about the location of this item
 	CGFloat xpos = [layout xposForItem: item];
 	CGFloat ypos = ((CGFloat)[layout levelForItem: item]) * itemHeight + (itemHeight/2.0);

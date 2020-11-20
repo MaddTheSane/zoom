@@ -417,7 +417,7 @@
 		CC_MD5_Final(r, &md5state);
 		
 		// Build the string
-		NSInteger len = ([type length]+32+2);
+		NSInteger len = ([type lengthOfBytesUsingEncoding:NSUTF8StringEncoding]+32+2);
 		char* result = malloc(sizeof(char)*len);
 		
 		snprintf(result, len, "%s-%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
@@ -497,6 +497,12 @@
 
 // = NSCoding =
 - (void)encodeWithCoder:(NSCoder *)encoder {
+	if (encoder.allowsKeyedCoding) {
+		char* stringId = IFMB_IdToString(ident);
+		NSString* stringIdent = [NSString stringWithUTF8String: stringId];
+		[encoder encodeObject:stringIdent forKey:@"IFMBStringID"];
+		free(stringId);
+	} else {
 	// Version might change later on
 	int version = 2;
 	
@@ -507,6 +513,7 @@
 	NSString* stringIdent = [NSString stringWithUTF8String: stringId];
 	[encoder encodeObject: stringIdent];
 	free(stringId);
+	}
 }
 
 enum IFMDFormat {
@@ -533,6 +540,12 @@ typedef unsigned char IFMDByte;
 	self = [super init];
 	
 	if (self) {
+		if (decoder.allowsKeyedCoding) {
+			NSString* idString = (NSString*)[decoder decodeObjectOfClass:[NSString class] forKey:@"IFMBStringID"];
+			
+			ident = IFMB_IdFromString([idString UTF8String]);
+			needsFreeing = YES;
+		} else {
 		ident = NULL;
 		needsFreeing = YES;
 		
@@ -607,6 +620,7 @@ typedef unsigned char IFMDByte;
 		}
 		if (ident == nil) {
 			return nil;
+		}
 		}
 	}
 	

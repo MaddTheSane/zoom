@@ -42,8 +42,8 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 	NSRect  dragInitialVisible;
 	
 	// Clicking buttons
-	int activeButton;
-	int lastButton;
+	NSInteger activeButton;
+	NSInteger lastButton;
 	
 	// Annoyingly poor support for tracking rects band-aid
 	NSRect lastVisibleRect;
