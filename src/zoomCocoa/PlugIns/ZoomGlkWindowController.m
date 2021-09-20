@@ -438,7 +438,7 @@
 - (void) confirmFinish:(NSWindow *)sheet 
 			returnCode:(int)returnCode 
 		   contextInfo:(void *)contextInfo {
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		// Close the window
 		closeConfirmed = YES;
 		[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
@@ -511,7 +511,7 @@
 		if (!normalWindow) normalWindow = [self window];
 		if (!fullscreenWindow) {
 			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
-																			 styleMask: NSBorderlessWindowMask
+																			 styleMask: NSWindowStyleMaskBorderless
 																			   backing: NSBackingStoreBuffered
 																				 defer: YES];
 			
@@ -568,7 +568,7 @@
 		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 			[[self window] setShowsResizeIndicator: NO];
 			frame = [NSWindow frameRectForContentRect: frame
-											styleMask: NSBorderlessWindowMask];
+											styleMask: NSWindowStyleMaskBorderless];
 			[[self window] setFrame: frame
 							display: YES
 							animate: YES];			
@@ -682,7 +682,7 @@
 		 contextInfo: (void*) willBeNil {
 	if (!promptHandler) return;
 	
-	if (returnCode == NSOKButton) {
+	if (returnCode == NSModalResponseOK) {
 		// TODO: preview
 		if ([[[[panel URL] pathExtension] lowercaseString] isEqualToString: @"glksave"]) {
 			ZoomGlkSaveRef* saveRef = [[ZoomGlkSaveRef alloc] initWithPlugIn: [[self document] plugIn]

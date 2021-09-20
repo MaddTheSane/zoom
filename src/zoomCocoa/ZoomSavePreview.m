@@ -263,7 +263,7 @@ static NSImage* saveBackground;
 
 - (void) confirmDelete:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	// Check the user confirmed the delete
-	if (returnCode != NSAlertDefaultReturn) return;
+	if (returnCode != NSAlertFirstButtonReturn) return;
 	
 	// Ensure that this is a genuine savegame
 	BOOL genuine = YES;

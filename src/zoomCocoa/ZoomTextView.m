@@ -150,7 +150,7 @@
 							 fromRect:NSMakeRect(0,0,
 												 lineRect.size.width,
 												 lineRect.size.height)
-							operation:NSCompositeSourceOver
+							operation:NSCompositingOperationSourceOver
 							 fraction:fadeAmount];
             } else {
 				[[NSGraphicsContext currentContext] saveGraphicsState];	

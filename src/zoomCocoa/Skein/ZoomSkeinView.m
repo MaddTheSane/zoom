@@ -150,7 +150,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	if (!highlight) {
 		[button drawAtPoint: pt
 				   fromRect: imgRect
-				  operation: NSCompositeSourceOver
+				  operation: NSCompositingOperationSourceOver
 				   fraction: 1.0];
 	} else {
 		NSImage* highlighted = [[NSImage alloc] initWithSize: imgRect.size];
@@ -167,7 +167,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		// The item
 		[button drawAtPoint: NSMakePoint(0,0)
 				   fromRect: imgRect
-				  operation: NSCompositeDestinationAtop
+				  operation: NSCompositingOperationDestinationAtop
 				   fraction: 1.0];
 		
 		[highlighted unlockFocus];
@@ -175,7 +175,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		// Draw
 		[highlighted drawAtPoint: pt
 						fromRect: imgRect
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 	}
 }
@@ -695,10 +695,10 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 					break;
 					
 				case ZSVmainItem:
-					if ([event modifierFlags]&NSAlternateKeyMask && [event clickCount] == 1) {
+					if ([event modifierFlags]&NSEventModifierFlagOption && [event clickCount] == 1) {
 						// Clicking with the option key edits immediately
 						[self editItem: trackedItem];
-					} else if ([event modifierFlags]&NSCommandKeyMask || [event clickCount] == 2) {
+					} else if ([event modifierFlags]&NSEventModifierFlagCommand || [event clickCount] == 2) {
 						// Run the game to this point (double- or command- click)
 						[self playToPoint: trackedItem];
 					} else if ([event clickCount] == 1) {
@@ -1034,7 +1034,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	[fieldScroller setFrame: itemFrame];
 	[fieldEditor setFrame: NSInsetRect(itemFrame, 2.0, 2.0)];
 	
-	[fieldEditor setAlignment: NSCenterTextAlignment];
+	[fieldEditor setAlignment: NSTextAlignmentCenter];
 	[fieldEditor setFont: [itemTextAttributes objectForKey: NSFontAttributeName]];
 	
 	[fieldEditor setRichText:NO];
@@ -1530,7 +1530,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	
 	NSString *data = [skein transcriptToPoint: contextItem];
 	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
-		if (result != NSOKButton) return;
+		if (result != NSModalResponseOK) return;
 		
 		// Remember the directory we last saved in
 		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]

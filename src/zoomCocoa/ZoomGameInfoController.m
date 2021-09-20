@@ -81,7 +81,7 @@
 }
 
 - (IBAction)activateRating:(id)sender {
-	if ([ratingOn state] == NSOnState) {
+	if ([ratingOn state] == NSControlStateValueOn) {
 		[rating setEnabled: YES];
 	} else {
 		[rating setEnabled: NO];
@@ -117,7 +117,7 @@ static NSString* stringOrEmpty(NSString* str) {
 		
 		[zarfRating setEnabled: NO];	[zarfRating selectItemAtIndex: 0];
 		[rating setEnabled: NO];		[rating setIntValue: 5.0];
-		[ratingOn setEnabled: NO];		[ratingOn setState: NSOffState];
+		[ratingOn setEnabled: NO];		[ratingOn setState: NSControlStateValueOff];
 		
 		[resourceDrop setEnabled: NO]; [chooseResourceButton setEnabled: NO];
 	} else {		
@@ -145,10 +145,10 @@ static NSString* stringOrEmpty(NSString* str) {
 		float rat = [info rating];
 		if (rat >= 0) {
 			[rating setEnabled: YES];		[rating setIntValue: rat];
-			[ratingOn setEnabled: YES];		[ratingOn setState: NSOnState];
+			[ratingOn setEnabled: YES];		[ratingOn setState: NSControlStateValueOn];
 		} else {
 			[rating setEnabled: NO];		[rating setIntValue: 5.0];
-			[ratingOn setEnabled: YES];		[ratingOn setState: NSOffState];
+			[ratingOn setEnabled: YES];		[ratingOn setState: NSControlStateValueOff];
 		}
 		
 		// FIXME: need improved metadata handling to implement this properly
@@ -197,7 +197,7 @@ static NSString* stringOrEmpty(NSString* str) {
 }
 
 - (float) rating {
-	if ([ratingOn state] == NSOnState) {
+	if ([ratingOn state] == NSControlStateValueOn) {
 		return [rating floatValue];
 	} else {
 		return -1;

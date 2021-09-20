@@ -26,7 +26,7 @@ static NSImage* blorbImage;
     if (self) {
 		droppedFilename = nil;
 		
-		[self registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, NSFileContentsPboardType, NSURLPboardType, nil]];
+		[self registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, NSFileContentsPboardType, NSPasteboardTypeFileURL, nil]];
 		
 		willOrganise = 2; // Take value from global preferences (default)
 		enabled = YES;
@@ -72,13 +72,13 @@ static NSImage* blorbImage;
 	
 	[img drawInRect: imgRect
 		   fromRect: sourceRect
-		  operation: NSCompositeSourceOver
+		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0];
 	
 	// Draw the text
 	NSRect remainingRect = bounds;
 	NSMutableParagraphStyle* paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
-	[paraStyle setAlignment: NSCenterTextAlignment];
+	[paraStyle setAlignment: NSTextAlignmentCenter];
 	
 	remainingRect.size.height -= imgRect.size.height + 8;
 	

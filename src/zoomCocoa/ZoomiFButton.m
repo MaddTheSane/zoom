@@ -57,7 +57,7 @@ static NSImage* disabledImage;
 	[disabledImage lockFocus];
 	[tempImage drawInRect: imgRect
 				 fromRect: imgRect
-				operation: NSCompositeSourceAtop
+				operation: NSCompositingOperationSourceAtop
 				 fraction: 0.4];
 	[disabledImage unlockFocus];
 }

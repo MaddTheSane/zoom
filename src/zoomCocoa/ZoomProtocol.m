@@ -414,16 +414,16 @@ NSString* const ZStyleAttributeName = @"ZStyleAttribute";
 // == ZBuffer ==
 
 // Buffer type strings
-NSString* ZBufferWriteString  = @"ZBWS";
-NSString* ZBufferClearWindow  = @"ZBCW";
-NSString* ZBufferMoveTo       = @"ZBMT";
-NSString* ZBufferEraseLine    = @"ZBEL";
-NSString* ZBufferSetWindow    = @"ZBSW";
+static NSString* const ZBufferWriteString  = @"ZBWS";
+static NSString* const ZBufferClearWindow  = @"ZBCW";
+static NSString* const ZBufferMoveTo       = @"ZBMT";
+static NSString* const ZBufferEraseLine    = @"ZBEL";
+static NSString* const ZBufferSetWindow    = @"ZBSW";
 
-NSString* ZBufferPlotRect     = @"ZBPR";
-NSString* ZBufferPlotText     = @"ZBPT";
-NSString* ZBufferPlotImage    = @"ZBPI";
-NSString* ZBufferScrollRegion = @"ZBSR";
+static NSString* const ZBufferPlotRect     = @"ZBPR";
+static NSString* const ZBufferPlotText     = @"ZBPT";
+static NSString* const ZBufferPlotImage    = @"ZBPI";
+static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 @implementation ZBuffer
 

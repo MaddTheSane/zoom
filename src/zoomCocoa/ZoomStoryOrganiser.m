@@ -149,7 +149,10 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 		p2 =  [[NSAutoreleasePool alloc] init];
 		
 		NSData* storyData = [prefs objectForKey: filename];
-		ZoomStoryID* fileID = [NSUnarchiver unarchiveObjectWithData: storyData];
+		ZoomStoryID* fileID = [NSKeyedUnarchiver unarchiveObjectWithData: storyData];
+		if (!fileID) {
+			fileID = [NSUnarchiver unarchiveObjectWithData: storyData];
+		}
 		ZoomStoryID* realID = [rootProxy idForFile: filename];
 		//ZoomStoryID* realID = [ZoomStoryID idForFile: filename];
 		//ZoomStoryID* realID = [[ZoomStoryID alloc] initWithZCodeFile: filename];
@@ -888,8 +891,8 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	
 	// Create the identifier file
 	NSString* identityFile = [gameDir stringByAppendingPathComponent: ZoomIdentityFilename];
-	[NSArchiver archiveRootObject: ident
-						   toFile: identityFile];
+	[NSKeyedArchiver archiveRootObject: ident
+								toFile: identityFile];
 	
 	return gameDir;
 }

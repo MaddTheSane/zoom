@@ -34,7 +34,7 @@
 	
 	[[self image] drawInRect: imageBounds
 					fromRect: NSMakeRect(0,0,imageSize.width,imageSize.height)
-				   operation: NSCompositeSourceOver
+				   operation: NSCompositingOperationSourceOver
 					fraction: 1.0];
 }
 

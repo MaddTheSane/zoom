@@ -379,14 +379,14 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	if (prefs) [prefs release];
 	prefs = [preferences retain];
 	
-	[displayWarnings setState: [prefs displayWarnings]?NSOnState:NSOffState];
-	[fatalWarnings setState: [prefs fatalWarnings]?NSOnState:NSOffState];
-	[speakGameText setState: [prefs speakGameText]?NSOnState:NSOffState];
+	[displayWarnings setState: [prefs displayWarnings]?NSControlStateValueOn:NSControlStateValueOff];
+	[fatalWarnings setState: [prefs fatalWarnings]?NSControlStateValueOn:NSControlStateValueOff];
+	[speakGameText setState: [prefs speakGameText]?NSControlStateValueOn:NSControlStateValueOff];
 	[scrollbackLength setFloatValue: [prefs scrollbackLength]];
-	[keepGamesOrganised setState: [prefs keepGamesOrganised]?NSOnState:NSOffState];
-	[autosaveGames setState: [prefs autosaveGames]?NSOnState:NSOffState];
+	[keepGamesOrganised setState: [prefs keepGamesOrganised]?NSControlStateValueOn:NSControlStateValueOff];
+	[autosaveGames setState: [prefs autosaveGames]?NSControlStateValueOn:NSControlStateValueOff];
 	[reorganiseGames setEnabled: [prefs keepGamesOrganised]];
-	[confirmGameClose setState: [prefs confirmGameClose]?NSOnState:NSOffState];
+	[confirmGameClose setState: [prefs confirmGameClose]?NSControlStateValueOn:NSControlStateValueOff];
 	[glulxInterpreter selectItemAtIndex: [glulxInterpreter indexOfItemWithTag: [prefs glulxInterpreter]]];
 	
 	// a kind of chessy way to get the current alpha setting
@@ -402,19 +402,19 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	
 	[organiseDir setString: [prefs organiserDirectory]];
 	
-	[showMargins setState: [prefs textMargin] > 0?NSOnState:NSOffState];
-	[useScreenFonts setState: [prefs useScreenFonts]?NSOnState:NSOffState];
-	[useHyphenation setState: [prefs useHyphenation]?NSOnState:NSOffState];
-	[kerning setState: [prefs useKerning]?NSOnState:NSOffState];
-	[ligatures setState: [prefs useLigatures]?NSOnState:NSOffState];
+	[showMargins setState: [prefs textMargin] > 0?NSControlStateValueOn:NSControlStateValueOff];
+	[useScreenFonts setState: [prefs useScreenFonts]?NSControlStateValueOn:NSControlStateValueOff];
+	[useHyphenation setState: [prefs useHyphenation]?NSControlStateValueOn:NSControlStateValueOff];
+	[kerning setState: [prefs useKerning]?NSControlStateValueOn:NSControlStateValueOff];
+	[ligatures setState: [prefs useLigatures]?NSControlStateValueOn:NSControlStateValueOff];
 	
 	[marginWidth setEnabled: [prefs textMargin] > 0];
 	if ([prefs textMargin] > 0) {
 		[marginWidth setFloatValue: [prefs textMargin]];
 	}
 	
-	[zoomBorders setState: [prefs showBorders]?NSOnState:NSOffState];
-	[showCoverPicture setState: [prefs showCoverPicture]?NSOnState:NSOffState];
+	[zoomBorders setState: [prefs showBorders]?NSControlStateValueOn:NSControlStateValueOff];
+	[showCoverPicture setState: [prefs showCoverPicture]?NSControlStateValueOn:NSControlStateValueOff];
 	[self updateColourMenus];
 }
 
@@ -619,15 +619,15 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (IBAction) displayWarningsChanged: (id) sender {
-	[prefs setDisplayWarnings: [sender state]==NSOnState];
+	[prefs setDisplayWarnings: [sender state]==NSControlStateValueOn];
 }
 
 - (IBAction) fatalWarningsChanged: (id) sender {
-	[prefs setFatalWarnings: [sender state]==NSOnState];
+	[prefs setFatalWarnings: [sender state]==NSControlStateValueOn];
 }
 
 - (IBAction) speakGameTextChanged: (id) sender {
-	[prefs setSpeakGameText: [sender state]==NSOnState];
+	[prefs setSpeakGameText: [sender state]==NSControlStateValueOn];
 }
 
 - (IBAction) scrollbackChanged: (id) sender {
@@ -635,18 +635,18 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (IBAction) autosaveChanged: (id) sender {
-	[prefs setAutosaveGames: [sender state]==NSOnState];
+	[prefs setAutosaveGames: [sender state]==NSControlStateValueOn];
 }
 
 - (IBAction) confirmGameCloseChanged: (id) sender {
-	[prefs setConfirmGameClose: [sender state]==NSOnState];
+	[prefs setConfirmGameClose: [sender state]==NSControlStateValueOn];
 }
 
 - (IBAction) keepOrganisedChanged: (id) sender {
-	[prefs setKeepGamesOrganised: [sender state]==NSOnState];
-	[reorganiseGames setEnabled: [sender state]==NSOnState];
-	if ([sender state]==NSOffState) {
-		[autosaveGames setState: NSOffState];
+	[prefs setKeepGamesOrganised: [sender state]==NSControlStateValueOn];
+	[reorganiseGames setEnabled: [sender state]==NSControlStateValueOn];
+	if ([sender state]==NSControlStateValueOff) {
+		[autosaveGames setState: NSControlStateValueOff];
 		[prefs setAutosaveGames: NO];
 	}
 }
@@ -712,10 +712,10 @@ static void appendStyle(NSMutableString* styleName,
 	CGFloat oldSize = [prefs textMargin];
 	CGFloat newSize;
 	
-	if ([showMargins state] == NSOffState) {
+	if ([showMargins state] == NSControlStateValueOff) {
 		newSize = 0;
 		[marginWidth setEnabled: NO];
-	} else if ([showMargins state] == NSOnState && oldSize <= 0) {
+	} else if ([showMargins state] == NSControlStateValueOn && oldSize <= 0) {
 		newSize = 10.0;
 		[marginWidth setEnabled: YES];
 	} else {
@@ -729,7 +729,7 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (IBAction) screenFontsChanged: (id) sender {
-	BOOL newState = [useScreenFonts state]==NSOnState;
+	BOOL newState = [useScreenFonts state]==NSControlStateValueOn;
 	
 	if (newState != [prefs useScreenFonts]) {
 		[prefs setUseScreenFonts: newState];
@@ -737,7 +737,7 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (IBAction) hyphenationChanged: (id) sender {
-	BOOL newState = [useHyphenation state]==NSOnState;
+	BOOL newState = [useHyphenation state]==NSControlStateValueOn;
 	
 	if (newState != [prefs useHyphenation]) {
 		[prefs setUseHyphenation: newState];
@@ -745,7 +745,7 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (IBAction) ligaturesChanged: (id) sender {
-	BOOL newState = [ligatures state]==NSOnState;
+	BOOL newState = [ligatures state]==NSControlStateValueOn;
 	
 	if (newState != [prefs useLigatures]) {
 		[prefs setUseLigatures: newState];
@@ -753,7 +753,7 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (IBAction) kerningChanged: (id) sender {
-	BOOL newState = [kerning state]==NSOnState;
+	BOOL newState = [kerning state]==NSControlStateValueOn;
 	
 	if (newState != [prefs useKerning]) {
 		[prefs setUseKerning: newState];
@@ -791,7 +791,7 @@ static void appendStyle(NSMutableString* styleName,
 // = Display pane =
 
 - (IBAction) bordersChanged: (id) sender {
-	BOOL newState = [sender state] == NSOnState;
+	BOOL newState = [sender state] == NSControlStateValueOn;
 	BOOL oldState = [prefs showBorders];
 	
 	if (newState != oldState) {
@@ -801,7 +801,7 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (IBAction) showCoverPictureChanged: (id) sender {
-	BOOL newState = [sender state] == NSOnState;
+	BOOL newState = [sender state] == NSControlStateValueOn;
 	BOOL oldState = [prefs showCoverPicture];
 	
 	if (newState != oldState) {

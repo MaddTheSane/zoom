@@ -133,7 +133,7 @@
 		
 		[input drawInRect: NSMakeRect(0,0, newSize.width, newSize.height)
 				 fromRect: NSMakeRect(0,0, oldSize.width, oldSize.height)
-				operation: NSCompositeSourceOver
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
 		[result unlockFocus];
 	}

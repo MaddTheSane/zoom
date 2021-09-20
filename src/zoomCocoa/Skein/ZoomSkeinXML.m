@@ -12,14 +12,14 @@
 
 // = XML input class =
 
-static NSString* xmlAttributes = @"xmlAttributes";
-static NSString* xmlName	   = @"xmlName";
-static NSString* xmlChildren   = @"xmlChildren";
-static NSString* xmlType	   = @"xmlType";
-static NSString* xmlChars      = @"xmlChars";
+static NSString* const xmlAttributes = @"xmlAttributes";
+static NSString* const xmlName	     = @"xmlName";
+static NSString* const xmlChildren   = @"xmlChildren";
+static NSString* const xmlType	     = @"xmlType";
+static NSString* const xmlChars      = @"xmlChars";
 
-static NSString* xmlElement    = @"xmlElement";
-static NSString* xmlCharData   = @"xmlCharData";
+static NSString* const xmlElement    = @"xmlElement";
+static NSString* const xmlCharData   = @"xmlCharData";
 
 @interface ZoomSkeinXMLInput : NSObject {
 	NSMutableDictionary* result;

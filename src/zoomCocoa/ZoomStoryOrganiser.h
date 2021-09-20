@@ -48,8 +48,8 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 	BOOL alreadyOrganising;
 }
 
-// The shared organiser
-+ (ZoomStoryOrganiser*) sharedStoryOrganiser;
+//! The shared organiser
+@property (class, readonly, retain) ZoomStoryOrganiser *sharedStoryOrganiser;
 
 // Image management
 + (NSImage*) frontispieceForBlorb: (ZoomBlorbFile*) decodedFile;

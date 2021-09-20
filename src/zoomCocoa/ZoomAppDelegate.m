@@ -456,7 +456,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	// Run the panel
 	NSInteger result = [openPanel runModal];
-	if (result != NSFileHandlingPanelOKButton) return;
+	if (result != NSModalResponseOK) return;
 	
 	// Remember the directory
 	[[NSUserDefaults standardUserDefaults] setURL: [openPanel directoryURL]
@@ -644,7 +644,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
             contextInfo: (void*) contextInfo {
 	NSString* data = (NSString*)contextInfo;
 
-	if (returnCode != NSOKButton) {
+	if (returnCode != NSModalResponseOK) {
 		[data release];
 		return;
 	}

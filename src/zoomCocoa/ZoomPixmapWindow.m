@@ -145,7 +145,7 @@
 	[copiedImage addRepresentation: copiedBits];
 	[copiedImage drawInRect: NSMakeRect(where.x, where.y, region.size.width, region.size.height)
 				   fromRect: NSMakeRect(0,0, region.size.width, region.size.height)
-				  operation: NSCompositeSourceOver
+				  operation: NSCompositingOperationSourceOver
 				   fraction: 1.0];
 	
 	
@@ -236,7 +236,7 @@
 	[pixmap lockFocusFlipped:YES];
 	[img drawInRect: destRect
 		   fromRect: imgRect
-		  operation: NSCompositeSourceOver
+		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0];
 	[pixmap unlockFocus];
 	

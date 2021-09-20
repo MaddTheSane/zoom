@@ -35,7 +35,7 @@
 # define NSAppKitVersionNumber10_2 663
 #endif
 
-@interface ZoomiFictionController(PrivateMethods)
+@interface ZoomiFictionController()
 
 - (NSString*) queryEncode: (NSString*) string;
 - (void) installSignpostPluginFrom: (NSData*) signpostXml;
@@ -48,12 +48,12 @@
 
 static ZoomiFictionController* sharedController = nil;
 
-static NSString* addDirectory = @"ZoomiFictionControllerDefaultDirectory";
-static NSString* sortGroup    = @"ZoomiFictionControllerSortGroup";
+static NSString*const addDirectory = @"ZoomiFictionControllerDefaultDirectory";
+static NSString*const sortGroup    = @"ZoomiFictionControllerSortGroup";
 
-static NSString* ZoomFieldAttribute = @"ZoomFieldAttribute";
-static NSString* ZoomRowAttribute = @"ZoomRowAttribute";
-static NSString* ZoomStoryAttribute = @"ZoomStoryAttribute";
+static NSString*const ZoomFieldAttribute = @"ZoomFieldAttribute";
+static NSString*const ZoomRowAttribute = @"ZoomRowAttribute";
+static NSString*const ZoomStoryAttribute = @"ZoomStoryAttribute";
 
 enum {
 	ZoomNoField,
@@ -99,7 +99,7 @@ enum {
 }
 
 // Bug in weak linking? Can't use NSShadowAttributeName... Hmph
-static NSString* ZoomNSShadowAttributeName = @"NSShadow";
+static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 
 - (NSView*) createMetalTitleForTable: (NSTableView*) theTable {
 	// Jeremy Dronfield suggested this on Cocoa-dev
@@ -122,7 +122,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	NSRange range = NSMakeRange(0, [headerString length]);
 	[headerString addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:11.0] range:range];
 	[headerString addAttribute:ZoomNSShadowAttributeName value:shadow range:range];
-	[headerString setAlignment:NSCenterTextAlignment range:range];
+	[headerString setAlignment:NSTextAlignmentCenter range:range];
 	
 	// The background image
 	NSImageView *imageView = [[NSImageView alloc] initWithFrame:superRect];
@@ -186,7 +186,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 		NSRange range = NSMakeRange(0, [headerString length]);
 		[headerString addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:11.0] range:range];
 		[headerString addAttribute:ZoomNSShadowAttributeName value:shadow range:range];
-		[headerString setAlignment:NSCenterTextAlignment range:range];
+		[headerString setAlignment:NSTextAlignmentCenter range:range];
 		
 		while (titleView = [viewEnum nextObject]) {
 			if ([titleView isKindOfClass: [NSTextField class]]) {
@@ -256,7 +256,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	NSView* clearView = [[[ZoomClearView alloc] init] autorelease];
 	downloadView = [[ZoomDownloadView alloc] initWithFrame: NSMakeRect(0,0,276,78)];
 	downloadWindow = [[ZoomWindowThatIsKey alloc] initWithContentRect: NSMakeRect(0,0,276,78)
-															styleMask: NSBorderlessWindowMask
+															styleMask: NSWindowStyleMaskBorderless
 															  backing: NSBackingStoreBuffered
 																defer: NO];
 	[downloadWindow setOpaque: NO];
@@ -418,19 +418,6 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 
 // = Panel actions =
 
-- (void) addFilesFromPanel: (NSOpenPanel *)sheet
-				returnCode: (NSModalResponse)returnCode
-			   contextInfo: (void *)contextInfo {
-	if (returnCode != NSOKButton) return;
-	
-	// Store the defaults
-	[[NSUserDefaults standardUserDefaults] setURL: [sheet directoryURL]
-										   forKey: addDirectory];
-	
-	NSArray * filenames = [sheet filenames];
-	[self addFiles:filenames];
-}
-
 - (void) addFiles: (NSArray *)filenames {
 	NSArray* fileTypes = [NSArray arrayWithObjects: @"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", nil];
 
@@ -575,7 +562,14 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	
 	[storiesToAdd retain];
 	[storiesToAdd beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
-		[self addFilesFromPanel:storiesToAdd returnCode:result contextInfo:NULL];
+		if (result != NSModalResponseOK) return;
+		
+		// Store the defaults
+		[[NSUserDefaults standardUserDefaults] setURL: [storiesToAdd directoryURL]
+											   forKey: addDirectory];
+		
+		NSArray * filenames = [storiesToAdd filenames];
+		[self addFiles:filenames];
 		[storiesToAdd release];
 	}];
 }
@@ -631,7 +625,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	} else {
 		// Fake alert sheet OK
 		[self autosaveAlertFinished: nil
-						 returnCode: NSAlertAlternateReturn
+						 returnCode: NSAlertFirstButtonReturn
 						contextInfo: nil];
 	}
 }
@@ -825,7 +819,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	}
 }
 
-NSComparisonResult tableSorter(id a, id b, void* context) {
+static NSComparisonResult tableSorter(id a, id b, void* context) {
 	ZoomiFictionController* us = context;
 	
 	return [us compareRow: a withRow: b];
@@ -2096,7 +2090,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	NSMutableArray* storiesToDelete = contextInfo;
 	[storiesToDelete autorelease];
 	
-	if (returnCode != NSAlertDefaultReturn) return;
+	if (returnCode != NSAlertFirstButtonReturn) return;
 	
 	ZoomStoryID* ident;
 	
@@ -2127,7 +2121,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	NSMutableArray* storiesToDelete = contextInfo;
 	[storiesToDelete autorelease];
 	
-	if (returnCode != NSAlertDefaultReturn) return;
+	if (returnCode != NSAlertFirstButtonReturn) return;
 	
 	// Delete the selected games from the organiser
 	ZoomStoryID* ident;
@@ -2141,7 +2135,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	if ([[ZoomPreferences globalPreferences] keepGamesOrganised]) {
 		[self confirmMoveToTrash: NULL 
-				 returnCode: NSAlertDefaultReturn 
+				 returnCode: NSAlertFirstButtonReturn
 				contextInfo:[storiesToDelete retain]];
 	}
 }
@@ -2249,12 +2243,12 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 }
 
 - (void) useReplacements: (NSWindow *)alert 
-			  returnCode: (int)returnCode 
+			  returnCode: (NSModalResponse)returnCode
 			 contextInfo: (void *)contextInfo {
 	NSArray* replacements = contextInfo;
 	[replacements autorelease];
 	
-	if (returnCode != NSAlertDefaultReturn) return;
+	if (returnCode != NSAlertFirstButtonReturn) return;
 	
 	ZoomStory* story;
 	NSEnumerator* storyEnum = [replacements objectEnumerator];
@@ -2288,7 +2282,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 - (void) saveMetadataDidEnd: (NSSavePanel *) panel 
 				 returnCode: (NSModalResponse) returnCode
 				contextInfo: (void*) contextInfo {
-	if (returnCode != NSOKButton) return;
+	if (returnCode != NSModalResponseOK) return;
 	
 	// Generate the data to save
 	ZoomMetadata* newMetadata = [[[ZoomMetadata alloc] init] autorelease];
@@ -3144,7 +3138,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 - (void) downloadPlugIn: (NSWindow *)alert 
 			 returnCode: (int)returnCode 
 			contextInfo: (void *)contextInfo {
-	if (activeSignpost && returnCode == NSAlertDefaultReturn) {
+	if (activeSignpost && returnCode == NSAlertFirstButtonReturn) {
 		// Get the update URL
 		NSURL* updateUrl = [activeSignpost interpreterURL];
 		if (!updateUrl) {
@@ -3190,10 +3184,10 @@ static unsigned int ValueForHexChar(int hex) {
 
 - (void) installSignpostPluginFrom: (NSData*) signpostXml {
 	// Parse the property list
-	NSDictionary* update = [NSPropertyListSerialization propertyListFromData: signpostXml
-															mutabilityOption: NSPropertyListImmutable
+	NSDictionary* update = [NSPropertyListSerialization propertyListWithData: signpostXml
+																	 options: NSPropertyListImmutable
 																	  format: nil
-															errorDescription: nil];
+																	   error: nil];
 	
 	if (update == nil || ![update isKindOfClass: [NSDictionary class]]) {
 		// Not a valid update file

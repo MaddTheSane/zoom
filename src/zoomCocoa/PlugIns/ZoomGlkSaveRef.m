@@ -156,7 +156,7 @@
 			scaleFactor = 64.0;
 			[originalImage drawInRect: NSMakeRect(0,0,128,128)
 							 fromRect: NSMakeRect(0,0,originalSize.width,originalSize.height)
-							operation: NSCompositeSourceOver
+							operation: NSCompositingOperationSourceOver
 							 fraction: 1.0];
 		}
 		
@@ -171,7 +171,7 @@
 		
 		[iconImage drawInRect: NSMakeRect(64-newSize.width/2, 64-newSize.height/2, newSize.width, newSize.height)
 					 fromRect: NSMakeRect(0,0, iconSize.width, iconSize.height)
-					operation: NSCompositeSourceOver
+					operation: NSCompositingOperationSourceOver
 					 fraction: 1.0];
 		
 		// Finish up

@@ -191,7 +191,7 @@
 - (void) finishRestart:(NSWindow *)sheet 
 			returnCode:(int)returnCode 
 		   contextInfo:(void  *)contextInfo {
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		[self restartZoom];
 	}
 }
@@ -199,7 +199,7 @@
 - (void) finishUpdating:(NSWindow *)sheet 
 			 returnCode:(int)returnCode 
 			contextInfo:(void  *)contextInfo {
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		[self installUpdates: self];
 	}
 }

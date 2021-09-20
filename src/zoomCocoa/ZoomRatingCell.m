@@ -74,19 +74,19 @@ static NSSize starsSize;
 	if ([self isHighlighted]) {
 		[dots drawInRect: NSMakeRect(drawRect.origin.x, drawRect.origin.y, starsSize.width, starsSize.height)
 				fromRect: NSMakeRect(0,0, starsSize.width, starsSize.height)
-			   operation: NSCompositeSourceOver
+			   operation: NSCompositingOperationSourceOver
 				fraction: 1.0 respectFlipped: YES hints: nil];
 	}
 	
 	// Draw the image
 	[stars1 drawInRect: drawRect
 			  fromRect: clipRect
-			 operation: NSCompositeSourceOver
+			 operation: NSCompositingOperationSourceOver
 			  fraction: 1.0 respectFlipped: YES hints: nil];
 
 	[stars2 drawInRect: drawRect
 			  fromRect: clipRect
-			 operation: NSCompositeSourceOver
+			 operation: NSCompositingOperationSourceOver
 			  fraction: value*value respectFlipped: YES hints: nil];
 	
 	// Done

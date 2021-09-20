@@ -21,7 +21,7 @@ static NSDictionary* itemTextAttributes = nil;
 static NSDictionary* labelTextAttributes = nil;
 
 // Bug in weak linking? Can't use NSShadowAttributeName... Hmph
-static NSString* ZoomNSShadowAttributeName = @"NSShadow";
+static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 
 // Images
 static NSImage* unplayed, *selected, *active, *unchanged, *changed, *annotation, *commentaryBadge;
@@ -74,7 +74,7 @@ static NSImage* unchangedDark, *activeDark;
 	// The item
 	[image drawAtPoint: NSMakePoint(0,0)
 			  fromRect: imgRect
-			 operation: NSCompositeDestinationAtop
+			 operation: NSCompositingOperationDestinationAtop
 			  fraction: 1.0];
 	
 	[highlighted unlockFocus];
@@ -140,7 +140,7 @@ static NSImage* unchangedDark, *activeDark;
 		
 		[img drawInRect: bitToDraw
 			   fromRect: bitToDrawFrom
-			  operation: NSCompositeSourceOver
+			  operation: NSCompositingOperationSourceOver
 			   fraction: 1.0
 		 respectFlipped: YES
 				  hints: nil];
@@ -149,13 +149,13 @@ static NSImage* unchangedDark, *activeDark;
 	// Draw the edge bits
 	[img drawInRect: NSMakeRect(pos.x-20, pos.y, 20, 30)
 		   fromRect: NSMakeRect(0,0,20,30)
-		  operation: NSCompositeSourceOver
+		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0
 	 respectFlipped: YES
 			  hints: nil];
 	[img drawInRect: NSMakeRect(pos.x+width, pos.y, 20, 30)
 		   fromRect: NSMakeRect(70,0,20,30)
-		  operation: NSCompositeSourceOver
+		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0
 	 respectFlipped: YES
 			  hints: nil];
@@ -670,7 +670,7 @@ static NSImage* unchangedDark, *activeDark;
 				
 				[commentaryBadge drawAtPoint: NSMakePoint(xpos + bgWidth/2.0 + 4, ypos + 6)
 									fromRect: fromRect
-								   operation: NSCompositeSourceOver
+								   operation: NSCompositingOperationSourceOver
 									fraction: 1.0];
 			}
 			

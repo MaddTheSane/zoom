@@ -8,27 +8,40 @@
 
 #import <Foundation/Foundation.h>
 
-// Commentary comparison results
+//! Commentary comparison results
 typedef NS_ENUM(NSInteger, ZoomSkeinComparison) {
-	ZoomSkeinNoResult,										//!< One side of the comparison doesn't exist (eg, no commentary for an item)
-	ZoomSkeinIdentical,										//!< Sides are identical
-	ZoomSkeinDiffersOnlyByWhitespace,						//!< Sides are different, but only in terms of whitespace
-	ZoomSkeinDifferent,										//!< Sides are different
+	//! One side of the comparison doesn't exist (eg, no commentary for an item)
+	ZoomSkeinNoResult,
+	//! Sides are identical
+	ZoomSkeinIdentical,
+	//! Sides are different, but only in terms of whitespace
+	ZoomSkeinDiffersOnlyByWhitespace,
+	//! Sides are different
+	ZoomSkeinDifferent,
 	
-	ZoomSkeinNotCompared									//!< (Placeholder: sides have not been compared)
+	//! (Placeholder: sides have not been compared)
+	ZoomSkeinNotCompared
 };
 
 // Skein item notifications
-extern NSNotificationName const ZoomSkeinItemIsBeingReplaced;				//!< One skein item is being replaced by another
-extern NSNotificationName const ZoomSkeinItemHasBeenRemovedFromTree;		//!< A skein item is being removed from the tree (may be associated with the previous)
-extern NSNotificationName const ZoomSkeinItemHasChanged;					//!< A skein item has been changed in some way
-extern NSNotificationName const ZoomSkeinItemHasNewChild;					//!< A skein item has gained a new child item
+//! One skein item is being replaced by another
+extern NSNotificationName const ZoomSkeinItemIsBeingReplaced;
+//! A skein item is being removed from the tree (may be associated with the previous)
+extern NSNotificationName const ZoomSkeinItemHasBeenRemovedFromTree;
+//! A skein item has been changed in some way
+extern NSNotificationName const ZoomSkeinItemHasChanged;
+//! A skein item has gained a new child item
+extern NSNotificationName const ZoomSkeinItemHasNewChild;
 
 // Skein item notification dictionary keys
-extern NSString* const ZoomSIItem;							//!< Item the operation applies to
-extern NSString* const ZoomSIOldItem;						//!< Previous item, if there is one
-extern NSString* const ZoomSIOldParent;						//!< Parent item of an item that's been removed
-extern NSString* const ZoomSIChild;							//!< Child item (if relevant)
+//! Item the operation applies to
+extern NSString* const ZoomSIItem;
+//! Previous item, if there is one
+extern NSString* const ZoomSIOldItem;
+//! Parent item of an item that's been removed
+extern NSString* const ZoomSIOldParent;
+//! Child item (if relevant)
+extern NSString* const ZoomSIChild;
 
 //!
 //! Represents a single 'knot' in the skein
@@ -83,11 +96,15 @@ extern NSString* const ZoomSIChild;							//!< Child item (if relevant)
 @property (nonatomic, copy) NSString *result;  // Command result
 
 // Item state
-@property (nonatomic) BOOL temporary;		//!< Whether or not this item has been made permanent by saving
-@property int temporaryScore;				//!< Lower values are more likely to be removed
-@property (nonatomic) BOOL played;			//!< Whether or not this item has actually been played
-@property (nonatomic) BOOL changed;			//!< Whether or not this item's result has changed since this was last played
-											//!< (Automagically updated by setResult:)
+//! Whether or not this item has been made permanent by saving
+@property (nonatomic) BOOL temporary;
+//! Lower values are more likely to be removed
+@property int temporaryScore;
+//! Whether or not this item has actually been played
+@property (nonatomic) BOOL played;
+//! Whether or not this item's result has changed since this was last played
+//! (Automagically updated by setResult:)
+@property (nonatomic) BOOL changed;
 
 - (void) setBranchTemporary: (BOOL) isTemporary;
 - (void) increaseTemporaryScore;
@@ -101,11 +118,12 @@ extern NSString* const ZoomSIChild;							//!< Child item (if relevant)
 
 // Commentary
 
-// Could be used by an IDE to store commentary or perhaps the 'ideal' text the game should be
-// producing for this item
+//! Could be used by an IDE to store commentary or perhaps the 'ideal' text the game should be
+//! producing for this item
 @property (nonatomic, copy) NSString *commentary;
 - (ZoomSkeinComparison) commentaryComparison;
-- (ZoomSkeinItem*) nextDiff;									//!< Finds the first item following this one that has a difference
+//! Finds the first item following this one that has a difference
+- (ZoomSkeinItem*) nextDiff;
 
 // Drawing/sizing
 @property (readonly) NSSize commandSize;

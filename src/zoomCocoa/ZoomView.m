@@ -207,7 +207,7 @@ static void finalizeViews(void) {
 		/*
 		[pixmap drawAtPoint: NSMakePoint(floor(bounds.origin.x + (bounds.size.width-pixSize.width)/2.0), floor(bounds.origin.y + (bounds.size.height-pixSize.height)/2.0))
 				   fromRect: NSMakeRect(0,0,pixSize.width, pixSize.height)
-				  operation: NSCompositeSourceOver
+				  operation: NSCompositingOperationSourceOver
 				   fraction: 1.0];
 		 */
 		
@@ -226,7 +226,7 @@ static void finalizeViews(void) {
 
 		[pixmap drawInRect: bounds
 				  fromRect: NSMakeRect(0,0,pixSize.width, pixSize.height)
-				 operation: NSCompositeSourceOver
+				 operation: NSCompositingOperationSourceOver
 				  fraction: 1.0];
 		
 		[[NSGraphicsContext currentContext] restoreGraphicsState];
@@ -1087,7 +1087,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			chr == NSDownArrowFunctionKey ||
 			chr == NSLeftArrowFunctionKey ||
 			chr == NSRightArrowFunctionKey) {
-			canTerminate = ([theEvent modifierFlags]&NSAlternateKeyMask)==1 && ([theEvent modifierFlags]&NSCommandKeyMask)==0;
+			canTerminate = ([theEvent modifierFlags]&NSEventModifierFlagOption)==1 && ([theEvent modifierFlags]&NSEventModifierFlagCommand)==0;
 		}
 		
 		if (canTerminate && [terminatingChars containsObject: recv]) {
@@ -1133,7 +1133,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         
         NSString* chars = [theEvent characters];
         
-        modifiers &= NSControlKeyMask|NSCommandKeyMask|NSAlternateKeyMask|NSFunctionKeyMask;
+        modifiers &= NSEventModifierFlagControl|NSEventModifierFlagCommand|NSEventModifierFlagOption|NSEventModifierFlagFunction;
         
         if (modifiers == 0) {
             NSRange selRange = [textView selectedRange];
@@ -1145,10 +1145,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		
 		// Up and down arrow keys have a different meaning if the cursor is beyond the
 		// end inputPos.
-		// (Arrow keys won't be caught above thanks to the NSFunctionKeyMask)
+		// (Arrow keys won't be caught above thanks to the NSEventModifierFlagFunction)
 		NSUInteger cursorPos = [textView selectedRange].location;
 		
-		if (modifiers == NSFunctionKeyMask) {
+		if (modifiers == NSEventModifierFlagFunction) {
 			int key = [chars characterAtIndex: 0];
 			
 			if (cursorPos >= inputPos && (key == NSUpArrowFunctionKey || key == NSDownArrowFunctionKey)) {
@@ -1227,7 +1227,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	
 	if (count == 2) clickChar = NSF35FunctionKey;
 	
-	NSEvent* fakeKeyDownEvent = [NSEvent keyEventWithType: NSKeyDown
+	NSEvent* fakeKeyDownEvent = [NSEvent keyEventWithType: NSEventTypeKeyDown
 												 location: NSMakePoint(0,0)
 											modifierFlags: 0
 												timestamp: 0
@@ -1973,7 +1973,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		panel.directoryURL = directory;
 	}
 	[panel beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse result) {
-		if (result != NSOKButton) {
+		if (result != NSModalResponseOK) {
 			[self->zMachine filePromptCancelled];
 		} else {
 			NSString* fn = [panel URL].path;
@@ -2094,7 +2094,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 - (void)openPanelDidEnd: (NSOpenPanel *) panel 
              returnCode: (NSModalResponse) returnCode
             contextInfo: (__unused void*) contextInfo {
-    if (returnCode != NSOKButton) {
+    if (returnCode != NSModalResponseOK) {
         [zMachine filePromptCancelled];
     } else {
         NSString* fn = [panel URL].path;

@@ -324,9 +324,9 @@
 }
 
 - (void) confirmFinish:(NSWindow *)sheet 
-			returnCode:(int)returnCode 
+			returnCode:(NSInteger)returnCode
 		   contextInfo:(void *)contextInfo {
-	if (returnCode == NSAlertDefaultReturn) {
+	if (returnCode == NSAlertFirstButtonReturn) {
 		// Close the window
 		closeConfirmed = YES;
 		[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
@@ -505,7 +505,7 @@
 		if (!normalWindow) normalWindow = [[self window] retain];
 		if (!fullscreenWindow) {
 			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
-																				styleMask: NSBorderlessWindowMask
+																				styleMask: NSWindowStyleMaskBorderless
 																			   backing: NSBackingStoreBuffered
 																				 defer: YES];
 			
@@ -560,7 +560,7 @@
 		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 			[[self window] setShowsResizeIndicator: NO];
 			frame = [NSWindow frameRectForContentRect: frame
-											styleMask: NSBorderlessWindowMask];
+											styleMask: NSWindowStyleMaskBorderless];
 			[[self window] setFrame: frame
 							display: YES
 							animate: YES];			
@@ -624,7 +624,7 @@
 		
 		[input drawInRect: NSMakeRect(0,0, newSize.width, newSize.height)
 				 fromRect: NSMakeRect(0,0, oldSize.width, oldSize.height)
-				operation: NSCompositeSourceOver
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
 		[result unlockFocus];
 	}
@@ -670,7 +670,7 @@
 	
 	// Create the window
 	logoWindow = [[NSWindow alloc] initWithContentRect: [[[self window] contentView] frame]				// Gets the size, we position later
-											 styleMask: NSBorderlessWindowMask
+											 styleMask: NSWindowStyleMaskBorderless
 											   backing: NSBackingStoreBuffered
 												 defer: YES];
 	[logoWindow setOpaque: NO];
