@@ -398,10 +398,10 @@
 		NSData* plist = [[[wrapper fileWrappers] objectForKey: @"Info.plist"] regularFileContents];
 		
 		if (plist != nil) {
-			NSDictionary* plistDict = [NSPropertyListSerialization propertyListFromData: plist
-																	   mutabilityOption: NSPropertyListImmutable
+			NSDictionary* plistDict = [NSPropertyListSerialization propertyListWithData: plist
+																				options: NSPropertyListImmutable
 																				 format: nil
-																	   errorDescription: nil];
+																				  error: nil];
 			NSString* idString  = [plistDict objectForKey: @"ZoomStoryId"];
 			if (idString != nil) {
 				storyID = [[[ZoomStoryID alloc] initWithIdString: idString] autorelease];

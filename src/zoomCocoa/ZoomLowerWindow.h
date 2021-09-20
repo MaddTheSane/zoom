@@ -11,7 +11,7 @@
 #import <ZoomView/ZoomProtocol.h>
 #import <ZoomView/ZoomView.h>
 
-@interface ZoomLowerWindow : NSObject<ZLowerWindow, NSCoding> {
+@interface ZoomLowerWindow : NSObject<ZLowerWindow, NSSecureCoding> {
     __weak ZoomView* zoomView;
 	
 	ZStyle* backgroundStyle;

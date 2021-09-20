@@ -65,18 +65,33 @@
 }
 
 // = NSCoding =
+#define BACKGROUNDSTYLECODINGKEY @"backgroundStyle"
+
 - (void) encodeWithCoder: (NSCoder*) encoder {
-	[encoder encodeObject: backgroundStyle];
+	if (encoder.allowsKeyedCoding) {
+		[encoder encodeObject: backgroundStyle forKey: BACKGROUNDSTYLECODINGKEY];
+	} else {
+		[encoder encodeObject: backgroundStyle];
+	}
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
 	self = [super init];
 	
     if (self) {
-		backgroundStyle = [decoder decodeObject];
+		if (decoder.allowsKeyedCoding) {
+			backgroundStyle = [decoder decodeObjectOfClass: [ZStyle class] forKey: BACKGROUNDSTYLECODINGKEY];
+		} else {
+			backgroundStyle = [decoder decodeObject];
+		}
     }
 	
     return self;
+}
+
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
 @synthesize zoomView;

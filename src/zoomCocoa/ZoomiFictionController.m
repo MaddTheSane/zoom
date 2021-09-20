@@ -128,7 +128,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	NSImageView *imageView = [[NSImageView alloc] initWithFrame:superRect];
 	[imageView setImageFrameStyle:NSImageFrameNone];
 	[imageView setImageAlignment:NSImageAlignCenter];
-	[imageView setImageScaling:NSScaleToFit];
+	[imageView setImageScaling:NSImageScaleAxesIndependently];
 	[imageView setImage:[NSImage imageNamed:@"Metal-Title"]];
 	[imageView setAutoresizingMask:NSViewWidthSizable];
 	
@@ -136,7 +136,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 	NSImageView *cornerImage = [[NSImageView alloc] initWithFrame:cornerRect];
 	[cornerImage setImageFrameStyle:NSImageFrameNone];
 	[cornerImage setImageAlignment:NSImageAlignCenter];
-	[cornerImage setImageScaling:NSScaleToFit];
+	[cornerImage setImageScaling:NSImageScaleAxesIndependently];
 	[cornerImage setImage:[NSImage imageNamed:@"Metal-Title"]];
 	
 	// The header label
@@ -2799,7 +2799,7 @@ NSComparisonResult tableSorter(id a, id b, void* context) {
 	NSString* result = (NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
 															   (CFStringRef)string,
 															   NULL,
-															   (CFStringRef)@"&?/=",
+															   CFSTR("&?/="),
 															   kCFStringEncodingUTF8);
 	return [result autorelease];
 }

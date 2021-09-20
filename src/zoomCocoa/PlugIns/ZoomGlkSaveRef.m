@@ -43,7 +43,7 @@
 
 - (BOOL) createSavePackage {
 	// Constructs a save package at the specified path
-	NSString* error;
+	NSError* error;
 	
 	// Build the property list wrapper
 	NSDictionary* saveProperties = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -53,9 +53,10 @@
 		[[plugin class] pluginAuthor], @"ZoomGlkPluginAuthor",
 		[[plugin class] pluginVersion], @"ZoomGlkPluginVersion",
 		nil];
-	NSData* savePropertyList = [NSPropertyListSerialization dataFromPropertyList: saveProperties
+	NSData* savePropertyList = [NSPropertyListSerialization dataWithPropertyList: saveProperties
 																		  format: NSPropertyListXMLFormat_v1_0
-																errorDescription: &error]; 
+																		 options: 0
+																error: &error];
 	if (error) {
 		error = nil;
 	}
@@ -84,9 +85,10 @@
 	NSFileWrapper* previewWrapper = nil;
 	
 	if (preview) {
-		NSData* previewData = [NSPropertyListSerialization dataFromPropertyList: preview
+		NSData* previewData = [NSPropertyListSerialization dataWithPropertyList: preview
 																		 format: NSPropertyListXMLFormat_v1_0
-															   errorDescription: &error];
+																		options: 0
+															   error: &error];
 		if (error) {
 			error = nil;
 		}

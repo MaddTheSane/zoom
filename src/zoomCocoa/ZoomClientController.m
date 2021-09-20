@@ -200,10 +200,11 @@
 	  forFilename: @"Skein.skein"];
 	
 	// Add information about our story ID
-	[file addData: [NSPropertyListSerialization dataFromPropertyList: [NSDictionary dictionaryWithObjectsAndKeys: 
+	[file addData: [NSPropertyListSerialization dataWithPropertyList: [NSDictionary dictionaryWithObjectsAndKeys:
 		[[[self document] storyId] description], @"ZoomStoryId", nil]
 																									   format: NSPropertyListXMLFormat_v1_0
-																							 errorDescription: nil]
+															 options: 0
+																							 error: nil]
 													  forFilename: @"Info.plist"];
 }
 

@@ -48,7 +48,7 @@
 // Resources
 @property (retain) ZoomBlorbFile *resources;
 
-// Errors that might have happened but we recovered from (for example, resources not found)
+//! Errors that might have happened but we recovered from (for example, resources not found)
 - (void) addLoadingError: (NSString*) loadingError;
 - (NSArray<NSString*>*) loadingErrors;
 

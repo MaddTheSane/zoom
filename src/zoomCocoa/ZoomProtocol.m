@@ -317,37 +317,66 @@ NSString* const ZStyleAttributeName = @"ZStyleAttribute";
                         isSymbolic?@"YES":@"NO"];
 }
 
+#define FLAGSCODINGKEY @"flags"
+#define TRUEFORECOLORCODINGKEY @"foregroundTrue"
+#define TRUEBACKCOLORCODINGKEY @"backgroundTrue"
+#define FOREGROUNDCOLORCODINGKEY @"foregroundColour"
+#define BACKGROUNDCOLORCODINGKEY @"backgroundColour"
+
 - (void) encodeWithCoder: (NSCoder*) coder {
     int flags = (isBold?1:0) | (isUnderline?2:0) | (isFixed?4:0) | (isSymbolic?8:0) | (isReversed?16:0) | (isForceFixed?32:0);
     
-    [coder encodeValueOfObjCType: @encode(int) at: &flags];
+	if (coder.allowsKeyedCoding) {
+		[coder encodeInt: flags forKey: FLAGSCODINGKEY];
 
-    [coder encodeObject: foregroundTrue];
-    [coder encodeObject: backgroundTrue];
-    [coder encodeValueOfObjCType: @encode(int) at: &foregroundColour];
-    [coder encodeValueOfObjCType: @encode(int) at: &backgroundColour];
+		[coder encodeObject: foregroundTrue forKey: TRUEFORECOLORCODINGKEY];
+		[coder encodeObject: backgroundTrue forKey: TRUEBACKCOLORCODINGKEY];
+		[coder encodeInt: foregroundColour forKey: FOREGROUNDCOLORCODINGKEY];
+		[coder encodeInt: backgroundColour forKey: BACKGROUNDCOLORCODINGKEY];
+	} else {
+		[coder encodeValueOfObjCType: @encode(int) at: &flags];
+		
+		[coder encodeObject: foregroundTrue];
+		[coder encodeObject: backgroundTrue];
+		[coder encodeValueOfObjCType: @encode(int) at: &foregroundColour];
+		[coder encodeValueOfObjCType: @encode(int) at: &backgroundColour];
+	}
 }
 
 - (id) initWithCoder: (NSCoder*) coder {
     self = [super init];
     if (self) {
-        int flags;
-        
-        [coder decodeValueOfObjCType: @encode(int) at: &flags];
+		int flags;
+		if (coder.allowsKeyedCoding) {
+			flags = [coder decodeIntForKey: FLAGSCODINGKEY];
+			
+			foregroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEFORECOLORCODINGKEY];
+			backgroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEBACKCOLORCODINGKEY];
+			
+			foregroundColour = [coder decodeIntForKey: FOREGROUNDCOLORCODINGKEY];
+			backgroundColour = [coder decodeIntForKey: BACKGROUNDCOLORCODINGKEY];
+		} else {
+			[coder decodeValueOfObjCType: @encode(int) at: &flags];
+			
+			foregroundTrue   = [coder decodeObject];
+			backgroundTrue   = [coder decodeObject];
+			
+			[coder decodeValueOfObjCType: @encode(int) at: &foregroundColour];
+			[coder decodeValueOfObjCType: @encode(int) at: &backgroundColour];
+		}
         isBold = (flags&1)?YES:NO;
         isUnderline = (flags&2)?YES:NO;
         isFixed = (flags&4)?YES:NO;
         isSymbolic = (flags&8)?YES:NO;
         isReversed = (flags&16)?YES:NO;
 		isForceFixed = (flags&32)?YES:NO;
-
-        foregroundTrue   = [coder decodeObject];
-        backgroundTrue   = [coder decodeObject];
-        
-        [coder decodeValueOfObjCType: @encode(int) at: &foregroundColour];
-        [coder decodeValueOfObjCType: @encode(int) at: &backgroundColour];
     }
     return self;
+}
+
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
 - (id)replacementObjectForPortCoder:(NSPortCoder *)encoder
@@ -428,15 +457,28 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 }
 
 - (void) encodeWithCoder: (NSCoder*) coder {
-    [coder encodeObject: buffer];
+	if (coder.allowsKeyedCoding) {
+		[coder encodeObject: buffer forKey: @"Buffer"];
+	} else {
+		[coder encodeObject: buffer];
+	}
 }
 
 - (id) initWithCoder: (NSCoder*) coder {
     self = [super init];
     if (self) {
-        buffer = [coder decodeObject];
+		if (coder.allowsKeyedCoding) {
+			buffer = [coder decodeObjectForKey: @"Buffer"];
+		} else {
+			buffer = [coder decodeObject];
+		}
     }
     return self;
+}
+
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
 // Buffering

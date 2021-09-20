@@ -244,23 +244,45 @@
 }
 
 // = NSCoding =
+#define PIXMAPCODINGKEY @"PixMap"
+#define INPUTPOSCODINGKEY @"InputPos"
+#define INPUTSTYLECODINGKEY @"InPutStyle"
+
+
 - (void) encodeWithCoder: (NSCoder*) encoder {
-	[encoder encodeObject: pixmap];
-	
-	[encoder encodePoint: inputPos];
-	[encoder encodeObject: inputStyle];
+	if (encoder.allowsKeyedCoding) {
+		[encoder encodeObject: pixmap forKey: PIXMAPCODINGKEY];
+		[encoder encodePoint: inputPos forKey: INPUTPOSCODINGKEY];
+		[encoder encodeObject: inputStyle forKey: INPUTSTYLECODINGKEY];
+	} else {
+		[encoder encodeObject: pixmap];
+		
+		[encoder encodePoint: inputPos];
+		[encoder encodeObject: inputStyle];
+	}
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
 	self = [super init];
 	
     if (self) {
-		pixmap = [decoder decodeObject];
-		inputPos = [decoder decodePoint];
-		inputStyle = [decoder decodeObject];
+		if (decoder.allowsKeyedCoding) {
+			pixmap = [decoder decodeObjectForKey: PIXMAPCODINGKEY];
+			inputPos = [decoder decodePointForKey: INPUTPOSCODINGKEY];
+			inputStyle = [decoder decodeObjectForKey: INPUTSTYLECODINGKEY];
+		} else {
+			pixmap = [decoder decodeObject];
+			inputPos = [decoder decodePoint];
+			inputStyle = [decoder decodeObject];
+		}
     }
 	
     return self;
+}
+
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
 @synthesize zoomView=zView;

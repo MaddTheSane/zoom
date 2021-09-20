@@ -131,63 +131,62 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (oneway void) close;
 @end
 
+//! General Z-Machine window protocol (all windows should have this and another
+//! protocol)
 @protocol ZWindow <NSObject>
-// General Z-Machine window protocol (all windows should have this and another
-// protocol)
-
-// Clears the window
+//! Clears the window
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style;
 
-// Sets the input focus to this window
+//! Sets the input focus to this window
 - (oneway void) setFocus;
 
-// Sending data to a window
+//! Sending data to a window
 - (oneway void) writeString: (in bycopy NSString*) string
                   withStyle: (in bycopy ZStyle*) style;
 
-// Setting the style that text should be input in
+//! Setting the style that text should be input in
 - (oneway void) setInputStyle: (in bycopy ZStyle*) inputStyle;
 - (bycopy ZStyle*) inputStyle;
 @property (nonatomic, copy) ZStyle *inputStyle;
 
 @end
 
+//! Functions supported by an upper window
 @protocol ZUpperWindow <ZWindow>
-// Functions supported by an upper window
 
-// Size (-1 to indicate an unsplit window)
+//! Size (-1 to indicate an unsplit window)
 - (oneway void) startAtLine: (int) line;
 - (oneway void) endAtLine:   (int) line;
 
-// Cursor positioning
+//! Cursor positioning
 - (oneway void) setCursorPositionX: (in int) xpos
                                  Y: (in int) ypos;
 - (NSPoint) cursorPosition;
 
-// Line erasure
+//! Line erasure
 - (oneway void) eraseLineWithStyle: (in bycopy ZStyle*) style;
 @end
 
 @protocol ZLowerWindow <ZWindow>
 @end
 
+//! Pixmap windows are used by version 6 Z-Machines
+//! You can't combine pixmap and ordinary windows (as yet)
 @protocol ZPixmapWindow <ZWindow>
-// Pixmap windows are used by version 6 Z-Machines
-// You can't combine pixmap and ordinary windows (as yet)
 
-// Sets the size of this window
+//! Sets the size of this window
 - (void) setSize: (in NSSize) windowSize;
 
-// Plots a rectangle in a given style
+//! Plots a rectangle in a given style
 - (void) plotRect: (in NSRect) rect
 		withStyle: (in bycopy ZStyle*) style;
 
-// Plots some text of a given size at a given point
+//! Plots some text of a given size at a given point
 - (void) plotText: (in bycopy NSString*) text
 		  atPoint: (in NSPoint) point
 		withStyle: (in bycopy ZStyle*) style;
 
-// Gets information about a font
+//! Gets information about a font
 - (void) getInfoForStyle: (in bycopy ZStyle*) style
 				   width: (out CGFloat*) width
 				  height: (out CGFloat*) height
@@ -195,29 +194,29 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 				 descent: (out CGFloat*) descent;
 - (bycopy NSDictionary*) attributesForStyle: (in bycopy ZStyle*) style;
 
-// Reading information about the pixmap
+//! Reading information about the pixmap
 - (bycopy NSColor*) colourAtPixel: (NSPoint) point;
 
-// Scrolls a region of the screen
+//! Scrolls a region of the screen
 - (void) scrollRegion: (in NSRect) region
 			  toPoint: (in NSPoint) newPoint;
 
-// Measures a string
+//! Measures a string
 - (NSSize) measureString: (in bycopy NSString*) string
 			   withStyle: (in bycopy ZStyle*) style;
 
-// Sets the input position in the window
+//! Sets the input position in the window
 - (void) setInputPosition: (NSPoint) point
 				withStyle: (in bycopy ZStyle*) style;
 
-// Images
+//! Images
 - (void) plotImageWithNumber: (in int) number
 					 atPoint: (in NSPoint) point;
 
 @end
 
+//! Overall display functions
 @protocol ZDisplay <NSObject>
-// Overall display functions
 
 - (void) zMachineHasRestarted;
 
@@ -240,50 +239,50 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (byref NSObject<ZUpperWindow>*) createUpperWindow;
 - (byref NSObject<ZPixmapWindow>*) createPixmapWindow;
 
-// Requesting user input
+//! Requesting user input
 - (void)		shouldReceiveCharacters;
 - (void)		shouldReceiveText: (in int) maxLength;
 - (void)        stopReceiving;
 - (bycopy NSString*) receivedTextToDate;
 
-// Ask the display to backtrack over some input that may already be on the screen
+//! Ask the display to backtrack over some input that may already be on the screen
 - (bycopy NSString*) backtrackInputOver: (in bycopy NSString*) prefix;
 
 - (oneway void) setTerminatingCharacters: (in bycopy NSSet*) characters;
 
 - (void) displayMore: (BOOL) shown;
 
-// 'Exclusive' mode - lock the UI so no updates occur while we're sending
-// large blocks of varied text
+// !'Exclusive' mode - lock the UI so no updates occur while we're sending
+//! large blocks of varied text
 - (oneway void) startExclusive;
 - (oneway void) stopExclusive;
 - (oneway void) flushBuffer: (in bycopy ZBuffer*) toFlush;
 
-// Prompting for files
+//! Prompting for files
 - (void) promptForFileToWrite: (in ZFileType) type
                                          defaultName: (in bycopy NSString*) name;
 - (void) promptForFileToRead: (in ZFileType) type
                  defaultName: (in bycopy NSString*) name;
 
-// Error messages and warnings
+//! Error messages and warnings
 - (void) displayFatalError: (in bycopy NSString*) error;
 - (void) displayWarning:    (in bycopy NSString*) warning;
 
-// Debugging
+//! Debugging
 - (void) hitBreakpointAt: (int) programCounter;
 
 // Resources
 - (BOOL)   containsImageWithNumber: (int) number;
 - (NSSize) sizeOfImageWithNumber: (int) number;
 
-// Sound (such as Zoom's support is at the moment)
+//! Sound (such as Zoom's support is at the moment)
 - (void)  beep;
 
 @end
 
 // Some useful standard classes
 
-// File from a handle
+//! File from a handle
 @interface ZHandleFile : NSObject<ZFile> {
     NSFileHandle* handle;
 }
@@ -291,7 +290,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (id) initWithFileHandle: (NSFileHandle*) handle;
 @end
 
-// File from data stored in memory
+//! File from data stored in memory
 @interface ZDataFile : NSObject<ZFile> {
     NSData* data;
     NSInteger pos;
@@ -300,7 +299,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (id) initWithData: (NSData*) data;
 @end
 
-// File(s) from a package
+//! File(s) from a package
 @interface ZPackageFile : NSObject<ZFile> {
 	NSFileWrapper* wrapper;
 	BOOL forWriting;
@@ -327,9 +326,9 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 
 @end
 
-// Style attributes
+//! Style attributes
 extern NSString* const ZStyleAttributeName;
-@interface ZStyle : NSObject<NSCopying,NSCoding> {
+@interface ZStyle : NSObject<NSCopying, NSSecureCoding> {
     // Colour
     int foregroundColour;
     int backgroundColour;
@@ -359,25 +358,25 @@ extern NSString* const ZStyleAttributeName;
 
 @end
 
-// Buffering
-@interface ZBuffer : NSObject<NSCopying,NSCoding> {
+//! Buffering
+@interface ZBuffer : NSObject<NSCopying,NSSecureCoding> {
     NSMutableArray* buffer;
 	int bufferCount;
 }
 
 // Buffering
 
-// Notifications
+//! Notifications
 - (void) addedToBuffer;
 
-// General window routines
+//! General window routines
 - (void) writeString: (NSString*) string
            withStyle: (ZStyle*) style
             toWindow: (NSObject<ZWindow>*) window;
 - (void) clearWindow: (NSObject<ZWindow>*) window
            withStyle: (ZStyle*) style;
 
-// Upper window routines
+//! Upper window routines
 - (void) moveTo: (NSPoint) newCursorPos
        inWindow: (NSObject<ZUpperWindow>*) window;
 - (void) eraseLineInWindow: (NSObject<ZUpperWindow>*) window
@@ -386,7 +385,7 @@ extern NSString* const ZStyleAttributeName;
          startLine: (int) startLine
            endLine: (int) endLine;
 
-// Pixmap window routines
+//! Pixmap window routines
 - (void) plotRect: (NSRect) rect
 		withStyle: (ZStyle*) style
 		 inWindow: (NSObject<ZPixmapWindow>*) win;
@@ -407,7 +406,7 @@ extern NSString* const ZStyleAttributeName;
 
 @end
 
-// Connecting to the client
+//! Connecting to the client
 @protocol ZClient <NSObject>
 - (byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine;
 @end

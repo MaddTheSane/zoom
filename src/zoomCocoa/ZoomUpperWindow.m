@@ -201,7 +201,22 @@ static NSString* blankLine(int length) {
 }
 
 // = NSCoding =
+#define LINESCODINGKEY @"lines"
+#define BACKGROUNDCOLORCODINGKEY @"backgroundColour"
+#define STARTLINECODINGKEY @"startLine"
+#define ENDLINECODINGKEY @"endLine"
+#define XPOSCODINGKEY @"xpos"
+#define YPOSCODINGKEY @"ypos"
+
 - (void) encodeWithCoder: (NSCoder*) encoder {
+	if (encoder.allowsKeyedCoding) {
+		[encoder encodeInt: startLine forKey: STARTLINECODINGKEY];
+		[encoder encodeInt: endLine forKey: ENDLINECODINGKEY];
+		[encoder encodeInt: xpos forKey: XPOSCODINGKEY];
+		[encoder encodeInt: ypos forKey: YPOSCODINGKEY];
+		[encoder encodeObject: lines forKey: LINESCODINGKEY];
+		[encoder encodeObject: backgroundColour forKey: BACKGROUNDCOLORCODINGKEY];
+	} else {
 	[encoder encodeValueOfObjCType: @encode(int)
 								at: &startLine];
 	[encoder encodeValueOfObjCType: @encode(int)
@@ -212,12 +227,21 @@ static NSString* blankLine(int length) {
 								at: &ypos];
 	[encoder encodeObject: lines];
 	[encoder encodeObject: backgroundColour];
+	}
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
 	self = [super init];
 	
     if (self) {
+		if (decoder.allowsKeyedCoding) {
+			startLine = [decoder decodeIntForKey: STARTLINECODINGKEY];
+			endLine = [decoder decodeIntForKey: ENDLINECODINGKEY];
+			xpos = [decoder decodeIntForKey: XPOSCODINGKEY];
+			ypos = [decoder decodeIntForKey: YPOSCODINGKEY];
+			lines = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableAttributedString class], [NSMutableArray class], nil] forKey: LINESCODINGKEY];
+			backgroundColour = [decoder decodeObjectOfClass: [NSColor class] forKey: BACKGROUNDCOLORCODINGKEY];
+		} else {
 		[decoder decodeValueOfObjCType: @encode(int)
 									at: &startLine];
 		[decoder decodeValueOfObjCType: @encode(int)
@@ -228,9 +252,15 @@ static NSString* blankLine(int length) {
 									at: &ypos];
 		lines = [decoder decodeObject];
 		backgroundColour = [decoder decodeObject];
+		}
     }
 	
     return self;
+}
+
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
 - (void) setZoomView: (ZoomView*) view {

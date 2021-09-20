@@ -627,6 +627,11 @@ typedef unsigned char IFMDByte;
 	return self;
 }
 
++ (BOOL)supportsSecureCoding
+{
+	return YES;
+}
+
 // = Hashing/comparing =
 - (NSUInteger) hash {
 	return [[self description] hash];

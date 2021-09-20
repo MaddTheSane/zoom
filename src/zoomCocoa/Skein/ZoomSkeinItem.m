@@ -569,11 +569,11 @@ static int currentScore = 1;
 	self = [super init];
 	
 	if (self) {
-		children = [decoder decodeObjectForKey: @"children"];
+		children = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableSet class], [ZoomSkeinItem class], nil] forKey: @"children"];
 		
-		command = [decoder decodeObjectForKey: @"command"];
-		result = [decoder decodeObjectForKey: @"result"];
-		annotation = [decoder decodeObjectForKey: @"annotation"];
+		command = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
+		result = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
+		annotation = [decoder decodeObjectOfClass: [NSString class] forKey: @"annotation"];
 		
 		played = [decoder decodeBoolForKey: @"played"];
 		changed = [decoder decodeBoolForKey: @"changed"];
@@ -589,6 +589,11 @@ static int currentScore = 1;
 	}
 	
 	return self;
+}
+
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
 // = Drawing/sizing =

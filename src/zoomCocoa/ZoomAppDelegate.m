@@ -167,10 +167,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		NSString* propertyListPath = [filename stringByAppendingPathComponent: @"Info.plist"];
 		NSDictionary* fileProperties = nil;
 		if ([[NSFileManager defaultManager] fileExistsAtPath: propertyListPath]) {
-			fileProperties = [NSPropertyListSerialization propertyListFromData: [NSData dataWithContentsOfFile: propertyListPath]
-															  mutabilityOption: NSPropertyListImmutable
+			fileProperties = [NSPropertyListSerialization propertyListWithData: [NSData dataWithContentsOfFile: propertyListPath]
+															  options: NSPropertyListImmutable
 																		format: nil
-															  errorDescription: nil];
+															  error: nil];
 		}
 		
 		// Retrieve the story identifier

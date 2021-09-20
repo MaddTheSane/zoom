@@ -33,9 +33,9 @@ extern NSString* const ZoomSIChild;							//!< Child item (if relevant)
 //!
 //! Represents a single 'knot' in the skein
 //!
-@interface ZoomSkeinItem : NSObject<NSCoding> {
+@interface ZoomSkeinItem : NSObject<NSSecureCoding> {
 	__weak ZoomSkeinItem* parent;
-	NSMutableSet* children;
+	NSMutableSet<ZoomSkeinItem*>* children;
 	
 	NSString*     command;
 	NSString*     result;

@@ -11,7 +11,7 @@
 #import <ZoomView/ZoomView.h>
 
 @class ZoomView;
-@interface ZoomUpperWindow : NSObject<ZUpperWindow, NSCoding> {
+@interface ZoomUpperWindow : NSObject<ZUpperWindow, NSSecureCoding> {
     __unsafe_unretained ZoomView* theView;
 
     int startLine, endLine;

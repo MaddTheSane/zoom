@@ -72,7 +72,7 @@ static NSArray<ZoomMetadata*> * GetGameIndices( void );
 // and return it as a dictionary
 // -----------------------------------------------------------------------------
 
-Boolean GetMetadataForFile(void *thisInterface,
+static Boolean GetMetadataForFile(void *thisInterface,
 			   CFMutableDictionaryRef attributes,
 			   CFStringRef contentTypeUTI,
 			   CFStringRef pathToFile)

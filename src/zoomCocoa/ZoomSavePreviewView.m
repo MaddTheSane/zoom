@@ -116,10 +116,10 @@
 			NSDictionary* previewProperties = nil;
 			NSString* propertiesPath = [previewFile stringByAppendingPathComponent: @"Info.plist"];
 			if ([[NSFileManager defaultManager] fileExistsAtPath: propertiesPath]) {
-				previewProperties = [NSPropertyListSerialization propertyListFromData: [NSData dataWithContentsOfFile: propertiesPath]
-																	 mutabilityOption: NSPropertyListImmutable
+				previewProperties = [NSPropertyListSerialization propertyListWithData: [NSData dataWithContentsOfFile: propertiesPath]
+																			  options: NSPropertyListImmutable
 																			   format: nil
-																	 errorDescription: nil];
+																				error: nil];
 				if (![previewProperties isKindOfClass: [NSDictionary class]]) previewProperties = nil;
 			}
 			
@@ -131,10 +131,10 @@
 			NSArray* previewLines = nil;
 			NSString* previewLinesPath = [previewFile stringByAppendingPathComponent: @"Preview.plist"];
 			if ([[NSFileManager defaultManager] fileExistsAtPath: previewLinesPath]) {
-				previewLines = [NSPropertyListSerialization propertyListFromData: [NSData dataWithContentsOfFile: previewLinesPath]
-																mutabilityOption: NSPropertyListImmutable
+				previewLines = [NSPropertyListSerialization propertyListWithData: [NSData dataWithContentsOfFile: previewLinesPath]
+																		 options: NSPropertyListImmutable
 																		  format: nil
-																errorDescription: nil];
+																		   error: nil];
 				if (![previewLines isKindOfClass: [NSArray class]]) previewLines = nil;
 			}
 			

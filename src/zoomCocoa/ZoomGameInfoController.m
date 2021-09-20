@@ -251,14 +251,6 @@ static NSString* stringOrEmpty(NSString* str) {
 				 from: self];
 }
 
-- (void) finishedChoosingResourceFile: (NSOpenPanel *)sheet
-						   returnCode: (NSModalResponse)returnCode
-						  contextInfo: (void *)contextInfo {
-	if (returnCode != NSOKButton) return;
-	
-	[self setResourceFile: [[sheet URL] path]];
-}
-
 - (IBAction)chooseResourceFile:(id)sender {
 	NSOpenPanel* openPanel = [NSOpenPanel openPanel];
 	NSArray* filetypes = [NSArray arrayWithObjects: @"blb", @"blorb", nil];
@@ -279,7 +271,9 @@ static NSString* stringOrEmpty(NSString* str) {
 	}
 	
 	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
-		[self finishedChoosingResourceFile:openPanel returnCode:result contextInfo:NULL];
+		if (result != NSModalResponseOK) return;
+		
+		[self setResourceFile: [[openPanel URL] path]];
 	}];
 }
 

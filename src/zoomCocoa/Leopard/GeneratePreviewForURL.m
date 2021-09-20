@@ -231,10 +231,10 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 		NSData* plist = [NSData dataWithContentsOfURL: plistUrl];
 		
 		if (plist != nil) {
-			NSDictionary* plistDict = [NSPropertyListSerialization propertyListFromData: plist
-																	   mutabilityOption: NSPropertyListImmutable
+			NSDictionary* plistDict = [NSPropertyListSerialization propertyListWithData: plist
+																				options: NSPropertyListImmutable
 																				 format: nil
-																	   errorDescription: nil];
+																				  error: nil];
 			NSString* idString  = [plistDict objectForKey: @"ZoomStoryId"];
 			if (idString != nil) {
 				storyID = [[ZoomStoryID alloc] initWithIdString: idString];
@@ -254,10 +254,10 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 		NSData* plist = [NSData dataWithContentsOfURL: plistUrl];
 		
 		if (plist != nil) {
-			NSDictionary* plistDict = [NSPropertyListSerialization propertyListFromData: plist
-																	   mutabilityOption: NSPropertyListImmutable
+			NSDictionary* plistDict = [NSPropertyListSerialization propertyListWithData: plist
+																				options: NSPropertyListImmutable
 																				 format: nil
-																	   errorDescription: nil];
+																				  error: nil];
 			NSString* idString  = [plistDict objectForKey: @"ZoomGlkGameId"];
 			if (idString != nil) {
 				storyID = [[ZoomStoryID alloc] initWithIdString: idString];

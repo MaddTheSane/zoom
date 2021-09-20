@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ZoomStoryID : NSObject<NSCopying, NSCoding> {
+@interface ZoomStoryID : NSObject<NSCopying, NSSecureCoding> {
 	struct IFID* ident;
 	BOOL needsFreeing;
 }

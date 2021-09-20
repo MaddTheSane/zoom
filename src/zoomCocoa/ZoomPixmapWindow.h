@@ -10,7 +10,7 @@
 
 #import <ZoomView/ZoomView.h>
 
-@interface ZoomPixmapWindow : NSObject<ZPixmapWindow, NSCoding> {
+@interface ZoomPixmapWindow : NSObject<ZPixmapWindow, NSSecureCoding> {
 	__unsafe_unretained ZoomView* zView;
 	NSImage* pixmap;
 	
