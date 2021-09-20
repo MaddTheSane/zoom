@@ -576,7 +576,9 @@
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>com.apple.ostype</key>
-				<string>.T3X</string>
+				<array>
+					<string>.T3X</string>
+				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>t3x</string>
