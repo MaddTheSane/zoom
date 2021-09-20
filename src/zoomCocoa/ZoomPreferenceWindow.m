@@ -46,17 +46,17 @@ static NSDictionary*  itemDictionary = nil;
 	
 	// Set up the items
 	[generalSettingsItem setLabel: @"General"];
-	[generalSettingsItem setImage: [NSImage imageNamed:@"generalSettings"]];
+	[generalSettingsItem setImage: [NSImage imageNamed:@"Settings/general"]];
 	[gameSettingsItem setLabel: @"Game"];
-	[gameSettingsItem setImage: [NSImage imageNamed:@"gameSettings"]];
+	[gameSettingsItem setImage: [NSImage imageNamed:@"Settings/game"]];
 	[displaySettingsItem setLabel: @"Display"];
-	[displaySettingsItem setImage: [NSImage imageNamed:@"displaySettings"]];
+	[displaySettingsItem setImage: [NSImage imageNamed:@"Settings/display"]];
 	[fontSettingsItem setLabel: @"Fonts"];
-	[fontSettingsItem setImage: [NSImage imageNamed:@"fontSettings"]];
+	[fontSettingsItem setImage: [NSImage imageNamed:@"Settings/font"]];
 	[colourSettingsItem setLabel: @"Colour"];
 	[colourSettingsItem setImage: [NSImage imageNamed:NSImageNameColorPanel]];
 	[typographicSettingsItem setLabel: @"Typography"];
-	[typographicSettingsItem setImage: [NSImage imageNamed:@"typographicSettings"]];
+	[typographicSettingsItem setImage: [NSImage imageNamed:@"Settings/typographic"]];
 	
 	// And the actions
 	[generalSettingsItem setAction: @selector(generalSettings:)];
@@ -651,16 +651,6 @@ static void appendStyle(NSMutableString* styleName,
 	}
 }
 
-- (void) changeOrganiserDirTo: (NSOpenPanel *)sheet
-				   returnCode: (NSModalResponse)returnCode
-				  contextInfo: (void *)contextInfo {
-	if (returnCode != NSOKButton) return;
-	
-	[[ZoomStoryOrganiser sharedStoryOrganiser] reorganiseStoriesTo: [sheet URL].path];
-	[prefs setOrganiserDirectory: [sheet URL].path];
-	[organiseDir setString: [prefs organiserDirectory]];
-}
-
 - (IBAction) changeOrganiseDir: (id) sender {
 	NSOpenPanel* dirChooser = [NSOpenPanel openPanel];
 	
@@ -677,7 +667,11 @@ static void appendStyle(NSMutableString* styleName,
 	
 	[dirChooser retain];
 	[dirChooser beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse result) {
-		[self changeOrganiserDirTo:dirChooser returnCode:result contextInfo:nil];
+		if (result != NSModalResponseOK) return;
+		
+		[[ZoomStoryOrganiser sharedStoryOrganiser] reorganiseStoriesTo: [dirChooser URL].path];
+		[prefs setOrganiserDirectory: [dirChooser URL].path];
+		[organiseDir setString: [prefs organiserDirectory]];
 		[dirChooser release];
 	}];
 }
