@@ -8,8 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
-#import "ZoomView.h"
-#import "ZoomUpperWindowView.h"
+#import <ZoomView/ZoomView.h>
+#import <ZoomView/ZoomUpperWindowView.h>
 
 @class ZoomView;
 @class ZoomUpperWindowView;

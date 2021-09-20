@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomView.h"
+#import <ZoomView/ZoomView.h>
 
 @interface ZoomPixmapWindow : NSObject<ZPixmapWindow, NSCoding> {
 	__unsafe_unretained ZoomView* zView;

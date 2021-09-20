@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ZoomStory.h"
-#import "ZoomStoryID.h"
-#import "ZoomBlorbFile.h"
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomStoryID.h>
+#import <ZoomView/ZoomBlorbFile.h>
 
 
 @protocol ZoomStoryIDFetcherProtocol <NSObject>

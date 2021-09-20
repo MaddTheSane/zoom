@@ -10,7 +10,7 @@
 
 #import <GlkView/GlkView.h>
 
-#import "ZoomGameInfoController.h"
+#import <ZoomPlugIns/ZoomGameInfoController.h>
 
 @class ZoomSkein;
 @class ZoomTextToSpeech;

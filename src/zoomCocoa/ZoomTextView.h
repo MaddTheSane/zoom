@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ZoomUpperWindow.h"
+#import <ZoomView/ZoomUpperWindow.h>
 
 @class ZoomUpperWindow;
 @interface ZoomTextView : NSTextView {

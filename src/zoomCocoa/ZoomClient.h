@@ -7,10 +7,10 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "ZoomProtocol.h"
-#import "ZoomStory.h"
-#import "ZoomSkein.h"
-#import "ZoomBlorbFile.h"
+#import <ZoomView/ZoomProtocol.h>
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomView/ZoomSkein.h>
+#import <ZoomView/ZoomBlorbFile.h>
 
 @class ZoomView;
 @interface ZoomClient : NSDocument {

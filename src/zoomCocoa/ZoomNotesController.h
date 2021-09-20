@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomStory.h"
+#import <ZoomPlugIns/ZoomStory.h>
 
 ///
 /// Window controller for the Zoom notes window

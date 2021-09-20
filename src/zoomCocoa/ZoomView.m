@@ -1129,7 +1129,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	
     if (receiving) {
         // Move the input position if required
-        int modifiers = [theEvent modifierFlags];
+		NSEventModifierFlags modifiers = [theEvent modifierFlags];
         
         NSString* chars = [theEvent characters];
         

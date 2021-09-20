@@ -8,9 +8,9 @@
 
 #import <AppKit/AppKit.h>
 
-#import "ZoomSkein.h"
-#import "ZoomSkeinItem.h"
-#import "ZoomSkeinLayout.h"
+#import <ZoomView/ZoomSkein.h>
+#import <ZoomView/ZoomSkeinItem.h>
+#import <ZoomView/ZoomSkeinLayout.h>
 
 @protocol ZoomSkeinViewDelegate;
 

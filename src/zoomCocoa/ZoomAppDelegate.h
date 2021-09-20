@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomProtocol.h>
 #import "ZoomPreferenceWindow.h"
-#import "ZoomMetadata.h"
-#import "ZoomStory.h"
+#import <ZoomPlugIns/ZoomMetadata.h>
+#import <ZoomPlugIns/ZoomStory.h>
 #import "ZoomiFictionController.h"
 #import <ZoomView/ZoomView.h>
 #import "ZoomLeopard.h"

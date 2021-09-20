@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomView.h"
+#import <ZoomView/ZoomView.h>
 
 @class ZoomView;
 @interface ZoomUpperWindow : NSObject<ZUpperWindow, NSCoding> {
@@ -26,7 +26,7 @@
 - (id) initWithZoomView: (ZoomView*) view;
 
 - (int) length;
-- (NSArray*) lines;
+- (NSArray<NSMutableAttributedString*>*) lines;
 - (NSColor*) backgroundColour;
 - (void)     cutLines;
 

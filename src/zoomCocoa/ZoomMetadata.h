@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ZoomStory.h"
-#import "ZoomStoryID.h"
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomStoryID.h>
 
 // Notifications
 extern NSNotificationName const ZoomMetadataWillDestroyStory;			//!< A story with a particular ID will be destroyed

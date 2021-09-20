@@ -3,8 +3,8 @@
 // Controller for the game info window
 
 #import <Cocoa/Cocoa.h>
-#import "ZoomStory.h"
-#import "ZoomResourceDrop.h"
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomResourceDrop.h>
 
 @interface ZoomGameInfoController : NSWindowController<NSOpenSavePanelDelegate> {
 	IBOutlet NSMenu*      genreMenu;

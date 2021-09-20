@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomCursor.h"
+#import <ZoomView/ZoomCursor.h>
 
 @protocol ZoomInputLineDelegate;
 

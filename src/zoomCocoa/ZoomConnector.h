@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomView.h"
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomView.h>
+#import <ZoomView/ZoomProtocol.h>
 
 // Class used to connect the server to the view
 

@@ -15,7 +15,7 @@
 #import "ZoomStoryOrganiser.h"
 #import "ZoomSkeinController.h"
 #import "ZoomConnector.h"
-#import "ZoomWindowThatCanBecomeKey.h"
+#import <ZoomPlugIns/ZoomWindowThatCanBecomeKey.h>
 #import "ZoomAppDelegate.h"
 #import "ZoomClearView.h"
 

@@ -14,7 +14,7 @@
 #import "ZoomSkeinController.h"
 #import "ZoomLeopard.h"
 
-#import "ZoomMetadata.h"
+#import <ZoomPlugIns/ZoomMetadata.h>
 #import "ZoomiFictionController.h"
 
 #import "ZoomPlugIn.h"

@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 
-#import "ZoomSkeinItem.h"
-#import "ZoomViewProtocols.h"
+#import <ZoomView/ZoomSkeinItem.h>
+#import <ZoomView/ZoomViewProtocols.h>
 
 extern NSNotificationName const ZoomSkeinChangedNotification;
 

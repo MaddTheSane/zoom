@@ -7,16 +7,16 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "ZoomProtocol.h"
-#import "ZoomMoreView.h"
-#import "ZoomTextView.h"
-#import "ZoomScrollView.h"
-#import "ZoomPreferences.h"
-#import "ZoomCursor.h"
-#import "ZoomInputLine.h"
-#import "ZoomBlorbFile.h"
-#import "ZoomTextToSpeech.h"
-#import "ZoomViewProtocols.h"
+#import <ZoomView/ZoomProtocol.h>
+#import <ZoomView/ZoomMoreView.h>
+#import <ZoomView/ZoomTextView.h>
+#import <ZoomView/ZoomScrollView.h>
+#import <ZoomView/ZoomPreferences.h>
+#import <ZoomView/ZoomCursor.h>
+#import <ZoomView/ZoomInputLine.h>
+#import <ZoomView/ZoomBlorbFile.h>
+#import <ZoomView/ZoomTextToSpeech.h>
+#import <ZoomView/ZoomViewProtocols.h>
 
 typedef NS_OPTIONS(unsigned int, ZFontStyle) {
 	ZBoldStyle = 1,

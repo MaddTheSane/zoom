@@ -9,7 +9,7 @@
 #import <AppKit/AppKit.h>
 #import <WebKit/WebKit.h>
 #import "ZoomiFButton.h"
-#import "ZoomStory.h"
+#import <ZoomPlugIns/ZoomStory.h>
 #import "ZoomCollapsableView.h"
 #import "ZoomSavePreviewView.h"
 #import "ZoomCollapsingSplitView.h"

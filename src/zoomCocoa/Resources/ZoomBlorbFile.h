@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomProtocol.h>
 
 @interface ZoomBlorbFile : NSObject {
 	NSObject<ZFile>* file;

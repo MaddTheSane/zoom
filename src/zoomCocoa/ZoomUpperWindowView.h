@@ -7,9 +7,9 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "ZoomView.h"
-#import "ZoomCursor.h"
-#import "ZoomInputLine.h"
+#import <ZoomView/ZoomView.h>
+#import <ZoomView/ZoomCursor.h>
+#import <ZoomView/ZoomInputLine.h>
 
 @class ZoomView;
 @interface ZoomUpperWindowView : NSView <ZoomInputLineDelegate, ZoomCursorDelegate, NSAccessibilityStaticText> {

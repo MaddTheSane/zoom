@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomProtocol.h"
-#import "ZoomView.h"
+#import <ZoomView/ZoomProtocol.h>
+#import <ZoomView/ZoomView.h>
 
 @interface ZoomLowerWindow : NSObject<ZLowerWindow, NSCoding> {
     __weak ZoomView* zoomView;
