@@ -57,7 +57,7 @@
 		
 		[pluginImage drawInRect: NSMakeRect(NSMinX(cellFrame) + 2, NSMinY(cellFrame)+2, drawWidth, drawHeight)
 					   fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
-					  operation: NSCompositeSourceOver
+					  operation: NSCompositingOperationSourceOver
 					   fraction: 1.0
 				 respectFlipped: YES
 						  hints: nil];

@@ -9,18 +9,18 @@
 #import <Cocoa/Cocoa.h>
 #import <ZoomPlugIns/ZoomDownload.h>
 
-typedef enum ZoomPlugInStatus {
-	ZoomPlugInInstalled,									// Installed plugin
-	ZoomPlugInDisabled,										// Installed plugin that has been disabled
-	ZoomPlugInUpdated,										// Installed plugin, update to be installed
-	ZoomPlugInDownloaded,									// Downloaded plugin available to install
-	ZoomPluginUpdateAvailable,								// Update available to download
-	ZoomPlugInNew,											// Not yet installed, available to download
-	ZoomPlugInDownloadFailed,								// Marked as having an update, but it failed to download
-	ZoomPlugInInstallFailed,								// Downloaded, but the installation failed for some reason
-	ZoomPlugInDownloading,									// Currently downloading
-	ZoomPlugInNotKnown,										// Unknown status
-} ZoomPlugInStatus;
+typedef NS_ENUM(int, ZoomPlugInStatus) {
+	ZoomPlugInInstalled,									//!< Installed plugin
+	ZoomPlugInDisabled,										//!< Installed plugin that has been disabled
+	ZoomPlugInUpdated,										//!< Installed plugin, update to be installed
+	ZoomPlugInDownloaded,									//!< Downloaded plugin available to install
+	ZoomPluginUpdateAvailable,								//!< Update available to download
+	ZoomPlugInNew,											//!< Not yet installed, available to download
+	ZoomPlugInDownloadFailed,								//!< Marked as having an update, but it failed to download
+	ZoomPlugInInstallFailed,								//!< Downloaded, but the installation failed for some reason
+	ZoomPlugInDownloading,									//!< Currently downloading
+	ZoomPlugInNotKnown,										//!< Unknown status
+};
 
 ///
 /// Class representing information about a known plugin

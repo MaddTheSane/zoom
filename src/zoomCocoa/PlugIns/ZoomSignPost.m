@@ -51,10 +51,10 @@
 	
 	// Reparse as a plist if requested
 	if (reparseAsPlist) {
-		NSDictionary* plist = [NSPropertyListSerialization propertyListFromData: data
-																mutabilityOption: NSPropertyListImmutable
-																		  format: nil
-																errorDescription: nil];
+		NSDictionary* plist = [NSPropertyListSerialization propertyListWithData: data
+																		options: NSPropertyListImmutable
+																		 format: nil
+																		  error: nil];
 		if (!plist) return NO;
 		if (![plist isKindOfClass: [NSDictionary class]]) return NO;
 		
@@ -165,13 +165,11 @@
 - (NSArray*) ifids {
 	NSMutableArray* result = [NSMutableArray array];
 	
-	NSEnumerator* ifidEnum = [ifids objectEnumerator];
-	NSString* idString;
-	while (idString = [ifidEnum nextObject]) {
+	for (NSString* idString in ifids) {
 		[result addObject: [[ZoomStoryID alloc] initWithIdString: idString]];
 	}
 	
-	return result;
+	return [result copy];
 }
 
 @synthesize interpreterDisplayName;
@@ -221,9 +219,10 @@
 				  forKey: @"URL"];
 	}
 	
-	return [NSPropertyListSerialization dataFromPropertyList: plist
+	return [NSPropertyListSerialization dataWithPropertyList: plist
 													  format: NSPropertyListXMLFormat_v1_0
-											errorDescription: nil];
+													 options: 0
+													   error: nil];
 }
 
 @end
