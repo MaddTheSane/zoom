@@ -13,21 +13,19 @@
 #import <CoreServices/CoreServices.h>
 #import <Foundation/Foundation.h>
 
-#import "ifmetabase.h"
+#import <ZoomPlugIns/ifmetabase.h>
 
-#import "ZoomMetadata.h"
-#import "ZoomStory.h"
-#import "ZoomStoryID.h"
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4
+#import <ZoomPlugIns/ZoomMetadata.h>
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomStoryID.h>
 
 // -----------------------------------------------------------------------------
 //	protos
 // -----------------------------------------------------------------------------
 
-ZoomStory * FindStory( ZoomStoryID * gameID );
-NSString * GetZoomConfigDirectory( void );
-NSArray * GetGameIndices( void );
+static ZoomStory * FindStory( ZoomStoryID * gameID );
+static NSString * GetZoomConfigDirectory( void );
+static NSArray<ZoomMetadata*> * GetGameIndices( void );
 
 // -----------------------------------------------------------------------------
 //	constants
@@ -255,10 +253,7 @@ ZoomStory * FindStory( ZoomStoryID * gameID )
 	
 	NSArray * game_indices = GetGameIndices();
 
-	NSEnumerator * enumerator = [game_indices objectEnumerator];
-	ZoomMetadata * repository;
-	
-	while( (repository = [enumerator nextObject]) ) {
+	for (ZoomMetadata * repository in game_indices) {
 		story = [repository containsStoryWithIdent: gameID]?[repository findOrCreateStory:gameID]:nil;
 		if( story ) 
 			break;
@@ -481,26 +476,23 @@ HRESULT MetadataImporterQueryInterface( void * thisInstance, REFIID iid, LPVOID 
 
         return S_OK;
     }
+	else if( CFEqual( interfaceID, IUnknownUUID ) )
+	{
+		// If the IUnknown interface was requested, same as above.
+		((MetadataImporterPluginType*)thisInstance )->conduitInterface->AddRef( thisInstance );
+		*ppv = thisInstance;
+		CFRelease( interfaceID );
+		
+		return S_OK;
+	}
 	else
 	{
-        if( CFEqual( interfaceID, IUnknownUUID ) )
-		{
-			// If the IUnknown interface was requested, same as above.
-            ((MetadataImporterPluginType*)thisInstance )->conduitInterface->AddRef( thisInstance );
-            *ppv = thisInstance;
-            CFRelease( interfaceID );
-			
-            return S_OK;
-        }
-		else
-		{
-			// Requested interface unknown, bail with error.
-            *ppv = NULL;
-            CFRelease( interfaceID );
-			
-            return E_NOINTERFACE;
-        }
-    }
+		// Requested interface unknown, bail with error.
+		*ppv = NULL;
+		CFRelease( interfaceID );
+		
+		return E_NOINTERFACE;
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -568,10 +560,3 @@ void * MetadataImporterPluginFactory( CFAllocatorRef allocator, CFUUIDRef typeID
 	
 	return NULL;
 }
-
-#else
-
-/* #error Oops, compiling for the wrong version of OS X */
-
-#endif
-

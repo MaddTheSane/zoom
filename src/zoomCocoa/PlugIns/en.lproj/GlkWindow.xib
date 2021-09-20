@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,34 +30,32 @@
             <rect key="frame" x="0.0" y="0.0" width="583" height="121"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="20">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="20">
                     <rect key="frame" x="-3" y="107" width="589" height="14"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Log messages from Glk" id="33">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="18">
-                    <rect key="frame" x="0.0" y="0.0" width="583" height="101"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <scrollView borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18">
+                    <rect key="frame" x="0.0" y="0.0" width="583" height="99"/>
                     <clipView key="contentView" drawsBackground="NO" id="Fdb-O0-x77">
-                        <rect key="frame" x="1" y="1" width="581" height="99"/>
+                        <rect key="frame" x="1" y="1" width="581" height="97"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="19">
-                                <rect key="frame" x="0.0" y="0.0" width="581" height="99"/>
+                                <rect key="frame" x="0.0" y="0.0" width="581" height="97"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="581" height="99"/>
+                                <size key="minSize" width="581" height="97"/>
                                 <size key="maxSize" width="583" height="10000000"/>
                                 <attributedString key="textStorage">
                                     <fragment content="CocoaGlk v1.0.0">
                                         <attributes>
                                             <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" metaFont="user"/>
+                                            <font key="NSFont" usesAppearanceFont="YES"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -70,22 +68,32 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" controlSize="small" horizontal="NO" id="35">
-                        <rect key="frame" x="568" y="1" width="14" height="99"/>
+                        <rect key="frame" x="568" y="1" width="14" height="97"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
             </subviews>
+            <constraints>
+                <constraint firstItem="20" firstAttribute="centerX" secondItem="18" secondAttribute="centerX" id="WZ8-Kd-jvb"/>
+                <constraint firstAttribute="bottom" secondItem="18" secondAttribute="bottom" id="h3o-ru-qC2"/>
+                <constraint firstItem="18" firstAttribute="top" secondItem="20" secondAttribute="bottom" constant="8" symbolic="YES" id="nfT-B3-R4n"/>
+                <constraint firstItem="20" firstAttribute="top" secondItem="16" secondAttribute="top" id="oFI-gE-9WO"/>
+                <constraint firstItem="18" firstAttribute="leading" secondItem="16" secondAttribute="leading" id="pFC-lT-DtM"/>
+                <constraint firstItem="20" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="-1" id="qGs-rG-UPe"/>
+                <constraint firstAttribute="trailing" secondItem="18" secondAttribute="trailing" id="zPs-P7-Icq"/>
+            </constraints>
+            <point key="canvasLocation" x="14" y="121"/>
         </customView>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="GlkWindow" animationBehavior="default" id="23" userLabel="GlkWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="73" y="413" width="684" height="508"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" id="24">
                 <rect key="frame" x="0.0" y="0.0" width="684" height="508"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView id="25" customClass="GlkView">
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="25" customClass="GlkView">
                         <rect key="frame" x="0.0" y="0.0" width="684" height="508"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
@@ -98,6 +106,7 @@
                 <outlet property="delegate" destination="-2" id="30"/>
                 <outlet property="initialFirstResponder" destination="25" id="31"/>
             </connections>
+            <point key="canvasLocation" x="14" y="404"/>
         </window>
     </objects>
 </document>

@@ -26,9 +26,7 @@
 
 - (void) prepareToAnimateView: (NSView*) view
 						layer: (CALayer*) layer {
-	NSEnumerator* subviewEnum = [[view subviews] objectEnumerator];
-	NSView* subview;
-	while (subview = [subviewEnum nextObject]) {
+	for (NSView* subview in [view subviews]) {
 		[self prepareToAnimateView: subview
 							 layer: nil];		
 	}
