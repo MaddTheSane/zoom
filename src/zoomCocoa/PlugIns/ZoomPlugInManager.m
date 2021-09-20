@@ -139,7 +139,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: pluginPath error: NULL] objectEnumerator];
 	
 	NSString* plugin;
-	while (plugin = [pluginEnum nextObject]) {
+	for (plugin in pluginEnum) {
 #if VERBOSITY >= 2
 		NSLog(@"= Found file: %@", plugin);
 #endif
