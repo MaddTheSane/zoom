@@ -117,11 +117,10 @@ static SpeechChannel channel = nil;
 
 - (void) speak: (NSString*) newText {
 #ifndef UseCocoaSpeech
-	char* buffer = NULL;
-	int bufLen = 0;
+	NSMutableString* buffer = [NSMutableString string];
 	int x;
 	
-#define WriteBuffer(x) buffer = realloc(buffer, bufLen+1); buffer[bufLen++] = x;
+#define WriteBuffer(x) [buffer appendFormat:@"%C", (unichar)x];
 	
 	BOOL whitespace = YES;
 	BOOL newline = YES;
@@ -129,6 +128,11 @@ static SpeechChannel channel = nil;
 	
 	for (x=0; x<[newText length]; x++) {
 		unichar chr = [newText characterAtIndex: x];
+		
+		if (chr >= 127) {
+			WriteBuffer(chr);
+			continue;
+		}
 		
 		if (chr != '\n' && chr != '\r' && (chr < 32 || chr >= 127)) chr = ' ';
 		
@@ -171,9 +175,7 @@ static SpeechChannel channel = nil;
 	}
 	WriteBuffer(0);
 	
-	SpeakBuffer(channel, buffer, bufLen-1, 0);
-	
-	free(buffer);
+	SpeakCFString(channel, (__bridge CFStringRef _Nonnull)(buffer), NULL);
 #else
 	[synth startSpeakingString: newText];
 #endif	

@@ -344,7 +344,10 @@
 						   @"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]);
 		
 		if (outError) {
-			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
+				NSLocalizedDescriptionKey: @"Not a valid Zoom savegame package",
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]]
+			}];
 		}
 		return NO;
 	}
@@ -460,9 +463,12 @@
 		savedView = [NSUnarchiver unarchiveObjectWithData: savedViewArchive];
 	
 	if (savedView == nil || ![savedView isKindOfClass: [ZoomView class]]) {
-		NSBeginAlertSheet(@"Unable to load saved screen state", 
-						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						  @"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", [[wrapper filename] lastPathComponent]);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"Unable to load saved screen state";
+		alert.informativeText = [NSString stringWithFormat:@"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", [[wrapper filename] lastPathComponent]];
+		[alert addButtonWithTitle:@"Cancel"];
+		[alert runModal];
+		[alert release];
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
 		}

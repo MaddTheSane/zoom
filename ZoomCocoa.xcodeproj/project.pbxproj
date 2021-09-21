@@ -50,7 +50,7 @@
 		4B3E766D0BA2D47300661FE8 /* ZoomBabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E766B0BA2D47300661FE8 /* ZoomBabel.m */; };
 		4B3E76DD0BA2DF8E00661FE8 /* ZoomResourceDrop.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BC5562006B83F4600F0DD4A /* ZoomResourceDrop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B3E775B0BA2F00000661FE8 /* babel in Copy babel */ = {isa = PBXBuildFile; fileRef = 4BD79A8F0BA2C9AA002C82B2 /* babel */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		4B3E79DA0BA31FA800661FE8 /* ZoomStoryOrganiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B807BAA05BFEE7200681653 /* ZoomStoryOrganiser.m */; };
+		4B3E79DA0BA31FA800661FE8 /* ZoomStoryOrganiser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B807BAA05BFEE7200681653 /* ZoomStoryOrganiser.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		4B43DA8409364C7400F03009 /* GlkWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B43DA8309364C7400F03009 /* GlkWindow.xib */; };
 		4B43DAB109364CD700F03009 /* ZoomGlkWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B43DAAD09364CD100F03009 /* ZoomGlkWindowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B43DAB209364CD800F03009 /* ZoomGlkWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B43DAAE09364CD100F03009 /* ZoomGlkWindowController.m */; };
@@ -1909,7 +1909,6 @@
 				4BB8C1B708C249F400D7D334 /* Resources */,
 				4BB8C1E008C249F400D7D334 /* Sources */,
 				4BB8C1F708C249F400D7D334 /* Frameworks */,
-				4BB8C1FD08C249F400D7D334 /* Rez */,
 				4B39CA0408EEF8C600BA5E90 /* Copy Metadata importer */,
 				4B36C45C0955ED3F00874F9F /* Copy Glulxe plugin */,
 				4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */,
@@ -2176,13 +2175,6 @@
 
 /* Begin PBXRezBuildPhase section */
 		4BB8C16508C2497700D7D334 /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BB8C1FD08C249F400D7D334 /* Rez */ = {
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

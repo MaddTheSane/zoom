@@ -253,79 +253,79 @@ static NSImage* saveBackground;
 
 - (IBAction) deleteSavegame: (id) sender {
 	// Display a confirmation dialog
-	NSBeginAlertSheet(@"Are you sure?", 
-					  @"Delete", @"Keep", nil, nil, self, @selector(confirmDelete:returnCode:contextInfo:), 
-					  nil, nil,
-					  @"Are you sure you want to delete this saved game?");
-	
-	return;
-}
-
-- (void) confirmDelete:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-	// Check the user confirmed the delete
-	if (returnCode != NSAlertFirstButtonReturn) return;
-	
-	// Ensure that this is a genuine savegame
-	BOOL genuine = YES;
-	BOOL isDir = NO;
-	NSString* reason = nil;
-	
-	NSString* saveDir = [[self filename] stringByDeletingLastPathComponent];
-	
-	if (![[[saveDir pathExtension] lowercaseString] isEqualToString: @"zoomsave"]
-		&& ![[[saveDir pathExtension] lowercaseString] isEqualToString: @"glksave"]) {
-		genuine = NO; reason = reason?reason:[NSString stringWithFormat: @"File has the wrong extension (%@)", [saveDir pathExtension]];
-	}
-	if (![[NSFileManager defaultManager] fileExistsAtPath: saveDir
-											  isDirectory: &isDir]) {
-		genuine = NO; reason = reason?reason:@"File does not exist";
-	}
-	if (!isDir) {
-		genuine = NO;  reason = reason?reason:@"File is not a directory";
-	}
-	
-	NSString* saveQut = [saveDir stringByAppendingPathComponent: @"save.qut"];
-	NSString* zPreview = [saveDir stringByAppendingPathComponent: @"ZoomPreview.dat"];
-	NSString* status = [saveDir stringByAppendingPathComponent: @"ZoomStatus.dat"];
-	
-	if (![[NSFileManager defaultManager] fileExistsAtPath: saveQut
-											  isDirectory: &isDir]) {
-		genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
-	}
-	if (isDir) {
-		genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
-	}
-	if (![[NSFileManager defaultManager] fileExistsAtPath: zPreview
-											  isDirectory: &isDir]) {
-		genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
-	}
-	if (isDir) {
-		genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
-	}
-	if (![[NSFileManager defaultManager] fileExistsAtPath: status
-											  isDirectory: &isDir]) {
-		genuine = NO; reason = reason?reason:@"Contents do not look like a saved game"; 
-	}
-	if (isDir) {
-		genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
-	}
-	
-	// Report a problem if not genuine
-	if (!genuine) {
-		NSBeginAlertSheet(@"Invalid save game", 
-						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						  @"This does not look like a valid Zoom save game - it's possible it has moved, or you've saved something that looks like a save game but isn't. %@.", reason);
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = @"Are you sure?";
+	alert.informativeText = @"Are you sure you want to delete this saved game?";
+	[alert addButtonWithTitle:@"Delete"];
+	[alert addButtonWithTitle:@"Keep"];
+	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		// Check the user confirmed the delete
+		if (returnCode != NSAlertFirstButtonReturn) return;
 		
-		return;
-	}
-	
-	// Delete the game
-	[[NSFileManager defaultManager] removeItemAtPath: saveDir
-											   error: NULL];
-	
-	// Force an update of the game window (bit of a hack, being lazy)
-	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryOrganiserChangedNotification
-														object: [ZoomStoryOrganiser sharedStoryOrganiser]];
+		// Ensure that this is a genuine savegame
+		BOOL genuine = YES;
+		BOOL isDir = NO;
+		NSString* reason = nil;
+		
+		NSString* saveDir = [[self filename] stringByDeletingLastPathComponent];
+		
+		if (![[[saveDir pathExtension] lowercaseString] isEqualToString: @"zoomsave"]
+			&& ![[[saveDir pathExtension] lowercaseString] isEqualToString: @"glksave"]) {
+			genuine = NO; reason = reason?reason:[NSString stringWithFormat: @"File has the wrong extension (%@)", [saveDir pathExtension]];
+		}
+		if (![[NSFileManager defaultManager] fileExistsAtPath: saveDir
+												  isDirectory: &isDir]) {
+			genuine = NO; reason = reason?reason:@"File does not exist";
+		}
+		if (!isDir) {
+			genuine = NO;  reason = reason?reason:@"File is not a directory";
+		}
+		
+		NSString* saveQut = [saveDir stringByAppendingPathComponent: @"save.qut"];
+		NSString* zPreview = [saveDir stringByAppendingPathComponent: @"ZoomPreview.dat"];
+		NSString* status = [saveDir stringByAppendingPathComponent: @"ZoomStatus.dat"];
+		
+		if (![[NSFileManager defaultManager] fileExistsAtPath: saveQut
+												  isDirectory: &isDir]) {
+			genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
+		}
+		if (isDir) {
+			genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
+		}
+		if (![[NSFileManager defaultManager] fileExistsAtPath: zPreview
+												  isDirectory: &isDir]) {
+			genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
+		}
+		if (isDir) {
+			genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
+		}
+		if (![[NSFileManager defaultManager] fileExistsAtPath: status
+												  isDirectory: &isDir]) {
+			genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
+		}
+		if (isDir) {
+			genuine = NO; reason = reason?reason:@"Contents do not look like a saved game";
+		}
+		
+		// Report a problem if not genuine
+		if (!genuine) {
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = @"Invalid save game";
+			alert.informativeText = [NSString stringWithFormat:@"This does not look like a valid Zoom save game - it's possible it has moved, or you've saved something that looks like a save game but isn't. %@.", reason];
+			[alert addButtonWithTitle:@"Cancel"];
+			[alert runModal];
+			
+			return;
+		}
+		
+		// Delete the game
+		[[NSFileManager defaultManager] removeItemAtPath: saveDir
+												   error: NULL];
+		
+		// Force an update of the game window (bit of a hack, being lazy)
+		[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryOrganiserChangedNotification
+															object: [ZoomStoryOrganiser sharedStoryOrganiser]];
+	}];
 }
 
 - (IBAction) revealInFinder: (id) sender {
@@ -338,7 +338,7 @@ static NSImage* saveBackground;
 	if (!isDir)
 		return;
 	
-	[[NSWorkspace sharedWorkspace] openFile: [[filename stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]];
+	[[NSWorkspace sharedWorkspace] openFile: dir];
 }
 
 @end

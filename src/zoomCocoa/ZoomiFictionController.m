@@ -562,7 +562,10 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	
 	[storiesToAdd retain];
 	[storiesToAdd beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
-		if (result != NSModalResponseOK) return;
+		if (result != NSModalResponseOK) {
+			[storiesToAdd release];
+			return;
+		}
 		
 		// Store the defaults
 		[[NSUserDefaults standardUserDefaults] setURL: [storiesToAdd directoryURL]
@@ -577,7 +580,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 - (void) autosaveAlertFinished: (NSWindow *)alert 
 					returnCode: (NSModalResponse)returnCode
 				   contextInfo: (void *)contextInfo {
-	if (returnCode == NSAlertAlternateReturn) {
+	if (returnCode == NSAlertSecondButtonReturn) {
 		NSString* filename = [self selectedFilename];
 		
 		if (![[NSFileManager defaultManager] fileExistsAtPath: filename]) {
@@ -3170,9 +3173,15 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 }
 
 - (void) failedToInstallPlugin: (NSString*) reason {
-	NSBeginAlertSheet(@"Could not install the plug-in", @"Cancel", nil, nil, 
-					  [self window], nil, nil, nil, nil,
-					  @"%@", reason);
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = @"Could not install the plug-in";
+	alert.informativeText = reason;
+	[alert addButtonWithTitle:@"Cancel"];
+	[alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
+		//do nothing
+	}];
+	
+	[alert release];
 }
 
 static unsigned int ValueForHexChar(int hex) {

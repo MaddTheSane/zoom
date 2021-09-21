@@ -210,10 +210,13 @@
 	
 	if (savedGamePath && !canOpenSaveGames && !shownSaveGameWarning) {
 		shownSaveGameWarning = YES;
-		NSBeginAlertSheet(@"This interpreter is unable to load saved states", 
-						  @"Continue", nil, nil,
-						  [self window], nil, nil, nil, nil,
-						  @"Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.");
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"This interpreter is unable to load saved states";
+		alert.informativeText = @"Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.";
+		[alert addButtonWithTitle:@"Continue"];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			//Do nothing
+		}];
 	}
 }
 
@@ -225,7 +228,7 @@
 	[logDrawer setMinContentSize: NSMakeSize(0, 120)];
 	
 	// Set the default log message
-	[logText setString: [NSString stringWithFormat: @"Zoom CocoaGlk Plugin\n"]];
+	[logText setString: @"Zoom CocoaGlk Plugin\n"];
 	
 	// Set up the window borders
 	if (![[ZoomPreferences globalPreferences] showGlkBorders])
@@ -456,12 +459,22 @@
 		NSString* msg;
 		
 		msg = @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.";
-		
-		NSBeginAlertSheet(@"Finish the game?",
-						  @"Finish", @"Continue playing", nil,
-						  [self window], self,
-						  @selector(confirmFinish:returnCode:contextInfo:), nil,
-						  nil, @"%@", msg);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"Finish the game?";
+		alert.informativeText = msg;
+		[alert addButtonWithTitle:@"Finish"];
+		[alert addButtonWithTitle:@"Continue playing"];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			if (returnCode == NSAlertFirstButtonReturn) {
+				// Close the window
+				closeConfirmed = YES;
+				[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
+													 target: [self window]
+												   argument: self
+													  order: 32
+													  modes: @[NSDefaultRunLoopMode]];
+			}
+		}];
 		
 		return NO;
 	}

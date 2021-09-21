@@ -69,7 +69,7 @@
 	NSEventModifierFlags flags = [evt modifierFlags];
 	
 	// Ignore events with modifier keys
-	if ((flags&(NSEventModifierFlagControl|NSEventModifierFlagOption|NSEventModifierFlagCommand|NSHelpKeyMask)) != 0) {
+	if ((flags&(NSEventModifierFlagControl|NSEventModifierFlagOption|NSEventModifierFlagCommand|NSEventModifierFlagHelp)) != 0) {
 		return;
 	}
 	

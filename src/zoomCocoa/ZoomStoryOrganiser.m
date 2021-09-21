@@ -47,7 +47,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 			NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
 			
 			if (coverPictureData) {
-				NSImage* coverPicture = [[[NSImage alloc] initWithData: coverPictureData] autorelease];
+				NSImage* coverPicture = [[NSImage alloc] initWithData: coverPictureData];
 				
 				// Sometimes the image size and pixel size do not match up
 				NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
@@ -76,7 +76,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 		if (res != nil) return res;
 	} else {
 		// Then try using the standard blorb decoder
-		ZoomBlorbFile* decodedFile = [[[ZoomBlorbFile alloc] initWithContentsOfFile: filename] autorelease];
+		ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: filename];
 		
 		if (decodedFile != nil) res = [self frontispieceForBlorb: decodedFile];
 		if (res != nil) return res;
@@ -91,9 +91,8 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	NSMutableDictionary* defaultDictionary = [NSMutableDictionary dictionary];
 	
 	NSEnumerator* filenameEnum = [filenamesToIdents keyEnumerator];
-	NSString* filename;
 	
-	while (filename = [filenameEnum nextObject]) {
+	for (NSString* filename in filenameEnum) {
 		NSData* encodedId = [NSArchiver archivedDataWithRootObject: [filenamesToIdents objectForKey: filename]];
 		
 		[defaultDictionary setObject: encodedId
@@ -120,7 +119,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 }
 
 - (void) preferenceThread: (NSDictionary*) threadDictionary {
-	NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	NSDictionary* prefs = [threadDictionary objectForKey: @"preferences"];
 	//NSDictionary* prefs2 = [threadDictionary objectForKey: @"extraPreferences"]; - unused, presently
 	
@@ -129,7 +128,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	// Connect to the main thread
 	[[NSRunLoop currentRunLoop] addPort: port2
                                 forMode: NSDefaultRunLoopMode];
-	subThread = [[NSConnection allocWithZone: [self zone]]
+	subThread = [[NSConnection alloc]
         initWithReceivePort: port2
                    sendPort: port1];
 	
@@ -141,12 +140,8 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 			
 	// Preference keys indicate the filenames
 	NSEnumerator* filenameEnum = [prefs keyEnumerator];
-	NSString* filename;
 	
-	NSAutoreleasePool* p2 = [[NSAutoreleasePool alloc] init];
-	while (filename = [filenameEnum nextObject]) {
-		[p2 release];
-		p2 =  [[NSAutoreleasePool alloc] init];
+	for (NSString* filename in filenameEnum) @autoreleasepool {
 		
 		NSData* storyData = [prefs objectForKey: filename];
 		ZoomStoryID* fileID = [NSKeyedUnarchiver unarchiveObjectWithData: storyData];
@@ -192,8 +187,8 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 			}
 			
 			// Add this entry
-			NSString* newFilename = [[filename copy] autorelease];
-			NSString* newIdent    = [[fileID copy] autorelease];
+			NSString* newFilename = [filename copy];
+			NSString* newIdent    = [fileID copy];
 			
 			[storyFilenames addObject: newFilename];
 			[storyIdents addObject: newIdent];
@@ -308,20 +303,12 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	// Tidy up
 	[rootProxy endedActing];
 
-	[subThread release];
-	[port1 release];
-	[port2 release];
-
 	subThread = nil;
 	port1 = port2 = nil;
 	
 	// Done
-	[threadDictionary release];
-	[self release];
-	
-	// Clear the pool
-	[p2 release];
-	[p release];
+	CFRelease((__bridge CFTypeRef)(self));
+	}
 }
 
 - (void) loadPreferences {
@@ -330,22 +317,22 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	
 	// Detach a thread to decode the dictionary
 	NSDictionary* threadDictionary =
-		[[NSDictionary dictionaryWithObjectsAndKeys:
+		[NSDictionary dictionaryWithObjectsAndKeys:
 			prefs, @"preferences",
 			extraPrefs, @"extraPreferences",
-			nil] retain];
+			nil];
 	
 	// Create a connection so the threads can communicate
-	port1 = [[NSPort port] retain];
-	port2 = [[NSPort port] retain];
+	port1 = [NSPort port];
+	port2 = [NSPort port];
 	
-	mainThread = [[NSConnection allocWithZone: [self zone]]
-		initWithReceivePort: port1
-                   sendPort: port2];
+	mainThread = [[NSConnection alloc]
+				  initWithReceivePort: port1
+				  sendPort: port2];
 	[mainThread setRootObject: self];
 	
 	// Run the thread
-	[self retain]; // Released by the thread when it finishes
+	CFRetain((__bridge CFTypeRef)(self)); // Released by the thread when it finishes
 	[NSThread detachNewThreadSelector: @selector(preferenceThread:)
 							 toTarget: self
 						   withObject: threadDictionary];
@@ -397,11 +384,11 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	if (oldStory == nil) {
 		NSLog(@"Creating metadata entry for story '%@'", gameName);
 		
-		ZoomStory* newStory = [[ZoomStory defaultMetadataForFile: gameFile] retain];
+		ZoomStory* newStory = [ZoomStory defaultMetadataForFile: gameFile];
 		
 		[data copyStory: newStory];
 		[data writeToDefaultFile];
-		oldStory = [newStory autorelease];
+		oldStory = newStory;
 	} else {
 		NSLog(@"Found metadata for story '%@'", gameName);
 	}
@@ -435,7 +422,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 + (void) initialize {
 	// User defaults
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
-	ZoomStoryOrganiser* defaultPrefs = [[[[self class] alloc] init] autorelease];
+	ZoomStoryOrganiser* defaultPrefs = [[[self class] alloc] init];
 	
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys: [defaultPrefs dictionary], defaultName, nil];
 	
@@ -469,20 +456,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 }
 
 - (void) dealloc {
-	[storyFilenames release];
-	[storyIdents release];
-	[filenamesToIdents release];
-	[identsToFilenames release];
-	
-	[storyLock release];
-	[port1 release];
-	[port2 release];
-	[mainThread release];
-	[subThread release];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[super dealloc];
 }
 
 // = The shared organiser =
@@ -563,7 +537,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		ZoomPlugIn* pluginInstance = pluginClass?[[pluginClass alloc] initWithFilename: filename]:nil;
 		
 		if (pluginInstance) {
-			theStory = [[pluginInstance autorelease] defaultMetadata];
+			theStory = [pluginInstance defaultMetadata];
 		} else {
 			theStory = [ZoomStory defaultMetadataForFile: filename];
 		}
@@ -587,11 +561,6 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		}
 		return;
 	}
-	
-	[[ident retain] autorelease];
-	[[filename retain] autorelease];
-	[[oldFilename retain] autorelease];
-	[[oldIdent retain] autorelease];
 	
 	if (oldFilename) {
 		[identsToFilenames removeObjectForKey: ident];
@@ -618,8 +587,8 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[filenamesToIdents removeObjectForKey: filename];
 	[identsToFilenames removeObjectForKey: ident];
 	
-	NSString* newFilename = [[filename copy] autorelease];
-	ZoomStoryID* newIdent = [[ident copy] autorelease];
+	NSString* newFilename = [filename copy];
+	ZoomStoryID* newIdent = [ident copy];
 		
 	[storyFilenames addObject: newFilename];
 	[storyIdents addObject: newIdent];
@@ -665,7 +634,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	NSString* res;
 	
 	[storyLock lock];
-	res = [[[identsToFilenames objectForKey: ident] retain] autorelease];
+	res = [identsToFilenames objectForKey: ident];
 	[storyLock unlock];
 	
 	return res;
@@ -675,18 +644,18 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	ZoomStoryID* res;
 		
 	[storyLock lock];
-	res = [[[filenamesToIdents objectForKey: filename] retain] autorelease];
+	res = [filenamesToIdents objectForKey: filename];
 	[storyLock unlock];
 	
 	return res;
 }
 
 - (NSArray*) storyFilenames {
-	return [[storyFilenames copy] autorelease];
+	return [storyFilenames copy];
 }
 
 - (NSArray*) storyIdents {
-	return [[storyIdents copy] autorelease];
+	return [storyIdents copy];
 }
 
 // = Story-specific data =
@@ -808,7 +777,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		static BOOL warned = NO;
 		
 		if (!warned)
-			NSRunAlertPanel([NSString stringWithFormat: @"Game library not found"],
+			NSRunAlertPanel(@"Game library not found",
 							@"Warning: %@ is a file",
 							@"OK", nil, nil, rootDir);
 		warned = YES;
@@ -835,7 +804,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		static BOOL warned = NO;
 		
 		if (!warned)
-			NSRunAlertPanel([NSString stringWithFormat: @"Group directory not found"],
+			NSRunAlertPanel(@"Group directory not found",
 							@"Warning: %@ is a file",
 							@"OK", nil, nil, groupDir);
 		warned = YES;
@@ -858,7 +827,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		static BOOL warned = NO;
 		
 		if (!warned)
-			NSRunAlertPanel([NSString stringWithFormat: @"Game directory not found"],
+			NSRunAlertPanel(@"Game directory not found",
 							@"Zoom was unable to locate a directory for the game '%@'",
 							@"OK", nil, nil, title);
 		warned = YES;
@@ -938,7 +907,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	if (ident != nil && [ident description] != nil) {
 		[newGameDirs setObject: gameDir
 						forKey: [ident description]];
-		[defaults setObject: [newGameDirs autorelease]
+		[defaults setObject: newGameDirs
 					 forKey: ZoomGameDirectories];
 	}
 	
@@ -1009,7 +978,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	if (ident != nil && [ident description] != nil) {
 		[newGameDirs setObject: idealDir
 						forKey: [ident description]];
-		[defaults setObject: [newGameDirs autorelease]
+		[defaults setObject: newGameDirs
 					 forKey: ZoomGameDirectories];	
 	}
 	
@@ -1122,7 +1091,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	
 	[storyLock lock];
 	
-	NSString* oldFilename = [[filename retain] autorelease];
+	NSString* oldFilename = filename;
 
 #if DEVELOPMENT_BUILD
 	NSLog(@"... currently at %@", oldFilename);
@@ -1347,7 +1316,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	alreadyOrganising = YES;
 	
 	// Run a separate thread to do (some of) the work
-	[self retain]; // Released by the thread when it finishes
+	CFRetain((__bridge CFTypeRef)(self)); // Released by the thread when it finishes
 	[NSThread detachNewThreadSelector: @selector(organiserThread:)
 							 toTarget: self
 						   withObject: threadDictionary];
@@ -1394,7 +1363,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[storyLock lock];
 	
 	// Get the old story directory
-	NSString* lastStoryDirectory = [[[[ZoomPreferences globalPreferences] organiserDirectory] copy] autorelease];
+	NSString* lastStoryDirectory = [[[ZoomPreferences globalPreferences] organiserDirectory] copy];
 	
 	// Nothing to do if it's not different
 	if ([[lastStoryDirectory lowercaseString] isEqualToString: [newStoryDirectory lowercaseString]]) {
@@ -1406,7 +1375,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[self startedActing];
 
 	// List of files in our database
-	NSArray* filenames = [[[filenamesToIdents allKeys] copy] autorelease];
+	NSArray* filenames = [[filenamesToIdents allKeys] copy];
 	NSEnumerator* fileEnum = [filenames objectEnumerator];
 	
 	NSString* filename;
@@ -1414,12 +1383,8 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	// Parts of directories
 	NSArray* originalComponents = [lastStoryDirectory pathComponents];
 	
-	NSAutoreleasePool* loopPool = [[NSAutoreleasePool alloc] init];
-	while (filename = [fileEnum nextObject]) {
+	while (filename = [fileEnum nextObject]) @autoreleasepool {
 		NSInteger x;
-
-		[loopPool release];
-		loopPool = [[NSAutoreleasePool alloc] init];
 
 		// Retrieve info about the file
 		ZoomStoryID* storyID = [filenamesToIdents objectForKey: filename];
@@ -1512,8 +1477,6 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 				toFilename: newFilename];
 		[storyLock lock];
 	}
-	[loopPool release];
-
 	[self endedActing];
 	
 	[storyLock unlock];
@@ -1553,8 +1516,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 }
 
 - (void) organiserThread: (NSDictionary*) dict {
-	NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
-	
+	@autoreleasepool {
 	// Retrieve the info from the dictionary
 	NSPort* threadPort1 = [dict objectForKey: @"threadPort1"];
 	NSPort* threadPort2 = [dict objectForKey: @"threadPort2"];
@@ -1562,14 +1524,14 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	// Connect to the main thread
 	[[NSRunLoop currentRunLoop] addPort: threadPort2
                                 forMode: NSDefaultRunLoopMode];
-	NSConnection* subThreadConnection = [[NSConnection allocWithZone: [self zone]] initWithReceivePort: threadPort2
+	NSConnection* subThreadConnection = [[NSConnection alloc] initWithReceivePort: threadPort2
 																							  sendPort: threadPort1];
 	
 	// Start things rolling
 	[[subThreadConnection rootProxy] setProtocolForProxy: @protocol(ZoomStoryIDFetcherProtocol)];
 	[(ZoomStoryOrganiser*)[subThreadConnection rootProxy] startedActing];
 	
-	NSString* gameStorageDirectory = [[[(ZoomStoryOrganiser*)[subThreadConnection rootProxy] gameStorageDirectory] copy] autorelease];
+	NSString* gameStorageDirectory = [[(ZoomStoryOrganiser*)[subThreadConnection rootProxy] gameStorageDirectory] copy];
 	NSArray* storageComponents = [gameStorageDirectory pathComponents];
 	
 	// Get the list of stories we need to update
@@ -1581,11 +1543,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	NSEnumerator* filenameEnum = [filenames objectEnumerator];
 	NSString* filename;
 	
-	NSAutoreleasePool* loopPool = [[NSAutoreleasePool alloc] init];
-
-	while (filename = [filenameEnum nextObject]) {
-		[loopPool release]; loopPool = [[NSAutoreleasePool alloc] init];
-		
+	while (filename = [filenameEnum nextObject]) @autoreleasepool {
 		// First: check that the file exists
 		struct stat sb;
 		
@@ -1690,7 +1648,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		BOOL inWrongGroup = NO;
 		
 		[storyLock lock];
-		NSString* expectedGroup = [self directoryForName: [[[story group] copy] autorelease]];
+		NSString* expectedGroup = [self directoryForName: [[story group] copy]];
 		NSString* actualGroup = [filenameComponents objectAtIndex: [filenameComponents count]-3];
 		if (expectedGroup == nil || [expectedGroup isEqualToString: @""]) expectedGroup = @"Ungrouped";
 		[storyLock unlock];
@@ -1704,7 +1662,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		BOOL inWrongDirectory = NO;
 		
 		[storyLock lock];
-		NSString* expectedDir = [self directoryForName: [[[story title] copy] autorelease]];
+		NSString* expectedDir = [self directoryForName: [[story title] copy]];
 		NSString* actualDir = [filenameComponents objectAtIndex: [filenameComponents count]-2];
 		[storyLock unlock];
 		
@@ -1818,8 +1776,6 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 																	toFilename: [titleDirectory stringByAppendingPathComponent: [filename lastPathComponent]]];
 		}
 	}
-
-	[loopPool release];
 	
 	// Not organising any more
 	[storyLock lock];
@@ -1827,11 +1783,10 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[storyLock unlock];
 	
 	// Tidy up
-	[self release];
+	CFRelease((__bridge CFTypeRef)(self));
 	
 	[(ZoomStoryOrganiser*)[subThreadConnection rootProxy] endedActing];
-	[subThreadConnection release];
-	[p release];
+	}
 }
 
 @end

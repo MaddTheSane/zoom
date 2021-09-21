@@ -88,20 +88,22 @@
 			// Combine them all into one huge error
 			NSMutableString* errorText = [NSMutableString string];
 			
-			NSEnumerator* errorEnum = [[[self document] loadingErrors] objectEnumerator];
-			NSString* error;
 			BOOL newline = NO;
 			
-			while (error = [errorEnum nextObject]) {
+			for (NSString* error in [[self document] loadingErrors]) {
 				if (newline) [errorText appendString: @"\n\n"];
 				[errorText appendString: error];
 				newline = YES;
 			}
 			
 			// Show an alert			
-			NSBeginAlertSheet(@"Problems were encountered while loading this game", @"Continue",nil, nil,
-							  [self window],
-							  nil, nil, nil, nil, @"%@", errorText);
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = @"Problems were encountered while loading this game";
+			alert.informativeText = errorText;
+			[alert addButtonWithTitle:@"Continue"];
+			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+				[alert release];
+			}];
 		}
 	}
 	
@@ -323,20 +325,6 @@
 	}
 }
 
-- (void) confirmFinish:(NSWindow *)sheet 
-			returnCode:(NSInteger)returnCode
-		   contextInfo:(void *)contextInfo {
-	if (returnCode == NSAlertFirstButtonReturn) {
-		// Close the window
-		closeConfirmed = YES;
-		[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
-											 target: [self window]
-										   argument: self
-											  order: 32
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
-	}
-}
-
 - (BOOL) windowShouldClose: (id) sender {
 	// Get confirmation if required
 	if (!closeConfirmed && !finished && [[ZoomPreferences globalPreferences] confirmGameClose]) {
@@ -349,11 +337,23 @@
 			msg = @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.";
 		}
 		
-		NSBeginAlertSheet(@"Finish the game?",
-						  @"Finish", @"Continue playing", nil,
-						  [self window], self,
-						  @selector(confirmFinish:returnCode:contextInfo:), nil,
-						  nil, @"%@", msg);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"Finish the game?";
+		alert.informativeText = msg;
+		[alert addButtonWithTitle:@"Finish"];
+		[alert addButtonWithTitle:@"Continue playing"];
+		[alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
+			if (returnCode == NSAlertFirstButtonReturn) {
+				// Close the window
+				closeConfirmed = YES;
+				[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
+													 target: [self window]
+												   argument: self
+													  order: 32
+													  modes: @[NSDefaultRunLoopMode]];
+			}
+			[alert release];
+		}];
 		
 		return NO;
 	}

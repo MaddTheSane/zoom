@@ -29,12 +29,12 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 
 @interface ZoomStoryOrganiser : NSObject<ZoomStoryIDFetcherProtocol> {
 	// Arrays of the stories and their idents
-	NSMutableArray* storyFilenames;
-	NSMutableArray* storyIdents;
+	NSMutableArray<NSString*>* storyFilenames;
+	NSMutableArray<ZoomStoryID*>* storyIdents;
 	
 	// Dictionaries associating them
-	NSMutableDictionary* filenamesToIdents;
-	NSMutableDictionary* identsToFilenames;
+	NSMutableDictionary<NSString*,ZoomStoryID*>* filenamesToIdents;
+	NSMutableDictionary<ZoomStoryID*,NSString*>* identsToFilenames;
 	
 	// Preference loading/checking thread
 	NSPort* port1;
@@ -72,8 +72,8 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 - (NSString*) filenameForIdent: (ZoomStoryID*) ident;
 - (ZoomStoryID*) identForFilename: (NSString*) filename;
 
-- (NSArray*) storyFilenames;
-- (NSArray*) storyIdents;
+- (NSArray<NSString*>*) storyFilenames;
+- (NSArray<ZoomStoryID*>*) storyIdents;
 
 // Story-specific data
 - (NSString*) directoryForIdent: (ZoomStoryID*) ident

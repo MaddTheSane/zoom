@@ -19,40 +19,64 @@
 /// WindowController for windows running a Glk interpreter
 ///
 @interface ZoomGlkWindowController : NSWindowController<NSWindowDelegate, GlkViewDelegate> {
-	IBOutlet GlkView* glkView;										// The view onto the game this controller is running
+	//! The view onto the game this controller is running
+	IBOutlet GlkView* glkView;
 
-	IBOutlet NSDrawer* logDrawer;									// The drawer that's opened while dealing with log messages
-	IBOutlet NSTextView* logText;									// The text contained in the drawer
+	//! The drawer that's opened while dealing with log messages
+	IBOutlet NSDrawer* logDrawer;
+	//! The text contained in the drawer
+	IBOutlet NSTextView* logText;
 	
-	NSString* clientPath;											// The Glk executable we'll run to play this game
-	NSString* inputPath;											// The file we'll pass to the executable as the game to run
-	NSString* savedGamePath;										// The .glksave folder to load
-	BOOL canOpenSaveGames;											// YES if the plugin will actually load the save game
-	BOOL shownSaveGameWarning;										// YES if the sheet to warn about the fact that this plugin can't load games has been shown
-	NSImage* logo;													// The logo that we're going to show
-	BOOL ttsAdded;													// Whether or not the GlkView has the tts receiver added to it
-	ZoomTextToSpeech* tts;											// Text-to-speech object
+	//! The Glk executable we'll run to play this game
+	NSString* clientPath;
+	//! The file we'll pass to the executable as the game to run
+	NSString* inputPath;
+	//! The .glksave folder to load
+	NSString* savedGamePath;
+	//! YES if the plugin will actually load the save game
+	BOOL canOpenSaveGames;
+	//! YES if the sheet to warn about the fact that this plugin can't load games has been shown
+	BOOL shownSaveGameWarning;
+	//! The logo that we're going to show
+	NSImage* logo;
+	//! Whether or not the GlkView has the tts receiver added to it
+	BOOL ttsAdded;
+	//! Text-to-speech object
+	ZoomTextToSpeech* tts;
 	
 	BOOL running;
-	BOOL closeConfirmed;											// YES if the user has OKed closing the game while it's still running
+	//! YES if the user has OKed closing the game while it's still running
+	BOOL closeConfirmed;
 	
-	ZoomSkein* skein;												// The skein/transcript for this window
+	//! The skein/transcript for this window
+	ZoomSkein* skein;
 	
-	BOOL isFullscreen;												// YES if this window has been switched to full-screen mode
-	NSWindow* normalWindow;											// Cached version of the normal-sized window
-	NSWindow* fullscreenWindow;										// Cached version of the full-screen window
-	NSRect oldWindowFrame;											// Size of the window before it became full-screen
+	//! YES if this window has been switched to full-screen mode
+	BOOL isFullscreen;
+	//! Cached version of the normal-sized window
+	NSWindow* normalWindow;
+	//! Cached version of the full-screen window
+	NSWindow* fullscreenWindow;
+	//! Size of the window before it became full-screen
+	NSRect oldWindowFrame;
 	
-	NSObject<GlkFilePrompt>* promptHandler;							// The handler for the last save prompt that was presented
-	NSSavePanel* lastPanel;											// The last save panel
+	//! The handler for the last save prompt that was presented
+	NSObject<GlkFilePrompt>* promptHandler;
+	//! The last save panel
+	NSSavePanel* lastPanel;
 }
 
 // Configuring the client
-- (void) setClientPath: (NSString*) clientPath;						// Selects which GlkClient executable to run
-- (void) setInputFilename: (NSString*) inputPath;					// The file that should be passed to the client as the file to run
-- (void) setLogo: (NSImage*) logo;									// The logo to display instead of the 'CocoaGlk' logo
-- (void) setSaveGame: (NSString*) path;								// The .glksave saved game file that this controller should load on startup
-- (void) setCanOpenSaveGame: (BOOL) canOpenSaveGame;				// Set to YES if the plugin knows how to open save games
+//! Selects which GlkClient executable to run
+- (void) setClientPath: (NSString*) clientPath;
+//! The file that should be passed to the client as the file to run
+- (void) setInputFilename: (NSString*) inputPath;
+//! The logo to display instead of the 'CocoaGlk' logo
+- (void) setLogo: (NSImage*) logo;
+//! The .glksave saved game file that this controller should load on startup
+- (void) setSaveGame: (NSString*) path;
+//! Set to YES if the plugin knows how to open save games
+- (void) setCanOpenSaveGame: (BOOL) canOpenSaveGame;
 
 @property (copy) NSImage *logo;
 

@@ -100,11 +100,16 @@
 	
 	if (updated && ![[self window] isVisible]) {
 		[self showWindow: self];
-
-		NSBeginAlertSheet(@"Zoom found updates to some of the installed plugins", 
-						  @"Install Now", @"Later", nil, [self window], self, 
-						  @selector(finishUpdating:returnCode:contextInfo:), nil, nil,
-						  @"Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.");
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"Zoom found updates to some of the installed plugins";
+		alert.informativeText = @"Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.";
+		[alert addButtonWithTitle:@"Install Now"];
+		[alert addButtonWithTitle:@"Later"];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			if (returnCode == NSAlertFirstButtonReturn) {
+				[self installUpdates: self];
+			}
+		}];
 	}
 }
 
@@ -114,7 +119,7 @@
 	[pluginProgress setMinValue: 0];
 	[pluginProgress setMaxValue: 100];
 	
-	[statusField setStringValue: @"Downloading updates..."];
+	[statusField setStringValue: @"Downloading updates…"];
 	[statusField setHidden: NO];
 	
 	[installButton setEnabled: NO];
@@ -143,10 +148,16 @@
 
 - (void) needsRestart {
 	[self showWindow: self];
-	NSBeginAlertSheet(@"You must restart Zoom to complete the update", 
-					  @"Restart Now", @"Later", nil, [self window], self, 
-					  @selector(finishRestart:returnCode:contextInfo:), nil, nil,
-					  @"Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom.");
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = @"You must restart Zoom to complete the update";
+	alert.informativeText = @"Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom.";
+	[alert addButtonWithTitle:@"Restart Now"];
+	[alert addButtonWithTitle:@"Later"];
+	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		if (returnCode == NSAlertFirstButtonReturn) {
+			[self restartZoom];
+		}
+	}];
 }
 
 // = Actions =
@@ -186,22 +197,6 @@
 
 	// I'll be back
 	[NSApp terminate: self];
-}
-
-- (void) finishRestart:(NSWindow *)sheet 
-			returnCode:(int)returnCode 
-		   contextInfo:(void  *)contextInfo {
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[self restartZoom];
-	}
-}
-
-- (void) finishUpdating:(NSWindow *)sheet 
-			 returnCode:(int)returnCode 
-			contextInfo:(void  *)contextInfo {
-	if (returnCode == NSAlertFirstButtonReturn) {
-		[self installUpdates: self];
-	}
 }
 
 - (IBAction) installUpdates: (id) sender {

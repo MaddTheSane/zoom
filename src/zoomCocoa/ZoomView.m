@@ -2183,7 +2183,14 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 - (void) displayFatalError: (in bycopy NSString*) error {
-	NSBeginCriticalAlertSheet(@"Fatal error", @"Stop", nil, nil, [self window], nil, nil, nil, NULL, @"%@", error);
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.alertStyle = NSAlertStyleCritical;
+	alert.messageText = @"Fatal error";
+	alert.informativeText = error;
+	[alert addButtonWithTitle:@"Stop"];
+	[alert beginSheetModalForWindow:self.window completionHandler:^(__unused NSModalResponse returnCode) {
+		// do nothing
+	}];
 }
 
 // = Setting/updating preferences =
