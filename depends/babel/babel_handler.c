@@ -252,7 +252,7 @@ void babel_release_ctx(void *bhp)
  if (bh->format_name) free(bh->format_name);
  bh->format_name=NULL;
 }
-void babel_release()
+void babel_release(void)
 {
  babel_release_ctx(&default_ctx);
 }
@@ -309,11 +309,11 @@ char *babel_get_format_ctx(void *bhp)
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->format_name;
 }
-char *babel_get_format()
+char *babel_get_format(void)
 {
  return babel_get_format_ctx(&default_ctx);
 }
-void *get_babel_ctx()
+void *get_babel_ctx(void)
 {
  return my_malloc(sizeof(struct babel_handler), "babel handler context");
 }
@@ -327,7 +327,7 @@ int32 babel_get_length_ctx(void *bhp)
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->story_file_extent;
 }
-int32 babel_get_length()
+int32 babel_get_length(void)
 {
  return babel_get_length_ctx(&default_ctx);
 }
@@ -337,7 +337,7 @@ int32 babel_get_authoritative_ctx(void *bhp)
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->auth;
 }
-int32 babel_get_authoritative()
+int32 babel_get_authoritative(void)
 {
   return babel_get_authoritative_ctx(&default_ctx);
 }
@@ -346,7 +346,7 @@ void *babel_get_file_ctx(void *bhp)
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->story_file;
 }
-void *babel_get_file()
+void *babel_get_file(void)
 {
  return babel_get_file_ctx(&default_ctx);
 }
@@ -357,7 +357,7 @@ int32 babel_get_story_length_ctx(void *ctx)
   if (bh->blorb_mode) return bh->story_file_blorbed_extent;
   return bh->story_file_extent;
 }
-int32 babel_get_story_length()
+int32 babel_get_story_length(void)
 {
 
  return babel_get_story_length_ctx(&default_ctx);
@@ -368,7 +368,7 @@ void *babel_get_story_file_ctx(void *ctx)
   if (bh->blorb_mode) return bh->story_file_blorbed;
   return bh->story_file;
 }
-void *babel_get_story_file()
+void *babel_get_story_file(void)
 {
  return babel_get_story_file_ctx(&default_ctx);
 }
