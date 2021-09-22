@@ -2216,7 +2216,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	if (newData == nil) return;
 	
 	// Perform the merge
-	NSArray* replacements = [self mergeiFictionFromMetabase: newData];
+	NSArray<ZoomStory*>* replacements = [self mergeiFictionFromMetabase: newData];
 	
 	// If there's anything to query about, ask!
 	if ([replacements count] > 0) {
@@ -2228,10 +2228,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode != NSAlertFirstButtonReturn) return;
 			
-			ZoomStory* story;
-			NSEnumerator* storyEnum = [replacements objectEnumerator];
-			
-			while (story = [storyEnum nextObject]) {
+			for (ZoomStory* story in replacements) {
 				[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
 			}
 			
