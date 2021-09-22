@@ -20,7 +20,10 @@ static SpeechChannel channel = nil;
 
 + (void) initialize {
 #ifndef UseCocoaSpeech
-	if (channel == nil) NewSpeechChannel(NULL, &channel);
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NewSpeechChannel(NULL, &channel);
+	});
 #endif
 }
 
@@ -117,10 +120,11 @@ static SpeechChannel channel = nil;
 
 - (void) speak: (NSString*) newText {
 #ifndef UseCocoaSpeech
+	// TODO: Better iterating through string
 	NSMutableString* buffer = [NSMutableString string];
 	int x;
 	
-#define WriteBuffer(x) [buffer appendFormat:@"%C", (unichar)x];
+#define WriteBuffer(x) [buffer appendFormat:@"%C", (unichar)(x)]
 	
 	BOOL whitespace = YES;
 	BOOL newline = YES;
@@ -130,6 +134,7 @@ static SpeechChannel channel = nil;
 		unichar chr = [newText characterAtIndex: x];
 		
 		if (chr >= 127) {
+			whitespace = newline = punctuation = NO;
 			WriteBuffer(chr);
 			continue;
 		}

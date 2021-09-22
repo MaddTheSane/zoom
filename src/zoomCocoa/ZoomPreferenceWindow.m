@@ -93,9 +93,8 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	// Iterate through the available font families and create menu items
 	NSEnumerator* familyEnum = [[[mgr availableFontFamilies] sortedArrayUsingFunction: familyComparer
 																			  context: nil] objectEnumerator];
-	NSString* family;
 	
-	while (family = [familyEnum nextObject]) {
+	for (NSString* family in familyEnum) {
 		// Get the font
 		NSFont* sampleFont = [mgr fontWithFamily: family
 										  traits: 0
