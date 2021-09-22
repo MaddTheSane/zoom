@@ -437,7 +437,11 @@
 						  gameFile);
 		
 		if (outError) {
-			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
+				NSLocalizedDescriptionKey: @"Unable to find story file",
+				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent],
+												  gameFile]
+			}];
 		}
 		return NO;		
 	}
@@ -459,8 +463,12 @@
 	NSData* savedViewArchive = [[[wrapper fileWrappers] objectForKey: @"ZoomStatus.dat"] regularFileContents];
 	ZoomView* savedView = nil;
 		
-	if (savedViewArchive) 
-		savedView = [NSUnarchiver unarchiveObjectWithData: savedViewArchive];
+	if (savedViewArchive) {
+		savedView = [NSKeyedUnarchiver unarchiveObjectWithData: savedViewArchive];
+		if (!savedView) {
+			savedView = [NSUnarchiver unarchiveObjectWithData: savedViewArchive];
+		}
+	}
 	
 	if (savedView == nil || ![savedView isKindOfClass: [ZoomView class]]) {
 		NSAlert *alert = [[NSAlert alloc] init];
@@ -470,7 +478,10 @@
 		[alert runModal];
 		[alert release];
 		if (outError) {
-			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
+				NSLocalizedDescriptionKey: @"Unable to load saved screen state",
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", [[wrapper filename] lastPathComponent]]
+			}];
 		}
 		return NO;
 	}

@@ -694,10 +694,10 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		
 		if (checkResponse != nil && checkData != nil) {
 			// Handle the response
-			result = [NSPropertyListSerialization propertyListFromData: checkData
-													  mutabilityOption: NSPropertyListImmutable
+			result = [NSPropertyListSerialization propertyListWithData: checkData
+															   options: NSPropertyListImmutable
 																format: nil
-													  errorDescription: nil];
+																 error: nil];
 		}
 		
 		if (result != nil) {

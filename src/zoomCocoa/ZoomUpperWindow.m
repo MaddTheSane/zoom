@@ -8,6 +8,7 @@
 
 #import "ZoomUpperWindow.h"
 
+static NSString* blankLine(NSInteger length);
 
 @implementation ZoomUpperWindow
 
@@ -39,7 +40,7 @@
 
 // Sending data to a window
 - (oneway void) writeString: (in bycopy NSString*) string
-           withStyle: (in bycopy ZStyle*) style {
+                  withStyle: (in bycopy ZStyle*) style {
     [style setFixed: YES];
 
     NSInteger len = [string length];
@@ -72,13 +73,9 @@
             fixedFont, NSFontAttributeName,
             nil];
 		NSInteger spacesLen = (xpos+strlen)-[thisLine length];
-        char* spaces = malloc(spacesLen);
-
-		memset(spaces, ' ', spacesLen);
-		NSData *spacesData = [[NSData alloc] initWithBytesNoCopy:spaces length:spacesLen freeWhenDone:YES];
 
         NSAttributedString* spaceString = [[NSAttributedString alloc]
-            initWithString: [[NSString alloc] initWithData:spacesData encoding:NSASCIIStringEncoding]
+            initWithString: blankLine(spacesLen)
                 attributes: clearStyle];
         
         [thisLine appendAttributedString: spaceString];
@@ -120,7 +117,7 @@
 
 
 // Line erasure
-static NSString* blankLine(int length) {
+static NSString* blankLine(NSInteger length) {
 	char* cString = malloc(length);
 	
 	memset(cString, ' ', length);
@@ -158,9 +155,7 @@ static NSString* blankLine(int length) {
     return lines;
 }
 
-- (NSColor*) backgroundColour {
-    return backgroundColour;
-}
+@synthesize backgroundColour;
 
 - (void) cutLines {
 	int length = [self length];
@@ -217,16 +212,16 @@ static NSString* blankLine(int length) {
 		[encoder encodeObject: lines forKey: LINESCODINGKEY];
 		[encoder encodeObject: backgroundColour forKey: BACKGROUNDCOLORCODINGKEY];
 	} else {
-	[encoder encodeValueOfObjCType: @encode(int)
-								at: &startLine];
-	[encoder encodeValueOfObjCType: @encode(int)
-								at: &endLine];
-	[encoder encodeValueOfObjCType: @encode(int)
-								at: &xpos];
-	[encoder encodeValueOfObjCType: @encode(int)
-								at: &ypos];
-	[encoder encodeObject: lines];
-	[encoder encodeObject: backgroundColour];
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &startLine];
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &endLine];
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &xpos];
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &ypos];
+		[encoder encodeObject: lines];
+		[encoder encodeObject: backgroundColour];
 	}
 }
 
@@ -242,16 +237,20 @@ static NSString* blankLine(int length) {
 			lines = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableAttributedString class], [NSMutableArray class], nil] forKey: LINESCODINGKEY];
 			backgroundColour = [decoder decodeObjectOfClass: [NSColor class] forKey: BACKGROUNDCOLORCODINGKEY];
 		} else {
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &startLine];
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &endLine];
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &xpos];
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &ypos];
-		lines = [decoder decodeObject];
-		backgroundColour = [decoder decodeObject];
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &startLine
+									  size: sizeof(int)];
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &endLine
+									  size: sizeof(int)];
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &xpos
+									  size: sizeof(int)];
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &ypos
+									  size: sizeof(int)];
+			lines = [decoder decodeObject];
+			backgroundColour = [decoder decodeObject];
 		}
     }
 	

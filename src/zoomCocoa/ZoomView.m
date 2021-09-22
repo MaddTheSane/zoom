@@ -2015,9 +2015,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 						previewWin = [self->upperWindows objectAtIndex: windowNumber];
 					}
 					
-					[f addData: [NSArchiver archivedDataWithRootObject: previewWin]
+					[f addData: [NSKeyedArchiver archivedDataWithRootObject: previewWin]
 				   forFilename: @"ZoomPreview.dat"];
-					[f addData: [NSArchiver archivedDataWithRootObject: self]
+					[f addData: [NSKeyedArchiver archivedDataWithRootObject: self]
 				   forFilename: @"ZoomStatus.dat"];
 					
 					if (self->delegate && [self->delegate respondsToSelector: @selector(prepareSavePackage:)]) {
@@ -2165,7 +2165,13 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	
 	if ([viewPrefs displayWarnings]) {
 		if ([lowerWindows count] <= 0) {
-			NSBeginInformationalAlertSheet(@"Warning", @"OK", nil, nil, [self window], nil, nil, nil, NULL, @"%@", warning);
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.alertStyle = NSAlertStyleInformational;
+			alert.messageText = @"Warning";
+			alert.informativeText = warning;
+			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+				// do nothing
+			}];
 			return;
 		}
 		

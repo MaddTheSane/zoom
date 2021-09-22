@@ -617,7 +617,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		
 		dragCanMove = ![clickedItem hasChild: [skein activeItem]];
 		
-		pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+		pboard = [NSPasteboard pasteboardWithName:NSPasteboardNameDrag];
 		[pboard declareTypes:[NSArray arrayWithObjects: ZoomSkeinItemPboardType, nil] owner:self];
 
 		[pboard setData: [NSKeyedArchiver archivedDataWithRootObject: clickedItem]

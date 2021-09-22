@@ -467,7 +467,7 @@
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode == NSAlertFirstButtonReturn) {
 				// Close the window
-				closeConfirmed = YES;
+				self->closeConfirmed = YES;
 				[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
 													 target: [self window]
 												   argument: self

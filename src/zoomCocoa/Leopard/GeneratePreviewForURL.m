@@ -165,8 +165,8 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	CGContextRef cgContext = QLPreviewRequestCreateContext(preview, previewSize,
 														 false, NULL);
 	
-	NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort: cgContext
-																			flipped: NO];
+	NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithCGContext: cgContext
+																		 flipped: NO];
 	
 	// Start drawing
 	[NSGraphicsContext saveGraphicsState];

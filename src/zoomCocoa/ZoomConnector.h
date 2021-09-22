@@ -15,7 +15,7 @@
 
 @interface ZoomConnector : NSObject<ZClient> {
 	NSConnection* connection;
-	NSMutableArray* waitingViews;
+	NSMutableArray<ZoomView*>* waitingViews;
 }
 
 // Retrieving the shared connector

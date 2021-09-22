@@ -91,7 +91,10 @@
 			}
 			
 			// Presumably, this is a valid preview file...
-			ZoomUpperWindow* win = [NSUnarchiver unarchiveObjectWithFile: previewFile];
+			ZoomUpperWindow* win = [NSKeyedUnarchiver unarchiveObjectWithFile: previewFile];
+			if (!win) {
+				win = [NSUnarchiver unarchiveObjectWithFile: previewFile];
+			}
 			
 			if (win != nil && ![win isKindOfClass: [ZoomUpperWindow class]]) continue;
 			

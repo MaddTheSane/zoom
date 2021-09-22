@@ -12,7 +12,7 @@
 
 @class ZoomView;
 @interface ZoomUpperWindow : NSObject<ZUpperWindow, NSSecureCoding> {
-    __unsafe_unretained ZoomView* theView;
+    __weak ZoomView* theView;
 
     int startLine, endLine;
 
@@ -25,9 +25,9 @@
 
 - (id) initWithZoomView: (ZoomView*) view;
 
-- (int) length;
+@property (readonly, nonatomic) int length;
 - (NSArray<NSMutableAttributedString*>*) lines;
-- (NSColor*) backgroundColour;
+@property (readonly, strong) NSColor *backgroundColour;
 - (void)     cutLines;
 
 - (void) reformatLines;

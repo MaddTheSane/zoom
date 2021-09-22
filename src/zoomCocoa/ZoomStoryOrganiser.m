@@ -93,7 +93,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	NSEnumerator* filenameEnum = [filenamesToIdents keyEnumerator];
 	
 	for (NSString* filename in filenameEnum) {
-		NSData* encodedId = [NSArchiver archivedDataWithRootObject: [filenamesToIdents objectForKey: filename]];
+		NSData* encodedId = [NSKeyedArchiver archivedDataWithRootObject: [filenamesToIdents objectForKey: filename]];
 		
 		[defaultDictionary setObject: encodedId
 							  forKey: filename];
@@ -731,7 +731,10 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	if (isDir) // Identification must be a file
 		return NO;
 	
-	ZoomStoryID* owner = [NSUnarchiver unarchiveObjectWithFile: idFile];
+	ZoomStoryID* owner = [NSKeyedUnarchiver unarchiveObjectWithFile: idFile];
+	if (!owner) {
+		owner = [NSUnarchiver unarchiveObjectWithFile: idFile];
+	}
 	
 	if (owner && [owner isKindOfClass: [ZoomStoryID class]] && [owner isEqual: ident])
 		return YES;
@@ -1525,7 +1528,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[[NSRunLoop currentRunLoop] addPort: threadPort2
                                 forMode: NSDefaultRunLoopMode];
 	NSConnection* subThreadConnection = [[NSConnection alloc] initWithReceivePort: threadPort2
-																							  sendPort: threadPort1];
+																		 sendPort: threadPort1];
 	
 	// Start things rolling
 	[[subThreadConnection rootProxy] setProtocolForProxy: @protocol(ZoomStoryIDFetcherProtocol)];
