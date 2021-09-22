@@ -35,14 +35,14 @@ static NSDictionary*  itemDictionary = nil;
 	typographicSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"typographicSettings"];
 	
 	// ... and the dictionary
-	itemDictionary = [[NSDictionary dictionaryWithObjectsAndKeys:
+	itemDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
 		generalSettingsItem, @"generalSettings",
 		gameSettingsItem, @"gameSettings",
 		displaySettingsItem, @"displaySettings",
 		fontSettingsItem, @"fontSettings",
 		colourSettingsItem, @"colourSettings",
 		typographicSettingsItem, @"typographicSettings",
-		nil] retain];
+		nil];
 	
 	// Set up the items
 	[generalSettingsItem setLabel: @"General"];
@@ -72,12 +72,7 @@ static NSDictionary*  itemDictionary = nil;
 }
 
 - (void) dealloc {
-	if (toolbar) [toolbar release];
-	if (prefs) [prefs release];
-
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[super dealloc];
 }
 
 static NSComparisonResult familyComparer(id a, id b, void* context) {
@@ -116,21 +111,21 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 		// Construct the item
 		NSMenuItem* fontItem = [[NSMenuItem alloc] init];
 		[fontItem setAttributedTitle: 
-			[[[NSAttributedString alloc] initWithString: family
+			[[NSAttributedString alloc] initWithString: family
 											 attributes: [NSDictionary dictionaryWithObject: sampleFont
-																					 forKey: NSFontAttributeName]] autorelease]];
+																					 forKey: NSFontAttributeName]]];
 		
 		// Add to the menu
-		[result addItem: [fontItem autorelease]];
+		[result addItem: fontItem];
 	}
 	
 	// Return the result
-	return [result autorelease];
+	return result;
 }
 
 - (void) windowDidLoad {
 	// Set the toolbar
-	toolbar = [[NSToolbar allocWithZone: [self zone]] initWithIdentifier: @"preferencesToolbar2"];
+	toolbar = [[NSToolbar alloc] initWithIdentifier: @"preferencesToolbar2"];
 		
 	[toolbar setDelegate: self];
 	[toolbar setDisplayMode: NSToolbarDisplayModeIconAndLabel];
@@ -154,7 +149,7 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	// Set up the various font menus
 	NSMenu* proportionalMenu = [self fontMenu: NO];
 	NSMenu* fixedMenu = [self fontMenu: YES];
-	NSMenu* symbolMenu = [[proportionalMenu copy] autorelease];
+	NSMenu* symbolMenu = [proportionalMenu copy];
 	
 	[proportionalFont setMenu: proportionalMenu];
 	[fixedFont setMenu: fixedMenu];
@@ -208,7 +203,7 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	windowFrame.size.width  += (currentFrame.size.width - oldFrame.size.width);
 	windowFrame.size.height += (currentFrame.size.height - oldFrame.size.height);
 	
-	[[self window] setContentView: [[[NSView alloc] init] autorelease]];
+	[[self window] setContentView: [[NSView alloc] init]];
 	[[self window] setFrame: windowFrame
 					display: YES
 					animate: YES];
@@ -338,7 +333,7 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 }
 
 - (void) updateColourMenus {
-	NSMenu* newColourMenu = [[[NSMenu alloc] init] autorelease];
+	NSMenu* newColourMenu = [[NSMenu alloc] init];
 	
 	int col;
 	for (col=0; col<10; col++) {
@@ -359,15 +354,11 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 		
 		// Add it to the menu
 		[newColourMenu addItem: colourItem];
-		
-		// Release our resources
-		[colourItem autorelease];
-		[sampleImage autorelease];
 	}
 	
 	// Set the menu as the menu for both the popup buttons
 	[foregroundColour setMenu: newColourMenu];
-	[backgroundColour setMenu: [[newColourMenu copy] autorelease]];
+	[backgroundColour setMenu: [newColourMenu copy]];
 
 	[self selectItemWithTag: [prefs foregroundColour]
 					inPopup: foregroundColour];
@@ -376,8 +367,7 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 }
 
 - (void) setPreferences: (ZoomPreferences*) preferences {
-	if (prefs) [prefs release];
-	prefs = [preferences retain];
+	prefs = preferences;
 	
 	[displayWarnings setState: [prefs displayWarnings]?NSControlStateValueOn:NSControlStateValueOff];
 	[fatalWarnings setState: [prefs fatalWarnings]?NSControlStateValueOn:NSControlStateValueOff];
@@ -445,14 +435,14 @@ static void appendStyle(NSMutableString* styleName,
 		NSArray* fontArray = [prefs fonts];
 		
 		if ([[aTableColumn identifier] isEqualToString: @"Style"]) {
-			NSMutableString* name = [[@"" mutableCopy] autorelease];
+			NSMutableString* name = [NSMutableString string];
 			
 			if (rowIndex&1) appendStyle(name, @"bold");
 			if (rowIndex&2) appendStyle(name, @"italic");
 			if (rowIndex&4) appendStyle(name, @"fixed");
 			if (rowIndex&8) appendStyle(name, @"symbolic");
 			
-			if ([name isEqualToString: @""]) name = [[@"roman" mutableCopy] autorelease];
+			if ([name isEqualToString: @""]) name = [@"roman" mutableCopy];
 			
 			return name;
 		} else if ([[aTableColumn identifier] isEqualToString: @"Font"]) {
@@ -465,10 +455,9 @@ static void appendStyle(NSMutableString* styleName,
 			
 			NSAttributedString* res;
 			
-			res = [[[NSAttributedString alloc] initWithString: fontName
+			res = [[NSAttributedString alloc] initWithString: fontName
 												   attributes: [NSDictionary dictionaryWithObject: font
-																						   forKey: NSFontAttributeName]]
-				autorelease];
+																						   forKey: NSFontAttributeName]];
 			
 			return res;
 		}
@@ -489,7 +478,7 @@ static void appendStyle(NSMutableString* styleName,
 													  theColour, NSBackgroundColorAttributeName,
 													  nil]];
 			
-			return [res autorelease];
+			return res;
 		}
 		
 		return @" -- ";
@@ -554,8 +543,6 @@ static void appendStyle(NSMutableString* styleName,
 		[fonts reloadData];
 	}
 	
-	[prefFonts release];
-	
 	[self setSimpleFonts];
 }
 
@@ -579,8 +566,6 @@ static void appendStyle(NSMutableString* styleName,
 		[colours reloadData];
 		[self updateColourMenus];
 	}
-	
-	[cols release];
 }
 
 - (void)changeTransparency:(id)sender {
@@ -600,8 +585,6 @@ static void appendStyle(NSMutableString* styleName,
 	[prefs setColours: cols];
 		
 	[colours reloadData];
-	
-	[cols release];
 }
 
 // == Various actions ==
@@ -665,17 +648,14 @@ static void appendStyle(NSMutableString* styleName,
 		dirChooser.directoryURL = pathURL;
 	}
 	
-	[dirChooser retain];
 	[dirChooser beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse result) {
 		if (result != NSModalResponseOK) {
-			[dirChooser release];
 			return;
 		}
 		
 		[[ZoomStoryOrganiser sharedStoryOrganiser] reorganiseStoriesTo: [dirChooser URL].path];
-		[prefs setOrganiserDirectory: [dirChooser URL].path];
-		[organiseDir setString: [prefs organiserDirectory]];
-		[dirChooser release];
+		[self->prefs setOrganiserDirectory: [dirChooser URL].path];
+		[self->organiseDir setString: [self->prefs organiserDirectory]];
 	}];
 }
 
