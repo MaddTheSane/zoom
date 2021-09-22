@@ -31,10 +31,6 @@
 
 #import "ifmetabase.h"
 
-#ifndef NSAppKitVersionNumber10_2
-# define NSAppKitVersionNumber10_2 663
-#endif
-
 @interface ZoomiFictionController()
 
 - (NSString*) queryEncode: (NSString*) string;
@@ -86,16 +82,7 @@ enum {
 }
 
 - (void) dealloc {
-	[mainView release];
-	[storyList release];
-	[sortColumn release];
-	[filterSet1 release]; [filterSet2 release];
-	[previewView release];
-	[resourceDrop release];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[super dealloc];
 }
 
 // Bug in weak linking? Can't use NSShadowAttributeName... Hmph
@@ -157,12 +144,6 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	[headerText setMenu: [theTable menu]];
 	[imageView setMenu: [theTable menu]];
 	
-	[headerText release];
-	[imageView release];
-	[cornerImage release];
-	[headerString release];
-	[shadow release];
-	
 	return myHeader;
 }
 
@@ -173,7 +154,6 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	if (objc_lookUpClass("NSShadow") != nil) {
 		NSTableHeaderView* theHeader = [table headerView];
 		NSEnumerator* viewEnum = [[theHeader subviews] objectEnumerator];
-		NSTextField* titleView;
 
 		// Shadow creates an engraved look
 		NSShadow* shadow = [[NSShadow alloc] init];
@@ -188,14 +168,11 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 		[headerString addAttribute:ZoomNSShadowAttributeName value:shadow range:range];
 		[headerString setAlignment:NSTextAlignmentCenter range:range];
 		
-		while (titleView = [viewEnum nextObject]) {
+		for (NSTextField* titleView in viewEnum) {
 			if ([titleView isKindOfClass: [NSTextField class]]) {
 				[titleView setAttributedStringValue: headerString];
 			}
 		}
-		
-		[headerString release];
-		[shadow release];
 	} else {
 		NSTableColumn* filterColumn = [[table tableColumns] objectAtIndex: 0];
 		
@@ -239,7 +216,6 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 }
 
 - (void) windowDidLoad {
-	[mainView retain];
 	[ifdbView setFrameLoadDelegate: self];
 	[ifdbView setPolicyDelegate: self];
 
@@ -253,7 +229,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 																				 ofType: @"html"]];
 	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: loadingPage]];
 	
-	NSView* clearView = [[[ZoomClearView alloc] init] autorelease];
+	NSView* clearView = [[ZoomClearView alloc] init];
 	downloadView = [[ZoomDownloadView alloc] initWithFrame: NSMakeRect(0,0,276,78)];
 	downloadWindow = [[ZoomWindowThatIsKey alloc] initWithContentRect: NSMakeRect(0,0,276,78)
 															styleMask: NSWindowStyleMaskBorderless
@@ -299,7 +275,6 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	showDrawer = YES;
 	needsUpdating = YES;
 	
-	if (sortColumn) [sortColumn release];
 	sortColumn = [[[NSUserDefaults standardUserDefaults] objectForKey: sortGroup] copy];
 	[mainTableView setHighlightedTableColumn:[mainTableView tableColumnWithIdentifier:sortColumn]];
 	
@@ -308,13 +283,13 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	// Add a 'ratings' column to the main table
 	NSTableColumn* newColumn = [[NSTableColumn alloc] initWithIdentifier: @"rating"];
 	
-	[newColumn setDataCell: [[[ZoomRatingCell alloc] init] autorelease]];
+	[newColumn setDataCell: [[ZoomRatingCell alloc] init]];
 	[newColumn setMinWidth: 84];
 	[newColumn setMaxWidth: 84];
 	[newColumn setEditable: YES];
 	[[newColumn headerCell] setStringValue: @"Rating"];
 	
-	[mainTableView addTableColumn: [newColumn autorelease]];
+	[mainTableView addTableColumn: newColumn];
 	
 	// Turn on autosaving
 	[mainTableView setAutosaveName: @"ZoomStoryTable"];
@@ -426,8 +401,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	NSString* filename;
 	
 	while( [selectedFiles count] > 0 ) 
-	{
-		NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 		BOOL isDir;
 		
 		filename = [selectedFiles objectAtIndex:0];
@@ -443,9 +417,8 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 			NSArray* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: filename error:NULL];
 			
 			NSEnumerator* dirContentsEnum = [dirContents objectEnumerator];
-			NSString* dirComponent;
 			
-			while (dirComponent = [dirContentsEnum nextObject]) 
+			for (NSString* dirComponent in dirContentsEnum)
 			{
 				[selectedFiles addObject: [filename stringByAppendingPathComponent: dirComponent]];
 			}
@@ -458,10 +431,9 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 														  withIdent: fileID
 														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
 				
-				[fileID release];
 			}
 		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename])) {
-			ZoomPlugIn* instance = [[[plugin alloc] initWithFilename: filename] autorelease];
+			ZoomPlugIn* instance = [[plugin alloc] initWithFilename: filename];
 			ZoomStoryID* fileID = [instance idForStory];
 			
 			if (fileID != nil) {
@@ -472,11 +444,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 		}
 
 		[selectedFiles removeObjectAtIndex:0];
-				
-		[p release];
 	}
-	
-	[selectedFiles release];
 }
 
 // = IB actions =
@@ -513,7 +481,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	
 	NSString *urlUTI;
 	if (![url getResourceValue:&urlUTI forKey:NSURLTypeIdentifierKey error:NULL]) {
-		urlUTI = CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)url.pathExtension, isDirectory ? kUTTypeDirectory : kUTTypeData));
+		urlUTI = CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.pathExtension, isDirectory ? kUTTypeDirectory : kUTTypeData));
 	}
 	
 	// Show files that we can open with the ZoomClient document type
@@ -560,10 +528,8 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	NSURL* path = [[NSUserDefaults standardUserDefaults] URLForKey: addDirectory];
 	storiesToAdd.directoryURL = path;
 	
-	[storiesToAdd retain];
 	[storiesToAdd beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
 		if (result != NSModalResponseOK) {
-			[storiesToAdd release];
 			return;
 		}
 		
@@ -573,7 +539,6 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 		
 		NSArray * filenames = [storiesToAdd filenames];
 		[self addFiles:filenames];
-		[storiesToAdd release];
 	}];
 }
 
@@ -585,12 +550,14 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 		
 		if (![[NSFileManager defaultManager] fileExistsAtPath: filename]) {
 			NSLog(@"Couldn't find anything at %@ (looking for IFID: %@)", filename, [self selectedStoryID]);
-			
-			NSBeginAlertSheet(@"Zoom cannot find this story", 
-							  @"Cancel", nil, nil, [self window], nil, nil, nil, 
-							  nil,
-							  @"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.",
-									[[self selectedStory] title], filename);
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = @"Zoom cannot find this story";
+			alert.informativeText = [NSString stringWithFormat:@"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.",
+									 [[self selectedStory] title], filename];
+			[alert addButtonWithTitle:@"Cancel"];
+			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+				// do nothing
+			}];
 			return;
 		}
 		
@@ -782,7 +749,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 		ZoomPlugIn* pluginInstance = pluginClass?[[pluginClass alloc] initWithFilename: filename]:nil;
 		
 		if (pluginInstance) {
-			story = [[pluginInstance autorelease] defaultMetadata];
+			story = [pluginInstance defaultMetadata];
 		} else {
 			story = [ZoomStory defaultMetadataForFile: filename];
 		}
@@ -823,7 +790,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 }
 
 static NSComparisonResult tableSorter(id a, id b, void* context) {
-	ZoomiFictionController* us = context;
+	ZoomiFictionController* us = (__bridge ZoomiFictionController *)(context);
 	
 	return [us compareRow: a withRow: b];
 }
@@ -831,7 +798,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 - (void) sortTableData {
 	if (sortColumn != nil) {
 		[storyList sortUsingFunction: tableSorter
-							 context: self];
+							 context: (__bridge void * _Nullable)(self)];
 	}
 }
 
@@ -957,10 +924,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	}
 
 	// Free up the previous table data
-	[storyList release];
 	storyList = [[NSMutableArray alloc] init];
-	
-	[filterSet1 release]; [filterSet2 release];
 	
 	filterSet1 = [[NSMutableArray alloc] init];
 	filterSet2 = [[NSMutableArray alloc] init];
@@ -1028,7 +992,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	// Highlight the 'filter' button if some filtering has occurred
 	if (isFiltered != wasFiltered) {
 		// Prepare to animate to the new style of filtering
-		ZoomFlipView* matrixAnimation = [[[ZoomFlipView alloc] init] autorelease];
+		ZoomFlipView* matrixAnimation = [[ZoomFlipView alloc] init];
 		[matrixAnimation prepareToAnimateView: flipButtonMatrix];
 		
 		// Get the cell containing the 'filter' button
@@ -1043,7 +1007,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			filterColour = [NSColor blackColor];
 		}
 		
-		NSMutableAttributedString* filterButtonTitle = [[[filterButtonCell attributedTitle] mutableCopy] autorelease];
+		NSMutableAttributedString* filterButtonTitle = [[filterButtonCell attributedTitle] mutableCopy];
 		[filterButtonTitle addAttributes: [NSDictionary dictionaryWithObjectsAndKeys: filterColour, NSForegroundColorAttributeName, nil]
 								   range: NSMakeRange(0, [filterButtonTitle length])];
 		
@@ -1109,7 +1073,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		
 		if (sortColumn == nil || ![sortColumn isEqualToString: columnID]) {
 			[mainTableView setHighlightedTableColumn: tableColumn];
-			[sortColumn release];
 			sortColumn = [columnID copy];
 
 			[[NSUserDefaults standardUserDefaults] setObject: sortColumn
@@ -1208,7 +1171,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			saveGamesAvailable = [previewView saveGamesAvailable];
 
 			// Prepare to animate to the 'saves available' button
-			ZoomFlipView* matrixAnimation = [[[ZoomFlipView alloc] init] autorelease];
+			ZoomFlipView* matrixAnimation = [[ZoomFlipView alloc] init];
 			[matrixAnimation prepareToAnimateView: flipButtonMatrix];
 			
 			// Get the cell containing the 'save' button
@@ -1223,7 +1186,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 				filterColour = [NSColor blackColor];
 			}
 			
-			NSMutableAttributedString* filterButtonTitle = [[[filterButtonCell attributedTitle] mutableCopy] autorelease];
+			NSMutableAttributedString* filterButtonTitle = [[filterButtonCell attributedTitle] mutableCopy];
 			[filterButtonTitle addAttributes: [NSDictionary dictionaryWithObjectsAndKeys: filterColour, NSForegroundColorAttributeName, nil]
 									   range: NSMakeRange(0, [filterButtonTitle length])];
 			
@@ -1261,7 +1224,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 					NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
 					
 					if (coverPictureData) {
-						coverPicture = [[[NSImage alloc] initWithData: coverPictureData] autorelease];
+						coverPicture = [[NSImage alloc] initWithData: coverPictureData];
 						
 						// Sometimes the image size and pixel size do not match up
 						NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
@@ -1273,8 +1236,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 					}
 				}
 			}
-			
-			[decodedFile release];
 		} else {
 			coverPicture = [plugin coverImage];
 		}
@@ -1314,11 +1275,11 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		NSIndexSet* rowEnum = [mainTableView selectedRowIndexes];
 		NSInteger row = rowEnum.firstIndex;
 		BOOL extraNewline = NO;
-		NSAttributedString* newlineString = [[[NSAttributedString alloc] initWithString: @"\n"
+		NSAttributedString* newlineString = [[NSAttributedString alloc] initWithString: @"\n"
 																			 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																				 @(ZoomNoField), ZoomFieldAttribute,
 																				 @0, ZoomRowAttribute,
-																				 nil]] autorelease];
+																				 nil]];
 		
 		while (row != NSNotFound) {
 			ZoomStoryID* ident = [storyList objectAtIndex: row];
@@ -1332,37 +1293,37 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 				[gameDetails appendAttributedString: newlineString];
 				[gameDetails appendAttributedString: newlineString];
 			}
-			[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: title
+			[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: title
 																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																					  titleFont, NSFontAttributeName, 
 																					  @(ZoomTitleField), ZoomFieldAttribute,
 																					  @(row), ZoomRowAttribute,
 																					  story, ZoomStoryAttribute,
-																					  nil]] autorelease]];
-			[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n"
+																					  nil]]];
+			[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: @"\n"
 																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																					  @(ZoomTitleNewlineField), ZoomFieldAttribute,
 																					  @(row), ZoomRowAttribute,
 																					  story, ZoomStoryAttribute,
-																					  nil]] autorelease]];
+																					  nil]]];
 				
 			// Append the year of publication
 			int year = [story year];
 			if (year > 0) {
 				NSString* yearText = [NSString stringWithFormat: @"%i", year];
-				[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: yearText
+				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: yearText
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
 																						  yearFont, NSFontAttributeName, 
 																						  @(ZoomYearField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
-																						  nil]] autorelease]];
-				[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: @"\n"
+																						  nil]]];
+				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: @"\n"
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																						  @(ZoomYearNewlineField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
-																						  nil]] autorelease]];
+																						  nil]]];
 			}
 			
 			// Append the description
@@ -1371,13 +1332,13 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			if (descText == nil || [descText length] == 0) descText = @"";
 			if (descText != nil) {
 				[gameDetails appendAttributedString: newlineString];
-				[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: descText
+				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: descText
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
 																						  descFont, NSFontAttributeName, 
 																						  @(ZoomDescriptionField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
-																						  nil]] autorelease]];
+																						  nil]]];
 				
 				if ([descText length] > 0) flipToDescription = YES;
 			}
@@ -1391,8 +1352,8 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		// Note that there are multiple or no games selected
 		NSString* desc = @"Multiple games selected";
 		if (numSelected == 0) desc = @"No game selected";
-		[gameDetails appendAttributedString: [[[NSAttributedString alloc] initWithString: desc
-																			  attributes: [NSDictionary dictionaryWithObjectsAndKeys: descFont, NSFontAttributeName, nil]] autorelease]];
+		[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: desc
+																			  attributes: [NSDictionary dictionaryWithObjectsAndKeys: descFont, NSFontAttributeName, nil]]];
 	}
 	
 	if (![[gameDetailView string] isEqualToString: [gameDetails string]]) {
@@ -1403,8 +1364,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	} else {
 		flipToDescription = NO;
 	}
-	
-	[gameDetails release];
 	
 	if (coverPicture == nil) {
 		// TODO: set this to a suitable picture for the game format
@@ -2083,15 +2042,14 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 					  self,
 					  @selector(confirmDelete:returnCode:contextInfo:),
 					  nil,
-					  [storiesToDelete retain],
+					  CFBridgingRetain(storiesToDelete),
 					  @"%@", request);
 }
 
 - (void) confirmMoveToTrash: (NSWindow *)sheet 
 				 returnCode: (int)returnCode 
 				contextInfo: (void *)contextInfo {
-	NSMutableArray* storiesToDelete = contextInfo;
-	[storiesToDelete autorelease];
+	NSMutableArray* storiesToDelete = CFBridgingRelease(contextInfo);
 	
 	if (returnCode != NSAlertFirstButtonReturn) return;
 	
@@ -2119,10 +2077,9 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 }
 
 - (void) confirmDelete:(NSWindow *)sheet 
-			returnCode:(int)returnCode 
+			returnCode:(NSModalResponse)returnCode
 		   contextInfo:(void *)contextInfo {
-	NSMutableArray* storiesToDelete = contextInfo;
-	[storiesToDelete autorelease];
+	NSMutableArray* storiesToDelete = CFBridgingRelease(contextInfo);
 	
 	if (returnCode != NSAlertFirstButtonReturn) return;
 	
@@ -2139,7 +2096,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	if ([[ZoomPreferences globalPreferences] keepGamesOrganised]) {
 		[self confirmMoveToTrash: NULL 
 				 returnCode: NSAlertFirstButtonReturn
-				contextInfo:[storiesToDelete retain]];
+					 contextInfo:CFBridgingRetain(storiesToDelete)];
 	}
 }
 
@@ -2228,7 +2185,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 
 - (void) mergeiFictionFromFile: (NSString*) filename {
 	// Read the file
-	ZoomMetadata* newData = [[[ZoomMetadata alloc] initWithContentsOfFile: filename] autorelease];
+	ZoomMetadata* newData = [[ZoomMetadata alloc] initWithContentsOfFile: filename];
 	
 	if (newData == nil) return;
 	
@@ -2240,7 +2197,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		NSBeginAlertSheet(@"Some story descriptions are already in the database", 
 						  @"Use new", @"Keep new",
 						  nil, [self window], self, @selector(useReplacements:returnCode:contextInfo:),
-						  nil, [replacements retain],
+						  nil, CFBridgingRetain(replacements),
 						  @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?");		
 	}
 }
@@ -2248,8 +2205,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 - (void) useReplacements: (NSWindow *)alert 
 			  returnCode: (NSModalResponse)returnCode
 			 contextInfo: (void *)contextInfo {
-	NSArray* replacements = contextInfo;
-	[replacements autorelease];
+	NSArray* replacements = CFBridgingRelease(contextInfo);
 	
 	if (returnCode != NSAlertFirstButtonReturn) return;
 	
@@ -2275,10 +2231,8 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	panel.allowedFileTypes = @[@"iFiction"];
 	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomiFictionSavePath"];
 	panel.directoryURL = directory;
-	[panel retain];
 	[panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
 		[self saveMetadataDidEnd:panel returnCode:result contextInfo:nil];
-		[panel release];
 	}];
 }
 
@@ -2288,7 +2242,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	if (returnCode != NSModalResponseOK) return;
 	
 	// Generate the data to save
-	ZoomMetadata* newMetadata = [[[ZoomMetadata alloc] init] autorelease];
+	ZoomMetadata* newMetadata = [[ZoomMetadata alloc] init];
 	
 	NSIndexSet* selEnum = [mainTableView selectedRowIndexes];
 	NSInteger selRow = selEnum.firstIndex;
@@ -2496,13 +2450,12 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	// Write any new metadata
 	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	
-	[signpostId release]; signpostId = nil;
+	signpostId = nil;
 }
 
 - (void) cancelFadeTimer {
 	if (!downloadFadeTimer) return;
 	
-	[downloadFadeTimer autorelease];
 	[downloadFadeTimer invalidate];
 	downloadFadeTimer = nil;
 }
@@ -2543,13 +2496,12 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	} else {
 		// Use a more prosaic animation on Tiger
 		initialDownloadOpacity = [downloadWindow alphaValue];
-		[downloadFadeStart release];
-		downloadFadeStart = [[NSDate date] retain];
-		downloadFadeTimer = [[NSTimer timerWithTimeInterval: 0.02
-													 target: self
-												   selector: @selector(fadeDownloadIn)
-												   userInfo: nil
-													repeats: YES] retain];
+		downloadFadeStart = [NSDate date];
+		downloadFadeTimer = [NSTimer timerWithTimeInterval: 0.02
+													target: self
+												  selector: @selector(fadeDownloadIn)
+												  userInfo: nil
+												   repeats: YES];
 		[[NSRunLoop currentRunLoop] addTimer: downloadFadeTimer
 									 forMode: NSDefaultRunLoopMode];
 	}
@@ -2577,13 +2529,12 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	} else {		
 		// Tiger animation
 		initialDownloadOpacity = [downloadWindow alphaValue];
-		[downloadFadeStart release];
-		downloadFadeStart = [[NSDate date] retain];
-		downloadFadeTimer = [[NSTimer timerWithTimeInterval: 0.02
-													 target: self
-												   selector: @selector(fadeDownloadOut)
-												   userInfo: nil
-													repeats: YES] retain];
+		downloadFadeStart = [NSDate date];
+		downloadFadeTimer = [NSTimer timerWithTimeInterval: 0.02
+													target: self
+												  selector: @selector(fadeDownloadOut)
+												  userInfo: nil
+												   repeats: YES];
 		[[NSRunLoop currentRunLoop] addTimer: downloadFadeTimer
 									 forMode: NSDefaultRunLoopMode];
 	}
@@ -2667,7 +2618,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	if (download == activeDownload) {
 		[activeDownload setDelegate: nil];
-		[activeDownload autorelease]; activeDownload = nil;
+		activeDownload = nil;
 		[[downloadView progress] stopAnimation: self];
 		
 		[self hideDownloadWindow: 0.5];
@@ -2679,7 +2630,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	if (download != activeDownload) return;
 
 	[activeDownload setDelegate: nil];
-	[activeDownload autorelease]; activeDownload = nil;	
+	activeDownload = nil;
 	[[downloadView progress] stopAnimation: self];
 
 	NSBeginAlertSheet(@"Could not complete the download.", @"Cancel", nil, nil, 
@@ -2728,16 +2679,15 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			// Use mirror.ifarchive.org, not www.ifarchive.org
 			NSString* host = [url host];
 			if ([host isEqualToString: @"www.ifarchive.org"]) {
-				url = [[[NSURL alloc] initWithScheme: [url scheme]
-												host: @"mirror.ifarchive.org"
-												path: [url path]] autorelease];
+				url = [[NSURL alloc] initWithScheme: [url scheme]
+											   host: @"mirror.ifarchive.org"
+											   path: [url path]];
 			}
 			
 			// Download the specified file
 			[activeDownload setDelegate: nil];
-			[activeDownload autorelease]; activeDownload = nil;	
+			activeDownload = nil;
 
-			[signpostId autorelease];
 			signpostId = nil;
 			downloadUpdateList = NO;
 			downloadPlugin = NO;
@@ -2793,16 +2743,16 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 }
 
 - (NSString*) queryEncode: (NSString*) string {
-	NSString* result = (NSString*)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-															   (CFStringRef)string,
-															   NULL,
-															   CFSTR("&?/="),
-															   kCFStringEncodingUTF8);
-	return [result autorelease];
+	NSString* result = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+																							(CFStringRef)string,
+																							NULL,
+																							CFSTR("&?/="),
+																							kCFStringEncodingUTF8));
+	return result;
 }
 
 - (IBAction) showIfDb: (id) sender {
-	ZoomFlipView* fv = [[[ZoomFlipView alloc] init] autorelease];
+	ZoomFlipView* fv = [[ZoomFlipView alloc] init];
 	[fv setAnimationTime: 0.35];
 
 	NSRect viewFrame = [mainView frame];
@@ -2876,7 +2826,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 }
 
 - (IBAction) showLocalGames: (id) sender {
-	ZoomFlipView* fv = [[[ZoomFlipView alloc] init] autorelease];
+	ZoomFlipView* fv = [[ZoomFlipView alloc] init];
 	[fv setAnimationTime: 0.35];
 
 	NSRect viewFrame = [browserView frame];
@@ -2929,7 +2879,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		// Cancel any running download
 		if (activeDownload != nil && ![[[[frame dataSource] request] URL] isFileURL]) {
 			[activeDownload setDelegate: nil];
-			[activeDownload autorelease];
 			activeDownload = nil;
 			[self hideDownloadWindow: 0.25];
 		}
@@ -3037,7 +2986,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	[self showWindow: self];
 	
 	// Parse the property list
-	ZoomSignPost* signpost = [[[ZoomSignPost alloc] initWithData: signpostFile] autorelease];
+	ZoomSignPost* signpost = [[ZoomSignPost alloc] initWithData: signpostFile];
 	
 	if (signpost == nil) {
 		// Not a valid signpost
@@ -3079,12 +3028,10 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			}
 			
 			[activeDownload setDelegate: nil];
-			[activeDownload autorelease]; activeDownload = nil;
+			activeDownload = nil;
 			
-			[signpostId autorelease];
 			signpostId = nil;
-			[activeSignpost release];
-			activeSignpost = [signpost retain];
+			activeSignpost = signpost;
 			
 			NSBeginAlertSheet(@"Zoom needs to download a new plug-in in order play this story",
 							  @"Install plugin", @"Cancel", nil, [self window], 
@@ -3116,10 +3063,9 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	NSURL* url = [signpost downloadURL];
 	if (url) {
 		[activeDownload setDelegate: nil];
-		[activeDownload autorelease]; activeDownload = nil;
+		activeDownload = nil;
 
-		[signpostId autorelease];
-		signpostId = [downloadId retain];
+		signpostId = downloadId;
 
 		downloadUpdateList = NO;
 		downloadPlugin = NO;
@@ -3127,9 +3073,9 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		// Use mirror.ifarchive.org, not www.ifarchive.org
 		NSString* host = [url host];
 		if ([host isEqualToString: @"www.ifarchive.org"]) {
-			url = [[[NSURL alloc] initWithScheme: [url scheme]
-											host: @"mirror.ifarchive.org"
-											path: [url path]] autorelease];
+			url = [[NSURL alloc] initWithScheme: [url scheme]
+										   host: @"mirror.ifarchive.org"
+										   path: [url path]];
 		}
 		
 		activeDownload = [[ZoomDownload alloc] initWithUrl: url];
@@ -3151,16 +3097,15 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		// Use mirror.ifarchive.org, not www.ifarchive.org
 		NSString* host = [updateUrl host];
 		if ([host isEqualToString: @"www.ifarchive.org"]) {
-			updateUrl = [[[NSURL alloc] initWithScheme: [updateUrl scheme]
-												  host: @"mirror.ifarchive.org"
-												  path: [updateUrl path]] autorelease];
+			updateUrl = [[NSURL alloc] initWithScheme: [updateUrl scheme]
+												 host: @"mirror.ifarchive.org"
+												 path: [updateUrl path]];
 		}
 		
 		// Download the update XML file
 		[activeDownload setDelegate: nil];
-		[activeDownload autorelease]; activeDownload = nil;
+		activeDownload = nil;
 		
-		[signpostId autorelease];
 		signpostId = nil;
 		
 		downloadUpdateList = YES;
@@ -3180,8 +3125,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	[alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
 		//do nothing
 	}];
-	
-	[alert release];
 }
 
 static unsigned int ValueForHexChar(int hex) {
@@ -3257,14 +3200,13 @@ static unsigned int ValueForHexChar(int hex) {
 		digest[x] = (ValueForHexChar(firstChar)<<4)|ValueForHexChar(secondChar);
 	}
 	
-	NSData* md5 = [[[NSData alloc] initWithBytes: digest
-										  length: 16] autorelease];
+	NSData* md5 = [[NSData alloc] initWithBytes: digest
+										 length: 16];
 	
 	// Download the plugin
 	[activeDownload setDelegate: nil];
-	[activeDownload autorelease]; activeDownload = nil;
+	activeDownload = nil;
 	
-	[signpostId autorelease];
 	signpostId = nil;
 	
 	downloadUpdateList = NO;
