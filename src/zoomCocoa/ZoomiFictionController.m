@@ -310,7 +310,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	[self configureFromMainTableSelection];
 	[mainTableView reloadData];
 	
-	[mainTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
+	[mainTableView registerForDraggedTypes:@[NSPasteboardTypeFileURL]];
 				   
 	[mainTableView setDoubleAction:@selector(startNewGame:)];
 
@@ -537,7 +537,11 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 		[[NSUserDefaults standardUserDefaults] setURL: [storiesToAdd directoryURL]
 											   forKey: addDirectory];
 		
-		NSArray * filenames = [storiesToAdd filenames];
+		NSArray<NSURL*> * fileURLs = [storiesToAdd URLs];
+		NSMutableArray<NSString*> * filenames = [[NSMutableArray alloc] initWithCapacity:fileURLs.count];
+		for (NSURL *inURL in fileURLs) {
+			[filenames addObject:inURL.path];
+		}
 		[self addFiles:filenames];
 	}];
 }
@@ -588,10 +592,17 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	
 	if ([[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
 		// Autosave file exists - show alert sheet
-		NSBeginAlertSheet(@"An autosave file exists for this game", @"Don't start new game", @"Start new game",
-						  nil, [self window], self, @selector(autosaveAlertFinished:returnCode:contextInfo:),
-						  nil,nil,
-						  @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.");
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"An autosave file exists for this game";
+		alert.informativeText = @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.";
+		[alert addButtonWithTitle:@"Don't start new game"];
+		NSButton *desButton = [alert addButtonWithTitle:@"Start new game"];
+		if (@available(macOS 11.0, *)) {
+			desButton.hasDestructiveAction = YES;
+		}
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			[self autosaveAlertFinished:alert.window returnCode:returnCode contextInfo:NULL];
+		}];
 	} else {
 		// Fake alert sheet OK
 		[self autosaveAlertFinished: nil
@@ -1465,7 +1476,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	[mainTableView cancelEditTimer];
 	
-	NSMutableArray * fileList = [NSMutableArray array];
+	NSMutableArray<NSURL*> * urlList = [NSMutableArray array];
 
 	for(NSInteger i = [rowIndexes firstIndex]; i != NSNotFound; i = [rowIndexes indexGreaterThanIndex:i] )
 	{
@@ -1473,14 +1484,34 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		NSString* gamedir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident create: NO];
 		if( gamedir != NULL )
 		{
-			[fileList addObject:gamedir];
+			[urlList addObject: [NSURL fileURLWithPath: gamedir]];
 		}
 	}
 
-	[pboard declareTypes:[NSArray arrayWithObject:NSFilenamesPboardType] owner:nil];
-	[pboard setPropertyList:fileList forType:NSFilenamesPboardType];
+	[pboard clearContents];
+	[pboard writeObjects:urlList];
 	
 	return YES;
+}
+
+-(id<NSPasteboardWriting>)tableView:(NSTableView *)tv pasteboardWriterForRow:(NSInteger)row
+{
+	if(tv != mainTableView )
+		return nil;
+	
+	if( ![[ZoomPreferences globalPreferences] keepGamesOrganised] )
+		return nil;
+
+	[mainTableView cancelEditTimer];
+
+	ZoomStoryID* ident = [storyList objectAtIndex:row];
+	NSString* gamedir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident create: NO];
+	if( gamedir != NULL )
+	{
+		return [NSURL fileURLWithPath: gamedir];
+	}
+
+	return nil;
 }
 
 - (NSDragOperation)tableView:(NSTableView *)tv
@@ -1500,7 +1531,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		return NSDragOperationNone;
 	}
 	
-	if( [types containsObject:NSFilenamesPboardType] )
+	if( [types containsObject:NSPasteboardTypeFileURL] )
 	{
 		return NSDragOperationCopy;
 	}
@@ -1515,7 +1546,11 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			  row:(NSInteger)row
 	dropOperation:(NSTableViewDropOperation)op {
     NSPasteboard * pasteboard = [sender draggingPasteboard];
-    NSArray * filenames = [pasteboard propertyListForType:NSFilenamesPboardType];
+	NSArray<NSURL*> * fileURLs = [pasteboard readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
+	NSMutableArray * filenames = [[NSMutableArray alloc] initWithCapacity:fileURLs.count];
+	for (NSURL *inURL in fileURLs) {
+		[filenames addObject:inURL.path];
+	}
 	[self addFiles:filenames];
 
 	return YES;
@@ -1922,12 +1957,11 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	[self queueStoryUpdate];
 }
 
-- (void)textStorageWillProcessEditing:(NSNotification *)aNotification {
-	NSTextStorage* storage = [aNotification object];
-	
+-(void)textStorage:(NSTextStorage *)storage willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta
+{
 	if (storage == [gameDetailView textStorage]) {
 		// Get the edited range
-		NSRange edited = [storage editedRange];
+		NSRange edited = editedRange;
 		NSRange affectedCharRange = NSMakeRange(edited.location + edited.length, 0);
 
 		// Work out the effective row/field/story at this position
@@ -1942,7 +1976,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 										effectiveRange: &effectiveRange] objectForKey: ZoomStoryAttribute];
 		
 		// If field is nil, and we're at the end, then act as if we're editing the description
-		if ([field intValue] == ZoomNoField 
+		if ([field intValue] == ZoomNoField
 			&& edited.location + edited.length == [storage length]
 			&& [mainTableView numberOfSelectedRows] == 1) {
 			row = @([mainTableView selectedRow]);
@@ -2036,14 +2070,31 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	NSArray *storiesToDelete = [storyList objectsAtIndexes:rowEnum];
 	
-	NSBeginAlertSheet(@"Are you sure?",
-					  @"Delete", @"Keep", nil,
-					  [self window],
-					  self,
-					  @selector(confirmDelete:returnCode:contextInfo:),
-					  nil,
-					  CFBridgingRetain(storiesToDelete),
-					  @"%@", request);
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = @"Are you sure?";
+	alert.informativeText = request;
+	NSButton *delButton = [alert addButtonWithTitle:@"Delete"];
+	if (@available(macOS 11.0, *)) {
+		delButton.hasDestructiveAction = YES;
+	}
+	[alert addButtonWithTitle:@"Keep"].keyEquivalent = @"\1B";
+	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		if (returnCode != NSAlertFirstButtonReturn) return;
+		
+		// Delete the selected games from the organiser
+		NSEnumerator* rowEnum = [storiesToDelete objectEnumerator];
+		
+		for (ZoomStoryID* ident in rowEnum) {
+			[[ZoomStoryOrganiser sharedStoryOrganiser] removeStoryWithIdent: ident
+														 deleteFromMetadata: YES];
+		}
+		
+		if ([[ZoomPreferences globalPreferences] keepGamesOrganised]) {
+			[self confirmMoveToTrash: NULL
+						  returnCode: NSAlertFirstButtonReturn
+						 contextInfo: CFBridgingRetain(storiesToDelete)];
+		}
+	}];
 }
 
 - (void) confirmMoveToTrash: (NSWindow *)sheet 
@@ -2053,11 +2104,9 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	if (returnCode != NSAlertFirstButtonReturn) return;
 	
-	ZoomStoryID* ident;
-	
 	NSEnumerator* rowEnum = [storiesToDelete objectEnumerator];
 	
-	while (ident = [rowEnum nextObject]) {
+	for (ZoomStoryID* ident in rowEnum) {
 		NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
 																				   create: NO];
 		if (filename != nil) {
@@ -2073,30 +2122,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			[[ZoomStoryOrganiser sharedStoryOrganiser] removeStoryWithIdent: ident
 														 deleteFromMetadata: YES];
 		}
-	}
-}
-
-- (void) confirmDelete:(NSWindow *)sheet 
-			returnCode:(NSModalResponse)returnCode
-		   contextInfo:(void *)contextInfo {
-	NSMutableArray* storiesToDelete = CFBridgingRelease(contextInfo);
-	
-	if (returnCode != NSAlertFirstButtonReturn) return;
-	
-	// Delete the selected games from the organiser
-	ZoomStoryID* ident;
-	
-	NSEnumerator* rowEnum = [storiesToDelete objectEnumerator];
-	
-	while (ident = [rowEnum nextObject]) {
-		[[ZoomStoryOrganiser sharedStoryOrganiser] removeStoryWithIdent: ident
-													 deleteFromMetadata: YES];
-	}
-	
-	if ([[ZoomPreferences globalPreferences] keepGamesOrganised]) {
-		[self confirmMoveToTrash: NULL 
-				 returnCode: NSAlertFirstButtonReturn
-					 contextInfo:CFBridgingRetain(storiesToDelete)];
 	}
 }
 
@@ -2131,35 +2156,36 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	if (newData == nil) {
 		// Doh!
-		NSBeginAlertSheet(@"Unable to load metadata", @"Cancel", nil,
-						  nil, [self window], nil, nil,
-						  nil,nil,
-						  @"Zoom encountered an error while trying to load an iFiction file.");
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"Unable to load metadata";
+		alert.informativeText = @"Zoom encountered an error while trying to load an iFiction file.";
+		[alert addButtonWithTitle:@"Cancel"];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			// do nothing
+		}];
 		return nil;
 	}
 	
 	if ([[newData errors] count] > 0) {
-		NSBeginAlertSheet(@"Unable to load metadata", @"Cancel", nil,
-						  nil, [self window], nil, nil,
-						  nil,nil,
-						  @"Zoom encountered an error (%@) while trying to load an iFiction file.",
-						  [[newData errors] objectAtIndex: 0]);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"Unable to load metadata";
+		alert.informativeText = [NSString stringWithFormat:@"Zoom encountered an error (%@) while trying to load an iFiction file.",
+								 [[newData errors] objectAtIndex: 0]];
+		[alert addButtonWithTitle:@"Cancel"];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			// do nothing
+		}];
 		return nil;
 	}
 	
 	// Merge any new descriptions found there
 	NSMutableArray* replacements = [NSMutableArray array];
-	ZoomStory* story;
-	NSEnumerator* storyEnum = [[newData stories] objectEnumerator];
 	
-	while (story = [storyEnum nextObject]) {
+	for (ZoomStory* story in [newData stories]) {
 		// Find if the story already exists in our index
 		ZoomStory* oldStory = nil;
 		
-		ZoomStoryID* ident;
-		NSEnumerator* identEnum = [[story storyIDs] objectEnumerator];
-		
-		while (ident = [identEnum nextObject]) {
+		for (ZoomStoryID* ident in [story storyIDs]) {
 			oldStory = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
 			if (oldStory != nil) break;
 		}
@@ -2194,33 +2220,28 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	// If there's anything to query about, ask!
 	if ([replacements count] > 0) {
-		NSBeginAlertSheet(@"Some story descriptions are already in the database", 
-						  @"Use new", @"Keep new",
-						  nil, [self window], self, @selector(useReplacements:returnCode:contextInfo:),
-						  nil, CFBridgingRetain(replacements),
-						  @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?");		
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"Some story descriptions are already in the database";
+		alert.informativeText = @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?";
+		[alert addButtonWithTitle:@"Use new"];
+		[alert addButtonWithTitle:@"Keep new"];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			if (returnCode != NSAlertFirstButtonReturn) return;
+			
+			ZoomStory* story;
+			NSEnumerator* storyEnum = [replacements objectEnumerator];
+			
+			while (story = [storyEnum nextObject]) {
+				[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
+			}
+			
+			// Store and reflect any changes
+			[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+			
+			[self reloadTableData];
+			[self configureFromMainTableSelection];
+		}];
 	}
-}
-
-- (void) useReplacements: (NSWindow *)alert 
-			  returnCode: (NSModalResponse)returnCode
-			 contextInfo: (void *)contextInfo {
-	NSArray* replacements = CFBridgingRelease(contextInfo);
-	
-	if (returnCode != NSAlertFirstButtonReturn) return;
-	
-	ZoomStory* story;
-	NSEnumerator* storyEnum = [replacements objectEnumerator];
-	
-	while (story = [storyEnum nextObject]) {
-		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
-	}
-	
-	// Store and reflect any changes
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
-	
-	[self reloadTableData];
-	[self configureFromMainTableSelection];
 }
 
 // = Saving iFiction data =
@@ -2232,39 +2253,33 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomiFictionSavePath"];
 	panel.directoryURL = directory;
 	[panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
-		[self saveMetadataDidEnd:panel returnCode:result contextInfo:nil];
+		if (result != NSModalResponseOK) return;
+		
+		// Generate the data to save
+		ZoomMetadata* newMetadata = [[ZoomMetadata alloc] init];
+		
+		NSIndexSet* selEnum = [self->mainTableView selectedRowIndexes];
+		NSInteger selRow = selEnum.firstIndex;
+		
+		while (selRow != NSNotFound) {
+			ZoomStoryID* ident = [self->storyList objectAtIndex: selRow];
+			ZoomStory* story = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
+			
+			if (story != nil) {
+				[newMetadata copyStory: story];
+			}
+			selRow = [selEnum indexGreaterThanIndex:selRow];
+		}
+		
+		// Save it!
+		[newMetadata writeToFile: [panel URL].path
+					  atomically: YES];
+		
+		// Store any preference changes
+		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
+											   forKey: @"ZoomiFictionSavePath"];
 	}];
 }
-
-- (void) saveMetadataDidEnd: (NSSavePanel *) panel 
-				 returnCode: (NSModalResponse) returnCode
-				contextInfo: (void*) contextInfo {
-	if (returnCode != NSModalResponseOK) return;
-	
-	// Generate the data to save
-	ZoomMetadata* newMetadata = [[ZoomMetadata alloc] init];
-	
-	NSIndexSet* selEnum = [mainTableView selectedRowIndexes];
-	NSInteger selRow = selEnum.firstIndex;
-	
-	while (selRow != NSNotFound) {
-		ZoomStoryID* ident = [storyList objectAtIndex: selRow];
-		ZoomStory* story = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
-		
-		if (story != nil) {
-			[newMetadata copyStory: story];
-		}
-		selRow = [selEnum indexGreaterThanIndex:selRow];
-	}
-	
-	// Save it!
-	[newMetadata writeToFile: [panel URL].path
-				  atomically: YES];
-	
-	// Store any preference changes
-	[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
-										   forKey: @"ZoomiFictionSavePath"];
-}	
 
 - (IBAction) flipToFilter: (id) sender {
 	[self flipTo: filterView];
@@ -2370,9 +2385,13 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		}
 		
 		// Oops: couldn't find any games to add
-		NSBeginAlertSheet(@"The download did not contain any story files", @"Cancel", nil, nil, 
-						  [self window], nil, nil, nil, nil, 
-						  @"Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.");
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"The download did not contain any story files";
+		alert.informativeText = @"Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.";
+		[alert addButtonWithTitle:@"Cancel"];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			// do nothing
+		}];
 	} else if ([addedFiles count] == 1) {
 		// Play one story
 		ZoomStoryID* storyToPlay = [addedFiles lastObject];
@@ -2603,9 +2622,13 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			[self installSignpostPluginFrom: [NSData dataWithContentsOfFile: xmlFile]];
 		} else {
 			// Butterfingers
-			NSBeginAlertSheet(@"Could not download the plug-in", @"Cancel", nil, nil, 
-							  [self window], nil, nil, nil, nil,
-							  @"Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed.");
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = @"Could not download the plug-in";
+			alert.informativeText = @"Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed.";
+			[alert addButtonWithTitle:@"Cancel"];
+			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+				// do nothing
+			}];
 		}
 	} else if (downloadPlugin) {
 		// We've downloaded a plugin and need to install it
@@ -2633,10 +2656,14 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	activeDownload = nil;
 	[[downloadView progress] stopAnimation: self];
 
-	NSBeginAlertSheet(@"Could not complete the download.", @"Cancel", nil, nil, 
-					  [self window], nil, nil, nil, nil, 
-					  @"An error was encountered while trying to download the requested file%@%@.",
-						  reason?@".\n\n":@"", reason);
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = @"Could not complete the download.";
+	alert.informativeText = [NSString stringWithFormat:@"An error was encountered while trying to download the requested file%@%@.",
+							 reason?@".\n\n":@"", reason];
+	[alert addButtonWithTitle:@"Cancel"];
+	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		// do nothing
+	}];
 	
 	[self hideDownloadWindow: 0.25];
 }
@@ -2995,9 +3022,13 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	if ([signpost errorMessage]) {
 		// Signpost is OK but just contains an error message
-		NSBeginAlertSheet(@"IFDB has reported a problem with this game", @"Cancel", nil, nil, 
-						  [self window], nil, nil, nil, nil, 
-						  @"%@", [signpost errorMessage]);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"IFDB has reported a problem with this game";
+		alert.informativeText = [signpost errorMessage];
+		[alert addButtonWithTitle:@"Cancel"];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			// do nothing
+		}];
 		return;
 	}
 	
@@ -3033,12 +3064,42 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			signpostId = nil;
 			activeSignpost = signpost;
 			
-			NSBeginAlertSheet(@"Zoom needs to download a new plug-in in order play this story",
-							  @"Install plugin", @"Cancel", nil, [self window], 
-							  self, @selector(downloadPlugIn:returnCode:contextInfo:), nil,
-							  nil,
-							  @"In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\n"
-							  "Plug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins.");
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = @"Zoom needs to download a new plug-in in order play this story";
+			alert.informativeText = @"In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\n"
+			"Plug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins.";
+			[alert addButtonWithTitle:@"Install plugin"];
+			[alert addButtonWithTitle:@"Cancel"];
+			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+				if (self->activeSignpost && returnCode == NSAlertFirstButtonReturn) {
+					// Get the update URL
+					NSURL* updateUrl = [self->activeSignpost interpreterURL];
+					if (!updateUrl) {
+						return;
+					}
+					
+					// Use mirror.ifarchive.org, not www.ifarchive.org
+					NSString* host = [updateUrl host];
+					if ([host isEqualToString: @"www.ifarchive.org"]) {
+						updateUrl = [[NSURL alloc] initWithScheme: [updateUrl scheme]
+															 host: @"mirror.ifarchive.org"
+															 path: [updateUrl path]];
+					}
+					
+					// Download the update XML file
+					[self->activeDownload setDelegate: nil];
+					self->activeDownload = nil;
+					
+					self->signpostId = nil;
+					
+					self->downloadUpdateList = YES;
+					self->downloadPlugin = NO;
+					
+					self->activeDownload = [[ZoomDownload alloc] initWithUrl: updateUrl];
+					[self->activeDownload setDelegate: self];
+					[self->activeDownload startDownload];
+				}
+			}];
 			return;
 		}
 	}
@@ -3084,39 +3145,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	}
 }
 
-- (void) downloadPlugIn: (NSWindow *)alert 
-			 returnCode: (int)returnCode 
-			contextInfo: (void *)contextInfo {
-	if (activeSignpost && returnCode == NSAlertFirstButtonReturn) {
-		// Get the update URL
-		NSURL* updateUrl = [activeSignpost interpreterURL];
-		if (!updateUrl) {
-			return;
-		}
-		
-		// Use mirror.ifarchive.org, not www.ifarchive.org
-		NSString* host = [updateUrl host];
-		if ([host isEqualToString: @"www.ifarchive.org"]) {
-			updateUrl = [[NSURL alloc] initWithScheme: [updateUrl scheme]
-												 host: @"mirror.ifarchive.org"
-												 path: [updateUrl path]];
-		}
-		
-		// Download the update XML file
-		[activeDownload setDelegate: nil];
-		activeDownload = nil;
-		
-		signpostId = nil;
-		
-		downloadUpdateList = YES;
-		downloadPlugin = NO;
-		
-		activeDownload = [[ZoomDownload alloc] initWithUrl: updateUrl];
-		[activeDownload setDelegate: self];
-		[activeDownload startDownload];				
-	}
-}
-
 - (void) failedToInstallPlugin: (NSString*) reason {
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = @"Could not install the plug-in";
@@ -3155,9 +3183,8 @@ static unsigned int ValueForHexChar(int hex) {
 	}
 	
 	NSEnumerator* pluginEnum = [[update allValues] objectEnumerator];
-	NSDictionary* plugInDetails;
 	NSDictionary* pluginToInstall = nil;
-	while (plugInDetails = [pluginEnum nextObject]) {
+	for (NSDictionary* plugInDetails in pluginEnum) {
 		if (![plugInDetails isKindOfClass: [NSDictionary class]]) {
 			continue;
 		}

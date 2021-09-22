@@ -549,7 +549,9 @@
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>com.apple.ostype</key>
-				<string>TADG</string>
+				<array>
+					<string>TADG</string>
+				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>gam</string>
@@ -568,7 +570,7 @@
 			<key>UTTypeDescription</key>
 			<string>TADS 3 Executable</string>
 			<key>UTTypeIconFile</key>
-			<string>GameFile.icns</string>
+			<string>GameFile</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.tads.tads3-game</string>
 			<key>UTTypeReferenceURL</key>

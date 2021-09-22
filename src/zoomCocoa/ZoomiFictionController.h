@@ -91,7 +91,7 @@
 	NSMutableArray* filterSet1;
 	NSMutableArray* filterSet2;
 	
-	NSMutableArray* storyList;
+	NSMutableArray<ZoomStoryID*>* storyList;
 	NSString*       sortColumn;
 	
 	// The browser
@@ -113,7 +113,7 @@
 	ZoomJSError* lastError;						// The last error to occur
 }
 
-+ (ZoomiFictionController*) sharediFictionController;
+@property (class, readonly, strong) ZoomiFictionController *sharediFictionController NS_SWIFT_NAME(shared);
 
 - (IBAction) addButtonPressed: (id) sender;
 - (IBAction) startNewGame: (id) sender;
@@ -140,9 +140,9 @@
 - (void) reloadTableData;
 
 - (void) mergeiFictionFromFile: (NSString*) filename;
-- (NSArray*) mergeiFictionFromMetabase: (ZoomMetadata*) newData;
+- (NSArray<ZoomStory*>*) mergeiFictionFromMetabase: (ZoomMetadata*) newData;
 
-- (void) addFiles: (NSArray *)filenames;
+- (void) addFiles: (NSArray<NSString*> *)filenames;
 
 - (void) setupSplitView;
 - (void) collapseSplitView;
