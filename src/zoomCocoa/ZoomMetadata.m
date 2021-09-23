@@ -16,9 +16,105 @@
 
 NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 
+NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.errors";
+
+#define ZoomLocalizedStringWithDefaultValue(key, val, comment) \
+	NSLocalizedStringWithDefaultValue(key, nil, NSBundle.mainBundle, val, comment)
+
 @implementation ZoomMetadata
 
 // = Initialisation, etc =
+
++ (void)initialize
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[NSError setUserInfoValueProviderForDomain:ZoomMetadataErrorDomain provider:^id _Nullable(NSError * _Nonnull err, NSErrorUserInfoKey  _Nonnull userInfoKey) {
+			switch ((ZoomMetadataError)err.code) {
+				case ZoomMetadataErrorProgrammerIsASpoon:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Programmer is a spoon";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Programmer Is A Spoon", @"Programmer is a spoon", @"Programmer is a spoon");
+					}
+					break;
+					
+				case ZoomMetadataErrorXML:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"XML parsing error";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError XML", @"XML parsing error", @"XML parsing error");
+					}
+					break;
+					
+				case ZoomMetadataErrorNotXML:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"File is not in XML format";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Not XML", @"File is not in XML format", @"File is not in XML format");
+					}
+					break;
+					
+				case ZoomMetadataErrorUnknownVersion:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Unknown iFiction version number";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Version", @"Unknown iFiction version number", @"Unknown iFiction version number");
+					}
+					break;
+					
+				case ZoomMetadataErrorUnknownTag:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Invalid iFiction tag encountered in file";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Tag", @"Invalid iFiction tag encountered in file", @"Invalid iFiction tag encountered in file");
+					}
+					break;
+					
+				case ZoomMetadataErrorNotIFIndex:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"No index found";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Not IF Index", @"No index found", @"No index found");
+					}
+					break;
+					
+				case ZoomMetadataErrorUnknownFormat:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Unknown story format";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Format", @"Unknown story format", @"Unknown story format");
+					}
+					break;
+					
+				case ZoomMetadataErrorMismatchedFormats:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Story and identification data specify different formats";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Mismatched Formats", @"Story and identification data specify different formats", @"Story and identification data specify different formats");
+					}
+					break;
+					
+				case ZoomMetadataErrorStoriesShareIDs:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Two stories have the same ID";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Stories Share IDs", @"Two stories have the same ID", @"Two stories have the same ID");
+					}
+					break;
+					
+				case ZoomMetadataErrorDuplicateID:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"One story contains the same ID twice";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Duplicate ID", @"One story contains the same ID twice", @"One story contains the same ID twice");
+					}
+					break;
+			}
+			return nil;
+		}];
+	});
+}
 
 - (id) init {
 	self = [super init];
@@ -186,6 +282,12 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 - (BOOL) writeToFile: (NSString*)path
 		  atomically: (BOOL)flag {
 	return [[self xmlData] writeToFile: path atomically: flag];
+}
+
+- (BOOL)    writeToURL: (NSURL*)path
+			atomically: (BOOL)flag
+				 error: (NSError**)error {
+	return [[self xmlData] writeToURL:path options: (flag ? NSDataWritingAtomic : 0) error:error];
 }
 
 - (BOOL) writeToDefaultFile {

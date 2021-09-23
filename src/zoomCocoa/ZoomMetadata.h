@@ -12,10 +12,25 @@
 #import <ZoomPlugIns/ZoomStoryID.h>
 
 // Notifications
-extern NSNotificationName const ZoomMetadataWillDestroyStory;			//!< A story with a particular ID will be destroyed
+//! A story with a particular ID will be destroyed
+extern NSNotificationName const ZoomMetadataWillDestroyStory;
 
-// Cocoa interface to the C ifmetadata class
+extern NSErrorDomain const ZoomMetadataErrorDomain;
+typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
+	ZoomMetadataErrorProgrammerIsASpoon,
+	ZoomMetadataErrorXML,
+	ZoomMetadataErrorNotXML,
+	ZoomMetadataErrorUnknownVersion,
+	ZoomMetadataErrorUnknownTag,
+	ZoomMetadataErrorNotIFIndex,
+	ZoomMetadataErrorUnknownFormat,
+	ZoomMetadataErrorMismatchedFormats,
+	
+	ZoomMetadataErrorStoriesShareIDs,
+	ZoomMetadataErrorDuplicateID
+};
 
+//! Cocoa interface to the C ifmetadata class
 @interface ZoomMetadata : NSObject {
 	NSString* filename;
 	struct IFMetabase* metadata;
@@ -24,9 +39,12 @@ extern NSNotificationName const ZoomMetadataWillDestroyStory;			//!< A story wit
 }
 
 // Initialisation
-- (id) init;											// Blank metadata
-- (id) initWithContentsOfFile: (NSString*) filename;	// Calls initWithData
-- (id) initWithData: (NSData*) xmlData;					// Designated initialiser
+//! Blank metadata
+- (id) init;
+//! Calls initWithData
+- (id) initWithContentsOfFile: (NSString*) filename;
+//! Designated initialiser
+- (id) initWithData: (NSData*) xmlData;
 
 // Thread safety [called by ZoomStory]
 - (void) lock;
@@ -38,7 +56,7 @@ extern NSNotificationName const ZoomMetadataWillDestroyStory;			//!< A story wit
 // Retrieving information
 - (BOOL) containsStoryWithIdent: (ZoomStoryID*) ident;
 - (ZoomStory*) findOrCreateStory: (ZoomStoryID*) ident;
-- (NSArray*)   stories;
+@property (readonly, nonatomic, copy) NSArray<ZoomStory*> *stories;
 
 // Storing information
 - (void) copyStory: (ZoomStory*) story;
@@ -50,6 +68,9 @@ extern NSNotificationName const ZoomMetadataWillDestroyStory;			//!< A story wit
 - (NSData*) xmlData;
 - (BOOL)    writeToFile: (NSString*)path
 			 atomically: (BOOL)flag;
+- (BOOL)    writeToURL: (NSURL*)path
+			atomically: (BOOL)flag
+				 error: (NSError**)error;
 - (BOOL) writeToDefaultFile;
 
 @end

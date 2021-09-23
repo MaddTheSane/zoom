@@ -13,7 +13,7 @@
 // Notifications
 extern NSNotificationName const ZoomStoryDataHasChangedNotification;
 
-enum IFMB_Zarfian {
+typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 	IFMD_Unrated = 0x0,
 	IFMD_Merciful,
 	IFMD_Polite,
@@ -42,7 +42,7 @@ enum IFMB_Zarfian {
 - (id) initWithStory: (struct IFStory*) story
 			metadata: (ZoomMetadata*) metadataContainer;
 
-- (struct IFStory*) story;
+@property (readonly) struct IFStory *story NS_RETURNS_INNER_POINTER;
 - (void) addID: (ZoomStoryID*) newID;
 
 // Searching
@@ -55,7 +55,7 @@ enum IFMB_Zarfian {
 @property (copy)	NSString *genre;
 @property int		year;
 @property (copy)	NSString *group;
-@property unsigned	zarfian;
+@property IFMB_Zarfian zarfian;
 @property (copy)	NSString *teaser;
 @property (copy)	NSString *comment;
 @property float		rating;
@@ -63,7 +63,7 @@ enum IFMB_Zarfian {
 - (int)		  coverPicture;
 - (NSString*) description;
 
-- (id) objectForKey: (id) key; // Always returns an NSString (other objects are possible for other metadata)
+- (id) objectForKey: (NSString*) key; //!< Always returns an NSString (other objects are possible for other metadata)
 
 // Setting data
 - (void) setTitle:		  (NSString*) newTitle;
@@ -72,7 +72,7 @@ enum IFMB_Zarfian {
 - (void) setGenre:		  (NSString*) genre;
 - (void) setYear:		  (int) year;
 - (void) setGroup:		  (NSString*) group;
-- (void) setZarfian:	  (unsigned) zarfian;
+- (void) setZarfian:	  (IFMB_Zarfian) zarfian;
 - (void) setTeaser:		  (NSString*) teaser;
 - (void) setComment:	  (NSString*) comment;
 - (void) setRating:		  (float) rating;
@@ -81,18 +81,24 @@ enum IFMB_Zarfian {
 - (void) setDescription:  (NSString*) description;
 
 - (void) setObject: (id) value
-			forKey: (id) key;
+			forKey: (NSString*) key;
 
 // Identifying and comparing stories
-- (ZoomStoryID*) storyID;								//!< Compound ID
-- (NSArray<ZoomStoryID*>*) storyIDs;					//!< Array of ZoomStoryIDs
-- (BOOL)     hasID: (ZoomStoryID*) storyID;				//!< Story answers to this ID
-- (BOOL)     isEquivalentToStory: (ZoomStory*) story;   //!< Stories share an ID
+//! Compound ID
+- (ZoomStoryID*) storyID;
+//! Array of ZoomStoryIDs
+- (NSArray<ZoomStoryID*>*) storyIDs;
+//! Story answers to this ID
+- (BOOL)     hasID: (ZoomStoryID*) storyID;
+//! Stories share an ID
+- (BOOL)     isEquivalentToStory: (ZoomStory*) story;
 
 // Sending notifications
-- (void) heyLookThingsHaveChangedOohShiney; //!< Sends ZoomStoryDataHasChangedNotification
+//! Sends \c ZoomStoryDataHasChangedNotification
+- (void) heyLookThingsHaveChangedOohShiney;
 
-- (id) init;								// New story (DEPRECATED)
+//! New story (DEPRECATED)
+- (id) init DEPRECATED_ATTRIBUTE;
 
 @end
 

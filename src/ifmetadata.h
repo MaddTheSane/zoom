@@ -71,7 +71,7 @@ struct IFMDData {
 	unsigned int year;
 	IFMDChar* group;
 #ifndef __OBJC__
-	enum {
+	enum IFMB_Zarfian: unsigned {
 		IFMD_Unrated = 0x0,
 		IFMD_Merciful,
 		IFMD_Polite,

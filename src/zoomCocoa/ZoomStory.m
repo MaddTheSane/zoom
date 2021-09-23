@@ -43,20 +43,20 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 	static NSDictionary* keyNameDict = nil;
 	
 	if (keyNameDict == nil) {
-		keyNameDict = [NSDictionary dictionaryWithObjectsAndKeys:
-			@"Title", @"title",
-			@"Headline", @"headline",
-			@"Author", @"author",
-			@"Genre", @"genre",
-			@"Group", @"group",
-			@"Year", @"year",
-			@"Zarfian rating", @"zarfian",
-			@"Teaser", @"teaser",
-			@"Comments", @"comment",
-			@"My Rating", @"rating",
-			@"Description", @"description",
-			@"Cover picture number", @"coverpicture",
-			nil];
+		keyNameDict = @{
+			@"title": @"Title",
+			@"headline": @"Headline",
+			@"author": @"Author",
+			@"genre": @"Genre",
+			@"group": @"Group",
+			@"year": @"Year",
+			@"zarfian": @"Zarfian rating",
+			@"teaser": @"Teaser",
+			@"comment": @"Comments",
+			@"rating": @"My Rating",
+			@"description": @"Description",
+			@"coverpicture": @"Cover picture number",
+		};
 	}
 	
 	return [keyNameDict objectForKey: key];
@@ -235,9 +235,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 
 // = Accessors =
 
-- (struct IFStory*) story {
-	return story;
-}
+@synthesize story;
 
 - (void) addID: (ZoomStoryID*) newID {
 	if (story == NULL) return;
@@ -282,7 +280,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 	return [self objectForKey: @"group"];
 }
 
-- (unsigned) zarfian {
+- (IFMB_Zarfian) zarfian {
 	NSString* zarfian = [[self objectForKey: @"zarfian"] lowercaseString];
 	
 	if ([zarfian isEqualToString: @"merciful"]) {
@@ -370,7 +368,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 			 forKey: @"group"];
 }
 
-- (void) setZarfian: (unsigned) zarfian {
+- (void) setZarfian: (IFMB_Zarfian) zarfian {
 	NSString* narf = nil; /* Are you pondering what I'm pondering? */
 	
 	switch (zarfian) {
@@ -379,6 +377,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 		case IFMD_Tough: narf = @"Tough"; break;
 		case IFMD_Nasty: narf = @"Nasty"; break;
 		case IFMD_Cruel: narf = @"Cruel"; break;
+		default: break;
 	}
 	
 	[self setObject: narf
@@ -528,7 +527,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 	return [NSString stringWithFormat: @"zoom.extra.%@", key];
 }
 
-- (id) objectForKey: (id) key {
+- (id) objectForKey: (NSString*) key {
 	if (story == NULL) return nil;
 
 	if (![key isKindOfClass: [NSString class]]) {
@@ -563,7 +562,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 }
 
 - (void) setObject: (id) value
-			forKey: (id) key {
+			forKey: (NSString*) key {
 	if (story == NULL) return;
 
 	if ([key isEqualToString: @"rating"] && [value isKindOfClass: [NSNumber class]]) {
