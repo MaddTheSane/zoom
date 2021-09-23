@@ -51,12 +51,12 @@
 @property CGFloat width;
 @property CGFloat fullWidth;
 @property CGFloat position;
-@property (nonatomic, retain) NSArray *children;
+@property (nonatomic, retain) NSArray<ZoomSkeinLayoutItem*> *children;
 @property int level;
 @property BOOL onSkeinLine;
 @property BOOL recentlyPlayed;
 @property (readonly) NSInteger depth;
 
-- (NSArray*) itemsOnLevel: (int) level;
+- (NSArray<ZoomSkeinLayoutItem*>*) itemsOnLevel: (int) level;
 
 @end

@@ -15,9 +15,10 @@
 	IBOutlet ZoomSkeinView* skeinView;
 }
 
-+ (ZoomSkeinController*) sharedSkeinController;
+@property (class, readonly, strong) ZoomSkeinController *sharedSkeinController;
 
 - (void) setSkein: (ZoomSkein*) skein;
 - (ZoomSkein*) skein;
+@property (nonatomic, strong) ZoomSkein *skein;
 
 @end

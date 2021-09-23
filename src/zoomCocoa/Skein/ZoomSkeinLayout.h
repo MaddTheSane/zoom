@@ -12,8 +12,8 @@
 #import <ZoomView/ZoomSkeinLayoutItem.h>
 
 typedef NS_ENUM(int, IFSkeinPackingStyle) {
-	IFSkeinPackLoose,
-	IFSkeinPackTight
+	IFSkeinPackLoose NS_SWIFT_NAME(loose),
+	IFSkeinPackTight NS_SWIFT_NAME(tight)
 };
 
 @interface ZoomSkeinLayout : NSObject {

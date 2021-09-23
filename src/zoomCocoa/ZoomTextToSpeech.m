@@ -178,7 +178,6 @@ static SpeechChannel channel = nil;
 				WriteBuffer(chr);
 		}
 	}
-	WriteBuffer(0);
 	
 	SpeakCFString(channel, (__bridge CFStringRef _Nonnull)(buffer), NULL);
 #else

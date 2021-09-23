@@ -15,6 +15,7 @@
 	NSString* lastError;							// The last error to occur
 }
 
+//! The last error to occur
 @property (copy, nullable) NSString *lastError;
 
 @end

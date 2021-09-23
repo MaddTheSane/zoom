@@ -29,7 +29,7 @@
 					 serial: (const unsigned char*) serial
 				   checksum: (int) checksum NS_DESIGNATED_INITIALIZER;
 
-- (struct IFID*) ident;
+@property (readonly) struct IFID *ident NS_RETURNS_INNER_POINTER;
 
 - (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 

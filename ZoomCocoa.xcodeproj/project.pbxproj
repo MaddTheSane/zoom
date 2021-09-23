@@ -960,6 +960,7 @@
 		4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomBlorbFile.m; sourceTree = "<group>"; };
 		552A037F2049E74B00A4ECAA /* ZoomView.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ZoomView.modulemap; sourceTree = "<group>"; };
 		552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomPlugIns.modulemap; sourceTree = "<group>"; };
+		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		55BB924E2048AC4000AB4B5B /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		55BB92522048ADA500AB4B5B /* quill.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = quill.c; sourceTree = "<group>"; };
 		55BB926F2048D8D900AB4B5B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1194,27 +1195,27 @@
 		4B1E3F88050F7CF100A8E303 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				4BE447BA0510E0E000A8E303 /* display.c */,
-				4BCF3F2D050F8ECD00A8E303 /* display.h */,
 				4B1E3F91050F7D5200A8E303 /* blorb.c */,
 				4B1E3F99050F7D5200A8E303 /* blorb.h */,
+				4BE447BA0510E0E000A8E303 /* display.c */,
+				4BCF3F2D050F8ECD00A8E303 /* display.h */,
 				4B1E3F8F050F7D5200A8E303 /* file.c */,
 				4B1E3F9A050F7D5200A8E303 /* file.h */,
 				4B1E3F94050F7D5200A8E303 /* font3.c */,
 				4B1E3F8B050F7D5200A8E303 /* font3.h */,
 				4B1E3F90050F7D5200A8E303 /* hash.c */,
 				4B1E3F9B050F7D5200A8E303 /* hash.h */,
-				4BCF3F62050FBB3F00A8E303 /* image.h */,
 				4B1E3F89050F7D5200A8E303 /* iff.c */,
+				4BCF3F62050FBB3F00A8E303 /* image.h */,
 				4B1E3F8C050F7D5200A8E303 /* main.c */,
 				4B1E3F95050F7D5200A8E303 /* menu.c */,
 				4B1E3F98050F7D5200A8E303 /* menu.h */,
 				4B1E3F8E050F7D5200A8E303 /* options.c */,
 				4B1E3F97050F7D5200A8E303 /* options.h */,
-				4B1E3F92050F7D5200A8E303 /* rc.c */,
-				4B1E3F8A050F7D5200A8E303 /* rc.h */,
 				4B1E3F96050F7D5200A8E303 /* rc_lex.l */,
 				4B1E3F8D050F7D5200A8E303 /* rc_parse.y */,
+				4B1E3F92050F7D5200A8E303 /* rc.c */,
+				4B1E3F8A050F7D5200A8E303 /* rc.h */,
 				4B1E3F93050F7D5200A8E303 /* rcp.h */,
 				4BCF3F5E050FBAAF00A8E303 /* v6display.c */,
 				4BCF3F5F050FBAAF00A8E303 /* v6display.h */,
@@ -1465,6 +1466,7 @@
 				4B152D2C0B46D2DA008CC1EF /* Notes */,
 				4B7CB0730936276B00F3B8F6 /* PlugIns */,
 				4B7284810CD37AF90079D89B /* Leopard */,
+				5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */,
 			);
 			name = ZoomClient;
 			path = src/zoomCocoa;
@@ -1978,6 +1980,11 @@
 			attributes = {
 				CLASSPREFIX = Zoom;
 				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					4BB8C18808C249F400D7D334 = {
+						LastSwiftMigration = 1250;
+					};
+				};
 			};
 			buildConfigurationList = 4B11039608606E2600253E87 /* Build configuration list for PBXProject "ZoomCocoa" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -2991,6 +2998,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "zoom-app";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CURRENT_PROJECT_VERSION = 1.1.7;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2998,10 +3006,17 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.1.7;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom;
 				PRODUCT_NAME = Zoom;
+				SWIFT_OBJC_BRIDGING_HEADER = "src/zoomCocoa/Zoom-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3010,6 +3025,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "zoom-app";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CURRENT_PROJECT_VERSION = 1.1.7;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3017,12 +3033,18 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.1.7;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom;
 				PRODUCT_NAME = Zoom;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
+				SWIFT_OBJC_BRIDGING_HEADER = "src/zoomCocoa/Zoom-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

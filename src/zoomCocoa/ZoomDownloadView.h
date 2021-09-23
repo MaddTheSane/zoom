@@ -14,6 +14,7 @@
 	NSProgressIndicator* progress;				// The progress indicator
 }
 
-@property (readonly, retain) NSProgressIndicator *progress;				//!< The download progress indicator
+//! The download progress indicator
+@property (readonly, retain) NSProgressIndicator *progress;
 
 @end

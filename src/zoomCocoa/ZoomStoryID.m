@@ -481,9 +481,7 @@
 	}
 }
 
-- (struct IFID*) ident {
-	return ident;
-}
+@synthesize ident;
 
 // = NSCopying =
 - (id) copyWithZone: (NSZone*) zone {

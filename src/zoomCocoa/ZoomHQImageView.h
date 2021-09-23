@@ -9,11 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 
-//
-// Class whose sole purpose is to increase the rendering quality of NSImageView
-//
-@interface ZoomHQImageView : NSImageView {
-
-}
+//!
+//! Class whose sole purpose is to increase the rendering quality of NSImageView
+//!
+@interface ZoomHQImageView : NSImageView
 
 @end
