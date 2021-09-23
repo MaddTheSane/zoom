@@ -301,6 +301,7 @@
 	<array>
 		<string>i386</string>
 		<string>x86_64</string>
+		<string>arm64</string>
 	</array>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
