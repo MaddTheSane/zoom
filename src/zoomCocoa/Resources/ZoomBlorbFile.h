@@ -41,6 +41,7 @@
 + (BOOL) zfileIsBlorb: (NSObject<ZFile>*) file;
 
 // Initialisation
+- (instancetype)init UNAVAILABLE_ATTRIBUTE;
 - (id) initWithZFile: (NSObject<ZFile>*) file NS_DESIGNATED_INITIALIZER; //!< Designated initialiser
 - (id) initWithData: (NSData*) blorbFile;
 - (id) initWithContentsOfFile: (NSString*) filename;

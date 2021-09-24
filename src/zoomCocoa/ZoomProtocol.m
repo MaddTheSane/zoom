@@ -356,13 +356,13 @@ NSString* const ZStyleAttributeName = @"ZStyleAttribute";
 			foregroundColour = [coder decodeIntForKey: FOREGROUNDCOLORCODINGKEY];
 			backgroundColour = [coder decodeIntForKey: BACKGROUNDCOLORCODINGKEY];
 		} else {
-			[coder decodeValueOfObjCType: @encode(int) at: &flags];
+			[coder decodeValueOfObjCType: @encode(int) at: &flags size: sizeof(int)];
 			
 			foregroundTrue   = [coder decodeObject];
 			backgroundTrue   = [coder decodeObject];
 			
-			[coder decodeValueOfObjCType: @encode(int) at: &foregroundColour];
-			[coder decodeValueOfObjCType: @encode(int) at: &backgroundColour];
+			[coder decodeValueOfObjCType: @encode(int) at: &foregroundColour size: sizeof(int)];
+			[coder decodeValueOfObjCType: @encode(int) at: &backgroundColour size: sizeof(int)];
 		}
         isBold = (flags&1)?YES:NO;
         isUnderline = (flags&2)?YES:NO;

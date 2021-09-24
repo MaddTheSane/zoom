@@ -1977,7 +1977,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Zoom;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					4B7CB08009362A3B00F3B8F6 = {
 						LastSwiftMigration = 1250;
@@ -2738,6 +2738,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
 			name = Release;
