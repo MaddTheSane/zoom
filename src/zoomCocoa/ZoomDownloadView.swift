@@ -29,7 +29,7 @@ class ZoomDownloadView : NSView {
 	
 	override func draw(_ dirtyRect: NSRect) {
 		let imageSize = downloadImage.size
-		let bounds = self.bounds;
+		let bounds = self.bounds
 
 		NSColor.clear.set()
 		bounds.fill()

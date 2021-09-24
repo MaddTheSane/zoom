@@ -117,7 +117,7 @@ static NSImage* blorbImage;
 	if ([self willOrganise]) {
 		return NSDragOperationCopy;
 	} else {
-		if ([[sender draggingPasteboard] dataForType: NSPasteboardTypeFileURL] == nil) return NSDragOperationNone;
+		if ([[sender draggingPasteboard] readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}] == nil) return NSDragOperationNone;
 		return NSDragOperationLink;
 	}
 }
