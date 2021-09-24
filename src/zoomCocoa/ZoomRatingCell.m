@@ -26,9 +26,9 @@ static NSSize starsSize;
 + (void) initialize {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		stars1 = [[NSImage imageNamed: @"stars-grey"] retain];
-		stars2 = [[NSImage imageNamed: @"stars-red"] retain];
-		dots   = [[NSImage imageNamed: @"stars-none"] retain];
+		stars1 = [NSImage imageNamed: @"stars-grey"];
+		stars2 = [NSImage imageNamed: @"stars-red"];
+		dots   = [NSImage imageNamed: @"stars-none"];
 		
 		starsSize = [stars1 size];
 	});

@@ -21,9 +21,13 @@ static NSImage* saveHighlightActive;
 static NSImage* saveBackground;
 
 + (void) initialize {
-	saveHighlightInactive = [[NSImage imageNamed: @"saveHighlightInactive"] retain];
-	saveHighlightActive = [[NSImage imageNamed: @"saveHighlightActive"] retain];
-	saveBackground = [[NSImage imageNamed: @"saveBackground"] retain];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		saveHighlightInactive = [NSImage imageNamed: @"saveHighlightInactive"];
+		saveHighlightActive = [NSImage imageNamed: @"saveHighlightActive"];
+		saveBackground = [NSImage imageNamed: @"saveBackground"];
+
+	});
 }
 
 - (id)initWithFrame:(NSRect)frame {
@@ -46,7 +50,7 @@ static NSImage* saveBackground;
 	self = [self init];
 	
 	if (self) {
-		preview = [prev retain];
+		preview = prev;
 		filename = [file copy];
 		highlighted = NO;
 	}
@@ -59,20 +63,12 @@ static NSImage* saveBackground;
 	self = [self init];
 	
 	if (self) {
-		previewLines = [prev retain];
+		previewLines = prev;
 		filename = [file copy];
 		highlighted = NO;
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	if (previewLines) [previewLines release];
-	if (preview) [preview release];
-	if (filename) [filename release];
-	
-	[super dealloc];
 }
 
 @synthesize highlighted;
@@ -183,8 +179,6 @@ static NSImage* saveBackground;
 		ypos += stringSize.height;
 		
 		// Finish up
-		[stripString release];
-		
 		lines++;
 		if (lines > 2) break;
 	}

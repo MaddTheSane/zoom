@@ -28,27 +28,17 @@ static NSImage* disabledImage;
     return self;
 }
 
-- (void) dealloc {
-	if (pushedImage) [pushedImage release];
-	if (unpushedImage) [unpushedImage release];
-	if (disabledImage) [disabledImage release];
-	
-	[super dealloc];
-}
-
 @synthesize pushedImage;
 - (void) setPushedImage: (NSImage*) newPushedImage {
-	if (pushedImage) [pushedImage release];
-	pushedImage = [newPushedImage retain];
+	pushedImage = newPushedImage;
 	
 	// Generate a greyed-out image
 	NSRect imgRect = NSMakeRect(0,0,0,0);
 	imgRect.size = [[self image] size];
 	
-	if (disabledImage) [disabledImage release];
 	disabledImage = [[self image] copy];
 	
-	NSImage* tempImage = [[[NSImage alloc] initWithSize: [[self image] size]] autorelease];
+	NSImage* tempImage = [[NSImage alloc] initWithSize: [[self image] size]];
 	[tempImage lockFocus];
 	[[NSColor whiteColor] set];
 	NSRectFill(imgRect);
@@ -66,7 +56,7 @@ static NSImage* disabledImage;
 	if (![self isEnabled]) return;
 	
 	if (!unpushedImage) {
-		unpushedImage = [[self image] retain];
+		unpushedImage = [self image];
 		[self setImage: pushedImage];
 		
 		inside = YES;
@@ -100,7 +90,6 @@ static NSImage* disabledImage;
 
 	if (unpushedImage) {
 		[self setImage: unpushedImage];
-		[unpushedImage release];
 		unpushedImage = nil;
 		
 		[self removeTrackingRect: theTrackingRect];
@@ -135,13 +124,12 @@ static NSImage* disabledImage;
 - (void) setEnabled: (BOOL) enabled {
 	if (!enabled) {
 		if (!unpushedImage) {
-			unpushedImage = [[self image] retain];
+			unpushedImage = [self image];
 			[self setImage: disabledImage];
 		}
 	} else {
 		if (unpushedImage) {
 			[self setImage: unpushedImage];
-			[unpushedImage release];
 			unpushedImage = nil;
 		}
 	}

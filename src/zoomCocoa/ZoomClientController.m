@@ -20,6 +20,7 @@
 #import "ZoomClearView.h"
 
 @implementation ZoomClientController
+@synthesize zoomView;
 
 - (id) init {
     self = [super initWithWindowNibName: @"ZoomClient"];
@@ -38,16 +39,9 @@
     if (zoomView) [zoomView setDelegate: nil];
     if (zoomView) [zoomView killTask];
 	
-	if (fullscreenWindow) [fullscreenWindow release];
-	if (normalWindow) [normalWindow release];
-
-	if (fadeStart) [fadeStart release];
 	if (fadeTimer) {
-		[fadeTimer invalidate]; [fadeTimer release];
+		[fadeTimer invalidate];
 	}
-	if (logoWindow) [logoWindow release];
-	
-    [super dealloc];
 }
 
 - (void) windowDidLoad {
@@ -58,7 +52,7 @@
 		
 		[zoomView removeFromSuperview];
 		//[zoomView release];
-		zoomView = [[(ZoomClient*)[self document] defaultView] retain];
+		zoomView = [(ZoomClient*)[self document] defaultView];
 		
 		[superview addSubview: zoomView];
 		[zoomView setFrame: viewFrame];
@@ -102,7 +96,6 @@
 			alert.informativeText = errorText;
 			[alert addButtonWithTitle:@"Continue"];
 			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
-				[alert release];
 			}];
 		}
 	}
@@ -112,11 +105,8 @@
 }
 
 - (IBAction) reloadGame: (id) sender {
-	// Request from a menu item: close and re-open this file
-	[[self retain] autorelease];
-	
 	// Get the file we're going to re-open
-	NSString* filename = [[[(NSDocument*)[self document] fileURL].path retain] autorelease];
+	NSString* filename = [(NSDocument*)[self document] fileURL].path;
 	
 	// Close ourselves down
 	[[self document] close];
@@ -151,7 +141,6 @@
 		
 		[zoomView restoreAutosaveFromCoder: decoder];
 		
-		[decoder release];
 		[[self document] setAutosaveData: nil];
 	}
 	
@@ -263,7 +252,6 @@
     [NSApp endSheet: [gamePrefs window]];
 	
 	[[gamePrefs window] orderOut: self];
-	[gamePrefs release];
 }
 
 // = Setting up the game info window =
@@ -352,7 +340,6 @@
 													  order: 32
 													  modes: @[NSDefaultRunLoopMode]];
 			}
-			[alert release];
 		}];
 		
 		return NO;
@@ -374,12 +361,8 @@
 	
 		BOOL saveOK = [zoomView createAutosaveDataWithCoder: theCoder];
 	
-		[theCoder release];
-	
 		// Produce an autosave file
 		if (saveOK) [autosaveData writeToFile: autosaveFile atomically: YES];
-
-		[autosaveData release];
 	} else {
 		if ([[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
 			[[NSFileManager defaultManager] removeItemAtPath: autosaveFile
@@ -472,17 +455,16 @@
 
 - (IBAction) playInFullScreen: (id) sender {
 	if (isFullscreen) {
+		ZoomView *theView = zoomView;
 		// Show the menubar
 		[NSMenu setMenuBarVisible: YES];
 
 		// Stop being fullscreen
-		[zoomView retain];
-		[zoomView removeFromSuperview];
+		[theView removeFromSuperview];
 		
-		[zoomView setScaleFactor: 1.0];
-		[zoomView setFrame: [[normalWindow contentView] bounds]];
-		[[normalWindow contentView] addSubview: zoomView];
-		[zoomView release];
+		[theView setScaleFactor: 1.0];
+		[theView setFrame: [[normalWindow contentView] bounds]];
+		[[normalWindow contentView] addSubview: theView];
 		
 		// Swap windows back
 		if (normalWindow) {
@@ -502,7 +484,7 @@
 		isFullscreen = NO;
 	} else {
 		// As of 10.4, we need to create a separate full-screen window (10.4 tries to be 'clever' with the window borders, which messes things up
-		if (!normalWindow) normalWindow = [[self window] retain];
+		if (!normalWindow) normalWindow = [self window];
 		if (!fullscreenWindow) {
 			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
 																				styleMask: NSWindowStyleMaskBorderless
@@ -525,10 +507,9 @@
 						   display: NO];
 		[fullscreenWindow makeKeyAndOrderFront: self];
 		
-		[zoomView retain];
-		[zoomView removeFromSuperview];
-		[[fullscreenWindow contentView] addSubview: zoomView];
-		[zoomView release];
+		ZoomView *theView = zoomView;
+		[theView removeFromSuperview];
+		[[fullscreenWindow contentView] addSubview: theView];
 		
 		[normalWindow setInitialFirstResponder: nil];
 		[normalWindow setDelegate: nil];
@@ -549,7 +530,6 @@
 		// Finish off zoomView
 		NSSize oldZoomViewSize = [zoomView frame].size;
 		
-		[zoomView retain];
 		[zoomView removeFromSuperviewWithoutNeedingDisplay];
 		
 		// Hide the menubar
@@ -568,7 +548,7 @@
 		} else {
 			[fullscreenWindow setOpaque: NO];
 			[fullscreenWindow setBackgroundColor: [NSColor clearColor]];
-			[[self window] setContentView: [[[ZoomClearView alloc] init] autorelease]];
+			[[self window] setContentView: [[ZoomClearView alloc] init]];
 			[[self window] setFrame: frame
 							display: YES
 							animate: NO];
@@ -587,7 +567,6 @@
 		
 		// Add it back in again
 		[[[self window] contentView] addSubview: zoomView];
-		[zoomView release];
 		
 		// Perform an animation in Leopard
 		if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
@@ -618,7 +597,7 @@
 		
 		NSSize newSize = NSMakeSize(scaleFactor * oldSize.width, scaleFactor * oldSize.height);
 		
-		result = [[[NSImage alloc] initWithSize: newSize] autorelease];
+		result = [[NSImage alloc] initWithSize: newSize];
 		[result lockFocus];
 		[[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationHigh];
 		
@@ -680,7 +659,7 @@
 	NSImageView* fadeContents = [[NSImageView alloc] initWithFrame: [[logoWindow contentView] frame]];
 	
 	[fadeContents setImage: logo];
-	[logoWindow setContentView: [fadeContents autorelease]];
+	[logoWindow setContentView: fadeContents];
 	
 	fadeTimer = [NSTimer timerWithTimeInterval: waitTime
 										target: self
@@ -710,8 +689,7 @@
 	[[NSRunLoop currentRunLoop] addTimer: fadeTimer
 								 forMode: NSDefaultRunLoopMode];
 	
-	[fadeStart release];
-	fadeStart = [[NSDate date] retain];
+	fadeStart = [NSDate date];
 }
 
 - (void) fadeLogo {
@@ -724,10 +702,8 @@
 		fadeTimer = nil;
 		
 		[[logoWindow parentWindow] removeChildWindow: logoWindow];
-		[logoWindow release];
 		logoWindow = nil;
 		
-		[fadeStart release];
 		fadeStart = nil;
 	} else {
 		fadeAmount = -2.0*fadeAmount*fadeAmount*fadeAmount + 3.0*fadeAmount*fadeAmount;
@@ -760,10 +736,6 @@
 	}
 	
 	return displayName;
-}
-
-- (ZoomView*) zoomView {
-	return zoomView;
 }
 
 // = Text to speech =

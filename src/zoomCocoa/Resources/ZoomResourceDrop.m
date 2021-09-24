@@ -16,8 +16,11 @@ static NSImage* blorbImage;
 @implementation ZoomResourceDrop
 
 + (void) initialize {
-	needDropImage = [NSImage imageNamed: @"NeedDrop"];
-	blorbImage = [NSImage imageNamed: @"Blorb"];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		needDropImage = [NSImage imageNamed: @"NeedDrop"];
+		blorbImage = [NSImage imageNamed: @"Blorb"];
+	});
 }
 
 - (id)initWithFrame:(NSRect)frame {
@@ -26,20 +29,13 @@ static NSImage* blorbImage;
     if (self) {
 		droppedFilename = nil;
 		
-		[self registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, NSFileContentsPboardType, NSPasteboardTypeFileURL, nil]];
+		[self registerForDraggedTypes: [NSArray arrayWithObjects: NSFileContentsPboardType, NSPasteboardTypeFileURL, nil]];
 		
 		willOrganise = 2; // Take value from global preferences (default)
 		enabled = YES;
     }
 	
     return self;
-}
-
-- (void) dealloc {
-	if (droppedFilename) [droppedFilename release];
-	if (droppedData) [droppedData release];
-	
-	[super dealloc];
 }
 
 - (void)drawRect:(NSRect)rect {
@@ -77,7 +73,7 @@ static NSImage* blorbImage;
 	
 	// Draw the text
 	NSRect remainingRect = bounds;
-	NSMutableParagraphStyle* paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+	NSMutableParagraphStyle* paraStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 	[paraStyle setAlignment: NSTextAlignmentCenter];
 	
 	remainingRect.size.height -= imgRect.size.height + 8;
@@ -121,7 +117,7 @@ static NSImage* blorbImage;
 	if ([self willOrganise]) {
 		return NSDragOperationCopy;
 	} else {
-		if ([[sender draggingPasteboard] dataForType: NSFilenamesPboardType] == nil) return NSDragOperationNone;
+		if ([[sender draggingPasteboard] dataForType: NSPasteboardTypeFileURL] == nil) return NSDragOperationNone;
 		return NSDragOperationLink;
 	}
 }
@@ -134,12 +130,12 @@ static NSImage* blorbImage;
 		return NO;
 	}
 		
-	NSArray* filenames = [[sender draggingPasteboard] propertyListForType: NSFilenamesPboardType];
+	NSArray<NSURL*>* filenames = [[sender draggingPasteboard] readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
 	if (filenames != nil && [filenames isKindOfClass: [NSArray class]]) {
 		// Is a filename array: we can handle one filename, which must be a .blb, .glb or .zlb file
 		if ([filenames count] != 1) goto notAFilename;
 		
-		NSString* filename = [filenames objectAtIndex: 0];
+		NSString* filename = [filenames objectAtIndex: 0].path;
 		if (![filename isKindOfClass: [NSString class]]) goto notAFilename;
 		
 		if (!([[filename pathExtension] isEqualToString: @"blb"] || 
@@ -168,12 +164,12 @@ notAFilename:
 		return NO;
 	}
 	
-	NSArray* filenames = [[sender draggingPasteboard] propertyListForType: NSFilenamesPboardType];
+	NSArray<NSURL*>* filenames = [[sender draggingPasteboard] readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
 	if (filenames != nil && [filenames isKindOfClass: [NSArray class]]) {
 		// Is a filename array: we can handle one filename, which must be a .blb, .glb or .zlb file
 		if ([filenames count] != 1) return NO;
 		
-		NSString* filename = [filenames objectAtIndex: 0];
+		NSString* filename = [filenames objectAtIndex: 0].path;
 		if (![filename isKindOfClass: [NSString class]]) return NO;
 		
 		if (!([[filename pathExtension] isEqualToString: @"blb"] || 
@@ -184,7 +180,6 @@ notAFilename:
 		}
 		
 		if (droppedData != nil) {
-			[droppedData release];
 			droppedData = nil;
 			[self resourceDropDataChanged: self];
 		}
@@ -222,8 +217,6 @@ notAFilename:
 	if (![file parseResourceIndex]) {
 		NSLog(@"Failed to parse index");
 	}
-	
-	[file release];
 }
 
 - (void) resourceDropDataChanged: (ZoomResourceDrop*) drop {

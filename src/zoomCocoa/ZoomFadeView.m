@@ -17,7 +17,7 @@ static NSImage* fade = nil;
     self = [super initWithFrame:frame];
     if (self) {
 		if (fade == nil) {
-			fade = [[NSImage imageNamed: @"top-shading"] retain];
+			fade = [NSImage imageNamed: @"top-shading"];
 		}
     }
     return self;

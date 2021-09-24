@@ -13,11 +13,6 @@
 
 // = Initialisation =
 
-- (void) dealloc {
-	[lastError release];
-	[super dealloc];
-}
-
 // = JavaScript names for our selectors =
 
 + (NSString *) webScriptNameForSelector: (SEL)sel {

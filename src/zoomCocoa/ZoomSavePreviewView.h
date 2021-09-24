@@ -20,6 +20,6 @@
 - (void) previewMouseUp: (NSEvent*) evt
 				 inView: (ZoomSavePreview*) view;
 - (NSString*) selectedSaveGame;
-- (BOOL) saveGamesAvailable;
+@property (readonly) BOOL saveGamesAvailable;
 
 @end

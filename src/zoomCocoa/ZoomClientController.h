@@ -12,7 +12,6 @@
 
 
 @interface ZoomClientController : NSWindowController <NSWindowDelegate, ZoomViewDelegate> {
-    IBOutlet ZoomView* zoomView;
 	BOOL isFullscreen;
 	BOOL finished;
 	BOOL closeConfirmed;
@@ -35,7 +34,7 @@
 
 - (IBAction) playInFullScreen: (id) sender;
 
-- (ZoomView*) zoomView;
+@property (strong) IBOutlet ZoomView *zoomView;
 - (void) showLogoWindow;
 
 @end

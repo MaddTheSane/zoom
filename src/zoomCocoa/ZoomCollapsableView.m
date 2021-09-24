@@ -35,13 +35,7 @@
 }
 
 - (void) dealloc {
-	[views release];
-	[titles release];
-	[states release];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[super dealloc];
 }
 
 // = Drawing =

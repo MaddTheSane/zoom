@@ -18,7 +18,7 @@
 	int willOrganise;
 	BOOL enabled;
 	
-	id<ZoomResourceDropDelegate> delegate;
+	__weak id<ZoomResourceDropDelegate> delegate;
 }
 
 // Flags
@@ -29,7 +29,7 @@
 @property (copy) NSString *droppedFilename;
 
 // Delegate
-@property (assign) IBOutlet id<ZoomResourceDropDelegate> delegate;
+@property (weak) IBOutlet id<ZoomResourceDropDelegate> delegate;
 
 @end
 

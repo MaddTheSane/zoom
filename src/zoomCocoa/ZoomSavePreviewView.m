@@ -26,12 +26,6 @@
     return self;
 }
 
-- (void) dealloc {
-	if (upperWindowViews) [upperWindowViews release];
-	
-	[super dealloc];
-}
-
 - (void)drawRect:(NSRect)rect {
 }
 
@@ -39,7 +33,6 @@
 	// Get rid of our old views
 	if (upperWindowViews) {
 		[upperWindowViews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-		[upperWindowViews release];
 		upperWindowViews = nil;
 	}
 	
@@ -107,7 +100,7 @@
 			[preview setAutoresizingMask: NSViewWidthSizable];
 			[preview setMenu: [self menu]];
 			[self addSubview: preview];
-			[upperWindowViews addObject: [preview autorelease]];
+			[upperWindowViews addObject: preview];
 			
 			saveGamesAvailable = YES;
 
@@ -161,7 +154,7 @@
 			[preview setAutoresizingMask: NSViewWidthSizable];
 			[preview setMenu: [self menu]];
 			[self addSubview: preview];
-			[upperWindowViews addObject: [preview autorelease]];
+			[upperWindowViews addObject: preview];
 			
 			saveGamesAvailable = YES;
 
@@ -237,8 +230,6 @@
 	}
 }
 
-- (BOOL) saveGamesAvailable {
-	return saveGamesAvailable;
-}
+@synthesize saveGamesAvailable;
 
 @end

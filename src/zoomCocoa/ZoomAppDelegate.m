@@ -54,29 +54,22 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		NSData* archiveData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"archive" ofType: @"iFiction"]];
 		
 		if (userData) 
-			[gameIndices addObject: [[[ZoomMetadata alloc] initWithData: userData] autorelease]];
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: userData]];
 		else
-			[gameIndices addObject: [[[ZoomMetadata alloc] init] autorelease]];
+			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 
 		if (gameData) 
-			[gameIndices addObject: [[[ZoomMetadata alloc] initWithData: gameData] autorelease]];
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: gameData]];
 		else
-			[gameIndices addObject: [[[ZoomMetadata alloc] init] autorelease]];
+			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 		
 		if (infocomData) 
-			[gameIndices addObject: [[[ZoomMetadata alloc] initWithData: infocomData] autorelease]];
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: infocomData]];
 		if (archiveData) 
-			[gameIndices addObject: [[[ZoomMetadata alloc] initWithData: archiveData] autorelease]];
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: archiveData]];
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	if (preferencePanel) [preferencePanel release];
-	[gameIndices release];
-	
-	[super dealloc];
 }
 
 // = Opening files =
@@ -179,7 +172,6 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		
 		if (identString) {
 			ident = [[ZoomStoryID alloc] initWithIdString: identString];
-			[ident autorelease];
 		}
 		
 		// Try to get the filename of the game file that owns this story
@@ -239,8 +231,6 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			[[NSDocumentController sharedDocumentController] addDocument: pluginDocument];
 			[pluginDocument makeWindowControllers];
 			[pluginDocument showWindows];
-			
-			[pluginInstance autorelease];
 			
 			return YES;
 		}
@@ -502,7 +492,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 	NSString *urlUTI;
 	if (![url getResourceValue:&urlUTI forKey:NSURLTypeIdentifierKey error:NULL]) {
-		urlUTI = CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)url.pathExtension, isDirectory ? kUTTypeDirectory : kUTTypeData));
+		urlUTI = CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.pathExtension, isDirectory ? kUTTypeDirectory : kUTTypeData));
 	}
 	
 	// Show files that we can open with the ZoomClient document type
@@ -569,12 +559,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 	
 	panel.directoryURL = directory;
-	NSString *data = [[[[ZoomSkeinController sharedSkeinController] skein] transcriptToPoint: nil] retain];
+	NSString *data = [[[ZoomSkeinController sharedSkeinController] skein] transcriptToPoint: nil];
 	
-	[panel retain];
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript:panel returnCode:result contextInfo:data];
-		[panel release];
+		[self saveTranscript:panel returnCode:result contextInfo:CFBridgingRetain(data)];
 	}];
 }
 
@@ -606,10 +594,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 	
 	panel.directoryURL = directoryURL;
-	NSString *saveData = [[[[ZoomSkeinController sharedSkeinController] skein] recordingToPoint: nil] retain];
+	NSString *saveData = [[[ZoomSkeinController sharedSkeinController] skein] recordingToPoint: nil];
 	
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript:panel returnCode:result contextInfo:saveData];
+		[self saveTranscript:panel returnCode:result contextInfo:CFBridgingRetain(saveData)];
 	}];
 }
 
@@ -629,23 +617,20 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 	
 	ZoomSkein* skein = [[ZoomSkeinController sharedSkeinController] skein];
-	NSString* xml = [[skein xmlData] retain];
+	NSString* xml = [skein xmlData];
 	panel.directoryURL = directory;
-	[panel retain];
 	
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript:panel returnCode:result contextInfo:xml];
-		[panel release];
+		[self saveTranscript:panel returnCode:result contextInfo:CFBridgingRetain(xml)];
 	}];
 }
 
 - (void) saveTranscript: (NSSavePanel *) panel 
              returnCode: (NSModalResponse) returnCode
             contextInfo: (void*) contextInfo {
-	NSString* data = (NSString*)contextInfo;
+	NSString* data = (NSString*)CFBridgingRelease(contextInfo);
 
 	if (returnCode != NSModalResponseOK) {
-		[data release];
 		return;
 	}
 	
@@ -655,7 +640,6 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	// Save the data
 	NSData* charData = [data dataUsingEncoding: NSUTF8StringEncoding];
-	[data release];
 	[charData writeToURL: [panel URL]
 			  atomically: YES];
 }
@@ -667,7 +651,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 // = Check for updates =
 
 - (IBAction) checkForUpdates: (id) sender {
-	[updater checkForUpdates: self];
+//	[updater checkForUpdates: self];
 	[[ZoomPlugInController sharedPlugInController] checkForUpdates: self];
 }
 
