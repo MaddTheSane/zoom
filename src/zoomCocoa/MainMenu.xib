@@ -23,28 +23,24 @@
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="341">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="341"/>
                             <menuItem title="Preferences..." keyEquivalent="," id="129">
                                 <connections>
                                     <action selector="showPreferences:" target="-1" id="251"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Check for Updates..." id="358">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="checkForUpdates:" target="240" id="375"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="143">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="143"/>
                             <menuItem title="Services" id="131">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Services" systemMenu="services" id="130"/>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="144">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="144"/>
                             <menuItem title="Hide Zoom" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-2" id="152"/>
@@ -57,6 +53,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem title="Show All" id="150">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="unhideAllApplications:" target="-2" id="153"/>
                                 </connections>
@@ -81,9 +78,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem title="Open Recent" id="124">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="125">
                                     <items>
                                         <menuItem title="Clear Menu" id="126">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="clearRecentDocuments:" target="-1" id="127"/>
                                             </connections>
@@ -91,17 +90,14 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="335">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="335"/>
                             <menuItem title="Save Metadata..." id="336">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="saveMetadata:" target="-1" id="337"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="79">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="79"/>
                             <menuItem title="Close" keyEquivalent="w" id="73">
                                 <connections>
                                     <action selector="performClose:" target="-1" id="193"/>
@@ -123,9 +119,7 @@
                                     <action selector="saveSkein:" target="-1" id="355"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="74">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="74"/>
                             <menuItem title="Page Setup..." keyEquivalent="P" id="77">
                                 <connections>
                                     <action selector="runPageLayout:" target="-1" id="87"/>
@@ -177,6 +171,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem title="Delete" id="202">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="delete:" target="-1" id="235"/>
                                 </connections>
@@ -190,6 +185,7 @@
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
                             <menuItem title="Font" id="274">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Font" systemMenu="font" id="256">
                                     <items>
                                         <menuItem title="Show Fonts" keyEquivalent="t" id="271">
@@ -229,24 +225,29 @@
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </menuItem>
                                         <menuItem title="Kern" id="261">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Kern" id="275">
                                                 <items>
                                                     <menuItem title="Use Default" id="259">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="useStandardKerning:" target="-1" id="310"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Use None" id="266">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="turnOffKerning:" target="-1" id="308"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Tighten" id="270">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="tightenKerning:" target="-1" id="301"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Loosen" id="286">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="loosenKerning:" target="-1" id="302"/>
                                                         </connections>
@@ -255,19 +256,23 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem title="Ligature" id="272">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Ligature" id="284">
                                                 <items>
                                                     <menuItem title="Use Default" id="279">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="useStandardLigatures:" target="-1" id="309"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Use None" id="263">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="turnOffLigatures:" target="-1" id="291"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Use All" id="276">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="useAllLigatures:" target="-1" id="300"/>
                                                         </connections>
@@ -276,29 +281,35 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem title="Baseline" id="264">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Baseline" id="267">
                                                 <items>
                                                     <menuItem title="Use Default" id="278">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="unscript:" target="-1" id="295"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Superscript" id="280">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="superscript:" target="-1" id="292"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Subscript" id="262">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="subscript:" target="-1" id="296"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Raise" id="273">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="raiseBaseline:" target="-1" id="299"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Lower" id="258">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="lowerBaseline:" target="-1" id="298"/>
                                                         </connections>
@@ -333,6 +344,7 @@
                                 </menu>
                             </menuItem>
                             <menuItem title="Text" id="313">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Text" id="319">
                                     <items>
                                         <menuItem title="Align Left" keyEquivalent="{" id="312">
@@ -378,10 +390,9 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="328">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="328"/>
                             <menuItem title="Find" id="218">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Find" id="220">
                                     <items>
                                         <menuItem title="Find..." keyEquivalent="f" id="209"/>
@@ -393,6 +404,7 @@
                                 </menu>
                             </menuItem>
                             <menuItem title="Spelling" id="216">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Spelling" id="200">
                                     <items>
                                         <menuItem title="Spelling..." keyEquivalent=":" id="204">
@@ -406,6 +418,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Check Spelling as You Type" id="219">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="toggleContinuousSpellChecking:" target="-1" id="222"/>
                                             </connections>
@@ -414,21 +427,22 @@
                                 </menu>
                             </menuItem>
                             <menuItem title="Speech" id="211">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Speech" id="212">
                                     <items>
                                         <menuItem title="Start Speaking" id="196">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="startSpeaking:" target="-1" id="233"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Stop Speaking" id="195">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="stopSpeaking:" target="-1" id="227"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="363">
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="363"/>
                                         <menuItem title="Repeat most recent move" keyEquivalent="" id="364">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
@@ -472,11 +486,13 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem title="Force Restart" id="247">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="restartZMachine:" target="-1" id="340"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Reload" id="342">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="reloadGame:" target="-1" id="343"/>
                                 </connections>
@@ -531,6 +547,7 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
                             <menuItem title="Bring All to Front" id="5">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="arrangeInFront:" target="-1" id="39"/>
                                 </connections>

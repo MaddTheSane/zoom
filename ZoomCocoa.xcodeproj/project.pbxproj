@@ -84,7 +84,6 @@
 		4B7CB2130936361800F3B8F6 /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
 		4B840A450CBECCE60071F3B3 /* IFDB-connecting.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B840A390CBECC690071F3B3 /* IFDB-connecting.png */; };
 		4B840A460CBECCE60071F3B3 /* ifdb-loading.html in Resources */ = {isa = PBXBuildFile; fileRef = 4B840A3B0CBECC690071F3B3 /* ifdb-loading.html */; };
-		4B840AD00CC2BB9B0071F3B3 /* ZoomDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B840AC80CC2BB970071F3B3 /* ZoomDownloadView.m */; };
 		4B840AD20CC2BB9C0071F3B3 /* ZoomWindowThatIsKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B840ACA0CC2BB970071F3B3 /* ZoomWindowThatIsKey.m */; };
 		4B840B100CC2C3B10071F3B3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */; };
 		4B84FDDD0CAFC9970071F3B3 /* ZoomDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B84FDDB0CAFC9970071F3B3 /* ZoomDownload.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -282,6 +281,7 @@
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27DA26F84691007204E1 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		552A03812049E90900A4ECAA /* treaty.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD79A9E0BA2CABF002C82B2 /* treaty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */; };
 		55BB924F2048AC4100AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92502048AC6D00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92512048ACAE00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
@@ -824,8 +824,6 @@
 		4B807BEB05C009ED00681653 /* ZoomiFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomiFButton.m; sourceTree = "<group>"; };
 		4B840A3A0CBECC690071F3B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/IFDB-connecting.png"; sourceTree = "<group>"; };
 		4B840A3C0CBECC690071F3B3 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = "en.lproj/ifdb-loading.html"; sourceTree = "<group>"; };
-		4B840AC70CC2BB970071F3B3 /* ZoomDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomDownloadView.h; sourceTree = "<group>"; };
-		4B840AC80CC2BB970071F3B3 /* ZoomDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomDownloadView.m; sourceTree = "<group>"; };
 		4B840AC90CC2BB970071F3B3 /* ZoomWindowThatIsKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomWindowThatIsKey.h; sourceTree = "<group>"; };
 		4B840ACA0CC2BB970071F3B3 /* ZoomWindowThatIsKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomWindowThatIsKey.m; sourceTree = "<group>"; };
 		4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -961,6 +959,7 @@
 		552A037F2049E74B00A4ECAA /* ZoomView.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ZoomView.modulemap; sourceTree = "<group>"; };
 		552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomPlugIns.modulemap; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
+		55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDownloadView.swift; sourceTree = "<group>"; };
 		55BB924E2048AC4000AB4B5B /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		55BB92522048ADA500AB4B5B /* quill.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = quill.c; sourceTree = "<group>"; };
 		55BB926F2048D8D900AB4B5B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1399,8 +1398,7 @@
 				4BBC1F77062F43BB00FE547F /* ZoomRatingCell.m */,
 				4B65B39F0979B981002D5534 /* ZoomHQImageView.h */,
 				4B65B3A00979B981002D5534 /* ZoomHQImageView.m */,
-				4B840AC70CC2BB970071F3B3 /* ZoomDownloadView.h */,
-				4B840AC80CC2BB970071F3B3 /* ZoomDownloadView.m */,
+				55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */,
 				4B840AC90CC2BB970071F3B3 /* ZoomWindowThatIsKey.h */,
 				4B840ACA0CC2BB970071F3B3 /* ZoomWindowThatIsKey.m */,
 				4B926A1D0CD1480B00CE0ADB /* ZoomJSError.h */,
@@ -1981,6 +1979,9 @@
 				CLASSPREFIX = Zoom;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					4B7CB08009362A3B00F3B8F6 = {
+						LastSwiftMigration = 1250;
+					};
 					4BB8C18808C249F400D7D334 = {
 						LastSwiftMigration = 1250;
 					};
@@ -2312,6 +2313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BB8C1E208C249F400D7D334 /* ZoomClient.m in Sources */,
+				55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */,
 				4BB8C1E308C249F400D7D334 /* ZoomAppDelegate.m in Sources */,
 				4BB8C1E408C249F400D7D334 /* ZoomPreferenceWindow.m in Sources */,
 				4BB8C1EA08C249F400D7D334 /* ZoomiFictionController.m in Sources */,
@@ -2330,7 +2332,6 @@
 				4B0D81DE0AC59F3F003E8CCA /* ZoomFadeView.m in Sources */,
 				4BA8B9530B1BB3F4007CD75E /* main.m in Sources */,
 				4B3E79DA0BA31FA800661FE8 /* ZoomStoryOrganiser.m in Sources */,
-				4B840AD00CC2BB9B0071F3B3 /* ZoomDownloadView.m in Sources */,
 				4B840AD20CC2BB9C0071F3B3 /* ZoomWindowThatIsKey.m in Sources */,
 				4B926A200CD1480B00CE0ADB /* ZoomJSError.m in Sources */,
 				4B9DC7ED15027DF0003DF057 /* ZoomLeopard.m in Sources */,
@@ -2870,6 +2871,7 @@
 		4B7CB08809362A3B00F3B8F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CURRENT_PROJECT_VERSION = 1.1.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2885,6 +2887,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.1.7;
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
 				OTHER_LDFLAGS = (
@@ -2894,12 +2901,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		4B7CB08909362A3B00F3B8F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CURRENT_PROJECT_VERSION = 1.1.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2914,6 +2924,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.1.7;
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
 				OTHER_LDFLAGS = (
@@ -2925,6 +2940,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

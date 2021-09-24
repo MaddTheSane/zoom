@@ -17,7 +17,7 @@
 #import "ZoomStoryTableView.h"
 #import "ZoomMetadata.h"
 #import "ZoomFlipView.h"
-#import "ZoomDownloadView.h"
+@class ZoomDownloadView;
 #import "ZoomDownload.h"
 #import "ZoomJSError.h"
 #import "ZoomSignPost.h"

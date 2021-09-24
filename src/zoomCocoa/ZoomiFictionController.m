@@ -28,6 +28,7 @@
 #import "ZoomWindowThatIsKey.h"
 #import "ZoomClearView.h"
 #import "ZoomSignPost.h"
+#import "Zoom-Swift.h"
 
 #import "ifmetabase.h"
 
@@ -1462,36 +1463,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	}
 
 	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
-}
-
--(BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-	if(tv != mainTableView )
-		return NO;
-	
-	if( [rowIndexes count] == 0 )
-		return NO;
-	
-	if( ![[ZoomPreferences globalPreferences] keepGamesOrganised] )
-		return NO;
-	
-	[mainTableView cancelEditTimer];
-	
-	NSMutableArray<NSURL*> * urlList = [NSMutableArray array];
-
-	for(NSInteger i = [rowIndexes firstIndex]; i != NSNotFound; i = [rowIndexes indexGreaterThanIndex:i] )
-	{
-		ZoomStoryID* ident = [storyList objectAtIndex:i];
-		NSString* gamedir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident create: NO];
-		if( gamedir != NULL )
-		{
-			[urlList addObject: [NSURL fileURLWithPath: gamedir]];
-		}
-	}
-
-	[pboard clearContents];
-	[pboard writeObjects:urlList];
-	
-	return YES;
 }
 
 -(id<NSPasteboardWriting>)tableView:(NSTableView *)tv pasteboardWriterForRow:(NSInteger)row

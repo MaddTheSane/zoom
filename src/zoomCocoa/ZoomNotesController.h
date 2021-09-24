@@ -14,7 +14,7 @@
 /// Window controller for the Zoom notes window
 ///
 @interface ZoomNotesController : NSWindowController {
-	id owner;													// The object that owns the note window
+	__weak id owner;											// The object that owns the note window
 	ZoomStory* story;											// The story which we should show notes for
 	
 	IBOutlet NSTextView* notes;									// The control that contains the notes
@@ -25,6 +25,9 @@
 
 // Setting up the window
 - (void) setGameInfo: (ZoomStory*) story;						//!< Set the story whose notes we should show (nil for no notes)
+
+//! The object that owns the note window
+@property (readwrite, weak) id infoOwner;
 - (void) setInfoOwner: (id) owner;								//!< Sets the 'owner' for the notes window [NOT RETAINED]
 - (id) infoOwner;												//!< Retrieves the 'owner' for the notes window
 

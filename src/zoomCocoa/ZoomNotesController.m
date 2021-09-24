@@ -122,12 +122,6 @@ static NSMutableDictionary* notesDictionary = nil;
 	[self updateFromStory];
 }
 
-- (void) setInfoOwner: (id) newOwner {
-	owner = newOwner;
-}
-
-- (id) infoOwner {
-	return owner;
-}
+@synthesize infoOwner=owner;
 
 @end
