@@ -11,7 +11,7 @@
 #import "ZoomiFButton.h"
 #import <ZoomPlugIns/ZoomStory.h>
 #import "ZoomCollapsableView.h"
-#import "ZoomSavePreviewView.h"
+@class ZoomSavePreviewView;
 #import "ZoomCollapsingSplitView.h"
 #import "ZoomResourceDrop.h"
 #import "ZoomStoryTableView.h"
