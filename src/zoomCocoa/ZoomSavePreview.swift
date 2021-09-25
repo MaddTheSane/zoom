@@ -9,10 +9,9 @@ import Cocoa
 import ZoomView
 import ZoomView.ZoomUpperWindow
 
-let saveHighlightInactive = NSImage(named: "saveHighlightInactive")!
-let saveHighlightActive = NSImage(named: "saveHighlightActive")!
-let saveBackground = NSImage(named: "saveBackground")!
-
+private let saveHighlightInactive = NSImage(named: "saveHighlightInactive")!
+private let saveHighlightActive = NSImage(named: "saveHighlightActive")!
+private let saveBackground = NSImage(named: "saveBackground")!
 
 @objcMembers
 class ZoomSavePreview : NSView {
@@ -21,7 +20,7 @@ class ZoomSavePreview : NSView {
 	}
 	private(set) var fileURL: URL?
 	private var preview: ZoomUpperWindow?
-	private var previewLines: [String]?
+	private var previewLines: [Any]?
 	
 	var isHighlighted: Bool = false {
 		didSet {
@@ -29,13 +28,13 @@ class ZoomSavePreview : NSView {
 		}
 	}
 
-	convenience init(preview prev: ZoomUpperWindow, _ filename: URL) {
+	convenience init(preview prev: ZoomUpperWindow, with filename: URL) {
 		self.init()
 		preview = prev
 		self.fileURL = filename
 	}
 	
-	convenience init(previewStrings prev: [String], _ filename: URL) {
+	convenience init(previewStrings prev: [Any], with filename: URL) {
 		self.init()
 		previewLines = prev
 		self.fileURL = filename
@@ -134,7 +133,7 @@ class ZoomSavePreview : NSView {
 			// Delete the game
 			try? FileManager.default.removeItem(at: saveURL)
 			// Force an update of the game window (bit of a hack, being lazy)
-			NotificationCenter.default.post(name: NSNotification.Name.ZoomStoryOrganiserChanged, object: ZoomStoryOrganiser.shared)
+			NotificationCenter.default.post(name: .ZoomStoryOrganiserChanged, object: ZoomStoryOrganiser.shared)
 		}
 	}
 	
@@ -244,28 +243,24 @@ class ZoomSavePreview : NSView {
 		
 		displayName.draw(in: infoRect, withAttributes: infoStyle)
 
-		// TODO: Draw the date (if there's room)
-		/*
-		 infoRect.size.width -= infoSize.width + 4;
-		 infoRect.origin.x += infoSize.width + 4;
-		 
-		 NSDate* fileDate = [[[NSFileManager defaultManager] attributesOfItemAtPath: [filename stringByResolvingSymlinksInPath]
-																			  error: NULL] objectForKey: NSFileModificationDate];
-		 
-		 if (fileDate) {
-			 NSString* dateString = [[fileDate dateWithCalendarFormat: @"%d %b %Y %H:%M" timeZone: [NSTimeZone defaultTimeZone]] description];
-			 NSSize dateSize = [dateString sizeWithAttributes: infoStyle];
-			 
-			 if (dateSize.width <= infoRect.size.width) {
-				 infoRect.origin.x = (infoRect.origin.x + infoRect.size.width) - dateSize.width;
-				 infoRect.size.width = dateSize.width;
-				 
-				 [dateString drawInRect: infoRect
-						 withAttributes: infoStyle];
-			 }
-		 }
-
-		 */
-
+		// Draw the date (if there's room)
+		infoRect.size.width -= infoSize.width + 4
+		infoRect.origin.x += infoSize.width + 4
+		
+		if let res = try? fileURL!.resourceValues(forKeys: [.contentModificationDateKey]), let fileDate = res.contentModificationDate {
+			//TODO: Better, more localizable way?
+			let formatter = DateFormatter()
+			formatter.dateFormat = "%d %b %Y %H:%M"
+			
+			let dateString = formatter.string(from: fileDate)
+			let dateSize = dateString.size(withAttributes: infoStyle)
+			
+			if dateSize.width <= infoRect.size.width {
+				infoRect.origin.x = (infoRect.origin.x + infoRect.size.width) - dateSize.width;
+				infoRect.size.width = dateSize.width;
+				
+				dateString.draw(in: infoRect, withAttributes: infoStyle)
+			}
+		}
 	}
 }

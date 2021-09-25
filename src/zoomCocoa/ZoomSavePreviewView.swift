@@ -64,16 +64,16 @@ class ZoomSavePreviewView: NSView {
 					continue
 				}
 				
-				var preVal = NSUnarchiver.unarchiveObject(withFile: previewURL.path)
+				var preVal = NSKeyedUnarchiver.unarchiveObject(withFile: previewURL.path)
 				if preVal == nil {
-					preVal = NSKeyedUnarchiver.unarchiveObject(withFile: previewURL.path)
+					preVal = NSUnarchiver.unarchiveObject(withFile: previewURL.path)
 				}
 				
 				guard let win = preVal as? ZoomUpperWindow else {
 					continue
 				}
 				
-				let preview = ZoomSavePreview(preview: win, previewURL)
+				let preview = ZoomSavePreview(preview: win, with: previewURL)
 				preview.autoresizingMask = .width
 				preview.menu = self.menu
 				addSubview(preview)
@@ -95,8 +95,8 @@ class ZoomSavePreviewView: NSView {
 				
 				let storyId = ZoomStoryID(idString: previewProperties["ZoomGlkGameId"] as? String)
 				let previewLinesURL = previewURL.appendingPathComponent("Preview.plist")
-				let previewLines: [String]
-				if FileManager.default.fileExists(atPath: previewLinesURL.path), let dat2 = try? Data(contentsOf: previewLinesURL), let previewLines2 = try? PropertyListSerialization.propertyList(from: dat2, options: [], format: nil) as? [String] {
+				let previewLines: [Any]
+				if FileManager.default.fileExists(atPath: previewLinesURL.path), let dat2 = try? Data(contentsOf: previewLinesURL), let previewLines2 = try? PropertyListSerialization.propertyList(from: dat2, options: [], format: nil) as? [Any] {
 					previewLines = previewLines2
 				} else {
 					// Use some defaults if no lines are supplied
@@ -107,7 +107,7 @@ class ZoomSavePreviewView: NSView {
 					}
 				}
 				
-				let preview = ZoomSavePreview(previewStrings: previewLines, propertiesURL)
+				let preview = ZoomSavePreview(previewStrings: previewLines, with: propertiesURL)
 				preview.autoresizingMask = .width
 				preview.menu = menu
 				addSubview(preview)
