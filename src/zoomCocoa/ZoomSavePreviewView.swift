@@ -64,9 +64,12 @@ class ZoomSavePreviewView: NSView {
 					continue
 				}
 				
-				var preVal = NSKeyedUnarchiver.unarchiveObject(withFile: previewURL.path)
+				guard let preData = try? Data(contentsOf: previewURL) else {
+					continue
+				}
+				var preVal: Any? = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ZoomUpperWindow.self, from: preData)
 				if preVal == nil {
-					preVal = NSUnarchiver.unarchiveObject(withFile: previewURL.path)
+					preVal = NSUnarchiver.unarchiveObject(with: preData)
 				}
 				
 				guard let win = preVal as? ZoomUpperWindow else {
@@ -164,7 +167,7 @@ class ZoomSavePreviewView: NSView {
 			let directory = fileURL.deletingLastPathComponent()
 			if directory.pathExtension.lowercased() == "glksave" {
 				// Pass off to the app delegate
-				NSApp.delegate?.application?(NSApp, open: [fileURL])
+				_=NSApp.delegate?.application?(NSApp, openFile: fileURL.path)
 			} else {
 				NSDocumentController.shared.openDocument(withContentsOf: directory, display: true) { documen, documentWasAlreadyOpen, error in
 					// do nothing

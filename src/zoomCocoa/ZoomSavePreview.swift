@@ -13,7 +13,6 @@ private let saveHighlightInactive = NSImage(named: "saveHighlightInactive")!
 private let saveHighlightActive = NSImage(named: "saveHighlightActive")!
 private let saveBackground = NSImage(named: "saveBackground")!
 
-@objcMembers
 class ZoomSavePreview : NSView {
 	var filename: String? {
 		return fileURL?.path
