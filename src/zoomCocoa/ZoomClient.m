@@ -420,7 +420,7 @@
 	
 	if (isSingleFile) {
 		// No more to do
-		saveData = [NSData dataWithBytes: ((unsigned char*)[quetzal bytes])+12 length: [quetzal length]-12];
+		saveData = [quetzal subdataWithRange:NSMakeRange(12, quetzal.length - 12)];
 
 		wasRestored = YES;
 		
@@ -464,7 +464,7 @@
 	
 	// OK, we're ready to roll!
 	defaultView = savedView;
-	saveData = [NSData dataWithBytes: ((unsigned char*)[quetzal bytes])+12 length: [quetzal length]-12];
+	saveData = [quetzal subdataWithRange:NSMakeRange(12, quetzal.length - 12)];
 	
 	// NOTE: saveData is the data minus the 'FORM' chunk - that is, valid input for state_decompile()
 	// (which doesn't use this chunk)
