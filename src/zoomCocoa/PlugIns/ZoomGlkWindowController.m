@@ -127,11 +127,9 @@
 	NSColor* foreground = [[zPrefs colours] objectAtIndex: [zPrefs foregroundColour]];
 	NSColor* background = [[zPrefs colours] objectAtIndex: [zPrefs backgroundColour]];
 	
-	NSEnumerator* styleEnum = [[prefs styles] keyEnumerator];
 	NSMutableDictionary* newStyles = [NSMutableDictionary dictionary];
-	NSNumber* styleNum;
 
-	while (styleNum = [styleEnum nextObject]) {
+	for (NSNumber* styleNum in [prefs styles]) {
 		GlkStyle* thisStyle = [[prefs styles] objectForKey: styleNum];
 		
 		[thisStyle setTextColour: foreground];

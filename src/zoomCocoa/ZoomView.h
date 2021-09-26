@@ -91,7 +91,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 	NSSet<NSNumber*>* terminatingChars;
 	
 	// View with input focus
-	__unsafe_unretained NSObject<ZWindow>* focusedView;
+	__weak NSObject<ZWindow>* focusedView;
 	
 	// Pixmap view
 	ZoomCursor*       pixmapCursor;
@@ -157,7 +157,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (void) clearLowerWindowWithStyle: (ZStyle*) style;
 
 // Setting the focused view
-@property (assign) NSObject<ZWindow> *focusedView;
+@property (weak) NSObject<ZWindow> *focusedView;
 
 // Dealing with the history
 - (NSString*) lastHistoryItem;
@@ -175,11 +175,11 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 @property OSType creatorCode;
 
 // The upper window
-@property (readonly) int upperWindowSize;
+@property (nonatomic, readonly) int upperWindowSize;
 - (void) setUpperBuffer: (CGFloat) bufHeight;
 - (CGFloat) upperBufferHeight;
 - (void) rearrangeUpperWindows;
-@property (readonly, copy) NSArray<ZoomUpperWindow*> *upperWindows;
+@property (nonatomic, readonly, copy) NSArray<ZoomUpperWindow*> *upperWindows;
 - (void) padToLowerWindow;
 
 - (void) upperWindowNeedsRedrawing;
@@ -199,7 +199,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (BOOL) createAutosaveDataWithCoder: (NSCoder*) encoder;
 - (void) restoreAutosaveFromCoder: (NSCoder*) decoder;
 
-- (BOOL) isRunning;
+@property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 - (void) restoreSaveState: (NSData*) state;
 

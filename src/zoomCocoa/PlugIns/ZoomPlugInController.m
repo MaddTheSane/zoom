@@ -84,8 +84,7 @@
 	// Show the window if there are any updates
 	BOOL updated = NO;
 	NSEnumerator* infoEnum = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* info;
-	while (info = [infoEnum nextObject]) {
+	for (ZoomPlugInInfo* info in infoEnum) {
 		switch ([info status]) {
 			case ZoomPlugInNew:
 			case ZoomPluginUpdateAvailable:

@@ -464,10 +464,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 	}
 	
 	// Add the data for all our story IDs
-	NSEnumerator* idEnum = [[self storyIDs] objectEnumerator];
-	ZoomStoryID* storyID;
-	
-	while (storyID = [idEnum nextObject]) {
+	for (ZoomStoryID* storyID in [self storyIDs]) {
 		[newExtraData setObject: extraMetadata
 						 forKey: [storyID description]];
 	}
@@ -691,7 +688,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 	
 	[metadata unlock];
 	
-	return idArray;
+	return [idArray copy];
 }
 
 - (BOOL) hasID: (ZoomStoryID*) storyID {
@@ -712,11 +709,11 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 	
 	[metadata lock];
 	
-	NSEnumerator* idEnum = [theirIds objectEnumerator];
-	ZoomStoryID* thisId;
-	
-	while (thisId = [idEnum nextObject]) {
-		if ([ourIds containsObject: thisId]) return YES;
+	for (ZoomStoryID* thisId in theirIds) {
+		if ([ourIds containsObject: thisId]) {
+			[metadata unlock];
+			return YES;
+		}
 	}
 	
 	[metadata unlock];

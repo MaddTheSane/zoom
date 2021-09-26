@@ -129,7 +129,7 @@
 		// Pick the 128x128 representation of the original
 		NSEnumerator* originalImageRepEnum = [[originalImage representations] objectEnumerator];
 		NSImageRep* rep;
-		while (rep = [originalImageRepEnum nextObject]) {
+		for (rep in originalImageRepEnum) {
 			if ([rep size].width >= 128.0) break;
 		}
 		

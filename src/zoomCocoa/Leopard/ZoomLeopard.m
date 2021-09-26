@@ -180,9 +180,7 @@
 	if ([view wantsLayer]) {
 		[view setWantsLayer: NO];
 
-		NSEnumerator* subviewEnum = [[view subviews] objectEnumerator];
-		NSView* subview;
-		while (subview = [subviewEnum nextObject]) {
+		for (NSView* subview in view.subviews) {
 			[self clearLayersForView: subview];
 		}
 	}

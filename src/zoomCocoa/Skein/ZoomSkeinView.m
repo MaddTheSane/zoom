@@ -396,11 +396,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 // = Skein mouse sensitivity =
 
 - (void) removeAllTrackingRects {
-	NSEnumerator* trackingEnum = [trackingRects objectEnumerator];
-	NSNumber* val;
-	
-	while (val = [trackingEnum nextObject]) {
-		[self removeTrackingRect: [val intValue]];
+	for (NSNumber* val in trackingRects) {
+		[self removeTrackingRect: [val integerValue]];
 	}
 	
 	trackingRects = [[NSMutableArray alloc] init];
@@ -847,9 +844,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	
 			[thisItem setTemporary: YES];
 	
-			NSEnumerator* childEnum = [[thisItem children] objectEnumerator];
-			ZoomSkeinItem* child;
-			while (child = [childEnum nextObject]) {
+			for (ZoomSkeinItem* child in [thisItem children]) {
 				[itemsToProcess addObject: child];
 			}
 		}
@@ -1460,10 +1455,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	NSArray* children = [[[contextItem children] allObjects] copy];
 
 	// Remove them from the tree
-	ZoomSkeinItem* child;
-	NSEnumerator* childEnum = [children objectEnumerator];;
-	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in children) {
 		[contextItem removeChild: child];
 	}
 	
@@ -1472,9 +1464,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	[parent removeChild: contextItem];
 	
 	// Add the children back to the parent item
-	childEnum = [children objectEnumerator];;
-	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in children) {
 		[parent addChild: child];
 	}
 	

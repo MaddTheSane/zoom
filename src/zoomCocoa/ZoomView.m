@@ -269,10 +269,8 @@ static void finalizeViews(void) {
 		
 		// Scale up all of the fonts
 		NSMutableArray* newFonts = [[NSMutableArray alloc] init];
-		NSEnumerator* fontEnum = [originalFonts objectEnumerator];
-		NSFont* origFont;
 		
-		while (origFont = [fontEnum nextObject]) {
+		for (NSFont* origFont in originalFonts) {
 			NSFont* scaledFont = [[NSFontManager sharedFontManager] convertFont: origFont
 																		 toSize: [origFont pointSize] / scaleFactor];
 			
@@ -464,9 +462,7 @@ static void finalizeViews(void) {
 		}
 		
 		// Paste stuff
-		NSEnumerator* upperEnum = [upperWindows objectEnumerator];
-		ZoomUpperWindow* win;
-		while (win = [upperEnum nextObject]) {
+		for (ZoomUpperWindow* win in upperWindows) {
 			[textView pasteUpperWindowLinesFrom: win];
 		}
 		
@@ -1426,15 +1422,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 - (int) upperWindowSize {
-    int height;
-    NSEnumerator* upperEnum;
+    int height = 0;
 
-    upperEnum = [upperWindows objectEnumerator];
-
-    ZoomUpperWindow* win;
-
-    height = 0;
-    while (win = [upperEnum nextObject]) {
+	for (ZoomUpperWindow* win in upperWindows) {
         int winHeight = [win length];
         if (winHeight > 0) height += winHeight;
     }
@@ -1792,9 +1782,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	[self scrollToEnd];
 
     // Paste stuff
-    NSEnumerator* upperEnum = [aSelf->upperWindows objectEnumerator];
-    ZoomUpperWindow* win;
-    while (win = [upperEnum nextObject]) {
+    for (ZoomUpperWindow* win in aSelf->upperWindows) {
         [textView pasteUpperWindowLinesFrom: win];
     }
     
@@ -2310,10 +2298,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	// Reformat the upper window(s) as necessary
 	[textScroller tile];
 	
-	NSEnumerator* upperWindowEnum = [upperWindows objectEnumerator];
-	ZoomUpperWindow* upperWin;
-	
-	while (upperWin = [upperWindowEnum nextObject]) {
+	for (ZoomUpperWindow* upperWin in upperWindows) {
 		[upperWin reformatLines];
 	}
 	

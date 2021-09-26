@@ -86,9 +86,7 @@ static int lastDownloadId = 0;
 		[task terminate];
 	}
 	if (subtasks) {
-		NSEnumerator* subtaskEnum = [subtasks objectEnumerator];
-		NSTask* sub;
-		while (sub = [subtaskEnum nextObject]) {
+		for (NSTask* sub in subtasks) {
 			if ([sub isRunning]) {
 				[sub interrupt];
 				[sub terminate];
@@ -149,9 +147,7 @@ static int lastDownloadId = 0;
 		[task terminate];
 	}
 	if (subtasks) {
-		NSEnumerator* subtaskEnum = [subtasks objectEnumerator];
-		NSTask* sub;
-		while (sub = [subtaskEnum nextObject]) {
+		for (NSTask* sub in subtasks) {
 			if ([sub isRunning]) {
 				[sub interrupt];
 				[sub terminate];
@@ -340,9 +336,7 @@ static int lastDownloadId = 0;
 	
 	// Start the tasks
 	if (subtasks != nil) {
-		NSEnumerator* taskEnum = [subtasks objectEnumerator];
-		NSTask* sub;
-		while (sub = [taskEnum nextObject]) {
+		for (NSTask* sub in subtasks) {
 			[sub launch];
 		}
 	}
@@ -518,11 +512,11 @@ static int lastDownloadId = 0;
 			}
 			
 			// Finish up and get the MD5 digest
-			unsigned char digest[16];
+			unsigned char digest[CC_MD5_DIGEST_LENGTH];
 			CC_MD5_Final(digest, &state);
 			
 			NSData* digestData = [NSData dataWithBytes: digest
-												length: 16];
+												length: CC_MD5_DIGEST_LENGTH];
 			NSLog(@"MD5 digest is %@", digestData);
 			
 			if (![digestData isEqual: md5]) {
@@ -556,9 +550,7 @@ static int lastDownloadId = 0;
 	BOOL succeeded = YES;
 	
 	if (subtasks) {
-		NSEnumerator* taskEnum = [subtasks objectEnumerator];
-		NSTask* sub;
-		while (sub = [taskEnum nextObject]) {
+		for (NSTask* sub in subtasks) {
 			if ([sub isRunning]) {
 				finished = NO;
 			} else if ([sub terminationStatus] != 0) {

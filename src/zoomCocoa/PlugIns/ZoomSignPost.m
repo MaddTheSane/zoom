@@ -111,8 +111,7 @@
 	// Build up the path string
 	NSMutableString* pathString = [NSMutableString string];
 	NSEnumerator* pathEnum = [pathStack objectEnumerator];
-	NSString* pathComponent;
-	while (pathComponent = [pathEnum nextObject]) {
+	for (NSString* pathComponent in pathEnum) {
 		[pathString appendString: @"/"];
 		[pathString appendString: pathComponent];
 	}

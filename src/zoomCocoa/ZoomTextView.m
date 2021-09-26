@@ -87,9 +87,6 @@
     CGFloat offset = [zoomView upperBufferHeight]/pastedScaleFactor;
     
     // Draw pasted lines
-    NSEnumerator* lineEnum = [pastedLines objectEnumerator];
-    NSArray* line;
-	
 	NSAffineTransform* invertTransform = [NSAffineTransform transform];
 	[invertTransform scaleXBy: 1.0 
 						  yBy: -1.0];
@@ -98,7 +95,7 @@
 	[scaleTransform scaleXBy: pastedScaleFactor
 						 yBy: pastedScaleFactor];
 	
-    while (line = [lineEnum nextObject]) {
+    for (NSArray* line in pastedLines) {
         NSValue* rect = [line objectAtIndex: 0];
         NSRect   lineRect = [rect rectValue];
 

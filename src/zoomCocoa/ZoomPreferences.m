@@ -684,10 +684,8 @@ static NSArray* DefaultColours(void) {
 	NSMutableArray* newFonts = [NSMutableArray array];
 	
 	NSFontManager* mgr = [NSFontManager sharedFontManager];
-	NSEnumerator* fontEnum = [[self fonts] objectEnumerator];
-	NSFont* font;
 	
-	while (font = [fontEnum nextObject]) {
+	for (NSFont* font in [self fonts]) {
 		NSFont* newFont = [mgr convertFont: font
 									toSize: size];
 		

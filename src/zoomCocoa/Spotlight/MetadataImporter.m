@@ -318,9 +318,7 @@ NSString * GetZoomConfigDirectory( void )
 {
 	NSArray * library_directories = NSSearchPathForDirectoriesInDomains( NSLibraryDirectory, NSUserDomainMask, YES );
 
-	NSEnumerator * enumerator = [library_directories objectEnumerator];
-	NSString * directory;
-	while( (directory = [enumerator nextObject]) ) 
+	for ( NSString * directory in library_directories )
 	{
 		BOOL is_directory;
 		

@@ -74,10 +74,7 @@
 		if (children) [result addObjectsFromArray: children];
 		return;
 	} else if (children) {
-		NSEnumerator* childEnum = [children objectEnumerator];
-		ZoomSkeinLayoutItem* child;
-		
-		while (child = [childEnum nextObject]) {
+		for (ZoomSkeinLayoutItem* child in children) {
 			[child findItemsOnLevel: findLevel
 							 result: result];
 		}

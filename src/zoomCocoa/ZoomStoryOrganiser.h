@@ -72,8 +72,8 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 - (NSString*) filenameForIdent: (ZoomStoryID*) ident;
 - (ZoomStoryID*) identForFilename: (NSString*) filename;
 
-- (NSArray<NSString*>*) storyFilenames;
-- (NSArray<ZoomStoryID*>*) storyIdents;
+@property (nonatomic, readonly, copy) NSArray<NSString*> *storyFilenames;
+@property (nonatomic, readonly, copy) NSArray<ZoomStoryID*> *storyIdents;
 
 // Story-specific data
 - (NSString*) directoryForIdent: (ZoomStoryID*) ident

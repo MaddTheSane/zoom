@@ -274,9 +274,7 @@ static NSMutableDictionary* babelCache = nil;
 	NSArray* lines = [output componentsSeparatedByString: @"\n"];
 	NSMutableArray* filenames = [NSMutableArray array];
 	
-	NSEnumerator* lineEnum = [lines objectEnumerator];
-	NSString* line;
-	while (line = [lineEnum nextObject]) {
+	for (NSString* line in lines) {
 		// File lines match the pattern 'Extracted <x>'
 		if ([line length] < 11) continue;
 		if ([[line substringToIndex: 10] isEqualToString: @"Extracted "]) {
@@ -284,7 +282,7 @@ static NSMutableDictionary* babelCache = nil;
 		}
 	}
 	
-	return filenames;
+	return [filenames copy];
 }
 
 - (NSString*) fixFile: (NSString*) file {
@@ -308,8 +306,6 @@ static NSMutableDictionary* babelCache = nil;
 	// (Actually perform finishing the babel task without acquiring the lock)
 	// The babel task has finished...
 	NSString* dir = [babelTask currentDirectoryPath];
-	NSEnumerator* fileEnum;
-	NSString* file;
 	
 	// Get the output
 	[[babelStdOut fileHandleForWriting] closeFile];
@@ -323,9 +319,7 @@ static NSMutableDictionary* babelCache = nil;
 	// Check the return code
 	if ([babelTask terminationStatus] == 0) {
 		// Read any files the babel task extracted
-		fileEnum = [files objectEnumerator];
-		
-		while (file = [fileEnum nextObject]) {
+		for (__strong NSString* file in files) {
 			// Image files have the (size) suffix in the output from babel: remove this, as we don't care
 			file = [self fixFile: file];
 			
@@ -354,8 +348,7 @@ static NSMutableDictionary* babelCache = nil;
 	}
 	
 	// Delete any files the babel task extracted
-	fileEnum = [files objectEnumerator];
-	while (file = [fileEnum nextObject]) {
+	for (NSString* file in files) {
 		NSString* fullPath = [dir stringByAppendingPathComponent: [self fixFile: file]];
 		if (![[NSFileManager defaultManager] fileExistsAtPath: fullPath]) {
 			continue;
@@ -405,9 +398,7 @@ static NSMutableDictionary* babelCache = nil;
 	// Check the return code
 	if ([babelTask terminationStatus] == 0) {
 		NSArray* lines = [outputString componentsSeparatedByString: @"\n"];
-		NSEnumerator* lineEnum = [lines objectEnumerator];
-		NSString* line;
-		while (line = [lineEnum nextObject]) {
+		for (__strong NSString* line in lines) {
 			// IFIDs must be 3 characters long
 			if ([line length] < 3) continue;
 			

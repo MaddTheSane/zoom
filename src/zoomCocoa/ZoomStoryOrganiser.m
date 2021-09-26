@@ -1015,15 +1015,13 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 - (void) finishChangingStory: (ZoomStory*) story {
 	// For our pre-arranged stories, several IDs are possible, but more usually one
 	NSArray* storyIDs = [story storyIDs];
-	NSEnumerator* identEnum = [storyIDs objectEnumerator];
-	ZoomStoryID* ident;
 	BOOL changed = NO;
 	
 #ifdef DEVELOPMENT_BUILD
 	NSLog(@"Finishing changing %@", [story title]);
 #endif
 	
-	while (ident = [identEnum nextObject]) {
+	for (ZoomStoryID* ident in storyIDs) {
 		NSInteger identID = [storyIdents indexOfObject: ident];
 		
 		if (identID != NSNotFound) {
@@ -1161,8 +1159,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 			NSString* oldDir = [filename stringByDeletingLastPathComponent];
 			NSEnumerator* dirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: oldDir error:NULL] objectEnumerator];
 			
-			NSString* fileToMove;
-			while (fileToMove = [dirEnum nextObject]) {
+			for (NSString* fileToMove in dirEnum) {
 #if DEVELOPMENT_BUILD
 				NSLog(@"... reorganising %@ to %@", [oldDir stringByAppendingPathComponent: fileToMove], [fileDir stringByAppendingPathComponent: fileToMove]);
 #endif
@@ -1268,11 +1265,9 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 }
 
 - (void) organiseStory: (ZoomStory*) story {
-	NSEnumerator* idEnum = [[story storyIDs] objectEnumerator];
-	ZoomStoryID* thisID;
 	BOOL organised = NO;
 	
-	while (thisID = [idEnum nextObject]) {
+	for (ZoomStoryID* thisID in story.storyIDs) {
 		NSString* filename = [self filenameForIdent: thisID];
 		
 		if (filename != nil) {
@@ -1379,14 +1374,11 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 
 	// List of files in our database
 	NSArray* filenames = [[filenamesToIdents allKeys] copy];
-	NSEnumerator* fileEnum = [filenames objectEnumerator];
-	
-	NSString* filename;
 	
 	// Parts of directories
 	NSArray* originalComponents = [lastStoryDirectory pathComponents];
 	
-	while (filename = [fileEnum nextObject]) @autoreleasepool {
+	for (NSString* filename in filenames) @autoreleasepool {
 		NSInteger x;
 
 		// Retrieve info about the file
@@ -1543,10 +1535,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	NSArray* filenames = [[filenamesToIdents allKeys] copy];
 	[storyLock unlock];
 	
-	NSEnumerator* filenameEnum = [filenames objectEnumerator];
-	NSString* filename;
-	
-	while (filename = [filenameEnum nextObject]) @autoreleasepool {
+	for (NSString* filename in filenames) @autoreleasepool {
 		// First: check that the file exists
 		struct stat sb;
 		

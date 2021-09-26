@@ -277,10 +277,8 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	NSMenu* result = [[NSMenu alloc] init];
 	
 	NSArray* items = [self annotations];
-	NSEnumerator* itemEnum = [items objectEnumerator];
-	NSString* item;
 	
-	while (item = [itemEnum nextObject]) {
+	for (NSString* item in items) {
 		NSMenuItem* newItem = [[NSMenuItem alloc] initWithTitle: item
 														 action: action
 												  keyEquivalent: @""];

@@ -34,15 +34,11 @@
         [NSDictionary dictionaryWithObjectsAndKeys:
             [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
     
-    NSEnumerator* upperEnum;
     int ypos = 0;
 	CGFloat width = [self bounds].size.width;
 
-    upperEnum = [[zoomView upperWindows] objectEnumerator];
-
     // Draw each window in turn
-    ZoomUpperWindow* win;
-    while (win = [upperEnum nextObject]) {
+    for (ZoomUpperWindow* win in [zoomView upperWindows]) {
         NSInteger y;
 
         // Get the lines from the window
@@ -125,11 +121,8 @@
 	int xp = cursorPos.x;
 	int yp = cursorPos.y;
 
-    NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
-	
-    ZoomUpperWindow* win;
 	int startY = 0;
-    while (win = [upperEnum nextObject]) {
+    for (ZoomUpperWindow* win in zoomView.upperWindows) {
 		if (win == activeWindow) {
 			// Position the cursor
 			[cursor positionAt: NSMakePoint(fixedSize.width * xp, fixedSize.height * (yp + startY))
@@ -265,15 +258,10 @@
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
 	if ([attribute isEqualToString: NSAccessibilityTitleAttribute]) {
-		NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
 		NSMutableString* status = [NSMutableString string];
 		
-		ZoomUpperWindow* win;
-		while (win = [upperEnum nextObject]) {
-			NSArray* lines = [win lines];
-			NSEnumerator* linesEnum = [lines objectEnumerator];
-			NSMutableAttributedString* lineText;
-			while (lineText = [linesEnum nextObject]) {
+		for (ZoomUpperWindow* win in [zoomView upperWindows]) {
+			for (NSMutableAttributedString* lineText in [win lines]) {
 				[status appendString: [lineText string]];
 				[status appendString: @" "];
 			}
@@ -309,10 +297,7 @@
 	NSMutableString* status = [NSMutableString string];
 	
 	for (ZoomUpperWindow* win in [zoomView upperWindows]) {
-		NSArray* lines = [win lines];
-		NSEnumerator* linesEnum = [lines objectEnumerator];
-		NSMutableAttributedString* lineText;
-		while (lineText = [linesEnum nextObject]) {
+		for (NSMutableAttributedString* lineText in [win lines]) {
 			[status appendString: [lineText string]];
 			[status appendString: @" "];
 		}

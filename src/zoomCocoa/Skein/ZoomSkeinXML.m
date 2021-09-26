@@ -31,8 +31,8 @@ static NSString* const xmlCharData   = @"xmlCharData";
 
 - (NSDictionary*) childForElement: (NSDictionary*) element
 						 withName: (NSString*) elementName;
-- (NSArray*) childrenForElement: (NSDictionary*) element
-					   withName: (NSString*) elementName;
+- (NSArray<NSDictionary*>*) childrenForElement: (NSDictionary*) element
+									  withName: (NSString*) elementName;
 - (NSString*) innerTextForElement: (NSDictionary*) element;
 - (NSString*) attributeValueForElement: (NSDictionary*) element
 							  withName: (NSString*) elementName;
@@ -155,9 +155,7 @@ static NSString* xmlEncode(NSString* str) {
 		[itemStack removeLastObject];
 		
 		// Push any children of this node
-		NSEnumerator* childEnum = [[node children] objectEnumerator];
-		ZoomSkeinItem* childNode;
-		while (childNode = [childEnum nextObject]) {
+		for (ZoomSkeinItem* childNode in [node children]) {
 			[itemStack addObject: childNode];
 		}
 		
@@ -188,8 +186,7 @@ static NSString* xmlEncode(NSString* str) {
 		if ([[node children] count] > 0) {
 			[result appendString: @"    <children>\n"];
 			
-			childEnum = [[node children] objectEnumerator];
-			while (childNode = [childEnum nextObject]) {
+			for (ZoomSkeinItem* childNode in [node children]) {
 				[result appendFormat: @"      <child nodeId=\"%@\" />\n",
 					idForNode(childNode)];
 			}
@@ -261,10 +258,7 @@ static NSString* xmlEncode(NSString* str) {
 	NSArray* items = [inputParser childrenForElement: skein
 											withName: @"item"];
 	
-	NSEnumerator* itemEnum = [items objectEnumerator];
-	NSDictionary* item;
-	
-	while (item = [itemEnum nextObject]) {
+	for (NSDictionary* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
 															withName: @"nodeId"];
 		
@@ -279,9 +273,7 @@ static NSString* xmlEncode(NSString* str) {
 	}
 	
 	// Item dictionary II: fill in the node data
-	itemEnum = [items objectEnumerator];
-
-	while (item = [itemEnum nextObject]) {
+	for (NSDictionary* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
 															withName: @"nodeId"];
 		
@@ -333,9 +325,7 @@ static NSString* xmlEncode(NSString* str) {
 	}
 		
 	// Item dictionary III: fill in the item children
-	itemEnum = [items objectEnumerator];
-	
-	while (item = [itemEnum nextObject]) {		
+	for (NSDictionary* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
 															withName: @"nodeId"];
 		
@@ -355,10 +345,7 @@ static NSString* xmlEncode(NSString* str) {
 		NSArray* itemKids =[inputParser childrenForElement: [inputParser childForElement: item
 																				withName: @"children"]
 												  withName: @"child"];
-		NSEnumerator* kidEnum = [itemKids objectEnumerator];
-		NSDictionary* child;
-		
-		while (child = [kidEnum nextObject]) {
+		for (NSDictionary* child in itemKids) {
 			NSString* kidNodeId = [inputParser attributeValueForElement: child
 															   withName: @"nodeId"];
 			if (kidNodeId == nil) {
@@ -466,9 +453,8 @@ static XMLCALL void charData    (void *userData,
 	NSMutableString* res = nil;
 	
 	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
-	NSDictionary* child;
 	
-	while (child = [children nextObject]) {
+	for (NSDictionary* child in children) {
 		if ([[child objectForKey: xmlType] isEqualToString: xmlCharData]) {
 			if (res == nil) {
 				res = [[NSMutableString alloc] initWithString: [child objectForKey: xmlChars]];
@@ -486,9 +472,8 @@ static XMLCALL void charData    (void *userData,
 	NSMutableArray* res = nil;
 	
 	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
-	NSDictionary* child;
 	
-	while (child = [children nextObject]) {
+	for (NSDictionary* child in children) {
 		if ([[child objectForKey: xmlType] isEqualToString: xmlElement] &&
 			[[child objectForKey: xmlName] isEqualToString: elementName]) {
 			if (res == nil) {
@@ -505,9 +490,8 @@ static XMLCALL void charData    (void *userData,
 - (NSDictionary*) childForElement: (NSDictionary*) element
 						 withName: (NSString*) elementName {
 	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
-	NSDictionary* child;
 	
-	while (child = [children nextObject]) {
+	for (NSDictionary* child in children) {
 		if ([[child objectForKey: xmlType] isEqualToString: xmlElement] &&
 			[[child objectForKey: xmlName] isEqualToString: elementName]) {
 			return child;

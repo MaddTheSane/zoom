@@ -631,10 +631,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	NSLog(@"Buffer: flushing... (%@)", buffer);
 #endif
 	
-    NSEnumerator* bufEnum = [buffer objectEnumerator];
-    NSArray*      entry;
-
-    while (entry = [bufEnum nextObject]) {
+    for (NSArray* entry in buffer) {
         NSString* entryType = [entry objectAtIndex: 0];
 #ifdef DEBUG
 		NSLog(@"Buffer: %@", entryType);

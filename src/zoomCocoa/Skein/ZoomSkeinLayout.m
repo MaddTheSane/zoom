@@ -301,8 +301,6 @@ static NSImage* unchangedDark, *activeDark;
 									withLevel: (int) level {
 	if (item == nil) return nil;
 	
-	NSEnumerator* childEnum = [[item children] objectEnumerator];
-	ZoomSkeinItem* child;
 	CGFloat position = 0.0;
 	CGFloat lastPosition = 0.0;
 	CGFloat lastWidth = 0.0;
@@ -310,7 +308,7 @@ static NSImage* unchangedDark, *activeDark;
 	
 	NSMutableArray* children = [NSMutableArray array];
 	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in [item children]) {
 		// Layout the child item
 		childItem = [self layoutSkeinItemLoose: child
 									 withLevel: level+1];
@@ -337,8 +335,7 @@ static NSImage* unchangedDark, *activeDark;
 	// Center the children	
 	CGFloat center = position / 2.0;
 	
-	childEnum = [children objectEnumerator];
-	while (childItem = [childEnum nextObject]) {
+	for (ZoomSkeinLayoutItem* childItem in children) {
 		[childItem setPosition: [childItem position] - center];
 	}
 	
@@ -384,10 +381,7 @@ static NSImage* unchangedDark, *activeDark;
 	[item setPosition: newPos];
 	
 	// Fix the children to have absolute positions
-	NSEnumerator* childEnum = [[item children] objectEnumerator];
-	ZoomSkeinLayoutItem* child;
-	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinLayoutItem* child in [item children]) {
 		[self fixPositions: child
 				withOffset: newPos];
 	}
@@ -440,9 +434,8 @@ static NSImage* unchangedDark, *activeDark;
 	
 	NSMutableArray* res = [NSMutableArray array];
 	NSEnumerator* levelEnum = [[levels objectAtIndex: level] objectEnumerator];
-	ZoomSkeinLayoutItem* item;
 	
-	while (item = [levelEnum nextObject])  {
+	for (ZoomSkeinLayoutItem* item in levelEnum)  {
 		[res addObject: [item item]];
 	}
 	
@@ -563,9 +556,8 @@ static NSImage* unchangedDark, *activeDark;
 	
 	// Recall that item positions are centered. Widths are calculated
 	NSEnumerator* levelEnum = [[levels objectAtIndex: level] objectEnumerator];
-	ZoomSkeinLayoutItem* item;
 	
-	while (item = [levelEnum nextObject]) {
+	for (ZoomSkeinLayoutItem* item in levelEnum) {
 		CGFloat thisItemWidth = [item width];
 		CGFloat itemPos = [item position] + globalOffset;
 		
@@ -625,7 +617,7 @@ static NSImage* unchangedDark, *activeDark;
 		
 		CGFloat ypos = ((CGFloat)level)*itemHeight + (itemHeight / 2.0);
 		
-		while (item = [levelEnum nextObject]) {
+		for (ZoomSkeinLayoutItem* item in levelEnum) {
 			ZoomSkeinItem* skeinItem = [item item];
 			CGFloat xpos = [item position] + globalOffset;
 			NSSize size = [skeinItem commandSize];
@@ -684,8 +676,7 @@ static NSImage* unchangedDark, *activeDark;
 #endif
 			NSColor* permChildLink = [NSColor blackColor];
 			
-			ZoomSkeinLayoutItem* child;
-			while (child = [childEnumerator nextObject]) {
+			for (ZoomSkeinLayoutItem* child in childEnumerator) {
 				CGFloat childXPos = [child position] + globalOffset;
 				BOOL annotated = [[child item] annotation]!=nil;
 				

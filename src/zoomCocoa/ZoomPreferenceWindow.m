@@ -267,10 +267,8 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 - (void) setButton: (NSPopUpButton*) button
 	  toFontFamily: (NSString*) family {
 	NSMenuItem* familyItem = nil;
-	NSEnumerator* itemEnum = [[[button menu] itemArray] objectEnumerator];
-	NSMenuItem* curItem;
 	
-	while (curItem = [itemEnum nextObject]) {
+	for (NSMenuItem* curItem in [[button menu] itemArray]) {
 		if ([[curItem title] caseInsensitiveCompare: family] == NSEqualToComparison) {
 			familyItem = curItem;
 			break;

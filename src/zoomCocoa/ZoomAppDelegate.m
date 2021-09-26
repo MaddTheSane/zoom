@@ -371,10 +371,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 }
 
 - (ZoomStory*) findStory: (ZoomStoryID*) gameID {
-	NSEnumerator* indexEnum = [gameIndices objectEnumerator];
-	ZoomMetadata* repository;
-	
-	while (repository = [indexEnum nextObject]) {
+	for (ZoomMetadata* repository in gameIndices) {
 		if (![repository containsStoryWithIdent: gameID]) continue;
 		
 		ZoomStory* res = [repository findOrCreateStory: gameID];
@@ -393,12 +390,9 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	// would be better?
 	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 	
-	NSEnumerator* libEnum;
-	NSString* libDir;
+	NSEnumerator* libEnum = [libraryDirs objectEnumerator];
 
-	libEnum = [libraryDirs objectEnumerator];
-	
-	while (libDir = [libEnum nextObject]) {
+	for (NSString* libDir in libEnum) {
 		BOOL isDir;
 		
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
@@ -411,7 +405,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	libEnum = [libraryDirs objectEnumerator];
 	
-	while (libDir = [libEnum nextObject]) {
+	for (NSString* libDir in libEnum) {
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
 		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
 									  withIntermediateDirectories: NO

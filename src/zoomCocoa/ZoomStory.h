@@ -87,7 +87,7 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 //! Compound ID
 - (ZoomStoryID*) storyID;
 //! Array of ZoomStoryIDs
-- (NSArray<ZoomStoryID*>*) storyIDs;
+@property (nonatomic, readonly, copy) NSArray<ZoomStoryID*> *storyIDs;
 //! Story answers to this ID
 - (BOOL)     hasID: (ZoomStoryID*) storyID;
 //! Stories share an ID

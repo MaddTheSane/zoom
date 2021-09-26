@@ -108,10 +108,9 @@
 // = Management =
 
 - (void) removeAllSubviews {
-	NSView* subview;
 	NSEnumerator* viewEnum = [views objectEnumerator];
 	
-	while (subview = [viewEnum nextObject]) {
+	for (NSView* subview in viewEnum) {
 		[subview removeFromSuperview];
 	}
 	
@@ -195,7 +194,6 @@
 	NSEnumerator* viewEnum;
 	NSEnumerator* stateEnum;
 	NSEnumerator* titleEnum;
-	NSView* subview;
 	
 	CGFloat bestWidth;
 	CGFloat newHeight;
@@ -211,7 +209,7 @@
 	viewEnum = [views objectEnumerator];
 	stateEnum = [states objectEnumerator];
 
-	while (subview = [viewEnum nextObject]) {
+	for (NSView* subview in viewEnum) {
 		NSRect viewFrame = [subview frame];
 		BOOL shown = [[stateEnum nextObject] boolValue];
 		
@@ -230,7 +228,7 @@
 	stateEnum = [states objectEnumerator];
 	titleEnum = [titles objectEnumerator];
 	
-	while (subview = [viewEnum nextObject]) {
+	for (NSView* subview in viewEnum) {
 		NSRect viewFrame = [subview frame];
 		BOOL shown = [[stateEnum nextObject] boolValue];
 		NSString* title = [titleEnum nextObject];
@@ -258,7 +256,7 @@
 	stateEnum = [states objectEnumerator];
 	titleEnum = [titles objectEnumerator];
 	
-	while (subview = [viewEnum nextObject]) {
+	for (NSView* subview in viewEnum) {
 		NSRect viewFrame = [subview frame];
 		BOOL shown = [[stateEnum nextObject] boolValue];
 		NSString* title = [titleEnum nextObject];
@@ -341,7 +339,9 @@
 	
 	[self setNeedsDisplay: NO];
 	viewEnum = [views objectEnumerator];
-	while (subview = [viewEnum nextObject]) [subview setNeedsDisplay: NO];
+	for (NSView* subview in viewEnum) {
+		[subview setNeedsDisplay: NO];
+	}
 		
 	rearranging = NO;
 }

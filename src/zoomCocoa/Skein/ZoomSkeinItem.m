@@ -234,10 +234,7 @@ static NSString* convertCommand(NSString* command) {
 	if (item == self) return YES;
 	//if ([children containsObject: child]) return YES;
 	
-	NSEnumerator* childEnum = [children objectEnumerator];
-	ZoomSkeinItem* child;
-	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in children) {
 		if ([child hasChild: item]) return YES;
 	}
 	
@@ -245,12 +242,9 @@ static NSString* convertCommand(NSString* command) {
 }
 
 - (BOOL) hasChildWithCommand: (NSString*) theCommand {
-	NSEnumerator* childEnum = [children objectEnumerator];
-	ZoomSkeinItem* child;
-	
 	if (theCommand == nil) theCommand = @"";
 	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in children) {
 		NSString* childCommand = [child command];
 		if (childCommand == nil) childCommand = @"";
 		
@@ -313,10 +307,7 @@ static NSString* convertCommand(NSString* command) {
 		}
 	} else {
 		// Applies to child items if set to 'YES'
-		NSEnumerator* childEnum = [[self children] objectEnumerator];
-		ZoomSkeinItem* child;
-		
-		while (child = [childEnum nextObject]) {
+		for (ZoomSkeinItem* child in [self children]) {
 			if (![child temporary]) [child setTemporary: YES];
 		}
 	}

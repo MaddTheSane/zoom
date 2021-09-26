@@ -248,7 +248,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 //! Ask the display to backtrack over some input that may already be on the screen
 - (bycopy NSString*) backtrackInputOver: (in bycopy NSString*) prefix;
 
-- (oneway void) setTerminatingCharacters: (in bycopy NSSet*) characters;
+- (oneway void) setTerminatingCharacters: (in bycopy NSSet<NSNumber*>*) characters;
 
 - (void) displayMore: (BOOL) shown;
 
@@ -260,7 +260,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 
 //! Prompting for files
 - (void) promptForFileToWrite: (in ZFileType) type
-                                         defaultName: (in bycopy NSString*) name;
+				  defaultName: (in bycopy NSString*) name;
 - (void) promptForFileToRead: (in ZFileType) type
                  defaultName: (in bycopy NSString*) name;
 

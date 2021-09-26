@@ -15,12 +15,7 @@
 static NSString* zoomConfigDirectory() {
 	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 	
-	NSEnumerator* libEnum;
-	NSString* libDir;
-	
-	libEnum = [libraryDirs objectEnumerator];
-	
-	while (libDir = [libEnum nextObject]) {
+	for (NSString* libDir in libraryDirs) {
 		BOOL isDir;
 		
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
@@ -31,9 +26,7 @@ static NSString* zoomConfigDirectory() {
 		}
 	}
 	
-	libEnum = [libraryDirs objectEnumerator];
-	
-	while (libDir = [libEnum nextObject]) {
+	for (NSString* libDir in libraryDirs) {
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
 		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
 									  withIntermediateDirectories: NO

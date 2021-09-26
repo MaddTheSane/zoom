@@ -194,10 +194,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	
 	[self loadPlugIns];
 	
-	NSEnumerator* pluginClassEnum = [pluginClasses objectEnumerator];
-	Class pluginClass;
-	
-	while (pluginClass = [pluginClassEnum nextObject]) {
+	for (Class pluginClass in pluginClasses) {
 		if ([pluginClass canRunPath: filename]) {
 #if VERBOSITY >=3
 			NSLog(@"= Found %@", [pluginClass description]);
@@ -472,9 +469,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	
 	if (exists && isDir) {
 		NSArray* plugins = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: directory error:NULL];
-		NSEnumerator* pluginEnum = [plugins objectEnumerator];
-		NSString* pluginName;
-		while (pluginName = [pluginEnum nextObject]) {
+		for (NSString* pluginName in plugins) {
 			NSString* fullPath = [directory stringByAppendingPathComponent: pluginName];
 			
 			// Get the info object
@@ -493,9 +488,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	pluginInformation = [[NSMutableArray alloc] init];
 	
 	// Get the information for all of the loaded plugins
-	NSEnumerator* pluginEnum = [pluginBundles objectEnumerator];
-	NSBundle* bundle;
-	while (bundle = [pluginEnum nextObject]) {
+	for (NSBundle* bundle in pluginBundles) {
 		// Get the info object
 		ZoomPlugInInfo* information = [[ZoomPlugInInfo alloc] initWithBundleFilename: [bundle bundlePath]];
 		if (information == nil) continue;
@@ -594,9 +587,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	
 	// If any of the plugins specify an update URL, add that to the list
 	NSArray* pluginInfo = [self informationForPlugins];
-	NSEnumerator* pluginEnum = [pluginInfo objectEnumerator];
-	ZoomPlugInInfo* plugin = nil;
-	while (plugin = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* plugin in pluginInfo) {
 		if ([plugin status] == ZoomPlugInInstalled && [plugin updateUrl] != nil) {
 			[whereToCheck addObject: [plugin updateUrl]];
 		}
@@ -618,9 +609,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	// Find the old plugin that matches this one
 	ZoomPlugInInfo* oldPlugIn = nil;
 	
-	NSEnumerator* pluginEnum = [[self informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* maybePlugin;
-	while (maybePlugin = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* maybePlugin in [self informationForPlugins]) {
 		if ([[plugin name] isEqualToString: [maybePlugin name]]) {
 			oldPlugIn = maybePlugin;
 		}
@@ -703,9 +692,8 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		if (result != nil) {
 			// Iterate through the values in the result to get the current versions of the plugins specified in the XML file
 			NSEnumerator* valueEnum = [[result allValues] objectEnumerator];
-			NSDictionary* value;
 			BOOL updated = NO;
-			while (value = [valueEnum nextObject]) {
+			for (NSDictionary* value in valueEnum) {
 				// The entries must be dictionaries
 				if (![value isKindOfClass: [NSDictionary class]])
 					continue;
@@ -745,8 +733,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	// Work out the list of plugins with pending installations
 	NSMutableArray* pendingPlugins = [NSMutableArray array];
 	NSEnumerator* pluginEnum = [[self informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* info;
-	while (info = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* info in pluginEnum) {
 		if ([info status] == ZoomPlugInDownloaded) {
 			[pendingPlugins addObject: info];
 		}
@@ -754,7 +741,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	
 	// Actually perform the installations
 	NSEnumerator* installEnum = [pendingPlugins objectEnumerator];
-	while (info = [installEnum nextObject]) {
+	for (ZoomPlugInInfo* info in installEnum) {
 		// Work out where to install from
 		NSString* installPath = nil;
 		ZoomDownload* download = [info download];
@@ -769,8 +756,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 			
 			if (downloadDir != nil) {
 				NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: downloadDir error: NULL] objectEnumerator];
-				NSString* downloaded;
-				while (downloaded = [downloadDirEnum nextObject]) {
+				for (NSString* downloaded in downloadDirEnum) {
 					// Need to find a .zoomplugin or .plugin file
 					NSString* extension = [[downloaded pathExtension] lowercaseString];
 					
@@ -818,9 +804,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	// Pick the next plug-in to download an update for
 	ZoomPlugInInfo* nextUpdate = nil;
 	
-	NSEnumerator* pluginEnum = [[self informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* info;
-	while (info = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* info in [self informationForPlugins]) {
 		if ([info download] != nil) continue;
 		if ([info location] == nil) continue;
 		
@@ -928,10 +912,8 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	// See if we can find an installed plugin that matches this one
 	BOOL alreadyInstalled = NO;
 	ZoomPlugInInfo* existingPlugIn = nil;
-	NSEnumerator* pluginEnum = [[self informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* info;
 
-	while (info = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* info in [self informationForPlugins]) {
 		if ([[info name] isEqualToString: [bundleInfo name]]) {
 			if (existingPlugIn == nil) existingPlugIn = info;
 			
@@ -1208,8 +1190,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	NSMutableDictionary* pluginDictionary = [NSMutableDictionary dictionary];
 	
 	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: plugins error: NULL] objectEnumerator];
-	NSString* pluginName;
-	while (pluginName = [pluginEnum nextObject]) {
+	for (NSString* pluginName in pluginEnum) {
 		// Get the information for the next plugin
 		NSString* pluginPath = [plugins stringByAppendingPathComponent: pluginName];
 		ZoomPlugInInfo* info = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath];
@@ -1222,7 +1203,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	
 	// Replace the old plugins with the new ones
 	pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: pendingPlugIns error:NULL] objectEnumerator];
-	while (pluginName = [pluginEnum nextObject]) {
+	for (NSString* pluginName in pluginEnum) {
 		// Get the information for the next plugin
 		NSString* pluginPath = [pendingPlugIns stringByAppendingPathComponent: pluginName];
 		ZoomPlugInInfo* info = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath];

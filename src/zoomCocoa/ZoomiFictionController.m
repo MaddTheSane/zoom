@@ -930,13 +930,10 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	filterSet2 = [[NSMutableArray alloc] init];
 	
 	// Repopulate the table
-	NSEnumerator* identEnum = [[org storyIdents] objectEnumerator];
-	ZoomStoryID* ident;
-	
 	NSString* filterKey1 = [[[filterTable1 tableColumns] objectAtIndex: 0] identifier];
 	NSString* filterKey2 = [[[filterTable2 tableColumns] objectAtIndex: 0] identifier];
 	
-	while (ident = [identEnum nextObject]) {
+	for (ZoomStoryID* ident in org.storyIdents) {
 		ZoomStory* thisStory = [self storyForID: ident];
 		
 		[storyList addObject: ident];
@@ -956,9 +953,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	isFiltered = [self filterTableDataPass1] || isFiltered;
 	
 	// Generate + sort the second filter set
-	identEnum = [storyList objectEnumerator];
-	
-	while (ident = [identEnum nextObject]) {
+	for (ZoomStoryID* ident in storyList) {
 		ZoomStory* thisStory = [self storyForID: ident];
 		NSString* filterItem2 = [thisStory objectForKey: filterKey2];		
 		if ([filterItem2 length] != 0 && [filterSet2 indexOfObject: filterItem2] == NSNotFound) [filterSet2 addObject: filterItem2];
@@ -2292,9 +2287,8 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	// Iterate through the directory and organise any files that we find
 	NSMutableArray* addedFiles = [NSMutableArray array];
 	NSDirectoryEnumerator* dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: directory];
-	NSString* path;
 	NSString* signpostFile = nil;
-	while (path = [dirEnum nextObject]) {
+	for (__strong NSString* path in dirEnum) {
 		path = [directory stringByAppendingPathComponent: path];
 		path = [path stringByStandardizingPath];
 		
@@ -2371,10 +2365,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		if (browserOn) [self showLocalGames: self];
 	} else {
 		// Set the group of all the stories
-		NSEnumerator* storyEnum = [addedFiles objectEnumerator];
-		ZoomStoryID* storyId;
-		
-		while (storyId = [storyEnum nextObject]) {
+		for (ZoomStoryID* storyId in addedFiles) {
 			ZoomStory* story = [self storyForID: storyId];
 			
 			story = [self createStoryCopy: story];
@@ -2567,8 +2558,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		NSString* extension = [[activeDownload suggestedFilename] pathExtension];
 		
 		NSEnumerator* dirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [activeDownload downloadDirectory] error: NULL] objectEnumerator];
-		NSString* path;
-		while (path = [dirEnum nextObject]) {
+		for (NSString* path in dirEnum) {
 			if ([[path pathExtension] isEqualToString: extension]) {
 				xmlFile = [[activeDownload downloadDirectory] stringByAppendingPathComponent: path];
 			}
@@ -2662,9 +2652,9 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 			// Use mirror.ifarchive.org, not www.ifarchive.org
 			NSString* host = [url host];
 			if ([host isEqualToString: @"www.ifarchive.org"]) {
-				url = [[NSURL alloc] initWithScheme: [url scheme]
-											   host: @"mirror.ifarchive.org"
-											   path: [url path]];
+				NSURLComponents *components = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:YES];
+				components.host = @"mirror.ifarchive.org";
+				url = components.URL;
 			}
 			
 			// Download the specified file
@@ -2994,8 +2984,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		BOOL haveInterpreter = NO;
 		
 		NSEnumerator* pluginEnum = [[[ZoomPlugInManager sharedPlugInManager] pluginBundles] objectEnumerator];
-		NSBundle* pluginBundle;
-		while (pluginBundle = [pluginEnum nextObject]) {
+		for (NSBundle* pluginBundle in pluginEnum) {
 			NSString* pluginName = [[ZoomPlugInManager sharedPlugInManager] nameForBundle: [pluginBundle bundlePath]];
 			if ([pluginName isEqualToString: interpreter]) {
 				haveInterpreter = YES;
@@ -3037,9 +3026,9 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 					// Use mirror.ifarchive.org, not www.ifarchive.org
 					NSString* host = [updateUrl host];
 					if ([host isEqualToString: @"www.ifarchive.org"]) {
-						updateUrl = [[NSURL alloc] initWithScheme: [updateUrl scheme]
-															 host: @"mirror.ifarchive.org"
-															 path: [updateUrl path]];
+						NSURLComponents *components = [[NSURLComponents alloc] initWithURL:updateUrl resolvingAgainstBaseURL:YES];
+						components.host = @"mirror.ifarchive.org";
+						updateUrl = components.URL;
 					}
 					
 					// Download the update XML file
@@ -3062,8 +3051,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	// See if the game is already present
 	ZoomStoryID* downloadId = nil;
-	NSEnumerator* idEnum = [[signpost ifids] objectEnumerator];
-	while (downloadId = [idEnum nextObject]) {
+	for (ZoomStoryID* downloadId in [signpost ifids]) {
 		// If we're not forcing a download, open the existing file
 		if (downloadId && !forceDownload) {
 			NSString* storyFilename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: downloadId];
@@ -3090,9 +3078,9 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		// Use mirror.ifarchive.org, not www.ifarchive.org
 		NSString* host = [url host];
 		if ([host isEqualToString: @"www.ifarchive.org"]) {
-			url = [[NSURL alloc] initWithScheme: [url scheme]
-										   host: @"mirror.ifarchive.org"
-										   path: [url path]];
+			NSURLComponents *components = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:YES];
+			components.host = @"mirror.ifarchive.org";
+			url = components.URL;
 		}
 		
 		activeDownload = [[ZoomDownload alloc] initWithUrl: url];

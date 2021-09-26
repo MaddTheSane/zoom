@@ -455,11 +455,9 @@ static const int cacheUpperLimit = 64;
 	if ([cache count] >= cacheUpperLimit) {
 		NSLog(@"ImageCache: hit %lu images (removing oldest entries)", (unsigned long)[cache count]);
 		
-		NSEnumerator* keyEnum = [cache keyEnumerator];
 		NSMutableArray* oldestEntries = [NSMutableArray array];
-		NSNumber* key;
 		
-		while (key = [keyEnum nextObject]) {
+		for (NSNumber* key in cache) {
 			// Find the place to put this particular entry
 			// Yeah, could binary search here. *Probably* not worth it
 			NSMutableDictionary* entry = [cache objectForKey: key];
@@ -492,12 +490,9 @@ static const int cacheUpperLimit = 64;
 }
 
 - (void) removeAdaptiveImagesFromCache {
-	NSEnumerator* keyEnum = [cache keyEnumerator];
-	NSNumber* key;
+	NSMutableArray<NSNumber*>* keysToRemove = [NSMutableArray array];
 	
-	NSMutableArray* keysToRemove = [NSMutableArray array];
-	
-	while (key = [keyEnum nextObject]) {
+	for (NSNumber* key in cache) {
 		NSDictionary* entry = [cache objectForKey: key];
 		
 		if ([[entry objectForKey: @"adaptive"] boolValue]) {
@@ -509,10 +504,7 @@ static const int cacheUpperLimit = 64;
 	
 	NSLog(@"Removing %lu adaptive entries from the cache", (unsigned long)[keysToRemove count]);
 	
-	keyEnum = [keysToRemove objectEnumerator];
-	while (key = [keyEnum nextObject]) {
-		[cache removeObjectForKey: key];
-	}
+	[cache removeObjectsForKeys:keysToRemove];
 }
 
 // = Decoded data =

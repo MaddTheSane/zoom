@@ -48,7 +48,7 @@ extern NSNotificationName const ZoomSkeinChangedNotification;
 						 toItem: (ZoomSkeinItem*) item2;
 
 // Annotation lists
-- (NSArray*) annotations;
+- (NSArray<NSString*>*) annotations;
 - (NSMenu*)  populateMenuWithAction: (SEL) action
 							 target: (id) target;
 - (void)	 populatePopupButton: (NSPopUpButton*) button;
