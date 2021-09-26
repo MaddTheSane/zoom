@@ -30,7 +30,7 @@
 - (ZoomMetadata*) userMetadata;
 
 @property (readonly, copy) NSString *zoomConfigDirectory;
-- (id<ZoomLeopard>) leopard;
+@property (readonly, strong) id<ZoomLeopard> leopard;
 
 - (IBAction) fixedOpenDocument: (id) sender;
 - (IBAction) showPluginManager: (id) sender;

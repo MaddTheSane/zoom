@@ -326,9 +326,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 }
 
-- (id<ZoomLeopard>) leopard {
-	return leopard;
-}
+@synthesize leopard;
 
 // = General actions =
 - (IBAction) showPreferences: (id) sender {

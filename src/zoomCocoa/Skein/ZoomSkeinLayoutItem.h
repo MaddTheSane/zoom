@@ -47,11 +47,11 @@
 
 // Setting/getting properties
 
-@property (retain) ZoomSkeinItem *item;
+@property (strong) ZoomSkeinItem *item;
 @property CGFloat width;
 @property CGFloat fullWidth;
 @property CGFloat position;
-@property (nonatomic, retain) NSArray<ZoomSkeinLayoutItem*> *children;
+@property (nonatomic, strong) NSArray<ZoomSkeinLayoutItem*> *children;
 @property int level;
 @property BOOL onSkeinLine;
 @property BOOL recentlyPlayed;

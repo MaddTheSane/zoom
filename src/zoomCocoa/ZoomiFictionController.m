@@ -85,9 +85,6 @@ enum {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// Bug in weak linking? Can't use NSShadowAttributeName... Hmph
-static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
-
 - (NSView*) createMetalTitleForTable: (NSTableView*) theTable {
 	// Jeremy Dronfield suggested this on Cocoa-dev
 	
@@ -108,7 +105,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	NSMutableAttributedString *headerString = [[NSMutableAttributedString alloc] initWithString:@"Title"];
 	NSRange range = NSMakeRange(0, [headerString length]);
 	[headerString addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:11.0] range:range];
-	[headerString addAttribute:ZoomNSShadowAttributeName value:shadow range:range];
+	[headerString addAttribute:NSShadowAttributeName value:shadow range:range];
 	[headerString setAlignment:NSTextAlignmentCenter range:range];
 	
 	// The background image
@@ -151,7 +148,6 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 		 forTable: (NSTableView*) table {
 	// Can't use the traditional methods, as our table header view draws all over the normal
 	// column header
-	if (objc_lookUpClass("NSShadow") != nil) {
 		NSTableHeaderView* theHeader = [table headerView];
 		NSEnumerator* viewEnum = [[theHeader subviews] objectEnumerator];
 
@@ -165,7 +161,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 		NSMutableAttributedString *headerString = [[NSMutableAttributedString alloc] initWithString: title];
 		NSRange range = NSMakeRange(0, [headerString length]);
 		[headerString addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:11.0] range:range];
-		[headerString addAttribute:ZoomNSShadowAttributeName value:shadow range:range];
+		[headerString addAttribute:NSShadowAttributeName value:shadow range:range];
 		[headerString setAlignment:NSTextAlignmentCenter range:range];
 		
 		for (NSTextField* titleView in viewEnum) {
@@ -173,11 +169,6 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 				[titleView setAttributedStringValue: headerString];
 			}
 		}
-	} else {
-		NSTableColumn* filterColumn = [[table tableColumns] objectAtIndex: 0];
-		
-		[[filterColumn headerCell] setStringValue: title];		
-	}
 }
 
 - (void) flipTo: (NSView*) view {
@@ -256,8 +247,7 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 	[[gameDetailView textStorage] setDelegate: self];
 	[self setupSplitView];
 		
-	// Set up the filter table headers (panther only)
-	if (objc_lookUpClass("NSShadow") != nil) {
+	// Set up the filter table headers
 		// We have NSShadow - go ahead
 		
 		// Note (and FIXME): a retained view is not released here
@@ -269,7 +259,6 @@ static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
 			  forTable: filterTable1];
 		[self setTitle: @"Author"
 			  forTable: filterTable2];
-	}
 
 
 	showDrawer = YES;

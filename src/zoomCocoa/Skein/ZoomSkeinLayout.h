@@ -20,11 +20,11 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 	ZoomSkeinItem* rootItem;
 
 	// Item mapping
-	NSMutableDictionary* itemForItem;
+	NSMutableDictionary<NSValue*,ZoomSkeinLayoutItem*>* itemForItem;
 	
 	// The layout
 	ZoomSkeinLayoutItem* tree;
-	NSMutableArray* levels;
+	NSMutableArray<NSMutableArray<ZoomSkeinLayoutItem*>*>* levels;
 	CGFloat globalOffset, globalWidth;
 	
 	CGFloat itemWidth;
@@ -33,7 +33,7 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 	
 	// Highlighted skein line
 	ZoomSkeinItem* highlightedLineItem;
-	NSMutableSet*  highlightedSet;
+	NSMutableSet<NSValue*>*  highlightedSet;
 	
 	// Some extra status
 	ZoomSkeinItem* activeItem;

@@ -20,9 +20,6 @@ static const CGFloat itemPadding = 56.0;
 static NSDictionary* itemTextAttributes = nil;
 static NSDictionary* labelTextAttributes = nil;
 
-// Bug in weak linking? Can't use NSShadowAttributeName... Hmph
-static NSString* const ZoomNSShadowAttributeName = @"NSShadow";
-
 // Images
 static NSImage* unplayed, *selected, *active, *unchanged, *changed, *annotation, *commentaryBadge;
 
@@ -110,7 +107,7 @@ static NSImage* unchangedDark, *activeDark;
 	labelTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
 		[NSFont systemFontOfSize: 13], NSFontAttributeName,
 		[NSColor blackColor], NSForegroundColorAttributeName,
-		labelShadow, ZoomNSShadowAttributeName,
+		labelShadow, NSShadowAttributeName,
 		nil] retain];
 	
 	[labelShadow release];
@@ -251,9 +248,8 @@ static NSImage* unchangedDark, *activeDark;
 	// Clear the items that are currently marked as highlighted
 	if (highlightedSet != nil) {
 		NSEnumerator* oldHighlightEnum = [itemForItem objectEnumerator];
-		ZoomSkeinLayoutItem* layoutItem;
 		
-		while (layoutItem = [oldHighlightEnum nextObject])  {
+		for (ZoomSkeinLayoutItem* layoutItem in oldHighlightEnum)  {
 			[layoutItem setOnSkeinLine: NO];
 		}
 	}
@@ -869,16 +865,15 @@ static NSImage* unchangedDark, *activeDark;
 	// Counterpart to layoutSkeinItemLoose that is slightly more intelligent about re-using vertical space
 	if (item == nil) return nil;
 	
-	NSEnumerator* childEnum = [[item children] objectEnumerator];
-	ZoomSkeinItem* child;
+	NSEnumerator<ZoomSkeinItem*>* childEnum = [[item children] objectEnumerator];
 	ZoomSkeinLayoutItem* lastItem = nil;
 	CGFloat position = 0.0;
 	CGFloat lastWidth = 0.0;
 	ZoomSkeinLayoutItem* childItem;
 	
-	NSMutableArray* children = [NSMutableArray array];
+	NSMutableArray<ZoomSkeinLayoutItem*>* children = [NSMutableArray array];
 	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in childEnum) {
 		// Layout the child item
 		childItem = [self layoutSkeinItemTight: child
 									 withLevel: level+1];
@@ -920,8 +915,7 @@ static NSImage* unchangedDark, *activeDark;
 	// Center the children	
 	CGFloat center = position / 2.0;
 	
-	childEnum = [children objectEnumerator];
-	while (childItem = [childEnum nextObject]) {
+	for (ZoomSkeinLayoutItem* childItem in children) {
 		[childItem setPosition: [childItem position] - center];
 	}
 	

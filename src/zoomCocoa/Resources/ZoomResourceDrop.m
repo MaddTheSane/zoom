@@ -29,7 +29,7 @@ static NSImage* blorbImage;
     if (self) {
 		droppedFilename = nil;
 		
-		[self registerForDraggedTypes: [NSArray arrayWithObjects: NSFileContentsPboardType, NSPasteboardTypeFileURL, nil]];
+		[self registerForDraggedTypes: @[NSPasteboardTypeFileURL]];
 		
 		willOrganise = 2; // Take value from global preferences (default)
 		enabled = YES;

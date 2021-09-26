@@ -633,7 +633,7 @@ static NSDictionary* labelTextAttributes = nil;
 		labelTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSFont systemFontOfSize: 13], NSFontAttributeName,
 			[NSColor blackColor], NSForegroundColorAttributeName,
-			//labelShadow, ZoomNSShadowAttributeName,
+			//labelShadow, NSShadowAttributeName,
 			nil];
 	}
 	
