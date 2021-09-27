@@ -125,7 +125,6 @@ framework module ZoomPlugIns {
 		header "treaty.h"
 		export *
 	}
-
 	
 	export *
 }

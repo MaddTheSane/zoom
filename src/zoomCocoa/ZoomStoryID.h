@@ -34,3 +34,6 @@
 - (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 
 @end
+
+//! Set to \c YES to prevent the plug-in manager from looking at plug-ins.
+extern BOOL isSpotlightIndexing;

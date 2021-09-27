@@ -90,6 +90,7 @@
 - (BOOL)readFromData:(NSData *)data
 			  ofType:(NSString *)type
 			   error:(NSError * _Nullable * _Nullable)outError {
+	isSpotlightIndexing = NO;
 	const unsigned char* bytes = [data bytes];
 	BOOL isForm = NO;
 	

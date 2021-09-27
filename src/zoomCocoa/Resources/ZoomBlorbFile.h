@@ -31,7 +31,7 @@
 	NSSize maxSize;
 	NSMutableDictionary* resolution;
 	
-	NSMutableDictionary<NSNumber*, NSMutableDictionary*>* cache;
+	NSMutableDictionary<NSNumber*, NSMutableDictionary<NSString*,id>*>* cache;
 	unsigned int maxCacheNum;
 }
 

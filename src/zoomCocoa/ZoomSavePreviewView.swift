@@ -56,7 +56,7 @@ class ZoomSavePreviewView: NSView {
 			switch (file as NSString).pathExtension.lowercased() {
 			case "zoomsave":
 				var previewURL = URL(fileURLWithPath: directory, isDirectory: true)
-				previewURL.appendPathComponent(file)
+				previewURL.appendPathComponent(file, isDirectory: true)
 				previewURL.appendPathComponent("ZoomPreview.dat")
 				
 				var isDir: ObjCBool = false

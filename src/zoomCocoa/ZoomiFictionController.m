@@ -2281,12 +2281,13 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 
 - (void) addFilesFromDirectory: (NSString*) directory
 					 groupName: (NSString*) groupName {
+	isSpotlightIndexing = NO;
 	// Work out the group to use to store the files that we've added
 	if (groupName == nil || [groupName length] == 0) groupName = @"Downloaded";
 	
 	// Iterate through the directory and organise any files that we find
-	NSMutableArray* addedFiles = [NSMutableArray array];
-	NSDirectoryEnumerator* dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: directory];
+	NSMutableArray<ZoomStoryID*>* addedFiles = [NSMutableArray array];
+	NSDirectoryEnumerator<NSString *>* dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: directory];
 	NSString* signpostFile = nil;
 	for (__strong NSString* path in dirEnum) {
 		path = [directory stringByAppendingPathComponent: path];

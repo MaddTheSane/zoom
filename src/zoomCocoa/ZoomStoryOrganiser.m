@@ -114,6 +114,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 }
 
 - (out bycopy ZoomStoryID*) idForFile: (in bycopy NSString*) filename {
+	isSpotlightIndexing = NO;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: filename]) return nil;
 	return [ZoomStoryID idForFile: filename];
 }
@@ -144,7 +145,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	for (NSString* filename in filenameEnum) @autoreleasepool {
 		
 		NSData* storyData = [prefs objectForKey: filename];
-		ZoomStoryID* fileID = [NSKeyedUnarchiver unarchiveObjectWithData: storyData];
+		ZoomStoryID* fileID = [NSKeyedUnarchiver unarchivedObjectOfClass: [ZoomStoryID class] fromData: storyData error: NULL];
 		if (!fileID) {
 			fileID = [NSUnarchiver unarchiveObjectWithData: storyData];
 		}
@@ -188,7 +189,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 			
 			// Add this entry
 			NSString* newFilename = [filename copy];
-			NSString* newIdent    = [fileID copy];
+			ZoomStoryID* newIdent    = [fileID copy];
 			
 			[storyFilenames addObject: newFilename];
 			[storyIdents addObject: newIdent];
@@ -346,6 +347,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 }
 
 - (void) foundFileNotInDatabase: (NSArray*) info {
+	isSpotlightIndexing = NO;
 	// Called from the preferenceThread (on the main thread) when a story not in the database is found
 	NSString* groupName = [info objectAtIndex: 0];
 	NSString* gameName = [info objectAtIndex: 1];

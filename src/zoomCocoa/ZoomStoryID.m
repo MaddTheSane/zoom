@@ -14,12 +14,14 @@
 #include "ifmetabase.h"
 #include <CommonCrypto/CommonDigest.h>
 
+BOOL isSpotlightIndexing = NO;
+
 @implementation ZoomStoryID
 
 + (ZoomStoryID*) idForFile: (NSString*) filename {
 	ZoomStoryID* result = nil;
 
-#ifndef BUILDING_SPOTLIGHT
+	if (!isSpotlightIndexing) {
 	ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename];
 
 	if (plugin != nil) {
@@ -28,7 +30,7 @@
 	}
 	
 	if (result != nil) return result;
-#endif
+	}
 	
 	// If this is a z-code or blorb file, then try the Z-Code ID
 	NSString* extension = [[filename pathExtension] lowercaseString];
@@ -410,7 +412,7 @@
 	if (self) {
 		// Take MD5 of the data
 		CC_MD5_CTX md5state;
-		unsigned char r[16];
+		unsigned char r[CC_MD5_DIGEST_LENGTH];
 		
 		CC_MD5_Init(&md5state);
 		CC_MD5_Update(&md5state, [genericGameData bytes], (CC_LONG)[genericGameData length]);
@@ -497,9 +499,8 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
 	if (encoder.allowsKeyedCoding) {
 		char* stringId = IFMB_IdToString(ident);
-		NSString* stringIdent = [NSString stringWithUTF8String: stringId];
+		NSString* stringIdent = [[NSString alloc] initWithBytesNoCopy:stringId length:strlen(stringId) encoding:NSUTF8StringEncoding freeWhenDone:YES];
 		[encoder encodeObject:stringIdent forKey:@"IFMBStringID"];
-		free(stringId);
 	} else {
 	// Version might change later on
 	int version = 2;
