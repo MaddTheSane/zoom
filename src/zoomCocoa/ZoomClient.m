@@ -395,7 +395,10 @@
 						  @"Zoom does not know where a valid story file for '%@' is and so is unable to load it", [[wrapper filename] lastPathComponent]);
 		
 		if (outError) {
-			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
+				NSLocalizedDescriptionKey: @"Unable to find story file",
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Zoom does not know where a valid story file for '%@' is and so is unable to load it", [[wrapper filename] lastPathComponent]]
+			}];
 		}
 		return NO;
 	}
@@ -411,8 +414,7 @@
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: @"Unable to find story file",
-				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent],
-												  gameFile]
+				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent], gameFile]
 			}];
 		}
 		return NO;		
@@ -435,7 +437,7 @@
 	ZoomView* savedView = nil;
 		
 	if (savedViewArchive) {
-		savedView = [NSKeyedUnarchiver unarchiveObjectWithData: savedViewArchive];
+		savedView = [NSKeyedUnarchiver unarchivedObjectOfClass: [ZoomView class] fromData: savedViewArchive error: NULL];
 		if (!savedView) {
 			savedView = [NSUnarchiver unarchiveObjectWithData: savedViewArchive];
 		}

@@ -84,7 +84,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 	CGFloat scaleFactor;
 	
 	// Command history
-	NSMutableArray* commandHistory;
+	NSMutableArray<NSString*>* commandHistory;
 	NSInteger		historyPos;
 	
 	// Terminating characters

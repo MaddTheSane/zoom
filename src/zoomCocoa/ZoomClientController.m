@@ -135,9 +135,12 @@
     [[zoomView zMachine] loadStoryFile: [[self document] gameData]];
 	
 	if ([[self document] autosaveData] != nil) {
-		NSUnarchiver* decoder;
+		NSCoder* decoder;
 		
-		decoder = [[NSUnarchiver alloc] initForReadingWithData: [[self document] autosaveData]];
+		decoder = [[NSKeyedUnarchiver alloc] initForReadingFromData: [[self document] autosaveData] error: NULL];
+		if (!decoder) {
+			decoder = [[NSUnarchiver alloc] initForReadingWithData: [[self document] autosaveData]];
+		}
 		
 		[zoomView restoreAutosaveFromCoder: decoder];
 		
@@ -333,7 +336,7 @@
 		[alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode == NSAlertFirstButtonReturn) {
 				// Close the window
-				closeConfirmed = YES;
+				self->closeConfirmed = YES;
 				[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
 													 target: [self window]
 												   argument: self
@@ -356,13 +359,16 @@
 	NSString* autosaveFile = [autosaveDir stringByAppendingPathComponent: @"autosave.zoomauto"];
 	
 	if (autosave) {
-		NSMutableData* autosaveData = [[NSMutableData alloc] init];
-		NSArchiver* theCoder = [[NSArchiver alloc] initForWritingWithMutableData: autosaveData];
+		NSKeyedArchiver* theCoder = [[NSKeyedArchiver alloc] initRequiringSecureCoding: YES];
 	
 		BOOL saveOK = [zoomView createAutosaveDataWithCoder: theCoder];
 	
 		// Produce an autosave file
-		if (saveOK) [autosaveData writeToFile: autosaveFile atomically: YES];
+		if (saveOK) {
+			[theCoder finishEncoding];
+			NSData* autosaveData = theCoder.encodedData;
+			[autosaveData writeToFile: autosaveFile atomically: YES];
+		}
 	} else {
 		if ([[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
 			[[NSFileManager defaultManager] removeItemAtPath: autosaveFile

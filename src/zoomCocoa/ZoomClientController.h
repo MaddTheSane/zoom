@@ -19,8 +19,11 @@
 	
 	NSRect oldWindowFrame;
 	
-	NSWindow* fullscreenWindow;							// Alternative window used for full-screen view
-	NSWindow* normalWindow;								// The usual window
+	// TODO: migrate to newer full-screen window stuff
+	//! Alternative window used for full-screen view
+	NSWindow* fullscreenWindow;
+	//! The usual window
+	NSWindow* normalWindow;
 
 	NSTimeInterval fadeTime;
 	NSTimeInterval waitTime;
