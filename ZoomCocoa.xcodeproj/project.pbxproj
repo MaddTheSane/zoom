@@ -292,6 +292,7 @@
 		55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BD081821B8C16800A8DD5F /* Skein.xcassets */; };
 		55BF2A1926FE78F900832C53 /* ZoomSavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */; };
 		55BF2A1B26FE7C9200832C53 /* ZoomSavePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */; };
+		55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D14CD727017521006DF31A /* ZoomViewHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -964,6 +965,7 @@
 		55BD081821B8C16800A8DD5F /* Skein.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Skein.xcassets; path = Skein/Skein.xcassets; sourceTree = "<group>"; };
 		55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreview.swift; sourceTree = "<group>"; };
 		55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreviewView.swift; sourceTree = "<group>"; };
+		55D14CD727017521006DF31A /* ZoomViewHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomViewHeaders.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1570,31 +1572,32 @@
 				552A037F2049E74B00A4ECAA /* ZoomView.modulemap */,
 				4B4D512006E3894F007FAD2B /* ZoomConnector.h */,
 				4B4D512106E3894F007FAD2B /* ZoomConnector.m */,
-				4B418ED805961D2C009C44DE /* ZoomPreferences.h */,
-				4B418ED905961D2C009C44DE /* ZoomPreferences.m */,
-				4B4EF623050FDC6800A8E303 /* ZoomView.h */,
-				55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */,
-				4B4EF624050FDC6800A8E303 /* ZoomView.m */,
-				4B7D1DAD0534999E00A8E303 /* ZoomLowerWindow.h */,
-				4B7D1DAE0534999E00A8E303 /* ZoomLowerWindow.m */,
-				4BDFA46305358F1200A8E303 /* ZoomUpperWindow.h */,
-				4BDFA46405358F1200A8E303 /* ZoomUpperWindow.m */,
-				4BDFA4AC0535C42C00A8E303 /* ZoomMoreView.h */,
-				4BDFA4AD0535C42C00A8E303 /* ZoomMoreView.m */,
-				4BDFA4B00535E10200A8E303 /* ZoomTextView.h */,
-				4BDFA4B10535E10200A8E303 /* ZoomTextView.m */,
-				4B2D95C9053706CD00A8E303 /* ZoomScrollView.h */,
-				4B2D95CA053706CD00A8E303 /* ZoomScrollView.m */,
-				4B2D95CE05372EF900A8E303 /* ZoomUpperWindowView.h */,
-				4B2D95CF05372EF900A8E303 /* ZoomUpperWindowView.m */,
-				4BE62208068C273400369528 /* ZoomPixmapWindow.h */,
-				4BE62209068C273400369528 /* ZoomPixmapWindow.m */,
 				4BE6236B068CB86300369528 /* ZoomCursor.h */,
 				4BE6236C068CB86300369528 /* ZoomCursor.m */,
 				4B3DA12F068DAF9E00B7090F /* ZoomInputLine.h */,
 				4B3DA130068DAF9E00B7090F /* ZoomInputLine.m */,
+				4B7D1DAD0534999E00A8E303 /* ZoomLowerWindow.h */,
+				4B7D1DAE0534999E00A8E303 /* ZoomLowerWindow.m */,
+				4BDFA4AC0535C42C00A8E303 /* ZoomMoreView.h */,
+				4BDFA4AD0535C42C00A8E303 /* ZoomMoreView.m */,
+				4BE62208068C273400369528 /* ZoomPixmapWindow.h */,
+				4BE62209068C273400369528 /* ZoomPixmapWindow.m */,
+				4B418ED805961D2C009C44DE /* ZoomPreferences.h */,
+				4B418ED905961D2C009C44DE /* ZoomPreferences.m */,
+				4B2D95C9053706CD00A8E303 /* ZoomScrollView.h */,
+				4B2D95CA053706CD00A8E303 /* ZoomScrollView.m */,
 				4BE5F510075121A400C25A70 /* ZoomTextToSpeech.h */,
 				4BE5F511075121A400C25A70 /* ZoomTextToSpeech.m */,
+				4BDFA4B00535E10200A8E303 /* ZoomTextView.h */,
+				4BDFA4B10535E10200A8E303 /* ZoomTextView.m */,
+				4BDFA46305358F1200A8E303 /* ZoomUpperWindow.h */,
+				4BDFA46405358F1200A8E303 /* ZoomUpperWindow.m */,
+				4B2D95CE05372EF900A8E303 /* ZoomUpperWindowView.h */,
+				4B2D95CF05372EF900A8E303 /* ZoomUpperWindowView.m */,
+				4B4EF623050FDC6800A8E303 /* ZoomView.h */,
+				4B4EF624050FDC6800A8E303 /* ZoomView.m */,
+				55D14CD727017521006DF31A /* ZoomViewHeaders.h */,
+				55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */,
 			);
 			name = ZoomView;
 			sourceTree = "<group>";
@@ -1738,6 +1741,7 @@
 				4BD2748308701E6700C1AE15 /* ZoomUpperWindowView.h in Headers */,
 				4BD2748508701E6700C1AE15 /* ZoomPixmapWindow.h in Headers */,
 				4BD2748608701E6700C1AE15 /* ZoomCursor.h in Headers */,
+				55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */,
 				4BD2748708701E6700C1AE15 /* ZoomInputLine.h in Headers */,
 				4BD2748808701E6700C1AE15 /* ZoomSkeinItem.h in Headers */,
 				4BD2748908701E6700C1AE15 /* ZoomSkein.h in Headers */,
@@ -2864,7 +2868,6 @@
 		4B7CB08809362A3B00F3B8F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1.1.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -2901,7 +2904,6 @@
 		4B7CB08909362A3B00F3B8F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1.1.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -2964,6 +2966,7 @@
 		4BB8C16708C2497700D7D334 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -2984,6 +2987,7 @@
 		4BB8C16808C2497700D7D334 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";

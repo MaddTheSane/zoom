@@ -7,8 +7,8 @@
 //
 
 #import "ZoomGlulxe.h"
-#import "ZoomBlorbFile.h"
-#import "ZoomPreferences.h"
+#import <ZoomView/ZoomBlorbFile.h>
+#import <ZoomView/ZoomPreferences.h>
 
 @implementation ZoomGlulxe
 

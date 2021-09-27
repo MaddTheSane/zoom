@@ -25,34 +25,47 @@
 }
 
 // Informational functions (subclasses should normally override)
-+ (NSString*) pluginVersion;									//!< The version of this plugin
-+ (NSString*) pluginDescription;								//!< The description of this plugin
-+ (NSString*) pluginAuthor;										//!< The author of this plugin
+//! The version of this plugin
+@property (class, readonly, copy) NSString *pluginVersion;
+//! The description of this plugin
+@property (class, readonly, copy) NSString *pluginDescription;
+//! The author of this plugin
+@property (class, readonly, copy) NSString *pluginAuthor;
 
-+ (BOOL) canLoadSavegames;										//!< YES if this plugin can load savegames as well as game files
++ (BOOL) canLoadSavegames;										//!< \c YES if this plugin can load savegames as well as game files
 
-+ (BOOL) canRunPath: (NSString*) path;							//!< YES if the specified file is one that the plugin can run
++ (BOOL) canRunPath: (NSString*) path;							//!< \c YES if the specified file is one that the plugin can run
 
 // Designated initialiser
-- (id) initWithFilename: (NSString*) gameFile;					//!< Initialises this plugin to play a specific game
+//! Initialises this plugin to play a specific game
+- (id) initWithFilename: (NSString*) gameFile NS_DESIGNATED_INITIALIZER;
 
 // Getting information about what this plugin should be doing
-@property (readonly, copy) NSString *gameFilename;				//!< Gets the game associated with this plugin
-@property (readonly, copy) NSData *gameData;					//!< Gets the data for the game associated with this plugin
+//! Gets the game associated with this plugin
+@property (readonly, copy) NSString *gameFilename;
+//! Gets the data for the game associated with this plugin
+@property (readonly, copy) NSData *gameData;
 
 // The game document + windows
-- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story;	// Retrieves/creates the document associated with this game (should not create window controllers immediately)
-- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story	// Retrieves/creates the document associated with this game along with the specified save game file (should not create window controllers immediately)
+//! Retrieves/creates the document associated with this game (should not create window controllers immediately)
+- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story;
+//! Retrieves/creates the document associated with this game along with the specified save game file (should not create window controllers immediately)
+- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
 								saveGame: (NSString*) saveGame;
 
 // Dealing with game metadata
-- (ZoomStoryID*) idForStory;									// Retrieves the unique ID for this story (UUIDs are preferred, or MD5s if the game format does not support that)
-- (ZoomStory*) defaultMetadata;									// Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
-- (NSImage*) coverImage;										// Retrieves the picture to use for the cover image
+//! Retrieves the unique ID for this story (UUIDs are preferred, or MD5s if the game format does not support that)
+- (ZoomStoryID*) idForStory;
+//! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
+- (ZoomStory*) defaultMetadata;
+//! Retrieves the picture to use for the cover image
+- (NSImage*) coverImage;
 
-- (NSImage*) resizeLogo: (NSImage*) input;						// Resizes a cover image so that it's suitable for use as a window logo
+//! Resizes a cover image so that it's suitable for use as a window logo
+- (NSImage*) resizeLogo: (NSImage*) input;
 
 // More information from the main Zoom application
-- (void) setPreferredSaveDirectory: (NSString*) dir;			// Sets the preferred directory to put savegames into
+//! Sets the preferred directory to put savegames into
+- (void) setPreferredSaveDirectory: (NSString*) dir;
 
 @end

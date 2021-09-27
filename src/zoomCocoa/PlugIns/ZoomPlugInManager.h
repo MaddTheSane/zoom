@@ -81,21 +81,28 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;	// Not
 
 @end
 
-//
-// Delegate methods
-//
+//!
+//! Delegate methods
+//!
 @protocol ZoomPlugInManagerDelegate <NSObject>
 @optional
 
-- (void) pluginInformationChanged;							//!< Indicates that the plugin information has changed
-- (void) needsRestart;										//!< Indicates that the plug-in manager needs a restart before it can continue
+//! Indicates that the plugin information has changed
+- (void) pluginInformationChanged;
+//! Indicates that the plug-in manager needs a restart before it can continue
+- (void) needsRestart;
 
-- (void) checkingForUpdates;								//!< Indicates that a check for updates has started
-- (void) finishedCheckingForUpdates;						//!< Indicates that the check for updates has finished
+//! Indicates that a check for updates has started
+- (void) checkingForUpdates;
+//! Indicates that the check for updates has finished
+- (void) finishedCheckingForUpdates;
 
-- (void) downloadingUpdates;								//!< Indicates that the manager is downloading updates
-- (void) downloadProgress: (NSString*) status				//!< Indicates that a download status message should be displayed
+//! Indicates that the manager is downloading updates
+- (void) downloadingUpdates;
+//! Indicates that a download status message should be displayed
+- (void) downloadProgress: (NSString*) status
 			   percentage: (CGFloat) percent;
-- (void) finishedDownloadingUpdates;						//!< Indicates that downloading has finished
+//! Indicates that downloading has finished
+- (void) finishedDownloadingUpdates;
 
 @end
