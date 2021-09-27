@@ -732,7 +732,7 @@ int IFMB_CompareIds(IFID a, IFID b) {
 			if (a->data.glulx.checksum < b->data.glulx.checksum) return -1;
 				
 			if (a->data.glulx.release > b->data.glulx.release) return 1;
-			if (b->data.glulx.release < b->data.glulx.release) return -1;
+			if (a->data.glulx.release < b->data.glulx.release) return -1;
 						
 			for (x=0; x<6; x++) {
 				if (a->data.glulx.serial[x] > b->data.glulx.serial[x]) return 1;
@@ -750,7 +750,7 @@ int IFMB_CompareIds(IFID a, IFID b) {
 			
 		case ID_COMPOUND:
 			if (a->data.compound.count > b->data.compound.count) return 1;
-			if (b->data.compound.count < b->data.compound.count) return -1;
+			if (a->data.compound.count < b->data.compound.count) return -1;
 			
 			for (x=0; x<a->data.compound.count; x++) {
 				int comparison;
