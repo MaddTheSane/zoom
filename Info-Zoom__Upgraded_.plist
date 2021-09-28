@@ -356,7 +356,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
-				<string>uk.org.logicalshift.zoom</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ZCode story</string>
@@ -389,7 +389,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
-				<string>uk.org.logicalshift.zoom</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Blorb resource file</string>
@@ -437,7 +437,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
-				<string>uk.org.logicalshift.zoom</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ZCode story</string>
@@ -452,13 +452,17 @@
 					<string>zlb</string>
 					<string>zblorb</string>
 				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
-				<string>uk.org.logicalshift.zoom</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Glulx Story</string>
@@ -479,7 +483,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
-				<string>uk.org.logicalshift.zoom</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Glulx Story</string>
@@ -499,7 +503,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
-				<string>uk.org.logicalshift.zoom</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Hugo Story</string>
@@ -523,7 +527,7 @@
 			<key>UTTypeDescription</key>
 			<string>TADS Executable</string>
 			<key>UTTypeIconFile</key>
-			<string>GameFile.icns</string>
+			<string>GameFile</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.tads.tads-game</string>
 			<key>UTTypeReferenceURL</key>
@@ -542,7 +546,7 @@
 			<key>UTTypeDescription</key>
 			<string>TADS 2 Game</string>
 			<key>UTTypeIconFile</key>
-			<string>GameFile.icns</string>
+			<string>GameFile</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.tads.tads2-game</string>
 			<key>UTTypeReferenceURL</key>

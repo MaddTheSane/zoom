@@ -90,10 +90,10 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 - (NSDictionary*) dictionary {
 	NSMutableDictionary* defaultDictionary = [NSMutableDictionary dictionary];
 	
-	NSEnumerator* filenameEnum = [filenamesToIdents keyEnumerator];
+	NSEnumerator<NSString*>* filenameEnum = [filenamesToIdents keyEnumerator];
 	
 	for (NSString* filename in filenameEnum) {
-		NSData* encodedId = [NSKeyedArchiver archivedDataWithRootObject: [filenamesToIdents objectForKey: filename]];
+		NSData* encodedId = [NSKeyedArchiver archivedDataWithRootObject: [filenamesToIdents objectForKey: filename] requiringSecureCoding: YES error: NULL];
 		
 		[defaultDictionary setObject: encodedId
 							  forKey: filename];

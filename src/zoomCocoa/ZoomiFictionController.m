@@ -383,7 +383,7 @@ enum {
 // = Panel actions =
 
 - (void) addFiles: (NSArray *)filenames {
-	NSArray* fileTypes = [NSArray arrayWithObjects: @"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", nil];
+	NSArray* fileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
 
 	// Add all the files we can
 	NSMutableArray* selectedFiles = [filenames mutableCopy];
@@ -480,6 +480,9 @@ enum {
 	type = @"public.blorb.zcode";
 	if ([urlUTI isEqualToString:type]) return YES;
 	
+	type = @"public.blorb.glulx";
+	if ([urlUTI isEqualToString:type]) return YES;
+	
 	type = @"public.blorb";
 	if ([urlUTI isEqualToString:type]) return YES;
 	
@@ -504,7 +507,7 @@ enum {
 - (IBAction) addButtonPressed: (id) sender {
 	// Create an open panel
 	NSOpenPanel* storiesToAdd;
-	NSArray* fileTypes = @[@"public.zcode", @"z3", @"z4", @"z5", @"z6", @"z7", @"z8"];
+	NSArray* fileTypes = @[@"public.zcode", @"public.blorb.glulx", @"public.blorb.zcode", @"public.blorb"];
 	
 	storiesToAdd = [NSOpenPanel openPanel];
 	

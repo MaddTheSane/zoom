@@ -494,6 +494,9 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	type = @"public.blorb.zcode";
 	if ([urlUTI isEqualToString:type]) return YES;
 	
+	type = @"public.blorb.glulx";
+	if ([urlUTI isEqualToString:type]) return YES;
+	
 	type = @"public.blorb";
 	if ([urlUTI isEqualToString:type]) return YES;
 	
