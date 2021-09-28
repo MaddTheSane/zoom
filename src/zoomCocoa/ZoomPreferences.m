@@ -215,7 +215,7 @@ static NSArray* DefaultColours(void) {
 		NSData* cols = [prefs objectForKey: colours];
 
 		if ([fts isKindOfClass: [NSData class]]) {
-			id tmp = [NSKeyedUnarchiver unarchivedObjectOfClasses: [NSSet setWithObjects:[NSArray class], [NSFont class], nil] fromData: fts error: NULL];
+			id tmp = [NSKeyedUnarchiver unarchivedObjectOfClasses: [NSSet setWithObjects: [NSArray class], [NSFont class], nil] fromData: fts error: NULL];
 			if (!tmp) {
 				tmp = [NSUnarchiver unarchiveObjectWithData: fts];
 			}
@@ -224,7 +224,7 @@ static NSArray* DefaultColours(void) {
 		}
 		
 		if ([cols isKindOfClass: [NSData class]]) {
-			id tmp = [NSKeyedUnarchiver unarchivedObjectOfClasses: [NSSet setWithObjects:[NSArray class], [NSColor class], nil] fromData: cols error: NULL];
+			id tmp = [NSKeyedUnarchiver unarchivedObjectOfClasses: [NSSet setWithObjects: [NSArray class], [NSColor class], nil] fromData: cols error: NULL];
 			if (!tmp) {
 				tmp = [NSUnarchiver unarchiveObjectWithData: cols];
 			}

@@ -22,14 +22,14 @@ BOOL isSpotlightIndexing = NO;
 	ZoomStoryID* result = nil;
 
 	if (!isSpotlightIndexing) {
-	ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename];
-
-	if (plugin != nil) {
-		// Try asking the plugin for the type of this file
-		result = [plugin idForStory];
-	}
-	
-	if (result != nil) return result;
+		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename];
+		
+		if (plugin != nil) {
+			// Try asking the plugin for the type of this file
+			result = [plugin idForStory];
+		}
+		
+		if (result != nil) return result;
 	}
 	
 	// If this is a z-code or blorb file, then try the Z-Code ID

@@ -383,17 +383,17 @@ enum {
 // = Panel actions =
 
 - (void) addFiles: (NSArray *)filenames {
-	NSArray* fileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
+	NSArray* fileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
+	NSArray* blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
 
 	// Add all the files we can
 	NSMutableArray* selectedFiles = [filenames mutableCopy];
-	NSString* filename;
 	
 	while( [selectedFiles count] > 0 ) 
 	@autoreleasepool {
 		BOOL isDir;
 		
-		filename = [selectedFiles objectAtIndex:0];
+		NSString *filename = [selectedFiles objectAtIndex:0];
 
 		isDir = NO;
 		[[NSFileManager defaultManager] fileExistsAtPath: filename
@@ -415,6 +415,16 @@ enum {
 			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFile: filename];
 			
 			if (fileID != nil) 
+			{
+				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
+														  withIdent: fileID
+														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+				
+			}
+		} else if ( [blorbFileTypes containsObject: fileType] ) {
+			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithGlulxFile: filename];
+			
+			if (fileID != nil)
 			{
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
 														  withIdent: fileID

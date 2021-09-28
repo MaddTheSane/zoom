@@ -293,7 +293,7 @@
 							error: outError];
 	}
 
-	if (![[docType lowercaseString] isEqualToString: @"zoom savegame"] &&
+	if (![[docType lowercaseString] isEqualToString: @"uk.org.logicalshift.zoomsave"] &&
 		![[docType lowercaseString] isEqualToString: @"quetzal saved game"]) {
 		// Process only zoomSave files
 		if (outError) {
