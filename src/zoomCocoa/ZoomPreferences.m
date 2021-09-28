@@ -146,7 +146,7 @@ static NSArray* DefaultFonts(void) {
 }
 
 static NSArray* DefaultColours(void) {
-	NSArray* defaultColours = [NSArray arrayWithObjects:
+	NSArray* defaultColours = @[
 		[NSColor colorWithDeviceRed: 0 green: 0 blue: 0 alpha: 1],
 		[NSColor colorWithDeviceRed: 1 green: 0 blue: 0 alpha: 1],
 		[NSColor colorWithDeviceRed: 0 green: 1 blue: 0 alpha: 1],
@@ -159,7 +159,7 @@ static NSArray* DefaultColours(void) {
 		[NSColor colorWithDeviceRed: .73 green: .73 blue: .73 alpha: 1],
 		[NSColor colorWithDeviceRed: .53 green: .53 blue: .53 alpha: 1],
 		[NSColor colorWithDeviceRed: .26 green: .26 blue: .26 alpha: 1],
-		nil];
+		];
 	
 	return defaultColours;
 }
@@ -215,20 +215,20 @@ static NSArray* DefaultColours(void) {
 		NSData* cols = [prefs objectForKey: colours];
 
 		if ([fts isKindOfClass: [NSData class]]) {
-			id tmp = [NSKeyedUnarchiver unarchiveObjectWithData: fts];
+			id tmp = [NSKeyedUnarchiver unarchivedObjectOfClasses: [NSSet setWithObjects:[NSArray class], [NSFont class], nil] fromData: fts error: NULL];
 			if (!tmp) {
 				tmp = [NSUnarchiver unarchiveObjectWithData: fts];
 			}
-			[prefs setObject: tmp
+			[prefs setObject: [NSMutableArray arrayWithArray: tmp]
 					  forKey: fonts];
 		}
 		
 		if ([cols isKindOfClass: [NSData class]]) {
-			id tmp = [NSKeyedUnarchiver unarchiveObjectWithData: cols];
+			id tmp = [NSKeyedUnarchiver unarchivedObjectOfClasses: [NSSet setWithObjects:[NSArray class], [NSColor class], nil] fromData: cols error: NULL];
 			if (!tmp) {
 				tmp = [NSUnarchiver unarchiveObjectWithData: cols];
 			}
-			[prefs setObject: tmp
+			[prefs setObject: [NSMutableArray arrayWithArray: tmp]
 					  forKey: colours];
 		}
 		
@@ -260,12 +260,12 @@ static NSArray* DefaultColours(void) {
 	NSArray* cols = [newDict objectForKey: colours];
 	
 	if (fts != nil) {
-		[newDict setObject: [NSKeyedArchiver archivedDataWithRootObject: fts]
+		[newDict setObject: [NSKeyedArchiver archivedDataWithRootObject: fts requiringSecureCoding: YES error: NULL]
 					forKey: fonts];
 	}
 	
 	if (cols != nil) {
-		[newDict setObject: [NSKeyedArchiver archivedDataWithRootObject: cols]
+		[newDict setObject: [NSKeyedArchiver archivedDataWithRootObject: cols requiringSecureCoding: YES error: NULL]
 					forKey: colours];
 	}
 
