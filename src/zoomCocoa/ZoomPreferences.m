@@ -780,14 +780,26 @@ static NSArray* DefaultColours(void) {
 	self = [super init];
 	
 	if (self) {
-		prefs = [coder decodeObject];
+		if (coder.allowsKeyedCoding) {
+			prefs = [coder decodeObjectOfClasses:[NSSet setWithObjects:[NSDictionary class], [NSString class], [NSColor class], [NSFont class], [NSArray class], [NSNumber class], nil] forKey: @"prefs"];
+		} else {
+			prefs = [coder decodeObject];
+		}
 	}
 	
 	return self;
 }
 
 - (void) encodeWithCoder: (NSCoder*) coder {
-	[coder encodeObject: prefs];
+	if (coder.allowsKeyedCoding) {
+		[coder encodeObject: prefs forKey: @"prefs"];
+	} else {
+		[coder encodeObject: prefs];
+	}
+}
+
++ (BOOL)supportsSecureCoding {
+	return YES;
 }
 
 @end

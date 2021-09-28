@@ -2328,57 +2328,57 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	if (lastAutosave == nil) return NO;
 	if (encoder.allowsKeyedCoding) {
 		NSDictionary* saveData = [NSDictionary dictionaryWithObjectsAndKeys:
-			lastAutosave, @"lastAutosave",
-			upperWindows, @"upperWindows",
-			lowerWindows, @"lowerWindows",
-			[textView textStorage], @"textStorage",
-			commandHistory, @"commandHistory",
-			pixmapWindow, @"pixmapWindow",
-			nil];
-
+								  lastAutosave, @"lastAutosave",
+								  upperWindows, @"upperWindows",
+								  lowerWindows, @"lowerWindows",
+								  [textView textStorage], @"textStorage",
+								  commandHistory, @"commandHistory",
+								  pixmapWindow, @"pixmapWindow",
+								  nil];
+		
 		[encoder encodeObject:saveData forKey:@"SaveDataKey"];
 		return YES;
 	} else {
 #if 0
-	// BORKED
-	int autosaveVersion = 101;
-	
-	[encoder encodeValueOfObjCType: @encode(int) 
-								at: &autosaveVersion];
-	
-	[encoder encodeObject: lastAutosave];
-	
-	[encoder encodeObject: upperWindows];
-	[encoder encodeObject: lowerWindows];
-	
-	// The rest of the view state
-	[encoder encodeObject: [textView textStorage]];
-	[encoder encodeObject: commandHistory];
-	
-	// DOH!
-	[encoder encodeObject: pixmapWindow];
+		// BORKED
+		int autosaveVersion = 101;
+		
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &autosaveVersion];
+		
+		[encoder encodeObject: lastAutosave];
+		
+		[encoder encodeObject: upperWindows];
+		[encoder encodeObject: lowerWindows];
+		
+		// The rest of the view state
+		[encoder encodeObject: [textView textStorage]];
+		[encoder encodeObject: commandHistory];
+		
+		// DOH!
+		[encoder encodeObject: pixmapWindow];
 #else
-	int autosaveVersion = 102;
-
-	[encoder encodeValueOfObjCType: @encode(int) 
-								at: &autosaveVersion]; // HACK: required to support the old, broken, format
-	
-	NSDictionary* saveData = [NSDictionary dictionaryWithObjectsAndKeys:
-		lastAutosave, @"lastAutosave",
-		upperWindows, @"upperWindows",
-		lowerWindows, @"lowerWindows",
-		[textView textStorage], @"textStorage",
-		commandHistory, @"commandHistory",
-		pixmapWindow, @"pixmapWindow",
-		nil];
-	
-	[encoder encodeRootObject: saveData];
+		int autosaveVersion = 102;
+		
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &autosaveVersion]; // HACK: required to support the old, broken, format
+		
+		NSDictionary* saveData = [NSDictionary dictionaryWithObjectsAndKeys:
+								  lastAutosave, @"lastAutosave",
+								  upperWindows, @"upperWindows",
+								  lowerWindows, @"lowerWindows",
+								  [textView textStorage], @"textStorage",
+								  commandHistory, @"commandHistory",
+								  pixmapWindow, @"pixmapWindow",
+								  nil];
+		
+		[encoder encodeRootObject: saveData];
 #endif
-	
-	// All we need, I think
-	
-	// Done
-	return YES;
+		
+		// All we need, I think
+		
+		// Done
+		return YES;
 	}
 }
 
@@ -2418,87 +2418,87 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		[self resetMorePrompt];
 		[self scrollToEnd];
 		inputPos = [[textView textStorage] length];
-
+		
 	} else {
-	int autosaveVersion;
-	
-	[decoder decodeValueOfObjCType: @encode(int)
-								at: &autosaveVersion];
-	
-	if (autosaveVersion == 102) {
-		NSDictionary* restored = [decoder decodeObject];
+		int autosaveVersion;
 		
-		lastAutosave = [restored objectForKey: @"lastAutosave"];
-		upperWindows = [restored objectForKey: @"upperWindows"];
-		lowerWindows = [restored objectForKey: @"lowerWindows"];
-		commandHistory = [restored objectForKey: @"commandHistory"];
+		[decoder decodeValueOfObjCType: @encode(int)
+									at: &autosaveVersion];
 		
-		NSTextStorage* storage = [restored objectForKey: @"textStorage"];
-		
-		// Workaround for a Cocoa bug
-		[[textView textStorage] setAttributedString: [[NSAttributedString alloc] initWithAttributedString: storage]];
-		inputPos = [[textView textStorage] length];
-		
-		// Final setup
-		upperWindowsToRestore = [upperWindows count];
-		
-		[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
-									  withObject: self];
-		[lowerWindows makeObjectsPerformSelector: @selector(setZoomView:)
-									  withObject: self];
-		
-		if (pixmapWindow) {
-			[pixmapWindow setZoomView: self];
+		if (autosaveVersion == 102) {
+			NSDictionary* restored = [decoder decodeObject];
+			
+			lastAutosave = [restored objectForKey: @"lastAutosave"];
+			upperWindows = [restored objectForKey: @"upperWindows"];
+			lowerWindows = [restored objectForKey: @"lowerWindows"];
+			commandHistory = [restored objectForKey: @"commandHistory"];
+			
+			NSTextStorage* storage = [restored objectForKey: @"textStorage"];
+			
+			// Workaround for a Cocoa bug
+			[[textView textStorage] setAttributedString: [[NSAttributedString alloc] initWithAttributedString: storage]];
+			inputPos = [[textView textStorage] length];
+			
+			// Final setup
+			upperWindowsToRestore = [upperWindows count];
+			
+			[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
+										  withObject: self];
+			[lowerWindows makeObjectsPerformSelector: @selector(setZoomView:)
+										  withObject: self];
+			
+			if (pixmapWindow) {
+				[pixmapWindow setZoomView: self];
+			}
+			
+			// Load the state into the z-machine
+			if (zMachine) {
+				[zMachine restoreSaveState: lastAutosave];
+			}
+			
+			[self reformatWindow];
+			[self resetMorePrompt];
+			[self scrollToEnd];
+			inputPos = [[textView textStorage] length];
+		} else if (autosaveVersion == 100 || autosaveVersion == 101) {
+			// (Autosave versions only used up to 1.0.2beta1)
+			lastAutosave = [decoder decodeObject];
+			upperWindows = [decoder decodeObject];
+			lowerWindows = [decoder decodeObject];
+			
+			NSTextStorage* storage = [decoder decodeObject];
+			
+			// Workaround for a Cocoa bug
+			[[textView textStorage] setAttributedString: [[NSAttributedString alloc] initWithAttributedString: storage]];
+			inputPos = [[textView textStorage] length];
+			
+			commandHistory = [decoder decodeObject];
+			if (autosaveVersion == 101) pixmapWindow = [decoder decodeObject];
+			
+			// Final setup
+			upperWindowsToRestore = [upperWindows count];
+			
+			[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
+										  withObject: self];
+			[lowerWindows makeObjectsPerformSelector: @selector(setZoomView:)
+										  withObject: self];
+			
+			if (pixmapWindow) {
+				[pixmapWindow setZoomView: self];
+			}
+			
+			// Load the state into the z-machine
+			if (zMachine) {
+				[zMachine restoreSaveState: lastAutosave];
+			}
+			
+			[self reformatWindow];
+			[self resetMorePrompt];
+			[self scrollToEnd];
+			inputPos = [[textView textStorage] length];
+		} else {
+			NSLog(@"Unknown autosave version (ignoring)");
 		}
-		
-		// Load the state into the z-machine
-		if (zMachine) {
-			[zMachine restoreSaveState: lastAutosave];
-		}
-		
-		[self reformatWindow];
-		[self resetMorePrompt];
-		[self scrollToEnd];
-		inputPos = [[textView textStorage] length];		
-	} else if (autosaveVersion == 100 || autosaveVersion == 101) {
-		// (Autosave versions only used up to 1.0.2beta1)
-		lastAutosave = [decoder decodeObject];
-		upperWindows = [decoder decodeObject];
-		lowerWindows = [decoder decodeObject];
-		
-		NSTextStorage* storage = [decoder decodeObject];
-		
-		// Workaround for a Cocoa bug
-		[[textView textStorage] setAttributedString: [[NSAttributedString alloc] initWithAttributedString: storage]];
-		inputPos = [[textView textStorage] length];
-		
-		commandHistory = [decoder decodeObject];
-		if (autosaveVersion == 101) pixmapWindow = [decoder decodeObject];
-		
-		// Final setup
-		upperWindowsToRestore = [upperWindows count];
-		
-		[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
-									  withObject: self];
-		[lowerWindows makeObjectsPerformSelector: @selector(setZoomView:)
-									  withObject: self];
-		
-		if (pixmapWindow) {
-			[pixmapWindow setZoomView: self];
-		}
-		
-		// Load the state into the z-machine
-		if (zMachine) {
-			[zMachine restoreSaveState: lastAutosave];
-		}
-		
-		[self reformatWindow];
-		[self resetMorePrompt];
-		[self scrollToEnd];
-		inputPos = [[textView textStorage] length];
-	} else {
-		NSLog(@"Unknown autosave version (ignoring)");
-	}
 	}
 }
 
@@ -2520,20 +2520,20 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		[encoder encodeObject: commandHistory forKey: ZoomCommandHistoryCodingKey];
 		[encoder encodeObject: pixmapWindow forKey: ZoomPixmapWindowCodingKey];
 	} else {
-	int encodingVersion = 101;
-	
-	[encoder encodeValueOfObjCType: @encode(int) 
-								at: &encodingVersion];
-	
-	[encoder encodeObject: upperWindows];
-	[encoder encodeObject: lowerWindows];
-	
-	// The rest of the view state
-	[encoder encodeObject: [textView textStorage]];
-	[encoder encodeObject: commandHistory];
-	[encoder encodeObject: pixmapWindow];
-	
-	// All we need, I think
+		int encodingVersion = 101;
+		
+		[encoder encodeValueOfObjCType: @encode(int) 
+									at: &encodingVersion];
+		
+		[encoder encodeObject: upperWindows];
+		[encoder encodeObject: lowerWindows];
+		
+		// The rest of the view state
+		[encoder encodeObject: [textView textStorage]];
+		[encoder encodeObject: commandHistory];
+		[encoder encodeObject: pixmapWindow];
+		
+		// All we need, I think
 	}
 }
 
@@ -2574,44 +2574,44 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			}
 		} else {
 			int encodingVersion;
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &encodingVersion];
-		
-		if (encodingVersion == 100 || encodingVersion == 101) {
-			lastAutosave = nil;
-			upperWindows = [decoder decodeObject];
-			lowerWindows = [decoder decodeObject];
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &encodingVersion];
 			
-			NSTextStorage* storage = [decoder decodeObject];
-			
-			[[textView textStorage] beginEditing];
-			// Workaround for a bug in Cocoa
-			[[textView textStorage] setAttributedString: [[NSAttributedString alloc] initWithAttributedString: storage]];
-			inputPos = [[textView textStorage] length];
-			
-			commandHistory = [decoder decodeObject];
-			
-			if (encodingVersion == 101) {
-				pixmapWindow = [decoder decodeObject];
+			if (encodingVersion == 100 || encodingVersion == 101) {
+				lastAutosave = nil;
+				upperWindows = [decoder decodeObject];
+				lowerWindows = [decoder decodeObject];
+				
+				NSTextStorage* storage = [decoder decodeObject];
+				
+				[[textView textStorage] beginEditing];
+				// Workaround for a bug in Cocoa
+				[[textView textStorage] setAttributedString: [[NSAttributedString alloc] initWithAttributedString: storage]];
+				inputPos = [[textView textStorage] length];
+				
+				commandHistory = [decoder decodeObject];
+				
+				if (encodingVersion == 101) {
+					pixmapWindow = [decoder decodeObject];
+				}
+				
+				// Final setup
+				upperWindowsToRestore = [upperWindows count];
+				
+				[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
+											  withObject: self];
+				[lowerWindows makeObjectsPerformSelector: @selector(setZoomView:)
+											  withObject: self];
+				if (pixmapWindow) [pixmapWindow setZoomView: self];
+				
+				// Load the state into the z-machine
+				if (zMachine) {
+					[zMachine restoreSaveState: lastAutosave];
+				}
+			} else {
+				NSLog(@"Unknown autosave version (ignoring)");
+				return nil;
 			}
-			
-			// Final setup
-			upperWindowsToRestore = [upperWindows count];
-			
-			[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
-										  withObject: self];
-			[lowerWindows makeObjectsPerformSelector: @selector(setZoomView:)
-										  withObject: self];
-			if (pixmapWindow) [pixmapWindow setZoomView: self];
-			
-			// Load the state into the z-machine
-			if (zMachine) {
-				[zMachine restoreSaveState: lastAutosave];
-			}
-		} else {
-			NSLog(@"Unknown autosave version (ignoring)");
-			return nil;
-		}
 		}
 		[self reformatWindow];
 		[self resetMorePrompt];

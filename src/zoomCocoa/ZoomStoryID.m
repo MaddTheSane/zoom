@@ -502,16 +502,16 @@ BOOL isSpotlightIndexing = NO;
 		NSString* stringIdent = [[NSString alloc] initWithBytesNoCopy:stringId length:strlen(stringId) encoding:NSUTF8StringEncoding freeWhenDone:YES];
 		[encoder encodeObject:stringIdent forKey:@"IFMBStringID"];
 	} else {
-	// Version might change later on
-	int version = 2;
-	
-	[encoder encodeValueOfObjCType: @encode(int) 
-								at: &version];
-	
-	char* stringId = IFMB_IdToString(ident);
-	NSString* stringIdent = [NSString stringWithUTF8String: stringId];
-	[encoder encodeObject: stringIdent];
-	free(stringId);
+		// Version might change later on
+		int version = 2;
+		
+		[encoder encodeValueOfObjCType: @encode(int) 
+									at: &version];
+		
+		char* stringId = IFMB_IdToString(ident);
+		NSString* stringIdent = [NSString stringWithUTF8String: stringId];
+		[encoder encodeObject: stringIdent];
+		free(stringId);
 	}
 }
 
@@ -545,81 +545,81 @@ typedef unsigned char IFMDByte;
 			ident = IFMB_IdFromString([idString UTF8String]);
 			needsFreeing = YES;
 		} else {
-		ident = NULL;
-		needsFreeing = YES;
-		
-		// As above, but backwards
-		int version;
-		
-		[decoder decodeValueOfObjCType: @encode(int) at: &version];
-		
-		if (version == 1) {
-			// General stuff (data format, MD5, etc) [old v1 format used by versions of Zoom prior to 1.0.5dev3]
-			char md5sum[16];
-			IFMDByte usesMd5;
-			enum IFMDFormat dataFormat;
-			
-			[decoder decodeValueOfObjCType: @encode(enum IFMDFormat) 
-										at: &dataFormat];
-			[decoder decodeValueOfObjCType: @encode(IFMDByte)
-										at: &usesMd5];
-			if (usesMd5) {
-				[decoder decodeArrayOfObjCType: @encode(IFMDByte)
-										 count: 16
-											at: md5sum];
-			}
-			
-			switch (dataFormat) {
-				case IFFormat_ZCode:
-				{
-					char serial[6];
-					int release;
-					int checksum;
-					
-					[decoder decodeArrayOfObjCType: @encode(IFMDByte)
-											 count: 6
-												at: serial];
-					[decoder decodeValueOfObjCType: @encode(int)
-												at: &release];
-					[decoder decodeValueOfObjCType: @encode(int)
-												at: &checksum];
-					
-					ident = IFMB_ZcodeId(release, serial, checksum);
-					needsFreeing = YES;
-					break;
-				}
-					
-				case IFFormat_UUID:
-				{
-					unsigned char uuid[16];
-					
-					[decoder decodeArrayOfObjCType: @encode(unsigned char)
-											 count: 16
-												at: uuid];
-					ident = IFMB_UUID(uuid);
-					needsFreeing = YES;
-					break;
-				}
-					
-				default:
-					/* No other formats are supported yet */
-					break;
-			}		
-		} else if (version == 2) {
-			NSString* idString = (NSString*)[decoder decodeObject];
-			
-			ident = IFMB_IdFromString([idString UTF8String]);
+			ident = NULL;
 			needsFreeing = YES;
-		} else {
-			// Only v1 and v2 decodes supported ATM
 			
-			NSLog(@"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2)", version);
+			// As above, but backwards
+			int version;
 			
-			return nil;
-		}
-		if (ident == nil) {
-			return nil;
-		}
+			[decoder decodeValueOfObjCType: @encode(int) at: &version];
+			
+			if (version == 1) {
+				// General stuff (data format, MD5, etc) [old v1 format used by versions of Zoom prior to 1.0.5dev3]
+				char md5sum[16];
+				IFMDByte usesMd5;
+				enum IFMDFormat dataFormat;
+				
+				[decoder decodeValueOfObjCType: @encode(enum IFMDFormat)
+											at: &dataFormat];
+				[decoder decodeValueOfObjCType: @encode(IFMDByte)
+											at: &usesMd5];
+				if (usesMd5) {
+					[decoder decodeArrayOfObjCType: @encode(IFMDByte)
+											 count: 16
+												at: md5sum];
+				}
+				
+				switch (dataFormat) {
+					case IFFormat_ZCode:
+					{
+						char serial[6];
+						int release;
+						int checksum;
+						
+						[decoder decodeArrayOfObjCType: @encode(IFMDByte)
+												 count: 6
+													at: serial];
+						[decoder decodeValueOfObjCType: @encode(int)
+													at: &release];
+						[decoder decodeValueOfObjCType: @encode(int)
+													at: &checksum];
+						
+						ident = IFMB_ZcodeId(release, serial, checksum);
+						needsFreeing = YES;
+						break;
+					}
+						
+					case IFFormat_UUID:
+					{
+						unsigned char uuid[16];
+						
+						[decoder decodeArrayOfObjCType: @encode(unsigned char)
+												 count: 16
+													at: uuid];
+						ident = IFMB_UUID(uuid);
+						needsFreeing = YES;
+						break;
+					}
+						
+					default:
+						/* No other formats are supported yet */
+						break;
+				}
+			} else if (version == 2) {
+				NSString* idString = (NSString*)[decoder decodeObject];
+				
+				ident = IFMB_IdFromString([idString UTF8String]);
+				needsFreeing = YES;
+			} else {
+				// Only v1 and v2 decodes supported ATM
+				
+				NSLog(@"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2)", version);
+				
+				return nil;
+			}
+			if (ident == nil) {
+				return nil;
+			}
 		}
 	}
 	
@@ -652,11 +652,12 @@ typedef unsigned char IFMDByte;
 
 - (NSString*) description {
 	char* stringId = IFMB_IdToString(ident);
-	NSString* identString = [NSString stringWithUTF8String: stringId];
-	free(stringId);
+	NSString* identString = [[NSString alloc] initWithBytesNoCopy: stringId length: strlen(stringId) encoding: NSUTF8StringEncoding freeWhenDone: YES];
 	
-	if (identString == nil)
+	if (identString == nil) {
+		free(stringId);
 		return @"(null)";
+	}
 	
 	return identString;
 }
