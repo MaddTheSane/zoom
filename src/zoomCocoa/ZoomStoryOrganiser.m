@@ -26,7 +26,13 @@ static NSString*const extraDefaultsName = @"ZoomStoryOrganiserExtra";
 static NSString*const ZoomGameDirectories = @"ZoomGameDirectories";
 static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 
-@implementation ZoomStoryOrganiser
+@implementation ZoomStoryOrganiser {
+	// Preference loading/checking thread
+	NSPort* port1;
+	NSPort* port2;
+	NSConnection* mainThread;
+	NSConnection* subThread;
+}
 
 // = Shared functions =
 

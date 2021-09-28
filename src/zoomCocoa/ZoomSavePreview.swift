@@ -13,7 +13,7 @@ private let saveHighlightInactive = NSImage(named: "saveHighlightInactive")!
 private let saveHighlightActive = NSImage(named: "saveHighlightActive")!
 private let saveBackground = NSImage(named: "saveBackground")!
 
-class ZoomSavePreview : NSView {
+class SavePreview : NSView {
 	var filename: String? {
 		return fileURL?.path
 	}
@@ -48,7 +48,7 @@ class ZoomSavePreview : NSView {
 	}
 	
 	override func mouseUp(with event: NSEvent) {
-		if let aSuper = superview as? ZoomSavePreviewView {
+		if let aSuper = superview as? SavePreviewView {
 			aSuper.previewMouseUp(event, in: self)
 		} else {
 			isHighlighted = !isHighlighted

@@ -36,12 +36,6 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 	NSMutableDictionary<NSString*,ZoomStoryID*>* filenamesToIdents;
 	NSMutableDictionary<ZoomStoryID*,NSString*>* identsToFilenames;
 	
-	// Preference loading/checking thread
-	NSPort* port1;
-	NSPort* port2;
-	NSConnection* mainThread;
-	NSConnection* subThread;
-	
 	NSLock* storyLock;
 	
 	// Story organising thread

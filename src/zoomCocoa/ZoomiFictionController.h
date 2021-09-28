@@ -11,7 +11,7 @@
 #import "ZoomiFButton.h"
 #import <ZoomPlugIns/ZoomStory.h>
 #import "ZoomCollapsableView.h"
-@class ZoomSavePreviewView;
+@class SavePreviewView;
 #import "ZoomCollapsingSplitView.h"
 #import "ZoomResourceDrop.h"
 #import "ZoomStoryTableView.h"
@@ -82,7 +82,7 @@
 	BOOL saveGamesAvailable;
 	
 	// Save game previews
-	IBOutlet ZoomSavePreviewView* previewView;
+	IBOutlet SavePreviewView* previewView;
 	
 	// Resource drop zone
 	ZoomResourceDrop* resourceDrop;

@@ -8,8 +8,8 @@
 import Cocoa
 
 @objcMembers
-class ZoomSavePreviewView: NSView {
-	private var upperWindowViews = [ZoomSavePreview]()
+class SavePreviewView: NSView {
+	private var upperWindowViews = [SavePreview]()
 	private var selected: Int? = nil
 	private(set) var saveGamesAvailable: Bool = false
 
@@ -76,7 +76,7 @@ class ZoomSavePreviewView: NSView {
 					continue
 				}
 				
-				let preview = ZoomSavePreview(preview: win, with: previewURL)
+				let preview = SavePreview(preview: win, with: previewURL)
 				preview.autoresizingMask = .width
 				preview.menu = self.menu
 				addSubview(preview)
@@ -110,7 +110,7 @@ class ZoomSavePreviewView: NSView {
 					}
 				}
 				
-				let preview = ZoomSavePreview(previewStrings: previewLines, with: propertiesURL)
+				let preview = SavePreview(previewStrings: previewLines, with: propertiesURL)
 				preview.autoresizingMask = .width
 				preview.menu = menu
 				addSubview(preview)
@@ -147,7 +147,7 @@ class ZoomSavePreviewView: NSView {
 		}
 	}
 	
-	func previewMouseUp(_ evt: NSEvent, in view: ZoomSavePreview) {
+	func previewMouseUp(_ evt: NSEvent, in view: SavePreview) {
 		guard let clicked = upperWindowViews.firstIndex(of: view) else {
 			NSLog("BUG: save preview not found")
 			return
