@@ -2047,39 +2047,25 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		}
 		
 		if ([[ZoomPreferences globalPreferences] keepGamesOrganised]) {
-			[self confirmMoveToTrash: NULL
-						  returnCode: NSAlertFirstButtonReturn
-						 contextInfo: CFBridgingRetain(storiesToDelete)];
+			NSEnumerator* rowEnum = [storiesToDelete objectEnumerator];
+			NSMutableArray *delURLs = [[NSMutableArray alloc] initWithCapacity: storiesToDelete.count];
+			
+			for (ZoomStoryID* ident in rowEnum) {
+				NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
+																						   create: NO];
+				if (filename != nil) {
+					[delURLs addObject:[NSURL fileURLWithPath:filename]];
+					
+					// (make sure it's gone from the organiser)
+					[[ZoomStoryOrganiser sharedStoryOrganiser] removeStoryWithIdent: ident
+																 deleteFromMetadata: YES];
+				}
+			}
+			[[NSWorkspace sharedWorkspace] recycleURLs: delURLs completionHandler: ^(NSDictionary<NSURL *,NSURL *> * _Nonnull newURLs, NSError * _Nullable error) {
+				// Do Nothing.
+			}];
 		}
 	}];
-}
-
-- (void) confirmMoveToTrash: (NSWindow *)sheet 
-				 returnCode: (int)returnCode 
-				contextInfo: (void *)contextInfo {
-	NSMutableArray* storiesToDelete = CFBridgingRelease(contextInfo);
-	
-	if (returnCode != NSAlertFirstButtonReturn) return;
-	
-	NSEnumerator* rowEnum = [storiesToDelete objectEnumerator];
-	
-	for (ZoomStoryID* ident in rowEnum) {
-		NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
-																				   create: NO];
-		if (filename != nil) {
-			NSInteger tag;
-			
-			[[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
-														 source: [filename stringByDeletingLastPathComponent]
-													destination: @""
-														  files: [NSArray arrayWithObject: [filename lastPathComponent]]
-															tag: &tag];
-			
-			// (make sure it's gone from the organiser)
-			[[ZoomStoryOrganiser sharedStoryOrganiser] removeStoryWithIdent: ident
-														 deleteFromMetadata: YES];
-		}
-	}
 }
 
 - (IBAction) revealInFinder: (id) sender {
@@ -2090,7 +2076,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 		if ([[NSFileManager defaultManager] fileExistsAtPath: dir
 												 isDirectory: &isDir]) {
 			if (isDir) {
-				[[NSWorkspace sharedWorkspace] openFile: dir];
+				[[NSWorkspace sharedWorkspace] selectFile: [self selectedFilename] inFileViewerRootedAtPath: dir];
 			}
 		}
 	}

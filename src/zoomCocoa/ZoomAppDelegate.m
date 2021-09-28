@@ -557,7 +557,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	NSString *data = [[[ZoomSkeinController sharedSkeinController] skein] transcriptToPoint: nil];
 	
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript:panel returnCode:result contextInfo:CFBridgingRetain(data)];
+		[self saveTranscript: panel returnCode: result contextInfo: data];
 	}];
 }
 
@@ -592,7 +592,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	NSString *saveData = [[[ZoomSkeinController sharedSkeinController] skein] recordingToPoint: nil];
 	
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript:panel returnCode:result contextInfo:CFBridgingRetain(saveData)];
+		[self saveTranscript: panel returnCode: result contextInfo: saveData];
 	}];
 }
 
@@ -616,15 +616,13 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	panel.directoryURL = directory;
 	
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript:panel returnCode:result contextInfo:CFBridgingRetain(xml)];
+		[self saveTranscript: panel returnCode: result contextInfo: xml];
 	}];
 }
 
 - (void) saveTranscript: (NSSavePanel *) panel 
              returnCode: (NSModalResponse) returnCode
-            contextInfo: (void*) contextInfo {
-	NSString* data = (NSString*)CFBridgingRelease(contextInfo);
-
+            contextInfo: (NSString*) data {
 	if (returnCode != NSModalResponseOK) {
 		return;
 	}
