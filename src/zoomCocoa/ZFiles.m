@@ -13,11 +13,11 @@
 #include "display.h"
 
 struct ZFile {
-    NSObject<ZFile>* theFile;
+    id<ZFile> theFile;
 };
 
 // = Files =
-ZFile* open_file_from_object(NSObject<ZFile>* file) {
+ZFile* open_file_from_object(id<ZFile> file) {
     if (file == nil)
         return NULL;
 

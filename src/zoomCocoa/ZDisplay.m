@@ -215,7 +215,7 @@ void display_exit(int code) {
 
 // Clearing/erasure functions
 void display_clear(void) {
-    NSObject<ZWindow>* win;
+    id<ZWindow> win;
 	
 	NOTE(@"display_clear");
     
@@ -225,13 +225,13 @@ void display_clear(void) {
 
     win = [mainMachine windowNumber: 1];
     [win clearWithStyle: zDisplayCurrentStyle];
-    [(NSObject<ZUpperWindow>*)win startAtLine: 0];
-    [(NSObject<ZUpperWindow>*)win endAtLine: 0];
+    [(id<ZUpperWindow>)win startAtLine: 0];
+    [(id<ZUpperWindow>)win endAtLine: 0];
 
     win = [mainMachine windowNumber: 2];
     [win clearWithStyle: zDisplayCurrentStyle];
-    [(NSObject<ZUpperWindow>*)win startAtLine: 0];
-    [(NSObject<ZUpperWindow>*)win endAtLine: 0];
+    [(id<ZUpperWindow>)win startAtLine: 0];
+    [(id<ZUpperWindow>)win endAtLine: 0];
     
     win = [mainMachine windowNumber: 0];
     [win clearWithStyle: zDisplayCurrentStyle];
@@ -247,7 +247,7 @@ void display_erase_window(void) {
 void display_erase_line(int val) {
 	NOTE(@"display_erase_line");
 	
-    [[mainMachine buffer] eraseLineInWindow: (NSObject<ZUpperWindow>*)[mainMachine windowNumber: zDisplayCurrentWindow]
+    [[mainMachine buffer] eraseLineInWindow: (id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]
                                   withStyle: zDisplayCurrentStyle];
 }
 
@@ -345,7 +345,7 @@ int display_readline(int* buf, int len, long int timeout) {
 	NOTE(@"display_readline");
     [mainMachine flushBuffers];
     
-    NSObject<ZDisplay>* display = [mainMachine display];
+    id<ZDisplay> display = [mainMachine display];
 	
 	if (len <= 0) {
 		zmachine_fatal("display_readline called with a buffer length of %i", len);
@@ -492,7 +492,7 @@ int display_readchar(long int timeout) {
 	
     [mainMachine flushBuffers];
 
-    NSObject<ZDisplay>* display = [mainMachine display];
+    id<ZDisplay> display = [mainMachine display];
 
     // Cycle the autorelease pool
     [displayPool release];
@@ -682,7 +682,7 @@ void display_split(int lines, int window) {
 	NSLog(@"ZDisplay: display_split(%i, %i)", lines, window);
 #endif
 
-    [[mainMachine buffer] setWindow: (NSObject<ZUpperWindow>*)[mainMachine windowNumber: window]
+    [[mainMachine buffer] setWindow: (id<ZUpperWindow>)[mainMachine windowNumber: window]
                           startLine: 0
                             endLine: lines];
 }
@@ -692,7 +692,7 @@ void display_join(int win1, int win2) {
 	NSLog(@"ZDisplay: display_join(%i, %i)", win1, win2);
 #endif
 	
-    [[mainMachine buffer] setWindow: (NSObject<ZUpperWindow>*)[mainMachine windowNumber: win2]
+    [[mainMachine buffer] setWindow: (id<ZUpperWindow>)[mainMachine windowNumber: win2]
                           startLine: 0
                             endLine: 0];
 }
@@ -724,7 +724,7 @@ void display_set_cursor(int x, int y) {
 
     if (zDisplayCurrentWindow > 0) {
         [[mainMachine buffer] moveTo: NSMakePoint(x,y)
-                            inWindow: (NSObject<ZUpperWindow>*)[mainMachine windowNumber: zDisplayCurrentWindow]];
+                            inWindow: (id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]];
     }
 }
 
@@ -738,7 +738,7 @@ int display_get_cur_x(void) {
 
     [mainMachine flushBuffers];
     
-    NSPoint pos = [(NSObject<ZUpperWindow>*)[mainMachine windowNumber: zDisplayCurrentWindow]
+    NSPoint pos = [(id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]
         cursorPosition];
     return pos.x;
 }
@@ -753,7 +753,7 @@ int display_get_cur_y(void) {
 
     [mainMachine flushBuffers];
 
-    NSPoint pos = [(NSObject<ZUpperWindow>*)[mainMachine windowNumber: zDisplayCurrentWindow]
+    NSPoint pos = [(id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]
         cursorPosition];
     return pos.y;
 }
@@ -899,7 +899,7 @@ static void wait_for_file(void) {
 
 ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
     // FIXME: fill in size
-    NSObject<ZFile>* res = NULL;
+    id<ZFile> res = NULL;
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToWrite: convert_file_type(purpose)
@@ -919,7 +919,7 @@ ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
 }
 
 ZFile* get_file_read(int* size, char* name, ZFile_type purpose) {
-    NSObject<ZFile>* res = NULL;
+    id<ZFile> res = NULL;
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToRead: convert_file_type(purpose)

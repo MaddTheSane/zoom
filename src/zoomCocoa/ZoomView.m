@@ -289,7 +289,7 @@ static void finalizeViews(void) {
 	}
 }
 
-- (void) setZMachine: (NSObject<ZMachine>*) machine {
+- (void) setZMachine: (id<ZMachine>) machine {
     zMachine = machine;
 	if (delegate && [delegate respondsToSelector: @selector(zMachineStarted:)]) {
 		[delegate zMachineStarted: self];
@@ -318,7 +318,7 @@ static void finalizeViews(void) {
 	}
 }
 
-- (byref NSObject<ZLowerWindow>*) createLowerWindow {
+- (byref id<ZLowerWindow>) createLowerWindow {
 	// Can only have one lower window
 	if ([lowerWindows count] > 0) return [lowerWindows objectAtIndex: 0];
 	
@@ -331,7 +331,7 @@ static void finalizeViews(void) {
     return win;
 }
 
-- (byref NSObject<ZUpperWindow>*) createUpperWindow {
+- (byref id<ZUpperWindow>) createUpperWindow {
 	if (upperWindowsToRestore > 0) {
 		// Restoring upper windows from autosave
 		upperWindowsToRestore--;
@@ -348,7 +348,7 @@ static void finalizeViews(void) {
     return win;
 }
 
-- (byref NSObject<ZPixmapWindow>*) createPixmapWindow {
+- (byref id<ZPixmapWindow>) createPixmapWindow {
 	if (pixmapWindow == nil) {
 		pixmapWindow = [[ZoomPixmapWindow alloc] initWithZoomView: self];
 

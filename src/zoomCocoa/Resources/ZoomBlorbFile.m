@@ -17,7 +17,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 // = Testing files =
 
 + (BOOL) dataIsBlorbFile: (NSData*) data {
-	NSObject<ZFile>* fl = [[ZDataFile alloc] initWithData: data];
+	id<ZFile> fl = [[ZDataFile alloc] initWithData: data];
 	
 	BOOL res = [self zfileIsBlorb: fl];
 	
@@ -27,7 +27,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 + (BOOL) fileContentsIsBlorb: (NSString*) filename {
-	NSObject<ZFile>* fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingAtPath: filename]];
+	id<ZFile> fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingAtPath: filename]];
 	
 	BOOL res = [self zfileIsBlorb: fl];
 	[fl close];
@@ -35,7 +35,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return res;
 }
 
-+ (BOOL) zfileIsBlorb: (NSObject<ZFile>*) zfile {
++ (BOOL) zfileIsBlorb: (id<ZFile>) zfile {
 	// Possibly should write a faster means of doing this
 	ZoomBlorbFile* fl = [[[self class] alloc] initWithZFile: zfile];
 	
@@ -55,7 +55,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 
 // = Initialisation =
 
-- (id) initWithZFile: (NSObject<ZFile>*) f {
+- (id) initWithZFile: (id<ZFile>) f {
 	self = [super init];
 	
 	if (self) {

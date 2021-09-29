@@ -200,7 +200,7 @@
 	
 // = GlkFileRef implementation =
 
-- (byref NSObject<GlkStream>*) createReadOnlyStream {
+- (byref id<GlkStream>) createReadOnlyStream {
 	// Load the skein from the path if it exists
 	NSString* skeinPath = [path stringByAppendingPathComponent: @"Skein.skein"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath: skeinPath]) {
@@ -220,7 +220,7 @@
 	return stream;
 }
 
-- (byref NSObject<GlkStream>*) createWriteOnlyStream {
+- (byref id<GlkStream>) createWriteOnlyStream {
 	if ([self createSavePackage]) {
 		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
 		
@@ -231,7 +231,7 @@
 	return nil;
 }
 
-- (byref NSObject<GlkStream>*) createReadWriteStream {
+- (byref id<GlkStream>) createReadWriteStream {
 	NSLog(@"WARNING: Save game files should not be opened read/write");
 	
 	// Try creating the savegame file

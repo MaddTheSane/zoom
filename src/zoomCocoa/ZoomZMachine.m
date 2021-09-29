@@ -144,8 +144,8 @@
 }
 
 // = Running =
-- (oneway void) startRunningInDisplay: (in byref NSObject<ZDisplay>*) disp {
-    NSAutoreleasePool* mainPool = [[NSAutoreleasePool alloc] init];
+- (oneway void) startRunningInDisplay: (in byref id<ZDisplay>) disp {
+	@autoreleasepool {
     
 	// Remember the display
     display = [disp retain];
@@ -250,7 +250,7 @@
 	display_flush();
 
     display_finalise();
-    [mainPool release];
+	}
 	
 	display_exit(0);
 }
@@ -700,7 +700,7 @@ static NSString* zscii_to_string(ZByte* buf) {
     filePromptFinished = YES;
 }
 
-- (oneway void) promptedFileIs: (in byref NSObject<ZFile>*) file
+- (oneway void) promptedFileIs: (in byref id<ZFile>) file
 						  size: (NSInteger) size {
     if (lastFile) [lastFile release];
     
@@ -730,7 +730,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 // = Our own functions =
-- (NSObject<ZWindow>*) windowNumber: (int) num {
+- (id<ZWindow>) windowNumber: (int) num {
     if (num < 0 || num > 2) {
         NSLog(@"*** BUG - window %i does not exist", num);
         return nil;

@@ -19,8 +19,8 @@ extern int zoomImageCacheSize;
 
 @interface ZoomZMachine : NSObject<ZMachine> {
     // Remote objects
-    NSObject<ZDisplay>* display;
-    NSObject<ZWindow>*  windows[3];
+    id<ZDisplay> display;
+    id<ZWindow>  windows[3];
     NSMutableAttributedString* windowBuffer[3];
 
     // The file
@@ -35,7 +35,7 @@ extern int zoomImageCacheSize;
 	int terminatingCharacter;
     
     BOOL             filePromptFinished;
-    NSObject<ZFile>* lastFile;
+    id<ZFile>        lastFile;
     NSInteger        lastSize;
 	
 	BOOL wasRestored;
@@ -46,8 +46,8 @@ extern int zoomImageCacheSize;
 	BOOL waitingForBreakpoint;
 }
 
-@property (readonly, retain) NSObject<ZDisplay> *display;
-- (NSObject<ZWindow>*)  windowNumber: (int) num;
+@property (readonly, retain) id<ZDisplay> display;
+- (id<ZWindow>)  windowNumber: (int) num;
 @property (readonly, retain) NSMutableString *inputBuffer;
 @property (readonly) int terminatingCharacter;
 
@@ -56,7 +56,7 @@ extern int zoomImageCacheSize;
 
 - (void)                filePromptStarted;
 @property (readonly) BOOL filePromptFinished;
-@property (readonly, retain) NSObject<ZFile> *lastFile;
+@property (readonly, retain) id<ZFile> lastFile;
 @property (readonly) NSInteger lastSize;
 - (void)                clearFile;
 

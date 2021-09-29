@@ -643,7 +643,7 @@
 
 - (BOOL) promptForFilesForUsage: (NSString*) usage
 					 forWriting: (BOOL) writing
-						handler: (NSObject<GlkFilePrompt>*) handler
+						handler: (id<GlkFilePrompt>) handler
 			 preferredDirectory: (NSString*) preferredDirectory {
 	if (![usage isEqualToString: GlkFileUsageSavedGame]) {
 		// We only customise save game generation

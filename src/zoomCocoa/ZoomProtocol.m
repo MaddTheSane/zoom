@@ -486,7 +486,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 // General window routines
 - (void) writeString: (NSString*)          string
            withStyle: (ZStyle*)            style
-            toWindow: (NSObject<ZWindow>*) window {
+            toWindow: (id<ZWindow>) window {
     NSArray* lastTime;
 
     // If we can, merge this write with the preceding one
@@ -497,7 +497,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
             if (lastStyle == style ||
                 [lastStyle isEqual: style]) {
-                NSObject<ZWindow>* lastWindow = [lastTime objectAtIndex: 3];
+                id<ZWindow> lastWindow = [lastTime objectAtIndex: 3];
                 if (lastWindow == window) {
                     NSMutableString* lastString   = [lastTime objectAtIndex: 1];
 
@@ -520,7 +520,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	[self addedToBuffer];
 }
 
-- (void) clearWindow: (NSObject<ZWindow>*) window
+- (void) clearWindow: (id<ZWindow>) window
            withStyle: (ZStyle*) style {
     [buffer addObject:
         [NSArray arrayWithObjects:
@@ -533,7 +533,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 // Upper window routines
 - (void) moveTo: (NSPoint) newCursorPos
-       inWindow: (NSObject<ZUpperWindow>*) window {
+       inWindow: (id<ZUpperWindow>) window {
     [buffer addObject:
         [NSArray arrayWithObjects:
             ZBufferMoveTo,
@@ -543,7 +543,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	[self addedToBuffer];
 }
 
-- (void) eraseLineInWindow: (NSObject<ZUpperWindow>*) window
+- (void) eraseLineInWindow: (id<ZUpperWindow>) window
                  withStyle: (ZStyle*) style {
     [buffer addObject:
         [NSArray arrayWithObjects:
@@ -554,7 +554,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	[self addedToBuffer];
 }
 
-- (void) setWindow: (NSObject<ZUpperWindow>*) window
+- (void) setWindow: (id<ZUpperWindow>) window
          startLine: (int) startLine
            endLine: (int) endLine {
     [buffer addObject:
@@ -570,7 +570,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 // Pixmap window routines
 - (void) plotRect: (NSRect) rect
 		withStyle: (ZStyle*) style
-		 inWindow: (NSObject<ZPixmapWindow>*) window {
+		 inWindow: (id<ZPixmapWindow>) window {
     [buffer addObject:
         [NSArray arrayWithObjects:
             ZBufferPlotRect,
@@ -584,7 +584,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 - (void) plotText: (NSString*) text
 		  atPoint: (NSPoint) point
 		withStyle: (ZStyle*) style
-		 inWindow: (NSObject<ZPixmapWindow>*) win {
+		 inWindow: (id<ZPixmapWindow>) win {
     [buffer addObject:
         [NSArray arrayWithObjects:
             ZBufferPlotText,
@@ -598,7 +598,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 - (void) scrollRegion: (NSRect) region
 			  toPoint: (NSPoint) newPoint
-			 inWindow: (NSObject<ZPixmapWindow>*) win {
+			 inWindow: (id<ZPixmapWindow>) win {
 	[buffer addObject:
 		[NSArray arrayWithObjects:
 			ZBufferScrollRegion,
@@ -610,7 +610,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 - (void) plotImage: (int) number
 		   atPoint: (NSPoint) point
-		  inWindow: (NSObject<ZPixmapWindow>*) win {
+		  inWindow: (id<ZPixmapWindow>) win {
 	[buffer addObject:
 	 @[ZBufferPlotImage,
 	   @(number),
@@ -640,7 +640,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
         if ([entryType isEqualToString: ZBufferWriteString]) {
             NSString* str = [entry objectAtIndex: 1];
             ZStyle*   sty = [entry objectAtIndex: 2];
-            NSObject<ZWindow>* win = [entry objectAtIndex: 3];
+            id<ZWindow> win = [entry objectAtIndex: 3];
 
             [win writeString: str
                    withStyle: sty];
@@ -650,7 +650,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 #endif
         } else if ([entryType isEqualToString: ZBufferClearWindow]) {
             ZStyle* sty = [entry objectAtIndex: 1];
-            NSObject<ZWindow>* win = [entry objectAtIndex: 2];
+            id<ZWindow> win = [entry objectAtIndex: 2];
 
             [win clearWithStyle: sty];
 			
@@ -659,7 +659,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 #endif
         } else if ([entryType isEqualToString: ZBufferMoveTo]) {
             NSPoint whereTo = [[entry objectAtIndex: 1] pointValue];
-            NSObject<ZUpperWindow>* win = [entry objectAtIndex: 2];
+            id<ZUpperWindow> win = [entry objectAtIndex: 2];
 
             [win setCursorPositionX: whereTo.x
                                   Y: whereTo.y];
@@ -669,7 +669,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 #endif
         } else if ([entryType isEqualToString: ZBufferEraseLine]) {
             ZStyle* sty = [entry objectAtIndex: 1];
-            NSObject<ZUpperWindow>* win = [entry objectAtIndex: 2];
+            id<ZUpperWindow> win = [entry objectAtIndex: 2];
 
             [win eraseLineWithStyle: sty];
 			
@@ -679,7 +679,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
         } else if ([entryType isEqualToString: ZBufferSetWindow]) {
             int startLine = [[entry objectAtIndex: 1] intValue];
             int endLine   = [[entry objectAtIndex: 2] intValue];
-            NSObject<ZUpperWindow>* win = [entry objectAtIndex: 3];
+            id<ZUpperWindow> win = [entry objectAtIndex: 3];
 
             [win startAtLine: startLine];
             [win endAtLine: endLine];
@@ -690,7 +690,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		} else if ([entryType isEqualToString: ZBufferPlotRect]) {
 			NSRect rect = [[entry objectAtIndex: 1] rectValue];
 			ZStyle* style = [entry objectAtIndex: 2];
-			NSObject<ZPixmapWindow>* win = [entry objectAtIndex: 3];
+			id<ZPixmapWindow> win = [entry objectAtIndex: 3];
 			
 			[win plotRect: rect
 				withStyle: style];
@@ -698,7 +698,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 			NSString* text = [entry objectAtIndex: 1];
 			NSPoint point = [[entry objectAtIndex: 2] pointValue];
 			ZStyle* style = [entry objectAtIndex: 3];
-			NSObject<ZPixmapWindow>* win = [entry objectAtIndex: 4];
+			id<ZPixmapWindow> win = [entry objectAtIndex: 4];
 			
 			[win plotText: text
 				  atPoint: point
@@ -706,14 +706,14 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		} else if ([entryType isEqualToString: ZBufferPlotImage]) {
 			int number = [[entry objectAtIndex: 1] intValue];
 			NSPoint point = [[entry objectAtIndex: 2] pointValue];
-			NSObject<ZPixmapWindow>* win = [entry objectAtIndex: 3];
+			id<ZPixmapWindow> win = [entry objectAtIndex: 3];
 			
 			[win plotImageWithNumber: number
 							 atPoint: point];
 		} else if ([entryType isEqualToString: ZBufferScrollRegion]) {
 			NSRect region = [[entry objectAtIndex: 1] rectValue];
 			NSPoint point = [[entry objectAtIndex: 2] pointValue];
-			NSObject<ZPixmapWindow>* win = [entry objectAtIndex: 3];
+			id<ZPixmapWindow> win = [entry objectAtIndex: 3];
 			
 			[win scrollRegion: region
 					  toPoint: point];

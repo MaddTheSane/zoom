@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
     NSLog(@"Server ready");
 	
 	// Connect to the view process
-	NSObject<ZClient>* client = nil;
+	id<ZClient> client = nil;
 	NSString* connectionName = [NSString stringWithFormat: @"Zoom-%s",
 		argv[1]];
 
@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
 		NSLog(@"Warning: unable to locate connection %@. Aborting.", connectionName);
 	}
 	
-	client = (NSObject<ZClient>*)[remoteConnection rootProxy];
+	client = (id<ZClient>)[remoteConnection rootProxy];
 	[client retain];
 	
 	if (client == nil) {

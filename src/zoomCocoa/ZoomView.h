@@ -34,14 +34,15 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 @class ZoomLowerWindow;
 @class ZoomUpperWindow;
 @interface ZoomView : NSView <ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate, ZoomCursorDelegate, ZoomInputLineDelegate> {
-    NSObject<ZMachine>* zMachine;
+    id<ZMachine> zMachine;
 
     // Subviews
 	BOOL editingTextView;
 	BOOL willScrollToEnd;
 	BOOL willDisplayMore;
     ZoomTextView* textView;
-    NSTextContainer* upperWindowBuffer; // Things hidden under the upper window
+	/// Things hidden under the upper window
+    NSTextContainer* upperWindowBuffer;
     ZoomScrollView* textScroller;
 
     NSInteger inputPos;
@@ -54,19 +55,24 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 
     ZoomMoreView* moreView;
 
-    NSArray<NSFont*>* fonts; // 16 entries
-	NSArray<NSFont*>* originalFonts;			//!< As for fonts, used to cache the 'original' font definitions when scaling is in effect
-    NSArray<NSColor*>* colours; // 11 entries
+	/// 16 entries
+    NSArray<NSFont*>* fonts;
+	/// As for fonts, used to cache the 'original' font definitions when scaling is in effect
+	NSArray<NSFont*>* originalFonts;
+	/// 11 entries
+    NSArray<NSColor*>* colours;
 
     NSMutableArray<ZoomUpperWindow*>* upperWindows;
-    NSMutableArray<ZoomLowerWindow*>* lowerWindows; // Not that more than one makes any sort of sense
+	/// Not that more than one makes any sort of sense
+    NSMutableArray<ZoomLowerWindow*>* lowerWindows;
+	
     int lastUpperWindowSize;
     int lastTileSize;
     BOOL upperWindowNeedsRedrawing;
 
     BOOL exclusiveMode;
 
-    // The task, if we're running it
+    /// The task, if we're running it
     NSTask* zoomTask;
     NSPipe* zoomTaskStdout;
     NSMutableString* zoomTaskData;
@@ -74,24 +80,24 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
     // The delegate
     __weak id<ZoomViewDelegate> delegate;
     
-    // Details about the file we're currently saving
+    /// Details about the file we're currently saving
     OSType creatorCode; // 'YZZY' for Zoom
     OSType typeCode;
 	
-	// Preferences
+	/// Preferences
 	ZoomPreferences* viewPrefs;
 	
 	CGFloat scaleFactor;
 	
-	// Command history
+	/// Command history
 	NSMutableArray<NSString*>* commandHistory;
 	NSInteger		historyPos;
 	
-	// Terminating characters
+	/// Terminating characters
 	NSSet<NSNumber*>* terminatingChars;
 	
-	// View with input focus
-	__weak NSObject<ZWindow>* focusedView;
+	/// View with input focus
+	__weak id<ZWindow> focusedView;
 	
 	// Pixmap view
 	ZoomCursor*       pixmapCursor;
@@ -134,7 +140,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 
 // Specifying what to run
 - (void) runNewServer: (NSString*) serverName;
-@property (nonatomic, strong) NSObject<ZMachine> *zMachine;
+@property (nonatomic, strong) id<ZMachine> zMachine;
 
 // Scrolling, more prompt
 - (void) scrollToEnd;
@@ -157,7 +163,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (void) clearLowerWindowWithStyle: (ZStyle*) style;
 
 // Setting the focused view
-@property (weak) NSObject<ZWindow> *focusedView;
+@property (weak) id<ZWindow> focusedView;
 
 // Dealing with the history
 - (NSString*) lastHistoryItem;

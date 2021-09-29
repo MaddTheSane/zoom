@@ -57,7 +57,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (bycopy NSString*) restoreSaveState: (in bycopy NSData*) gameSave;
 
 // Running
-- (oneway void) startRunningInDisplay: (in byref NSObject<ZDisplay>*) display;
+- (oneway void) startRunningInDisplay: (in byref id<ZDisplay>) display;
 
 // Recieving text/characters
 - (oneway void) inputText: (in bycopy NSString*) text;
@@ -69,7 +69,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 
 // Recieving files
 - (oneway void) filePromptCancelled;
-- (oneway void) promptedFileIs: (in byref NSObject<ZFile>*) file
+- (oneway void) promptedFileIs: (in byref id<ZFile>) file
                           size: (NSInteger) size;
 
 // Obtaining game state
@@ -108,6 +108,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 @end
 
 // == Client-side objects ==
+NS_SWIFT_NAME(ZFileProtocol)
 @protocol ZFile <NSObject>
 - (int)				   readByte;
 - (unsigned int)	   readWord;
@@ -160,8 +161,9 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 
 //! Cursor positioning
 - (oneway void) setCursorPositionX: (in int) xpos
-                                 Y: (in int) ypos;
-- (NSPoint) cursorPosition;
+                                 Y: (in int) ypos
+NS_SWIFT_NAME(setCursorPosition(x:y:));
+@property (readonly, nonatomic) NSPoint cursorPosition;
 
 //! Line erasure
 - (oneway void) eraseLineWithStyle: (in bycopy ZStyle*) style;
@@ -235,9 +237,9 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (int) interpreterRevision;
 
 // Functions to create the standard windows
-- (byref NSObject<ZLowerWindow>*) createLowerWindow;
-- (byref NSObject<ZUpperWindow>*) createUpperWindow;
-- (byref NSObject<ZPixmapWindow>*) createPixmapWindow;
+- (byref id<ZLowerWindow>) createLowerWindow;
+- (byref id<ZUpperWindow>) createUpperWindow;
+- (byref id<ZPixmapWindow>) createPixmapWindow;
 
 //! Requesting user input
 - (void)		shouldReceiveCharacters;
@@ -372,33 +374,33 @@ extern NSString* const ZStyleAttributeName;
 //! General window routines
 - (void) writeString: (NSString*) string
            withStyle: (ZStyle*) style
-            toWindow: (NSObject<ZWindow>*) window;
-- (void) clearWindow: (NSObject<ZWindow>*) window
+            toWindow: (id<ZWindow>) window;
+- (void) clearWindow: (id<ZWindow>) window
            withStyle: (ZStyle*) style;
 
 //! Upper window routines
 - (void) moveTo: (NSPoint) newCursorPos
-       inWindow: (NSObject<ZUpperWindow>*) window;
-- (void) eraseLineInWindow: (NSObject<ZUpperWindow>*) window
+       inWindow: (id<ZUpperWindow>) window;
+- (void) eraseLineInWindow: (id<ZUpperWindow>) window
                  withStyle: (ZStyle*) style;
-- (void) setWindow: (NSObject<ZUpperWindow>*) window
+- (void) setWindow: (id<ZUpperWindow>) window
          startLine: (int) startLine
            endLine: (int) endLine;
 
 //! Pixmap window routines
 - (void) plotRect: (NSRect) rect
 		withStyle: (ZStyle*) style
-		 inWindow: (NSObject<ZPixmapWindow>*) win;
+		 inWindow: (id<ZPixmapWindow>) win;
 - (void) plotText: (NSString*) text
 		  atPoint: (NSPoint) point
 		withStyle: (ZStyle*) style
-		 inWindow: (NSObject<ZPixmapWindow>*) win;
+		 inWindow: (id<ZPixmapWindow>) win;
 - (void) scrollRegion: (NSRect) region
 			  toPoint: (NSPoint) newPoint
-			 inWindow: (NSObject<ZPixmapWindow>*) win;
+			 inWindow: (id<ZPixmapWindow>) win;
 - (void) plotImage: (int) number
 		   atPoint: (NSPoint) point
-		  inWindow: (NSObject<ZPixmapWindow>*) win;
+		  inWindow: (id<ZPixmapWindow>) win;
 
 // Unbuffering
 - (BOOL) empty; //!< YES if the buffer has no data

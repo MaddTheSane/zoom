@@ -61,7 +61,7 @@
 	NSRect oldWindowFrame;
 	
 	//! The handler for the last save prompt that was presented
-	NSObject<GlkFilePrompt>* promptHandler;
+	id<GlkFilePrompt> promptHandler;
 	//! The last save panel
 	NSSavePanel* lastPanel;
 }

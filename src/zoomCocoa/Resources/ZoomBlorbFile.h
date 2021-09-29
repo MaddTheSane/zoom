@@ -11,7 +11,7 @@
 #import <ZoomView/ZoomProtocol.h>
 
 @interface ZoomBlorbFile : NSObject {
-	NSObject<ZFile>* file;
+	id<ZFile> file;
 	
 	NSString*       formID;
 	unsigned int    formLength;
@@ -38,11 +38,11 @@
 // Testing files
 + (BOOL) dataIsBlorbFile: (NSData*) data;
 + (BOOL) fileContentsIsBlorb: (NSString*) filename;
-+ (BOOL) zfileIsBlorb: (NSObject<ZFile>*) file;
++ (BOOL) zfileIsBlorb: (id<ZFile>) file;
 
 // Initialisation
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
-- (id) initWithZFile: (NSObject<ZFile>*) file NS_DESIGNATED_INITIALIZER; //!< Designated initialiser
+- (id) initWithZFile: (id<ZFile>) file NS_DESIGNATED_INITIALIZER; //!< Designated initialiser
 - (id) initWithData: (NSData*) blorbFile;
 - (id) initWithContentsOfFile: (NSString*) filename;
 
