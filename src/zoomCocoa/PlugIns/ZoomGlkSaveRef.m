@@ -114,9 +114,10 @@
 	}
 	
 	// Write it out
-	if (![saveWrapper writeToFile: path
-					   atomically: YES
-				  updateFilenames: YES]) {
+	if (![saveWrapper writeToURL: [NSURL fileURLWithPath: path]
+						 options: (NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating)
+			 originalContentsURL: nil
+						   error: NULL]) {
 		return NO;
 	}
 	

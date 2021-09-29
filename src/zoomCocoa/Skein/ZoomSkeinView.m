@@ -312,7 +312,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 											 target: self
 										   argument: nil
 											  order: 8
-											  modes: [NSArray arrayWithObjects: NSDefaultRunLoopMode, NSModalPanelRunLoopMode, nil]];
+											  modes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode]];
 		skeinNeedsLayout = YES;
 	}
 }
@@ -617,7 +617,9 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		pboard = [NSPasteboard pasteboardWithName:NSPasteboardNameDrag];
 		[pboard declareTypes:[NSArray arrayWithObjects: ZoomSkeinItemPboardType, nil] owner:self];
 
-		[pboard setData: [NSKeyedArchiver archivedDataWithRootObject: clickedItem]
+		[pboard setData: [NSKeyedArchiver archivedDataWithRootObject: clickedItem
+											   requiringSecureCoding: YES
+															   error: NULL]
 				forType: ZoomSkeinItemPboardType];
 		
 		NSPoint origin;
@@ -1234,7 +1236,9 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	NSData*       data = [pboard dataForType: ZoomSkeinItemPboardType];
 	if (data == nil) return NO;
 	
-	ZoomSkeinItem* newItem = [NSKeyedUnarchiver unarchiveObjectWithData: data];
+	ZoomSkeinItem* newItem = [NSKeyedUnarchiver unarchivedObjectOfClass: [ZoomSkeinItem class]
+															   fromData: data
+																  error: NULL];
 	if (newItem == nil) return NO;
 	
 	// Add this as a child of the old item
