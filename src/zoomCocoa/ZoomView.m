@@ -3040,66 +3040,33 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 // = Accessibility=
 
-- (NSString *)accessibilityActionDescription: (NSString*) action {
-	return [super accessibilityActionDescription:  action];
+- (NSArray *)accessibilityChildren {
+	return @[[textScroller upperWindowView], textView];
 }
 
-- (NSArray *)accessibilityActionNames {
-	return [super accessibilityActionNames];
+- (NSString *)accessibilityRoleDescription {
+	return @"Zoom view";
 }
 
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-	return [super accessibilityIsAttributeSettable: attribute];;
+- (NSAccessibilityRole)accessibilityRole {
+	return NSAccessibilityUnknownRole;
 }
 
-- (void)accessibilityPerformAction:(NSString *)action {
-	[super accessibilityPerformAction: action];
-}
-
-- (void)accessibilitySetValue: (id)value
-				 forAttribute: (NSString*) attribute {
-	// No settable attributes
-	[super accessibilitySetValue: value
-					forAttribute: attribute];
-}
-
-- (NSArray*) accessibilityAttributeNames {
-	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
-	
-	[result addObjectsFromArray:[NSArray arrayWithObjects: 
-								 NSAccessibilityChildrenAttribute,
-								 nil]];
-	
-	return result;
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
-		return [NSArray arrayWithObjects: [textScroller upperWindowView], textView, nil];
-	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return @"Zoom view";
-	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
-		return NSAccessibilityUnknownRole;
-	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
-		NSView* viewResponder = (NSView*)[[self window] firstResponder];
-		if ([viewResponder isKindOfClass: [NSView class]]) {
-			while (viewResponder != nil) {
-				if (viewResponder == self) return @YES;
-				
-				viewResponder = [viewResponder superview];
-			}
+- (BOOL)isAccessibilityFocused {
+	NSView* viewResponder = (NSView*)[[self window] firstResponder];
+	if ([viewResponder isKindOfClass: [NSView class]]) {
+		while (viewResponder != nil) {
+			if (viewResponder == self) return YES;
+			
+			viewResponder = [viewResponder superview];
 		}
-		
-		return @NO;
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		//return nil;
 	}
 	
-	return [super accessibilityAttributeValue: attribute];
+	return NO;
 }
 
-- (BOOL)accessibilityIsIgnored {
+- (BOOL)isAccessibilityElement {
 	return YES;
 }
-		 
+
 @end

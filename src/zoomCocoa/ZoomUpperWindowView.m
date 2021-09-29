@@ -245,53 +245,6 @@
 // = Accessibility =
 
 
-- (NSArray*) accessibilityAttributeNames {
-	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
-	
-	[result addObjectsFromArray:[NSArray arrayWithObjects: 
-								 NSAccessibilityRoleDescriptionAttribute,
-								 NSAccessibilityTitleAttribute,
-								 nil]];
-	
-	return result;
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityTitleAttribute]) {
-		NSMutableString* status = [NSMutableString string];
-		
-		for (ZoomUpperWindow* win in [zoomView upperWindows]) {
-			for (NSMutableAttributedString* lineText in [win lines]) {
-				[status appendString: [lineText string]];
-				[status appendString: @" "];
-			}
-		}
-		
-		return status;
-	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-#if 0
-		NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
-		NSMutableString* status = [NSMutableString string];
-		
-		ZoomUpperWindow* win;
-		while (win = [upperEnum nextObject]) {
-			NSArray* lines = [win lines];
-			NSEnumerator* linesEnum = [lines objectEnumerator];
-			NSMutableAttributedString* lineText;
-			while (lineText = [linesEnum nextObject]) {
-				[status appendString: [lineText string]];
-				[status appendString: @"%@"];
-			}
-		}
-#endif
-		return [NSString stringWithFormat: @"Status bar"];
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		return zoomView;
-	}
-	
-	return [super accessibilityAttributeValue: attribute];
-}
-
 - (NSString *)accessibilityValue
 {
 	NSMutableString* status = [NSMutableString string];
@@ -303,7 +256,11 @@
 		}
 	}
 	
-	return status;
+	return [status copy];
+}
+
+- (NSString *)accessibilityRoleDescription {
+	return @"Status bar";
 }
 
 - (id)accessibilityParent
@@ -311,8 +268,8 @@
 	return zoomView;
 }
 
-- (BOOL)accessibilityIsIgnored {
-	return NO;
+- (BOOL)isAccessibilityElement {
+	return YES;
 }
 
 @end

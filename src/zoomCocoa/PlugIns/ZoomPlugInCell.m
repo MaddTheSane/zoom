@@ -243,12 +243,9 @@
 	return result;
 }
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return [self stringValue];
-	}
-	
-	return [super accessibilityAttributeValue: attribute];
+- (NSString *)accessibilityRoleDescription
+{
+	return [self stringValue];
 }
 
 @end

@@ -55,9 +55,11 @@
 	[super mouseDown: evt];
 }
 
-- (BOOL)accessibilityIsIgnored {
-	if ([[ZoomPreferences globalPreferences] speakGameText]) return YES;
-	return [super accessibilityIsIgnored];
+- (BOOL)isAccessibilityElement {
+	if ([[ZoomPreferences globalPreferences] speakGameText]) {
+		return NO;
+	}
+	return [super isAccessibilityElement];
 }
 
 // = Drawing =
@@ -313,16 +315,13 @@
 	pastedLines = newLines;
 }
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		NSView* parent = [self superview];
-		while (parent != nil && ![parent isKindOfClass: [ZoomView class]]) {
-			parent = [parent superview];
-		}
-		if (parent) return parent;
+- (id)accessibilityParent {
+	NSView* parent = [self superview];
+	while (parent != nil && ![parent isKindOfClass: [ZoomView class]]) {
+		parent = [parent superview];
 	}
-	
-	return [super accessibilityAttributeValue: attribute];
+	if (parent) return parent;
+	return [super accessibilityParent];
 }
 
 @end
