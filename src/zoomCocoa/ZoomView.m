@@ -2003,9 +2003,13 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 						previewWin = [self->upperWindows objectAtIndex: windowNumber];
 					}
 					
-					[f addData: [NSKeyedArchiver archivedDataWithRootObject: previewWin]
+					[f addData: [NSKeyedArchiver archivedDataWithRootObject: previewWin
+													  requiringSecureCoding: YES
+																	  error: NULL]
 				   forFilename: @"ZoomPreview.dat"];
-					[f addData: [NSKeyedArchiver archivedDataWithRootObject: self]
+					[f addData: [NSKeyedArchiver archivedDataWithRootObject: self
+													  requiringSecureCoding: YES
+																	  error: NULL]
 				   forFilename: @"ZoomStatus.dat"];
 					
 					if (self->delegate && [self->delegate respondsToSelector: @selector(prepareSavePackage:)]) {
@@ -2413,12 +2417,6 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		if (zMachine) {
 			[zMachine restoreSaveState: lastAutosave];
 		}
-		
-		[self reformatWindow];
-		[self resetMorePrompt];
-		[self scrollToEnd];
-		inputPos = [[textView textStorage] length];
-		
 	} else {
 		int autosaveVersion;
 		
@@ -2455,11 +2453,6 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			if (zMachine) {
 				[zMachine restoreSaveState: lastAutosave];
 			}
-			
-			[self reformatWindow];
-			[self resetMorePrompt];
-			[self scrollToEnd];
-			inputPos = [[textView textStorage] length];
 		} else if (autosaveVersion == 100 || autosaveVersion == 101) {
 			// (Autosave versions only used up to 1.0.2beta1)
 			lastAutosave = [decoder decodeObject];
@@ -2491,15 +2484,15 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			if (zMachine) {
 				[zMachine restoreSaveState: lastAutosave];
 			}
-			
-			[self reformatWindow];
-			[self resetMorePrompt];
-			[self scrollToEnd];
-			inputPos = [[textView textStorage] length];
 		} else {
 			NSLog(@"Unknown autosave version (ignoring)");
+			return;
 		}
 	}
+	[self reformatWindow];
+	[self resetMorePrompt];
+	[self scrollToEnd];
+	inputPos = [[textView textStorage] length];
 }
 
 // = NSCoding =
