@@ -8,7 +8,6 @@
 
 #import <AppKit/AppKit.h>
 #import <WebKit/WebKit.h>
-#import "ZoomiFButton.h"
 #import <ZoomPlugIns/ZoomStory.h>
 #import "ZoomCollapsableView.h"
 @class SavePreviewView;
@@ -23,11 +22,11 @@
 #import "ZoomSignPost.h"
 
 @interface ZoomiFictionController : NSWindowController <NSTextStorageDelegate, ZoomDownloadDelegate, NSTableViewDataSource, NSOpenSavePanelDelegate, WebFrameLoadDelegate, WebPolicyDelegate> {
-	IBOutlet ZoomiFButton* addButton;
-	IBOutlet ZoomiFButton* newgameButton;
-	IBOutlet ZoomiFButton* continueButton;	
-	// IBOutlet ZoomiFButton* drawerButton;
-	IBOutlet ZoomiFButton* infoButton;
+	IBOutlet NSButton* addButton;
+	IBOutlet NSButton* newgameButton;
+	IBOutlet NSButton* continueButton;
+	// IBOutlet NSButton* drawerButton;
+	IBOutlet NSButton* infoButton;
 	
 	//IBOutlet ZoomCollapsableView* collapseView;
 	

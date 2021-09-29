@@ -231,11 +231,6 @@ enum {
 	[downloadWindow setContentView: clearView];
 	[downloadView setFrame: [clearView frame]];
 	[clearView addSubview: downloadView];
-
-	[addButton setPushedImage: [NSImage imageNamed: @"add-in"]];
-	[newgameButton setPushedImage: [NSImage imageNamed: @"newgame-in"]];
-	[continueButton setPushedImage: [NSImage imageNamed: @"continue-in"]];
-	[infoButton setPushedImage: [NSImage imageNamed: @"information-in"]];		
 	
 	[continueButton setEnabled: NO];
 	[newgameButton setEnabled: NO];
