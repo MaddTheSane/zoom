@@ -62,7 +62,8 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 
 // Write
 - (oneway void) writeByte: (int) byte {
-    NSData* data = [NSData dataWithBytes: &byte
+	char theChar = byte;
+    NSData* data = [NSData dataWithBytes: &theChar
                                   length: 1];
     [handle writeData: data];
 }
@@ -766,7 +767,9 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 			// Setup for reading
 			writePath = nil; // No writing!
 			writeData = nil;
-			wrapper = [[NSFileWrapper alloc] initWithPath: path];
+			wrapper = [[NSFileWrapper alloc] initWithURL: [NSURL fileURLWithPath:path]
+												 options: (NSFileWrapperReadingOptions)0
+												   error: NULL];
 			
 			if (![wrapper isDirectory]) {
 				failed = YES;
@@ -788,9 +791,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	return self;
 }
 
-- (void) setAttributes: (NSDictionary*) attr {
-	attributes = [attr copy];
-}
+@synthesize attributes;
 
 - (int) readByte {
 	if (forWriting) {
@@ -954,9 +955,10 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		[wrapper addRegularFileWithContents: writeData
 						  preferredFilename: defaultFile];
 		
-		[wrapper writeToFile: writePath
-				  atomically: YES
-			 updateFilenames: YES];
+		[wrapper writeToURL: [NSURL fileURLWithPath: writePath]
+					options: (NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating)
+		originalContentsURL: nil
+					  error: NULL];
 		
 		if (attributes) {
 			[[NSFileManager defaultManager] setAttributes: attributes

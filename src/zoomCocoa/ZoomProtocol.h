@@ -53,7 +53,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 // Setup
 - (void) loadStoryFile: (in bycopy NSData*) storyFile;
 
-// Restoring game state (returns nil if successful)
+/// Restoring game state (returns \c nil if successful)
 - (bycopy NSString*) restoreSaveState: (in bycopy NSData*) gameSave;
 
 // Running
@@ -194,7 +194,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 				  height: (out CGFloat*) height
 				  ascent: (out CGFloat*) ascent
 				 descent: (out CGFloat*) descent;
-- (bycopy NSDictionary*) attributesForStyle: (in bycopy ZStyle*) style;
+- (bycopy NSDictionary<NSAttributedStringKey,id>*) attributesForStyle: (in bycopy ZStyle*) style;
 
 //! Reading information about the pixmap
 - (bycopy NSColor*) colourAtPixel: (NSPoint) point;
@@ -230,11 +230,11 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 - (void) fontWidth: (out int*) width
 			height: (out int*) height;
 
-- (int) foregroundColour;
-- (int) backgroundColour;
+@property (readonly) int foregroundColour;
+@property (readonly) int backgroundColour;
 
-- (int) interpreterVersion;
-- (int) interpreterRevision;
+@property (readonly) int interpreterVersion;
+@property (readonly) int interpreterRevision;
 
 // Functions to create the standard windows
 - (byref id<ZLowerWindow>) createLowerWindow;
@@ -254,8 +254,8 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 - (void) displayMore: (BOOL) shown;
 
-// !'Exclusive' mode - lock the UI so no updates occur while we're sending
-//! large blocks of varied text
+/// 'Exclusive' mode - lock the UI so no updates occur while we're sending
+/// large blocks of varied text
 - (oneway void) startExclusive;
 - (oneway void) stopExclusive;
 - (oneway void) flushBuffer: (in bycopy ZBuffer*) toFlush;
@@ -311,7 +311,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 	NSFileWrapper* data;
 	NSMutableData* writeData;
 	
-	NSDictionary* attributes;
+	NSDictionary<NSFileAttributeKey,id>* attributes;
 	
 	off_t pos;
 }
@@ -320,7 +320,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 		defaultFile: (NSString*) filename
 		 forWriting: (BOOL) write;
 
-- (void) setAttributes: (NSDictionary*) attributes;
+@property (copy) NSDictionary<NSFileAttributeKey, id> *attributes;
 
 - (void) addData: (NSData*) data
 	 forFilename: (NSString*) filename;
@@ -403,8 +403,10 @@ extern NSString* const ZStyleAttributeName;
 		  inWindow: (id<ZPixmapWindow>) win;
 
 // Unbuffering
-- (BOOL) empty; //!< YES if the buffer has no data
-- (void) blat; //!< Like blitting, only messier
+//! YES if the buffer has no data
+@property (readonly) BOOL empty;
+//! Like blitting, only messier
+- (void) blat;
 
 @end
 
