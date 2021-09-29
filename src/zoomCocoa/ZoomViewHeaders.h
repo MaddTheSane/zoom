@@ -24,6 +24,6 @@
 #import <ZoomView/ZoomUpperWindowView.h>
 #import <ZoomView/ZoomMoreView.h>
 #import <ZoomView/ZoomView.h>
-#import <ZoomView/ZoomConnector.h>
+//#import <ZoomView/ZoomConnector.h>
 
 #endif /* ZoomViewHeaders_h */

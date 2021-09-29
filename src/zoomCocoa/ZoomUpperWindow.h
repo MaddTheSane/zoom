@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <ZoomView/ZoomView.h>
+#import <ZoomView/ZoomProtocol.h>
 
 @class ZoomView;
 @interface ZoomUpperWindow : NSObject<ZUpperWindow, NSSecureCoding> {
@@ -35,3 +35,5 @@
 - (void) setZoomView: (ZoomView*) view;
 
 @end
+
+#import <ZoomView/ZoomView.h>

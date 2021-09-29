@@ -63,7 +63,7 @@ framework module ZoomView {
 		export *
 	}
 	
-	module ZoomConnector {
+	explicit module ZoomConnector {
 		header "ZoomConnector.h"
 		export *
 	}
