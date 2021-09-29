@@ -9,12 +9,6 @@
 #include <tgmath.h>
 #import "ZoomRatingCell.h"
 
-#if CGFLOAT_IS_DOUBLE
-#define CGF(__x) __x
-#else
-#define CGF(__x) __x ## f
-#endif
-
 @implementation ZoomRatingCell
 
 static NSImage* stars1 = nil;
@@ -58,8 +52,8 @@ static NSSize starsSize;
 	// Work out the rectangle to draw in
 	NSRect drawRect;
 	
-	drawRect.origin.x = cellFrame.origin.x + (cellFrame.size.width - starsSize.width)/CGF(2.0);
-	drawRect.origin.y = cellFrame.origin.y + (cellFrame.size.height - starsSize.height)/CGF(2.0);
+	drawRect.origin.x = cellFrame.origin.x + (cellFrame.size.width - starsSize.width)/2.0;
+	drawRect.origin.y = cellFrame.origin.y + (cellFrame.size.height - starsSize.height)/2.0;
 	drawRect.size = size;
 	
 	drawRect.origin.y -= 1;
@@ -97,8 +91,8 @@ static NSSize starsSize;
 	// Work out the rectangle we're in
 	NSRect drawRect;
 	
-	drawRect.origin.x = currentFrame.origin.x + (currentFrame.size.width - starsSize.width)/CGF(2.0);
-	drawRect.origin.y = currentFrame.origin.y + (currentFrame.size.height - starsSize.height)/CGF(2.0);
+	drawRect.origin.x = currentFrame.origin.x + (currentFrame.size.width - starsSize.width)/2.0;
+	drawRect.origin.y = currentFrame.origin.y + (currentFrame.size.height - starsSize.height)/2.0;
 	drawRect.size = starsSize;
 	
 	CGFloat value = (point.x - drawRect.origin.x) / drawRect.size.width;
@@ -106,9 +100,9 @@ static NSSize starsSize;
 	if (value > 1.0) value = 1.0;
 	if (value < -1.0) value = 0.0;
 	
-	value *= CGF(10.0);
+	value *= 10.0;
 	
-	value = floor(value + CGF(0.5));
+	value = floor(value + 0.5);
 	
 	[self setObjectValue: @(value)];
 	[(NSControl*)controlView updateCell: self];

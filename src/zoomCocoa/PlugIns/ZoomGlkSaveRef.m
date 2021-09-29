@@ -254,6 +254,6 @@
 	return [[NSFileManager defaultManager] fileExistsAtPath: path];	
 }
 
-@synthesize autoflush;
+@synthesize autoflushStream = autoflush;
 
 @end
