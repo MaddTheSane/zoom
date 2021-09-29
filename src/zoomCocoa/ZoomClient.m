@@ -293,7 +293,7 @@
 							error: outError];
 	}
 
-	if (![[docType lowercaseString] isEqualToString: @"uk.org.logicalshift.zoomsave"] &&
+	if (![docType isEqualToString: @"uk.org.logicalshift.zoomsave"] &&
 		![[docType lowercaseString] isEqualToString: @"quetzal saved game"]) {
 		// Process only zoomSave files
 		if (outError) {
@@ -313,10 +313,6 @@
 	
 	if (quetzal == nil) {
 		// Not a valid zoomSave file
-		 NSBeginAlertSheet(@"Not a valid Zoom savegame package", 
-						   @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						   @"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]);
-		
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: @"Not a valid Zoom savegame package",
@@ -391,10 +387,6 @@
 	
 	if (gameFile == nil) {
 		// Couldn't find a story for this savegame
-		NSBeginAlertSheet(@"Unable to find story file", 
-						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						  @"Zoom does not know where a valid story file for '%@' is and so is unable to load it", [[wrapper filename] lastPathComponent]);
-		
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: @"Unable to find story file",
@@ -404,18 +396,15 @@
 		return NO;
 	}
 	
-	NSData* data = [NSData dataWithContentsOfFile: gameFile];
+	NSError *underlying;
+	NSData* data = [NSData dataWithContentsOfFile: gameFile options: 0 error: &underlying];
 	if (data == nil) {
 		// Couldn't find the story data for this savegame
-		NSBeginAlertSheet(@"Unable to find story file", 
-						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						  @"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent],
-						  gameFile);
-		
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: @"Unable to find story file",
-				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent], gameFile]
+				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent], gameFile],
+				NSUnderlyingErrorKey: underlying
 			}];
 		}
 		return NO;		
@@ -445,11 +434,6 @@
 	}
 	
 	if (savedView == nil || ![savedView isKindOfClass: [ZoomView class]]) {
-		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"Unable to load saved screen state";
-		alert.informativeText = [NSString stringWithFormat:@"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", [[wrapper filename] lastPathComponent]];
-		[alert addButtonWithTitle:@"Cancel"];
-		[alert runModal];
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: @"Unable to load saved screen state",
