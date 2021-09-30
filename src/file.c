@@ -665,17 +665,22 @@ void write_dword(ZFile* file, ZDWord word)
 #endif
 
 void write_string(ZFile* file, const char* string) {
-  write_block(file, (unsigned char*)string, (int)strlen(string));
+  write_block(file, (const unsigned char*)string, (int)strlen(string));
 }
 
 void write_stringf(ZFile* file, const char* format, ...) {
-  char buffer[4096];
   va_list ap;
   
   va_start(ap, format);
+  write_stringvf(file, format, ap);
+  va_end(ap);
+}
+
+void write_stringvf(ZFile* file, const char* format, va_list ap) {
+  char buffer[4096];
+  
   vsnprintf(buffer, 4096, format, ap);
   buffer[4095] = 0;
-  va_end(ap);
   
   write_string(file, buffer);
 }

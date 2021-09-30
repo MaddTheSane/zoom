@@ -28,16 +28,16 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 }
 
 // Read
-- (int) readByte {
+- (unsigned char) readByte {
     NSData* data = [handle readDataOfLength: 1];
-    if (data == nil || [data length] < 1) return -1;
+    if (data == nil || [data length] < 1) return 0xff;
 
     return ((unsigned char*)[data bytes])[0];
 }
 
-- (unsigned int) readWord {
+- (unsigned short) readWord {
     NSData* data = [handle readDataOfLength: 2];
-    if (data == nil || [data length] < 2) return 0xffffffff;
+    if (data == nil || [data length] < 2) return 0xffff;
 
     const unsigned char* bytes = [data bytes];
     return (bytes[0]<<8)|bytes[1];
@@ -61,14 +61,13 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 }
 
 // Write
-- (oneway void) writeByte: (int) byte {
-	char theChar = byte;
-    NSData* data = [NSData dataWithBytes: &theChar
+- (oneway void) writeByte: (unsigned char) byte {
+    NSData* data = [NSData dataWithBytes: &byte
                                   length: 1];
     [handle writeData: data];
 }
 
-- (oneway void) writeWord: (int) word {
+- (oneway void) writeWord: (short) word {
     unsigned char bytes[2];
 
     bytes[0] = (word>>8);
@@ -159,17 +158,17 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     return self;
 }
 
-- (int) readByte {
+- (unsigned char) readByte {
     if (pos >= [data length]) {
-        return -1;
+        return 0xff;
     }
     
     return ((unsigned char*)[data bytes])[pos++];
 }
 
-- (unsigned int) readWord {
+- (unsigned short) readWord {
     if ((pos+1) >= [data length]) {
-        return 0xffffffff;
+        return 0xffff;
     }
 
     const unsigned char* bytes = [data bytes];
@@ -222,11 +221,11 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     }
 }
 
-- (oneway void) writeByte: (__unused int) byte {
+- (oneway void) writeByte: (__unused unsigned char) byte {
     return; // Do nothing
 }
 
-- (oneway void) writeWord: (__unused int) word {
+- (oneway void) writeWord: (__unused short) word {
     return; // Do nothing
 }
 
@@ -793,25 +792,25 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 @synthesize attributes;
 
-- (int) readByte {
+- (unsigned char) readByte {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;
 	}
 	
-	if (pos >= [[data regularFileContents] length]) return -1;
+	if (pos >= [[data regularFileContents] length]) return 0xff;
 	
 	return ((unsigned char*)[[data regularFileContents] bytes])[pos++];
 }
 
-- (unsigned int) readWord {
+- (unsigned short) readWord {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;
 	}
 	
 	if ((pos+1) >= [[data regularFileContents] length]) {
-        return 0xffffffff;
+        return 0xffff;
     }
 	
     const unsigned char* bytes = [[data regularFileContents] bytes];
@@ -871,7 +870,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	pos = p;
 }
 
-- (oneway void) writeByte: (int) byte {
+- (oneway void) writeByte: (unsigned char) byte {
 	if (!forWriting) {
 		[NSException raise: @"ZoomFileWriteException" format: @"Tried to write to a file open for reading"];
 		return;
@@ -883,7 +882,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 					length: 1];
 }
 
-- (oneway void) writeWord: (int) word {
+- (oneway void) writeWord: (short) word {
 	if (!forWriting) {
 		[NSException raise: @"ZoomFileWriteException" format: @"Tried to write to a file open for reading"];
 		return;

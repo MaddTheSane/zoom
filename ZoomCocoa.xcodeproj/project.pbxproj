@@ -767,7 +767,7 @@
 		4B43DAAE09364CD100F03009 /* ZoomGlkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkWindowController.m; sourceTree = "<group>"; };
 		4B4D512006E3894F007FAD2B /* ZoomConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomConnector.h; sourceTree = "<group>"; };
 		4B4D512106E3894F007FAD2B /* ZoomConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomConnector.m; sourceTree = "<group>"; };
-		4B4EF620050FD66E00A8E303 /* ZFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFiles.m; sourceTree = "<group>"; };
+		4B4EF620050FD66E00A8E303 /* ZFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFiles.m; sourceTree = "<group>"; usesTabs = 0; };
 		4B4EF623050FDC6800A8E303 /* ZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomView.h; sourceTree = "<group>"; };
 		4B4EF624050FDC6800A8E303 /* ZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomView.m; sourceTree = "<group>"; };
 		4B5983DA070F059E0078165F /* archive.iFiction */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = archive.iFiction; path = src/archive.iFiction; sourceTree = "<group>"; };
@@ -2538,12 +2538,9 @@
 		4B11038708606E2600253E87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_PREPROCESSOR_DEFINITIONS = "MAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_2";
+				GCC_PREPROCESSOR_DEFINITIONS = "MAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_14";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -2553,23 +2550,15 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = Interpreter;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
 		4B11038808606E2600253E87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = "MAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_3";
+				GCC_PREPROCESSOR_DEFINITIONS = "MAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_14";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_PEDANTIC = YES;
@@ -2580,13 +2569,6 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = Interpreter;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};

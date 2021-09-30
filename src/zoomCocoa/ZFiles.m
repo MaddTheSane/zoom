@@ -73,11 +73,11 @@ void close_file(ZFile* file) {
 }
 
 ZByte read_byte(ZFile* file) {
-    return (ZByte)[file->theFile readByte];
+    return [file->theFile readByte];
 }
 
 ZUWord read_word(ZFile* file) {
-    return (ZByte)[file->theFile readWord];
+    return [file->theFile readWord];
 }
 
 ZUWord read_rword(ZFile* file) {
@@ -93,8 +93,8 @@ ZByte* read_page(ZFile* file, int page_no) {
 }
 
 ZByte* read_block(ZFile* file, int start_pos, int end_pos) {
-    NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
-    static NSData* result = nil;
+	@autoreleasepool {
+    NSData* result = nil;
 
     [file->theFile seekTo: start_pos];
     result = [file->theFile readBlock: end_pos - start_pos];
@@ -102,23 +102,25 @@ ZByte* read_block(ZFile* file, int start_pos, int end_pos) {
     ZByte* res2 = malloc([result length]);
     memcpy(res2, [result bytes], [result length]);
     
-    [p release];
     return res2;
+	}
 }
 
 void   read_block2(ZByte* block, ZFile* file, int start_pos, int end_pos) {
-    NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
     NSData* result = nil;
 
     [file->theFile seekTo: start_pos];
     result = [file->theFile readBlock: end_pos - start_pos];
 
     memcpy(block, [result bytes], [result length]);
-    [p release];
+	}
 }
 
-void   write_block(ZFile* file, ZByte* block, int length) { 
+void   write_block(ZFile* file, const ZByte* block, int length) {
+    @autoreleasepool {
     [file->theFile writeBlock: [NSData dataWithBytes: block length: length]];
+    }
 }
 
 void write_byte(ZFile* file, ZByte byte) {

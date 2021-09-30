@@ -113,15 +113,15 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 // == Client-side objects ==
 NS_SWIFT_NAME(ZFileProtocol)
 @protocol ZFile <NSObject>
-- (int)				   readByte;
-- (unsigned int)	   readWord;
+- (unsigned char)	   readByte;
+- (unsigned short)	   readWord;
 - (unsigned int)	   readDWord;
 - (bycopy NSData*) readBlock: (NSInteger) length;
 
 - (oneway void)		   seekTo: (off_t) pos;
 
-- (oneway void) writeByte:  (int) byte;
-- (oneway void) writeWord:  (int) word;
+- (oneway void) writeByte:  (unsigned char) byte;
+- (oneway void) writeWord:  (short) word;
 - (oneway void) writeDWord: (unsigned int) dword;
 - (oneway void) writeBlock: (in bycopy NSData*) block;
 
