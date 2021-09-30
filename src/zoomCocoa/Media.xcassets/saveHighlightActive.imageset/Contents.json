@@ -1,13 +1,26 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
       "filename" : "saveHighlightActive.png",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 3,
+          "left" : 287,
+          "right" : 288,
+          "top" : 3
+        },
+        "center" : {
+          "height" : 42,
+          "mode" : "stretch",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      },
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "saveHighlightActive@2x.png",
       "scale" : "2x"
     },
     {
@@ -16,7 +29,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

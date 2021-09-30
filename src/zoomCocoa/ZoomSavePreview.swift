@@ -219,7 +219,7 @@ class SavePreview : NSView {
 			
 			// Finish up
 			lines += 1
-			if (lines > 2) {
+			if lines > 2 {
 				break;
 			}
 		}

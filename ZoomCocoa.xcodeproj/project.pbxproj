@@ -2623,6 +2623,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
 			name = Debug;
@@ -2672,6 +2674,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
 			name = Release;
@@ -2959,8 +2962,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom;
 				PRODUCT_NAME = Zoom;
 				SWIFT_OBJC_BRIDGING_HEADER = "src/zoomCocoa/Zoom-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2988,7 +2989,6 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
 				SWIFT_OBJC_BRIDGING_HEADER = "src/zoomCocoa/Zoom-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
