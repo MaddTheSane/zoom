@@ -903,7 +903,7 @@ ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToWrite: convert_file_type(purpose)
-                                    defaultName: @(name)];
+									defaultName: name ? @(name) : nil];
     
     wait_for_file();
     res = [[mainMachine lastFile] retain];
@@ -923,7 +923,7 @@ ZFile* get_file_read(int* size, char* name, ZFile_type purpose) {
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToRead: convert_file_type(purpose)
-                                   defaultName: @(name)];
+                                   defaultName: name ? @(name) : nil];
     
     wait_for_file();
     res = [[mainMachine lastFile] retain];

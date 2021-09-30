@@ -48,6 +48,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 };
 
 // == Server-side objects ==
+/// Protocol for an application to talk to/from Zoom
 @protocol ZMachine <NSObject>
 
 // Setup
@@ -106,6 +107,8 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (bycopy NSString*) descriptionForValue: (unsigned) value;
 
 @end
+
+#pragma mark - Client-side objects
 
 // == Client-side objects ==
 NS_SWIFT_NAME(ZFileProtocol)
@@ -224,11 +227,11 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 // Display information
 - (void) dimensionX: (out int*) xSize
-                  Y: (out int*) ySize;
+                  Y: (out int*) ySize NS_SWIFT_NAME(dimension(x:y:));
 - (void) pixmapX: (out int*) xSize
-			   Y: (out int*) ySize;
+			   Y: (out int*) ySize NS_SWIFT_NAME(pixmap(x:y:));
 - (void) fontWidth: (out int*) width
-			height: (out int*) height;
+			height: (out int*) height NS_SWIFT_NAME(font(width:height:));
 
 @property (readonly) int foregroundColour;
 @property (readonly) int backgroundColour;
@@ -283,6 +286,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 @end
 
 // Some useful standard classes
+#pragma mark - Some useful standard classes
 
 //! File from a handle
 @interface ZHandleFile : NSObject<ZFile> {

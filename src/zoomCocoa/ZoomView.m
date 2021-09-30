@@ -1938,8 +1938,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 @synthesize creatorCode;
 
 - (void) promptForFileToWrite: (in ZFileType) type
-                  defaultName: (in bycopy __unused NSString*) name {
+                  defaultName: (in bycopy NSString*) name {
     NSSavePanel* panel = [NSSavePanel savePanel];
+	panel.nameFieldStringValue = name;
     
     [self setupPanel: panel
                 type: type];
@@ -1985,11 +1986,11 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 					int windowNumber = 0;
 					ZoomUpperWindow* previewWin;
 					
-					[f setAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-									   @(self->creatorCode), NSFileHFSCreatorCode,
-									   @(self->typeCode), NSFileHFSTypeCode,
-									   @([panel isExtensionHidden]), NSFileExtensionHidden,
-									   nil]];
+					[f setAttributes: @{
+						NSFileHFSCreatorCode: @(self->creatorCode),
+						NSFileHFSTypeCode: @(self->typeCode),
+						NSFileExtensionHidden: @([panel isExtensionHidden]),
+					}];
 					
 					if ([self->upperWindows count] <= 0 || [(ZoomUpperWindow*)[self->upperWindows objectAtIndex: 0] length] > 0) {
 						windowNumber = 0;
@@ -2029,13 +2030,13 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 				if ([[NSFileManager defaultManager] createFileAtPath:fn
 															contents:[NSData data]
 														  attributes:
-					 [NSDictionary dictionaryWithObjectsAndKeys:
-					  @(creator), NSFileHFSCreatorCode,
-					  @(self->typeCode), NSFileHFSTypeCode,
-					  @([panel isExtensionHidden]), NSFileExtensionHidden,
-					  nil]]) {
-						 file = [NSFileHandle fileHandleForWritingAtPath: fn];
-					 }
+					 @{
+					NSFileHFSCreatorCode: @(creator),
+					NSFileHFSTypeCode: @(self->typeCode),
+					NSFileExtensionHidden: @([panel isExtensionHidden]),
+				}]) {
+					file = [NSFileHandle fileHandleForWritingAtPath: fn];
+				}
 				
 				if (file) {
 					ZHandleFile* f;
@@ -2076,60 +2077,53 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		panel.directoryURL = directory;
 	}
 	
-	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
-		[self openPanelDidEnd: panel
-				   returnCode: result
-				  contextInfo: nil];
-	}];
-}
-
-- (void)openPanelDidEnd: (NSOpenPanel *) panel 
-             returnCode: (NSModalResponse) returnCode
-            contextInfo: (__unused void*) contextInfo {
-    if (returnCode != NSModalResponseOK) {
-        [zMachine filePromptCancelled];
-    } else {
-        NSString* fn = [panel URL].path;
-        NSFileHandle* file = nil;
-
-        [self storePanelPrefs: panel];
-		
-		if ([[fn pathExtension] isEqualToString: @"zoomSave"]) {
-			ZPackageFile* f;
-			
-			f = [[ZPackageFile alloc] initWithPath: fn
-									   defaultFile: @"save.qut"
-										forWriting: NO];
-			
-			if (f) {
-				NSData* skeinData = [f dataForFile: @"Skein.skein"];
-				if (skeinData) {
-					if (delegate && [delegate respondsToSelector: @selector(loadedSkeinData:)]) {
-						[delegate loadedSkeinData: skeinData];
-					}
-				}
-				
-				[zMachine promptedFileIs: f
-									size: (NSInteger)[f fileSize]];
-			} else {
-				[zMachine filePromptCancelled];
-			}
+	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
+		if (returnCode != NSModalResponseOK) {
+			[[self zMachine] filePromptCancelled];
 		} else {
-			file = [NSFileHandle fileHandleForReadingAtPath: fn];
-        
-			if (file) {
-				ZDataFile* f;
-				NSData* fData = [file readDataToEndOfFile];
-            
-				f = [[ZDataFile alloc] initWithData: fData];
-            
-				[zMachine promptedFileIs: f
-									size: [fData length]];
+			NSString* fn = [panel URL].path;
+			NSFileHandle* file = nil;
+
+			[self storePanelPrefs: panel];
+			
+			if ([[fn pathExtension] isEqualToString: @"zoomSave"]) {
+				ZPackageFile* f;
+				
+				f = [[ZPackageFile alloc] initWithPath: fn
+										   defaultFile: @"save.qut"
+											forWriting: NO];
+				
+				if (f) {
+					NSData* skeinData = [f dataForFile: @"Skein.skein"];
+					if (skeinData) {
+						if ([self delegate] &&
+							[[self delegate] respondsToSelector: @selector(loadedSkeinData:)]) {
+							[[self delegate] loadedSkeinData: skeinData];
+						}
+					}
+					
+					[[self zMachine] promptedFileIs: f
+											   size: (NSInteger)[f fileSize]];
+				} else {
+					[[self zMachine] filePromptCancelled];
+				}
 			} else {
-				[zMachine filePromptCancelled];
+				file = [NSFileHandle fileHandleForReadingAtPath: fn];
+			
+				if (file) {
+					ZDataFile* f;
+					NSData* fData = [file readDataToEndOfFile];
+				
+					f = [[ZDataFile alloc] initWithData: fData];
+				
+					[[self zMachine] promptedFileIs: f
+											   size: [fData length]];
+				} else {
+					[[self zMachine] filePromptCancelled];
+				}
 			}
 		}
-    }
+	}];
 }
 
 // = The delegate =
