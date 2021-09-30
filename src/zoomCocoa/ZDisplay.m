@@ -897,7 +897,7 @@ static void wait_for_file(void) {
     }
 }
 
-ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
+ZFile* get_file_write(int* size, const char* name, ZFile_type purpose) {
     // FIXME: fill in size
     id<ZFile> res = NULL;
     
@@ -918,7 +918,7 @@ ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
     }
 }
 
-ZFile* get_file_read(int* size, char* name, ZFile_type purpose) {
+ZFile* get_file_read(int* size, const char* name, ZFile_type purpose) {
     id<ZFile> res = NULL;
     
     [mainMachine filePromptStarted];

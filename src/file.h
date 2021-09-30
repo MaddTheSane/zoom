@@ -35,8 +35,8 @@ typedef enum {
 
 typedef struct ZFile ZFile;
 
-extern ZFile* open_file      (char* filename);
-extern ZFile* open_file_write(char* filename);
+extern ZFile* open_file      (const char* filename);
+extern ZFile* open_file_write(const char* filename);
 extern void   close_file     (ZFile* file);
 extern ZByte  read_byte      (ZFile* file);
 extern ZUWord read_word      (ZFile* file);
@@ -48,13 +48,13 @@ extern void   write_block    (ZFile* file, ZByte* block, int length);
 extern void   write_byte     (ZFile* file, ZByte byte);
 extern void   write_word     (ZFile* file, ZWord word);
 extern void   write_dword    (ZFile* file, ZDWord word);
-extern void	  write_stringf  (ZFile* file, const char* format, ...);
+extern void	  write_stringf  (ZFile* file, const char* format, ...) __printflike(2, 3);
 extern void	  write_stringu  (ZFile* file, const int* string);
 extern void	  write_string   (ZFile* file, const char* string);
-extern ZDWord get_file_size  (char* filename);
+extern ZDWord get_file_size  (const char* filename);
 extern int	  end_of_file	 (ZFile* file);
 
-extern ZFile* get_file_write (int* size, char* name, ZFile_type purpose);
-extern ZFile* get_file_read  (int* size, char* name, ZFile_type purpose);
+extern ZFile* get_file_write (int* size, const char* name, ZFile_type purpose);
+extern ZFile* get_file_read  (int* size, const char* name, ZFile_type purpose);
 
 #endif

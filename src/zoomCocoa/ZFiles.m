@@ -28,7 +28,7 @@ ZFile* open_file_from_object(id<ZFile> file) {
     return res;
 }
 
-ZFile* open_file(char* filename) {
+ZFile* open_file(const char* filename) {
     // This shouldn't normally be called in this version of Zoom
     NSLog(@"Warning: open_file with filename called");
 
@@ -47,7 +47,7 @@ ZFile* open_file(char* filename) {
     return f;
 }
 
-ZFile* open_file_write(char* filename) {
+ZFile* open_file_write(const char* filename) {
     // This shouldn't normally be called in this version of Zoom
     NSLog(@"Warning: open_file_write with filename called");
 
@@ -133,7 +133,7 @@ void write_dword(ZFile* file, ZDWord word) {
     [file->theFile writeDWord: word];
 }
 
-ZDWord get_file_size(char* filename) { 
+ZDWord get_file_size(const char* filename) { 
 	return [[[[NSFileManager defaultManager] attributesOfItemAtPath: [[[NSFileManager defaultManager] stringWithFileSystemRepresentation:filename length:strlen(filename)] stringByResolvingSymlinksInPath]
 															  error: NULL] objectForKey: NSFileSize]
 		intValue];

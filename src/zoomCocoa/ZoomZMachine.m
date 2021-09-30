@@ -761,7 +761,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 @end
 
 // = Fatal errors and warnings =
-void zmachine_fatal(char* format, ...) {
+void zmachine_fatal(const char* format, ...) {
 	char fatalBuf[512];
 	va_list  ap;
 	
@@ -780,7 +780,7 @@ void zmachine_fatal(char* format, ...) {
 	display_exit(1);
 }
 
-void zmachine_warning(char* format, ...) {
+void zmachine_warning(const char* format, ...) {
 	char fatalBuf[512];
 	va_list  ap;
 	
