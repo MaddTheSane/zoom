@@ -201,7 +201,7 @@ static void deep_babel_cover(char stopped)
 {
   char buffer[TREATY_MINIMUM_EXTENT];
   void *md;
-  char *ep;
+  char *ep = NULL;
   char *ext;
   char *dim;
   int32 i,j;

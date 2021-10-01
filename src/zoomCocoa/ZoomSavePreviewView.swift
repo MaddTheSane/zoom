@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import ZoomPlugIns.ZoomStory
 
 @objcMembers
 class SavePreviewView: NSView {

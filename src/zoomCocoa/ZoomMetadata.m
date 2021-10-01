@@ -287,7 +287,9 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 - (BOOL)    writeToURL: (NSURL*)path
 			atomically: (BOOL)flag
 				 error: (NSError**)error {
-	return [[self xmlData] writeToURL:path options: (flag ? NSDataWritingAtomic : 0) error:error];
+	return [[self xmlData] writeToURL: path
+							  options: (flag ? NSDataWritingAtomic : 0)
+								error: error];
 }
 
 - (BOOL) writeToDefaultFile {

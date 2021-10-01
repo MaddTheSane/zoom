@@ -111,11 +111,6 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
-	explicit module md5 {
-		header "md5.h"
-		export *
-	}
-	
 	explicit module tads {
 		header "tads.h"
 		export *

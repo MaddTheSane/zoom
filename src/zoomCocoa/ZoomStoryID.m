@@ -281,7 +281,6 @@ BOOL ZoomIsSpotlightIndexing = NO;
 	if (self) {
 		// Read the header of this file
 		const unsigned char* bytes;
-		NSInteger length;
 		
 		NSFileHandle* fh = [NSFileHandle fileHandleForReadingAtPath: glulxFile];
 		NSData* data = [fh readDataOfLength: 64];
@@ -293,7 +292,6 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		}
 		
 		bytes = [data bytes];
-		length = [data length];
 		
 		if (bytes[0] == 'F' && bytes[1] == 'O' && bytes[2] == 'R' && bytes[3] == 'M') {
 			// This is not a Z-Code file; it's possibly a blorb file, though
@@ -318,7 +316,6 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			
 			// Change to using the blorb data instead
 			bytes = [data bytes];
-			length = [data length];
 		} else if (bytes[0] == 'G' && bytes[1] == 'l' && bytes[2] == 'u' && bytes[3] == 'l') {
 			data = [NSData dataWithContentsOfFile: glulxFile];
 			bytes = [data bytes];
@@ -551,7 +548,7 @@ typedef unsigned char IFMDByte;
 			// As above, but backwards
 			int version;
 			
-			[decoder decodeValueOfObjCType: @encode(int) at: &version];
+			[decoder decodeValueOfObjCType: @encode(int) at: &version size: sizeof(int)];
 			
 			if (version == 1) {
 				// General stuff (data format, MD5, etc) [old v1 format used by versions of Zoom prior to 1.0.5dev3]
@@ -560,9 +557,11 @@ typedef unsigned char IFMDByte;
 				enum IFMDFormat dataFormat;
 				
 				[decoder decodeValueOfObjCType: @encode(enum IFMDFormat)
-											at: &dataFormat];
+											at: &dataFormat
+										  size: sizeof(enum IFMDFormat)];
 				[decoder decodeValueOfObjCType: @encode(IFMDByte)
-											at: &usesMd5];
+											at: &usesMd5
+										  size: sizeof(IFMDByte)];
 				if (usesMd5) {
 					[decoder decodeArrayOfObjCType: @encode(IFMDByte)
 											 count: 16
@@ -580,9 +579,11 @@ typedef unsigned char IFMDByte;
 												 count: 6
 													at: serial];
 						[decoder decodeValueOfObjCType: @encode(int)
-													at: &release];
+													at: &release
+												  size: sizeof(int)];
 						[decoder decodeValueOfObjCType: @encode(int)
-													at: &checksum];
+													at: &checksum
+												  size: sizeof(int)];
 						
 						ident = IFMB_ZcodeId(release, serial, checksum);
 						needsFreeing = YES;

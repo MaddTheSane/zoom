@@ -89,7 +89,6 @@
 		4B84FDDD0CAFC9970071F3B3 /* ZoomDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B84FDDB0CAFC9970071F3B3 /* ZoomDownload.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B84FDDE0CAFC9970071F3B3 /* ZoomDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B84FDDC0CAFC9970071F3B3 /* ZoomDownload.m */; };
 		4B87BA7309C9AB13005D6722 /* ifmetabase-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B87BA7109C9AAE1005D6722 /* ifmetabase-internal.h */; };
-		4B8CE6F50AD95A3A008235D2 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B8CE6F30AD95A3A008235D2 /* md5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B926A120CD1464B00CE0ADB /* IFDB-error.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B926A0E0CD1464B00CE0ADB /* IFDB-error.png */; };
 		4B926A130CD1464B00CE0ADB /* ifdb-failed.html in Resources */ = {isa = PBXBuildFile; fileRef = 4B926A100CD1464B00CE0ADB /* ifdb-failed.html */; };
 		4B926A200CD1480B00CE0ADB /* ZoomJSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B926A1E0CD1480B00CE0ADB /* ZoomJSError.m */; };
@@ -260,7 +259,6 @@
 		4BD79AD60BA2CB44002C82B2 /* tads3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC80BA2CB44002C82B2 /* tads3.c */; };
 		4BD79AD70BA2CB44002C82B2 /* zcode.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AC90BA2CB44002C82B2 /* zcode.c */; };
 		4BD79AE20BA2CB78002C82B2 /* babel_handler.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADD0BA2CB78002C82B2 /* babel_handler.c */; };
-		4BD79AE30BA2CB78002C82B2 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADE0BA2CB78002C82B2 /* md5.c */; };
 		4BD79AE40BA2CB78002C82B2 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79ADF0BA2CB78002C82B2 /* misc.c */; };
 		4BD79AE60BA2CB78002C82B2 /* register.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AE10BA2CB78002C82B2 /* register.c */; };
 		4BD79AEA0BA2CBE9002C82B2 /* ifiction.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BD79AE70BA2CBE9002C82B2 /* ifiction.c */; };
@@ -1476,8 +1474,6 @@
 		4BD79AB60BA2CADA002C82B2 /* treaty */ = {
 			isa = PBXGroup;
 			children = (
-				4BD79A9D0BA2CABF002C82B2 /* treaty_builder.h */,
-				4BD79A9C0BA2CABF002C82B2 /* tads.h */,
 				4BD79ABC0BA2CB44002C82B2 /* adrift.c */,
 				4BD79ABD0BA2CB44002C82B2 /* advsys.c */,
 				4BD79ABE0BA2CB44002C82B2 /* agt.c */,
@@ -1488,9 +1484,11 @@
 				4BD79AC30BA2CB44002C82B2 /* hugo.c */,
 				4BD79AC40BA2CB44002C82B2 /* level9.c */,
 				4BD79AC50BA2CB44002C82B2 /* magscrolls.c */,
+				4BD79A9C0BA2CABF002C82B2 /* tads.h */,
 				4BD79AC60BA2CB44002C82B2 /* tads.c */,
 				4BD79AC70BA2CB44002C82B2 /* tads2.c */,
 				4BD79AC80BA2CB44002C82B2 /* tads3.c */,
+				4BD79A9D0BA2CABF002C82B2 /* treaty_builder.h */,
 				55BE4AC82707082700100A7D /* twine.c */,
 				4BD79AC90BA2CB44002C82B2 /* zcode.c */,
 			);
@@ -1500,9 +1498,9 @@
 		4BD79AB70BA2CAE1002C82B2 /* bh */ = {
 			isa = PBXGroup;
 			children = (
-				4BD79A9A0BA2CABF002C82B2 /* md5.h */,
 				4BD79A980BA2CABF002C82B2 /* babel_handler.h */,
 				4BD79ADD0BA2CB78002C82B2 /* babel_handler.c */,
+				4BD79A9A0BA2CABF002C82B2 /* md5.h */,
 				4BD79ADE0BA2CB78002C82B2 /* md5.c */,
 				4BD79ADF0BA2CB78002C82B2 /* misc.c */,
 				4BD79AE10BA2CB78002C82B2 /* register.c */,
@@ -1635,7 +1633,6 @@
 				4B0CAB69097F0CBB00867EF4 /* ZoomGlkDocument.h in Headers */,
 				4B87BA7309C9AB13005D6722 /* ifmetabase-internal.h in Headers */,
 				4B71AB6209E300FF00E27876 /* ifmetaxml.h in Headers */,
-				4B8CE6F50AD95A3A008235D2 /* md5.h in Headers */,
 				4B152CE20B46CBEB008CC1EF /* ZoomGameInfoController.h in Headers */,
 				4B152D2F0B46D2F9008CC1EF /* ZoomNotesController.h in Headers */,
 				4BE175940B792BD80094B73D /* ZoomWindowThatCanBecomeKey.h in Headers */,
@@ -2340,7 +2337,6 @@
 				4BD79AD60BA2CB44002C82B2 /* tads3.c in Sources */,
 				4BD79AD70BA2CB44002C82B2 /* zcode.c in Sources */,
 				4BD79AE20BA2CB78002C82B2 /* babel_handler.c in Sources */,
-				4BD79AE30BA2CB78002C82B2 /* md5.c in Sources */,
 				4BD79AE40BA2CB78002C82B2 /* misc.c in Sources */,
 				4BD79AE60BA2CB78002C82B2 /* register.c in Sources */,
 				4BD79AEA0BA2CBE9002C82B2 /* ifiction.c in Sources */,

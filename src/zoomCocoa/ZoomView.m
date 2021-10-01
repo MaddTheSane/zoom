@@ -2415,7 +2415,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		int autosaveVersion;
 		
 		[decoder decodeValueOfObjCType: @encode(int)
-									at: &autosaveVersion];
+									at: &autosaveVersion
+								  size: sizeof(int)];
 		
 		if (autosaveVersion == 102) {
 			NSDictionary* restored = [decoder decodeObject];
@@ -2562,7 +2563,8 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		} else {
 			int encodingVersion;
 			[decoder decodeValueOfObjCType: @encode(int)
-										at: &encodingVersion];
+										at: &encodingVersion
+									  size: sizeof(int)];
 			
 			if (encodingVersion == 100 || encodingVersion == 101) {
 				lastAutosave = nil;

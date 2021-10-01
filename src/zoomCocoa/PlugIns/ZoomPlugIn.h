@@ -68,4 +68,6 @@
 //! Sets the preferred directory to put savegames into
 - (void) setPreferredSaveDirectory: (NSString*) dir;
 
+- (instancetype)init UNAVAILABLE_ATTRIBUTE;
+
 @end
