@@ -1,39 +1,47 @@
-Version 0.2b, Treaty of Babel Revision 7
-This is the source code for babel, the Treaty of Babel analysis tool.
+## Version 0.5, Treaty of Babel Revision 10
 
-Most of this code is (c) 2006 by L. Ross Raszewski
+This is the source code for babel, the [Treaty of Babel][babel] analysis tool.
+
+[babel]: https://babel.ifarchive.org/
+
+Most of this code is (c) 2006-2010 by L. Ross Raszewski
 
 The following files are public domain:
-zcode.c
-glulx.c
-executable.c
-level9.c
-magscrolls.c
-agt.c
-hugo.c
-advsys.c
-misc.c
-alan.c
-adrift.c
-treaty.h
-treaty_builder.h
+
+- zcode.c
+- glulx.c
+- executable.c
+- level9.c
+- magscrolls.c
+- agt.c
+- hugo.c
+- advsys.c
+- misc.c
+- alan.c
+- adrift.c
+- treaty.h
+- treaty_builder.h
 
 The following files are Copyright (C) 1999, 2000, 2002 Aladdin Enterprises:
-md5.c
-md5.h
+
+- md5.c
+- md5.h
 
 And are used in accordance with their licenses.
 
+The following files are Copyright 2006 by Emily Short:
+
+- test/bronze/Bronze.zblorb
+
 All other files are (c) 2006 by L. Ross Raszewski and are released under
-the Creative Commons Attribution2.5 License.
+the Creative Commons Attribution 4.0 License.
 
 To view a copy of this license, visit
-http://creativecommons.org/licenses/by/2.5/ or send a letter to
+https://creativecommons.org/licenses/by/4.0/ or send a letter to
 
-Creative Commons,
-543 Howard Street, 5th Floor,
-San Francisco, California, 94105, USA.
-
+    Creative Commons,
+    PO Box 1866,
+    Mountain View, CA 94042, USA.
 
 To build babel:
 
@@ -52,10 +60,10 @@ babel-get directory.
 To compile ifiction-aggregate, ifiction-xtract, babel-list, and simple-marry,
 first compile babel, then compile the relevant C file in the extras/ directory
 (These may rely on #include files from the babel directory, so, for example,
-to compile ifiction-aggregate, "gcc -c -I.. ifiction-aggregate.c"), then link the
+to compile ifiction-aggregate, `gcc -c -I.. ifiction-aggregate.c`), then link the
 opbject file to the babel and ifiction libraries (babel.lib and ifiction.lib
 under Windows, babel.a and ifiction.a most everywhere else.  eg.
-"gcc -o ifiction-aggregate ifiction-aggregate.o ../babel.a ../ifiction.a")
+`gcc -o ifiction-aggregate ifiction-aggregate.o ../babel.a ../ifiction.a`)
 
 Babel is intended to accept contributions in the form of treaty modules
 as defined by the treaty of babel section 2.3.2.

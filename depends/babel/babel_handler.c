@@ -3,12 +3,12 @@
  *
  * This code is freely usable for all purposes.
  *
- * This work is licensed under the Creative Commons Attribution2.5 License.
+ * This work is licensed under the Creative Commons Attribution 4.0 License.
  * To view a copy of this license, visit
- * http://creativecommons.org/licenses/by/2.5/ or send a letter to
+ * https://creativecommons.org/licenses/by/4.0/ or send a letter to
  * Creative Commons,
- * 543 Howard Street, 5th Floor,
- * San Francisco, California, 94105, USA.
+ * PO Box 1866,
+ * Mountain View, CA 94042, USA.
  *
  * This file depends upon register.c, misc.c, babel.h, and treaty.h
  * and L. Peter Deutsch's md5.c
@@ -70,9 +70,9 @@ struct babel_handler
  TREATY treaty_handler;
  TREATY treaty_backup;
  void *story_file;
- int32 story_file_extent;
+ uint32 story_file_extent;
  void *story_file_blorbed;
- int32 story_file_blorbed_extent;
+ uint32 story_file_blorbed_extent;
  char blorb_mode;
  char *format_name;
  char auth;
@@ -167,9 +167,10 @@ static char *deeper_babel_init(char *story_name, void *bhp)
     else if (l==NO_REPLY_RV && best_candidate < 0) best_candidate=i;
     }
   }
-    if (!treaty_registry[i]) {
+  if (!treaty_registry[i]) {
    if (best_candidate>0) { i=best_candidate; bh->auth=0; }
-        else return NULL;}
+   else return NULL;
+  }
   bh->treaty_handler=treaty_registry[i];
 
   if (bh->treaty_handler(GET_FORMAT_NAME_SEL,NULL,0,buffer,TREATY_MINIMUM_EXTENT)>=0)
@@ -322,12 +323,12 @@ void release_babel_ctx(void *b)
  free(b);
 }
 
-int32 babel_get_length_ctx(void *bhp)
+uint32 babel_get_length_ctx(void *bhp)
 {
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->story_file_extent;
 }
-int32 babel_get_length(void)
+uint32 babel_get_length(void)
 {
  return babel_get_length_ctx(&default_ctx);
 }
@@ -351,13 +352,13 @@ void *babel_get_file(void)
  return babel_get_file_ctx(&default_ctx);
 }
 
-int32 babel_get_story_length_ctx(void *ctx)
+uint32 babel_get_story_length_ctx(void *ctx)
 {
   struct babel_handler *bh=(struct babel_handler *) ctx;
   if (bh->blorb_mode) return bh->story_file_blorbed_extent;
   return bh->story_file_extent;
 }
-int32 babel_get_story_length(void)
+uint32 babel_get_story_length(void)
 {
 
  return babel_get_story_length_ctx(&default_ctx);

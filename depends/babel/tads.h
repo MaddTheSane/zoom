@@ -15,6 +15,10 @@
 
 #include "treaty.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* match a TADS file signature */
 int tads_match_sig(const void *buf, int32 len, const char *sig);
 
@@ -38,5 +42,9 @@ int32 tads_get_story_file_cover_extent(void *story_file, int32 extent);
 
 /* get the image format (jpeg, png) of the covert art in a tads story file */
 int32 tads_get_story_file_cover_format(void *story_file, int32 extent);
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* TADS_H */

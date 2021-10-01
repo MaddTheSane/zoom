@@ -17,9 +17,9 @@
 #include <ctype.h>
 #include <stdio.h>
 
-static int32 read_int(unsigned char  *mem)
+static uint32 read_int(unsigned char  *mem)
 {
-  int32 i4 = mem[0],
+  uint32 i4 = mem[0],
                     i3 = mem[1],
                     i2 = mem[2],
                     i1 = mem[3];

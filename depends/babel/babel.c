@@ -3,12 +3,12 @@
  *
  * This code is freely usable for all purposes.
  *
- * This work is licensed under the Creative Commons Attribution2.5 License.
+ * This work is licensed under the Creative Commons Attribution 4.0 License.
  * To view a copy of this license, visit
- * http://creativecommons.org/licenses/by/2.5/ or send a letter to
+ * https://creativecommons.org/licenses/by/4.0/ or send a letter to
  * Creative Commons,
- * 543 Howard Street, 5th Floor,
- * San Francisco, California, 94105, USA.
+ * PO Box 1866,
+ * Mountain View, CA 94042, USA.
  *
  * This file depends upon misc.c and babel.h
  *
@@ -20,19 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-#ifdef __MACH__
 #include <unistd.h>
-#else
-int chdir(const char *);
-char *getcwd(char *, int);
-#endif
-#ifdef __cplusplus
-}
-#endif
 
 char *fn;
 
@@ -96,8 +84,8 @@ int main(int argc, char **argv)
 {
  char *todir=".";
  char cwd[512];
- int ok=1,i=0, l=0, ll;
- FILE *f=NULL;
+ int ok=1,i, l, ll;
+ FILE *f;
  char *md=NULL;
  /* Set the input filename.  Note that if this is invalid, babel should
    abort before anyone notices

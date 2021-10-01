@@ -3,12 +3,12 @@
  *
  * This code is freely usable for all purposes.
  *
- * This work is licensed under the Creative Commons Attribution2.5 License.
+ * This work is licensed under the Creative Commons Attribution 4.0 License.
  * To view a copy of this license, visit
- * http://creativecommons.org/licenses/by/2.5/ or send a letter to
+ * https://creativecommons.org/licenses/by/4.0/ or send a letter to
  * Creative Commons,
- * 543 Howard Street, 5th Floor,
- * San Francisco, California, 94105, USA.
+ * PO Box 1866,
+ * Mountain View, CA 94042, USA.
  *
  */
 
@@ -16,6 +16,9 @@
 #define IFICTION_H
 
 #include "treaty.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Babel's notion of an XML tag */
 struct XMLTag
@@ -42,4 +45,8 @@ typedef void (*IFErrorHandler)(char *, void *);
 void ifiction_parse(char *md, IFCloseTag close_tag, void *close_ctx, IFErrorHandler error_handler, void *error_ctx);
 int32 ifiction_get_IFID(char *metadata, char *output, int32 output_extent);
 char *ifiction_get_tag(char *md, char *p, char *t, char *from);
+#ifdef __cplusplus
+}
+#endif
+
 #endif
