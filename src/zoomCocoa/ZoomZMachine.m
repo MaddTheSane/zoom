@@ -88,7 +88,7 @@
 }
 
 - (NSString*) description {
-    return @"Zoom 1.1.6 ZMachine object";
+    return @"Zoom " VERSION " ZMachine object";
 }
 
 - (void) connectionDied: (NSNotification*) notification {
@@ -101,7 +101,8 @@
     // Create the machine file
 	storyData = [storyFile retain];
     ZDataFile* file = [[ZDataFile alloc] initWithData: storyFile];
-    machineFile = open_file_from_object([file autorelease]);
+    machineFile = open_file_from_object(file);
+    [file release];
 	
 	// Start initialising the Z-Machine
 	// (We do this so that we can load a save state at any time after this call)

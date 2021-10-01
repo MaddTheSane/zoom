@@ -93,7 +93,7 @@ ZByte* read_page(ZFile* file, int page_no) {
 }
 
 ZByte* read_block(ZFile* file, int start_pos, int end_pos) {
-	@autoreleasepool {
+    @autoreleasepool {
     NSData* result = nil;
 
     [file->theFile seekTo: start_pos];
@@ -103,18 +103,18 @@ ZByte* read_block(ZFile* file, int start_pos, int end_pos) {
     memcpy(res2, [result bytes], [result length]);
     
     return res2;
-	}
+    }
 }
 
 void   read_block2(ZByte* block, ZFile* file, int start_pos, int end_pos) {
-	@autoreleasepool {
+    @autoreleasepool {
     NSData* result = nil;
 
     [file->theFile seekTo: start_pos];
     result = [file->theFile readBlock: end_pos - start_pos];
 
     memcpy(block, [result bytes], [result length]);
-	}
+    }
 }
 
 void   write_block(ZFile* file, const ZByte* block, int length) {

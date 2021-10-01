@@ -161,9 +161,9 @@ static void measureStyle(int style) {
 	lastStyle = style;
 }
 
-static NSDictionary* styleAttributes(ZStyle* style) {
+static NSDictionary<NSAttributedStringKey, id>* styleAttributes(ZStyle* style) {
 	static ZStyle* attributeStyle = nil;
-	static NSDictionary* lastAttributes = nil;
+	static NSDictionary<NSAttributedStringKey, id>* lastAttributes = nil;
 	
 	if (attributeStyle != nil &&
 		[attributeStyle isEqual: style]) {
