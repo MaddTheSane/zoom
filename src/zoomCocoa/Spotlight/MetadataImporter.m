@@ -78,7 +78,7 @@ static Boolean GetMetadataForFile(void *thisInterface,
 			   CFStringRef pathToFile)
 {
 	@autoreleasepool {
-		isSpotlightIndexing = YES;
+		ZoomIsSpotlightIndexing = YES;
 		NSMutableDictionary *nsAttribs = (__bridge NSMutableDictionary *)(attributes);
 	/* Pull any available metadata from the file at the specified path */
 	/* Return the attribute keys and attribute values in the dict */

@@ -2274,7 +2274,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 
 - (void) addFilesFromDirectory: (NSString*) directory
 					 groupName: (NSString*) groupName {
-	isSpotlightIndexing = NO;
+	ZoomIsSpotlightIndexing = NO;
 	// Work out the group to use to store the files that we've added
 	if (groupName == nil || [groupName length] == 0) groupName = @"Downloaded";
 	

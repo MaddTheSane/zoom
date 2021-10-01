@@ -36,4 +36,4 @@
 @end
 
 //! Set to \c YES to prevent the plug-in manager from looking at plug-ins.
-extern BOOL isSpotlightIndexing;
+extern BOOL ZoomIsSpotlightIndexing;

@@ -14,14 +14,14 @@
 #include "ifmetabase.h"
 #include <CommonCrypto/CommonDigest.h>
 
-BOOL isSpotlightIndexing = NO;
+BOOL ZoomIsSpotlightIndexing = NO;
 
 @implementation ZoomStoryID
 
 + (ZoomStoryID*) idForFile: (NSString*) filename {
 	ZoomStoryID* result = nil;
 
-	if (!isSpotlightIndexing) {
+	if (!ZoomIsSpotlightIndexing) {
 		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename];
 		
 		if (plugin != nil) {
