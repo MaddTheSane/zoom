@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ZoomPlugins/ifmetabase.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class ZoomMetadata;
 
@@ -14,17 +17,17 @@
 extern NSNotificationName const ZoomStoryDataHasChangedNotification;
 
 typedef NS_ENUM(unsigned, IFMB_Zarfian) {
-	IFMD_Unrated = 0x0,
-	IFMD_Merciful,
-	IFMD_Polite,
-	IFMD_Tough,
-	IFMD_Nasty,
-	IFMD_Cruel
+	IFMD_Unrated NS_SWIFT_NAME(unrated) = 0x0,
+	IFMD_Merciful NS_SWIFT_NAME(merciful),
+	IFMD_Polite NS_SWIFT_NAME(polite),
+	IFMD_Tough NS_SWIFT_NAME(tough),
+	IFMD_Nasty NS_SWIFT_NAME(nasty),
+	IFMD_Cruel NS_SWIFT_NAME(cruel)
 };
 
 @class ZoomStoryID;
 @interface ZoomStory : NSObject {
-	struct IFStory* story;
+	IFStory story;
 	BOOL   needsFreeing;
 	
 	ZoomMetadata* metadata;
@@ -33,61 +36,48 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 }
 
 // Information
-+ (NSString*) nameForKey: (NSString*) key;
-+ (NSString*) keyForTag: (NSInteger) tag;
++ (nullable NSString*) nameForKey: (NSString*) key;
++ (nullable NSString*) keyForTag: (NSInteger) tag;
 
 // Initialisation
-+ (ZoomStory*) defaultMetadataForFile: (NSString*) filename;
++ (nullable ZoomStory*) defaultMetadataForFile: (NSString*) filename;
 
-- (id) initWithStory: (struct IFStory*) story
-			metadata: (ZoomMetadata*) metadataContainer;
+- (instancetype) initWithStory: (IFStory) story
+					  metadata: (ZoomMetadata*) metadataContainer;
 
-@property (readonly) struct IFStory *story NS_RETURNS_INNER_POINTER;
+@property (readonly, nullable) IFStory story NS_RETURNS_INNER_POINTER;
 - (void) addID: (ZoomStoryID*) newID;
 
 // Searching
 - (BOOL) containsText: (NSString*) text;
 
 // Accessors
-@property (copy)	NSString *title;
-@property (copy)	NSString *headline;
-@property (copy)	NSString *author;
-@property (copy)	NSString *genre;
+@property (copy, nullable) NSString *title;
+@property (copy, nullable) NSString *headline;
+@property (copy, nullable) NSString *author;
+@property (copy, nullable) NSString *genre;
 @property int		year;
-@property (copy)	NSString *group;
+@property (copy, nullable) NSString *group;
 @property IFMB_Zarfian zarfian;
-@property (copy)	NSString *teaser;
-@property (copy)	NSString *comment;
-@property float		rating;
+@property (copy, nullable) NSString *teaser;
+@property (copy, nullable) NSString *comment;
+@property float rating;
 
-- (int)		  coverPicture;
-- (NSString*) description;
+@property int coverPicture;
+@property (readwrite, copy) NSString *description;
 
-- (id) objectForKey: (NSString*) key; //!< Always returns an NSString (other objects are possible for other metadata)
+- (nullable id) objectForKey: (NSString*) key; //!< Always returns an NSString (other objects are possible for other metadata)
 
 // Setting data
-- (void) setTitle:		  (NSString*) newTitle;
-- (void) setHeadline:	  (NSString*) newHeadline;
-- (void) setAuthor:		  (NSString*) newAuthor;
-- (void) setGenre:		  (NSString*) genre;
-- (void) setYear:		  (int) year;
-- (void) setGroup:		  (NSString*) group;
-- (void) setZarfian:	  (IFMB_Zarfian) zarfian;
-- (void) setTeaser:		  (NSString*) teaser;
-- (void) setComment:	  (NSString*) comment;
-- (void) setRating:		  (float) rating;
 
-- (void) setCoverPicture: (int) picture;
-- (void) setDescription:  (NSString*) description;
-
-- (void) setObject: (id) value
+- (void) setObject: (nullable id) value
 			forKey: (NSString*) key;
 
 // Identifying and comparing stories
 //! Compound ID
-- (ZoomStoryID*) storyID;
+- (nullable ZoomStoryID*) storyID;
 //! Array of ZoomStoryIDs
-@property (nonatomic, readonly, copy) NSArray<ZoomStoryID*> *storyIDs;
+@property (nonatomic, readonly, copy, nullable) NSArray<ZoomStoryID*> *storyIDs;
 //! Story answers to this ID
 - (BOOL)     hasID: (ZoomStoryID*) storyID;
 //! Stories share an ID
@@ -98,8 +88,10 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 - (void) heyLookThingsHaveChangedOohShiney;
 
 //! New story (DEPRECATED)
-- (id) init DEPRECATED_ATTRIBUTE;
+- (id) init UNAVAILABLE_ATTRIBUTE;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #import <ZoomPlugIns/ZoomMetadata.h>

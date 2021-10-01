@@ -18,7 +18,7 @@
 #include "ifmetabase.h"
 
 NSString* const ZoomStoryDataHasChangedNotification = @"ZoomStoryDataHasChangedNotification";
-NSString* const ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
+static NSString* const ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
 
 NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
 
@@ -545,10 +545,10 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 		
 		for (x=0; x<len; x++) characters[x] = value[x];
 		
-		NSString* result = [NSString stringWithCharacters: characters
-												   length: len];
+		NSString* result = [[NSString alloc] initWithCharactersNoCopy: characters
+															   length: len
+														 freeWhenDone: YES];
 		
-		free(characters);
 		[metadata unlock];
 		return result;
 	} else {
@@ -589,7 +589,7 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 		metaValue = malloc(sizeof(IFChar)*([value length]+1));
 		
 		unichar* characters = malloc(sizeof(unichar)*[value length]);
-		int x;
+		NSInteger x;
 		
 		[value getCharacters: characters];
 		
@@ -619,17 +619,17 @@ NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMeta
 		[self title], [self headline], [self author], [self genre], [self group], nil];
 	
 	// List of words to match against (we take off a word for each match)
-	NSMutableArray* words = [[text componentsSeparatedByString: @" "] mutableCopy];
+	NSMutableArray<NSString*>* words = [[text componentsSeparatedByString: @" "] mutableCopy];
 	
 	// Loop through each string to check against
 	NSEnumerator* searchEnum = [stringsToCheck objectEnumerator];
 	NSString* string;
 	
 	while ([words count] > 0 && (string = [searchEnum nextObject])) {
-		int num;
+		NSInteger num;
 		
 		for (num=0; num<[words count]; num++) {
-			if ([(NSString*)[words objectAtIndex: num] length] == 0 || 
+			if ([[words objectAtIndex: num] length] == 0 ||
 				[string rangeOfString: [words objectAtIndex: num]
 							  options: NSCaseInsensitiveSearch].location != NSNotFound) {
 				// Found this word
