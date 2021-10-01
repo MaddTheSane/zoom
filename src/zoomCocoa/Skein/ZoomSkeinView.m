@@ -10,6 +10,7 @@
 
 #import "ZoomSkeinView.h"
 #import "ZoomSkeinLayout.h"
+#import "ZoomSkeinItem+Pasteboard.h"
 
 #include <Carbon/Carbon.h>
 
@@ -610,31 +611,20 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		// Create an image of this item
 		NSImage* itemImage = [layout imageForItem: clickedItem];
 		
-		NSPasteboard *pboard;
-		
 		dragCanMove = ![clickedItem hasChild: [skein activeItem]];
-		
-		pboard = [NSPasteboard pasteboardWithName:NSPasteboardNameDrag];
-		[pboard declareTypes:[NSArray arrayWithObjects: ZoomSkeinItemPboardType, nil] owner:self];
-
-		[pboard setData: [NSKeyedArchiver archivedDataWithRootObject: clickedItem
-											   requiringSecureCoding: YES
-															   error: NULL]
-				forType: ZoomSkeinItemPboardType];
-		
+				
 		NSPoint origin;
 		
 		origin.x = [layout xposForItem: clickedItem] - [layout widthForItem: clickedItem]/2.0 - 20.0;
 		origin.y = ((CGFloat)[layout levelForItem: clickedItem])*itemHeight + (itemHeight/2.0);
 		origin.y += 22.0;
+		NSDraggingImageComponent *dragImg = [[NSDraggingImageComponent alloc] initWithKey:NSDraggingImageComponentIconKey];
+		dragImg.contents = itemImage;
+		NSDraggingItem *dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:clickedItem];
 		
-		[self dragImage: itemImage
-					 at: origin
-				 offset: NSMakeSize(0,0)
-				  event: event
-			 pasteboard: pboard
-				 source: self
-			  slideBack: YES];
+		[self beginDraggingSessionWithItems: @[dragItem]
+									  event: event
+									 source: self];
 	} else if (trackedItem != nil && lastButton != ZSVnoButton) {
 		// If the cursor moves away from a button, then unhighlight it
 		NSInteger lastActiveButton = activeButton;
@@ -1155,8 +1145,9 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 
 // = NSDraggingSource protocol =
 
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-	if (isLocal) {
+-     (NSDragOperation)draggingSession: (NSDraggingSession *)session
+ sourceOperationMaskForDraggingContext: (NSDraggingContext)context {
+	if (context == NSDraggingContextWithinApplication) {
 		if (dragCanMove) {
 			return NSDragOperationCopy|NSDragOperationMove;
 		} else {
@@ -1167,9 +1158,9 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	}
 }
 
-- (void)draggedImage:(__unused NSImage *)anImage
-			 endedAt:(__unused NSPoint)aPoint
-		   operation:(NSDragOperation)operation {
+-(void)draggingSession: (NSDraggingSession *)session
+		  endedAtPoint: (NSPoint)screenPoint
+			 operation: (NSDragOperation)operation {
 	if ((operation&NSDragOperationMove) && clickedItem != nil && dragCanMove) {
 		[clickedItem removeFromParent];
 		[self skeinNeedsLayout];

@@ -468,7 +468,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
     self = [super init];
     if (self) {
 		if (coder.allowsKeyedCoding) {
-			buffer = [coder decodeObjectForKey: @"Buffer"];
+			buffer = [coder decodeObjectOfClasses: [NSSet setWithObjects: [NSString class], [ZStyle class], [NSValue class], [NSNumber class], [NSObject class], nil] forKey: @"Buffer"];
 		} else {
 			buffer = [coder decodeObject];
 		}
@@ -537,7 +537,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
     [buffer addObject:
         [NSArray arrayWithObjects:
             ZBufferMoveTo,
-            [NSValue valueWithPoint: newCursorPos],
+            @(newCursorPos),
             window,
             nil]];
 	[self addedToBuffer];
@@ -574,7 +574,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
     [buffer addObject:
         [NSArray arrayWithObjects:
             ZBufferPlotRect,
-			[NSValue valueWithRect: rect],
+			@(rect),
 			style,
 			window,
             nil]];
@@ -589,7 +589,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
         [NSArray arrayWithObjects:
             ZBufferPlotText,
 			[text copy],
-			[NSValue valueWithPoint: point],
+			@(point),
 			style,
 			win,
             nil]];
@@ -602,8 +602,8 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	[buffer addObject:
 		[NSArray arrayWithObjects:
 			ZBufferScrollRegion,
-			[NSValue valueWithRect: region],
-			[NSValue valueWithPoint: newPoint],
+			@(region),
+			@(newPoint),
 			win,
 			nil]];
 }
@@ -614,7 +614,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	[buffer addObject:
 	 @[ZBufferPlotImage,
 	   @(number),
-	   [NSValue valueWithPoint: point],
+	   @(point),
 	   win]];
 }
 

@@ -115,16 +115,16 @@ void printf_debug(char* format, ...) {
 }
 
 void printf_info (char* format, ...) {
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 void printf_info_done(void) {
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 void printf_error(char* format, ...) {
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 void printf_error_done(void) {
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 
 ZDisplay* display_get_info(void) {
@@ -555,12 +555,12 @@ int display_readchar(long int timeout) {
 
 void display_sanitise  (void) {
 	NOTE(@"display_santise");
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 
 void display_desanitise(void) {
 	NOTE(@"display_desanitise");
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 
 // = Display styling =
@@ -851,7 +851,7 @@ int display_get_mouse_y(void) {
 
 void display_set_title(const char* title) {
 	NOTE(@"display_set_title");
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 
 void display_update(void) {

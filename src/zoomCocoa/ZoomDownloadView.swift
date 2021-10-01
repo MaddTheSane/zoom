@@ -15,7 +15,7 @@ class ZoomDownloadView : NSView {
 	
 	override init(frame: NSRect) {
 		// Set up the progress indicator
-		progress = NSProgressIndicator(frame: NSRect(x: NSMinX(frame)+37, y: NSMinY(frame) + 24, width: frame.size.width-74, height: 16))
+		progress = NSProgressIndicator(frame: NSRect(x: frame.minX + 37, y: frame.minY + 24, width: frame.width - 74, height: 16))
 		progress.autoresizingMask = [.width, .maxYMargin]
 		progress.usesThreadedAnimation = false
 		super.init(frame: frame)

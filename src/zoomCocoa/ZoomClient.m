@@ -348,19 +348,24 @@
 	}
 	
 	if ((pos-4) > len) {
+		NSString *msg;
+		NSString *info;
 		// Not a valid zoomSave file
 		if (!isSingleFile) {
-			NSBeginAlertSheet(@"Not a valid Zoom savegame package", 
-							  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-							  @"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]);
+			msg = @"Not a valid Zoom savegame package";
+			info = [NSString stringWithFormat:@"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]];
 		} else {
-			NSBeginAlertSheet(@"Not a valid Quetzal file", 
-							  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-							  @"%@ is not a valid Quetzal file", [[wrapper filename] lastPathComponent]);
+			msg = @"Not a valid Quetzal file";
+			info = [NSString stringWithFormat:@"%@ is not a valid Quetzal file", [[wrapper filename] lastPathComponent]];
 		}
 		
 		if (outError) {
-			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain
+											code:NSFileReadCorruptFileError
+										userInfo:@{
+				NSLocalizedDescriptionKey: msg,
+				NSLocalizedFailureReasonErrorKey: info,
+			}];
 		}
 		return NO;
 	}

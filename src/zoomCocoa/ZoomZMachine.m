@@ -146,7 +146,7 @@
 
 // = Running =
 - (oneway void) startRunningInDisplay: (in byref id<ZDisplay>) disp {
-	@autoreleasepool {
+    @autoreleasepool {
     
 	// Remember the display
     display = [disp retain];
@@ -251,7 +251,7 @@
 	display_flush();
 
     display_finalise();
-	}
+    }
 	
 	display_exit(0);
 }
@@ -745,7 +745,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 // = Buffering =
 
-@synthesize buffer=outputBuffer;
+@synthesize buffer = outputBuffer;
 
 - (void) flushBuffers {
     [display flushBuffer: outputBuffer];

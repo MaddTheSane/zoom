@@ -106,6 +106,8 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (int)					 zRegion: (int) addr;
 - (bycopy NSString*) descriptionForValue: (unsigned) value;
 
+@optional
+- (void) setWindowTitle: (in bycopy NSString*) text;
 @end
 
 #pragma mark - Client-side objects
@@ -151,6 +153,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 //! Setting the style that text should be input in
 - (oneway void) setInputStyle: (in bycopy ZStyle*) inputStyle;
 - (bycopy ZStyle*) inputStyle;
+/// The style that text should be input in
 @property (nonatomic, copy) ZStyle *inputStyle;
 
 @end
@@ -366,7 +369,7 @@ extern NSString* const ZStyleAttributeName;
 
 //! Buffering
 @interface ZBuffer : NSObject<NSCopying,NSSecureCoding> {
-    NSMutableArray* buffer;
+    NSMutableArray<NSArray*>* buffer;
 	int bufferCount;
 }
 
