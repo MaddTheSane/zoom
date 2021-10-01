@@ -247,9 +247,10 @@ class SavePreview : NSView {
 		infoRect.origin.x += infoSize.width + 4
 		
 		if let res = try? fileURL!.resourceValues(forKeys: [.contentModificationDateKey]), let fileDate = res.contentModificationDate {
-			//TODO: Better, more localizable way?
 			let formatter = DateFormatter()
-			formatter.dateFormat = "%d %b %Y %H:%M"
+			formatter.dateStyle = .medium
+			formatter.timeStyle = .short
+			formatter.formattingContext = .standalone
 			
 			let dateString = formatter.string(from: fileDate)
 			let dateSize = dateString.size(withAttributes: infoStyle)

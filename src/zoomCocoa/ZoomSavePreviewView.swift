@@ -100,7 +100,9 @@ class SavePreviewView: NSView {
 				let storyId = ZoomStoryID(idString: previewProperties["ZoomGlkGameId"] as? String)
 				let previewLinesURL = previewURL.appendingPathComponent("Preview.plist")
 				let previewLines: [Any]
-				if FileManager.default.fileExists(atPath: previewLinesURL.path), let dat2 = try? Data(contentsOf: previewLinesURL), let previewLines2 = try? PropertyListSerialization.propertyList(from: dat2, options: [], format: nil) as? [Any] {
+				if FileManager.default.fileExists(atPath: previewLinesURL.path),
+				   let dat2 = try? Data(contentsOf: previewLinesURL),
+				   let previewLines2 = try? PropertyListSerialization.propertyList(from: dat2, options: [], format: nil) as? [Any] {
 					previewLines = previewLines2
 				} else {
 					// Use some defaults if no lines are supplied

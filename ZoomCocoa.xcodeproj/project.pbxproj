@@ -288,6 +288,7 @@
 		55BE4AC62706E28400100A7D /* ZoomSkeinItem+Pasteboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BE4AC42706E28400100A7D /* ZoomSkeinItem+Pasteboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55BE4AC72706E28400100A7D /* ZoomSkeinItem+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AC52706E28400100A7D /* ZoomSkeinItem+Pasteboard.m */; };
 		55BE4AC92707082700100A7D /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AC82707082700100A7D /* twine.c */; };
+		55BE4AD42707B32200100A7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BE4AD62707B32200100A7D /* InfoPlist.strings */; };
 		55BF2A1926FE78F900832C53 /* ZoomSavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */; };
 		55BF2A1B26FE7C9200832C53 /* ZoomSavePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */; };
 		55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D14CD727017521006DF31A /* ZoomViewHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -938,6 +939,7 @@
 		55BE4AC42706E28400100A7D /* ZoomSkeinItem+Pasteboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZoomSkeinItem+Pasteboard.h"; sourceTree = "<group>"; };
 		55BE4AC52706E28400100A7D /* ZoomSkeinItem+Pasteboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZoomSkeinItem+Pasteboard.m"; sourceTree = "<group>"; };
 		55BE4AC82707082700100A7D /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = twine.c; sourceTree = "<group>"; };
+		55BE4AD52707B32200100A7D /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreview.swift; sourceTree = "<group>"; };
 		55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreviewView.swift; sourceTree = "<group>"; };
 		55D14CD727017521006DF31A /* ZoomViewHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomViewHeaders.h; sourceTree = "<group>"; };
@@ -1449,6 +1451,7 @@
 				4B1C13FD05C5A94B00E5796D /* Credits.rtf */,
 				4BCF3F44050FB21C00A8E303 /* macreadme.rtf */,
 				4BCF3F46050FB21C00A8E303 /* zoom-game.icns */,
+				55BE4AD62707B32200100A7D /* InfoPlist.strings */,
 			);
 			name = Resources;
 			path = src/zoomCocoa;
@@ -2100,6 +2103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BB8C1BA08C249F400D7D334 /* MainMenu.xib in Resources */,
+				55BE4AD42707B32200100A7D /* InfoPlist.strings in Resources */,
 				4BB8C1BB08C249F400D7D334 /* ZoomClient.xib in Resources */,
 				55BB92702048D8D900AB4B5B /* Media.xcassets in Resources */,
 				4BB8C1C008C249F400D7D334 /* Preferences.xib in Resources */,
@@ -2528,6 +2532,14 @@
 				55BD080E21B7638800A8DD5F /* en */,
 			);
 			name = schema.strings;
+			sourceTree = "<group>";
+		};
+		55BE4AD62707B32200100A7D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55BE4AD52707B32200100A7D /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -100,6 +100,10 @@
 			<string>Skein XML file</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.org.logicalshift.zoom.skein</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>
@@ -349,6 +353,29 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Skein XML file</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>uk.org.logicalshift.zoom.skein</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>skein</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-zoom-skein</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
@@ -454,7 +481,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+					<string>application/x-blorb;profile="zcode"</string>
 				</array>
 			</dict>
 		</dict>
