@@ -417,13 +417,13 @@ static const int cacheLowerLimit = 32;
 static const int cacheUpperLimit = 64;
 
 - (NSImage*) cachedImageWithNumber: (int) num {
-	NSDictionary* entry = [cache objectForKey: @(num)];
-	[self setActivePalette: [entry objectForKey: @"palette"]];
-	return [entry objectForKey: @"image"];
+	NSDictionary* entry = cache[@(num)];
+	[self setActivePalette: entry[@"palette"]];
+	return entry[@"image"];
 }
 
 - (NSData*) cachedPaletteForImage: (int) num {
-	return [[cache objectForKey: @(num)] objectForKey: @"palette"];
+	return cache[@(num)][@"palette"];
 }
 
 - (void) usedImageInCache: (int) num {
@@ -455,18 +455,18 @@ static const int cacheUpperLimit = 64;
 	if ([cache count] >= cacheUpperLimit) {
 		NSLog(@"ImageCache: hit %lu images (removing oldest entries)", (unsigned long)[cache count]);
 		
-		NSMutableArray* oldestEntries = [NSMutableArray array];
+		NSMutableArray<NSDictionary*>* oldestEntries = [NSMutableArray array];
 		
 		for (NSNumber* key in cache) {
 			// Find the place to put this particular entry
 			// Yeah, could binary search here. *Probably* not worth it
-			NSMutableDictionary* entry = [cache objectForKey: key];
-			unsigned int thisUsage = [[entry objectForKey: @"usageNumber"] unsignedIntValue];
+			NSMutableDictionary<NSString*,id>* entry = cache[key];
+			unsigned int thisUsage = [entry[@"usageNumber"] unsignedIntValue];
 			
 			int x;
 			for (x=0; x<[oldestEntries count]; x++) {
-				NSDictionary* thisEntry = [oldestEntries objectAtIndex: x];
-				unsigned int usage = [[thisEntry objectForKey: @"usageNumber"] unsignedIntValue];
+				NSDictionary* thisEntry = oldestEntries[x];
+				unsigned int usage = [thisEntry[@"usageNumber"] unsignedIntValue];
 				
 				if (usage > thisUsage) break;
 			}
@@ -482,9 +482,9 @@ static const int cacheUpperLimit = 64;
 		NSLog(@"%li entries to remove", (long)numToRemove);
 
 		for (x=0; x<numToRemove; x++) {
-			NSDictionary* entry = [oldestEntries objectAtIndex: x];
+			NSDictionary* entry = oldestEntries[x];
 			
-			[cache removeObjectForKey: [entry objectForKey: @"num"]];
+			[cache removeObjectForKey: entry[@"num"]];
 		}
 	}
 }
@@ -493,9 +493,9 @@ static const int cacheUpperLimit = 64;
 	NSMutableArray<NSNumber*>* keysToRemove = [NSMutableArray array];
 	
 	for (NSNumber* key in cache) {
-		NSDictionary* entry = [cache objectForKey: key];
+		NSDictionary* entry = cache[key];
 		
-		if ([[entry objectForKey: @"adaptive"] boolValue]) {
+		if ([entry[@"adaptive"] boolValue]) {
 			// This is an adaptive entry: cache for later removal
 			// (Have to cache to avoid mucking up the key enumerator)
 			[keysToRemove addObject: key];
@@ -538,7 +538,7 @@ static const int cacheUpperLimit = 64;
 		}
 	} else {
 		NSImage* img = [self imageWithNumber: num];
-		if (img == nil) return NSMakeSize(0,0);
+		if (img == nil) return NSZeroSize;
 		result = [img size];
 	}
 	

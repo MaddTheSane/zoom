@@ -81,15 +81,17 @@ ZUWord read_word(ZFile* file) {
 }
 
 ZUWord read_rword(ZFile* file) {
-    NSLog(@"read_rword: Function not implemented: %s %i", __FILE__, __LINE__);
-    
-    return 0;
+    @autoreleasepool {
+#if 0
+        return __builtin_bswap16([file->theFile readWord]);
+#else
+        return [file->theFile readByte]|([file->theFile readByte]<<8);
+#endif
+    }
 }
 
 ZByte* read_page(ZFile* file, int page_no) {
-    NSLog(@"read_page: Function not implemented: %s %i", __FILE__, __LINE__);
-    
-    return NULL;
+    return read_block(file, 4096*page_no, 4096*page_no+4096);
 }
 
 ZByte* read_block(ZFile* file, int start_pos, int end_pos) {

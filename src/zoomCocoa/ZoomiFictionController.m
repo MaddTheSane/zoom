@@ -19,7 +19,6 @@
 #import "ZoomGameInfoController.h"
 #import "ZoomNotesController.h"
 #import "ZoomClient.h"
-#import "ZoomRatingCell.h"
 #import "ZoomHQImageView.h"
 #import "ZoomPlugInManager.h"
 #import "ZoomPlugInController.h"
@@ -267,7 +266,7 @@ enum {
 	// Add a 'ratings' column to the main table
 	NSTableColumn* newColumn = [[NSTableColumn alloc] initWithIdentifier: @"rating"];
 	
-	[newColumn setDataCell: [[ZoomRatingCell alloc] init]];
+	[newColumn setDataCell: [[NSLevelIndicatorCell alloc] initWithLevelIndicatorStyle:NSLevelIndicatorStyleRating]];
 	[newColumn setMinWidth: 84];
 	[newColumn setMaxWidth: 84];
 	[newColumn setEditable: YES];
