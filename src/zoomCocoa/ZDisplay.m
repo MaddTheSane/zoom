@@ -553,14 +553,40 @@ int display_readchar(long int timeout) {
 
 // = Used by the debugger =
 
+static int old_win;
+static int old_fore, old_back;
+static int old_style;
+
 void display_sanitise  (void) {
-	NOTE(@"display_santise");
-    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
+    NOTE(@"display_santise");
+    if (is_v6)
+    {
+        v6_reset_windows();
+        return;
+    }
+
+    old_win = zDisplayCurrentWindow;
+
+    display_set_window(0);
+
+    old_fore = zDisplayCurrentStyle.foregroundColour;
+    old_back = zDisplayCurrentStyle.backgroundColour;
+    old_style = ((zDisplayCurrentStyle.reversed?1:0)|
+                 (zDisplayCurrentStyle.bold?2:0)|
+                 (zDisplayCurrentStyle.underline?4:0)|
+                 (zDisplayCurrentStyle.fixed?8:0)|
+                 (zDisplayCurrentStyle.symbolic?16:0));
+
+    display_set_style(0);
+    display_set_colour(4, 7);
 }
 
 void display_desanitise(void) {
-	NOTE(@"display_desanitise");
-    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
+    NOTE(@"display_desanitise");
+    // TODO: handle v6 games.
+    display_set_colour(old_fore, old_back);
+    display_set_style(old_style);
+    display_set_window(old_win);
 }
 
 // = Display styling =
