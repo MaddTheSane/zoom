@@ -23,11 +23,6 @@
 
 - (void) dealloc {
 	[self finishAnimation];
-	
-	[whenStarted release];
-	[props autorelease];
-	
-	[super dealloc];
 }
 
 - (void) setupLayersForView: (NSView*) view {
@@ -92,19 +87,13 @@
 		NSView* finalView =[[self propertyDictionary] objectForKey: @"FinalView"];
 		if (finalView == nil) return;
 		
-		// Ensure nothing gets freed prematurely
-		[[self retain] autorelease];
-		[[originalView retain] autorelease];
-		[[finalView retain] autorelease];
-		
 		// Self destruct
 		[originalView removeFromSuperview];
 		
 		// Move to the final view
 		[[originalView layer] removeFromSuperlayer];
 		
-		[originalView autorelease];
-		originalView = [finalView retain];
+		originalView = finalView;
 		[finalView setFrame: [self bounds]];
 		
 		// Set the properties for the new view
@@ -133,14 +122,11 @@
 	[self setupLayersForView: view];
 	
 	// Gather some information
-	[originalView autorelease];
-	[originalSuperview release];
-	originalView = [view retain];
-	originalSuperview = [[view superview] retain];
+	originalView = view;
+	originalSuperview = [view superview];
 	originalFrame = [view frame];
 	
 	// Move the view into this view
-	[[view retain] autorelease];
 	[self setFrame: originalFrame];
 	
 	[view removeFromSuperviewWithoutNeedingDisplay];
@@ -181,7 +167,6 @@
 	[self setupLayersForView: view];
 	
 	// Move the view into this view
-	[[view retain] autorelease];
 	
 	[view removeFromSuperview];
 	[view setFrame: [self bounds]];

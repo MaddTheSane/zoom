@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4B0CAB69097F0CBB00867EF4 /* ZoomGlkDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B0CAB4D097F07C000867EF4 /* ZoomGlkDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B0CAB6A097F0CBB00867EF4 /* ZoomGlkDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CAB4E097F07C000867EF4 /* ZoomGlkDocument.m */; };
-		4B0D80DC0AC590A4003E8CCA /* ZoomFlipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0D80DA0AC590A4003E8CCA /* ZoomFlipView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4B0D80DC0AC590A4003E8CCA /* ZoomFlipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0D80DA0AC590A4003E8CCA /* ZoomFlipView.m */; };
 		4B123ECA0C9C636200CA3374 /* ZoomPlugInManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B123EC80C9C636200CA3374 /* ZoomPlugInManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B123ECB0C9C636200CA3374 /* ZoomPlugInManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B123EC90C9C636200CA3374 /* ZoomPlugInManager.m */; };
 		4B1242CE0CAE8D1800CA3374 /* PluginManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B1242CD0CAE8D1800CA3374 /* PluginManager.xib */; };
