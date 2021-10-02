@@ -155,11 +155,11 @@ class SavePreview : NSView {
 		
 		// Background
 		let textColour: NSColor
-		let backgroundColour: NSColor
+		let backgroundImage: NSImage
 
 		if isHighlighted {
 			//if (saveHighlightActive) {
-			backgroundColour = NSColor(patternImage: saveHighlightActive)
+			backgroundImage = saveHighlightActive
 			NSColor.clear.set()
 			//} else {
 			//	backgroundColour = [NSColor highlightColor];
@@ -168,7 +168,7 @@ class SavePreview : NSView {
 			textColour = NSColor.white
 		} else {
 			//if (saveBackground) {
-				backgroundColour = NSColor(patternImage: saveBackground)
+			backgroundImage = saveBackground
 			//} else {
 			//	backgroundColour = [NSColor whiteColor];
 			//}
@@ -177,16 +177,14 @@ class SavePreview : NSView {
 		}
 		NSGraphicsContext.current?.patternPhase = self.convert(.zero, to: nil)
 		
-		backgroundColour.set()
-		dirtyRect.fill()
+		backgroundImage.draw(in: bounds, from: .zero, operation: .sourceOver, fraction: 1.0)
 		NSBezierPath.defaultLineWidth = 1
-		NSBezierPath.stroke(NSRect(x: ourBounds.origin.x+0.5, y: ourBounds.origin.y+0.5, width: ourBounds.size.width-1.0, height: ourBounds.size.height-1.0))
+		NSBezierPath.stroke(NSRect(x: ourBounds.origin.x+0.5, y: ourBounds.origin.y+0.5, width: ourBounds.width-1.0, height: ourBounds.height-1.0))
 		
 		// Preview lines (from the top)
 		let previewStyle: [NSAttributedString.Key: Any] = [
 			.font: lineFont,
 			.foregroundColor: textColour,
-			.backgroundColor: backgroundColour
 		]
 		
 		var yPos: CGFloat = 4
@@ -214,7 +212,8 @@ class SavePreview : NSView {
 			// Draw this string
 			let stringSize = lineString.size(withAttributes: previewStyle)
 			
-			lineString.draw(in: NSRect(x: 4, y: yPos, width: ourBounds.size.width-8, height: stringSize.height), withAttributes: previewStyle)
+			lineString.draw(in: NSRect(x: 4, y: yPos, width: ourBounds.width - 8, height: stringSize.height),
+							withAttributes: previewStyle)
 			yPos += stringSize.height;
 			
 			// Finish up
@@ -228,7 +227,6 @@ class SavePreview : NSView {
 		let infoStyle: [NSAttributedString.Key: Any] = [
 			.font: infoFont,
 			.foregroundColor: textColour,
-			.backgroundColor: backgroundColour
 		]
 		
 		let displayName = fileURL!.deletingLastPathComponent().deletingPathExtension().lastPathComponent
@@ -236,9 +234,9 @@ class SavePreview : NSView {
 		let infoSize = displayName.size(withAttributes: infoStyle)
 		var infoRect = ourBounds
 		
-		infoRect.origin.x = 4;
-		infoRect.origin.y = ourBounds.size.height - 4 - infoSize.height;
-		infoRect.size.width -= 8;
+		infoRect.origin.x = 4
+		infoRect.origin.y = ourBounds.height - 4 - infoSize.height
+		infoRect.size.width -= 8
 		
 		displayName.draw(in: infoRect, withAttributes: infoStyle)
 
