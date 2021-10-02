@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import ZoomView.ZoomUpperWindow
 import ZoomPlugIns.ZoomStory
 
 @objcMembers
