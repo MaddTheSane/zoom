@@ -52,7 +52,6 @@
 		4B43DA8409364C7400F03009 /* GlkWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B43DA8309364C7400F03009 /* GlkWindow.xib */; };
 		4B43DAB109364CD700F03009 /* ZoomGlkWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B43DAAD09364CD100F03009 /* ZoomGlkWindowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B43DAB209364CD800F03009 /* ZoomGlkWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B43DAAE09364CD100F03009 /* ZoomGlkWindowController.m */; };
-		4B65B3A20979B981002D5534 /* ZoomHQImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B65B3A00979B981002D5534 /* ZoomHQImageView.m */; };
 		4B71AB6209E300FF00E27876 /* ifmetaxml.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B71AB5E09E300EF00E27876 /* ifmetaxml.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B71AB6309E300FF00E27876 /* ifmetaxml.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B71AB5F09E300EF00E27876 /* ifmetaxml.c */; };
 		4B7520090CC6A08200F36ECF /* tads.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD79A9C0BA2CABF002C82B2 /* tads.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -288,6 +287,7 @@
 		55BE4AD827082DED00100A7D /* ClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AD727082DED00100A7D /* ClearView.swift */; };
 		55BE4ADA27082EF800100A7D /* WhiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AD927082EF800100A7D /* WhiteView.swift */; };
 		55BE4ADC270832BA00100A7D /* FadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4ADB270832BA00100A7D /* FadeView.swift */; };
+		55BE4ADE2708C2C000100A7D /* HQImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4ADD2708C2C000100A7D /* HQImageView.swift */; };
 		55BF2A1926FE78F900832C53 /* ZoomSavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */; };
 		55BF2A1B26FE7C9200832C53 /* ZoomSavePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */; };
 		55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D14CD727017521006DF31A /* ZoomViewHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -771,8 +771,6 @@
 		4B5CBB78069D656000C0AA88 /* ZoomStoryTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomStoryTableView.m; sourceTree = "<group>"; };
 		4B5CBB79069D656000C0AA88 /* ZoomStoryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomStoryTableView.h; sourceTree = "<group>"; };
 		4B5CBB9B069D671200C0AA88 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		4B65B39F0979B981002D5534 /* ZoomHQImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomHQImageView.h; sourceTree = "<group>"; };
-		4B65B3A00979B981002D5534 /* ZoomHQImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomHQImageView.m; sourceTree = "<group>"; };
 		4B71AB5E09E300EF00E27876 /* ifmetaxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifmetaxml.h; sourceTree = "<group>"; };
 		4B71AB5F09E300EF00E27876 /* ifmetaxml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ifmetaxml.c; sourceTree = "<group>"; };
 		4B7284FA0CD383C80079D89B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -936,6 +934,7 @@
 		55BE4AD727082DED00100A7D /* ClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearView.swift; sourceTree = "<group>"; };
 		55BE4AD927082EF800100A7D /* WhiteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteView.swift; sourceTree = "<group>"; };
 		55BE4ADB270832BA00100A7D /* FadeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeView.swift; sourceTree = "<group>"; };
+		55BE4ADD2708C2C000100A7D /* HQImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HQImageView.swift; sourceTree = "<group>"; };
 		55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreview.swift; sourceTree = "<group>"; };
 		55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreviewView.swift; sourceTree = "<group>"; };
 		55D14CD727017521006DF31A /* ZoomViewHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomViewHeaders.h; sourceTree = "<group>"; };
@@ -1350,8 +1349,7 @@
 				4B5CBB2D069D640900C0AA88 /* ZoomCollapsingSplitView.h */,
 				4B5CBB2E069D640900C0AA88 /* ZoomCollapsingSplitView.m */,
 				55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */,
-				4B65B39F0979B981002D5534 /* ZoomHQImageView.h */,
-				4B65B3A00979B981002D5534 /* ZoomHQImageView.m */,
+				55BE4ADD2708C2C000100A7D /* HQImageView.swift */,
 				4B807BA305BFEE2700681653 /* ZoomiFictionController.h */,
 				4B807BA405BFEE2700681653 /* ZoomiFictionController.m */,
 				4B926A1D0CD1480B00CE0ADB /* ZoomJSError.h */,
@@ -2268,9 +2266,9 @@
 				4BB8C1F208C249F400D7D334 /* ZoomCollapsingSplitView.m in Sources */,
 				4BB8C1F308C249F400D7D334 /* ZoomStoryTableView.m in Sources */,
 				4BB8C1F408C249F400D7D334 /* ZoomResourceDrop.m in Sources */,
+				55BE4ADE2708C2C000100A7D /* HQImageView.swift in Sources */,
 				4BB8C1F508C249F400D7D334 /* ZoomClientController.m in Sources */,
 				55BF2A1926FE78F900832C53 /* ZoomSavePreview.swift in Sources */,
-				4B65B3A20979B981002D5534 /* ZoomHQImageView.m in Sources */,
 				4B0D80DC0AC590A4003E8CCA /* ZoomFlipView.m in Sources */,
 				4BA8B9530B1BB3F4007CD75E /* main.m in Sources */,
 				55BF2A1B26FE7C9200832C53 /* ZoomSavePreviewView.swift in Sources */,

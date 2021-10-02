@@ -19,7 +19,6 @@
 #import <ZoomPlugIns/ZoomGameInfoController.h>
 #import <ZoomPlugIns/ZoomNotesController.h>
 #import "ZoomClient.h"
-#import "ZoomHQImageView.h"
 #import <ZoomPlugIns/ZoomPlugInManager.h>
 #import <ZoomPlugIns/ZoomPlugInController.h>
 #import <ZoomPlugIns/ZoomPlugIn.h>

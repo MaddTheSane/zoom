@@ -242,7 +242,7 @@
                                                     <rect key="frame" x="-1" y="-1" width="572" height="202"/>
                                                     <clipView key="contentView" id="HW7-b1-y43">
                                                         <rect key="frame" x="1" y="1" width="570" height="200"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowHeight="14" headerView="398" id="148" customClass="ZoomStoryTableView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="1011.5" height="177"/>
@@ -617,7 +617,7 @@ Cg
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="206" customClass="ZoomHQImageView">
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="206" customClass="HQImageView" customModule="Zoom" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="136" height="113"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blorb" id="382"/>
@@ -644,7 +644,7 @@ Cg
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="X6h-ec-nhq">
                         <rect key="frame" x="0.0" y="0.0" width="284" height="120"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="406" id="265">
                                 <rect key="frame" x="0.0" y="0.0" width="284" height="97"/>
@@ -692,7 +692,7 @@ Cg
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="5rr-uN-MMo">
                         <rect key="frame" x="0.0" y="0.0" width="283" height="120"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="403" id="262">
                                 <rect key="frame" x="0.0" y="0.0" width="283" height="97"/>
@@ -758,7 +758,7 @@ Cg
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" autoresizesSubviews="NO" id="R9s-wD-Bt6">
                         <rect key="frame" x="0.0" y="0.0" width="536" height="127"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="289" customClass="SavePreviewView" customModule="Zoom" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="536" height="127"/>
