@@ -2709,11 +2709,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 }
 
 - (NSString*) queryEncode: (NSString*) string {
-	NSString* result = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-																							(CFStringRef)string,
-																							NULL,
-																							CFSTR("&?/="),
-																							kCFStringEncodingUTF8));
+	NSString* result = [string stringByAddingPercentEncodingWithAllowedCharacters: NSCharacterSet.URLQueryAllowedCharacterSet];
 	return result;
 }
 

@@ -11,7 +11,10 @@
 #import "ZoomConnector.h"
 
 
-@implementation ZoomConnector
+@implementation ZoomConnector {
+	NSConnection* connection;
+	NSMutableArray<ZoomView*>* waitingViews;
+}
 
 // = The shared connector =
 

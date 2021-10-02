@@ -30,7 +30,7 @@
 //! Retrieve the next command
 - (NSString*) nextCommand;
 
-//! Return YES if you want to turn off more prompts
+//! Return \c YES if you want to turn off more prompts
 - (BOOL) disableMorePrompt;
 
 @end
