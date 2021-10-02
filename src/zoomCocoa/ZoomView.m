@@ -3019,6 +3019,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 }
 
+@synthesize textToSpeech=textToSpeechReceiver;
 - (ZoomTextToSpeech*) textToSpeech {
 	if (!textToSpeechReceiver) {
 		textToSpeechReceiver = [[ZoomTextToSpeech alloc] init];

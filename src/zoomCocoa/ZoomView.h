@@ -223,7 +223,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (void) orWaitingForInput;
 - (void) orInterpreterRestart;
 
-- (ZoomTextToSpeech*) textToSpeech;
+@property (nonatomic, readonly, strong) ZoomTextToSpeech *textToSpeech;
 
 // Input sources (nil = default, window input source)
 @property (nonatomic, strong) id<ZoomViewInputSource> inputSource;
