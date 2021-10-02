@@ -16,6 +16,11 @@ framework module ZoomView {
 			export *
 		}
 		
+		module Controller {
+			header "ZoomSkeinController.h"
+			export *
+		}
+		
 		explicit module Layout {
 			header "ZoomSkeinLayout.h"
 			export *

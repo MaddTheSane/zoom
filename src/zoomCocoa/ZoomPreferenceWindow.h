@@ -8,7 +8,7 @@
 
 #import <AppKit/AppKit.h>
 
-#import "ZoomPreferences.h"
+#import <ZoomView/ZoomPreferences.h>
 
 @interface ZoomPreferenceWindow : NSWindowController <NSToolbarDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 	// The various views

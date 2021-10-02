@@ -13,22 +13,22 @@
 
 #import "ZoomiFictionController.h"
 #import "ZoomStoryOrganiser.h"
-#import "ZoomStory.h"
-#import "ZoomStoryID.h"
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomStoryID.h>
 #import "ZoomAppDelegate.h"
-#import "ZoomGameInfoController.h"
-#import "ZoomNotesController.h"
+#import <ZoomPlugIns/ZoomGameInfoController.h>
+#import <ZoomPlugIns/ZoomNotesController.h>
 #import "ZoomClient.h"
 #import "ZoomHQImageView.h"
-#import "ZoomPlugInManager.h"
-#import "ZoomPlugInController.h"
-#import "ZoomPlugIn.h"
+#import <ZoomPlugIns/ZoomPlugInManager.h>
+#import <ZoomPlugIns/ZoomPlugInController.h>
+#import <ZoomPlugIns/ZoomPlugIn.h>
 #import "ZoomWindowThatIsKey.h"
 @import ZoomPlugIns.Swift;
 #import "ZoomSignPost.h"
 #import "Zoom-Swift.h"
 
-#import "ifmetabase.h"
+#import <ZoomPlugIns/ifmetabase.h>
 
 @interface ZoomiFictionController()
 

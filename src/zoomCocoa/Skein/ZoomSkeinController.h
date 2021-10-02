@@ -8,8 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
-#import "ZoomSkein.h"
-#import "ZoomSkeinView.h"
+#import <ZoomView/ZoomSkein.h>
+#import <ZoomView/ZoomSkeinView.h>
 
 @interface ZoomSkeinController : NSWindowController <ZoomSkeinViewDelegate> {
 	IBOutlet ZoomSkeinView* skeinView;

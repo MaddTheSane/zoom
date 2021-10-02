@@ -7,13 +7,13 @@
 //
 
 #import "ZoomClient.h"
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomProtocol.h>
 #import "ZoomClientController.h"
 #import "ZoomStoryOrganiser.h"
 
 #import "ZoomAppDelegate.h"
 
-#import "ifmetabase.h"
+#import <ZoomPlugIns/ifmetabase.h>
 
 // This deserves a note by itself: the autosave system is a bit weird. Strange bits are
 // handled by strange objects for strange reasons. This is because we have:

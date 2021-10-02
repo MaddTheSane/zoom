@@ -27,6 +27,8 @@
 extern NSNotificationName const ZoomStoryOrganiserChangedNotification;
 extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 
+/// The story organiser is used to store story locations and identifications
+/// (Mainly to build up the iFiction window)
 @interface ZoomStoryOrganiser : NSObject<ZoomStoryIDFetcherProtocol> {
 	// Arrays of the stories and their idents
 	NSMutableArray<NSString*>* storyFilenames;

@@ -14,9 +14,9 @@
 
 #import "ZoomStoryOrganiser.h"
 #import "ZoomAppDelegate.h"
-#import "ZoomPreferences.h"
-#import "ZoomPlugInManager.h"
-#import "ZoomPlugIn.h"
+#import <ZoomView/ZoomPreferences.h>
+#import <ZoomPlugIns/ZoomPlugInManager.h>
+#import <ZoomPlugIns/ZoomPlugIn.h>
 
 NSString*const ZoomStoryOrganiserChangedNotification = @"ZoomStoryOrganiserChangedNotification";
 NSString*const ZoomStoryOrganiserProgressNotification = @"ZoomStoryOrganiserProgressNotification";

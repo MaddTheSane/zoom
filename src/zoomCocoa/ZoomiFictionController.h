@@ -12,12 +12,12 @@
 #import "ZoomCollapsableView.h"
 @class SavePreviewView;
 #import "ZoomCollapsingSplitView.h"
-#import "ZoomResourceDrop.h"
+#import <ZoomPlugIns/ZoomResourceDrop.h>
 #import "ZoomStoryTableView.h"
-#import "ZoomMetadata.h"
+#import <ZoomPlugIns/ZoomMetadata.h>
 #import "ZoomFlipView.h"
 @class ZoomDownloadView;
-#import "ZoomDownload.h"
+#import <ZoomPlugIns/ZoomDownload.h>
 #import "ZoomJSError.h"
 #import "ZoomSignPost.h"
 

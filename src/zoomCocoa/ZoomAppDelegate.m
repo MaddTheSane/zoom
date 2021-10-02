@@ -9,17 +9,17 @@
 #include <unistd.h>
 
 #import "ZoomAppDelegate.h"
-#import "ZoomGameInfoController.h"
-#import "ZoomNotesController.h"
-#import "ZoomSkeinController.h"
+#import <ZoomPlugIns/ZoomGameInfoController.h>
+#import <ZoomPlugIns/ZoomNotesController.h>
+#import <ZoomView/ZoomSkeinController.h>
 #import "ZoomLeopard.h"
 
 #import <ZoomPlugIns/ZoomMetadata.h>
 #import "ZoomiFictionController.h"
 
-#import "ZoomPlugIn.h"
-#import "ZoomPlugInManager.h"
-#import "ZoomPlugInController.h"
+#import <ZoomPlugIns/ZoomPlugIn.h>
+#import <ZoomPlugIns/ZoomPlugInManager.h>
+#import <ZoomPlugIns/ZoomPlugInController.h>
 #import "ZoomStoryOrganiser.h"
 
 // #import <Sparkle/Sparkle.h>

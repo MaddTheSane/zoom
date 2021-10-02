@@ -50,6 +50,6 @@
 
 //! Errors that might have happened but we recovered from (for example, resources not found)
 - (void) addLoadingError: (NSString*) loadingError;
-- (NSArray<NSString*>*) loadingErrors;
+@property (readonly, nonatomic, copy) NSArray<NSString*> *loadingErrors;
 
 @end

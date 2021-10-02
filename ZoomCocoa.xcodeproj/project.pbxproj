@@ -92,7 +92,7 @@
 		4B94B1000CD5063A003C75A6 /* zoom-game.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F46050FB21C00A8E303 /* zoom-game.icns */; };
 		4B94B1600CD537B8003C75A6 /* ZoomSignPost.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B94B15E0CD537B8003C75A6 /* ZoomSignPost.h */; };
 		4B94B1610CD537B8003C75A6 /* ZoomSignPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B94B15F0CD537B8003C75A6 /* ZoomSignPost.m */; };
-		4B95CDA1C5B03AD500FD9F27 /* ZoomSkeinController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B18852906987AC6004D8501 /* ZoomSkeinController.h */; };
+		4B95CDA1C5B03AD500FD9F27 /* ZoomSkeinController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B18852906987AC6004D8501 /* ZoomSkeinController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B95CDA2C5B03AD500FD9F27 /* ZoomSkeinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B18852A06987AC6004D8501 /* ZoomSkeinController.m */; };
 		4B9DC7ED15027DF0003DF057 /* ZoomLeopard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B94AEF00CD4B2E5003C75A6 /* ZoomLeopard.m */; };
 		4B9DC7F11502877B003DF057 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7284FA0CD383C80079D89B /* QuartzCore.framework */; };

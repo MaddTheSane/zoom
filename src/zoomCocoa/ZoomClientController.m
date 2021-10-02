@@ -11,10 +11,10 @@
 #import "ZoomClientController.h"
 #import "ZoomPreferenceWindow.h"
 #import <ZoomPlugIns/ZoomGameInfoController.h>
-#import "ZoomNotesController.h"
+#import <ZoomPlugIns/ZoomNotesController.h>
 #import "ZoomStoryOrganiser.h"
-#import "ZoomSkeinController.h"
-#import "ZoomConnector.h"
+#import <ZoomView/ZoomSkeinController.h>
+#import <ZoomView/ZoomConnector.h>
 #import <ZoomPlugIns/ZoomWindowThatCanBecomeKey.h>
 #import "ZoomAppDelegate.h"
 @import ZoomPlugIns.Swift;
