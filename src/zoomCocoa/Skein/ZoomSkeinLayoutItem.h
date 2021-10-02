@@ -7,16 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-//
-// A 'laid-out' skein item
-//
-// Originally I used an NSDictionary to represent this. Unfortunately, Cocoa spends a huge amount of time
-// creating, allocating and deallocating these. Thus, I replaced it with a dedicated object.
-//
-// The performance increase is especially noticable with well-populated skeins
-//
-
 #import <ZoomView/ZoomSkeinItem.h>
 
 //! A 'laid-out' skein item

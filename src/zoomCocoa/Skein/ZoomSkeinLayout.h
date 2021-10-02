@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
 #import <ZoomView/ZoomSkein.h>
 #import <ZoomView/ZoomSkeinLayoutItem.h>
 
@@ -44,9 +43,9 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 - (id) initWithRootItem: (ZoomSkeinItem*) item;
 
 // Setting skein data
-- (void) setItemWidth: (CGFloat) itemWidth;
-- (void) setItemHeight: (CGFloat) itemHeight;
-- (void) setPackingStyle: (int) packingStyle;
+@property (nonatomic) CGFloat itemWidth;
+@property CGFloat itemHeight;
+@property IFSkeinPackingStyle packingStyle;
 
 @property (retain) ZoomSkeinItem *rootItem;
 @property (nonatomic, retain) ZoomSkeinItem *activeItem;

@@ -94,7 +94,8 @@ class SavePreviewView: NSView {
 					continue
 				}
 				
-				guard let dat = try? Data(contentsOf: propertiesURL), let previewProperties = try? PropertyListSerialization.propertyList(from: dat, options: [], format: nil) as? [String: Any] else {
+				guard let dat = try? Data(contentsOf: propertiesURL),
+					  let previewProperties = try? PropertyListSerialization.propertyList(from: dat, options: [], format: nil) as? [String: Any] else {
 					continue
 				}
 				

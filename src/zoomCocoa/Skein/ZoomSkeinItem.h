@@ -81,7 +81,7 @@ extern NSString* const ZoomSIChild;
 
 // Skein tree
 @property (readonly, weak) ZoomSkeinItem* parent;
-- (NSSet<ZoomSkeinItem*>*)children;
+@property (nonatomic, readonly, copy) NSSet<ZoomSkeinItem*> *children;
 - (ZoomSkeinItem*) childWithCommand: (NSString*) command;
 
 - (ZoomSkeinItem*) addChild: (ZoomSkeinItem*) childItem;

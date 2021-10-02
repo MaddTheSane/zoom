@@ -81,6 +81,8 @@ static NSImage* unchangedDark, *activeDark;
 }
 
 + (void) initialize {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
     NSShadow* labelShadow = [[NSShadow alloc] init];
 	
     [labelShadow setShadowOffset: NSMakeSize(0.4, -1)];
@@ -111,6 +113,7 @@ static NSImage* unchangedDark, *activeDark;
 		nil] retain];
 	
 	[labelShadow release];
+	});
 }
 
 + (void) drawImage: (NSImage*) img
@@ -202,15 +205,13 @@ static NSImage* unchangedDark, *activeDark;
 
 // = Setting skein data =
 
+@synthesize itemWidth;
 - (void) setItemWidth: (CGFloat) newItemWidth {
 	if (newItemWidth < 82.0) newItemWidth = 82.0;
 	itemWidth = newItemWidth;
 }
 
-- (void) setItemHeight: (CGFloat) newItemHeight {
-	itemHeight = newItemHeight;
-}
-
+@synthesize itemHeight;
 @synthesize rootItem;
 
 - (void) setActiveItem: (ZoomSkeinItem*) item {
@@ -613,7 +614,6 @@ static NSImage* unchangedDark, *activeDark;
 		
 		// Iterate through the items on this level...
 		NSEnumerator* levelEnum = [[self dataForLevel: level] objectEnumerator];
-		ZoomSkeinLayoutItem* item;
 		
 		CGFloat ypos = ((CGFloat)level)*itemHeight + (itemHeight / 2.0);
 		
@@ -801,9 +801,7 @@ static NSImage* unchangedDark, *activeDark;
 
 // = Alternative packing style(s) =
 
-- (void) setPackingStyle: (int) newPackingStyle {
-	packingStyle = newPackingStyle;
-}
+@synthesize packingStyle;
 
 - (void) layoutSkein {
 	switch (packingStyle) {

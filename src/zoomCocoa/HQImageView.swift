@@ -20,18 +20,20 @@ class HQImageView: NSImageView {
 		let bounds = self.bounds
 		let imageSize = self.image?.size ?? .zero
 		var imageBounds = bounds
-		let scaleFactor1 = (imageBounds.size.height-6)/imageSize.height
-		let scaleFactor2 = (imageBounds.size.width-6)/imageSize.width
+		let scaleFactor1 = (imageBounds.height - 6) / imageSize.height
+		let scaleFactor2 = (imageBounds.width - 6) / imageSize.width
 		
 		let scaleFactor = min(scaleFactor1, scaleFactor2)
 		
 		imageBounds.size.width = imageSize.width * scaleFactor
 		imageBounds.size.height = imageSize.height * scaleFactor
 		
-		imageBounds.origin.x += (bounds.size.width-imageBounds.size.width)/2
-		imageBounds.origin.y += (bounds.size.height-imageBounds.size.height)
+		imageBounds.origin.x += (bounds.width - imageBounds.width) / 2
+		imageBounds.origin.y += bounds.height - imageBounds.height
 		
-		self.image?.draw(in: imageBounds, from: NSRect(origin: .zero, size: imageSize), operation: .sourceOver, fraction: 1)
+		self.image?.draw(in: imageBounds, from: NSRect(origin: .zero, size: imageSize),
+						 operation: .sourceOver,
+						 fraction: 1)
     }
     
 	override func mouseDown(with event: NSEvent) {

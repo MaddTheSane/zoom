@@ -67,7 +67,7 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 	ZoomSkeinItem* contextItem;
 }
 
-// Setting/getting the source
+/// Setting/getting the source
 @property (nonatomic, strong) ZoomSkein* skein;
 
 // Laying things out
@@ -76,7 +76,7 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 @property (nonatomic) CGFloat itemWidth;
 @property (nonatomic) CGFloat itemHeight;
 
-// The delegate
+/// The delegate
 @property (weak) id<ZoomSkeinViewDelegate> delegate;
 
 // Affecting the display
@@ -114,7 +114,9 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 - (void) transcriptToPoint: (ZoomSkeinItem*) point;
 
 // Various types of possible error
-- (void) cantDeleteActiveBranch;										//!< User attempted to delete an item on the active skein branch (which can't be done)
-- (void) cantEditRootItem;												//!< User attemptted to edit the root skein item
+/// User attempted to delete an item on the active skein branch (which can't be done)
+- (void) cantDeleteActiveBranch;
+/// User attemptted to edit the root skein item
+- (void) cantEditRootItem;
 
 @end
