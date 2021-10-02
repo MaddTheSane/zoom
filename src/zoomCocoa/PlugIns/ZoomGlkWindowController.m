@@ -17,7 +17,7 @@
 #import "ZoomWindowThatCanBecomeKey.h"
 #import "ZoomGlkSaveRef.h"
 #import "ZoomAppDelegate.h"
-#import "ZoomClearView.h"
+#import <ZoomPlugIns/ZoomPlugIns-swift.h>
 
 #import <GlkView/GlkHub.h>
 #import <GlkView/GlkView.h>
@@ -585,7 +585,7 @@
 							animate: YES];			
 			[normalWindow orderOut: self];
 		} else {
-			[[self window] setContentView: [[ZoomClearView alloc] init]];
+			[[self window] setContentView: [[ClearView alloc] init]];
 			[[self window] setFrame: frame
 							display: YES
 							animate: NO];

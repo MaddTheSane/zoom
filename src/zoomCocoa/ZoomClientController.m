@@ -17,7 +17,7 @@
 #import "ZoomConnector.h"
 #import <ZoomPlugIns/ZoomWindowThatCanBecomeKey.h>
 #import "ZoomAppDelegate.h"
-#import "ZoomClearView.h"
+@import ZoomPlugIns.Swift;
 
 @implementation ZoomClientController
 @synthesize zoomView;
@@ -554,7 +554,7 @@
 		} else {
 			[fullscreenWindow setOpaque: NO];
 			[fullscreenWindow setBackgroundColor: [NSColor clearColor]];
-			[[self window] setContentView: [[ZoomClearView alloc] init]];
+			[[self window] setContentView: [[ClearView alloc] init]];
 			[[self window] setFrame: frame
 							display: YES
 							animate: NO];

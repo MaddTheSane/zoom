@@ -24,7 +24,7 @@
 #import "ZoomPlugInController.h"
 #import "ZoomPlugIn.h"
 #import "ZoomWindowThatIsKey.h"
-#import "ZoomClearView.h"
+@import ZoomPlugIns.Swift;
 #import "ZoomSignPost.h"
 #import "Zoom-Swift.h"
 
@@ -219,7 +219,7 @@ enum {
 																				 ofType: @"html"]];
 	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: loadingPage]];
 	
-	NSView* clearView = [[ZoomClearView alloc] init];
+	NSView* clearView = [[ClearView alloc] init];
 	downloadView = [[ZoomDownloadView alloc] initWithFrame: NSMakeRect(0,0,276,78)];
 	downloadWindow = [[ZoomWindowThatIsKey alloc] initWithContentRect: NSMakeRect(0,0,276,78)
 															styleMask: NSWindowStyleMaskBorderless

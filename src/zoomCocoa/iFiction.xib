@@ -142,13 +142,13 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="248">
-                                                    <rect key="frame" x="0.0" y="2" width="568" height="93"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="570" height="95"/>
                                                     <connections>
                                                         <outlet property="nextKeyView" destination="150" id="305"/>
                                                     </connections>
                                                 </customView>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="253" customClass="ZoomFadeView">
-                                                    <rect key="frame" x="0.0" y="95" width="568" height="22"/>
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="253" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="95" width="570" height="22"/>
                                                     <subviews>
                                                         <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="318">
                                                             <rect key="frame" x="6" y="2" width="65" height="18"/>
@@ -162,7 +162,7 @@
                                                             </connections>
                                                         </button>
                                                         <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="254">
-                                                            <rect key="frame" x="419" y="2" width="145" height="18"/>
+                                                            <rect key="frame" x="421" y="2" width="145" height="18"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             <size key="cellSize" width="45" height="18"/>
                                                             <size key="intercellSpacing" width="5" height="0.0"/>
@@ -239,13 +239,13 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <scrollView horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="150">
-                                                    <rect key="frame" x="-1" y="1" width="570" height="200"/>
+                                                    <rect key="frame" x="-1" y="-1" width="572" height="202"/>
                                                     <clipView key="contentView" id="HW7-b1-y43">
-                                                        <rect key="frame" x="1" y="1" width="568" height="198"/>
+                                                        <rect key="frame" x="1" y="1" width="570" height="200"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowHeight="14" headerView="398" id="148" customClass="ZoomStoryTableView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="1012" height="175"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="1011.5" height="177"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -335,15 +335,15 @@
                                                         </subviews>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="397">
-                                                        <rect key="frame" x="1" y="183" width="568" height="16"/>
+                                                        <rect key="frame" x="1" y="185" width="570" height="16"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="399">
-                                                        <rect key="frame" x="553" y="24" width="16" height="175"/>
+                                                        <rect key="frame" x="555" y="24" width="16" height="177"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <tableHeaderView key="headerView" wantsLayer="YES" id="398">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1012" height="23"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1011.5" height="23"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </tableHeaderView>
                                                     <connections>
@@ -544,7 +544,7 @@
             </view>
             <point key="canvasLocation" x="-257" y="-738"/>
         </window>
-        <customView id="203" userLabel="Information" customClass="ZoomWhiteView">
+        <customView id="203" userLabel="Information" customClass="WhiteView" customModule="Zoom" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="565" height="113"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -794,7 +794,7 @@ Cg
                         <rect key="frame" x="1" y="1" width="568" height="373"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="326" customClass="ZoomFadeView">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="326" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="351" width="568" height="22"/>
                                 <subviews>
                                     <button hidden="YES" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="348">
