@@ -1158,9 +1158,9 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	}
 }
 
--(void)draggingSession: (NSDraggingSession *)session
-		  endedAtPoint: (NSPoint)screenPoint
-			 operation: (NSDragOperation)operation {
+-(void) draggingSession: (NSDraggingSession *)session
+		   endedAtPoint: (NSPoint)screenPoint
+			  operation: (NSDragOperation)operation {
 	if ((operation&NSDragOperationMove) && clickedItem != nil && dragCanMove) {
 		[clickedItem removeFromParent];
 		[self skeinNeedsLayout];

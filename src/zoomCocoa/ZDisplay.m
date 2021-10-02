@@ -101,7 +101,7 @@ static int cocoa_to_zscii(int theChar) {
 
 // = Debugging functions =
 
-void printf_debug(char* format, ...) {
+void printf_debug(const char* format, ...) {
     va_list  ap;
     char     string[8192];
 
@@ -114,13 +114,13 @@ void printf_debug(char* format, ...) {
     fputs(string, stdout);
 }
 
-void printf_info (char* format, ...) {
+void printf_info (const char* format, ...) {
     NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 void printf_info_done(void) {
     NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
-void printf_error(char* format, ...) {
+void printf_error(const char* format, ...) {
     NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 void printf_error_done(void) {
@@ -929,7 +929,7 @@ ZFile* get_file_write(int* size, const char* name, ZFile_type purpose) {
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToWrite: convert_file_type(purpose)
-									defaultName: name ? @(name) : nil];
+                                    defaultName: name ? @(name) : nil];
     
     wait_for_file();
     res = [[mainMachine lastFile] retain];
