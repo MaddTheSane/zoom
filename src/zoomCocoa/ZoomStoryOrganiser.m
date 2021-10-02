@@ -320,7 +320,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 
 - (void) loadPreferences {
 	NSDictionary* prefs = [[NSUserDefaults standardUserDefaults] objectForKey: defaultName];
-	NSDictionary* extraPrefs = [[NSUserDefaults standardUserDefaults] objectForKey: defaultName];
+	NSDictionary* extraPrefs = [[NSUserDefaults standardUserDefaults] objectForKey: extraDefaultsName];
 	
 	// Detach a thread to decode the dictionary
 	NSDictionary* threadDictionary =
