@@ -12,8 +12,6 @@ private let fade = NSImage(named: "top-shading")!
 class FadeView: NSView {
 	
 	override func draw(_ dirtyRect: NSRect) {
-		NSColor(patternImage: fade).set()
-		NSGraphicsContext.current?.patternPhase = convert(.zero, to: nil)
-		dirtyRect.fill()
+		fade.draw(in: bounds, from: .zero, operation: .sourceOver, fraction: 1)
 	}
 }
