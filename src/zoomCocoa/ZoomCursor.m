@@ -178,6 +178,7 @@
 }
 
 // = Display status =
+@synthesize blinking = isBlinking;
 - (void) setBlinking: (BOOL) blnk {
 	if (blnk == isBlinking) return;
 	
@@ -204,6 +205,7 @@
 	}
 }
 
+@synthesize shown = isShown;
 - (void) setShown: (BOOL) shown {
 	if (shown == isShown) return;
 	
@@ -212,6 +214,7 @@
 	[self ZCblunk];
 }
 
+@synthesize active = isActive;
 - (void) setActive: (BOOL) active {
 	if (active == isActive) return;
 	
@@ -221,6 +224,7 @@
 	[self ZCblunk];
 }
 
+@synthesize first = isFirst;
 - (void) setFirst: (BOOL) first {
 	if (first == isFirst) return;
 	

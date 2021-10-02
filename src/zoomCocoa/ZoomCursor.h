@@ -41,10 +41,14 @@
 @property (readonly) NSRect cursorRect;
 
 // Display status
-- (void) setBlinking: (BOOL) blink;  //!< Cursor blinks on/off
-- (void) setShown:    (BOOL) shown;  //!< Cursor shown/hidden
-- (void) setActive:   (BOOL) active; //!< Whether or not the cursor is 'active' (ie the window has focus)
-- (void) setFirst:    (BOOL) first;  //!< Whether or not the cursor's view is the first responder
+/// Cursor blinks on/off
+@property (nonatomic, getter=isBlinking) BOOL blinking;
+/// Cursor shown/hidden
+@property (nonatomic, getter=isShown) BOOL shown;
+/// Whether or not the cursor is 'active' (ie the window has focus)
+@property (nonatomic, getter=isActive) BOOL active;
+/// Whether or not the cursor's view is the first responder
+@property (nonatomic, getter=isFirst) BOOL first;
 
 //! Delegate
 @property (weak) id<ZoomCursorDelegate> delegate;
