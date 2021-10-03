@@ -823,7 +823,9 @@ static dispatch_block_t onceTypesBlock = ^{
 	NSString* filename = [org filenameForIdent: ident];
 	ZoomStory* story = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
 	
-	if (filename == nil) filename = @"No filename";
+	if (filename == nil) {
+		filename = @"No filename";
+	}
 	
 	if (story == nil) {
 		Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename];
@@ -848,38 +850,31 @@ static dispatch_block_t onceTypesBlock = ^{
 	return story;
 }
 
-- (NSComparisonResult) compareRow: (ZoomStoryID*) a
-						  withRow: (ZoomStoryID*) b {
-	ZoomStory* sA = [self storyForID: a];
-	ZoomStory* sB = [self storyForID: b];
-	
-	NSString* cA = [sA objectForKey: sortColumn];
-	NSString* cB = [sB objectForKey: sortColumn];
-
-	if ([cA length] != [cB length]) {
-		if ([cA length] == 0) return 1;
-		if ([cB length] == 0) return -1;
-	}
-	
-	NSComparisonResult res = [cA caseInsensitiveCompare: cB];
-	
-	if (res == 0) {
-		return [[sA title] caseInsensitiveCompare: [sB title]];
-	} else {
-		return res;
-	}
-}
-
-static NSComparisonResult tableSorter(id a, id b, void* context) {
-	ZoomiFictionController* us = (__bridge ZoomiFictionController *)(context);
-	
-	return [us compareRow: a withRow: b];
-}
-
 - (void) sortTableData {
 	if (sortColumn != nil) {
-		[storyList sortUsingFunction: tableSorter
-							 context: (__bridge void * _Nullable)(self)];
+		[storyList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+			ZoomStory* sA = [self storyForID: obj1];
+			ZoomStory* sB = [self storyForID: obj2];
+			
+			NSString* cA = [sA objectForKey: sortColumn];
+			NSString* cB = [sB objectForKey: sortColumn];
+
+			if ([cA length] != [cB length]) {
+				if ([cA length] == 0) {
+					return NSOrderedDescending;
+				} else if ([cB length] == 0) {
+					return NSOrderedAscending;
+				}
+			}
+			
+			NSComparisonResult res = [cA caseInsensitiveCompare: cB];
+			
+			if (res == NSOrderedSame) {
+				return [[sA title] caseInsensitiveCompare: [sB title]];
+			} else {
+				return res;
+			}
+		}];
 	}
 }
 
@@ -2263,7 +2258,9 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	panel.allowedFileTypes = @[@"iFiction"];
 	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomiFictionSavePath"];
-	panel.directoryURL = directory;
+	if (directory) {
+		panel.directoryURL = directory;
+	}
 	[panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
 		if (result != NSModalResponseOK) return;
 		
