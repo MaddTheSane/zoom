@@ -34,7 +34,7 @@
 	id infoOwner;
 }
 
-+ (ZoomGameInfoController*) sharedGameInfoController;
+@property (class, readonly, retain) ZoomGameInfoController *sharedGameInfoController;
 
 // Interface actions
 - (IBAction)selectGenre:(id)sender;
