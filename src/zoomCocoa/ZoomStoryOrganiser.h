@@ -57,6 +57,10 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 - (void) addStory: (NSString*) filename
 		withIdent: (ZoomStoryID*) ident
 		 organise: (BOOL) organise;
+- (BOOL) addStoryAtURL: (NSURL*) filename
+		  withIdentity: (ZoomStoryID*) ident
+			  organise: (BOOL) organise
+				 error: (NSError**)error;
 
 - (void) removeStoryWithIdent: (ZoomStoryID*) ident
 		   deleteFromMetadata: (BOOL) delete;

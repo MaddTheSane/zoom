@@ -21,7 +21,7 @@
 #import "ZoomJSError.h"
 #import "ZoomSignPost.h"
 
-@interface ZoomiFictionController : NSWindowController <NSTextStorageDelegate, ZoomDownloadDelegate, NSTableViewDataSource, NSOpenSavePanelDelegate, WebFrameLoadDelegate, WebPolicyDelegate> {
+@interface ZoomiFictionController : NSWindowController <NSTextStorageDelegate, ZoomDownloadDelegate, NSTableViewDataSource, NSOpenSavePanelDelegate, NSControlTextEditingDelegate, WebFrameLoadDelegate, WebPolicyDelegate> {
 	IBOutlet NSButton* addButton;
 	IBOutlet NSButton* newgameButton;
 	IBOutlet NSButton* continueButton;
@@ -142,6 +142,7 @@
 - (NSArray<ZoomStory*>*) mergeiFictionFromMetabase: (ZoomMetadata*) newData;
 
 - (void) addFiles: (NSArray<NSString*> *)filenames;
+- (void) addURLs: (NSArray<NSURL*> *)filenames;
 
 - (void) setupSplitView;
 - (void) collapseSplitView;

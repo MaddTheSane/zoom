@@ -515,6 +515,19 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[self organiserChanged];
 }
 
+- (BOOL) addStoryAtURL: (NSURL*) filename
+		  withIdentity: (ZoomStoryID*) ident
+			  organise: (BOOL) organise
+				 error: (NSError**)error {
+	if (ident == nil) {
+		return NO;
+	}
+
+	[self addStory: filename.path withIdent: ident organise: organise];
+	
+	return YES;
+}
+
 - (void) addStory: (NSString*) filename
 		withIdent: (ZoomStoryID*) ident
 		 organise: (BOOL) organise {

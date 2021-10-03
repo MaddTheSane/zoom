@@ -378,9 +378,85 @@ enum {
 
 // = Panel actions =
 
+#ifndef __MAC_11_0
+#define __MAC_11_0          110000
+#endif
+
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_11_0
+static NSArray const * ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
+static NSArray const * blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
+#else
+static NSArray* ZComFileTypes;
+static NSArray* blorbFileTypes;
+static dispatch_once_t onceTypesToken;
+static dispatch_block_t onceTypesBlock = ^{
+	ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
+	blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
+};
+
+#endif
+
+- (void) addURLs: (NSArray<NSURL*> *)filenames {
+	dispatch_once(&onceTypesToken, onceTypesBlock);
+
+	// Add all the files we can
+	NSMutableArray<NSURL*>* selectedFiles = [filenames mutableCopy];
+	
+	while([selectedFiles count] > 0) @autoreleasepool {
+		BOOL isDir;
+		
+		NSURL *filename = [selectedFiles objectAtIndex:0];
+		NSString *path = filename.path;
+
+		isDir = NO;
+		[[NSFileManager defaultManager] fileExistsAtPath: path
+											 isDirectory: &isDir];
+		
+		NSString* fileType = [filename pathExtension];
+		Class plugin;
+		
+		if (isDir) {
+			NSArray<NSURL*>* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL: filename includingPropertiesForKeys:nil options: NSDirectoryEnumerationSkipsSubdirectoryDescendants error: NULL];
+			
+			[selectedFiles addObjectsFromArray:dirContents];
+		} else if ([ZComFileTypes containsObject: fileType]) {
+			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFile: path];
+			
+			if (fileID != nil) {
+				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: filename
+															withIdentity: fileID
+																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+																   error: NULL];
+				
+			}
+		} else if ([blorbFileTypes containsObject: fileType]) {
+			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithGlulxFile: path];
+			
+			if (fileID != nil) {
+				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: filename
+															withIdentity: fileID
+																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+																   error: NULL];
+				
+			}
+		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: path])) {
+			ZoomPlugIn* instance = [[plugin alloc] initWithFilename: path];
+			ZoomStoryID* fileID = [instance idForStory];
+			
+			if (fileID != nil) {
+				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: filename
+															withIdentity: fileID
+																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+																   error: NULL];
+			}
+		}
+
+		[selectedFiles removeObjectAtIndex:0];
+	}
+}
+
 - (void) addFiles: (NSArray *)filenames {
-	NSArray* fileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
-	NSArray* blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
+	dispatch_once(&onceTypesToken, onceTypesBlock);
 
 	// Add all the files we can
 	NSMutableArray* selectedFiles = [filenames mutableCopy];
@@ -401,13 +477,11 @@ enum {
 		if (isDir) {
 			NSArray* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: filename error:NULL];
 			
-//			NSEnumerator* dirContentsEnum = [dirContents objectEnumerator];
-			
 			for (NSString* dirComponent in dirContents)
 			{
 				[selectedFiles addObject: [filename stringByAppendingPathComponent: dirComponent]];
 			}
-		} else if ( [fileTypes containsObject: fileType] ) {
+		} else if ([ZComFileTypes containsObject: fileType]) {
 			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFile: filename];
 			
 			if (fileID != nil) 
@@ -417,7 +491,7 @@ enum {
 														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
 				
 			}
-		} else if ( [blorbFileTypes containsObject: fileType] ) {
+		} else if ([blorbFileTypes containsObject: fileType]) {
 			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithGlulxFile: filename];
 			
 			if (fileID != nil)
@@ -536,17 +610,12 @@ enum {
 											   forKey: addDirectory];
 		
 		NSArray<NSURL*> * fileURLs = [storiesToAdd URLs];
-		NSMutableArray<NSString*> * filenames = [[NSMutableArray alloc] initWithCapacity:fileURLs.count];
-		for (NSURL *inURL in fileURLs) {
-			[filenames addObject:inURL.path];
-		}
-		[self addFiles:filenames];
+		[self addURLs:fileURLs];
 	}];
 }
 
 - (void) autosaveAlertFinished: (NSWindow *)alert 
-					returnCode: (NSModalResponse)returnCode
-				   contextInfo: (void *)contextInfo {
+					returnCode: (NSModalResponse)returnCode {
 	if (returnCode == NSAlertSecondButtonReturn) {
 		NSString* filename = [self selectedFilename];
 		
@@ -599,13 +668,12 @@ enum {
 			desButton.hasDestructiveAction = YES;
 		}
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
-			[self autosaveAlertFinished:alert.window returnCode:returnCode contextInfo:NULL];
+			[self autosaveAlertFinished:alert.window returnCode:returnCode];
 		}];
 	} else {
 		// Fake alert sheet OK
 		[self autosaveAlertFinished: nil
-						 returnCode: NSAlertFirstButtonReturn
-						contextInfo: nil];
+						 returnCode: NSAlertFirstButtonReturn];
 	}
 }
 
@@ -1376,8 +1444,6 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	
 	// Set the cover picture
 	if (coverPicture) {
-		NSSize imageSize = [coverPicture size];
-
 		[gameImageView setImage: coverPicture];
 		
 		// Setup the picture preview window
@@ -1510,11 +1576,7 @@ static NSComparisonResult tableSorter(id a, id b, void* context) {
 	dropOperation:(NSTableViewDropOperation)op {
     NSPasteboard * pasteboard = [sender draggingPasteboard];
 	NSArray<NSURL*> * fileURLs = [pasteboard readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
-	NSMutableArray * filenames = [[NSMutableArray alloc] initWithCapacity:fileURLs.count];
-	for (NSURL *inURL in fileURLs) {
-		[filenames addObject:inURL.path];
-	}
-	[self addFiles:filenames];
+	[self addURLs:fileURLs];
 
 	return YES;
 }
@@ -3152,8 +3214,7 @@ static unsigned int ValueForHexChar(int hex) {
 	
 	// Build a digest from string values
 	unsigned char digest[16];
-	int x;
-	for (x=0; x<16; x++) {
+	for (int x=0; x<16; x++) {
 		int pos = x*2;
 		if (pos+1 >= [md5raw length]) break;
 		
