@@ -1223,9 +1223,7 @@ CFStringRef IFStrCpyCF(const IFMDChar* src) {
 	unsigned short int* utf16 = GetUTF16(src, &len);
 	CFStringRef string;
 	
-	string = CFStringCreateWithCharacters(kCFAllocatorDefault, utf16, len);
-
-	free(utf16);
+	string = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, utf16, len, kCFAllocatorMalloc);
 	
 	return string;
 }

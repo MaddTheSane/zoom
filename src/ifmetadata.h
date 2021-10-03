@@ -137,7 +137,7 @@ struct IFMDIdent {
 	enum IFMDFormat format;
 	
 	enum IFMDFormat dataFormat; /* May be different to format (usually if there's a UUID involved) */
-	union {
+	union IFMDIdentData {
 		struct IFMDZCode zcode;
 		struct IFMDGlulx glulx;
 		struct IFMDUUID  uuid;
@@ -235,7 +235,7 @@ extern wchar_t*    IFStrnCpyW(wchar_t* dst, const IFMDChar* src, size_t sz); /* 
 #endif
 
 #ifdef HAVE_COREFOUNDATION
-extern CFStringRef IFStrCpyCF(const IFMDChar* src); /* UTF-16 */
+extern CFStringRef IFStrCpyCF(const IFMDChar* src) CF_RETURNS_RETAINED; /* UTF-16 */
 extern IFMDChar*   IFMakeStrCF(const CFStringRef src);
 #endif
 
