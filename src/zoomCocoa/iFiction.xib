@@ -242,10 +242,10 @@
                                                     <rect key="frame" x="-1" y="-1" width="572" height="202"/>
                                                     <clipView key="contentView" id="HW7-b1-y43">
                                                         <rect key="frame" x="1" y="1" width="570" height="200"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowHeight="14" headerView="398" id="148" customClass="ZoomStoryTableView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="1011.5" height="177"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="1012" height="177"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -343,7 +343,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <tableHeaderView key="headerView" wantsLayer="YES" id="398">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1011.5" height="23"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1012" height="23"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </tableHeaderView>
                                                     <connections>
@@ -545,14 +545,13 @@
             <point key="canvasLocation" x="-257" y="-738"/>
         </window>
         <customView id="203" userLabel="Information" customClass="WhiteView" customModule="Zoom" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="565" height="113"/>
+            <rect key="frame" x="0.0" y="0.0" width="565" height="128"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="286">
-                    <rect key="frame" x="136" y="0.0" width="429" height="113"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="286">
+                    <rect key="frame" x="136" y="0.0" width="429" height="128"/>
                     <clipView key="contentView" drawsBackground="NO" id="UB6-ym-eLH">
-                        <rect key="frame" x="0.0" y="0.0" width="429" height="113"/>
+                        <rect key="frame" x="0.0" y="0.0" width="429" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="287">
@@ -560,7 +559,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="429" height="113"/>
+                                <size key="minSize" width="429" height="128"/>
                                 <size key="maxSize" width="429" height="10000000"/>
                                 <attributedString key="textStorage">
                                     <fragment content="Curses">
@@ -613,19 +612,30 @@ Cg
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="401">
-                        <rect key="frame" x="413" y="0.0" width="16" height="113"/>
+                        <rect key="frame" x="413" y="0.0" width="16" height="128"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="206" customClass="HQImageView" customModule="Zoom" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="136" height="113"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                <imageView translatesAutoresizingMaskIntoConstraints="NO" id="206" customClass="HQImageView" customModule="Zoom" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="136" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="136" id="xsa-eQ-Tw1"/>
+                    </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blorb" id="382"/>
                     <connections>
                         <action selector="orderFront:" target="198" id="279"/>
                     </connections>
                 </imageView>
             </subviews>
+            <constraints>
+                <constraint firstItem="206" firstAttribute="top" secondItem="203" secondAttribute="top" id="0gl-cw-gsl"/>
+                <constraint firstItem="206" firstAttribute="top" secondItem="286" secondAttribute="top" id="3Nz-Of-jge"/>
+                <constraint firstAttribute="bottom" secondItem="206" secondAttribute="bottom" id="Nav-99-gp7"/>
+                <constraint firstItem="206" firstAttribute="leading" secondItem="203" secondAttribute="leading" id="SiX-3P-UuA"/>
+                <constraint firstAttribute="trailing" secondItem="286" secondAttribute="trailing" id="bEa-nU-Qaq"/>
+                <constraint firstAttribute="bottom" secondItem="286" secondAttribute="bottom" id="guU-H2-SOQ"/>
+                <constraint firstItem="286" firstAttribute="leading" secondItem="206" secondAttribute="trailing" id="w45-IT-0p4"/>
+            </constraints>
             <connections>
                 <outlet property="nextKeyView" destination="287" id="313"/>
             </connections>

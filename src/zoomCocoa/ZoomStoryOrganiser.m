@@ -535,11 +535,8 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	
 	[storyLock lock];
 	
-	NSString* oldFilename;
-	ZoomStoryID* oldIdent;
-	
-	oldFilename = [[identsToFilenames objectForKey: ident] stringByStandardizingPath];
-	oldIdent = [filenamesToIdents objectForKey: oldFilename];
+	NSString* oldFilename = [[identsToFilenames objectForKey: ident] stringByStandardizingPath];
+	ZoomStoryID* oldIdent = [filenamesToIdents objectForKey: oldFilename];
 	
 	// Get the story from the metadata database
 	ZoomStory* theStory = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];

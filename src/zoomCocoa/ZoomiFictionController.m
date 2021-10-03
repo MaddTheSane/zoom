@@ -420,7 +420,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		if (isDir) {
 			NSArray<NSURL*>* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL: filename includingPropertiesForKeys:nil options: NSDirectoryEnumerationSkipsSubdirectoryDescendants error: NULL];
 			
-			[selectedFiles addObjectsFromArray:dirContents];
+			[selectedFiles addObjectsFromArray: dirContents];
 		} else if ([ZComFileTypes containsObject: fileType]) {
 			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFile: path];
 			
