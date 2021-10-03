@@ -383,11 +383,11 @@ enum {
 #endif
 
 #if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_11_0
-static NSArray const * ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
-static NSArray const * blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
+static NSArray<NSString*> * const ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
+static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
 #else
-static NSArray* ZComFileTypes;
-static NSArray* blorbFileTypes;
+static NSArray<NSString*>* ZComFileTypes;
+static NSArray<NSString*>* blorbFileTypes;
 static dispatch_once_t onceTypesToken;
 static dispatch_block_t onceTypesBlock = ^{
 	ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
@@ -397,7 +397,9 @@ static dispatch_block_t onceTypesBlock = ^{
 #endif
 
 - (void) addURLs: (NSArray<NSURL*> *)filenames {
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
 	dispatch_once(&onceTypesToken, onceTypesBlock);
+#endif
 
 	// Add all the files we can
 	NSMutableArray<NSURL*>* selectedFiles = [filenames mutableCopy];
@@ -456,7 +458,9 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (void) addFiles: (NSArray *)filenames {
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
 	dispatch_once(&onceTypesToken, onceTypesBlock);
+#endif
 
 	// Add all the files we can
 	NSMutableArray* selectedFiles = [filenames mutableCopy];
