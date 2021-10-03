@@ -224,10 +224,6 @@
 					 atPoint: (in NSPoint) point {
 	NSImage* img = [[zView resources] imageWithNumber: number];
 
-	NSRect imgRect;
-	imgRect.origin = NSMakePoint(0,0);
-	imgRect.size = [img size];
-	
 	NSRect destRect;
 	destRect.origin = point;
 	destRect.size = [[zView resources] sizeForImageWithNumber: number
@@ -235,7 +231,7 @@
 	
 	[pixmap lockFocusFlipped:YES];
 	[img drawInRect: destRect
-		   fromRect: imgRect
+		   fromRect: NSZeroRect
 		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0];
 	[pixmap unlockFocus];

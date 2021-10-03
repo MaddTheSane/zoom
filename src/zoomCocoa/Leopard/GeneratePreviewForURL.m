@@ -180,7 +180,7 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 		}
 		
 		[image drawInRect: imageRect
-				 fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
+				 fromRect: NSZeroRect
 				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
 	}

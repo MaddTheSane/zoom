@@ -10,7 +10,9 @@
 
 #include <expat.h>
 
-// = XML input class =
+//TODO: migrate to NSXML* classes?
+
+#pragma mark - XML input class
 
 static NSString* const xmlAttributes = @"xmlAttributes";
 static NSString* const xmlName	     = @"xmlName";
@@ -39,7 +41,7 @@ static NSString* const xmlCharData   = @"xmlCharData";
 
 @end
 
-// = XML output functions =
+#pragma mark - XML output functions
 
 static NSString* idForNode(ZoomSkeinItem* item) {
 	// Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
@@ -97,7 +99,7 @@ static NSString* xmlEncode(NSString* str) {
 			// Ignore (expat can't parse these)
 		} else {
 			// NOTE/FIXME: Surrogate characters are not handled correctly
-			// May, I suppose, cause a problem with chinese IF
+			// May, I suppose, cause a problem with Chinese IF
 			append(chr, &state);
 		}
 	}
@@ -108,7 +110,7 @@ static NSString* xmlEncode(NSString* str) {
 
 @implementation ZoomSkein(ZoomSkeinXML)
 
-// = XML data =
+#pragma mark - XML data
 
 // Creating XML
 - (NSString*) xmlData {
@@ -389,7 +391,7 @@ static NSString* xmlEncode(NSString* str) {
 
 @end
 
-// = XML input helper class =
+#pragma mark - XML input helper class
 
 // For later, maybe: develop this into a class in it's own right?
 // Would really want custom types for the XML tree, then
@@ -506,7 +508,7 @@ static XMLCALL void charData    (void *userData,
 	return [[element objectForKey: xmlAttributes] objectForKey: elementName];
 }
 
-// = XML callback messages =
+#pragma mark - XML callback messages
 
 static int Xstrlen(const XML_Char* a) {
 	int x;
@@ -518,7 +520,7 @@ static int Xstrlen(const XML_Char* a) {
 	return x;
 }
 
-static unsigned char bytesFromUTF8[256] = {
+static const unsigned char bytesFromUTF8[256] = {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -685,7 +687,7 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	}
 }
 
-// = XML callback implementation =
+#pragma mark - XML callback implementation
 
 static XMLCALL void startElement(void *userData,
 								 const XML_Char *name,

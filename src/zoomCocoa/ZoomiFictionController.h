@@ -16,7 +16,7 @@
 #import "ZoomStoryTableView.h"
 #import <ZoomPlugIns/ZoomMetadata.h>
 #import "ZoomFlipView.h"
-@class ZoomDownloadView;
+@class DownloadView;
 #import <ZoomPlugIns/ZoomDownload.h>
 #import "ZoomJSError.h"
 #import "ZoomSignPost.h"
@@ -47,7 +47,7 @@
 	IBOutlet NSButton* backButton;
 	IBOutlet NSButton* homeButton;
 	NSWindow* downloadWindow;
-	ZoomDownloadView* downloadView;
+	DownloadView* downloadView;
 	
 	IBOutlet NSWindow* picturePreview;
 	IBOutlet NSImageView* picturePreviewView;

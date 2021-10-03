@@ -219,7 +219,7 @@ enum {
 	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: loadingPage]];
 	
 	NSView* clearView = [[ClearView alloc] init];
-	downloadView = [[ZoomDownloadView alloc] initWithFrame: NSMakeRect(0,0,276,78)];
+	downloadView = [[DownloadView alloc] initWithFrame: NSMakeRect(0,0,276,78)];
 	downloadWindow = [[ZoomWindowThatIsKey alloc] initWithContentRect: NSMakeRect(0,0,276,78)
 															styleMask: NSWindowStyleMaskBorderless
 															  backing: NSBackingStoreBuffered

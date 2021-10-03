@@ -31,7 +31,8 @@ class HQImageView: NSImageView {
 		imageBounds.origin.x += (bounds.width - imageBounds.width) / 2
 		imageBounds.origin.y += bounds.height - imageBounds.height
 		
-		self.image?.draw(in: imageBounds, from: NSRect(origin: .zero, size: imageSize),
+		self.image?.draw(in: imageBounds,
+						 from: .zero,
 						 operation: .sourceOver,
 						 fraction: 1)
     }

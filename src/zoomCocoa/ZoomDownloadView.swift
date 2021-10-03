@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class ZoomDownloadView : NSView {
+class DownloadView : NSView {
 	/// The background image
 	private let downloadImage = NSImage(named: "IFDB-downloading")!
 	/// The download progress indicator
@@ -35,10 +35,10 @@ class ZoomDownloadView : NSView {
 		bounds.fill()
 		
 		var downloadRect = NSRect()
-		downloadRect.origin.x = bounds.minX + (bounds.size.width - imageSize.width) / 2
-		downloadRect.origin.y = bounds.minY + (bounds.size.height - imageSize.height) / 2
+		downloadRect.origin.x = bounds.minX + (bounds.width - imageSize.width) / 2
+		downloadRect.origin.y = bounds.minY + (bounds.height - imageSize.height) / 2
 		downloadRect.size = imageSize
-		downloadImage.draw(in: downloadRect, from: NSRect(origin: .zero, size: imageSize), operation: .sourceOver, fraction: 10)
+		downloadImage.draw(in: downloadRect, from: .zero, operation: .sourceOver, fraction: 10)
 	}
 	
 	override var isOpaque: Bool {

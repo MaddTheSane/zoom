@@ -199,7 +199,6 @@ static void finalizeViews(void) {
 	if (pixmapWindow != nil) {
 		NSRect bounds = [self bounds];
 		NSImage* pixmap = [pixmapWindow pixmap];
-		NSSize pixSize = [pixmap size];
 		
 		NSRect realFrame = [self convertRect: bounds 
 									  toView: [[self window] contentView]];
@@ -225,7 +224,7 @@ static void finalizeViews(void) {
 		[invertTransform set];
 
 		[pixmap drawInRect: bounds
-				  fromRect: NSMakeRect(0,0,pixSize.width, pixSize.height)
+				  fromRect: NSZeroRect
 				 operation: NSCompositingOperationSourceOver
 				  fraction: 1.0];
 		

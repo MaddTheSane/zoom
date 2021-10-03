@@ -62,12 +62,8 @@ static NSImage* blorbImage;
 	}
 	
 	// Draw the image
-	NSRect sourceRect;
-	sourceRect.origin = NSMakePoint(0,0);
-	sourceRect.size = [img size];
-	
 	[img drawInRect: imgRect
-		   fromRect: sourceRect
+		   fromRect: NSZeroRect
 		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0];
 	

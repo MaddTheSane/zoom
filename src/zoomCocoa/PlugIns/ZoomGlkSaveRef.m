@@ -140,7 +140,6 @@
 		}
 		
 		NSSize iconSize = [iconImage size];
-		NSSize originalSize = [originalImage size];
 		
 		// Set the background for the image
 		[newImage lockFocus];
@@ -156,7 +155,7 @@
 			// Use a combined icon for this save game
 			scaleFactor = 64.0;
 			[originalImage drawInRect: NSMakeRect(0,0,128,128)
-							 fromRect: NSMakeRect(0,0,originalSize.width,originalSize.height)
+							 fromRect: NSZeroRect
 							operation: NSCompositingOperationSourceOver
 							 fraction: 1.0];
 		}
@@ -171,7 +170,7 @@
 		NSSize newSize = NSMakeSize(iconSize.width * scaleFactor, iconSize.height * scaleFactor);
 		
 		[iconImage drawInRect: NSMakeRect(64-newSize.width/2, 64-newSize.height/2, newSize.width, newSize.height)
-					 fromRect: NSMakeRect(0,0, iconSize.width, iconSize.height)
+					 fromRect: NSZeroRect
 					operation: NSCompositingOperationSourceOver
 					 fraction: 1.0];
 		
