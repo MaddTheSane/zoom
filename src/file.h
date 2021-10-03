@@ -41,6 +41,7 @@ extern ZFile* open_file_write(const char* filename);
 extern void   close_file     (ZFile* file);
 extern ZByte  read_byte      (ZFile* file);
 extern ZUWord read_word      (ZFile* file);
+extern ZDWord read_dword     (ZFile* file);
 extern ZUWord read_rword     (ZFile* file);
 extern ZByte* read_page      (ZFile* file, int page_no);
 extern ZByte* read_block     (ZFile* file, int start_pos, int end_pos);

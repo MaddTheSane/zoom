@@ -80,6 +80,10 @@ ZUWord read_word(ZFile* file) {
     return [file->theFile readWord];
 }
 
+ZDWord read_dword(ZFile* file) {
+    return [file->theFile readDWord];
+}
+
 ZUWord read_rword(ZFile* file) {
     @autoreleasepool {
 #if 0

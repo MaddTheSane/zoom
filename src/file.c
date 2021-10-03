@@ -248,6 +248,11 @@ ZUWord read_word(ZFile* file)
   return (read_byte(file)<<8)|read_byte(file);
 }
 
+ZUWord read_dword(ZFile* file)
+{
+  return (read_byte(file)<<24)|(read_byte(file)<<16)|(read_byte(file)<<8)|read_byte(file);
+}
+
 ZUWord read_rword(ZFile* file)
 {
   return read_byte(file)|(read_byte(file)<<8);
