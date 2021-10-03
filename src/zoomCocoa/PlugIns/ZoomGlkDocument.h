@@ -18,14 +18,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Document representing a Glk game
 ///
 @interface ZoomGlkDocument : NSDocument {
-	NSString* clientPath;											// The Glk executable we'll run to play this game
-	NSString* inputPath;											// The file we'll pass to the executable as the game to run
-	NSString* savedGamePath;										// The file that we'll pass as a savegame
+	/// The Glk executable we'll run to play this game
+	NSString* clientPath;
+	/// The file we'll pass to the executable as the game to run
+	NSString* inputPath;
+	/// The file that we'll pass as a savegame
+	NSString* savedGamePath;
 	
-	ZoomStory* storyData;											// Metadata for this story
+	/// Metadata for this story
+	ZoomStory* storyData;
 	ZoomPlugIn* plugIn;
-	NSImage* logo;													// The logo for this story
-	NSString* preferredSaveDir;										// Preferred save directory
+	/// The logo for this story
+	NSImage* logo;
+	/// Preferred save directory
+	NSString* preferredSaveDir;
 }
 
 // Configuring the client

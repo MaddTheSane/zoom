@@ -32,9 +32,11 @@
 //! The author of this plugin
 @property (class, readonly, copy) NSString *pluginAuthor;
 
-+ (BOOL) canLoadSavegames;										//!< \c YES if this plugin can load savegames as well as game files
+/// \c YES if this plugin can load savegames as well as game files
+@property (class, readonly) BOOL canLoadSavegames;
 
-+ (BOOL) canRunPath: (NSString*) path;							//!< \c YES if the specified file is one that the plugin can run
+/// \c YES if the specified file is one that the plugin can run
++ (BOOL) canRunPath: (NSString*) path;
 
 // Designated initialiser
 //! Initialises this plugin to play a specific game

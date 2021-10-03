@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>YZZY</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSPrincipalClass</key>
+	<string>$(PRODUCT_MODULE_NAME).Quest</string>
+	<key>ZoomPlugin</key>
+	<dict>
+		<key>Author</key>
+		<string>C.W. Betts</string>
+		<key>DisplayName</key>
+		<string>Quest</string>
+		<key>Image</key>
+		<string>../../Resources/GlkClient.icns</string>
+		<key>InterpreterAuthor</key>
+		<string>Andrew Plotkin</string>
+		<key>InterpreterVersion</key>
+		<string>0.5.4</string>
+		<key>Version</key>
+		<string>0.1</string>
+		<key>ZoomVersion</key>
+		<integer>112</integer>
+	</dict>
+</dict>
+</plist>
