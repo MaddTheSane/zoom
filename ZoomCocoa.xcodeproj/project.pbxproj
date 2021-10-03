@@ -293,6 +293,7 @@
 		55BE4AEF270999A500100A7D /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		55BE4AF62709A23600100A7D /* QuestDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AF42709A23600100A7D /* QuestDocument.swift */; };
 		55BE4AF72709A23600100A7D /* QuestDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BE4AF52709A23600100A7D /* QuestDocument.xib */; };
+		55BE4AF8270A635600100A7D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 		55BF2A1926FE78F900832C53 /* ZoomSavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */; };
 		55BF2A1B26FE7C9200832C53 /* ZoomSavePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */; };
 		55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D14CD727017521006DF31A /* ZoomViewHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -966,6 +967,7 @@
 		55BE4AF0270999B400100A7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BE4AF42709A23600100A7D /* QuestDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDocument.swift; sourceTree = "<group>"; };
 		55BE4AF52709A23600100A7D /* QuestDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestDocument.xib; sourceTree = "<group>"; };
+		55BE4AF9270A645600100A7D /* varopdecode.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = varopdecode.pl; sourceTree = "<group>"; };
 		55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreview.swift; sourceTree = "<group>"; };
 		55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreviewView.swift; sourceTree = "<group>"; };
 		55D14CD727017521006DF31A /* ZoomViewHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomViewHeaders.h; sourceTree = "<group>"; };
@@ -1079,6 +1081,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55BE4AF8270A635600100A7D /* Cocoa.framework in Frameworks */,
 				55BE4AEE270999A500100A7D /* ZoomPlugIns.framework in Frameworks */,
 				55BE4AEF270999A500100A7D /* ZoomView.framework in Frameworks */,
 			);
@@ -1197,6 +1200,7 @@
 				4B1E3F81050F7CC500A8E303 /* lex.l */,
 				4B1E3F82050F7CC500A8E303 /* operation.h */,
 				4B1E3F83050F7CC500A8E303 /* gram.y */,
+				55BE4AF9270A645600100A7D /* varopdecode.pl */,
 			);
 			path = builder;
 			sourceTree = SOURCE_ROOT;
