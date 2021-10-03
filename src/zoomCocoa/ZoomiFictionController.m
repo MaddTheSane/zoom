@@ -265,9 +265,12 @@ enum {
 	// Add a 'ratings' column to the main table
 	NSTableColumn* newColumn = [[NSTableColumn alloc] initWithIdentifier: @"rating"];
 	
-	[newColumn setDataCell: [[NSLevelIndicatorCell alloc] initWithLevelIndicatorStyle:NSLevelIndicatorStyleRating]];
-	[newColumn setMinWidth: 84];
-	[newColumn setMaxWidth: 84];
+	NSLevelIndicatorCell *cell = [[NSLevelIndicatorCell alloc] initWithLevelIndicatorStyle:NSLevelIndicatorStyleRating];
+	cell.maxValue = 10;
+	
+	[newColumn setDataCell: cell];
+	[newColumn setMinWidth: 120];
+	[newColumn setMaxWidth: 120];
 	[newColumn setEditable: YES];
 	[[newColumn headerCell] setStringValue: @"Rating"];
 	
@@ -398,9 +401,9 @@ enum {
 		if (isDir) {
 			NSArray* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: filename error:NULL];
 			
-			NSEnumerator* dirContentsEnum = [dirContents objectEnumerator];
+//			NSEnumerator* dirContentsEnum = [dirContents objectEnumerator];
 			
-			for (NSString* dirComponent in dirContentsEnum)
+			for (NSString* dirComponent in dirContents)
 			{
 				[selectedFiles addObject: [filename stringByAppendingPathComponent: dirComponent]];
 			}
