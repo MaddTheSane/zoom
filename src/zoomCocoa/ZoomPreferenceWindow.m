@@ -15,11 +15,17 @@
 
 
 static NSToolbarItem* generalSettingsItem;
+static NSToolbarItemIdentifier const generalSettingsItemName = @"generalSettings";
 static NSToolbarItem* gameSettingsItem;
+static NSToolbarItemIdentifier const gameSettingsItemName = @"gameSettings";
 static NSToolbarItem* displaySettingsItem;
+static NSToolbarItemIdentifier const displaySettingsItemName = @"displaySettings";
 static NSToolbarItem* fontSettingsItem;
+static NSToolbarItemIdentifier const fontSettingsItemName = @"fontSettings";
 static NSToolbarItem* colourSettingsItem;
+static NSToolbarItemIdentifier const colourSettingsItemName = @"colourSettings";
 static NSToolbarItem* typographicSettingsItem;
+static NSToolbarItemIdentifier const typographicSettingsItemName = @"typographicSettings";
 
 static NSDictionary*  itemDictionary = nil;
 
@@ -27,21 +33,21 @@ static NSDictionary*  itemDictionary = nil;
 
 + (void) initialize {
 	// Create the toolbar items
-	generalSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"generalSettings"];
-	gameSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"gameSettings"];
-	displaySettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"displaySettings"];
-	fontSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"fontSettings"];
-	colourSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"colourSettings"];
-	typographicSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"typographicSettings"];
+	generalSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: generalSettingsItemName];
+	gameSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: gameSettingsItemName];
+	displaySettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: displaySettingsItemName];
+	fontSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: fontSettingsItemName];
+	colourSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: colourSettingsItemName];
+	typographicSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: typographicSettingsItemName];
 	
 	// ... and the dictionary
 	itemDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-		generalSettingsItem, @"generalSettings",
-		gameSettingsItem, @"gameSettings",
-		displaySettingsItem, @"displaySettings",
-		fontSettingsItem, @"fontSettings",
-		colourSettingsItem, @"colourSettings",
-		typographicSettingsItem, @"typographicSettings",
+		generalSettingsItem, generalSettingsItemName,
+		gameSettingsItem, gameSettingsItemName,
+		displaySettingsItem, displaySettingsItemName,
+		fontSettingsItem, fontSettingsItemName,
+		colourSettingsItem, colourSettingsItemName,
+		typographicSettingsItem, typographicSettingsItemName,
 		nil];
 	
 	// Set up the items
@@ -75,13 +81,6 @@ static NSDictionary*  itemDictionary = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-static NSComparisonResult familyComparer(id a, id b, void* context) {
-	NSString* family1 = a;
-	NSString* family2 = b;
-	
-	return [family1 caseInsensitiveCompare: family2];
-}
-
 - (NSMenu*) fontMenu: (BOOL) fixed {
 	// Constructs a menu of fonts
 	// (Apple want us to use the font selection panel, but it feels clunky for the 'simple' view: there's no good way to associate
@@ -91,8 +90,7 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	NSMenu* result = [[NSMenu alloc] init];
 	
 	// Iterate through the available font families and create menu items
-	NSEnumerator* familyEnum = [[[mgr availableFontFamilies] sortedArrayUsingFunction: familyComparer
-																			  context: nil] objectEnumerator];
+	NSEnumerator<NSString*>* familyEnum = [[[mgr availableFontFamilies] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
 	
 	for (NSString* family in familyEnum) {
 		// Get the font
@@ -111,8 +109,7 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 		NSMenuItem* fontItem = [[NSMenuItem alloc] init];
 		[fontItem setAttributedTitle: 
 			[[NSAttributedString alloc] initWithString: family
-											 attributes: [NSDictionary dictionaryWithObject: sampleFont
-																					 forKey: NSFontAttributeName]]];
+											attributes: @{NSFontAttributeName: sampleFont}]];
 		
 		// Add to the menu
 		[result addItem: fontItem];
@@ -138,9 +135,7 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	[[self window] setContentSize: [generalSettingsView frame].size];
 	[[self window] setContentView: generalSettingsView];
 
-	if ([toolbar respondsToSelector: @selector(setSelectedItemIdentifier:)]) {
-		[toolbar setSelectedItemIdentifier: @"generalSettings"];
-	}
+	[toolbar setSelectedItemIdentifier: generalSettingsItemName];
 	
 	
 	[fonts setDataSource: self];
@@ -170,20 +165,20 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 	
 	// Select the appropriate item in the toolbar
 	if ([toolbar respondsToSelector: @selector(setSelectedItemIdentifier:)]) {
-		NSString* selected = nil;
+		NSToolbarItemIdentifier selected = nil;
 		
 		if (preferencePane == generalSettingsView) {
-			selected = @"generalSettings";
+			selected = generalSettingsItemName;
 		} else if (preferencePane == gameSettingsView) {
-			selected = @"gameSettings";
+			selected = gameSettingsItemName;
 		} else if (preferencePane == displaySettingsView) {
-			selected = @"displaySettings";
+			selected = displaySettingsItemName;
 		} else if (preferencePane == fontSettingsView) {
-			selected = @"fontSettings";
+			selected = fontSettingsItemName;
 		} else if (preferencePane == colourSettingsView) {
-			selected = @"colourSettings";
+			selected = colourSettingsItemName;
 		} else if (preferencePane == typographicalSettingsView) {
-			selected = @"typographicSettings";
+			selected = typographicSettingsItemName;
 		}
 		
 		if (selected != nil) {
@@ -223,19 +218,19 @@ static NSComparisonResult familyComparer(id a, id b, void* context) {
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
     return [NSArray arrayWithObjects:
-		@"generalSettings", @"gameSettings", @"displaySettings", @"fontSettings", @"typographicSettings", @"colourSettings", NSToolbarFlexibleSpaceItemIdentifier,
+		generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier,
 		nil];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar {
     return [NSArray arrayWithObjects:
-		NSToolbarFlexibleSpaceItemIdentifier, @"generalSettings", @"gameSettings", @"displaySettings", @"fontSettings", @"typographicSettings", @"colourSettings", NSToolbarFlexibleSpaceItemIdentifier,
+		NSToolbarFlexibleSpaceItemIdentifier, generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier,
 		nil];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
     return [NSArray arrayWithObjects:
-		@"generalSettings", @"gameSettings", @"displaySettings", @"fontSettings", @"colourSettings", @"typographicSettings",
+			generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, colourSettingsItemName, typographicSettingsItemName,
 		nil];	
 }
 

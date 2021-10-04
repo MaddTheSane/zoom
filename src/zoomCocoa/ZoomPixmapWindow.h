@@ -11,7 +11,6 @@
 #import <ZoomView/ZoomView.h>
 
 @interface ZoomPixmapWindow : NSObject<ZPixmapWindow, NSSecureCoding> {
-	__unsafe_unretained ZoomView* zView;
 	NSImage* pixmap;
 	
 	NSPoint inputPos;
@@ -20,7 +19,7 @@
 
 // Initialisation
 - (instancetype) initWithZoomView: (ZoomView*) view;
-@property (assign) ZoomView* zoomView;
+@property (weak) ZoomView* zoomView;
 
 // Getting the pixmap
 @property (readonly) NSSize size;

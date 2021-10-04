@@ -263,9 +263,9 @@
 	
     if (self) {
 		if (decoder.allowsKeyedCoding) {
-			pixmap = [decoder decodeObjectForKey: PIXMAPCODINGKEY];
+			pixmap = [decoder decodeObjectOfClass: [NSImage class] forKey: PIXMAPCODINGKEY];
 			inputPos = [decoder decodePointForKey: INPUTPOSCODINGKEY];
-			inputStyle = [decoder decodeObjectForKey: INPUTSTYLECODINGKEY];
+			inputStyle = [decoder decodeObjectOfClass: [ZStyle class] forKey: INPUTSTYLECODINGKEY];
 		} else {
 			pixmap = [decoder decodeObject];
 			inputPos = [decoder decodePoint];
