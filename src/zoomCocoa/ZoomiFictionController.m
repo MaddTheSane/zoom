@@ -12,6 +12,7 @@
 #include <tgmath.h>
 
 #import "ZoomiFictionController.h"
+#import "ZoomiFictionController+OldWebKit.h"
 #import "ZoomStoryOrganiser.h"
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>

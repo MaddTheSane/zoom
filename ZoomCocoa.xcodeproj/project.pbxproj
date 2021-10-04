@@ -967,6 +967,7 @@
 		55BE4AF52709A23600100A7D /* QuestDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestDocument.xib; sourceTree = "<group>"; };
 		55BE4AF9270A645600100A7D /* varopdecode.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = varopdecode.pl; sourceTree = "<group>"; };
 		55BE4B10270AB65400100A7D /* ZoomCollapsableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomCollapsableView.swift; sourceTree = "<group>"; };
+		55BE4B18270ACA4000100A7D /* ZoomiFictionController+OldWebKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZoomiFictionController+OldWebKit.h"; sourceTree = "<group>"; };
 		55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreview.swift; sourceTree = "<group>"; };
 		55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreviewView.swift; sourceTree = "<group>"; };
 		55D14CD727017521006DF31A /* ZoomViewHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomViewHeaders.h; sourceTree = "<group>"; };
@@ -1395,6 +1396,7 @@
 				55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */,
 				55BE4ADD2708C2C000100A7D /* HQImageView.swift */,
 				4B807BA305BFEE2700681653 /* ZoomiFictionController.h */,
+				55BE4B18270ACA4000100A7D /* ZoomiFictionController+OldWebKit.h */,
 				4B807BA405BFEE2700681653 /* ZoomiFictionController.m */,
 				4B926A1D0CD1480B00CE0ADB /* ZoomJSError.h */,
 				4B926A1E0CD1480B00CE0ADB /* ZoomJSError.m */,

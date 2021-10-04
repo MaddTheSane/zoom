@@ -12,7 +12,7 @@
 #import <ZoomView/ZoomSkeinItem.h>
 #import <ZoomView/ZoomViewProtocols.h>
 
-extern NSNotificationName const ZoomSkeinChangedNotification;
+extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomSkein.changedNotification);
 
 @interface ZoomSkein : NSObject <ZoomViewOutputReceiver> {
 	ZoomSkeinItem* rootItem;

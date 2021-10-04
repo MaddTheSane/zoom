@@ -21,7 +21,8 @@
 #import "ZoomJSError.h"
 #import "ZoomSignPost.h"
 
-@interface ZoomiFictionController : NSWindowController <NSTextStorageDelegate, ZoomDownloadDelegate, NSTableViewDataSource, NSOpenSavePanelDelegate, NSControlTextEditingDelegate, NSMenuItemValidation, WebFrameLoadDelegate, WebPolicyDelegate> {
+@interface ZoomiFictionController : NSWindowController <NSTextStorageDelegate, ZoomDownloadDelegate, NSTableViewDataSource, NSOpenSavePanelDelegate, NSControlTextEditingDelegate, NSMenuItemValidation>
+{
 	IBOutlet NSButton* addButton;
 	IBOutlet NSButton* newgameButton;
 	IBOutlet NSButton* continueButton;
@@ -40,7 +41,6 @@
 	IBOutlet NSView* mainView;
 	IBOutlet NSView* browserView;
 	
-	IBOutlet WebView* ifdbView;
 	IBOutlet NSTextField* currentUrl;
 	IBOutlet NSButton* playButton;
 	IBOutlet NSButton* forwardButton;
