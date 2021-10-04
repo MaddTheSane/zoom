@@ -31,7 +31,7 @@
 		<key>InterpreterAuthor</key>
 		<string>Andrew Plotkin</string>
 		<key>InterpreterVersion</key>
-		<string>0.5.4</string>
+		<string>$(CURRENT_PROJECT_VERSION)</string>
 		<key>Version</key>
 		<string>1.0.4</string>
 		<key>ZoomVersion</key>
