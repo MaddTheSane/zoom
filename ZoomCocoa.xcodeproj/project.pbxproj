@@ -83,7 +83,7 @@
 		4B840B100CC2C3B10071F3B3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */; };
 		4B84FDDD0CAFC9970071F3B3 /* ZoomDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B84FDDB0CAFC9970071F3B3 /* ZoomDownload.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B84FDDE0CAFC9970071F3B3 /* ZoomDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B84FDDC0CAFC9970071F3B3 /* ZoomDownload.m */; };
-		4B87BA7309C9AB13005D6722 /* ifmetabase-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B87BA7109C9AAE1005D6722 /* ifmetabase-internal.h */; };
+		4B87BA7309C9AB13005D6722 /* ifmetabase-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B87BA7109C9AAE1005D6722 /* ifmetabase-internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4B926A120CD1464B00CE0ADB /* IFDB-error.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B926A0E0CD1464B00CE0ADB /* IFDB-error.png */; };
 		4B926A130CD1464B00CE0ADB /* ifdb-failed.html in Resources */ = {isa = PBXBuildFile; fileRef = 4B926A100CD1464B00CE0ADB /* ifdb-failed.html */; };
 		4B926A200CD1480B00CE0ADB /* ZoomJSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B926A1E0CD1480B00CE0ADB /* ZoomJSError.m */; };
@@ -108,40 +108,9 @@
 		4BA8B5820B1B053E007CD75E /* ZoomTextToSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE5F510075121A400C25A70 /* ZoomTextToSpeech.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BA8B5830B1B053E007CD75E /* ZoomTextToSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5F511075121A400C25A70 /* ZoomTextToSpeech.m */; };
 		4BA8B9530B1BB3F4007CD75E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F4B050FB2C500A8E303 /* main.m */; };
-		4BB8C0DE08C2452E00D7D334 /* operation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F82050F7CC500A8E303 /* operation.h */; };
 		4BB8C0E008C2452E00D7D334 /* gram.y in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F83050F7CC500A8E303 /* gram.y */; };
 		4BB8C0E108C2452E00D7D334 /* lex.l in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F81050F7CC500A8E303 /* lex.l */; };
 		4BB8C0E208C2452E00D7D334 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F80050F7CC500A8E303 /* main.c */; };
-		4BB8C12808C2497700D7D334 /* interp_z3.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F68050F7C2000A8E303 /* interp_z3.h */; };
-		4BB8C12908C2497700D7D334 /* interp_z4.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F6A050F7C2000A8E303 /* interp_z4.h */; };
-		4BB8C12A08C2497700D7D334 /* interp_gen.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F6B050F7C2000A8E303 /* interp_gen.h */; };
-		4BB8C12B08C2497700D7D334 /* interp_z5.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F6C050F7C2000A8E303 /* interp_z5.h */; };
-		4BB8C12C08C2497700D7D334 /* varop.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F6D050F7C2000A8E303 /* varop.h */; };
-		4BB8C12D08C2497700D7D334 /* interp_z6.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F6E050F7C2000A8E303 /* interp_z6.h */; };
-		4BB8C12E08C2497700D7D334 /* rc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F8A050F7D5200A8E303 /* rc.h */; };
-		4BB8C12F08C2497700D7D334 /* font3.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F8B050F7D5200A8E303 /* font3.h */; };
-		4BB8C13008C2497700D7D334 /* rcp.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F93050F7D5200A8E303 /* rcp.h */; };
-		4BB8C13108C2497700D7D334 /* options.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F97050F7D5200A8E303 /* options.h */; };
-		4BB8C13208C2497700D7D334 /* menu.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F98050F7D5200A8E303 /* menu.h */; };
-		4BB8C13308C2497700D7D334 /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F9A050F7D5200A8E303 /* file.h */; };
-		4BB8C13408C2497700D7D334 /* hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F9B050F7D5200A8E303 /* hash.h */; };
-		4BB8C13508C2497700D7D334 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FB0050F7DE200A8E303 /* debug.h */; };
-		4BB8C13608C2497700D7D334 /* zmachine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FB1050F7DE200A8E303 /* zmachine.h */; };
-		4BB8C13708C2497700D7D334 /* zscii.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FB2050F7DE200A8E303 /* zscii.h */; };
-		4BB8C13808C2497700D7D334 /* tokenise.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FB4050F7DE200A8E303 /* tokenise.h */; };
-		4BB8C13908C2497700D7D334 /* state.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FB8050F7DE200A8E303 /* state.h */; };
-		4BB8C13A08C2497700D7D334 /* stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FBB050F7DE200A8E303 /* stream.h */; };
-		4BB8C13B08C2497700D7D334 /* random.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FBE050F7DE200A8E303 /* random.h */; };
-		4BB8C13C08C2497700D7D334 /* interp.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FBF050F7DE200A8E303 /* interp.h */; };
-		4BB8C13D08C2497700D7D334 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FD7050F7E3100A8E303 /* config.h */; };
-		4BB8C13E08C2497700D7D334 /* ztypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3FD9050F7E4300A8E303 /* ztypes.h */; };
-		4BB8C13F08C2497700D7D334 /* ZoomProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F27050F8BB200A8E303 /* ZoomProtocol.h */; };
-		4BB8C14008C2497700D7D334 /* display.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F2D050F8ECD00A8E303 /* display.h */; };
-		4BB8C14108C2497700D7D334 /* ZoomServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F2F050F9E8F00A8E303 /* ZoomServer.h */; };
-		4BB8C14208C2497700D7D334 /* ZoomZMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F33050FAE5700A8E303 /* ZoomZMachine.h */; };
-		4BB8C14308C2497700D7D334 /* v6display.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F5F050FBAAF00A8E303 /* v6display.h */; };
-		4BB8C14408C2497700D7D334 /* image.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCF3F62050FBB3F00A8E303 /* image.h */; };
-		4BB8C14508C2497700D7D334 /* blorb.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1E3F99050F7D5200A8E303 /* blorb.h */; };
 		4BB8C14708C2497700D7D334 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F89050F7D5200A8E303 /* iff.c */; };
 		4BB8C14808C2497700D7D334 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8C050F7D5200A8E303 /* main.c */; };
 		4BB8C14908C2497700D7D334 /* rc_parse.y in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8D050F7D5200A8E303 /* rc_parse.y */; };
@@ -604,8 +573,8 @@
 		4B39CA0408EEF8C600BA5E90 /* Copy Metadata importer */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = ../Library/Spotlight;
-			dstSubfolderSpec = 7;
+			dstPath = Contents/Library/Spotlight;
+			dstSubfolderSpec = 1;
 			files = (
 				4B39CA0708EEF8DE00BA5E90 /* ZoomMetadataImporter.mdimporter in Copy Metadata importer */,
 			);
@@ -637,8 +606,8 @@
 		4BA375E60CD3CC1500C7B1D4 /* Copy QuickLook plugins */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = ../Library/QuickLook;
-			dstSubfolderSpec = 7;
+			dstPath = Contents/Library/QuickLook;
+			dstSubfolderSpec = 1;
 			files = (
 				4BA375E80CD3CC2B00C7B1D4 /* ZoomSaveQuickLook.qlgenerator in Copy QuickLook plugins */,
 			);
@@ -1701,51 +1670,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4BB8C0DD08C2452E00D7D334 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4BB8C0DE08C2452E00D7D334 /* operation.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BB8C12708C2497700D7D334 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4BB8C12808C2497700D7D334 /* interp_z3.h in Headers */,
-				4BB8C12908C2497700D7D334 /* interp_z4.h in Headers */,
-				4BB8C12A08C2497700D7D334 /* interp_gen.h in Headers */,
-				4BB8C12B08C2497700D7D334 /* interp_z5.h in Headers */,
-				4BB8C12C08C2497700D7D334 /* varop.h in Headers */,
-				4BB8C12D08C2497700D7D334 /* interp_z6.h in Headers */,
-				4BB8C12E08C2497700D7D334 /* rc.h in Headers */,
-				4BB8C12F08C2497700D7D334 /* font3.h in Headers */,
-				4BB8C13008C2497700D7D334 /* rcp.h in Headers */,
-				4BB8C13108C2497700D7D334 /* options.h in Headers */,
-				4BB8C13208C2497700D7D334 /* menu.h in Headers */,
-				4BB8C13308C2497700D7D334 /* file.h in Headers */,
-				4BB8C13408C2497700D7D334 /* hash.h in Headers */,
-				4BB8C13508C2497700D7D334 /* debug.h in Headers */,
-				4BB8C13608C2497700D7D334 /* zmachine.h in Headers */,
-				4BB8C13708C2497700D7D334 /* zscii.h in Headers */,
-				4BB8C13808C2497700D7D334 /* tokenise.h in Headers */,
-				4BB8C13908C2497700D7D334 /* state.h in Headers */,
-				4BB8C13A08C2497700D7D334 /* stream.h in Headers */,
-				4BB8C13B08C2497700D7D334 /* random.h in Headers */,
-				4BB8C13C08C2497700D7D334 /* interp.h in Headers */,
-				4BB8C13D08C2497700D7D334 /* config.h in Headers */,
-				4BB8C13E08C2497700D7D334 /* ztypes.h in Headers */,
-				4BB8C13F08C2497700D7D334 /* ZoomProtocol.h in Headers */,
-				4BB8C14008C2497700D7D334 /* display.h in Headers */,
-				4BB8C14108C2497700D7D334 /* ZoomServer.h in Headers */,
-				4BB8C14208C2497700D7D334 /* ZoomZMachine.h in Headers */,
-				4BB8C14308C2497700D7D334 /* v6display.h in Headers */,
-				4BB8C14408C2497700D7D334 /* image.h in Headers */,
-				4BB8C14508C2497700D7D334 /* blorb.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4BD2747B08701E6700C1AE15 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1885,7 +1809,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BB8C0E508C2452E00D7D334 /* Build configuration list for PBXNativeTarget "Builder" */;
 			buildPhases = (
-				4BB8C0DD08C2452E00D7D334 /* Headers */,
 				4BB8C0DF08C2452E00D7D334 /* Sources */,
 				4BB8C0E308C2452E00D7D334 /* Frameworks */,
 			);
@@ -1903,10 +1826,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BB8C16608C2497700D7D334 /* Build configuration list for PBXNativeTarget "ZoomServer" */;
 			buildPhases = (
-				4BB8C12708C2497700D7D334 /* Headers */,
 				4BB8C14608C2497700D7D334 /* Sources */,
 				4BB8C16108C2497700D7D334 /* Frameworks */,
-				4BB8C16508C2497700D7D334 /* Rez */,
 			);
 			buildRules = (
 				4B51A94D08FAC6B300232D0B /* PBXBuildRule */,
@@ -2213,16 +2134,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXRezBuildPhase section */
-		4BB8C16508C2497700D7D334 /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXRezBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */ = {

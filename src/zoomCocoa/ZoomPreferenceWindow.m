@@ -430,16 +430,16 @@ static void appendStyle(NSMutableString* styleName,
 		NSArray* fontArray = [prefs fonts];
 		
 		if ([[aTableColumn identifier] isEqualToString: @"Style"]) {
-			NSMutableString* name = [NSMutableString string];
+			NSMutableString* name = [NSMutableString stringWithCapacity:20];
 			
 			if (rowIndex&1) appendStyle(name, @"bold");
 			if (rowIndex&2) appendStyle(name, @"italic");
 			if (rowIndex&4) appendStyle(name, @"fixed");
 			if (rowIndex&8) appendStyle(name, @"symbolic");
 			
-			if ([name isEqualToString: @""]) name = [@"roman" mutableCopy];
+			if ([name isEqualToString: @""]) [name setString:@"roman"];
 			
-			return name;
+			return [name copy];
 		} else if ([[aTableColumn identifier] isEqualToString: @"Font"]) {
 			NSString* fontName;
 			NSFont* font = [fontArray objectAtIndex: rowIndex];
@@ -451,8 +451,7 @@ static void appendStyle(NSMutableString* styleName,
 			NSAttributedString* res;
 			
 			res = [[NSAttributedString alloc] initWithString: fontName
-												   attributes: [NSDictionary dictionaryWithObject: font
-																						   forKey: NSFontAttributeName]];
+												  attributes: @{NSFontAttributeName: font}];
 			
 			return res;
 		}

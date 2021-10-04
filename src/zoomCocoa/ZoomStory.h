@@ -75,7 +75,7 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 
 // Identifying and comparing stories
 //! Compound ID
-- (nullable ZoomStoryID*) storyID;
+@property (readonly, strong, nullable) ZoomStoryID *storyID;
 //! Array of ZoomStoryIDs
 @property (nonatomic, readonly, copy, nullable) NSArray<ZoomStoryID*> *storyIDs;
 //! Story answers to this ID
