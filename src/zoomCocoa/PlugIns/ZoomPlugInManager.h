@@ -13,71 +13,68 @@
 @protocol ZoomPlugInManagerDelegate;
 
 // Notifications
-extern NSNotificationName const ZoomPlugInInformationChangedNotification;	// Notification that the set of plugin information has changed
+/// Notification that the set of plugin information has changed
+extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 
-//
-// Class that manages the plugins installed with Zoom
-//
-@interface ZoomPlugInManager : NSObject<ZoomDownloadDelegate> {
-	NSLock* pluginLock;										// The plugin lock
-	__weak id<ZoomPlugInManagerDelegate> delegate;					// The delegate for this class
-	
-	NSMutableArray<NSBundle*>* pluginBundles;				// The bundles containing the loaded plugins
-	NSMutableArray<Class>* pluginClasses;					// The ZoomPlugIn classes from the bundles
-	NSMutableDictionary<NSString*,NSString*>* pluginsToVersions;// Array mapping plugin versions to names
-	
-	NSMutableArray* pluginInformation;						// Information about all plugins known about by this object (including those that live elsewhere)
-	
-	NSString* lastPlistPlugin;								// The path of the last plugin we retrieved a plist for
-	NSDictionary* lastPlist;								// The plist retrieved from the lastPlistPlugin
-	
-	NSMutableArray* checkUrls;								// Check for updates URLs that are still waiting to be processed
-	NSURLRequest* lastRequest;								// The last check for updates request that was sent
-	NSURLConnection* checkConnection;						// The connection for the last request
-	NSURLResponse* checkResponse;							// The response to the last check for updates request
-	NSMutableData* checkData;								// The data returned for the last check for updates request
-	
-	BOOL restartRequired;									// Set to YES if a restart is required
-	BOOL downloading;										// YES if we're downloading updates
-	ZoomPlugInInfo* downloadInfo;							// The plug in that we're performing a download for
-	ZoomDownload* currentDownload;							// The active download for this object
-}
+/// Class that manages the plugins installed with Zoom
+@interface ZoomPlugInManager : NSObject<ZoomDownloadDelegate>
 
-+ (ZoomPlugInManager*) sharedPlugInManager;					//!< The shared plug-in manager
-+ (NSString*) plugInsPath;									//!< The plug-in installation directory
+/// The shared plug-in manager
+@property (class, readonly, retain) ZoomPlugInManager *sharedPlugInManager;
+/// The plug-in installation directory
+@property (class, readonly, copy) NSString *plugInsPath;
 
 // Setting the delegate
 @property (weak) id<ZoomPlugInManagerDelegate> delegate;	//!< Sets a new plug-in delegate
 
 // Dealing with existing plugins
-- (void) loadPlugIns;										//!< Causes this class to load all of the plugins
-- (Class) plugInForFile: (NSString*) fileName;				//!< Gets the plugin for the specified file
-- (ZoomPlugIn*) instanceForFile: (NSString*) filename;		//!< Gets a plug-in instance for the specified file
+/// Causes this class to load all of the plugins
+- (void) loadPlugIns;
+/// Gets the plugin for the specified file
+- (Class) plugInForFile: (NSString*) fileName;
+/// Gets a plug-in instance for the specified file
+- (ZoomPlugIn*) instanceForFile: (NSString*) filename;
 
-- (NSArray<NSBundle*>*) pluginBundles;						//!< The loaded plugin bundles
-- (NSArray<NSString*>*) loadedPlugIns;						//!< Array of strings indicating the names of the loaded plugins
-- (NSString*) versionForPlugIn: (NSString*) plugin;			//!< Returns the version of the plugin with the specified name
+//// The loaded plugin bundles
+- (NSArray<NSBundle*>*) pluginBundles;
+/// Array of strings indicating the names of the loaded plugins
+- (NSArray<NSString*>*) loadedPlugIns;
+/// Returns the version of the plugin with the specified name
+- (NSString*) versionForPlugIn: (NSString*) plugin;
 - (BOOL) version: (NSString*) oldVersion					// Compares 
 	 isNewerThan: (NSString*) newVerison;
 
 // Installing new plugins
-- (void) finishedWithObject;								//!< Indicates that this object has been finished with and any files should be deleted
+//// Indicates that this object has been finished with and any files should be deleted
+- (void) finishedWithObject;
 
-- (void) downloadUpdates;									//!< Request that all known updates and new plugins be downloaded
-- (BOOL) installPlugIn: (NSString*) pluginBundle;			//!< Requests that the specified plugin be installed
-- (void) finishUpdatingPlugins;								//!< Causes Zoom to finish updating any plugins after a restart
-- (BOOL) restartRequired;									//!< YES if a restart is required
+/// Request that all known updates and new plugins be downloaded
+- (void) downloadUpdates;
+/// Requests that the specified plugin be installed
+- (BOOL) installPlugIn: (NSString*) pluginBundle;
+/// Causes Zoom to finish updating any plugins after a restart
+- (void) finishUpdatingPlugins;
+/// \c YES if a restart is required
+@property (readonly) BOOL restartRequired;
 
-- (NSDictionary*) plistForBundle: (NSString*) pluginBundle;	//!< Retrieves the plist dictionary for the specified plugin bundle
-- (NSString*) nameForBundle: (NSString*) pluginBundle;		//!< Retrieves the display name of the specified plugin bundle
-- (NSString*) authorForBundle: (NSString*) pluginBundle;	//!< Retrieves the author of the specified plugin
-- (NSString*) terpAuthorForBundle: (NSString*) pluginBundle;	//!< Retrieves the author of the interpreter of the specified plugin
-- (NSString*) versionForBundle: (NSString*) pluginBundle;	//!< Retrieves the version number of the specified plugin bundle
+/// Retrieves the plist dictionary for the specified plugin bundle
+- (NSDictionary<NSString*,id>*) plistForBundle: (NSString*) pluginBundle;
+/// Retrieves the display name of the specified plugin bundle
+- (NSString*) nameForBundle: (NSString*) pluginBundle;
+/// Retrieves the author of the specified plugin
+- (NSString*) authorForBundle: (NSString*) pluginBundle;
+/// Retrieves the author of the interpreter of the specified plugin
+- (NSString*) terpAuthorForBundle: (NSString*) pluginBundle;
+/// Retrieves the version number of the specified plugin bundle
+- (NSString*) versionForBundle: (NSString*) pluginBundle;
 
 // Getting information about plugins
-- (NSArray<ZoomPlugInInfo*>*) informationForPlugins;		//!< Array of ZoomPlugInInfo objects containing the information about all the plugins known about by this object
-- (void) checkForUpdatesFrom: (NSArray<NSURL*>*) urls;		//!< Performs a check for updates operation on the specified URLs
-- (void) checkForUpdates;									//!< Performs a general check for updates operation
+/// Array of \c ZoomPlugInInfo objects containing the information about all the plugins known about by this object
+- (NSArray<ZoomPlugInInfo*>*) informationForPlugins;
+/// Performs a check for updates operation on the specified URLs
+- (void) checkForUpdatesFrom: (NSArray<NSURL*>*) urls;
+/// Performs a general check for updates operation
+- (void) checkForUpdates;
 
 @end
 

@@ -38,9 +38,6 @@
 	return self;
 }
 
-- (ZoomSkeinItem*) rootItem {
-	return rootItem;
-}
 @synthesize rootItem;
 @synthesize activeItem;
 

@@ -11,7 +11,45 @@
 
 NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
 
-@implementation ZoomPlugInManager
+@implementation ZoomPlugInManager {
+	/// The plugin lock
+	NSLock* pluginLock;
+	
+	/// The bundles containing the loaded plugins
+	NSMutableArray<NSBundle*>* pluginBundles;
+	/// The ZoomPlugIn classes from the bundles
+	NSMutableArray<Class>* pluginClasses;
+	/// Array mapping plugin versions to names
+	NSMutableDictionary<NSString*,NSString*>* pluginsToVersions;
+	
+	/// Information about all plugins known about by this object (including those that live elsewhere)
+	NSMutableArray* pluginInformation;
+	
+	/// The path of the last plugin we retrieved a plist for
+	NSString* lastPlistPlugin;
+	/// The plist retrieved from the lastPlistPlugin
+	NSDictionary* lastPlist;
+	
+	/// Check for updates URLs that are still waiting to be processed
+	NSMutableArray<NSURL*>* checkUrls;
+	/// The last check for updates request that was sent
+	NSURLRequest* lastRequest;
+	/// The connection for the last request
+	NSURLConnection* checkConnection;
+	/// The response to the last check for updates request
+	NSURLResponse* checkResponse;
+	/// The data returned for the last check for updates request
+	NSMutableData* checkData;
+	
+	/// Set to \c YES if a restart is required
+	BOOL restartRequired;
+	/// \c YES if we're downloading updates
+	BOOL downloading;
+	/// The plug in that we're performing a download for
+	ZoomPlugInInfo* downloadInfo;
+	/// The active download for this object
+	ZoomDownload* currentDownload;
+}
 
 // = Initialisation =
 
@@ -895,9 +933,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	}
 }
 
-- (BOOL) restartRequired {
-	return restartRequired;
-}
+@synthesize restartRequired;
 
 - (BOOL) installPlugIn: (NSString*) pluginBundle {
 	// Get the information for the bundle

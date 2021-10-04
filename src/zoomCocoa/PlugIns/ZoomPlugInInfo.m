@@ -159,7 +159,7 @@ static unsigned int ValueForHexChar(int hex) {
 @synthesize version;
 @synthesize interpreterAuthor;
 @synthesize interpreterVersion;
-@synthesize imagePath;
+@synthesize imagePath = image;
 @synthesize status;
 
 - (NSString*) description {
@@ -167,8 +167,8 @@ static unsigned int ValueForHexChar(int hex) {
 }
 
 @synthesize location;
-@synthesize updateInfo=updated;
-@synthesize download=updateDownload;
+@synthesize updateInfo = updated;
+@synthesize download = updateDownload;
 @synthesize md5;
 @synthesize updateUrl;
 

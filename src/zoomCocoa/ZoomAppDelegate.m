@@ -121,7 +121,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	return nil;
 }
 
-- (BOOL)application: (NSApplication *)theApplication 
+- (BOOL)application: (NSApplication *)theApplication
 		   openFile: (NSString *)filename {
 	// Just show the existing document if it already exists
 	NSDocument* existingDocument = [[NSDocumentController sharedDocumentController] documentForURL: [NSURL fileURLWithPath: filename]];
@@ -421,7 +421,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: ZoomOpenPanelLocation];
 	if (directory == nil) {
-		directory = [NSURL fileURLWithPath: [@"~" stringByStandardizingPath]];
+		directory = [NSURL fileURLWithPath: NSHomeDirectory()];
 	}
 	
 	// Set up the open panel
@@ -448,7 +448,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 }
 
--(BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
 {
 	BOOL exists;
 	BOOL isDirectory;
@@ -499,7 +499,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	return NO;
 }
 
--(BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError * _Nullable *)outError {
+- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError * _Nullable *)outError {
 	if (![self panel: sender shouldEnableURL: url]) {
 		return NO;
 	}
@@ -563,6 +563,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
 	
+	[pasteboard clearContents];
 	[pasteboard declareTypes: @[NSPasteboardTypeString]
 					   owner: self];
 	[pasteboard setString: [[[ZoomSkeinController sharedSkeinController] skein] transcriptToPoint: nil] 

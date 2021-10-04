@@ -14,14 +14,11 @@
 //! Blinking cursor thing
 @interface ZoomCursor : NSObject {
 	NSRect cursorRect;
-	BOOL isBlinking, isShown, isActive, isFirst;
 	BOOL blink;
 	
 	NSPoint cursorPos;
 	
 	BOOL lastVisible, lastActive;
-	
-	__weak id<ZoomCursorDelegate> delegate;
 	
 	NSTimer* flasher;
 }

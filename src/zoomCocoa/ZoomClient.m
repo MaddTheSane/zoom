@@ -95,17 +95,31 @@
 	BOOL isForm = NO;
 	
 	// No valid game can be less than 40 bytes long (in fact, it must be longer but 40 bytes is needed for the ID, etc)
-	if ([data length] < 40) return NO;
+	if ([data length] < 40) {
+		if (outError) {
+			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+											code: NSFileReadCorruptFileError
+										userInfo: nil];
+		}
+		return NO;
+	}
 	
 	// See if this looks like a Blorb file (begins with 'FORM')
 	if (bytes[0] == 'F' && bytes[1] == 'O' && bytes[2] == 'R' && bytes[3] == 'M') isForm = YES;
 	
-	if ([[type lowercaseString] isEqualToString: @"blorb resource file"] || isForm) {
+	if ([type isEqualToString: @"public.blorb"] || isForm) {
 		// Blorb files already have their resources pre-packaged: get the Z-Code chunk out of this file
 		gameData = nil;
 		
 		ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithData: data];
-		if (newRes == nil) return NO;
+		if (newRes == nil) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+												code: NSFileReadCorruptFileError
+											userInfo: nil];
+			}
+			return NO;
+		}
 		
 		[self setResources: newRes];
 		
@@ -119,7 +133,14 @@
 		}
 		
 		gameData = [newRes dataForChunk: [zcodChunks objectAtIndex: 0]];
-		if (gameData == nil) return NO;
+		if (gameData == nil) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+												code: NSFileReadCorruptFileError
+											userInfo: nil];
+			}
+			return NO;
+		}
 	} else {
 		// Just a plain z-code file: load the lot
 		gameData = data;
@@ -423,7 +444,7 @@
 		
 		[self setFileURL: [NSURL fileURLWithPath: gameFile]];
 		return [self readFromData: data
-						   ofType: @"ZCode story"
+						   ofType: @"public.zcode"
 							error: outError];
 	}
 	
@@ -464,7 +485,7 @@
 	
 	[self setFileURL: [NSURL fileURLWithPath: gameFile]];
 	return [self readFromData: data
-					   ofType: @"ZCode story"
+					   ofType: @"public.zcode"
 						error: outError];
 }
 

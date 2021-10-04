@@ -574,7 +574,9 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError * _Nullable *)outError {
-	if (![self panel: sender shouldEnableURL: url]) return NO;
+	if (![self panel: sender shouldEnableURL: url]) {
+		return NO;
+	}
 	
 	BOOL exists;
 	BOOL isDirectory;

@@ -128,7 +128,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		itemWidth = defaultItemWidth;
 		itemHeight = defaultItemHeight;
 		
-		[self registerForDraggedTypes: [NSArray arrayWithObjects: ZoomSkeinItemPboardType, nil]];
+		[self registerForDraggedTypes: @[ZoomSkeinItemPboardType]];
     }
 	
     return self;
@@ -1158,7 +1158,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	}
 }
 
--(void) draggingSession: (NSDraggingSession *)session
+- (void)draggingSession: (NSDraggingSession *)session
 		   endedAtPoint: (NSPoint)screenPoint
 			  operation: (NSDragOperation)operation {
 	if ((operation&NSDragOperationMove) && clickedItem != nil && dragCanMove) {

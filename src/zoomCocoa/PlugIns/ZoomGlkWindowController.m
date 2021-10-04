@@ -436,20 +436,6 @@
 
 // = Closing the window =
 
-- (void) confirmFinish:(NSWindow *)sheet 
-			returnCode:(int)returnCode 
-		   contextInfo:(void *)contextInfo {
-	if (returnCode == NSAlertFirstButtonReturn) {
-		// Close the window
-		closeConfirmed = YES;
-		[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
-											 target: [self window]
-										   argument: self
-											  order: 32
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
-	}
-}
-
 - (BOOL) windowShouldClose: (id) sender {
 	// Get confirmation if required
 	if (!closeConfirmed && running && [[ZoomPreferences globalPreferences] confirmGameClose]) {
@@ -510,6 +496,7 @@
 			[normalWindow makeKeyAndOrderFront: self];
 			
 			[fullscreenWindow orderOut: self];
+			fullscreenWindow = nil;
  		}
 		
 		//[self setWindowFrameAutosaveName: @"ZoomClientWindow"];
