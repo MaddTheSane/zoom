@@ -184,7 +184,6 @@
 		4BB8C1E308C249F400D7D334 /* ZoomAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B23C64F053C9C8C00A8E303 /* ZoomAppDelegate.m */; };
 		4BB8C1E408C249F400D7D334 /* ZoomPreferenceWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B418DC40594FB97009C44DE /* ZoomPreferenceWindow.m */; };
 		4BB8C1EA08C249F400D7D334 /* ZoomiFictionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B807BA405BFEE2700681653 /* ZoomiFictionController.m */; };
-		4BB8C1ED08C249F400D7D334 /* ZoomCollapsableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B926F8905E7F9DA00E5C0EA /* ZoomCollapsableView.m */; };
 		4BB8C1F208C249F400D7D334 /* ZoomCollapsingSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B5CBB2E069D640900C0AA88 /* ZoomCollapsingSplitView.m */; };
 		4BB8C1F308C249F400D7D334 /* ZoomStoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B5CBB78069D656000C0AA88 /* ZoomStoryTableView.m */; };
 		4BB8C1F408C249F400D7D334 /* ZoomResourceDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5562106B83F4600F0DD4A /* ZoomResourceDrop.m */; };
@@ -832,8 +831,6 @@
 		4B926A110CD1464B00CE0ADB /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = en; path = "en.lproj/ifdb-failed.html"; sourceTree = "<group>"; };
 		4B926A1D0CD1480B00CE0ADB /* ZoomJSError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomJSError.h; sourceTree = "<group>"; };
 		4B926A1E0CD1480B00CE0ADB /* ZoomJSError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomJSError.m; sourceTree = "<group>"; };
-		4B926F8805E7F9DA00E5C0EA /* ZoomCollapsableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomCollapsableView.h; sourceTree = "<group>"; };
-		4B926F8905E7F9DA00E5C0EA /* ZoomCollapsableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomCollapsableView.m; sourceTree = "<group>"; };
 		4B94AEEF0CD4B2E5003C75A6 /* ZoomLeopard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomLeopard.h; sourceTree = "<group>"; };
 		4B94AEF00CD4B2E5003C75A6 /* ZoomLeopard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomLeopard.m; sourceTree = "<group>"; };
 		4B94B15E0CD537B8003C75A6 /* ZoomSignPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSignPost.h; sourceTree = "<group>"; };
@@ -1392,8 +1389,6 @@
 			isa = PBXGroup;
 			children = (
 				4B0D80D40AC58D9E003E8CCA /* FlipView */,
-				4B926F8805E7F9DA00E5C0EA /* ZoomCollapsableView.h */,
-				4B926F8905E7F9DA00E5C0EA /* ZoomCollapsableView.m */,
 				55BE4B10270AB65400100A7D /* ZoomCollapsableView.swift */,
 				4B5CBB2D069D640900C0AA88 /* ZoomCollapsingSplitView.h */,
 				4B5CBB2E069D640900C0AA88 /* ZoomCollapsingSplitView.m */,
@@ -2356,7 +2351,6 @@
 				4BB8C1E308C249F400D7D334 /* ZoomAppDelegate.m in Sources */,
 				4BB8C1E408C249F400D7D334 /* ZoomPreferenceWindow.m in Sources */,
 				4BB8C1EA08C249F400D7D334 /* ZoomiFictionController.m in Sources */,
-				4BB8C1ED08C249F400D7D334 /* ZoomCollapsableView.m in Sources */,
 				4BB8C1F208C249F400D7D334 /* ZoomCollapsingSplitView.m in Sources */,
 				4BB8C1F308C249F400D7D334 /* ZoomStoryTableView.m in Sources */,
 				4BB8C1F408C249F400D7D334 /* ZoomResourceDrop.m in Sources */,

@@ -9,7 +9,7 @@
 #import <AppKit/AppKit.h>
 #import <WebKit/WebKit.h>
 #import <ZoomPlugIns/ZoomStory.h>
-#import "ZoomCollapsableView.h"
+@class CollapsableView;
 @class SavePreviewView;
 #import "ZoomCollapsingSplitView.h"
 #import <ZoomPlugIns/ZoomResourceDrop.h>
@@ -28,7 +28,7 @@
 	// IBOutlet NSButton* drawerButton;
 	IBOutlet NSButton* infoButton;
 	
-	//IBOutlet ZoomCollapsableView* collapseView;
+	//IBOutlet CollapsableView* collapseView;
 	
 	IBOutlet ZoomFlipView* flipView;
 	IBOutlet NSView* topPanelView;
