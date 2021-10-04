@@ -20,15 +20,21 @@ class CollapsableView: NSView {
 	override init(frame frameRect: NSRect) {
 		super.init(frame: frameRect)
 		
+		afterInitSetup()
+	}
+	
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+		
+		afterInitSetup()
+	}
+	
+	private func afterInitSetup() {
 		postsFrameChangedNotifications = true
 		NotificationCenter.default.addObserver(self,
 											   selector: #selector(self.subviewFrameChanged(_:)),
 											   name: NSView.frameDidChangeNotification,
 											   object: self)
-	}
-	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 	
 	deinit {
@@ -95,8 +101,8 @@ class CollapsableView: NSView {
 	// MARK: - Management
 	
 	@objc func removeAllSubviews() {
-		for subview in views {
-			subview.view.removeFromSuperview()
+		for (subview, _, _) in views {
+			subview.removeFromSuperview()
 		}
 		
 		views.removeAll()
@@ -335,7 +341,7 @@ class CollapsableView: NSView {
 	}
 	
 	@objc private func finishChangingFrames(_ sender: Any?) {
-		for view in views.map({$0.view}) {
+		for (view, _, _) in views {
 			var viewFrame = view.frame
 			if viewFrame.size.width != bounds.size.width - (BORDER*4) {
 				viewFrame.size.width = bounds.size.width - (BORDER*4)

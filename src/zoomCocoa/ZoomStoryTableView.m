@@ -13,20 +13,19 @@
 
 @implementation ZoomStoryTableView
 
-// draggingSourceOperationmaskForLocal:
-//
-//
-
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal
+-     (NSDragOperation)draggingSession:(NSDraggingSession *)session
+ sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
-    if( isLocal )
-	{
-        return NSDragOperationNone;
-    }
-	else
-	{
-        return NSDragOperationCopy;
-    }
+	switch (context) {
+		case NSDraggingContextOutsideApplication:
+			return NSDragOperationCopy;
+			break;
+			
+		default:
+		case NSDraggingContextWithinApplication:
+			return NSDragOperationNone;
+			break;
+	}
 }
 
 // keyDown:

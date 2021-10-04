@@ -17,8 +17,6 @@
 	BOOL willEdit;
 }
 
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal;
-
 - (void)keyDown:(NSEvent *)theEvent;
 - (void)mouseDown:(NSEvent*)theEvent;
 
