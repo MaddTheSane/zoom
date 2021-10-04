@@ -164,7 +164,7 @@ static NSDictionary*  itemDictionary = nil;
 	if ([[self window] contentView] == preferencePane) return;
 	
 	// Select the appropriate item in the toolbar
-	if ([toolbar respondsToSelector: @selector(setSelectedItemIdentifier:)]) {
+	{
 		NSToolbarItemIdentifier selected = nil;
 		
 		if (preferencePane == generalSettingsView) {

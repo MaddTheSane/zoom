@@ -1025,7 +1025,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	[fieldEditor setFont: [itemTextAttributes objectForKey: NSFontAttributeName]];
 	
 	[fieldEditor setRichText:NO];
-	if ([fieldEditor respondsToSelector: @selector(setAllowsDocumentBackgroundColorChange:)]) [fieldEditor setAllowsDocumentBackgroundColorChange:NO];
+	[fieldEditor setAllowsDocumentBackgroundColorChange:NO];
 	[fieldEditor setBackgroundColor:[NSColor whiteColor]];
 	
 	[[fieldEditor textContainer] setContainerSize: NSMakeSize(NSInsetRect(itemFrame, 2.0, 2.0).size.width, 1e6)];

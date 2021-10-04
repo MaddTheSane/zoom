@@ -1866,7 +1866,6 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 // = Prompting for files =
 - (void) setupPanel: (NSSavePanel*) panel
                type: (ZFileType) type {
-    BOOL supportsMessage = [panel respondsToSelector: @selector(setMessage:)];
     [panel setCanSelectHiddenExtension: YES];
 	[panel setDelegate: self];
     
@@ -1892,37 +1891,29 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         default:
         case ZFileQuetzal:
             typeCode = 'IFZS';
-            if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ saved game (quetzal) file", saveOpen]];
                 [panel setAllowedFileTypes: [NSArray arrayWithObjects: usePackage?@"zoomSave":@"qut", nil]];
-            }
             break;
             
         case ZFileData:
             typeCode = '\?\?\?\?';
-            if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ data file", saveOpen]];
                 
                 // (Assume if setMessage is supported, we have 10.3)
                 [panel setAllowsOtherFileTypes: YES];
                 [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"dat", @"qut", nil]];
-            }
             break;
             
         case ZFileRecording:
             typeCode = 'TEXT';
-            if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ command recording file", saveOpen]];
                 [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"txt", @"rec", nil]];
-            }
             break;
             
         case ZFileTranscript:
             typeCode = 'TEXT';
-            if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ transcript recording file", saveOpen]];
                 [panel setAllowedFileTypes: [NSArray arrayWithObject: (NSString*)kUTTypePlainText]];
-            }
             break;
     }
 }

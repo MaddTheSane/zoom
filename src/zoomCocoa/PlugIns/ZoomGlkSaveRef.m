@@ -123,7 +123,7 @@
 	
 	// Set the icon
 	NSImage* iconImage = [plugin coverImage];
-	if (iconImage && [[NSWorkspace sharedWorkspace] respondsToSelector: @selector(setIcon:forFile:options:)]) {
+	if (iconImage) {
 		NSImage* originalImage = [[NSWorkspace sharedWorkspace] iconForFileType: @"glksave"];
 		NSImage* newImage = [[NSImage alloc] initWithSize: NSMakeSize(128, 128)];
 		
