@@ -985,9 +985,9 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 		
 		if (!exists) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: pendingPlugIns
-										   withIntermediateDirectories:NO
-															attributes:nil
-																 error:NULL]) {
+										   withIntermediateDirectories: NO
+															attributes: nil
+																 error: NULL]) {
 				return NO;
 			}
 		}

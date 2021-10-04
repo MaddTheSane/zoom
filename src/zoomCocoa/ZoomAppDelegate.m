@@ -452,15 +452,15 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 {
 	BOOL exists;
 	BOOL isDirectory;
-	NSString *filename = [url path];
+	BOOL isPackage;
+	BOOL isReadable;
 	
-	exists = [[NSFileManager defaultManager] fileExistsAtPath: filename
-												  isDirectory: &isDirectory];
+	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, &isPackage, &isReadable);
 	if (!exists) return NO;
 	
 	// Show directories that are not packages
 	if (isDirectory) {
-		if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath: filename]) {
+		if (isPackage) {
 			return NO;
 		} else {
 			return YES;
@@ -468,7 +468,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 	
 	// Don't show non-readable files
-	if (![[NSFileManager defaultManager] isReadableFileAtPath: filename]) {
+	if (!isReadable) {
 		return NO;
 	}
 	
@@ -506,9 +506,11 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	BOOL exists;
 	BOOL isDirectory;
-	
-	exists = [[NSFileManager defaultManager] fileExistsAtPath: [url path]
-												  isDirectory: &isDirectory];
+	NSNumber *isDirectoryObj;
+
+	exists = [url checkResourceIsReachableAndReturnError: NULL];
+	[url getResourceValue:&isDirectoryObj forKey: NSURLIsDirectoryKey error: NULL];
+	isDirectory = [isDirectoryObj boolValue];
 	
 	if (!exists) return NO;
 	if (isDirectory) return NO;
@@ -646,3 +648,26 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 }
 
 @end
+
+BOOL urlIsAvailableAndIsDirectory(NSURL *url, BOOL *isDirectory, BOOL *isPackage, BOOL *isReadable) {
+	if (![url checkResourceIsReachableAndReturnError: NULL]) {
+		return NO;
+	}
+	if (isDirectory) {
+		NSNumber *dirNum;
+		[url getResourceValue: &dirNum forKey: NSURLIsDirectoryKey error: NULL];
+		*isDirectory = dirNum.boolValue;
+	}
+	if (isPackage) {
+		NSNumber *dirNum;
+		[url getResourceValue: &dirNum forKey: NSURLIsPackageKey error: NULL];
+		*isPackage = dirNum.boolValue;
+	}
+	if (isReadable) {
+		NSNumber *dirNum;
+		[url getResourceValue: &dirNum forKey: NSURLIsReadableKey error: NULL];
+		*isReadable = dirNum.boolValue;
+	}
+	
+	return YES;
+}

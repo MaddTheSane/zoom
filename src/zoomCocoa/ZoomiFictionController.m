@@ -403,7 +403,7 @@ static dispatch_block_t onceTypesBlock = ^{
 #endif
 
 	// Add all the files we can
-	NSMutableArray<NSURL*>* selectedFiles = [filenames mutableCopy];
+	NSMutableArray<NSURL*> *selectedFiles = [filenames mutableCopy];
 	
 	while([selectedFiles count] > 0) @autoreleasepool {
 		BOOL isDir;
@@ -412,14 +412,13 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSString *path = filename.path;
 
 		isDir = NO;
-		[[NSFileManager defaultManager] fileExistsAtPath: path
-											 isDirectory: &isDir];
+		urlIsAvailableAndIsDirectory(filename, &isDir, NULL, NULL);
 		
 		NSString* fileType = [filename pathExtension];
 		Class plugin;
 		
 		if (isDir) {
-			NSArray<NSURL*>* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL: filename includingPropertiesForKeys:nil options: NSDirectoryEnumerationSkipsSubdirectoryDescendants error: NULL];
+			NSArray<NSURL*>* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL: filename includingPropertiesForKeys: @[NSURLIsDirectoryKey] options: NSDirectoryEnumerationSkipsSubdirectoryDescendants error: NULL];
 			
 			[selectedFiles addObjectsFromArray: dirContents];
 		} else if ([ZComFileTypes containsObject: fileType]) {
@@ -526,15 +525,15 @@ static dispatch_block_t onceTypesBlock = ^{
 - (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
 	BOOL exists;
 	BOOL isDirectory;
-	NSString *filename = [url path];
+	BOOL isPackage;
+	BOOL isReadable;
 	
-	exists = [[NSFileManager defaultManager] fileExistsAtPath: filename
-												  isDirectory: &isDirectory];
+	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, &isPackage, &isReadable);
 	if (!exists) return NO;
 	
 	// Show directories that are not packages
 	if (isDirectory) {
-		if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath: filename]) {
+		if (isPackage) {
 			return NO;
 		} else {
 			return YES;
@@ -542,7 +541,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 	
 	// Don't show non-readable files
-	if (![[NSFileManager defaultManager] isReadableFileAtPath: filename]) {
+	if (!isReadable) {
 		return NO;
 	}
 	
@@ -582,8 +581,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	BOOL exists;
 	BOOL isDirectory;
 	
-	exists = [[NSFileManager defaultManager] fileExistsAtPath: [url path]
-												  isDirectory: &isDirectory];
+	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, NULL, NULL);
 	
 	if (!exists) return NO;
 	if (isDirectory) return YES;
@@ -632,8 +630,8 @@ static dispatch_block_t onceTypesBlock = ^{
 			alert.messageText = @"Zoom cannot find this story";
 			alert.informativeText = [NSString stringWithFormat:@"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.",
 									 [[self selectedStory] title], filename];
-			[alert addButtonWithTitle:@"Cancel"];
-			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			[alert addButtonWithTitle: @"Cancel"];
+			[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 				// do nothing
 			}];
 			return;
@@ -2146,7 +2144,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		if ([[NSFileManager defaultManager] fileExistsAtPath: dir
 												 isDirectory: &isDir]) {
 			if (isDir) {
-				[[NSWorkspace sharedWorkspace] selectFile: [self selectedFilename] inFileViewerRootedAtPath: dir];
+				[[NSWorkspace sharedWorkspace] selectFile: [self selectedFilename]
+								 inFileViewerRootedAtPath: dir];
 			}
 		}
 	}
@@ -2172,8 +2171,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = @"Unable to load metadata";
 		alert.informativeText = @"Zoom encountered an error while trying to load an iFiction file.";
-		[alert addButtonWithTitle:@"Cancel"];
-		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		[alert addButtonWithTitle: @"Cancel"];
+		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
 		}];
 		return nil;
@@ -2184,8 +2183,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		alert.messageText = @"Unable to load metadata";
 		alert.informativeText = [NSString stringWithFormat:@"Zoom encountered an error (%@) while trying to load an iFiction file.",
 								 [[newData errors] objectAtIndex: 0]];
-		[alert addButtonWithTitle:@"Cancel"];
-		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		[alert addButtonWithTitle: @"Cancel"];
+		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
 		}];
 		return nil;
@@ -2348,42 +2347,44 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	// Iterate through the directory and organise any files that we find
 	NSMutableArray<ZoomStoryID*>* addedFiles = [NSMutableArray array];
-	NSDirectoryEnumerator<NSString *>* dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: directory];
-	NSString* signpostFile = nil;
-	for (__strong NSString* path in dirEnum) {
-		path = [directory stringByAppendingPathComponent: path];
-		path = [path stringByStandardizingPath];
-		
+	NSDirectoryEnumerator<NSURL *>* dirEnum = [[NSFileManager defaultManager] enumeratorAtURL: [NSURL fileURLWithPath:directory] includingPropertiesForKeys:@[NSURLIsDirectoryKey] options: (NSDirectoryEnumerationSkipsPackageDescendants | NSDirectoryEnumerationSkipsHiddenFiles) errorHandler:^BOOL(NSURL * _Nonnull url, NSError * _Nonnull error) {
+		return YES;
+	}];
+	NSURL* signpostFile = nil;
+	for (NSURL* path in dirEnum) {
 		// Must exist
 		BOOL isDir;
-		if (![[NSFileManager defaultManager] fileExistsAtPath: path
-												  isDirectory: &isDir]) {
+		NSNumber *isDirVal;
+		if ([path checkResourceIsReachableAndReturnError: NULL]) {
 			continue;
 		}
 		
 		// Must be a file
+		[path getResourceValue: &isDirVal forKey: NSURLIsDirectoryKey error: NULL];
+		isDir = [isDirVal boolValue];
 		if (isDir) continue;
 		
 		// Must be playable
-		if (![self canPlayFile: path]) continue;
+		if (![self canPlayFile: path.path]) continue;
 		
 		// Could be a signpost
 		if ([[[path pathExtension] lowercaseString] isEqualToString: @"signpost"]) {
 			signpostFile = path;
 			continue;
-		} else if ([[[path pathExtension] lowercaseString] isEqualToString: @"xml"] && [[[[path stringByDeletingPathExtension] pathExtension] lowercaseString] isEqualToString: @"signpost"]) {
+		} else if ([[[path pathExtension] lowercaseString] isEqualToString: @"xml"] && [[[[path URLByDeletingPathExtension] pathExtension] lowercaseString] isEqualToString: @"signpost"]) {
 			signpostFile = path;
 			continue;
 		}
 		
 		// Must have an ID
-		ZoomStoryID* storyId = [ZoomStoryID idForFile: path];
+		ZoomStoryID* storyId = [ZoomStoryID idForFile: path.path];
 		if (!storyId) continue;
 		
 		// Organise this file
-		[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: path
-												  withIdent: storyId
-												   organise: YES];
+		[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: path
+													withIdentity: storyId
+														organise: YES
+														   error: NULL];
 		[addedFiles addObject: storyId];
 	}
 	
@@ -2391,7 +2392,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	if ([addedFiles count] == 0) {
 		if (signpostFile != nil) {
 			// Play a signpost file
-			[self openSignPost: [NSData dataWithContentsOfFile: signpostFile]
+			[self openSignPost: [NSData dataWithContentsOfURL: signpostFile]
 				 forceDownload: YES];
 			return;
 		}
@@ -2400,8 +2401,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = @"The download did not contain any story files";
 		alert.informativeText = @"Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.";
-		[alert addButtonWithTitle:@"Cancel"];
-		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		[alert addButtonWithTitle: @"Cancel"];
+		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
 		}];
 	} else if ([addedFiles count] == 1) {
@@ -2459,7 +2460,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSUInteger filterRow = [filterSet1 indexOfObject: groupName];
 		if (filterRow != NSNotFound) {
 			[filterTable1 selectRowIndexes: [NSIndexSet indexSetWithIndex:filterRow+1]
-			   byExtendingSelection: NO];
+					  byExtendingSelection: NO];
 		}
 		
 		// If there's a signpost ID and we have that file, then open it
@@ -2633,8 +2634,8 @@ static dispatch_block_t onceTypesBlock = ^{
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = @"Could not download the plug-in";
 			alert.informativeText = @"Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed.";
-			[alert addButtonWithTitle:@"Cancel"];
-			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			[alert addButtonWithTitle: @"Cancel"];
+			[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 				// do nothing
 			}];
 		}
@@ -2668,8 +2669,8 @@ static dispatch_block_t onceTypesBlock = ^{
 	alert.messageText = @"Could not complete the download.";
 	alert.informativeText = [NSString stringWithFormat:@"An error was encountered while trying to download the requested file%@%@.",
 							 reason?@".\n\n":@"", reason];
-	[alert addButtonWithTitle:@"Cancel"];
-	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+	[alert addButtonWithTitle: @"Cancel"];
+	[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 		// do nothing
 	}];
 	
@@ -2752,11 +2753,14 @@ static dispatch_block_t onceTypesBlock = ^{
 		  decisionListener:(id<WebPolicyDecisionListener>)listener {
 	if (![WebView canShowMIMEType: type]) {
 		[listener ignore];
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = @"Zoom cannot download this type of file";
+		alert.informativeText = [NSString stringWithFormat: @"You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType \"%@\"", type];
+		[alert addButtonWithTitle: @"Cancel"];
+		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
+			
+		}];
 
-		NSBeginAlertSheet(@"Zoom cannot download this type of file", @"Cancel", nil,
-						  nil, [self window], nil, nil,
-						  nil,nil,
-						  @"You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType \"%@\"", type);
 	} else {
 		[listener use];
 	}
@@ -3029,8 +3033,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = @"IFDB has reported a problem with this game";
 		alert.informativeText = [signpost errorMessage];
-		[alert addButtonWithTitle:@"Cancel"];
-		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		[alert addButtonWithTitle: @"Cancel"];
+		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
 		}];
 		return;
@@ -3071,9 +3075,9 @@ static dispatch_block_t onceTypesBlock = ^{
 			alert.messageText = @"Zoom needs to download a new plug-in in order play this story";
 			alert.informativeText = @"In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\n"
 			"Plug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins.";
-			[alert addButtonWithTitle:@"Install plugin"];
-			[alert addButtonWithTitle:@"Cancel"];
-			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			[alert addButtonWithTitle: @"Install plugin"];
+			[alert addButtonWithTitle: @"Cancel"];
+			[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 				if (self->activeSignpost && returnCode == NSAlertFirstButtonReturn) {
 					// Get the update URL
 					NSURL* updateUrl = [self->activeSignpost interpreterURL];
@@ -3151,8 +3155,8 @@ static dispatch_block_t onceTypesBlock = ^{
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = @"Could not install the plug-in";
 	alert.informativeText = reason;
-	[alert addButtonWithTitle:@"Cancel"];
-	[alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
+	[alert addButtonWithTitle: @"Cancel"];
+	[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 		//do nothing
 	}];
 }

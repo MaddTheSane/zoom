@@ -71,7 +71,6 @@ class SavePreview : NSView {
 			}
 			// Ensure that this is a genuine savegame
 			var genuine = true
-			var isDir: ObjCBool = false
 			var reason: String? = nil
 			
 			let saveURL = self.fileURL!.deletingLastPathComponent()
@@ -80,11 +79,17 @@ class SavePreview : NSView {
 				genuine = false
 				reason = "File has the wrong extension (\(saveURL.pathExtension))"
 			}
-			if !FileManager.default.fileExists(atPath: saveURL.path, isDirectory: &isDir) {
+			if !((try? saveURL.checkResourceIsReachable()) ?? false) {
 				genuine = false
 				reason = reason ?? "File does not exist"
 			}
-			if !isDir.boolValue {
+			do {
+				let resVals = try saveURL.resourceValues(forKeys: [.isDirectoryKey])
+				if !(resVals.isDirectory!) {
+					genuine = false
+					reason = reason ?? "File is not a directory"
+				}
+			} catch {
 				genuine = false
 				reason = reason ?? "File is not a directory"
 			}
@@ -93,32 +98,21 @@ class SavePreview : NSView {
 			let zPreview = saveURL.appendingPathComponent("ZoomPreview.dat")
 			let status = saveURL.appendingPathComponent("ZoomStatus.dat")
 			
-			if !FileManager.default.fileExists(atPath: saveQut.path, isDirectory: &isDir) {
-				genuine = false
-				reason = reason ?? "Contents do not look like a saved game"
-			}
-			if isDir.boolValue {
+			if !fileExists(saveQut, needsToBeDirectory: false) {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
 			
-			if !FileManager.default.fileExists(atPath: zPreview.path, isDirectory: &isDir) {
+			if !fileExists(zPreview, needsToBeDirectory: false) {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
-			if isDir.boolValue {
+			
+			if !fileExists(status, needsToBeDirectory: false) {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
-
-			if !FileManager.default.fileExists(atPath: status.path, isDirectory: &isDir) {
-				genuine = false
-				reason = reason ?? "Contents do not look like a saved game"
-			}
-			if isDir.boolValue {
-				genuine = false
-				reason = reason ?? "Contents do not look like a saved game"
-			}
+			
 			guard genuine else {
 				let alert = NSAlert()
 				alert.messageText = "Invalid save game"
@@ -138,13 +132,12 @@ class SavePreview : NSView {
 	
 	@IBAction func revealInFinder(_ sender: Any?) {
 		let dir = fileURL!.deletingLastPathComponent().deletingLastPathComponent()
-		var isDir: ObjCBool = true
 		
-		guard FileManager.default.fileExists(atPath: dir.path, isDirectory: &isDir), isDir.boolValue else {
+		guard fileExists(dir, needsToBeDirectory: true) else {
 			return
 		}
 		
-		NSWorkspace.shared.activateFileViewerSelecting([dir])
+		NSWorkspace.shared.activateFileViewerSelecting([fileURL!.deletingLastPathComponent()])
 	}
 	
 	override func draw(_ dirtyRect: NSRect) {

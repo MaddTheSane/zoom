@@ -263,6 +263,7 @@
 		55BE4AF72709A23600100A7D /* QuestDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BE4AF52709A23600100A7D /* QuestDocument.xib */; };
 		55BE4AF8270A635600100A7D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 		55BE4B11270AB65400100A7D /* ZoomCollapsableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4B10270AB65400100A7D /* ZoomCollapsableView.swift */; };
+		55BE4B1F270BA75300100A7D /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4B1E270BA75300100A7D /* Misc.swift */; };
 		55BF2A1926FE78F900832C53 /* ZoomSavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */; };
 		55BF2A1B26FE7C9200832C53 /* ZoomSavePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */; };
 		55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D14CD727017521006DF31A /* ZoomViewHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -937,6 +938,7 @@
 		55BE4AF9270A645600100A7D /* varopdecode.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = varopdecode.pl; sourceTree = "<group>"; };
 		55BE4B10270AB65400100A7D /* ZoomCollapsableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomCollapsableView.swift; sourceTree = "<group>"; };
 		55BE4B18270ACA4000100A7D /* ZoomiFictionController+OldWebKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZoomiFictionController+OldWebKit.h"; sourceTree = "<group>"; };
+		55BE4B1E270BA75300100A7D /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 		55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreview.swift; sourceTree = "<group>"; };
 		55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSavePreviewView.swift; sourceTree = "<group>"; };
 		55D14CD727017521006DF31A /* ZoomViewHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomViewHeaders.h; sourceTree = "<group>"; };
@@ -1377,6 +1379,7 @@
 				4B5CBB78069D656000C0AA88 /* ZoomStoryTableView.m */,
 				4B840AC90CC2BB970071F3B3 /* ZoomWindowThatIsKey.h */,
 				4B840ACA0CC2BB970071F3B3 /* ZoomWindowThatIsKey.m */,
+				55BE4B1E270BA75300100A7D /* Misc.swift */,
 			);
 			name = iFiction;
 			sourceTree = "<group>";
@@ -2261,6 +2264,7 @@
 				4BB8C1E208C249F400D7D334 /* ZoomClient.m in Sources */,
 				55BE4ADC270832BA00100A7D /* FadeView.swift in Sources */,
 				55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */,
+				55BE4B1F270BA75300100A7D /* Misc.swift in Sources */,
 				4BB8C1E308C249F400D7D334 /* ZoomAppDelegate.m in Sources */,
 				4BB8C1E408C249F400D7D334 /* ZoomPreferenceWindow.m in Sources */,
 				4BB8C1EA08C249F400D7D334 /* ZoomiFictionController.m in Sources */,

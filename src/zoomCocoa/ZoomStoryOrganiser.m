@@ -749,9 +749,15 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	if (isDir) // Identification must be a file
 		return NO;
 	
-	ZoomStoryID* owner = [NSKeyedUnarchiver unarchiveObjectWithFile: idFile];
+	NSData *fileData = [NSData dataWithContentsOfFile: idFile];
+	if (!fileData) {
+		// we need data, of course
+		return NO;
+	}
+	
+	ZoomStoryID* owner = [NSKeyedUnarchiver unarchivedObjectOfClass: [ZoomStoryID class] fromData: fileData error: NULL];
 	if (!owner) {
-		owner = [NSUnarchiver unarchiveObjectWithFile: idFile];
+		owner = [NSUnarchiver unarchiveObjectWithData: fileData];
 	}
 	
 	if (owner && [owner isKindOfClass: [ZoomStoryID class]] && [owner isEqual: ident])
@@ -797,10 +803,12 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	if (!isDir) {
 		static BOOL warned = NO;
 		
-		if (!warned)
-			NSRunAlertPanel(@"Game library not found",
-							@"Warning: %@ is a file",
-							@"OK", nil, nil, rootDir);
+		if (!warned) {
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = @"Game library not found";
+			alert.informativeText = [NSString stringWithFormat:@"Warning: %@ is a file", rootDir];
+			[alert runModal];
+		}
 		warned = YES;
 		return nil;
 	}
