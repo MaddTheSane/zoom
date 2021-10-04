@@ -16,6 +16,8 @@
 #import <ZoomView/ZoomView.h>
 #import "ZoomLeopard.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SUUpdater;
 @interface ZoomAppDelegate : NSObject <NSApplicationDelegate, NSOpenSavePanelDelegate> {
 	ZoomPreferenceWindow* preferencePanel;
@@ -26,14 +28,16 @@
 }
 
 @property (readonly, copy) NSArray<ZoomMetadata*> *gameIndices;
-- (ZoomStory*) findStory: (ZoomStoryID*) gameID;
+- (nullable ZoomStory*) findStory: (ZoomStoryID*) gameID;
 - (ZoomMetadata*) userMetadata;
 
-@property (readonly, copy) NSString *zoomConfigDirectory;
+@property (readonly, copy, null_unspecified) NSString *zoomConfigDirectory;
 @property (readonly, strong) id<ZoomLeopard> leopard;
 
-- (IBAction) fixedOpenDocument: (id) sender;
-- (IBAction) showPluginManager: (id) sender;
-- (IBAction) checkForUpdates: (id) sender;
+- (IBAction) fixedOpenDocument: (nullable id) sender;
+- (IBAction) showPluginManager: (nullable id) sender;
+- (IBAction) checkForUpdates: (nullable id) sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

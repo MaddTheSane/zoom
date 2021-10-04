@@ -8,32 +8,35 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface ZoomStoryID : NSObject<NSCopying, NSSecureCoding> {
 	struct IFID* ident;
 	BOOL needsFreeing;
 }
 
-+ (ZoomStoryID*) idForFile: (NSString*) filename;
++ (nullable ZoomStoryID*) idForFile: (NSString*) filename;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
-- (id) initWithZCodeStory: (NSData*) gameData NS_DESIGNATED_INITIALIZER;
-- (id) initWithZCodeFile: (NSString*) zcodeFile NS_DESIGNATED_INITIALIZER;
-- (id) initWithGlulxFile: (NSString*) glulxFile NS_DESIGNATED_INITIALIZER;
-- (id) initWithData: (NSData*) genericGameData;
-- (id) initWithData: (NSData*) genericGameData
-			   type: (NSString*) type NS_DESIGNATED_INITIALIZER;
-- (id) initWithIdent: (struct IFID*) ident NS_DESIGNATED_INITIALIZER;
-- (id) initWithIdString: (NSString*) idString NS_DESIGNATED_INITIALIZER;
-- (id) initWithZcodeRelease: (int) release
-					 serial: (const unsigned char*) serial
-				   checksum: (int) checksum NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype) initWithZCodeStory: (NSData*) gameData;
+- (nullable instancetype) initWithZCodeFile: (NSString*) zcodeFile;
+- (nullable instancetype) initWithGlulxFile: (NSString*) glulxFile;
+- (nullable instancetype) initWithData: (NSData*) genericGameData;
+- (nullable instancetype) initWithData: (NSData*) genericGameData
+								  type: (NSString*) type;
+- (instancetype) initWithIdent: (struct IFID*) ident;
+- (instancetype) initWithIdString: (NSString*) idString;
+- (instancetype) initWithZcodeRelease: (int) release
+							   serial: (const unsigned char*) serial
+							 checksum: (int) checksum;
 
 @property (readonly) struct IFID *ident NS_RETURNS_INNER_POINTER;
 
-- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)coder;
 
 @end
 
 //! Set to \c YES to prevent the plug-in manager from looking at plug-ins.
 extern BOOL ZoomIsSpotlightIndexing;
+
+NS_ASSUME_NONNULL_END

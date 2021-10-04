@@ -45,7 +45,18 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		|| [extension isEqualToString: @"zlb"]
 		|| [extension isEqualToString: @"zblorb"]) {
 		result = [[ZoomStoryID alloc] initWithZCodeFile: filename];
-	}	
+	}
+	
+	// if that fails, try using glulx parsing.
+	if ((result == nil) &&
+		([extension isEqualToString: @"gblorb"]
+		 || [extension isEqualToString: @"glb"]
+		 || [extension isEqualToString: @"blb"]
+		 || [extension isEqualToString: @"blorb"]
+		 || [extension isEqualToString: @"zblorb"]
+		 || [extension isEqualToString: @"zlb"])) {
+		result = [[ZoomStoryID alloc] initWithGlulxFile: filename];
+	}
 	
 	return result;
 }
@@ -452,10 +463,6 @@ BOOL ZoomIsSpotlightIndexing = NO;
 	if (self) {
 		ident = IFMB_CopyId(idt);
 		needsFreeing = YES;
-		
-		if (ident == nil) {
-			return nil;
-		}
 	}
 	
 	return self;

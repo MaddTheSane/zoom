@@ -50,8 +50,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		// Load the metadata
 		NSData* userData = [NSData dataWithContentsOfFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]];
 		NSData* gameData = [NSData dataWithContentsOfFile: [configDir stringByAppendingPathComponent: @"gamedata.iFiction"]];
-		NSData* infocomData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"infocom" ofType: @"iFiction"]];
-		NSData* archiveData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"archive" ofType: @"iFiction"]];
+		NSData* infocomData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"infocom" withExtension: @"iFiction"]];
+		NSData* archiveData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"archive" withExtension: @"iFiction"]];
 		
 		if (userData) 
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: userData]];
@@ -286,7 +286,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 #ifdef DEVELOPMENTBUILD
 	// Tell launch services to re-register the application (ensures that all the icons are always up to date)
 	NSLog(@"Re-registering");
-	LSRegisterURL((CFURLRef)[NSURL fileURLWithPath: [[NSBundle mainBundle] bundlePath]], 1);
+	LSRegisterURL((CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
 #else
 	/*
 	NSLog(@"Re-registering");
@@ -367,7 +367,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 // = Application-wide data =
 
 - (NSArray*) gameIndices {
-	return gameIndices;
+	return [gameIndices copy];
 }
 
 - (ZoomStory*) findStory: (ZoomStoryID*) gameID {
@@ -389,10 +389,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
 	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-	
-	NSEnumerator* libEnum = [libraryDirs objectEnumerator];
 
-	for (NSString* libDir in libEnum) {
+	for (NSString* libDir in libraryDirs) {
 		BOOL isDir;
 		
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
@@ -403,9 +401,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		}
 	}
 	
-	libEnum = [libraryDirs objectEnumerator];
-	
-	for (NSString* libDir in libEnum) {
+	for (NSString* libDir in libraryDirs) {
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
 		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
 									  withIntermediateDirectories: NO
