@@ -11,6 +11,8 @@
 
 #include <expat.h>
 
+NSErrorDomain const ZoomSkeinXMLParserErrorDomain = @"uk.org.logicalshift.zoomview.skein.xmlerrors";
+
 //TODO: migrate to NSXML* classes?
 
 #pragma mark - XML input class
@@ -154,7 +156,7 @@ static NSString* xmlEncode(NSString* str) {
 
 // Have to use expat: Apple's own XML parser is not available in Jaguar
 
-- (BOOL) parseXmlData: (NSData*) data {
+- (BOOL) parseXmlData: (NSData*) data error: (NSError**) error {
 	@autoreleasepool {
 	
 	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
@@ -163,6 +165,14 @@ static NSString* xmlEncode(NSString* str) {
 	if (![inputParser processXML: data]) {
 		// Failed to parse
 		NSLog(@"ZoomSkein: Failed to parse skein XML data");
+		if (error) {
+			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+										 code: ZoomSkeinXMLErrorParserFailed
+									 userInfo: @{
+				NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to parse skein XML data",
+				NSLocalizedDescriptionKey: @"ZoomSkein: Failed to parse skein XML data"
+			}];
+		}
 		
 		return NO;
 	}
@@ -173,6 +183,14 @@ static NSString* xmlEncode(NSString* str) {
 	
 	if (skein == nil) {
 		NSLog(@"ZoomSkein: Failed to find root 'Skein' element");
+		if (error) {
+			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+										 code: ZoomSkeinXMLErrorNoRootSkein
+									 userInfo: @{
+				NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to find root 'Skein' element",
+				NSLocalizedDescriptionKey: @"ZoomSkein: Failed to find root 'Skein' element"
+			}];
+		}
 
 		return NO;
 	}
@@ -191,6 +209,15 @@ static NSString* xmlEncode(NSString* str) {
 	
 	if (rootNodeId == nil) {
 		NSLog(@"ZoomSkein: No root node ID specified");
+		if (error) {
+			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+										 code: ZoomSkeinXMLErrorNoRootNodeID
+									 userInfo: @{
+				NSDebugDescriptionErrorKey: @"ZoomSkein: No root node ID specified",
+				NSLocalizedDescriptionKey: @"ZoomSkein: No root node ID specified"
+			}];
+		}
+
 
 		return NO;
 	}
@@ -232,7 +259,16 @@ static NSString* xmlEncode(NSString* str) {
 		if (newItem == nil) {
 			// Should never happen
 			// (Hahaha)
-			NSLog(@"ZoomSkein: Programmer is a spoon (item ID: %@)", itemNodeId);
+			NSString *spoon = [NSString stringWithFormat:@"ZoomSkein: Programmer is a spoon (item ID: %@)", itemNodeId];
+			NSLog(@"%@", spoon);
+			if (error) {
+				*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+											 code: ZoomSkeinXMLErrorProgrammerIsASpoon
+										 userInfo: @{
+					NSDebugDescriptionErrorKey: spoon,
+					NSLocalizedDescriptionKey: spoon
+				}];
+			}
 			return NO;
 		}
 		
@@ -284,7 +320,16 @@ static NSString* xmlEncode(NSString* str) {
 		if (newItem == nil) {
 			// Should never happen
 			// (Hahaha)
-			NSLog(@"ZoomSkein: Programmer is a spoon (item ID: %@)", itemNodeId);
+			NSString *spoon = [NSString stringWithFormat:@"ZoomSkein: Programmer is a spoon (item ID: %@)", itemNodeId];
+			NSLog(@"%@", spoon);
+			if (error) {
+				*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+											 code: ZoomSkeinXMLErrorProgrammerIsASpoon
+										 userInfo: @{
+					NSDebugDescriptionErrorKey: spoon,
+					NSLocalizedDescriptionKey: spoon
+				}];
+			}
 			return NO;
 		}
 
@@ -317,6 +362,14 @@ static NSString* xmlEncode(NSString* str) {
 	// Root item
 	ZoomSkeinItem* newRoot = [itemDictionary objectForKey: rootNodeId];
 	if (newRoot == nil) {
+		if (error) {
+			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+										 code: ZoomSkeinXMLErrorNoRootNode
+									 userInfo: @{
+				NSDebugDescriptionErrorKey: @"ZoomSkein: No root node",
+				NSLocalizedDescriptionKey: @"ZoomSkein: No root node"
+			}];
+		}
 		NSLog(@"ZoomSkein: No root node");
 		return NO;
 	}
@@ -532,9 +585,9 @@ static NSString* makeString(const XML_Char* data) {
 	int len;
 	for (len=0; res[len]!=0; len++);
 	
-	NSString* str = [NSString stringWithCharacters: res
-											length: len];
-	free(res);
+	NSString* str = [[NSString alloc] initWithCharactersNoCopy: res
+														length: len
+												  freeWhenDone: YES];
 	
 	return str;
 }
@@ -545,9 +598,9 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	int len;
 	for (len=0; res[len]!=0; len++);
 	
-	NSString* str = [NSString stringWithCharacters: res
-											length: len];
-	free(res);
+	NSString* str = [[NSString alloc] initWithCharactersNoCopy: res
+														length: len
+												  freeWhenDone: YES];
 	
 	return str;
 }

@@ -203,7 +203,7 @@
 }
 
 - (void) loadedSkeinData: (NSData*) skeinData {
-	[[[self document] skein] parseXmlData: skeinData];
+	[[[self document] skein] parseXmlData: skeinData error: NULL];
 }
 
 - (NSString*) defaultSaveDirectory {

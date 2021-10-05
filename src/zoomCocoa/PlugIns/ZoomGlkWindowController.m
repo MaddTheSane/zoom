@@ -190,7 +190,7 @@
 									  withKey: @"savegame"];
 					
 					if ([[NSFileManager defaultManager] fileExistsAtPath: saveSkeinPath]) {
-						[skein parseXmlData: [NSData dataWithContentsOfFile: saveSkeinPath]];
+						[skein parseXmlData: [NSData dataWithContentsOfFile: saveSkeinPath] error: NULL];
 					}
 				}
 			}

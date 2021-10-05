@@ -55,6 +55,7 @@ static void finalizeViews(void) {
     self = [super initWithFrame:frame];
 	
     if (self) {
+        // TODO: migrate to -awakeFromNib: ?
 		restoring = NO;
 		
         // Mark views as allocated
@@ -567,10 +568,11 @@ static void finalizeViews(void) {
 		// Scroll, input
 		if (!isUpperWindow) {
 			[self scrollToEnd];
-			// inputPos = [[textView textStorage] length];
-			// TODO: update to use this:
-			//[self textStorage:textView.textStorage didProcessEditing:NSTextStorageEditedCharacters range:NSMakeRange(0, 0) changeInLength:0];
-			[self textStorageDidProcessEditing: nil];
+			NSInteger ourInputPos = [[textView textStorage] length];
+			[self textStorage: textView.textStorage
+            didProcessEditing: (NSTextStorageEditedCharacters | NSTextStorageEditedAttributes)
+                        range: NSMakeRange(0, ourInputPos)
+               changeInLength: ourInputPos];
 		}
 	} else {
 		// == Version 6 pixmap entry routines ==
@@ -999,9 +1001,9 @@ static void finalizeViews(void) {
 @synthesize textView;
 
 // = TextView delegate methods =
-- (BOOL)    	textView:(__unused NSTextView *)aTextView
-shouldChangeTextInRange:(NSRange)affectedCharRange
-	replacementString:(__unused NSString *)replacementString {
+- (BOOL)        textView:(__unused NSTextView *)aTextView
+ shouldChangeTextInRange:(NSRange)affectedCharRange
+       replacementString:(__unused NSString *)replacementString {
     if (affectedCharRange.location < inputPos) {
         return NO;
     } else {
@@ -1009,7 +1011,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     }
 }
 
-- (void)textStorageDidProcessEditing:(__unused NSNotification *)aNotification {
+- (void)textStorage:(NSTextStorage *)text
+  didProcessEditing:(NSTextStorageEditActions)editedMask
+              range:(NSRange)editedRange
+     changeInLength:(NSInteger)delta {
     if (!receiving) return;
     
     // Set the input character attributes to the input style
@@ -1017,13 +1022,15 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     //              range: NSMakeRange(inputPos,
     //[text length]-inputPos)];
 
-    NSTextStorage* text = [textView textStorage];
-	
+    if (text != [textView textStorage]) {
+        return;
+    }
+    
 	// Format according to the input style (if required)
 	if ([focusedView inputStyle] != nil) {
 		NSDictionary* inputAttributes = [self attributesForStyle: [focusedView inputStyle]];
 		[text setAttributes: inputAttributes
-					  range: [text editedRange]];
+					  range: editedRange];
 	}
     
     // Check to see if there's any newlines in the input...

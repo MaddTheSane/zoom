@@ -266,7 +266,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 	// Try to parse the skein
 	if (skeinData) {
 		skein = [[ZoomSkein alloc] init];
-		if (![skein parseXmlData: skeinData]) {
+		if (![skein parseXmlData: skeinData error: NULL]) {
 			skein = nil;
 		}
 	}

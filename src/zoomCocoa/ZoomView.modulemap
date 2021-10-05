@@ -23,12 +23,12 @@ framework module ZoomView {
 		
 		explicit module Layout {
 			header "ZoomSkeinLayout.h"
-			export *
 			
 			explicit module Item {
 				header "ZoomSkeinLayoutItem.h"
 				export *
 			}
+			export *
 		}
 		
 		explicit module View {

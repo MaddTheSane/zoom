@@ -51,7 +51,7 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 - (NSMenu*)  populateMenuWithAction: (SEL) action
 							 target: (id) target;
 - (void)	 populatePopupButton: (NSPopUpButton*) button;
-- (NSArray*) itemsWithAnnotation: (NSString*) annotation;
+- (NSArray<ZoomSkeinItem*>*) itemsWithAnnotation: (NSString*) annotation;
 
 // Converting to strings/other file formats
 - (NSString*) transcriptToPoint: (ZoomSkeinItem*) item;
@@ -61,10 +61,19 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 
 // = Dealing with/creating XML data =
 
+extern NSErrorDomain const ZoomSkeinXMLParserErrorDomain;
+typedef NS_ERROR_ENUM(ZoomSkeinXMLParserErrorDomain, ZoomSkeinXMLError) {
+	ZoomSkeinXMLErrorParserFailed,
+	ZoomSkeinXMLErrorNoRootSkein,
+	ZoomSkeinXMLErrorNoRootNodeID,
+	ZoomSkeinXMLErrorProgrammerIsASpoon,
+	ZoomSkeinXMLErrorNoRootNode,
+};
+
 @interface ZoomSkein(ZoomSkeinXML)
 
 - (NSString*) xmlData;
-- (BOOL)      parseXmlData: (NSData*) data;
+- (BOOL)      parseXmlData: (NSData*) data error: (NSError**) error;
 
 @end
 
