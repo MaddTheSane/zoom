@@ -575,6 +575,6 @@ CA
             </connections>
         </customObject>
         <customObject id="290" userLabel="Font Manager" customClass="NSFontManager"/>
-        <customObject id="357" userLabel="SUUpdater"/>
+        <customObject id="357" userLabel="SUUpdater" customClass="SUUpdater"/>
     </objects>
 </document>

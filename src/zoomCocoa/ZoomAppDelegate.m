@@ -22,7 +22,7 @@
 #import <ZoomPlugIns/ZoomPlugInController.h>
 #import "ZoomStoryOrganiser.h"
 
-// #import <Sparkle/Sparkle.h>
+#import <Sparkle/Sparkle.h>
 
 static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
@@ -640,7 +640,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 // = Check for updates =
 
 - (IBAction) checkForUpdates: (id) sender {
-//	[updater checkForUpdates: self];
+	[updater checkForUpdates: self];
 	[[ZoomPlugInController sharedPlugInController] checkForUpdates: self];
 }
 

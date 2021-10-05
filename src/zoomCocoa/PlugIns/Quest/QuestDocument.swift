@@ -9,7 +9,7 @@ import Cocoa
 import ZoomPlugIns.ZoomPlugIn
 
 class QuestDocument: NSDocument {
-	//! The plugin that created this document
+	/// The plugin that created this document
 	var plugIn: ZoomPlugIn?
 
     override var windowNibName: String? {

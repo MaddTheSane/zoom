@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -264,6 +264,7 @@
 		55BE4AF8270A635600100A7D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 		55BE4B11270AB65400100A7D /* ZoomCollapsableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4B10270AB65400100A7D /* ZoomCollapsableView.swift */; };
 		55BE4B1F270BA75300100A7D /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4B1E270BA75300100A7D /* Misc.swift */; };
+		55BE4B47270BE58900100A7D /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 55BE4B46270BE58900100A7D /* Sparkle */; };
 		55BF2A1926FE78F900832C53 /* ZoomSavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */; };
 		55BF2A1B26FE7C9200832C53 /* ZoomSavePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */; };
 		55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D14CD727017521006DF31A /* ZoomViewHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1018,6 +1019,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55BE4B47270BE58900100A7D /* Sparkle in Frameworks */,
 				4BB8C1F808C249F400D7D334 /* Cocoa.framework in Frameworks */,
 				4BB8C1F908C249F400D7D334 /* Foundation.framework in Frameworks */,
 				4BB8C1FB08C249F400D7D334 /* Carbon.framework in Frameworks */,
@@ -1873,6 +1875,9 @@
 				4B7CB1F4093635C400F3B8F6 /* PBXTargetDependency */,
 			);
 			name = Zoom;
+			packageProductDependencies = (
+				55BE4B46270BE58900100A7D /* Sparkle */,
+			);
 			productInstallPath = "$(USER_APPS_DIR)";
 			productName = Zoom;
 			productReference = 4BB8C20808C249F400D7D334 /* Zoom.app */;
@@ -1956,7 +1961,7 @@
 				};
 			};
 			buildConfigurationList = 4B11039608606E2600253E87 /* Build configuration list for PBXProject "ZoomCocoa" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -1966,6 +1971,9 @@
 				de,
 			);
 			mainGroup = 4B1E3F47050F7AD000A8E303;
+			packageReferences = (
+				55BE4B45270BE58900100A7D /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			productRefGroup = 4B1E3F55050F7B0E00A8E303 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -3318,6 +3326,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		55BE4B45270BE58900100A7D /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 1.27.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		55BE4B46270BE58900100A7D /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55BE4B45270BE58900100A7D /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4B1E3F4B050F7AD000A8E303 /* Project object */;
 }
