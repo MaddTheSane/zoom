@@ -622,6 +622,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		NSDraggingImageComponent *dragImg = [[NSDraggingImageComponent alloc] initWithKey:NSDraggingImageComponentIconKey];
 		dragImg.contents = itemImage;
 		NSDraggingItem *dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:clickedItem];
+		[dragItem setDraggingFrame:(NSRect){origin, itemImage.size} contents:dragImg];
 		
 		[self beginDraggingSessionWithItems: @[dragItem]
 									  event: event
