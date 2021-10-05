@@ -9,8 +9,13 @@ import Foundation
 
 extension NSString {
 	@objc(stringByEscapingXMLCharacters) public func byEscapingXMLCharacters() -> String {
-		let stringSelf = self as String
-		let charArray = stringSelf.map { theChar -> String? in
+		return (self as String).byEscapingXMLCharacters()
+	}
+}
+
+extension String {
+	public func byEscapingXMLCharacters() -> String {
+		let charArray = self.map { theChar -> String? in
 			switch theChar {
 			case "\n":
 				return "\n"
