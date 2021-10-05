@@ -30,6 +30,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	// Preference loading/checking thread
 	NSPort* port1;
 	NSPort* port2;
+	//TODO: Use some other method of multithreading: NSConnection is deprecateed.
 	NSConnection* mainThread;
 	NSConnection* subThread;
 }
@@ -832,10 +833,12 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	if (!isDir) {
 		static BOOL warned = NO;
 		
-		if (!warned)
-			NSRunAlertPanel(@"Group directory not found",
-							@"Warning: %@ is a file",
-							@"OK", nil, nil, groupDir);
+		if (!warned) {
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = @"Group directory not found";
+			alert.informativeText = [NSString stringWithFormat: @"Warning: %@ is a file", groupDir];
+			[alert runModal];
+		}
 		warned = YES;
 		return nil;
 	}
@@ -855,10 +858,12 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	if (number >= maxNumber) {
 		static BOOL warned = NO;
 		
-		if (!warned)
-			NSRunAlertPanel(@"Game directory not found",
-							@"Zoom was unable to locate a directory for the game '%@'",
-							@"OK", nil, nil, title);
+		if (!warned) {
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = @"Game directory not found";
+			alert.informativeText = [NSString stringWithFormat: @"Zoom was unable to locate a directory for the game '%@'", title];
+			[alert runModal];
+		}
 		warned = YES;
 		return nil;
 	}
@@ -889,8 +894,12 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	
 	// Create the identifier file
 	NSString* identityFile = [gameDir stringByAppendingPathComponent: ZoomIdentityFilename];
-	[NSKeyedArchiver archiveRootObject: ident
-								toFile: identityFile];
+	NSData *dat = [NSKeyedArchiver archivedDataWithRootObject: ident
+										requiringSecureCoding: YES
+														error: NULL];
+	[dat writeToFile: identityFile
+			 options: 0
+			   error: NULL];
 	
 	return gameDir;
 }
