@@ -204,9 +204,10 @@
 	}
 	
 	// Store/organise this story
-	[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: [[self fileURL] path]
-											  withIdent: storyId
-											   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+	[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: [self fileURL]
+												withIdentity: storyId
+													organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+													   error: NULL];
     
     return YES;
 }

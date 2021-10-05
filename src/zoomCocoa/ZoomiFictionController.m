@@ -678,7 +678,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	} else {
 		// Fake alert sheet OK
 		[self autosaveAlertFinished: nil
-						 returnCode: NSAlertFirstButtonReturn];
+						 returnCode: NSAlertSecondButtonReturn];
 	}
 }
 

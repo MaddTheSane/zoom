@@ -23,22 +23,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="323" height="374"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8">
                         <rect key="frame" x="0.0" y="0.0" width="323" height="374"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="Eqe-Mx-EQT">
                             <rect key="frame" x="0.0" y="0.0" width="323" height="374"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="7" customClass="ZoomSkeinView">
+                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7" customClass="ZoomSkeinView">
                                     <rect key="frame" x="0.0" y="0.0" width="323" height="58"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
                             </subviews>
-                            <constraints>
-                                <constraint firstItem="7" firstAttribute="centerX" secondItem="Eqe-Mx-EQT" secondAttribute="centerX" id="UzO-Rz-dKT"/>
-                                <constraint firstAttribute="trailing" secondItem="7" secondAttribute="trailing" id="gn3-wx-zV8"/>
-                                <constraint firstItem="7" firstAttribute="top" secondItem="Eqe-Mx-EQT" secondAttribute="top" constant="316" id="oTZ-GP-Zbl"/>
-                                <constraint firstAttribute="bottom" secondItem="7" secondAttribute="bottom" id="qZn-Wx-rQd"/>
-                            </constraints>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.58771932125091553" horizontal="YES" id="12">
@@ -51,12 +47,6 @@
                         </scroller>
                     </scrollView>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="8" firstAttribute="top" secondItem="6" secondAttribute="top" id="DG7-9j-EmP"/>
-                    <constraint firstItem="8" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="csA-63-qMP"/>
-                    <constraint firstAttribute="bottom" secondItem="8" secondAttribute="bottom" id="x4X-vB-hsB"/>
-                    <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="xv9-sb-Y92"/>
-                </constraints>
             </view>
             <point key="canvasLocation" x="139" y="138"/>
         </window>
