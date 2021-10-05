@@ -506,11 +506,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	BOOL exists;
 	BOOL isDirectory;
-	NSNumber *isDirectoryObj;
 
-	exists = [url checkResourceIsReachableAndReturnError: NULL];
-	[url getResourceValue:&isDirectoryObj forKey: NSURLIsDirectoryKey error: NULL];
-	isDirectory = [isDirectoryObj boolValue];
+	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, NULL, NULL);
 	
 	if (!exists) return NO;
 	if (isDirectory) return NO;

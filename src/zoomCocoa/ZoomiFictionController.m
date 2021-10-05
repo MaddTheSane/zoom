@@ -2354,14 +2354,11 @@ static dispatch_block_t onceTypesBlock = ^{
 	for (NSURL* path in dirEnum) {
 		// Must exist
 		BOOL isDir;
-		NSNumber *isDirVal;
-		if ([path checkResourceIsReachableAndReturnError: NULL]) {
+		if (!urlIsAvailableAndIsDirectory(path, &isDir, NULL, NULL)) {
 			continue;
 		}
 		
 		// Must be a file
-		[path getResourceValue: &isDirVal forKey: NSURLIsDirectoryKey error: NULL];
-		isDir = [isDirVal boolValue];
 		if (isDir) continue;
 		
 		// Must be playable
