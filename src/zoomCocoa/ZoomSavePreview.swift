@@ -79,17 +79,12 @@ class SavePreview : NSView {
 				genuine = false
 				reason = "File has the wrong extension (\(saveURL.pathExtension))"
 			}
-			if !((try? saveURL.checkResourceIsReachable()) ?? false) {
+			var isDir: ObjCBool = false
+			if !urlIsAvailable(saveURL, isDirectory: &isDir, isPackage: nil, isReadable: nil) {
 				genuine = false
 				reason = reason ?? "File does not exist"
 			}
-			do {
-				let resVals = try saveURL.resourceValues(forKeys: [.isDirectoryKey])
-				if !(resVals.isDirectory!) {
-					genuine = false
-					reason = reason ?? "File is not a directory"
-				}
-			} catch {
+			if !isDir.boolValue {
 				genuine = false
 				reason = reason ?? "File is not a directory"
 			}
@@ -98,17 +93,17 @@ class SavePreview : NSView {
 			let zPreview = saveURL.appendingPathComponent("ZoomPreview.dat")
 			let status = saveURL.appendingPathComponent("ZoomStatus.dat")
 			
-			if !fileExists(saveQut, needsToBeDirectory: false) {
+			if !urlIsAvailable(saveQut, isDirectory: &isDir, isPackage: nil, isReadable: nil), isDir.boolValue {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
 			
-			if !fileExists(zPreview, needsToBeDirectory: false) {
+			if !urlIsAvailable(zPreview, isDirectory: &isDir, isPackage: nil, isReadable: nil), isDir.boolValue {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
 			
-			if !fileExists(status, needsToBeDirectory: false) {
+			if !urlIsAvailable(status, isDirectory: &isDir, isPackage: nil, isReadable: nil), isDir.boolValue {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
@@ -132,8 +127,9 @@ class SavePreview : NSView {
 	
 	@IBAction func revealInFinder(_ sender: Any?) {
 		let dir = fileURL!.deletingLastPathComponent().deletingLastPathComponent()
+		var isDir: ObjCBool = false
 		
-		guard fileExists(dir, needsToBeDirectory: true) else {
+		guard urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil), isDir.boolValue else {
 			return
 		}
 		

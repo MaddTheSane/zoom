@@ -50,7 +50,7 @@ static NSString*const ZoomFieldAttribute = @"ZoomFieldAttribute";
 static NSString*const ZoomRowAttribute = @"ZoomRowAttribute";
 static NSString*const ZoomStoryAttribute = @"ZoomStoryAttribute";
 
-enum {
+NS_ENUM(NSInteger) {
 	ZoomNoField,
 	ZoomTitleField,
 	ZoomYearField,
