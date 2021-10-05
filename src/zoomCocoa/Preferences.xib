@@ -312,7 +312,7 @@
                                 <rect key="frame" x="8" y="8" width="222" height="54"/>
                                 <clipView key="contentView" drawsBackground="NO" id="a5X-Mo-Yyd">
                                     <rect key="frame" x="0.0" y="0.0" width="222" height="54"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="88">
                                             <rect key="frame" x="0.0" y="0.0" width="225" height="54"/>
@@ -672,7 +672,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="342"/>
                                         <clipView key="contentView" id="FJN-wJ-7kj">
                                             <rect key="frame" x="1" y="1" width="351" height="340"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" headerView="497" id="34">
                                                     <rect key="frame" x="0.0" y="0.0" width="351" height="317"/>
@@ -681,7 +681,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn identifier="Style" editable="NO" width="134" minWidth="40" maxWidth="1000" id="35">
+                                                        <tableColumn identifier="Style" editable="NO" width="144" minWidth="40" maxWidth="1000" id="35">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Style">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -693,7 +693,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="Font" editable="NO" width="182" minWidth="31.594999313354492" maxWidth="1000" id="33">
+                                                        <tableColumn identifier="Font" editable="NO" width="192" minWidth="31.594999313354492" maxWidth="1000" id="33">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Font">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
