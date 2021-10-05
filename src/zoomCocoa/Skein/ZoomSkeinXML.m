@@ -7,6 +7,7 @@
 //
 
 #import "ZoomSkein.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 #include <expat.h>
 
@@ -48,69 +49,13 @@ static NSString* idForNode(ZoomSkeinItem* item) {
 	return [NSString stringWithFormat: @"node-%p", item];
 }
 
-struct xmlEncodeState {
-	int resLen;
-	int maxLen;
-	unichar* res;
-};
-
-static inline void append(unichar chr, struct xmlEncodeState* state) {
-	while (state->resLen >= state->maxLen) {
-		state->maxLen += 256;
-		state->res = realloc(state->res, sizeof(unichar)*state->maxLen);
-	}
-	
-	state->res[state->resLen++] = chr;
-}
-
-static inline void appendStr(NSString* str, struct xmlEncodeState* state) {
-	int x;
-	for (x=0; x<[str length]; x++) {
-		append([str characterAtIndex: x], state);
-	}
-}
-
 static NSString* xmlEncode(NSString* str) {
-	int x;
-	
-	// Grr, Cocoa has no 'append character' thing in NSMutableString, which is daft
-	// To avoid being slower than a turtle embedded in cement, do everything manually
-	static struct xmlEncodeState state = { 0, 0, nil };
-	
-	state.resLen = 0;
-	
-	// Actually convert the string
-	for (x=0; x<[str length]; x++) {
-		unichar chr = [str characterAtIndex: x];
-		
-		if (chr == '\n') {
-			append('\n', &state);
-		} else if (chr == '&') {
-			appendStr(@"&amp;", &state);
-		} else if (chr == '<') {
-			appendStr(@"&lt;", &state);
-		} else if (chr == '>') {
-			appendStr(@"&gt;", &state);
-		} else if (chr == '"') {
-			appendStr(@"&quot;", &state);
-		} else if (chr == '\'') {
-			appendStr(@"&apos;", &state);
-		} else if (chr < 0x20) {
-			// Ignore (expat can't parse these)
-		} else {
-			// NOTE/FIXME: Surrogate characters are not handled correctly
-			// May, I suppose, cause a problem with Chinese IF
-			append(chr, &state);
-		}
-	}
-	
-	return [NSString stringWithCharacters: state.res
-								   length: state.resLen];
+	return [str stringByEscapingXMLCharacters];
 }
 
 @implementation ZoomSkein(ZoomSkeinXML)
 
-#pragma mark - XML data
+#pragma mark XML data
 
 // Creating XML
 - (NSString*) xmlData {
