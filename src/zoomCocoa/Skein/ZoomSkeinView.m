@@ -11,6 +11,7 @@
 #import "ZoomSkeinView.h"
 #import "ZoomSkeinLayout.h"
 #import "ZoomSkeinItem+Pasteboard.h"
+#import "ZoomSkeinWeb.h"
 
 #include <Carbon/Carbon.h>
 
@@ -434,7 +435,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	int level;
 	
 	if (startLevel < 0) startLevel = 0;
-	if (endLevel >= [layout levels]) endLevel = [layout levels]-1;
+	if (endLevel >= [layout levels]) endLevel = (int)([layout levels]-1);
 	
 	// assumeInside: NO doesn't work if the pointer is already inside (acts exactly the same as assumeInside: YES 
 	// in this case). Therefore we need to check manually, which is very annoying.

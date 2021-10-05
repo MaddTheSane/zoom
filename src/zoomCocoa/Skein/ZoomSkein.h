@@ -6,8 +6,7 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <WebKit/WebKit.h>
+#import <Cocoa/Cocoa.h>
 
 #import <ZoomView/ZoomSkeinItem.h>
 #import <ZoomView/ZoomViewProtocols.h>
@@ -69,7 +68,3 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 
 @end
 
-// = WebKit interface (b0rked: webkit doesn't really support this) =
-
-@interface ZoomSkein(ZoomSkeinWebDocRepresentation)<WebDocumentRepresentation>
-@end

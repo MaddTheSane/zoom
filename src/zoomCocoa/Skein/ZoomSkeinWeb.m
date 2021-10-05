@@ -12,6 +12,7 @@
 //
 
 #import "ZoomSkein.h"
+#import "ZoomSkeinWeb.h"
 
 @implementation ZoomSkein(ZoomSkeinWebDocRepresentation)
 

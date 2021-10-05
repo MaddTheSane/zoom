@@ -8,6 +8,7 @@
 
 #import "ZoomSkeinView.h"
 #import <WebKit/WebKit.h>
+#import "ZoomSkeinWeb.h"
 
 @implementation ZoomSkeinView(ZoomSkeinViewWeb)
 

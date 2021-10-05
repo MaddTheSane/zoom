@@ -94,12 +94,6 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 
 @end
 
-// = Using with the web kit =
-#import <WebKit/WebDocument.h>
-
-@interface ZoomSkeinView(ZoomSkeinViewWeb)<WebDocumentView>
-
-@end
 
 // = Delegate =
 @protocol ZoomSkeinViewDelegate <NSObject>

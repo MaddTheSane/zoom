@@ -9,6 +9,7 @@
 #define maxTempItems 30
 
 #import "ZoomSkein.h"
+#import "ZoomSkeinWeb.h"
 
 @interface ZoomSkeinInputSource : NSObject {
 	NSMutableArray* commandStack;
