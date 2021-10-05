@@ -34,8 +34,6 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 @class ZoomLowerWindow;
 @class ZoomUpperWindow;
 @interface ZoomView : NSView <ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate, ZoomCursorDelegate, ZoomInputLineDelegate> {
-    id<ZMachine> zMachine;
-
     // Subviews
 	BOOL editingTextView;
 	BOOL willScrollToEnd;
@@ -77,9 +75,6 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
     NSPipe* zoomTaskStdout;
     NSMutableString* zoomTaskData;
 
-    // The delegate
-    __weak id<ZoomViewDelegate> delegate;
-    
     /// Details about the file we're currently saving
     OSType creatorCode; // 'YZZY' for Zoom
     OSType typeCode;
@@ -95,9 +90,6 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 	
 	/// Terminating characters
 	NSSet<NSNumber*>* terminatingChars;
-	
-	/// View with input focus
-	__weak id<ZWindow> focusedView;
 	
 	// Pixmap view
 	ZoomCursor*       pixmapCursor;
@@ -162,7 +154,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (void) writeAttributedString: (NSAttributedString*) string;
 - (void) clearLowerWindowWithStyle: (ZStyle*) style;
 
-// Setting the focused view
+/// View with input focus
 @property (weak) id<ZWindow> focusedView;
 
 // Dealing with the history

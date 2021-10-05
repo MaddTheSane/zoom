@@ -1,12 +1,11 @@
 /* ZoomGameInfoController */
 
-// Controller for the game info window
-
 #import <Cocoa/Cocoa.h>
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomResourceDrop.h>
 
-@interface ZoomGameInfoController : NSWindowController<NSOpenSavePanelDelegate> {
+/// Controller for the game info window
+@interface ZoomGameInfoController : NSWindowController <NSOpenSavePanelDelegate> {
 	IBOutlet NSMenu*      genreMenu;
 	
 	IBOutlet NSTextField* gameName;
@@ -48,19 +47,19 @@
 @property (retain) id infoOwner;
 
 // Reading the current (updated) contents of the game info window
-- (NSString*) title;
-- (NSString*) headline;
-- (NSString*) author;
-- (NSString*) genre;
-- (int)       year;
-- (NSString*) group;
-- (NSString*) comments;
-- (NSString*) teaser;
-- (unsigned)  zarfRating;
-- (float)     rating;
-- (NSString*) resourceFilename;
+@property (readonly, copy) NSString *title;
+@property (readonly, copy) NSString *headline;
+@property (readonly, copy) NSString *author;
+@property (readonly, copy) NSString *genre;
+@property (readonly) int year;
+@property (readonly, copy) NSString *group;
+@property (readonly, copy) NSString *comments;
+@property (readonly, copy) NSString *teaser;
+@property (readonly) IFMB_Zarfian zarfRating;
+@property (readonly) float rating;
+@property (readonly, copy) NSString *resourceFilename;
 
 // Read them all at once
-- (NSDictionary*) dictionary;
+- (NSDictionary<NSString*,id>*) dictionary;
 
 @end

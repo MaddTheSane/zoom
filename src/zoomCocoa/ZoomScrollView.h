@@ -14,7 +14,7 @@
 @class ZoomView;
 @class ZoomUpperWindowView;
 @interface ZoomScrollView : NSScrollView {
-    __unsafe_unretained ZoomView*            zoomView;
+    __weak ZoomView*            zoomView;
     ZoomUpperWindowView* upperView;
         
     NSBox* upperDivider;
@@ -33,7 +33,7 @@
 
 @property (nonatomic) CGFloat scaleFactor;
 - (void) updateUpperWindows;
-- (ZoomUpperWindowView*) upperWindowView;
+@property (readonly, strong) ZoomUpperWindowView *upperWindowView;
 
 - (BOOL) setUseUpperDivider: (BOOL) useDivider;
 

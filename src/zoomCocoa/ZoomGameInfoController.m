@@ -192,8 +192,8 @@ static NSString* stringOrEmpty(NSString* str) {
 	return [teaser string];
 }
 
-- (unsigned) zarfRating {
-	return (unsigned)[zarfRating indexOfSelectedItem];
+- (IFMB_Zarfian) zarfRating {
+	return (IFMB_Zarfian)[zarfRating indexOfSelectedItem];
 }
 
 - (float) rating {

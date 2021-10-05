@@ -262,9 +262,7 @@ static NSString* blankLine(NSInteger length) {
 	return YES;
 }
 
-- (void) setZoomView: (ZoomView*) view {
-	theView = view;
-}
+@synthesize zoomView = theView;
 
 // = Input styles =
 

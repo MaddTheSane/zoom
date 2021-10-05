@@ -143,9 +143,7 @@
 	[self tile];
 }
 
-- (ZoomUpperWindowView*) upperWindowView {
-	return upperView;
-}
+@synthesize upperWindowView = upperView;
 
 - (BOOL) setUseUpperDivider: (BOOL) newUseDivider {
 	useDivider = newUseDivider;

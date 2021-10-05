@@ -215,10 +215,7 @@
 }
 
 @synthesize inputPos;
-
-- (ZStyle*) inputStyle {
-	return inputStyle;
-}
+@synthesize inputStyle;
 
 - (void) plotImageWithNumber: (in int) number
 					 atPoint: (in NSPoint) point {

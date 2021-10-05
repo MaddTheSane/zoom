@@ -11,9 +11,7 @@
 #import <ZoomView/ZoomProtocol.h>
 
 @class ZoomView;
-@interface ZoomUpperWindow : NSObject<ZUpperWindow, NSSecureCoding> {
-    __weak ZoomView* theView;
-
+@interface ZoomUpperWindow : NSObject <ZUpperWindow, NSSecureCoding> {
     int startLine, endLine;
 
     NSMutableArray<NSMutableAttributedString*>* lines;
@@ -32,7 +30,7 @@
 
 - (void) reformatLines;
 
-- (void) setZoomView: (ZoomView*) view;
+@property (weak) ZoomView *zoomView;
 
 @end
 

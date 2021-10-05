@@ -20,7 +20,7 @@
 NSString* const ZoomStoryDataHasChangedNotification = @"ZoomStoryDataHasChangedNotification";
 static NSString* const ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
 
-NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
+static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
 
 @interface ZoomStory ()
 - (NSString*) newKeyForOld: (NSString*) key NS_RETURNS_NOT_RETAINED;
