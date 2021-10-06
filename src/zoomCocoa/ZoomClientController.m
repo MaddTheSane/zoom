@@ -179,26 +179,19 @@
 }
 
 - (void) prepareSavePackage: (ZPackageFile*) file {
-	// (Secretly, we know skeinXML is an NSMutableString that we can edit ourselves)
-	// Normally, you aren't allowed to do this
-	NSMutableString* skeinXML = (NSMutableString*)[[[self document] skein] xmlData];
-	
-	if (![skeinXML isKindOfClass: [NSMutableString class]]) {
-		skeinXML = [skeinXML mutableCopy];
-	}
+	NSMutableString* skeinXML = [[[[self document] skein] xmlData] mutableCopy];
 	
 	[skeinXML insertString: @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 				   atIndex: 0];
 	
-	[file addData: [[[[self document] skein] xmlData] dataUsingEncoding: NSUTF8StringEncoding]
+	[file addData: [skeinXML dataUsingEncoding: NSUTF8StringEncoding]
 	  forFilename: @"Skein.skein"];
 	
 	// Add information about our story ID
-	[file addData: [NSPropertyListSerialization dataWithPropertyList: [NSDictionary dictionaryWithObjectsAndKeys:
-		[[[self document] storyId] description], @"ZoomStoryId", nil]
-																									   format: NSPropertyListXMLFormat_v1_0
+	[file addData: [NSPropertyListSerialization dataWithPropertyList: @{@"ZoomStoryId": [[[self document] storyId] description]}
+															  format: NSPropertyListXMLFormat_v1_0
 															 options: 0
-																							 error: nil]
+															   error: nil]
 													  forFilename: @"Info.plist"];
 }
 
