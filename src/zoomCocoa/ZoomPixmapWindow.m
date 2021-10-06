@@ -32,9 +32,7 @@
 	return [pixmap size];
 }
 
-- (NSImage*) pixmap {
-	return pixmap;
-}
+@synthesize pixmap;
 
 // = Standard window commands =
 
