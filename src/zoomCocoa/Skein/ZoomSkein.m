@@ -20,7 +20,9 @@
 
 @end
 
-@implementation ZoomSkein
+@implementation ZoomSkein {
+	NSMutableString* currentOutput;
+}
 
 - (id) init {
 	self = [super init];
@@ -205,7 +207,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		[itemStack removeLastObject];
 		
 		// Add this item to the list of items in use
-		if ([item temporary]) {
+		if (item.temporary) {
 			[itemsInUse addObject: @([item temporaryScore])];
 		}
 		
@@ -231,7 +233,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		[itemStack removeLastObject];
 
 		// Remove this item if necessary
-		if ([item temporary] && [itemsToRemove containsObject: @([item temporaryScore])]) {
+		if (item.temporary && [itemsToRemove containsObject: @([item temporaryScore])]) {
 			[item removeFromParent];
 		} else {
 			// Push this item's children onto the stack

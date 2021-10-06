@@ -26,7 +26,16 @@ NSString*const ZoomSIChild = @"ZoomSIChild";
 @property (readwrite, weak) ZoomSkeinItem* parent;
 @end
 
-@implementation ZoomSkeinItem
+@implementation ZoomSkeinItem {
+	NSMutableSet<ZoomSkeinItem*>* children;
+	
+	// Cached layout items (text measuring is slow)
+	BOOL   commandSizeDidChange;
+	NSSize commandSize;
+	
+	BOOL   annotationSizeDidChange;
+	NSSize annotationSize;
+}
 
 // = Initialisation =
 
@@ -193,7 +202,7 @@ static NSString* convertCommand(NSString* command) {
 		if ([childItem annotation]) [oldChild setAnnotation: [childItem annotation]];
 		if ([childItem commentary]) [oldChild setCommentary: [childItem commentary]];
 		
-		if (![childItem temporary]) [oldChild setTemporary: NO];
+		if (!childItem.temporary) [oldChild setTemporary: NO];
 		[oldChild setPlayed: [childItem played]];
 		[oldChild setChanged: [childItem changed]];
 		
@@ -277,8 +286,7 @@ static NSString* convertCommand(NSString* command) {
 		return;							// Nothing else to do
 	}
 	
-	result = nil;
-	if (newResult) result = [newResult copy];
+	result = [newResult copy];
 	
 	commentaryComparison = ZoomSkeinNotCompared;
 	
@@ -288,7 +296,7 @@ static NSString* convertCommand(NSString* command) {
 // = Item state =
 
 @synthesize temporary;
-@synthesize temporaryScore=tempScore;
+@synthesize temporaryScore = tempScore;
 @synthesize played;
 @synthesize changed;
 
@@ -300,7 +308,7 @@ static NSString* convertCommand(NSString* command) {
 	// Also applies to parent items if set to 'NO'
 	if (!isTemporary) {
 		while (p != nil && [p parent] != nil) {
-			if (![p temporary]) break;
+			if (!p.temporary) break;
 			[p setTemporary: NO];
 			
 			p = [p parent];
@@ -308,7 +316,7 @@ static NSString* convertCommand(NSString* command) {
 	} else {
 		// Applies to child items if set to 'YES'
 		for (ZoomSkeinItem* child in [self children]) {
-			if (![child temporary]) [child setTemporary: YES];
+			if (!child.temporary) [child setTemporary: YES];
 		}
 	}
 	
@@ -423,6 +431,7 @@ static int currentScore = 1;
 	return res;
 }
 
+@synthesize commentaryComparison;
 - (ZoomSkeinComparison) commentaryComparison {
 	if (commentaryComparison == ZoomSkeinNotCompared) {
 		if (result == nil || [result length] == 0

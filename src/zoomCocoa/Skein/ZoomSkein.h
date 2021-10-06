@@ -16,9 +16,6 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 @interface ZoomSkein : NSObject <ZoomViewOutputReceiver> {
 	ZoomSkeinItem* rootItem;
 	
-	NSMutableString* currentOutput;
-	ZoomSkeinItem* activeItem;
-	
 	// Web data
 	NSMutableData* webData;
 }

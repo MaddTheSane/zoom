@@ -5,13 +5,15 @@
 #import <WebKit/WebKit.h>
 
 
-// Note: Deprecations! WebDocumentRepresentation needs to be replaced.
+// FIXME: Deprecations! WebDocumentRepresentation needs to be replaced.
 // = WebKit interface (b0rked: webkit doesn't really support this) =
 
-@interface ZoomSkein(ZoomSkeinWebDocRepresentation)<WebDocumentRepresentation>
+/// These classes are designed to allow a \c ZoomSkeinView to be embedded in a web view.
+/// MIME type is application/x-zoom-skein
+@interface ZoomSkein(ZoomSkeinWebDocRepresentation) <WebDocumentRepresentation>
 @end
 
-//// Using with the web kit
-@interface ZoomSkeinView(ZoomSkeinViewWeb)<WebDocumentView>
+///  Using with the web kit
+@interface ZoomSkeinView(ZoomSkeinViewWeb) <WebDocumentView>
 
 @end

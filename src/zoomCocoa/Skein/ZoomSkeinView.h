@@ -16,9 +16,7 @@
 
 extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinItem);
 
-@interface ZoomSkeinView : NSView <NSTextViewDelegate, NSDraggingDestination, NSDraggingSource>  {
-	ZoomSkein* skein;
-	
+@interface ZoomSkeinView : NSView <NSTextViewDelegate, NSDraggingDestination, NSDraggingSource> {
 	BOOL skeinNeedsLayout;
 	
 	// Layout
@@ -60,9 +58,6 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 	CGFloat itemWidth;
 	CGFloat itemHeight;
 	
-	// The delegate
-	__weak id<ZoomSkeinViewDelegate> delegate;
-	
 	// Context menu
 	ZoomSkeinItem* contextItem;
 }
@@ -90,7 +85,7 @@ extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinIte
 
 - (void) layoutSkein;
 
-- (void)updateSkein:(id)sender;
+- (IBAction)updateSkein:(id)sender;
 
 @end
 

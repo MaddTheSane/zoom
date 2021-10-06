@@ -247,7 +247,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		
 		if (itemParent != nil) {
 			// Can't unlock the 'start' item
-			NSImage* lock = [trackedItem temporary]?unlocked:locked;
+			NSImage* lock = trackedItem.temporary?unlocked:locked;
 			
 			[[self class] drawButton: lock
 							 atPoint: NSMakePoint(xpos - 8, ypos - 18)
@@ -823,8 +823,8 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 				  withItem: (ZoomSkeinItem*) skeinItem {
 	if ([skeinItem parent] == nil) return;
 
-	if ([skeinItem temporary]) {
-		[skeinItem setTemporary: NO];
+	if (skeinItem.temporary) {
+		skeinItem.temporary = NO;
 	} else {
 		// Unlock this item and its children
 		
@@ -1290,10 +1290,10 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	}
 	if ([contextItem parent] != nil) {
 		needSep = YES;
-		[contextMenu addItemWithTitle: [contextItem temporary]?@"Lock":@"Unlock"
+		[contextMenu addItemWithTitle: contextItem.temporary?@"Lock":@"Unlock"
 							   action: @selector(toggleLock:)
 						keyEquivalent: @""];
-		[contextMenu addItemWithTitle: [contextItem temporary]?@"Lock this Thread":@"Unlock this Branch"
+		[contextMenu addItemWithTitle: contextItem.temporary?@"Lock this Thread":@"Unlock this Branch"
 							   action: @selector(toggleLockBranch:)
 						keyEquivalent: @""];
 	}
@@ -1356,11 +1356,11 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 }
 
 - (IBAction) toggleLock: (__unused id) sender {
-	[contextItem setTemporary: ![contextItem temporary]];
+	contextItem.temporary = !contextItem.temporary;
 }
 
 - (IBAction) toggleLockBranch: (__unused id) sender {
-	[contextItem setBranchTemporary: ![contextItem temporary]];
+	[contextItem setBranchTemporary: !contextItem.temporary];
 }
 
 - (IBAction) addNewBranch: (__unused id) sender {

@@ -20,7 +20,10 @@
 }
 
 - (nonnull NSArray<NSPasteboardType> *)writableTypesForPasteboard:(nonnull NSPasteboard *)pasteboard {
-	return @[ZoomSkeinItemPboardType];
+	if ([[pasteboard name] isEqualToString:NSPasteboardNameDrag]) {
+		return @[ZoomSkeinItemPboardType];
+	}
+	return @[];
 }
 
 @end

@@ -92,7 +92,7 @@ static NSString* xmlEncode(NSString* str) {
 		@"<Skein rootNode=\"%@\" xmlns=\"http://www.logicalshift.org.uk/IF/Skein\">\n",
 			idForNode(rootItem)];
 	[result appendString: @"  <generator>Zoom</generator>\n"];
-	[result appendFormat: @"  <activeNode nodeId=\"%@\" />\n", idForNode(activeItem)];
+	[result appendFormat: @"  <activeNode nodeId=\"%@\" />\n", idForNode(self.activeItem)];
 	
 	// Write items
 	NSMutableArray* itemStack = [NSMutableArray array];
@@ -130,7 +130,7 @@ static NSString* xmlEncode(NSString* str) {
 		[result appendFormat: @"    <changed>%@</changed>\n",
 			[node changed]?@"YES":@"NO"];
 		[result appendFormat: @"    <temporary score=\"%i\">%@</temporary>\n",
-			[node temporaryScore], [node temporary]?@"YES":@"NO"];
+			[node temporaryScore], node.temporary?@"YES":@"NO"];
 		
 		if ([[node children] count] > 0) {
 			[result appendString: @"    <children>\n"];
@@ -377,9 +377,9 @@ static NSString* xmlEncode(NSString* str) {
 	rootItem = newRoot;
 	
 	if (activeNode != nil)
-		activeItem = [itemDictionary objectForKey: activeNode];
+		self.activeItem = [itemDictionary objectForKey: activeNode];
 	else
-		activeItem = rootItem;
+		self.activeItem = rootItem;
 	
 	[self zoomSkeinChanged];
 
