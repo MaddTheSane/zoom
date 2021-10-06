@@ -79,11 +79,6 @@ framework module ZoomView {
 		export *
 	}
 	
-	module ZoomPixmapWindow {
-		header "ZoomPixmapWindow.h"
-		export *
-	}
-	
 	export *
 	module * { export * }
 }

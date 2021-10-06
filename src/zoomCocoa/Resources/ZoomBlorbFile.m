@@ -8,7 +8,30 @@
 
 #import "ZoomBlorbFile.h"
 
-@implementation ZoomBlorbFile
+@implementation ZoomBlorbFile {
+	id<ZFile> file;
+	
+	NSString*       formID;
+	unsigned int    formLength;
+
+	NSMutableArray<NSDictionary<NSString*,id>*>*		 iffBlocks;
+	NSMutableDictionary<NSString*,NSMutableArray<NSDictionary<NSString*,id>*>*>* typesToBlocks;
+	NSMutableDictionary<NSNumber*,NSDictionary<NSString*,id>*>* locationsToBlocks;
+	
+	NSMutableDictionary<NSString*,NSMutableDictionary<NSNumber*,NSNumber*>*>* resourceIndex;
+	
+	BOOL adaptive;
+	NSMutableSet<NSNumber*>* adaptiveImages;
+	NSData*       activePalette;
+	
+	NSSize stdSize;
+	NSSize minSize;
+	NSSize maxSize;
+	NSMutableDictionary* resolution;
+	
+	NSMutableDictionary<NSNumber*, NSMutableDictionary<NSString*,id>*>* cache;
+	unsigned int maxCacheNum;
+}
 
 static unsigned int Int4(const unsigned char* bytes) {
 	return (bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|(bytes[3]<<0);
@@ -167,13 +190,13 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return [typesToBlocks objectForKey: chunkType];
 }
 
-- (NSData*) dataForChunk: (id) chunk {
+- (NSData*) dataForChunk: (NSDictionary<NSString*,id>*) chunk {
 	if (![chunk isKindOfClass: [NSDictionary class]]) return nil;
 	if (!file) return nil;
 	if (![[chunk objectForKey: @"offset"] isKindOfClass: [NSNumber class]]) return nil;
 	if (![[chunk objectForKey: @"length"] isKindOfClass: [NSNumber class]]) return nil;
 	
-	NSDictionary* cD = chunk;
+	NSDictionary<NSString*,NSNumber*>* cD = chunk;
 	
 	[file seekTo: [[cD objectForKey: @"offset"] unsignedIntValue]];
 	

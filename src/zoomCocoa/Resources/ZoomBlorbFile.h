@@ -10,30 +10,7 @@
 
 #import <ZoomView/ZoomProtocol.h>
 
-@interface ZoomBlorbFile : NSObject {
-	id<ZFile> file;
-	
-	NSString*       formID;
-	unsigned int    formLength;
-
-	NSMutableArray<NSDictionary<NSString*,id>*>*		 iffBlocks;
-	NSMutableDictionary<NSString*,NSMutableArray<NSDictionary<NSString*,id>*>*>* typesToBlocks;
-	NSMutableDictionary<NSNumber*,NSDictionary<NSString*,id>*>* locationsToBlocks;
-	
-	NSMutableDictionary<NSString*,NSMutableDictionary<NSNumber*,NSNumber*>*>* resourceIndex;
-	
-	BOOL adaptive;
-	NSMutableSet<NSNumber*>* adaptiveImages;
-	NSData*       activePalette;
-	
-	NSSize stdSize;
-	NSSize minSize;
-	NSSize maxSize;
-	NSMutableDictionary* resolution;
-	
-	NSMutableDictionary<NSNumber*, NSMutableDictionary<NSString*,id>*>* cache;
-	unsigned int maxCacheNum;
-}
+@interface ZoomBlorbFile : NSObject
 
 // Testing files
 + (BOOL) dataIsBlorbFile: (NSData*) data;
@@ -50,8 +27,8 @@
 - (void) removeAdaptiveImagesFromCache;
 
 // Generic IFF data
-- (NSArray*) chunksWithType: (NSString*) chunkType;
-- (NSData*) dataForChunk: (id) chunk;
+- (NSArray<NSDictionary<NSString*,id>*>*) chunksWithType: (NSString*) chunkType;
+- (NSData*) dataForChunk: (NSDictionary<NSString*,id>*) chunk;
 - (NSData*) dataForChunkWithType: (NSString*) chunkType;
 
 // The resource index

@@ -623,7 +623,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 - (bycopy NSData*) storyFile {
-	return storyData;
+	return [[storyData copy] autorelease];
 }
 
 - (bycopy NSString*) restoreSaveState: (in bycopy NSData*) saveData {
