@@ -14,20 +14,32 @@
 /// Class that handles the download and unarchiving of files, such as plugin updates
 ///
 @interface ZoomDownload : NSObject {
-	NSURL* url;													// Where to download from
-	__weak id<ZoomDownloadDelegate> delegate;					// The download delegate
-	NSData* md5;												// The expected MD5 for the downloaded file
+	/// Where to download from
+	NSURL* url;
+	/// The download delegate
+	__weak id<ZoomDownloadDelegate> delegate;
+	/// The expected MD5 for the downloaded file
+	NSData* md5;
 	
-	NSURLConnection* connection;								// The connection that the download will be loaded via
-	NSFileHandle* downloadFile;									// A file handle containing the file that we're downloading
-	NSString* tmpFile;											// The file that the download is going to
-	NSString* tmpDirectory;										// The directoruy that the download was unarchived to
-	NSString* suggestedFilename;								// The filename suggested for this download in the response
-	long long expectedLength;									// The expected length of the download
-	long long downloadedSoFar;									// The amount downloaded so far
+	/// The connection that the download will be loaded via
+	NSURLConnection* connection;
+	/// A file handle containing the file that we're downloading
+	NSFileHandle* downloadFile;
+	/// The file that the download is going to
+	NSString* tmpFile;
+	/// The directoruy that the download was unarchived to
+	NSString* tmpDirectory;
+	/// The filename suggested for this download in the response
+	NSString* suggestedFilename;
+	/// The expected length of the download
+	long long expectedLength;
+	/// The amount downloaded so far
+	long long downloadedSoFar;
 	
-	NSTask* task;												// The main unarchiving task
-	NSMutableArray* subtasks;									// The set of subtasks that are currently running
+	/// The main unarchiving task
+	NSTask* task;
+	/// The set of subtasks that are currently running
+	NSMutableArray* subtasks;
 }
 
 // Initialisation
@@ -56,9 +68,7 @@
 
 @end
 
-///
 /// Delegate methods for the download class
-///
 @protocol ZoomDownloadDelegate <NSObject>
 @optional
 

@@ -505,10 +505,10 @@ static int lastDownloadId = 0;
 			
 			// Read in the file and update the MD5 sum
 			@autoreleasepool {
-			NSData* readBytes;
-			while ((readBytes = [readDownload readDataOfLength: 65536]) && [readBytes length] > 0) {
-				CC_MD5_Update(&state, [readBytes bytes], (CC_LONG)[readBytes length]);
-			}
+				NSData* readBytes;
+				while ((readBytes = [readDownload readDataOfLength: 65536]) && [readBytes length] > 0) {
+					CC_MD5_Update(&state, [readBytes bytes], (CC_LONG)[readBytes length]);
+				}
 			}
 			
 			// Finish up and get the MD5 digest
