@@ -542,7 +542,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 	NSURL* directory = nil;
 	if (directory == nil) {
-		directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomTranscriptPath"];
+		directory = [[NSUserDefaults standardUserDefaults] URLForKey: ZoomSkeinTranscriptURLDefaultsKey];
 	}
 	if (directory == nil) {
 		directory = [NSURL fileURLWithPath:NSHomeDirectory()];
@@ -578,7 +578,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 	NSURL* directoryURL = nil;
 	if (directoryURL == nil) {
-		directoryURL = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomTranscriptPath"];
+		directoryURL = [[NSUserDefaults standardUserDefaults] URLForKey: ZoomSkeinTranscriptURLDefaultsKey];
 	}
 	if (directoryURL == nil) {
 		directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
@@ -601,7 +601,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	NSURL* directory = nil;
 	if (directory == nil) {
-		directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomTranscriptPath"];
+		directory = [[NSUserDefaults standardUserDefaults] URLForKey: ZoomSkeinTranscriptURLDefaultsKey];
 	}
 	if (directory == nil) {
 		directory = [NSURL fileURLWithPath: NSHomeDirectory()];
@@ -625,7 +625,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	// Remember the directory we last saved in
 	[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
-										   forKey: @"ZoomTranscriptPath"];
+										   forKey: ZoomSkeinTranscriptURLDefaultsKey];
 	
 	// Save the data
 	NSData* charData = [data dataUsingEncoding: NSUTF8StringEncoding];

@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, ZSVbutton)
 };
 
 NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
+NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 
 // Our sooper sekrit interface
 @interface ZoomSkeinView()
@@ -1505,7 +1506,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 	
 	NSURL* directory = nil;
 	if (directory == nil) {
-		directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomTranscriptPath"];
+		directory = [[NSUserDefaults standardUserDefaults] URLForKey: ZoomSkeinTranscriptURLDefaultsKey];
 	}
 	if (directory == nil) {
 		directory = [NSURL fileURLWithPath: NSHomeDirectory()];
@@ -1521,7 +1522,7 @@ NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
 		
 		// Remember the directory we last saved in
 		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
-											   forKey: @"ZoomTranscriptPath"];
+											   forKey: ZoomSkeinTranscriptURLDefaultsKey];
 		
 		// Save the data
 		[data writeToURL: [panel URL]
