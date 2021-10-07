@@ -9,7 +9,7 @@
 #import "ZoomZMachine.h"
 #import "ZoomServer.h"
 
-#include "sys/time.h"
+#include <sys/time.h>
 
 
 #include "zmachine.h"
@@ -693,6 +693,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 #pragma mark - Receiving files
 - (oneway void) filePromptCancelled {
     if (lastFile) {
+        [lastFile close];
         [lastFile release];
         lastFile = nil;
         lastSize = -1;
@@ -703,7 +704,10 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 - (oneway void) promptedFileIs: (in byref id<ZFile>) file
 						  size: (NSInteger) size {
-    if (lastFile) [lastFile release];
+    if (lastFile) {
+        [lastFile close];
+        [lastFile release];
+    }
     
     lastFile = [file retain];
     lastSize = size;
@@ -714,6 +718,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 - (void) filePromptStarted {
     filePromptFinished = NO;
     if (lastFile) {
+        [lastFile close];
         [lastFile release];
         lastFile = nil;
     }
@@ -725,6 +730,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 - (void) clearFile {
     if (lastFile) {
+        [lastFile close];
         [lastFile release];
         lastFile = nil;
     }

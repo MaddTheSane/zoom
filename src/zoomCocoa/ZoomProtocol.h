@@ -337,7 +337,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 				 defaultFile: (NSString*) filename
 				  forWriting: (BOOL) write NS_DESIGNATED_INITIALIZER;
 
-@property (copy) NSDictionary<NSFileAttributeKey, id> *attributes;
+@property (copy) NSDictionary<NSURLResourceKey, id> *attributes;
 
 - (void) addData: (NSData*) data
 	 forFilename: (NSString*) filename;

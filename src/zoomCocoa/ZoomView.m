@@ -1983,7 +1983,8 @@ static void finalizeViews(void) {
 		if (result != NSModalResponseOK) {
 			[self->zMachine filePromptCancelled];
 		} else {
-			NSString* fn = [panel URL].path;
+            NSURL *fileURL = [panel URL];
+			NSString* fn = fileURL.path;
 			NSFileHandle* file = nil;
 			
 			BOOL usePackage = NO;
@@ -1996,9 +1997,9 @@ static void finalizeViews(void) {
 			
 			if (usePackage) {
 				// We store information about the current screen state in the package
-				ZPackageFile* f = [[ZPackageFile alloc] initWithPath: fn
-														 defaultFile: @"save.qut"
-														  forWriting: YES];
+				ZPackageFile* f = [[ZPackageFile alloc] initWithURL: fileURL
+                                                        defaultFile: @"save.qut"
+                                                         forWriting: YES];
 				
 				if (f) {
 					int windowNumber = 0;
@@ -2007,7 +2008,7 @@ static void finalizeViews(void) {
 					[f setAttributes: @{
 						NSFileHFSCreatorCode: @(self->creatorCode),
 						NSFileHFSTypeCode: @(self->typeCode),
-						NSFileExtensionHidden: @([panel isExtensionHidden]),
+                        NSURLHasHiddenExtensionKey: @([panel isExtensionHidden]),
 					}];
 					
 					if ([self->upperWindows count] <= 0 || [(ZoomUpperWindow*)[self->upperWindows objectAtIndex: 0] length] > 0) {
@@ -2036,7 +2037,7 @@ static void finalizeViews(void) {
 					}
 					
 					[self->zMachine promptedFileIs: f
-										size: 0];
+                                              size: 0];
 				} else {
 					[self->zMachine filePromptCancelled];
 				}

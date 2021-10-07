@@ -130,7 +130,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 }
 
 - (oneway void) close {
-    return; // Do nothing
+    [handle closeFile];
 }
 
 @end
