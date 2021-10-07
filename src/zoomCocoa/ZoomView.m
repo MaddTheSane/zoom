@@ -2241,7 +2241,7 @@ static void finalizeViews(void) {
 	[textToSpeechReceiver setImmediate: [viewPrefs speakGameText]];
 	
 	[textView setTextContainerInset: NSMakeSize([viewPrefs textMargin], [viewPrefs textMargin])]; 
-	[[textView layoutManager] setHyphenationFactor: [viewPrefs useHyphenation]?1:0];
+	[[textView layoutManager] setUsesDefaultHyphenation: [viewPrefs useHyphenation]];
 	[[textView layoutManager] setUsesScreenFonts: [viewPrefs useScreenFonts]];
 	
 	if ([viewPrefs useKerning]) {
