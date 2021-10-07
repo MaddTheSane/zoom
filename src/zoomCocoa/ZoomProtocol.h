@@ -296,7 +296,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
     NSFileHandle* handle;
 }
 
-- (id) initWithFileHandle: (NSFileHandle*) handle;
+- (instancetype) initWithFileHandle: (NSFileHandle*) handle;
 @end
 
 //! File from data stored in memory
@@ -305,14 +305,14 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
     NSInteger pos;
 }
 
-- (id) initWithData: (NSData*) data;
+- (instancetype) initWithData: (NSData*) data;
 @end
 
 //! File(s) from a package
 @interface ZPackageFile : NSObject<ZFile> {
 	NSFileWrapper* wrapper;
 	BOOL forWriting;
-	NSString* writePath;
+	NSURL* writePath;
 	NSString* defaultFile;
 	
 	NSFileWrapper* data;
@@ -323,9 +323,15 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 	off_t pos;
 }
 
-- (id) initWithPath: (NSString*) path
-		defaultFile: (NSString*) filename
-		 forWriting: (BOOL) write;
+- (instancetype)init UNAVAILABLE_ATTRIBUTE;
+
+- (instancetype) initWithPath: (NSString*) path
+				  defaultFile: (NSString*) filename
+				   forWriting: (BOOL) write;
+
+- (instancetype) initWithURL: (NSURL*) url
+				 defaultFile: (NSString*) filename
+				  forWriting: (BOOL) write NS_DESIGNATED_INITIALIZER;
 
 @property (copy) NSDictionary<NSFileAttributeKey, id> *attributes;
 

@@ -82,9 +82,9 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 - (oneway void) writeDWord: (unsigned int) dword {
     unsigned char bytes[4];
 
-    bytes[0] = (dword>>24);
-    bytes[1] = (dword>>16);
-    bytes[2] = (dword>>8);
+    bytes[0] = (dword>>24)&0xff;
+    bytes[1] = (dword>>16)&0xff;
+    bytes[2] = (dword>>8)&0xff;
     bytes[3] = dword&0xff;
 
     NSData* data = [NSData dataWithBytes: bytes
@@ -171,9 +171,10 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
         return 0xffff;
     }
 
-    const unsigned char* bytes = [data bytes];
+    NSData* preBytes = [data subdataWithRange: NSMakeRange(pos, 2)];
+    const unsigned char* bytes = [preBytes bytes];
 
-    unsigned int res =  (bytes[pos]<<8) | bytes[pos+1];
+    unsigned short res =  (bytes[0]<<8) | bytes[1];
     pos+=2;
 
     return res;
@@ -184,18 +185,17 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
         return 0xffffffff;
     }
 
-    const unsigned char* bytes = [data bytes];
+    NSData* preBytes = [data subdataWithRange: NSMakeRange(pos, 4)];
+    const unsigned char* bytes = [preBytes bytes];
 
-    unsigned int res =  (bytes[pos]<<24) | (bytes[pos+1]<<16) |
-        (bytes[pos+2]<<8) | (bytes[pos+3]);
+    unsigned int res =  ((bytes[0]<<24) | (bytes[1]<<16) |
+                         (bytes[2]<<8) | (bytes[3]));
     pos+=4;
 
     return res;
 }
 
 - (bycopy NSData*) readBlock: (NSInteger) length {
-    const unsigned char* bytes = [data bytes];
-
     if (pos >= [data length]) {
         return nil;
     }
@@ -206,8 +206,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
         length -= diff;
     }
 
-    NSData* res =  [NSData dataWithBytes: bytes + pos
-                                  length: length];
+    NSData* res =  [data subdataWithRange: NSMakeRange(pos, length)];
 
     pos += length;
 
@@ -739,9 +738,9 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 // = File wrappers =
 @implementation ZPackageFile
 
-- (id) initWithPath: (NSString*) path
-		defaultFile: (NSString*) filename
-		 forWriting: (BOOL) write {
+- (instancetype) initWithURL: (NSURL*) path
+				 defaultFile: (NSString*) filename
+				  forWriting: (BOOL) write {
 	self = [super init];
 	
 	if (self) {
@@ -766,7 +765,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 			// Setup for reading
 			writePath = nil; // No writing!
 			writeData = nil;
-			wrapper = [[NSFileWrapper alloc] initWithURL: [NSURL fileURLWithPath:path]
+			wrapper = [[NSFileWrapper alloc] initWithURL: path
 												 options: (NSFileWrapperReadingOptions)0
 												   error: NULL];
 			
@@ -790,6 +789,12 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	return self;
 }
 
+- (id) initWithPath: (NSString*) path
+		defaultFile: (NSString*) filename
+		 forWriting: (BOOL) write {
+	return [self initWithURL: [NSURL fileURLWithPath:path] defaultFile: filename forWriting: write];
+}
+
 @synthesize attributes;
 
 - (unsigned char) readByte {
@@ -808,14 +813,16 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;
 	}
+	NSData *rfc = [data regularFileContents];
 	
-	if ((pos+1) >= [[data regularFileContents] length]) {
+	if ((pos+1) >= [rfc length]) {
         return 0xffff;
     }
 	
-    const unsigned char* bytes = [[data regularFileContents] bytes];
+    NSData *preBytes = [rfc subdataWithRange: NSMakeRange(pos, 2)];
+    const unsigned char* bytes = preBytes.bytes;
 	
-    unsigned int res =  (bytes[pos]<<8) | bytes[pos+1];
+    unsigned short res =  (bytes[0]<<8) | bytes[1];
     pos+=2;
 	
     return res;	
@@ -826,15 +833,17 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;
 	}
+    NSData *rfc = [data regularFileContents];
 
-    if ((pos+3) >= [[data regularFileContents] length]) {
+    if ((pos+3) >= [rfc length]) {
         return 0xffffffff;
     }
 	
-    const unsigned char* bytes = [[data regularFileContents] bytes];
+    NSData *preBytes = [rfc subdataWithRange: NSMakeRange(pos, 4)];
+    const unsigned char* bytes = preBytes.bytes;
 	
-    unsigned int res =  (bytes[pos]<<24) | (bytes[pos+1]<<16) |
-        (bytes[pos+2]<<8) | (bytes[pos+3]);
+    unsigned int res =  ((bytes[0]<<24) | (bytes[1]<<16) |
+                         (bytes[2]<<8) | (bytes[3]));
     pos+=4;
 	
     return res;
@@ -846,20 +855,19 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		return nil;
 	}
 	
-    const unsigned char* bytes = [[data regularFileContents] bytes];
+    NSData* bytes = [data regularFileContents];
 	
-    if (pos >= [[data regularFileContents] length]) {
+    if (pos >= [bytes length]) {
         return nil;
     }
 	
-    if ((pos + length) > [[data regularFileContents] length]) {
-        NSInteger diff = (NSInteger)((pos+length) - [[data regularFileContents] length]);
+    if ((pos + length) > [bytes length]) {
+        NSInteger diff = (NSInteger)((pos+length) - [bytes length]);
 		
         length -= diff;
     }
 	
-    NSData* res =  [NSData dataWithBytes: bytes + pos
-                                  length: length];
+    NSData* res = [bytes subdataWithRange: NSMakeRange(pos, length)];
 	
     pos += length;
 	
@@ -954,15 +962,14 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		[wrapper addRegularFileWithContents: writeData
 						  preferredFilename: defaultFile];
 		
-		[wrapper writeToURL: [NSURL fileURLWithPath: writePath]
+		[wrapper writeToURL: writePath
 					options: (NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating)
 		originalContentsURL: nil
 					  error: NULL];
 		
 		if (attributes) {
-			[[NSFileManager defaultManager] setAttributes: attributes
-											 ofItemAtPath: writePath
-													error: NULL];
+			[writePath setResourceValues: attributes
+								   error: NULL];
 		}
 	}
 }
