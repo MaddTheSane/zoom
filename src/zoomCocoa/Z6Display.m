@@ -283,7 +283,13 @@ void display_wait_for_more(void) {
 
 // = Mouse =
 
-extern void  display_read_mouse      (void) { NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__); }
+extern void  display_read_mouse      (void) {
+//	if ([mainMachine respondsToSelector:@selector(readMouse)]) {
+//		NSPoint mousePoint = [mainMachine readMouse];
+//	} else {
+		NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
+//	}
+}
 
 int display_get_pix_mouse_b (void) { 
 	return 1;

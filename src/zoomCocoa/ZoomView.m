@@ -18,11 +18,11 @@
 #import "ZoomScrollView.h"
 #import "ZoomConnector.h"
 
-// Sets variables to force extreme memory checking in the Zoom task; this provides a fairly huge performance
-// decrease, but provides 'earliest possible' warning of heap corruption.
+/// Sets variables to force extreme memory checking in the Zoom task; this provides a fairly huge performance
+/// decrease, but provides 'earliest possible' warning of heap corruption.
 #undef  ZoomTaskMaximumMemoryDebug
 
-// Turn on tracing of text editing events
+/// Turn on tracing of text editing events
 #undef  ZoomTraceTextEditing
 
 @implementation ZoomView
@@ -299,7 +299,7 @@ static void finalizeViews(void) {
 
 @synthesize zMachine;
 
-// = ZDisplay functions =
+#pragma mark - ZDisplay functions
 
 - (int) interpreterVersion {
 	return [viewPrefs interpreter];
@@ -446,7 +446,7 @@ static void finalizeViews(void) {
 	[[textView layoutManager] setBackgroundLayoutEnabled: YES];
 }
 
-// Set whether or not we recieve certain types of data
+/// Set whether or not we recieve certain types of data
 - (void) shouldReceiveCharacters {
 	lastAutosave = [zMachine createGameSave];
 		
@@ -711,7 +711,7 @@ static void finalizeViews(void) {
     }
 }
 
-// = Utility functions =
+#pragma mark - Utility functions
 
 - (void) writeAttributedString: (NSAttributedString*) string {
 	// Writes the given string to the lower window
@@ -727,6 +727,27 @@ static void finalizeViews(void) {
     [textView clearPastedLines]; 
 	
 	inputPos = 0;
+}
+
+//! Sets the title of the window, or resets the title if text is an empty string.
+- (void)setWindowTitle:(in bycopy NSString *)text {
+    if (@available(macOS 11.0, *)) {
+        if (self.window.subtitle.length == 0 && text.length != 0) {
+            self.window.subtitle = self.window.title;
+            self.window.title = text;
+        } else if (self.window.subtitle.length != 0 && text.length == 0) {
+            [self.window setTitleWithRepresentedFilename: self.window.representedFilename];
+            self.window.subtitle = @"";
+        } else {
+            self.window.title = text;
+        }
+    } else {
+        if (text.length != 0) {
+            self.window.title = text;
+        } else {
+            [self.window setTitleWithRepresentedFilename: self.window.representedFilename];
+        }
+    }
 }
 
 - (void) scrollToEnd {
@@ -1000,7 +1021,7 @@ static void finalizeViews(void) {
 
 @synthesize textView;
 
-// = TextView delegate methods =
+#pragma mark - TextView delegate methods
 - (BOOL)        textView:(__unused NSTextView *)aTextView
  shouldChangeTextInRange:(NSRange)affectedCharRange
        replacementString:(__unused NSString *)replacementString {
@@ -1064,7 +1085,7 @@ static void finalizeViews(void) {
     } while (newlinePos >= 0);
 }
 
-// = Event methods =
+#pragma mark - Event methods
 
 - (BOOL)handleKeyDown:(NSEvent *)theEvent {
     if (moreOn && pixmapWindow==nil) {
@@ -1242,7 +1263,7 @@ static void finalizeViews(void) {
 	[self handleKeyDown: fakeKeyDownEvent];
 }
 
-// = Formatting, fonts, colours, etc =
+#pragma mark - Formatting, fonts, colours, etc
 
 - (NSDictionary*) attributesForStyle: (ZStyle*) style {
     // Strings come from Zoom's server formatted with ZStyles rather than
@@ -1870,7 +1891,7 @@ static void finalizeViews(void) {
 	return NO;
 }
 
-// = Prompting for files =
+#pragma mark - Prompting for files
 - (void) setupPanel: (NSSavePanel*) panel
                type: (ZFileType) type {
     [panel setCanSelectHiddenExtension: YES];
@@ -2123,7 +2144,7 @@ static void finalizeViews(void) {
 	}];
 }
 
-// = The delegate =
+#pragma mark - The delegate
 @synthesize delegate;
 
 - (void) killTask {
@@ -2134,7 +2155,7 @@ static void finalizeViews(void) {
 	if (zoomTask) kill([zoomTask processIdentifier], SIGUSR1);
 }
 
-// = Warnings/errors =
+#pragma mark - Warnings/errors
 - (void) displayWarning: (in bycopy NSString*) warning {
 	// FIXME
 	NSString* warningString;
@@ -2182,7 +2203,7 @@ static void finalizeViews(void) {
 	}];
 }
 
-// = Setting/updating preferences =
+#pragma mark - Setting/updating preferences
 - (void) setPreferences: (ZoomPreferences*) prefs {
 	if (viewPrefs) {
 		[[NSNotificationCenter defaultCenter] removeObserver: self
@@ -2317,7 +2338,7 @@ static void finalizeViews(void) {
 	return [viewPrefs backgroundColour];
 }
 
-// = Autosave =
+#pragma mark - Autosave
 
 - (BOOL) createAutosaveDataWithCoder: (NSCoder*) encoder {
 	if (lastAutosave == nil) return NO;
@@ -2487,7 +2508,7 @@ static void finalizeViews(void) {
 	inputPos = [[textView textStorage] length];
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 
 #define ZoomUpperWindowsCodingKey @"upperWindows"
 #define ZoomLowerWindowsCodingKey @"lowerWindows"
@@ -2640,7 +2661,7 @@ static void finalizeViews(void) {
 // = Focused view =
 @synthesize focusedView;
 
-// = Cursor delegate =
+#pragma mark - Cursor delegate
 - (void) viewWillMoveToWindow: (NSWindow*) newWindow {
 	// Will observe events in a new window
 	if ([self window] != nil) {
@@ -2707,7 +2728,7 @@ static void finalizeViews(void) {
 	return [super resignFirstResponder];
 }
 
-// = Manual input =
+#pragma mark - Manual input
 
 @synthesize inputLinePos;
 @synthesize inputLine;
@@ -2802,7 +2823,7 @@ static void finalizeViews(void) {
 	}
 }
 
-// = Output receivers =
+#pragma mark - Output receivers
 
 - (void) addOutputReceiver: (id<ZoomViewOutputReceiver>) receiver {
 	if (!outputReceivers) {
@@ -2882,7 +2903,7 @@ static void finalizeViews(void) {
 	[self orInterpreterRestart];
 }
 
-// = Input sources =
+#pragma mark - Input sources
 
 @synthesize inputSource;
 
@@ -2951,7 +2972,7 @@ static void finalizeViews(void) {
 	}
 }
 
-// = Resources =
+#pragma mark - Resources
 
 @synthesize resources;
 
@@ -3025,7 +3046,7 @@ static void finalizeViews(void) {
 	return textToSpeechReceiver;
 }
 
-// = Accessibility=
+#pragma mark - Accessibility
 
 - (NSArray *)accessibilityChildren {
 	return @[[textScroller upperWindowView], textView];

@@ -256,7 +256,7 @@
 	display_exit(0);
 }
 
-// = Debugging =
+#pragma mark - Debugging
 void cocoa_debug_handler(ZDWord pc) {
 	[mainMachine breakpoint: pc];
 }
@@ -606,7 +606,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return addr.line->ch;
 }
 
-// = Autosave =
+#pragma mark - Autosave
 - (bycopy NSData*) createGameSave {
 	// Create a save game, for autosave purposes
 	int len;
@@ -671,7 +671,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return nil;
 }
 
-// = Receiving text/characters =
+#pragma mark - Receiving text/characters
 - (oneway void) inputText: (in bycopy NSString*) text {
     [inputBuffer appendString: text];
 }
@@ -690,7 +690,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 @synthesize mousePosX;
 @synthesize mousePosY;
 
-// = Receiving files =
+#pragma mark - Receiving files
 - (oneway void) filePromptCancelled {
     if (lastFile) {
         [lastFile release];
@@ -730,7 +730,7 @@ static NSString* zscii_to_string(ZByte* buf) {
     }
 }
 
-// = Our own functions =
+#pragma mark - Our own functions
 - (id<ZWindow>) windowNumber: (int) num {
     if (num < 0 || num > 2) {
         NSLog(@"*** BUG - window %i does not exist", num);
@@ -743,7 +743,14 @@ static NSString* zscii_to_string(ZByte* buf) {
 @synthesize display;
 @synthesize inputBuffer;
 
-// = Buffering =
+- (void)setWindowTitle:(in bycopy NSString *)text {
+    if (text == nil) {
+        text = @"";
+    }
+    [display setWindowTitle: text];
+}
+
+#pragma mark - Buffering
 
 @synthesize buffer = outputBuffer;
 

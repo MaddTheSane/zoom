@@ -877,7 +877,7 @@ int display_get_mouse_y(void) {
 
 void display_set_title(const char* title) {
 	NOTE(@"display_set_title");
-    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
+    [mainMachine setWindowTitle: title ? @(title) : nil];
 }
 
 void display_update(void) {

@@ -49,6 +49,7 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 
 // == Server-side objects ==
 /// Protocol for an application to talk to/from Zoom
+NS_SWIFT_NAME(ZMachineProtocol)
 @protocol ZMachine <NSObject>
 
 // Setup
@@ -106,8 +107,10 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 - (int)					 zRegion: (int) addr;
 - (bycopy NSString*) descriptionForValue: (unsigned) value;
 
-@optional
 - (void) setWindowTitle: (in bycopy NSString*) text;
+
+@optional
+- (NSPoint) readMouse;
 @end
 
 #pragma mark - Client-side objects
@@ -286,6 +289,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 //! Sound (such as Zoom's support is at the moment)
 - (void)  beep;
 
+- (void)setWindowTitle:(in bycopy NSString *)text;
 @end
 
 // Some useful standard classes
