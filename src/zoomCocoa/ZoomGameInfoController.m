@@ -11,7 +11,7 @@
 
 @implementation ZoomGameInfoController
 
-// = Shared info controller =
+#pragma mark - Shared info controller
 + (ZoomGameInfoController*) sharedGameInfoController {
 	static ZoomGameInfoController* shared = NULL;
 	
@@ -22,7 +22,7 @@
 	return shared;
 }
 
-// = Initialisation/finalisation =
+#pragma mark - Initialisation/finalisation
 
 - (id) init {
 	self = [self initWithWindowNibPath: [[NSBundle bundleForClass: [ZoomGameInfoController class]] pathForResource: @"GameInfo"
@@ -40,11 +40,11 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Owner =
+#pragma mark - Owner
 
 @synthesize infoOwner;
 
-// = Interface actions =
+#pragma mark - Interface actions
 
 - (IBAction)selectGenre:(id)sender {
 	NSString* name = nil;
@@ -219,7 +219,7 @@ static NSString* stringOrEmpty(NSString* str) {
 		nil];
 }
 
-// = NSText delegate =
+#pragma mark - NSText delegate
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	NSTextView* textView = [aNotification object];
@@ -237,7 +237,7 @@ static NSString* stringOrEmpty(NSString* str) {
 	}
 }
 
-// = Resource files =
+#pragma mark - Resource files
 
 - (NSString*) resourceFilename {
 	return [resourceDrop droppedFilename];

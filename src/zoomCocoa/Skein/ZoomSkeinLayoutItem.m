@@ -11,7 +11,7 @@
 
 @implementation ZoomSkeinLayoutItem
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	return [self initWithItem: nil
@@ -37,7 +37,7 @@
 	return self;
 }
 
-// = Getting properties =
+#pragma mark - Getting properties
 
 @synthesize item;
 @synthesize width;
@@ -49,7 +49,7 @@
 @synthesize depth;
 @synthesize recentlyPlayed;
 
-// = Setting properties =
+#pragma mark - Setting properties
 
 - (void) setChildren: (NSArray*) newChildren {
 	children = newChildren;

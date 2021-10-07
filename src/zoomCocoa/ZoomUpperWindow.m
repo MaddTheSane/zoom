@@ -195,7 +195,7 @@ static NSString* blankLine(NSInteger length) {
 	}
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 #define LINESCODINGKEY @"lines"
 #define BACKGROUNDCOLORCODINGKEY @"backgroundColour"
 #define STARTLINECODINGKEY @"startLine"
@@ -262,9 +262,11 @@ static NSString* blankLine(NSInteger length) {
 	return YES;
 }
 
+#pragma mark -
+
 @synthesize zoomView = theView;
 
-// = Input styles =
+#pragma mark - Input styles
 
 @synthesize inputStyle;
 

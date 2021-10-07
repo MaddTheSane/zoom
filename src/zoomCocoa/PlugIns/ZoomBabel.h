@@ -41,12 +41,12 @@
 	ZoomStoryID* storyID;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 //! Initialise this object with the specified story (metadata and image extraction will start immediately)
 - (id) initWithFilename: (NSString*) story;
 
-// = Raw reading =
+#pragma mark - Raw reading
 
 @property NSTimeInterval taskTimeout;
 //! Sets the maximum time to wait for the babel command to respond when blocking (default is 0.2 seconds)
@@ -57,7 +57,7 @@
 //! Retrieves the raw cover image data (or nil)
 - (NSData*) rawCoverImage;
 
-// = Interpreted reading =
+#pragma mark - Interpreted reading
 
 //! Requests the IFID for the story file
 - (ZoomStoryID*) storyID;

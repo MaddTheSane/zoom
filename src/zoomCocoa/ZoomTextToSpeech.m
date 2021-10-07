@@ -45,7 +45,7 @@ static SpeechChannel channel = nil;
 	return self;
 }
 
-// = Direct output =
+#pragma mark - Direct output
 
 - (void) inputCommand: (NSString*) command {
 	[text appendString: @"\n\n"];
@@ -60,7 +60,7 @@ static SpeechChannel channel = nil;
 	[text appendString: outputText];
 }
 
-// = Status notifications =
+#pragma mark - Status notifications
 
 - (void) zoomWaitingForInput {
 	if (isImmediate) {
@@ -77,7 +77,7 @@ static SpeechChannel channel = nil;
 	[self zoomWaitingForInput];
 }
 
-// = Glk automation =
+#pragma mark - Glk automation
 
 
 // Notifications about events that have occured in the view (when using this automation object for output)

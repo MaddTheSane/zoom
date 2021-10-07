@@ -91,7 +91,7 @@ extern NSString * const ZoomSkeinTranscriptURLDefaultsKey;
 @end
 
 
-// = Delegate =
+#pragma mark - Delegate
 @protocol ZoomSkeinViewDelegate <NSObject>
 @optional
 

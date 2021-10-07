@@ -700,7 +700,7 @@ static NSArray* DefaultColours(void) {
 	[self setFonts: newFonts];
 }
 
-// = Display preferences =
+#pragma mark - Display preferences
 
 - (int) foregroundColour {
 	NSNumber* val = [prefs objectForKey: foregroundColour];
@@ -762,7 +762,7 @@ static NSArray* DefaultColours(void) {
 	[self preferencesHaveChanged];	
 }
 
-// = Notifications =
+#pragma mark - Notifications
 
 - (void) preferencesHaveChanged {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomPreferencesHaveChangedNotification
@@ -775,7 +775,7 @@ static NSArray* DefaultColours(void) {
 	}
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 - (id) initWithCoder: (NSCoder*) coder {
 	self = [super init];
 	

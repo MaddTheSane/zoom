@@ -16,7 +16,7 @@
 	NSMutableArray<ZoomView*>* waitingViews;
 }
 
-// = The shared connector =
+#pragma mark - The shared connector
 
 + (ZoomConnector*) sharedConnector {
 	static ZoomConnector* sharedConnector = nil;
@@ -28,7 +28,7 @@
 	return sharedConnector;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	self = [super init];
@@ -62,7 +62,7 @@
 	[connection registerName: nil];
 }
 
-// = Connecting views to Z-Machines =
+#pragma mark - Connecting views to Z-Machines
 
 - (void) addViewWaitingForServer: (ZoomView*) view {
 	[self removeView: view];

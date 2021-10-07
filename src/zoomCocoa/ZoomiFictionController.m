@@ -61,7 +61,7 @@ NS_ENUM(NSInteger) {
 	ZoomDescriptionNewlineField
 };
 
-// = Setup/initialisation =
+#pragma mark - Setup/initialisation
 
 + (ZoomiFictionController*) sharediFictionController {
 	if (!sharedController) {
@@ -334,7 +334,7 @@ NS_ENUM(NSInteger) {
 	[self positionDownloadWindow];
 }
 
-// = Useful functions for getting info about the table =
+#pragma mark - Useful functions for getting info about the table
 
 - (ZoomStoryID*) selectedStoryID {
 	if (needsUpdating) [self reloadTableData];
@@ -377,7 +377,7 @@ NS_ENUM(NSInteger) {
 	return [[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: [theStory storyID]];
 }
 
-// = Panel actions =
+#pragma mark - Panel actions
 
 #ifndef __MAC_11_0
 #define __MAC_11_0          110000
@@ -520,7 +520,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-// = IB actions =
+#pragma mark - IB actions
 
 - (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
 	BOOL exists;
@@ -753,7 +753,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	[self reloadTableData]; [mainTableView reloadData];
 }
 
-// = Notifications =
+#pragma mark - Notifications
 
 - (void) queueStoryUpdate {
 	// Queues an update to run next time through the run loop
@@ -817,7 +817,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-// = Our life as a data source =
+#pragma mark - Our life as a data source
 - (ZoomStory*) storyForID: (ZoomStoryID*) ident {
 	ZoomStoryOrganiser* org = [ZoomStoryOrganiser sharedStoryOrganiser];
 	
@@ -1688,7 +1688,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	[self configureFromMainTableSelection];
 }
 
-// = GameInfo window actions =
+#pragma mark - GameInfo window actions
 
 - (IBAction) infoNameChanged: (id) sender {
 	if ([self selectedStory] == nil) return;
@@ -1795,7 +1795,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
-// = NSText delegate =
+#pragma mark - NSText delegate
 
 - (BOOL)    	textView:(NSTextView *)aTextView
  shouldChangeTextInRange:(NSRange)affectedCharRange
@@ -2050,7 +2050,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-// = Various menus =
+#pragma mark - Various menus
 
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
 	SEL sel = [menuItem action];
@@ -2151,7 +2151,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-// = windowWillClose, etc =
+#pragma mark - windowWillClose, etc
 
 - (void) windowWillClose: (NSNotification*) notification {
 }
@@ -2160,7 +2160,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	return YES;
 }
 
-// = Loading iFiction data =
+#pragma mark - Loading iFiction data
 
 - (NSArray*) mergeiFictionFromMetabase: (ZoomMetadata*) newData {
 	// Show our window
@@ -2253,7 +2253,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-// = Saving iFiction data =
+#pragma mark - Saving iFiction data
 
 - (IBAction) saveMetadata: (id) sender {
 	NSSavePanel* panel = [NSSavePanel savePanel];
@@ -2304,7 +2304,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	[self flipTo: saveGameView];	
 }
 
-// = ResourceDrop delegate =
+#pragma mark - ResourceDrop delegate
 
 - (void) resourceDropFilenameChanged: (ZoomResourceDrop*) drop {
 	ZoomStoryOrganiser* org = [ZoomStoryOrganiser sharedStoryOrganiser];
@@ -2320,7 +2320,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-// = Handling downloads =
+#pragma mark - Handling downloads
 
 - (BOOL) canPlayFile: (NSString*) filename {
 	NSArray* fileTypes = [NSArray arrayWithObjects: @"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", @"signpost", nil];
@@ -2763,7 +2763,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-// = Browsing the IFDB =
+#pragma mark - Browsing the IFDB
 
 - (void) updateBackForwardButtons {
 	if ([ifdbView canGoForward]) {
@@ -3010,7 +3010,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 }
 
-// = Dealing with signposts =
+#pragma mark - Dealing with signposts
 
 - (void) openSignPost: (NSData*) signpostFile
 		forceDownload: (BOOL) forceDownload {

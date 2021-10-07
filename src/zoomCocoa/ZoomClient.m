@@ -73,7 +73,7 @@
     return self;
 }
 
-// = Creating the document =
+#pragma mark - Creating the document
 
 - (void) makeWindowControllers {
     ZoomClientController* controller = [[ZoomClientController alloc] init];
@@ -212,7 +212,7 @@
     return YES;
 }
 
-// = Document info =
+#pragma mark - Document info
 
 @synthesize gameData;
 @synthesize storyInfo=story;
@@ -230,7 +230,7 @@
 	return [super displayName];
 }
 
-// = Autosave =
+#pragma mark - Autosave
 
 @synthesize autosaveData;
 
@@ -495,7 +495,7 @@
 @synthesize skein;
 @synthesize resources;
 
-// = Errors that might have happened but we recovered from =
+#pragma mark - Errors that might have happened but we recovered from
 
 - (void) addLoadingError: (NSString*) loadingError {
 	// Using this mechanism allows us to report that we couldn't find any resources (for instance) to the

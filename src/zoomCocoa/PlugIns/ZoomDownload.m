@@ -13,7 +13,7 @@
 
 @implementation ZoomDownload
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 static NSString* downloadDirectory;
 static int lastDownloadId = 0;
@@ -98,7 +98,7 @@ static int lastDownloadId = 0;
 @synthesize delegate;
 @synthesize expectedMD5=md5;
 
-// = Starting the download =
+#pragma mark - Starting the download
 
 - (void) startDownload {
 	// Do nothing if this download is already running
@@ -138,7 +138,7 @@ static int lastDownloadId = 0;
 	}
 }
 
-// = Status events =
+#pragma mark - Status events
 
 - (void) finished {
 	// Kill any tasks
@@ -184,7 +184,7 @@ static int lastDownloadId = 0;
 	}
 }
 
-// = The unarchiver =
+#pragma mark - The unarchiver
 
 - (NSString*) directoryForUnarchiving {
 	if (tmpDirectory != nil) return tmpDirectory;
@@ -343,7 +343,7 @@ static int lastDownloadId = 0;
 	[task launch];
 }
 
-// = NSURLConnection delegate =
+#pragma mark - NSURLConnection delegate
 
 - (NSString*) fullExtensionFor: (NSString*) filename {
 	NSString* extension = [filename pathExtension];
@@ -539,7 +539,7 @@ static int lastDownloadId = 0;
 	}
 }
 
-// = NSTask delegate =
+#pragma mark - NSTask delegate
 
 - (void) taskDidTerminate: (NSNotification*) not {
 	// Do nothing if no task is running
@@ -576,7 +576,7 @@ static int lastDownloadId = 0;
 	}
 }
 
-// = Getting the download directory =
+#pragma mark - Getting the download directory
 @synthesize url;
 @synthesize downloadDirectory=tmpDirectory;
 @synthesize suggestedFilename;

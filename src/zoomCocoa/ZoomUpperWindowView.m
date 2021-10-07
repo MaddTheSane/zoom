@@ -82,7 +82,7 @@
     return YES;
 }
 
-// = Flashing the cursor =
+#pragma mark - Flashing the cursor
 
 - (NSPoint) cursorPos {
 	// NOTE: will break in v3 games that get input in the upper window. Luckily, none exist.
@@ -156,7 +156,7 @@
 	[super mouseUp: evt];
 }
 
-// = Input line =
+#pragma mark - Input line
 
 - (void) activateInputLine {
 	ZoomUpperWindow* activeWindow = (ZoomUpperWindow*)[zoomView focusedView];
@@ -228,7 +228,7 @@
 	return inputLine != nil;
 }
 
-// = Updating the cursor =
+#pragma mark - Updating the cursor
 
 - (void) windowDidBecomeKey: (__unused NSNotification*) not {
 	if (cursor) {
@@ -242,8 +242,7 @@
 	}
 }
 
-// = Accessibility =
-
+#pragma mark - Accessibility
 
 - (NSString *)accessibilityValue
 {

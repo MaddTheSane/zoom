@@ -37,7 +37,7 @@
     }
 }
 
-// = Mouse event handling =
+#pragma mark - Mouse event handling
 
 - (void) mouseDown: (NSEvent*) evt {
 	if (!dragged) {
@@ -62,7 +62,7 @@
 	return [super isAccessibilityElement];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 // (Draw the overlays)
 - (void) drawRect: (NSRect) r {
@@ -161,7 +161,7 @@
     }
 }
 
-// = Pasting overlays =
+#pragma mark - Pasting overlays
 
 // Things that are drawn in the upper window, but outside the point at which it has been split are
 // overlaid into the text view.

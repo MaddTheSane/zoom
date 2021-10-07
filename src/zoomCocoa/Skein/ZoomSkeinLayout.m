@@ -29,7 +29,7 @@ static NSImage* unchangedDark, *activeDark;
 
 @implementation ZoomSkeinLayout
 
-// = Factory methods =
+#pragma mark - Factory methods
 
 + (NSImage*) imageNamed: (NSString*) name {
 	NSImage* img = [NSImage imageNamed: name];
@@ -161,7 +161,7 @@ static NSImage* unchangedDark, *activeDark;
 			  hints: nil];
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	return [self initWithRootItem: nil];
@@ -203,7 +203,7 @@ static NSImage* unchangedDark, *activeDark;
 	[super dealloc];
 }
 
-// = Setting skein data =
+#pragma mark - Setting skein data
 
 @synthesize itemWidth;
 - (void) setItemWidth: (CGFloat) newItemWidth {
@@ -296,7 +296,7 @@ static NSImage* unchangedDark, *activeDark;
 	[self updateHighlightDetails];
 }
 
-// = Performing layout =
+#pragma mark - Performing layout
 
 - (ZoomSkeinLayoutItem*) layoutSkeinItemLoose: (ZoomSkeinItem*) item
 									withLevel: (int) level {
@@ -424,7 +424,7 @@ static NSImage* unchangedDark, *activeDark;
 	if (highlightedLineItem) [self updateHighlightDetails];
 }
 
-// = Getting layout data =
+#pragma mark - Getting layout data
 
 - (NSInteger) levels {
 	return [levels count];
@@ -448,7 +448,7 @@ static NSImage* unchangedDark, *activeDark;
 	return [levels objectAtIndex: level];
 }
 
-// = Raw item data =
+#pragma mark - Raw item data
 
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item {
 	return [itemForItem objectForKey: [NSValue valueWithPointer: item]]; // Yeah, yeah. Items are distinguished by command, not location in the tree
@@ -470,7 +470,7 @@ static NSImage* unchangedDark, *activeDark;
 	return [[self dataForItem: item] fullWidth];
 }
 
-// = Item positioning data =
+#pragma mark - Item positioning data
 
 - (NSRect) activeAreaForData: (ZoomSkeinLayoutItem*) item {
 	NSRect itemRect;
@@ -596,7 +596,7 @@ static NSImage* unchangedDark, *activeDark;
 	}
 }
 
-// = Drawing the layout =
+#pragma mark - Drawing the layout
 
 - (void) drawInRect: (NSRect) rect {
 	// Fill in the background
@@ -799,7 +799,7 @@ static NSImage* unchangedDark, *activeDark;
 	return [res autorelease];
 }
 
-// = Alternative packing style(s) =
+#pragma mark - Alternative packing style(s)
 
 @synthesize packingStyle;
 

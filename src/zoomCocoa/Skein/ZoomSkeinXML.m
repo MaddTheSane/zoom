@@ -152,7 +152,7 @@ static NSString* xmlEncode(NSString* str) {
 	return result;
 }
 
-// = Parsing the XML =
+#pragma mark - Parsing the XML
 
 // Have to use expat: Apple's own XML parser is not available in Jaguar
 

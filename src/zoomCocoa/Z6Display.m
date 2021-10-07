@@ -24,7 +24,7 @@ extern BOOL zPixmapDisplay;
 struct BlorbImage* zoomImageCache = NULL;
 int zoomImageCacheSize = 0;
 
-// = V6 display =
+#pragma mark - V6 display
 
 // Initialisation
 
@@ -264,7 +264,7 @@ int display_get_pix_colour(int x, int y) {
 	return ((redComponent)|(greenComponent<<5)|(blueComponent<<10)) + 16;
 }
 
-// = Input =
+#pragma mark - Input
 
 void display_set_input_pos(int style, int x, int y, int width) { 
 	set_style(style);
@@ -281,7 +281,7 @@ void display_wait_for_more(void) {
 	[[mainMachine display] displayMore: NO];
 }
 
-// = Mouse =
+#pragma mark - Mouse
 
 extern void  display_read_mouse      (void) {
 //	if ([mainMachine respondsToSelector:@selector(readMouse)]) {
@@ -309,7 +309,7 @@ void display_flush(void) {
 	[mainMachine flushBuffers];
 }
 
-// = Images =
+#pragma mark - Images
 
 void display_plot_image(BlorbImage* img, int x, int y) {
 	[[mainMachine buffer] plotImage: img->number
@@ -317,7 +317,7 @@ void display_plot_image(BlorbImage* img, int x, int y) {
 						   inWindow: (id<ZPixmapWindow>)[mainMachine windowNumber: 0]];
 }
 
-// = Blorb =
+#pragma mark - Blorb
 
 // We re-implement blorb here, mainly because images really should be on the other side of the connection
 // (plus, I want to use NSImages, avoid libpng, etc)

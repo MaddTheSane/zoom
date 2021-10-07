@@ -37,7 +37,7 @@ NSString*const ZoomSIChild = @"ZoomSIChild";
 	NSSize annotationSize;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 static NSString* convertCommand(NSString* command) {
 	if (command == nil) return nil;
@@ -157,7 +157,7 @@ static NSString* convertCommand(NSString* command) {
 
 // **** Data accessors ****
 
-// = Skein tree =
+#pragma mark - Skein tree
 @synthesize parent;
 
 - (NSSet*) children {
@@ -263,7 +263,7 @@ static NSString* convertCommand(NSString* command) {
 	return NO;
 }
 
-// = Item data =
+#pragma mark - Item data
 
 @synthesize command;
 @synthesize result;
@@ -293,7 +293,7 @@ static NSString* convertCommand(NSString* command) {
 	[self itemHasChanged];
 }
 
-// = Item state =
+#pragma mark - Item state
 
 @synthesize temporary;
 @synthesize temporaryScore = tempScore;
@@ -371,7 +371,7 @@ static int currentScore = 1;
 	if (oldChanged != newChanged) [self itemHasChanged];
 }
 
-// = Annotation =
+#pragma mark - Annotation
 
 @synthesize annotation;
 
@@ -390,7 +390,7 @@ static int currentScore = 1;
 	[self itemHasChanged];
 }
 
-// = Commentary =
+#pragma mark - Commentary
 
 @synthesize commentary;
 
@@ -519,7 +519,7 @@ static int currentScore = 1;
 	return nil;
 }
 
-// = Taking part in a set =
+#pragma mark - Taking part in a set
 
 - (NSUInteger)hash {
 	// Items are distinguished by their command
@@ -542,7 +542,7 @@ static int currentScore = 1;
 	return [[otherItem command] isEqual: command];
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 
 - (void) encodeWithCoder: (NSCoder*) encoder {
 	[encoder encodeObject: children
@@ -596,7 +596,7 @@ static int currentScore = 1;
 	return YES;
 }
 
-// = Drawing/sizing =
+#pragma mark - Drawing/sizing
 
 //
 // These routines are implemented here for performance reasons

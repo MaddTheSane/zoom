@@ -64,7 +64,7 @@
     [zoomView displayMoreIfNecessary];
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 #define BACKGROUNDSTYLECODINGKEY @"backgroundStyle"
 
 - (void) encodeWithCoder: (NSCoder*) encoder {
@@ -96,7 +96,7 @@
 
 @synthesize zoomView;
 
-// = Input styles =
+#pragma mark - Input styles
 
 @synthesize inputStyle;
 

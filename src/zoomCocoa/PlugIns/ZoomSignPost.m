@@ -12,7 +12,7 @@
 
 @implementation ZoomSignPost
 
-// = Initialising =
+#pragma mark - Initialising
 
 - (id) initWithData: (NSData*) data {
 	self = [super init];
@@ -73,9 +73,9 @@
 	return YES;
 }
 
-// = Parsing =
+#pragma mark - Parsing
 
-- (void)  parser: (NSXMLParser *)parser 
+- (void)  parser:(NSXMLParser *)parser
  didStartElement:(NSString *)elementName
 	namespaceURI:(NSString *)namespaceURI 
    qualifiedName:(NSString *)qualifiedName 
@@ -159,7 +159,7 @@
 	parseError = YES;
 }
 
-// = Getting signpost data =
+#pragma mark - Getting signpost data
 
 - (NSArray*) ifids {
 	NSMutableArray* result = [NSMutableArray array];
@@ -188,7 +188,7 @@
 
 @synthesize errorMessage;
 
-// = Serializing =
+#pragma mark - Serializing
 
 - (NSData*) data {
 	NSMutableDictionary* plist = [NSMutableDictionary dictionary];

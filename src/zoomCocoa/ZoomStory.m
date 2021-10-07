@@ -181,7 +181,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	return result;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	[NSException raise: @"ZoomCannotInitialiseStoryException"
@@ -213,7 +213,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Notifications =
+#pragma mark - Notifications
 
 - (void) storyDying: (NSNotification*) not {
 	// If this story is removed from the metabase, then invalidate this object
@@ -233,7 +233,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	}
 }
 
-// = Accessors =
+#pragma mark - Accessors
 
 @synthesize story;
 
@@ -330,7 +330,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	return [self objectForKey: @"description"];
 }
 
-// = Setting data =
+#pragma mark - Setting data
 
 // Setting data
 - (void) setTitle: (NSString*) newTitle {
@@ -419,7 +419,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 			 forKey: @"description"];
 }
 
-// = NSCopying =
+#pragma mark - NSCopying
 
 /*
 - (id) copyWithZone: (NSZone*) zone {
@@ -435,7 +435,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 }
 */
 
-// = Story pseudo-dictionary methods =
+#pragma mark - Story pseudo-dictionary methods
 
 - (void) loadExtraMetadata {
 	if (extraMetadata != nil) return;
@@ -609,7 +609,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	[self heyLookThingsHaveChangedOohShiney];
 }
 
-// = Searching =
+#pragma mark - Searching
 
 - (BOOL) containsText: (NSString*) text {
 	if (story == NULL) return NO;
@@ -647,7 +647,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	return success;
 }
 
-// = Sending notifications =
+#pragma mark - Sending notifications
 
 - (void) heyLookThingsHaveChangedOohShiney {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryDataHasChangedNotification

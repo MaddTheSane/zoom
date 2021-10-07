@@ -11,7 +11,7 @@
 
 @implementation ZoomPlugInCell
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) copyWithZone: (NSZone*) zone {
 	ZoomPlugInCell* copy = [super copyWithZone: zone];
@@ -19,7 +19,7 @@
 	return copy;
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void)drawInteriorWithFrame: (NSRect)cellFrame 
 					   inView: (NSView *)controlView {

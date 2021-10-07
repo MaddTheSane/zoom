@@ -12,7 +12,7 @@
 
 @implementation ZoomPlugIn
 
-// = Informational functions (subclasses should normally override) =
+#pragma mark - Informational functions (subclasses should normally override)
 
 + (NSString*) pluginVersion {
 	NSLog(@"Warning: loaded a plugin which does not provide pluginVersion");
@@ -40,7 +40,7 @@
 	return NO;
 }
 
-// = Designated initialiser =
+#pragma mark - Designated initialiser
 
 - (id) init {
 	[NSException raise: @"ZoomNoPlugInFilename"
@@ -60,7 +60,7 @@
 	return self;
 }
 
-// = Getting information about what this plugin should be doing =
+#pragma mark - Getting information about what this plugin should be doing
 
 @synthesize gameFilename=gameFile;
 @synthesize gameData;
@@ -73,7 +73,7 @@
 	return gameData;
 }
 
-// = The game window =
+#pragma mark - The game window
 
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story {
 	[NSException raise: @"ZoomNoPlugInInterface" 
@@ -90,7 +90,7 @@
 	return nil;	
 }
 
-// = Dealing with game metadata =
+#pragma mark - Dealing with game metadata
 
 - (ZoomStoryID*) idForStory {
 	// Generate an MD5-based ID
@@ -106,7 +106,7 @@
 	return nil;
 }
 
-// = More information =
+#pragma mark - More information
 
 - (void) setPreferredSaveDirectory: (NSString*) dir {
 	// Default implementation does nothing

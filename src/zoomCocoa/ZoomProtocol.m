@@ -257,7 +257,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 }
 @end
 
-// = ZStyle =
+#pragma mark - ZStyle
 NSString* const ZStyleAttributeName = @"ZStyleAttribute";
 
 @implementation ZStyle
@@ -735,7 +735,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 @end
 
-// = File wrappers =
+#pragma mark - File wrappers
 @implementation ZPackageFile
 
 - (instancetype) initWithURL: (NSURL*) path

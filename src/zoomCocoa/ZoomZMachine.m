@@ -96,7 +96,7 @@
 	abort();
 }
 
-// = Setup =
+#pragma mark - Setup
 - (void) loadStoryFile: (in bycopy NSData*) storyFile {
     // Create the machine file
 	storyData = [storyFile retain];
@@ -144,7 +144,7 @@
     rc_set_game(zmachine_get_serial(), Word(ZH_release), Word(ZH_checksum));
 }
 
-// = Running =
+#pragma mark - Running
 - (oneway void) startRunningInDisplay: (in byref id<ZDisplay>) disp {
     @autoreleasepool {
     
@@ -766,7 +766,7 @@ static NSString* zscii_to_string(ZByte* buf) {
     outputBuffer = [[ZBuffer allocWithZone: [self zone]] init];
 }
 
-// = Display size =
+#pragma mark - Display size
 
 - (void) displaySizeHasChanged {
     zmachine_resize_display(display_get_info());
@@ -774,7 +774,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 @end
 
-// = Fatal errors and warnings =
+#pragma mark - Fatal errors and warnings
 void zmachine_fatal(const char* format, ...) {
 	char fatalBuf[512];
 	va_list  ap;

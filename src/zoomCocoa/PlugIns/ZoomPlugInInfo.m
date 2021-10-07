@@ -12,7 +12,7 @@
 
 @implementation ZoomPlugInInfo
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) initWithBundleFilename: (NSString*) bundle {
 	NSDictionary* plist = [[ZoomPlugInManager sharedPlugInManager] plistForBundle: bundle];
@@ -132,7 +132,7 @@ static unsigned int ValueForHexChar(int hex) {
 	return self;	
 }
 
-// = Copying =
+#pragma mark - Copying
 
 - (id) copyWithZone: (NSZone*) zone {
 	ZoomPlugInInfo* newInfo = [[ZoomPlugInInfo allocWithZone: zone] init];
@@ -152,7 +152,7 @@ static unsigned int ValueForHexChar(int hex) {
 	return newInfo;
 }
 
-// = Retrieving the information =
+#pragma mark - Retrieving the information
 
 @synthesize name;
 @synthesize author;

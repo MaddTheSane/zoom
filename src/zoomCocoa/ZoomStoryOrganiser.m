@@ -35,7 +35,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	NSConnection* subThread;
 }
 
-// = Shared functions =
+#pragma mark - Shared functions
 
 + (NSImage*) frontispieceForBlorb: (ZoomBlorbFile*) decodedFile {
 	int coverPictureNumber = -1;
@@ -92,7 +92,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	return nil;
 }
 
-// = Internal functions =
+#pragma mark - Internal functions
 
 - (NSDictionary*) dictionary {
 	NSMutableDictionary* defaultDictionary = [NSMutableDictionary dictionary];
@@ -426,7 +426,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 		  organise: NO];	
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (void) initialize {
 	// User defaults
@@ -468,7 +468,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = The shared organiser =
+#pragma mark - The shared organiser
 
 static ZoomStoryOrganiser* sharedOrganiser = nil;
 
@@ -481,7 +481,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	return sharedOrganiser;
 }
 
-// = Storing stories =
+#pragma mark - Storing stories
 
 - (void) addStory: (NSString*) filename
 		withIdent: (ZoomStoryID*) ident {
@@ -629,7 +629,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[self organiserChanged];
 }
 
-// = Progress =
+#pragma mark - Progress
 
 - (void) startedActing {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryOrganiserProgressNotification
@@ -647,7 +647,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 														  nil]];
 }
 
-// = Retrieving story information =
+#pragma mark - Retrieving story information
 
 - (NSString*) filenameForIdent: (ZoomStoryID*) ident {
 	NSString* res;
@@ -677,7 +677,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	return [storyIdents copy];
 }
 
-// = Story-specific data =
+#pragma mark - Story-specific data
 
 - (NSString*) directoryForName: (NSString*) name {
 	// Gets rid of certain illegal characters from the name, returning a valid directory name
@@ -1110,7 +1110,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		[self organiserChanged];
 }
 
-// = Reorganising stories =
+#pragma mark - Reorganising stories
 
 - (void) organiseStory: (ZoomStory*) story
 			 withIdent: (ZoomStoryID*) ident {
@@ -1515,7 +1515,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[[NSUserDefaults standardUserDefaults] synchronize];	// In case we later crash
 }
 
-// = Reorganising story files =
+#pragma mark - Reorganising story files
 
 - (NSData*) retrieveUtf8PathFrom: (NSString*) path {
 	// We have to have this function, as we can't call NSFileManager from a thread

@@ -489,7 +489,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 
 @synthesize ident;
 
-// = NSCopying =
+#pragma mark - NSCopying
 - (id) copyWithZone: (NSZone*) zone {
 	ZoomStoryID* newID = [[ZoomStoryID allocWithZone: zone] init];
 	
@@ -499,7 +499,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 	return newID;
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 - (void)encodeWithCoder:(NSCoder *)encoder {
 	if (encoder.allowsKeyedCoding) {
 		char* stringId = IFMB_IdToString(ident);
@@ -639,7 +639,7 @@ typedef unsigned char IFMDByte;
 	return YES;
 }
 
-// = Hashing/comparing =
+#pragma mark - Hashing/comparing
 - (NSUInteger) hash {
 	return [[self description] hash];
 }
@@ -670,7 +670,7 @@ typedef unsigned char IFMDByte;
 	return identString;
 }
 
-// = Port coding =
+#pragma mark - Port coding
 
 - (id)replacementObjectForPortCoder:(NSPortCoder *)encoder { 
 	if ([encoder isBycopy]) return self; 

@@ -250,7 +250,7 @@
 	[[gamePrefs window] orderOut: self];
 }
 
-// = Setting up the game info window =
+#pragma mark - Setting up the game info window
 
 - (IBAction) recordGameInfo: (id) sender {
 	ZoomGameInfoController* sgI = [ZoomGameInfoController sharedGameInfoController];
@@ -394,7 +394,7 @@
 	[[ZoomNotesController sharedNotesController] setInfoOwner: self];
 }
 
-// = GameInfo updates =
+#pragma mark - GameInfo updates
 
 - (IBAction) infoNameChanged: (id) sender {
 	[[[self document] storyInfo] setTitle: [[ZoomGameInfoController sharedGameInfoController] title]];
@@ -450,7 +450,7 @@
 	}
 }
 
-// = Various IB actions =
+#pragma mark - Various IB actions
 
 - (IBAction) playInFullScreen: (id) sender {
 	if (isFullscreen) {
@@ -579,7 +579,7 @@
 	}
 }
 
-// = Showing a logo =
+#pragma mark - Showing a logo
 
 - (NSImage*) resizeLogo: (NSImage*) input {
 	NSSize oldSize = [input size];
@@ -711,7 +711,7 @@
 	}
 }
 
-// = Interacting with the skein =
+#pragma mark - Interacting with the skein
 
 - (void) restartGame {
 	 // Will force a restart
@@ -727,7 +727,7 @@
 	 [[self zoomView] setInputSource: inputSource];
 }
 
-// = Window title =
+#pragma mark - Window title
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
 	if (finished) {
@@ -737,7 +737,7 @@
 	return displayName;
 }
 
-// = Text to speech =
+#pragma mark - Text to speech
 
 - (IBAction) stopSpeakingMove: (id) sender {
 	[[zoomView textToSpeech] beQuiet];

@@ -24,7 +24,7 @@
 # define NOTE(x)
 #endif
 
-// = Display state =
+#pragma mark - Display state
 NSAutoreleasePool* displayPool = nil;
 static BOOL zDisplayForceFixed[8] = { NO, NO, NO, NO, NO, NO, NO, NO };
 static int is_v6 = 0;
@@ -34,7 +34,7 @@ ZStyle* zDisplayCurrentStyle = nil;
 
 BOOL zPixmapDisplay = NO;
 
-// = Display =
+#pragma mark - Display
 
 static int cocoa_to_zscii(int theChar) {
 	// Convert the character to ZSCII
@@ -99,7 +99,7 @@ static int cocoa_to_zscii(int theChar) {
 	return theChar;
 }
 
-// = Debugging functions =
+#pragma mark - Debugging functions
 
 void printf_debug(const char* format, ...) {
     va_list  ap;
@@ -251,7 +251,7 @@ void display_erase_line(int val) {
                                   withStyle: zDisplayCurrentStyle];
 }
 
-// = Display functions =
+#pragma mark - Display functions
 
 void display_prints(const int* buf) {
 	if (is_v6)
@@ -339,7 +339,7 @@ void display_printf(const char* format, ...) {
     display_prints_c(string);
 }
 
-// = Input =
+#pragma mark - Input
 
 int display_readline(int* buf, int len, long int timeout) {
 	NOTE(@"display_readline");
@@ -551,7 +551,7 @@ int display_readchar(long int timeout) {
     return theChar;
 }
 
-// = Used by the debugger =
+#pragma mark - Used by the debugger
 
 static int old_win;
 static int old_fore, old_back;
@@ -589,7 +589,7 @@ void display_desanitise(void) {
     display_set_window(old_win);
 }
 
-// = Display styling =
+#pragma mark - Display styling
 
 void display_is_v6(void) { 
 	NOTE(@"display_is_v6");
@@ -892,7 +892,7 @@ void display_beep(void) {
 	NOTE(@"display_beep");
 }
 
-// = Getting files =
+#pragma mark - Getting files
 
 static ZFileType convert_file_type(ZFile_type typein) {
     switch (typein) {

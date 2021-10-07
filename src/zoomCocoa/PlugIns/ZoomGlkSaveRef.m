@@ -13,7 +13,7 @@
 
 @implementation ZoomGlkSaveRef
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) initWithPlugIn: (ZoomPlugIn*) newPlugin
 				 path: (NSString*) newPath {
@@ -39,7 +39,7 @@
 	return self;
 }
 
-// = Creating the glksave package =
+#pragma mark - Creating the glksave package
 
 - (BOOL) createSavePackage {
 	// Constructs a save package at the specified path
@@ -187,7 +187,7 @@
 	return YES;
 }
 
-// = Properties =
+#pragma mark - Properties
 
 @synthesize delegate;
 
@@ -198,7 +198,7 @@
 
 @synthesize skein;
 	
-// = GlkFileRef implementation =
+#pragma mark - GlkFileRef implementation
 
 - (byref id<GlkStream>) createReadOnlyStream {
 	// Load the skein from the path if it exists

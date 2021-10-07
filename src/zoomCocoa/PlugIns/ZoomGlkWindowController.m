@@ -104,7 +104,7 @@
 	[[GlkHub sharedGlkHub] setRandomHubCookie];
 }
 
-// = Preferences =
+#pragma mark - Preferences
 
 + (GlkPreferences*) glkPreferencesFromZoomPreferences {
 	GlkPreferences* prefs = [[GlkPreferences alloc] init];
@@ -144,7 +144,7 @@
 	return prefs;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	self = [super initWithWindowNibPath: [[NSBundle bundleForClass: [ZoomGlkWindowController class]] pathForResource: @"GlkWindow"
@@ -253,7 +253,7 @@
 		[glkView setBorderWidth: 2];
 }
 
-// = Configuring the client =
+#pragma mark - Configuring the client
 
 - (void) setClientPath: (NSString*) newPath {
 	// Set the client path
@@ -296,7 +296,7 @@
 	}
 }
 
-// = Log messages =
+#pragma mark - Log messages
 
 - (void) showLogMessage: (NSString*) message
 			 withStatus: (GlkLogStatus) status {
@@ -374,7 +374,7 @@
 	[glkView terminateClient];
 }
 
-// = The game info window =
+#pragma mark - The game info window
 
 - (IBAction) recordGameInfo: (id) sender {
 	ZoomGameInfoController* sgI = [ZoomGameInfoController sharedGameInfoController];
@@ -404,7 +404,7 @@
 	}
 }
 
-// = Gaining/losing focus =
+#pragma mark - Gaining/losing focus
 
 - (void)windowDidBecomeMain:(NSNotification *)aNotification {
 	[[ZoomSkeinController sharedSkeinController] setSkein: skein];
@@ -434,7 +434,7 @@
 	}
 }
 
-// = Closing the window =
+#pragma mark - Closing the window
 
 - (BOOL) windowShouldClose: (id) sender {
 	// Get confirmation if required
@@ -466,7 +466,7 @@
 	return YES;
 }
 
-// = Going fullscreen =
+#pragma mark - Going fullscreen
 
 - (IBAction) playInFullScreen: (id) sender {
 	if (isFullscreen) {
@@ -604,7 +604,7 @@
 	}
 }
 
-// = Ending the game =
+#pragma mark - Ending the game
 
 - (void) taskHasStarted {
 	[[self window] setDocumentEdited: YES];	
@@ -626,7 +626,7 @@
 	running = NO;
 }
 
-// = Saving the game =
+#pragma mark - Saving the game
 
 - (BOOL) promptForFilesForUsage: (NSString*) usage
 					 forWriting: (BOOL) writing
@@ -705,7 +705,7 @@
 	lastPanel = nil;
 }
 
-// = Speech commands =
+#pragma mark - Speech commands
 
 - (IBAction) stopSpeakingMove: (id) sender {
 	[tts beQuiet];

@@ -10,7 +10,7 @@
 
 @implementation ZoomFlipView
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -58,7 +58,7 @@
 	}
 }
 
-// = Caching views =
+#pragma mark - Caching views
 
 + (void) detrackView: (NSView*) view {
 	if ([view respondsToSelector: @selector(removeTrackingRects)]) {
@@ -80,7 +80,7 @@
 	return props;
 }
 
-// = Animating =
+#pragma mark - Animating
 
 - (void) finishAnimation {
 	if (originalView) {
@@ -236,14 +236,14 @@
 		[self setNeedsDisplay: YES];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
 	if (flag) [self finishAnimation];
 }
 
-// = Animation properties =
+#pragma mark - Animation properties
 
 - (void) setAnimationStyle: (ZoomViewAnimationStyle) style {
 	[[self propertyDictionary] setObject: @(style)
@@ -254,7 +254,7 @@
 	return [(NSNumber*)[[self propertyDictionary] objectForKey: @"AnimationStyle"] integerValue];
 }
 
-// = Performing layout =
+#pragma mark - Performing layout
 
 - (void)layoutSublayersOfLayer:(CALayer *)layer {
 	// TODO: if we ever make proper use of this, then this could be useful

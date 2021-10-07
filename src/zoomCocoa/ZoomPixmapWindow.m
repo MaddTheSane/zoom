@@ -26,7 +26,7 @@
 	return self;
 }
 
-// = Getting the pixmap =
+#pragma mark - Getting the pixmap
 
 - (NSSize) size {
 	return [pixmap size];
@@ -34,7 +34,7 @@
 
 @synthesize pixmap;
 
-// = Standard window commands =
+#pragma mark - Standard window commands
 
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocusFlipped:YES];
@@ -154,7 +154,7 @@
 	[pixmap unlockFocus];
 }
 
-// = Measuring =
+#pragma mark - Measuring
 
 - (void) getInfoForStyle: (in bycopy ZStyle*) style
 				   width: (out CGFloat*) width
@@ -202,7 +202,7 @@
 	return [res copy];
 }
 
-// = Input =
+#pragma mark - Input
 
 - (void) setInputPosition: (NSPoint) point
 				withStyle: (in bycopy ZStyle*) style {
@@ -234,7 +234,7 @@
 	[zView setNeedsDisplay: YES];
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 #define PIXMAPCODINGKEY @"PixMap"
 #define INPUTPOSCODINGKEY @"InputPos"
 #define INPUTSTYLECODINGKEY @"InPutStyle"
@@ -278,7 +278,7 @@
 
 @synthesize zoomView=zView;
 
-// = Input styles =
+#pragma mark - Input styles
 
 - (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
 	// Do nothing

@@ -230,7 +230,7 @@
 	[finishInvocations addObject: view];
 }
 
-// = Animation delegate functions =
+#pragma mark - Animation delegate functions
 
 - (void)animationDidStop:(CAAnimation *)theAnimation
 				finished:(BOOL)flag {

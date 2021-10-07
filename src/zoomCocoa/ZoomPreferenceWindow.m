@@ -682,7 +682,7 @@ static void appendStyle(NSMutableString* styleName,
 	[self setSimpleFonts];
 }
 
-// = Typographical changes =
+#pragma mark - Typographical changes
 
 - (IBAction) marginsChanged: (id) sender {
 	// Work out the new margin size
@@ -737,7 +737,7 @@ static void appendStyle(NSMutableString* styleName,
 	}	
 }
 
-// = Story progress meter =
+#pragma mark - Story progress meter
 
 - (void) storyProgressChanged: (NSNotification*) not {
 	NSDictionary* userInfo = [not userInfo];
@@ -765,7 +765,7 @@ static void appendStyle(NSMutableString* styleName,
 	[[ZoomStoryOrganiser sharedStoryOrganiser] organiseAllStories];
 }
 
-// = Display pane =
+#pragma mark - Display pane
 
 - (IBAction) bordersChanged: (id) sender {
 	BOOL newState = [sender state] == NSControlStateValueOn;

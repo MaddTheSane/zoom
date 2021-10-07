@@ -68,7 +68,7 @@
 	return self;
 }
 
-// = Metadata =
+#pragma mark - Metadata
 
 - (ZoomStoryID*) idForStory {
 	// Generate an MD5-based ID

@@ -12,7 +12,8 @@
 
 @implementation ZoomCursor
 
-// = Initialisation =
+#pragma mark - Initialisation
+
 - (id) init {
 	self = [super init];
 	
@@ -41,10 +42,11 @@
 	}
 }
 
-// = Delegate =
+#pragma mark - Delegate
+
 @synthesize delegate;
 
-// = Blinking =
+#pragma mark - Blinking
 
 + (NSSet<NSString *> *)keyPathsForValuesAffectingVisible
 {
@@ -93,7 +95,7 @@
 	[self ZCblunk];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 - (void) draw {
 	if (![self visible]) return;
 
@@ -112,7 +114,7 @@
 	}
 }
 
-// = Positioning =
+#pragma mark - Positioning
 
 - (NSSize) sizeOfFont: (NSFont*) font {
     // Hack: require a layout manager for OS X 10.6, but we don't have the entire text system to fall back on
@@ -177,7 +179,8 @@
 	return NSInsetRect(cursorRect, -2.0, -2.0);
 }
 
-// = Display status =
+#pragma mark - Display status
+
 @synthesize blinking = isBlinking;
 - (void) setBlinking: (BOOL) blnk {
 	if (blnk == isBlinking) return;

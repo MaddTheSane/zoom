@@ -105,7 +105,7 @@ static NSImage* blorbImage;
 @synthesize enabled;
 @synthesize droppedFilename;
 
-// = NSDraggingDestination methods =
+#pragma mark - NSDraggingDestination methods
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
 	if (!enabled) return NSDragOperationNone;

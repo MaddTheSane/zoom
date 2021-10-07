@@ -51,7 +51,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	ZoomDownload* currentDownload;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (ZoomPlugInManager*) sharedPlugInManager {
 	static ZoomPlugInManager* sharedManager = nil;
@@ -124,11 +124,11 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	pluginInformation = nil;
 }
 
-// = Setting the delegate =
+#pragma mark - Setting the delegate
 
 @synthesize delegate;
 
-// = Dealing with existing plugins =
+#pragma mark - Dealing with existing plugins
 
 - (void) loadPlugIn: (NSString*) pluginBundlePath {
     return;
@@ -317,7 +317,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	return NO;
 }
 
-// = Getting information about plugins =
+#pragma mark - Getting information about plugins
 
 - (NSDictionary*) plistForBundle: (NSString*) pluginBundle {
 	if (pluginBundle == nil) return nil;
@@ -442,7 +442,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	return result;		
 }
 
-// = Getting information about plugins =
+#pragma mark - Getting information about plugins
 
 - (void) pluginInformationChanged {
 	if (delegate && [delegate respondsToSelector: @selector(pluginInformationChanged)]) {
@@ -688,7 +688,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	return NO;
 }
 
-// = Handling URL events =
+#pragma mark - Handling URL events
 
 - (void)  connection:(NSURLConnection *)connection 
   didReceiveResponse:(NSURLResponse *)response {
@@ -765,7 +765,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	}	
 }
 
-// = Installing new plugins =
+#pragma mark - Installing new plugins
 
 - (void) installPendingPlugins {
 	// Work out the list of plugins with pending installations
@@ -1288,7 +1288,7 @@ static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
 	}
 }
 
-// = ZoomDownload delegate functions =
+#pragma mark - ZoomDownload delegate functions
 
 - (void) downloadStarting: (ZoomDownload*) download {
 	

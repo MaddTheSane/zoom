@@ -11,7 +11,7 @@
 
 @implementation ZoomGlkDocument
 
-// = Initialisation/finalisation =
+#pragma mark - Initialisation/finalisation
 
 - (NSData *)dataOfType:(NSString *)type error:(NSError * _Nullable *)outError  {
 	// Glk documents are never saved
@@ -25,7 +25,7 @@
     return YES;
 }
 
-// = Configuring the client =
+#pragma mark - Configuring the client
 
 @synthesize clientPath;
 
@@ -41,7 +41,7 @@
 @synthesize plugIn;
 @synthesize saveGame=savedGamePath;
 
-// = Constructing the window controllers =
+#pragma mark - Constructing the window controllers
 
 - (void) makeWindowControllers {
 	// Set up the window controller
@@ -58,7 +58,7 @@
 	[self addWindowController: controller];
 }
 
-// = The display name =
+#pragma mark - The display name
 
 - (NSString*) displayName {
 	if (storyData && [storyData title] && [[storyData title] length] > 0) {

@@ -11,7 +11,7 @@
 
 @implementation ZoomGlkPlugIn
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) initWithFilename: (NSString*) gameFile {
 	self = [super initWithFilename: gameFile];
@@ -22,7 +22,7 @@
 	return self;
 }
 
-// = Overrides from ZoomPlugIn =
+#pragma mark - Overrides from ZoomPlugIn
 
 + (BOOL) canLoadSavegames {
 	return NO;
@@ -66,7 +66,7 @@
 	return document;	
 }
 
-// = Configuring the client =
+#pragma mark - Configuring the client
 
 - (void) setClientPath: (NSString*) newPath {
 	clientPath = [newPath copy];

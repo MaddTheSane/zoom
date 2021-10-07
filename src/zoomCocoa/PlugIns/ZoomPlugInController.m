@@ -12,7 +12,7 @@
 
 @implementation ZoomPlugInController
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (ZoomPlugInController*) sharedPlugInController {
 	static ZoomPlugInController* sharedController = nil;
@@ -40,7 +40,7 @@
 	[pluginColumn setDataCell: [[ZoomPlugInCell alloc] init]];
 }
 
-// = The data source for the plugin table =
+#pragma mark - The data source for the plugin table
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
 	return [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] count];
@@ -52,7 +52,7 @@
 	return @(rowIndex);
 }
 
-// = Plugin manager delegate methods =
+#pragma mark - Plugin manager delegate methods
 
 - (void) pluginInformationChanged {
 	[pluginTable reloadData];
@@ -159,7 +159,7 @@
 	}];
 }
 
-// = Actions =
+#pragma mark - Actions
 
 - (void) restartZoom {
 	// Force Zoom to restart

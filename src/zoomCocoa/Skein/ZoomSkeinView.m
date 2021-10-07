@@ -140,7 +140,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 + (void) drawButton: (NSImage*) button
 			atPoint: (NSPoint) pt
@@ -261,7 +261,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	return YES;
 }
 
-// = Setting/getting the source =
+#pragma mark - Setting/getting the source
 
 @synthesize skein;
 
@@ -293,7 +293,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[self scrollToItem: [skein activeItem]];
 }
 
-// = Laying things out =
+#pragma mark - Laying things out
 
 - (void) skeinDidChange: (__unused NSNotification*) not {
 	[self finishEditing: self];
@@ -367,7 +367,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[self updateTrackingRects];
 }
 
-// = Affecting the display =
+#pragma mark - Affecting the display
 
 - (void) scrollToItem: (ZoomSkeinItem*) item {
 	if (item == nil) item = [skein activeItem];
@@ -396,7 +396,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	}
 }
 
-// = Skein mouse sensitivity =
+#pragma mark - Skein mouse sensitivity
 
 - (void) removeAllTrackingRects {
 	for (NSNumber* val in trackingRects) {
@@ -559,7 +559,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	return YES;
 }
 
-// = Mouse handling =
+#pragma mark - Mouse handling
 
 - (void) mouseDown: (NSEvent*) event {
 	[self finishEditing: self];
@@ -769,7 +769,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	return ZSVnoButton;
 }
 
-// = Item control buttons =
+#pragma mark - Item control buttons
 
 - (void) addButtonClicked: (__unused NSEvent*) event
 				 withItem: (ZoomSkeinItem*) skeinItem {
@@ -864,7 +864,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[delegate transcriptToPoint: skeinItem];
 }
 
-// = Editing items =
+#pragma mark - Editing items
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	// Check if the user left the field before committing changes and end the edit.
@@ -1057,7 +1057,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[NSObject cancelPreviousPerformRequestsWithTarget: self];
 }
 
-// = Selecting items =
+#pragma mark - Selecting items
 
 - (void) setSelectedItem: (ZoomSkeinItem*) item {
 	if (item == [layout selectedItem]) return;
@@ -1076,7 +1076,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[self setNeedsDisplay: YES];
 }
 
-// = Playing the game =
+#pragma mark - Playing the game
 
 - (void) playToPoint: (ZoomSkeinItem*) item {
 	if (![delegate respondsToSelector: @selector(restartGame)] ||
@@ -1112,11 +1112,11 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	}
 }
 
-// = Delegate =
+#pragma mark - Delegate
 
 @synthesize delegate;
 
-// = Moving around =
+#pragma mark - Moving around
 
 - (void)viewWillMoveToWindow:(__unused NSWindow *)newWindow {
 	[self finishEditing: self];
@@ -1146,7 +1146,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[super setBounds: bounds];
 }
 
-// = NSDraggingSource protocol =
+#pragma mark - NSDraggingSource protocol
 
 -     (NSDragOperation)draggingSession: (NSDraggingSession *)session
  sourceOperationMaskForDraggingContext: (NSDraggingContext)context {
@@ -1170,7 +1170,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	}
 }
 
-// = NSDraggingDestination protocol =
+#pragma mark - NSDraggingDestination protocol
 
 - (NSDragOperation) updateDragCursor: (id <NSDraggingInfo>) sender {
 	NSPoint dragPoint = [self convertPoint: [sender draggingLocation]
@@ -1254,7 +1254,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[self scrollToItem: item];
 }
 
-// = Context menu =
+#pragma mark - Context menu
 
 - (NSMenu *)menuForEvent:(NSEvent *)event {
 	// Find which item that the mouse is over
@@ -1341,7 +1341,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	return contextMenu;
 }
 
-// = Menu actions =
+#pragma mark - Menu actions
 
 - (IBAction) playToHere: (__unused id) sender {
 	[self playToPoint: contextItem];

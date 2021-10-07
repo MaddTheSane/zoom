@@ -23,7 +23,7 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 
 @implementation ZoomMetadata
 
-// = Initialisation, etc =
+#pragma mark - Initialisation, etc
 
 + (void)initialize
 {
@@ -175,7 +175,7 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 	IFMB_Free(metadata);
 }
 
-// = Locking =
+#pragma mark - Locking
 
 - (void) lock {
 	[dataLock lock];
@@ -185,7 +185,7 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 	[dataLock unlock];
 }
 
-// = Finding information =
+#pragma mark - Finding information
 
 - (BOOL) containsStoryWithIdent: (ZoomStoryID*) ident {
 	if (ident == nil || [ident ident] == NULL) return NO;
@@ -229,7 +229,7 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 	return res;
 }
 
-// = Storing information =
+#pragma mark - Storing information
 
 - (void) removeStoryWithIdent: (ZoomStoryID*) ident {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomMetadataWillDestroyStory
@@ -260,7 +260,7 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 }
 	
 
-// = Saving the file =
+#pragma mark - Saving the file
 
 static int dataWrite(const char* bytes, int length, void* userData) {
 	NSMutableData* data = (__bridge NSMutableData *)(userData);
@@ -301,7 +301,7 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 				  atomically: YES];
 }
 
-// = Errors =
+#pragma mark - Errors
 - (NSArray*) errors {
 #if 0
 	int x;

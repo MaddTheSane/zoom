@@ -56,7 +56,7 @@ static NSMutableDictionary* babelCache = nil;
 	return babelFolder;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	self = [super init];
@@ -142,7 +142,7 @@ static NSMutableDictionary* babelCache = nil;
 	}
 }
 
-// = Raw reading =
+#pragma mark - Raw reading
 
 - (void) waitForBabel {
 	BOOL mustWait = NO;
@@ -199,7 +199,7 @@ static NSMutableDictionary* babelCache = nil;
 	return babelImage;
 }
 
-// = Interpreted reading =
+#pragma mark - Interpreted reading
 
 - (ZoomStory*) metadata {
 	// Get the metadata
@@ -231,7 +231,7 @@ static NSMutableDictionary* babelCache = nil;
 	return nil;
 }
 
-// = Story ID =
+#pragma mark - Story ID
 
 - (ZoomStoryID*) storyID {
 	if (!storyID) {
@@ -268,7 +268,7 @@ static NSMutableDictionary* babelCache = nil;
 	return storyID;
 }
 
-// = Notifications =
+#pragma mark - Notifications
 
 - (NSArray*) filesFromBabelOutput: (NSString*) output {
 	NSArray* lines = [output componentsSeparatedByString: @"\n"];

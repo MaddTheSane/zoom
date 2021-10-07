@@ -56,7 +56,7 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 
 @end
 
-// = Dealing with/creating XML data =
+#pragma mark - Dealing with/creating XML data
 
 extern NSErrorDomain const ZoomSkeinXMLParserErrorDomain;
 typedef NS_ERROR_ENUM(ZoomSkeinXMLParserErrorDomain, ZoomSkeinXMLError) {

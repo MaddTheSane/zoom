@@ -44,7 +44,7 @@
 @synthesize rootItem;
 @synthesize activeItem;
 
-// = Notifications =
+#pragma mark - Notifications
 
 NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 
@@ -53,7 +53,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 														object: self];
 }
 
-// = Zoom output receiver =
+#pragma mark - Zoom output receiver
 
 - (void) inputCommand: (NSString*) command {
 	// Create/set the item to the appropraite item in the skein
@@ -151,7 +151,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	[self removeTemporaryItems: maxTempItems];
 }
 
-// = Creating a Zoom input receiver =
+#pragma mark - Creating a Zoom input receiver
 
 + (id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
 						 toItem: (ZoomSkeinItem*) item2 {
@@ -185,7 +185,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 										   toItem: item2];
 }
 
-// = Removing temporary items =
+#pragma mark - Removing temporary items
 
 - (void) removeTemporaryItems: (int) maxTemps {
 	//
@@ -245,7 +245,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 }
 
 
-// = Annotation lists =
+#pragma mark - Annotation lists
 
 - (NSArray*) annotations {
 	if (rootItem == nil) return nil;
@@ -327,7 +327,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	return res;
 }
 
-// = Converting to other formats =
+#pragma mark - Converting to other formats
 
 - (NSString*) transcriptToPoint: (ZoomSkeinItem*) item {
 	if (item == nil) item = activeItem;
@@ -388,7 +388,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 
 @end
 
-// = Our input source object =
+#pragma mark - Our input source object
 
 @implementation ZoomSkeinInputSource
 

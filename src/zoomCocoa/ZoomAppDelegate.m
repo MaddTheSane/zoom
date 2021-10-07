@@ -28,7 +28,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 @implementation ZoomAppDelegate
 
-// = Initialisation =
+#pragma mark - Initialisation
 + (void) initialization {
 	
 }
@@ -72,7 +72,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	return self;
 }
 
-// = Opening files =
+#pragma mark - Opening files
 
 - (BOOL) applicationShouldOpenUntitledFile: (NSApplication*) sender {
 	// 'Opening an untitled file' is an action that occurs when the user clicks on the 'Z' icon...
@@ -328,7 +328,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 @synthesize leopard;
 
-// = General actions =
+#pragma mark - General actions
 - (IBAction) showPreferences: (id) sender {
 	if (!preferencePanel) {
 		preferencePanel = [[ZoomPreferenceWindow alloc] init];
@@ -364,7 +364,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	[[[ZoomiFictionController sharediFictionController] window] makeKeyAndOrderFront: self];
 }
 
-// = Application-wide data =
+#pragma mark - Application-wide data
 
 - (NSArray*) gameIndices {
 	return [gameIndices copy];
@@ -515,7 +515,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	return YES;
 }
 
-// = Validation =
+#pragma mark - Validation
 
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
 	SEL sel = [menuItem action];
@@ -531,7 +531,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	return YES;
 }
 
-// = Saving skeins, transcripts, etc =
+#pragma mark - Saving skeins, transcripts, etc
 
 - (IBAction) saveTranscript: (id) sender {
 	if ([NSApp mainWindow] == nil) return;
@@ -637,7 +637,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	[[ZoomPlugInController sharedPlugInController] showWindow: self];
 }
 
-// = Check for updates =
+#pragma mark - Check for updates
 
 - (IBAction) checkForUpdates: (id) sender {
 	[updater checkForUpdates: self];

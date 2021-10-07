@@ -2649,7 +2649,7 @@ static void finalizeViews(void) {
 	inputPos = [[textView textStorage] length];
 }
 
-// = Debugging =
+#pragma mark - Debugging
 - (void) hitBreakpointAt: (int) pc {
 	if (delegate && [delegate respondsToSelector: @selector(hitBreakpoint:)]) {
 		[delegate hitBreakpoint: pc];
@@ -2659,7 +2659,7 @@ static void finalizeViews(void) {
 	}
 }
 
-// = Focused view =
+#pragma mark - Focused view
 @synthesize focusedView;
 
 #pragma mark - Cursor delegate
@@ -2997,12 +2997,12 @@ static void finalizeViews(void) {
 #endif
 }
 
-// = Terminating characters =
+#pragma mark - Terminating characters
 
 @synthesize terminatingCharacters=terminatingChars;
 
 
-// = Dealing with the history =
+#pragma mark - Dealing with the history
 
 - (NSString*) lastHistoryItem {
 	NSInteger oldPos = historyPos;

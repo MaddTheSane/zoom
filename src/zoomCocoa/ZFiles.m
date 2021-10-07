@@ -16,7 +16,7 @@ struct ZFile {
     id<ZFile> theFile;
 };
 
-// = Files =
+#pragma mark - Files
 ZFile* open_file_from_object(id<ZFile> file) {
     if (file == nil)
         return NULL;

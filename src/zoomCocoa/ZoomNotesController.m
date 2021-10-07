@@ -11,7 +11,7 @@
 
 @implementation ZoomNotesController
 
-// = The shared controller =
+#pragma mark - The shared controller
 
 static NSMutableDictionary* notesDictionary = nil;
 
@@ -45,7 +45,7 @@ static NSMutableDictionary* notesDictionary = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Editing delegate =
+#pragma mark - Editing delegate
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	ZoomStoryID* storyId = nil;
@@ -71,7 +71,7 @@ static NSMutableDictionary* notesDictionary = nil;
 	if (story) [self textDidEndEditing: nil];
 }
 
-// = Setting up the window =
+#pragma mark - Setting up the window
 
 - (void) updateFromStory {
 	NSAttributedString* currentNotes = nil;

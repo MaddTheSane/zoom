@@ -32,14 +32,14 @@ NS_ASSUME_NONNULL_BEGIN
 	NSMutableArray* cDataStack;
 }
 
-// = Initialising =
+#pragma mark - Initialising
 
 //! Parses the specified signpost data
 - (nullable instancetype) initWithData: (NSData*) data;
 //! Replaces the data stored in this signpost with the specified data
 - (BOOL) parseData: (NSData*) data;
 
-// = Getting signpost data =
+#pragma mark - Getting signpost data
 
 //! The IDs associated with this signpost
 @property (readonly, copy) NSArray<ZoomStoryID*> *ifids;

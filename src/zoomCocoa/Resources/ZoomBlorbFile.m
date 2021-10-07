@@ -37,7 +37,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return (bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|(bytes[3]<<0);
 }
 
-// = Testing files =
+#pragma mark - Testing files
 
 + (BOOL) dataIsBlorbFile: (NSData*) data {
 	id<ZFile> fl = [[ZDataFile alloc] initWithData: data];
@@ -76,7 +76,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return res;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) initWithZFile: (id<ZFile>) f {
 	self = [super init];
@@ -184,7 +184,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	}
 }
 
-// = Generic IFF data =
+#pragma mark - Generic IFF data
 
 - (NSArray*) chunksWithType: (NSString*) chunkType {
 	return [typesToBlocks objectForKey: chunkType];
@@ -207,7 +207,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return [self dataForChunk: [[self chunksWithType: chunkType] objectAtIndex: 0]];
 }
 
-// = The resource index =
+#pragma mark - The resource index
 
 - (BOOL) parseResourceIndex {
 	if (resourceIndex) {
@@ -328,7 +328,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 				@(num)]] != nil;
 }
 
-// = Typed data =
+#pragma mark - Typed data
 
 - (NSData*) gameHeader {
 	return [self dataForChunkWithType: @"IFhd"];
@@ -362,7 +362,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 				@(num)]]];
 }
 
-// = Fiddling with PNG palettes =
+#pragma mark - Fiddling with PNG palettes
 
 - (NSData*) paletteForPng: (NSData*) png {
 	// (Appends the CRC to the palette, too)
@@ -422,7 +422,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return newPng;
 }
 
-// = Caching images =
+#pragma mark - Caching images
 
 - (void) setActivePalette: (NSData*) palette {
 	if (adaptive && palette != nil) {
@@ -530,7 +530,7 @@ static const int cacheUpperLimit = 64;
 	[cache removeObjectsForKeys:keysToRemove];
 }
 
-// = Decoded data =
+#pragma mark - Decoded data
 
 - (NSSize) sizeForImageWithNumber: (int) num
 					forPixmapSize: (NSSize) pixmapSize {
