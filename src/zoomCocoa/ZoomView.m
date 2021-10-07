@@ -2008,7 +2008,7 @@ static void finalizeViews(void) {
 					[f setAttributes: @{
 						NSFileHFSCreatorCode: @(self->creatorCode),
 						NSFileHFSTypeCode: @(self->typeCode),
-                        NSURLHasHiddenExtensionKey: @([panel isExtensionHidden]),
+						NSFileExtensionHidden: @([panel isExtensionHidden]),
 					}];
 					
 					if ([self->upperWindows count] <= 0 || [(ZoomUpperWindow*)[self->upperWindows objectAtIndex: 0] length] > 0) {

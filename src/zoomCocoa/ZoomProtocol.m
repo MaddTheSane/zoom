@@ -804,8 +804,9 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	}
 	
 	if (pos >= [[data regularFileContents] length]) return 0xff;
+    NSData *preBytes = [[data regularFileContents] subdataWithRange:NSMakeRange(pos++, 1)];
 	
-	return ((unsigned char*)[[data regularFileContents] bytes])[pos++];
+	return *((unsigned char*)preBytes.bytes);
 }
 
 - (unsigned short) readWord {
@@ -961,16 +962,14 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		
 		[wrapper addRegularFileWithContents: writeData
 						  preferredFilename: defaultFile];
+        if (attributes) {
+            wrapper.fileAttributes = attributes;
+        }
 		
 		[wrapper writeToURL: writePath
 					options: (NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating)
 		originalContentsURL: nil
 					  error: NULL];
-		
-		if (attributes) {
-			[writePath setResourceValues: attributes
-								   error: NULL];
-		}
 	}
 }
 
