@@ -59,16 +59,14 @@ static NSLock*          globalLock = nil;
 
 + (void)initialize {
 	@autoreleasepool {
-	
-    NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
-	ZoomPreferences* defaultPrefs = [[[self class] alloc] initWithDefaultPreferences];
-    NSDictionary *appDefaults = [NSDictionary dictionaryWithObject: [defaultPrefs dictionary]
-															forKey: @"ZoomGlobalPreferences"];
-	
-    [defaults registerDefaults: appDefaults];
-	
-	globalLock = [[NSLock alloc] init];
-	
+		NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+		ZoomPreferences* defaultPrefs = [[[self class] alloc] initWithDefaultPreferences];
+		NSDictionary *appDefaults = [NSDictionary dictionaryWithObject: [defaultPrefs dictionary]
+																forKey: @"ZoomGlobalPreferences"];
+		
+		[defaults registerDefaults: appDefaults];
+		
+		globalLock = [[NSLock alloc] init];
 	}
 }
 
@@ -78,7 +76,7 @@ static NSLock*          globalLock = nil;
 	if (globalPreferences == nil) {
 		NSDictionary* globalDict = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomGlobalPreferences"];
 		
-		if (globalDict== nil) 
+		if (globalDict== nil)
 			globalPreferences = [[ZoomPreferences alloc] initWithDefaultPreferences];
 		else
 			globalPreferences = [[ZoomPreferences alloc] initWithDictionary: globalDict];
@@ -159,7 +157,7 @@ static NSArray* DefaultColours(void) {
 		[NSColor colorWithDeviceRed: .73 green: .73 blue: .73 alpha: 1],
 		[NSColor colorWithDeviceRed: .53 green: .53 blue: .53 alpha: 1],
 		[NSColor colorWithDeviceRed: .26 green: .26 blue: .26 alpha: 1],
-		];
+	];
 	
 	return defaultColours;
 }
@@ -454,7 +452,7 @@ static NSArray* DefaultColours(void) {
 		result = YES;
 	[prefLock unlock];
 	
-	return result;	
+	return result;
 }
 
 - (BOOL) useKerning {
@@ -468,7 +466,7 @@ static NSArray* DefaultColours(void) {
 		result = YES;
 	[prefLock unlock];
 	
-	return result;	
+	return result;
 }
 
 - (BOOL) useLigatures {
@@ -482,7 +480,7 @@ static NSArray* DefaultColours(void) {
 		result = YES;
 	[prefLock unlock];
 	
-	return result;		
+	return result;
 }
 
 - (BOOL) keepGamesOrganised {
@@ -614,13 +612,13 @@ static NSArray* DefaultColours(void) {
 - (void) setUseKerning: (BOOL) value {
 	[prefs setObject: @(value)
 			  forKey: useKerning];
-	[self preferencesHaveChanged];	
+	[self preferencesHaveChanged];
 }
 
 - (void) setUseLigatures: (BOOL) value {
 	[prefs setObject: @(value)
 			  forKey: useLigatures];
-	[self preferencesHaveChanged];	
+	[self preferencesHaveChanged];
 }
 
 - (void) setFontRange: (NSRange) fontRange
@@ -711,13 +709,13 @@ static NSArray* DefaultColours(void) {
 - (int) backgroundColour {
 	NSNumber* val = [prefs objectForKey: backgroundColour];
 	if (val == nil) return 7;
-	return [val intValue];	
+	return [val intValue];
 }
 
 - (BOOL) showCoverPicture {
 	NSNumber* val = [prefs objectForKey: showCoverPicture];
 	if (val == nil) return YES;
-	return [val boolValue];	
+	return [val boolValue];
 }
 
 - (BOOL) showBorders {
@@ -729,37 +727,37 @@ static NSArray* DefaultColours(void) {
 - (BOOL) showGlkBorders {
 	NSNumber* val = [prefs objectForKey: showGlkBorders];
 	if (val == nil) return YES;
-	return [val boolValue];	
+	return [val boolValue];
 }
 
 - (void) setShowCoverPicture: (BOOL) value {
 	[prefs setObject: @(value)
 			  forKey: showCoverPicture];
-	[self preferencesHaveChanged];	
+	[self preferencesHaveChanged];
 }
 
 - (void) setShowBorders: (BOOL) value {
 	[prefs setObject: @(value)
 			  forKey: showBorders];
-	[self preferencesHaveChanged];	
+	[self preferencesHaveChanged];
 }
 
 - (void) setShowGlkBorders: (BOOL) value {
 	[prefs setObject: @(value)
 			  forKey: showGlkBorders];
-	[self preferencesHaveChanged];	
+	[self preferencesHaveChanged];
 }
 
 - (void) setForegroundColour: (int) value {
 	[prefs setObject: @(value)
 			  forKey: foregroundColour];
-	[self preferencesHaveChanged];		
+	[self preferencesHaveChanged];
 }
 
 - (void) setBackgroundColour: (int) value {
 	[prefs setObject: @(value)
 			  forKey: backgroundColour];
-	[self preferencesHaveChanged];	
+	[self preferencesHaveChanged];
 }
 
 #pragma mark - Notifications
@@ -770,8 +768,8 @@ static NSArray* DefaultColours(void) {
 	
 	if (self == globalPreferences) {
 		// Save global preferences
-		[[NSUserDefaults standardUserDefaults] setObject:[self dictionary] 
-												  forKey:@"ZoomGlobalPreferences"];		
+		[[NSUserDefaults standardUserDefaults] setObject:[self dictionary]
+												  forKey:@"ZoomGlobalPreferences"];
 	}
 }
 

@@ -194,7 +194,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		
 		if (bytes[0] == 'F' && bytes[1] == 'O' && bytes[2] == 'R' && bytes[3] == 'M') {
 			// This is not a Z-Code file; it's possibly a blorb file, though
-						
+			
 			// Try to interpret as a blorb file
 			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: zcodeFile];
 			
@@ -437,7 +437,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		// Allocate the identity block
 		ident = IFMB_IdFromString(result);
 		needsFreeing = YES;
-			
+		
 		free(result);
 		if (ident == nil) {
 			return nil;
@@ -509,7 +509,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		// Version might change later on
 		int version = 2;
 		
-		[encoder encodeValueOfObjCType: @encode(int) 
+		[encoder encodeValueOfObjCType: @encode(int)
 									at: &version];
 		
 		char* stringId = IFMB_IdToString(ident);
@@ -673,8 +673,8 @@ typedef unsigned char IFMDByte;
 #pragma mark - Port coding
 
 - (id)replacementObjectForPortCoder:(NSPortCoder *)encoder { 
-	if ([encoder isBycopy]) return self; 
-	return [super replacementObjectForPortCoder:encoder]; 
+	if ([encoder isBycopy]) return self;
+	return [super replacementObjectForPortCoder:encoder];
 } 
 
 @end

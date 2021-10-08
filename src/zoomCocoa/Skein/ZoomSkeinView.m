@@ -118,9 +118,9 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 }
 
 - (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 	
-    if (self) {
+	if (self) {
 		skein = [[ZoomSkein alloc] init];
 		activeButton = ZSVnoButton;
 		
@@ -131,9 +131,9 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		itemHeight = defaultItemHeight;
 		
 		[self registerForDraggedTypes: @[ZoomSkeinItemPboardType]];
-    }
+	}
 	
-    return self;
+	return self;
 }
 
 - (void) dealloc {
@@ -207,7 +207,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		//    A T        x +
 		//    ( ** ITEM ** )
 		//                 L
-		// 
+		//
 		// Where A = Annotate, T = transcript, x = delete, + = add, L = lock
 		CGFloat w = bgWidth;
 		if (w < itemButtonBarWidth) w = itemButtonBarWidth;
@@ -438,7 +438,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	if (startLevel < 0) startLevel = 0;
 	if (endLevel >= [layout levels]) endLevel = (int)([layout levels]-1);
 	
-	// assumeInside: NO doesn't work if the pointer is already inside (acts exactly the same as assumeInside: YES 
+	// assumeInside: NO doesn't work if the pointer is already inside (acts exactly the same as assumeInside: YES
 	// in this case). Therefore we need to check manually, which is very annoying.
 	inside = NO;
 	if (NSPointInRect(currentMousePos, visibleRect)) {
@@ -449,7 +449,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 						  owner: self
 					   userData: nil
 				   assumeInside: inside];
-		
+	
 	[trackingRects addObject: @(tag)];
 	
 	for (level = startLevel; level<=endLevel; level++) {
@@ -588,7 +588,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		dragInitialVisible = [self visibleRect];
 	} else {
 		// We're inside an item - check to see which (if any) button was clicked
-		activeButton = lastButton = [self buttonUnderPoint: [self convertPoint: [event locationInWindow] 
+		activeButton = lastButton = [self buttonUnderPoint: [self convertPoint: [event locationInWindow]
 																	  fromView: nil]
 													inItem: trackedItem];
 		[self setNeedsDisplay: YES];
@@ -614,7 +614,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		NSImage* itemImage = [layout imageForItem: clickedItem];
 		
 		dragCanMove = ![clickedItem hasChild: [skein activeItem]];
-				
+		
 		NSPoint origin;
 		
 		origin.x = [layout xposForItem: clickedItem] - [layout widthForItem: clickedItem]/2.0 - 20.0;
@@ -632,13 +632,13 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		// If the cursor moves away from a button, then unhighlight it
 		NSInteger lastActiveButton = activeButton;
 		
-		activeButton = [self buttonUnderPoint: [self convertPoint: [event locationInWindow] 
+		activeButton = [self buttonUnderPoint: [self convertPoint: [event locationInWindow]
 														 fromView: nil]
 									   inItem: trackedItem];
 		if (activeButton != lastButton) activeButton = ZSVnoButton;
 		
 		if (activeButton != lastActiveButton) [self setNeedsDisplay: YES];
-	}	
+	}
 }
 
 - (void) mouseUp: (NSEvent*) event {
@@ -716,7 +716,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	}
 
 	// Reset this anyway
-	activeButton = ZSVnoButton;	
+	activeButton = ZSVnoButton;
 	lastButton = ZSVnoButton;
 }
 
@@ -739,7 +739,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	
 	// Correct for shadow
 	right -= 20.0;
-	left  += 2.0;				
+	left  += 2.0;
 
 	// Actual position
 	NSPoint offset = NSMakePoint(point.x - xpos, point.y - ypos);
@@ -774,14 +774,14 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 - (void) addButtonClicked: (__unused NSEvent*) event
 				 withItem: (ZoomSkeinItem*) skeinItem {
 	// Add a new, blank item
-	ZoomSkeinItem* newItem = 
-		[skeinItem addChild: [ZoomSkeinItem skeinItemWithCommand: @""]];
+	ZoomSkeinItem* newItem =
+	[skeinItem addChild: [ZoomSkeinItem skeinItemWithCommand: @""]];
 	
 	// Lock it
 	[newItem setTemporary: NO];
 	
 	// Note the changes
-	[skein zoomSkeinChanged];	
+	[skein zoomSkeinChanged];
 	[self skeinNeedsLayout];
 	
 	// Edit the item
@@ -836,9 +836,9 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		while ([itemsToProcess count] > 0) {
 			ZoomSkeinItem* thisItem = [itemsToProcess lastObject];
 			[itemsToProcess removeLastObject];
-	
+			
 			[thisItem setTemporary: YES];
-	
+			
 			for (ZoomSkeinItem* child in [thisItem children]) {
 				[itemsToProcess addObject: child];
 			}
@@ -882,7 +882,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		
 		BOOL samename;		// Set to YES if we need to remove and re-add
 		
-		if (!editingAnnotation && [parent childWithCommand: [fieldEditor string]] != itemToEdit) 
+		if (!editingAnnotation && [parent childWithCommand: [fieldEditor string]] != itemToEdit)
 			samename = YES;
 		else
 			samename = NO;
@@ -991,7 +991,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	}
 	
 	// 'overflow' border
-	itemFrame = NSInsetRect(itemFrame, -2.0, -2.0);	
+	itemFrame = NSInsetRect(itemFrame, -2.0, -2.0);
 	
 	itemFrame.origin.x = floor(itemFrame.origin.x);
 	itemFrame.origin.y = floor(itemFrame.origin.y)-1.0;
@@ -1016,7 +1016,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 												forObject: self];
 	
 	fieldStorage = [[NSTextStorage alloc] initWithString: itemText
-											  attributes: itemTextAttributes];	
+											  attributes: itemTextAttributes];
 	[[fieldEditor textStorage] setAttributedString: fieldStorage];
 	[fieldEditor setSelectedRange: NSMakeRange(0,0)];
 	
@@ -1372,7 +1372,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[newItem setTemporary: NO];
 	
 	// Note the changes
-	[skein zoomSkeinChanged];	
+	[skein zoomSkeinChanged];
 	[self skeinNeedsLayout];
 	
 	// Edit the item
@@ -1403,7 +1403,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	[newItem setTemporary: NO];
 	
 	// Note the changes
-	[skein zoomSkeinChanged];	
+	[skein zoomSkeinChanged];
 	[self skeinNeedsLayout];
 	
 	// Edit the item

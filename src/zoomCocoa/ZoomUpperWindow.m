@@ -35,7 +35,7 @@ static NSString* blankLine(NSInteger length);
 
 // Sets the input focus to this window
 - (oneway void) setFocus {
-	[theView setFocusedView: self];
+    [theView setFocusedView: self];
 }
 
 // Sending data to a window
@@ -70,13 +70,13 @@ static NSString* blankLine(NSInteger length);
     if ([thisLine length] <= xpos+strlen) {
         NSFont* fixedFont = [theView fontWithStyle: ZFixedStyle];
         NSDictionary* clearStyle = [NSDictionary dictionaryWithObjectsAndKeys:
-            fixedFont, NSFontAttributeName,
-            nil];
-		NSInteger spacesLen = (xpos+strlen)-[thisLine length];
-
+                                    fixedFont, NSFontAttributeName,
+                                    nil];
+        NSInteger spacesLen = (xpos+strlen)-[thisLine length];
+        
         NSAttributedString* spaceString = [[NSAttributedString alloc]
-            initWithString: blankLine(spacesLen)
-                attributes: clearStyle];
+                                           initWithString: blankLine(spacesLen)
+                                           attributes: clearStyle];
         
         [thisLine appendAttributedString: spaceString];
     }
@@ -104,11 +104,11 @@ static NSString* blankLine(NSInteger length);
 
 // Cursor positioning
 - (oneway void) setCursorPositionX: (in int) xp
-								 Y: (in int) yp {
+                                 Y: (in int) yp {
     xpos = xp; ypos = yp-startLine;
-	
-	if (xpos < 0) xpos = 0;
-	if (ypos < 0) ypos = 0;
+    
+    if (xpos < 0) xpos = 0;
+    if (ypos < 0) ypos = 0;
 }
 
 - (NSPoint) cursorPosition {
@@ -118,14 +118,14 @@ static NSString* blankLine(NSInteger length);
 
 // Line erasure
 static NSString* blankLine(NSInteger length) {
-	char* cString = malloc(length);
-	
-	memset(cString, ' ', length);
-	NSData *cStrDat = [NSData dataWithBytesNoCopy:cString length:length freeWhenDone:YES];
-	
-	NSString* res = [[NSString alloc] initWithData:cStrDat encoding:NSASCIIStringEncoding];
-	
-	return res;
+    char* cString = malloc(length);
+    
+    memset(cString, ' ', length);
+    NSData *cStrDat = [NSData dataWithBytesNoCopy:cString length:length freeWhenDone:YES];
+    
+    NSString* res = [[NSString alloc] initWithData:cStrDat encoding:NSASCIIStringEncoding];
+    
+    return res;
 }
 
 - (oneway void) eraseLineWithStyle: (in bycopy ZStyle*) style {
@@ -134,16 +134,16 @@ static NSString* blankLine(NSInteger length) {
             [lines addObject: [[NSMutableAttributedString alloc] init]];
         }
     }
-
-		int xs, ys;
-		NSAttributedString* newString;
-		
-		[theView dimensionX: &xs Y: &ys];
-		
-		newString = [theView formatZString: blankLine(xs+1)
-								 withStyle: style];
-		
-        [[lines objectAtIndex: ypos] setAttributedString: newString];
+    
+    int xs, ys;
+    NSAttributedString* newString;
+    
+    [theView dimensionX: &xs Y: &ys];
+    
+    newString = [theView formatZString: blankLine(xs+1)
+                             withStyle: style];
+    
+    [[lines objectAtIndex: ypos] setAttributedString: newString];
 }
 
 // Maintainance
@@ -158,41 +158,41 @@ static NSString* blankLine(NSInteger length) {
 @synthesize backgroundColour;
 
 - (void) cutLines {
-	int length = [self length];
-	if ([lines count] < length) return;
-	
+    int length = [self length];
+    if ([lines count] < length) return;
+    
     [lines removeObjectsInRange: NSMakeRange(length,
                                              [lines count] - length)];
 }
 
 - (void) reformatLines {
-	for (NSMutableAttributedString* string in lines) {
-		NSRange attributedRange;
-		NSDictionary* attr;
-		NSInteger len = [string length];
-				
-		attributedRange.location = 0;
-		
-		 while (attributedRange.location < len) {
-			attr = [string attributesAtIndex: attributedRange.location
-							  effectiveRange: &attributedRange];
-			
-			if (attributedRange.location == NSNotFound) break;
-			if (attributedRange.length == 0) break;
-			
-			// Re-apply the style associated with this block of text
-			ZStyle* sty = [attr objectForKey: ZoomStyleAttributeName];
-			
-			if (sty) {
-				NSDictionary* newAttr = [theView attributesForStyle: sty];
-				
-				[string setAttributes: newAttr
-								range: attributedRange];
-			}
-			
-			attributedRange.location += attributedRange.length;
-		}
-	}
+    for (NSMutableAttributedString* string in lines) {
+        NSRange attributedRange;
+        NSDictionary* attr;
+        NSInteger len = [string length];
+        
+        attributedRange.location = 0;
+        
+        while (attributedRange.location < len) {
+            attr = [string attributesAtIndex: attributedRange.location
+                              effectiveRange: &attributedRange];
+            
+            if (attributedRange.location == NSNotFound) break;
+            if (attributedRange.length == 0) break;
+            
+            // Re-apply the style associated with this block of text
+            ZStyle* sty = [attr objectForKey: ZoomStyleAttributeName];
+            
+            if (sty) {
+                NSDictionary* newAttr = [theView attributesForStyle: sty];
+                
+                [string setAttributes: newAttr
+                                range: attributedRange];
+            }
+            
+            attributedRange.location += attributedRange.length;
+        }
+    }
 }
 
 #pragma mark - NSCoding
@@ -204,62 +204,62 @@ static NSString* blankLine(NSInteger length) {
 #define YPOSCODINGKEY @"ypos"
 
 - (void) encodeWithCoder: (NSCoder*) encoder {
-	if (encoder.allowsKeyedCoding) {
-		[encoder encodeInt: startLine forKey: STARTLINECODINGKEY];
-		[encoder encodeInt: endLine forKey: ENDLINECODINGKEY];
-		[encoder encodeInt: xpos forKey: XPOSCODINGKEY];
-		[encoder encodeInt: ypos forKey: YPOSCODINGKEY];
-		[encoder encodeObject: lines forKey: LINESCODINGKEY];
-		[encoder encodeObject: backgroundColour forKey: BACKGROUNDCOLORCODINGKEY];
-	} else {
-		[encoder encodeValueOfObjCType: @encode(int)
-									at: &startLine];
-		[encoder encodeValueOfObjCType: @encode(int)
-									at: &endLine];
-		[encoder encodeValueOfObjCType: @encode(int)
-									at: &xpos];
-		[encoder encodeValueOfObjCType: @encode(int)
-									at: &ypos];
-		[encoder encodeObject: lines];
-		[encoder encodeObject: backgroundColour];
-	}
+    if (encoder.allowsKeyedCoding) {
+        [encoder encodeInt: startLine forKey: STARTLINECODINGKEY];
+        [encoder encodeInt: endLine forKey: ENDLINECODINGKEY];
+        [encoder encodeInt: xpos forKey: XPOSCODINGKEY];
+        [encoder encodeInt: ypos forKey: YPOSCODINGKEY];
+        [encoder encodeObject: lines forKey: LINESCODINGKEY];
+        [encoder encodeObject: backgroundColour forKey: BACKGROUNDCOLORCODINGKEY];
+    } else {
+        [encoder encodeValueOfObjCType: @encode(int)
+                                    at: &startLine];
+        [encoder encodeValueOfObjCType: @encode(int)
+                                    at: &endLine];
+        [encoder encodeValueOfObjCType: @encode(int)
+                                    at: &xpos];
+        [encoder encodeValueOfObjCType: @encode(int)
+                                    at: &ypos];
+        [encoder encodeObject: lines];
+        [encoder encodeObject: backgroundColour];
+    }
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-	self = [super init];
-	
+    self = [super init];
+    
     if (self) {
-		if (decoder.allowsKeyedCoding) {
-			startLine = [decoder decodeIntForKey: STARTLINECODINGKEY];
-			endLine = [decoder decodeIntForKey: ENDLINECODINGKEY];
-			xpos = [decoder decodeIntForKey: XPOSCODINGKEY];
-			ypos = [decoder decodeIntForKey: YPOSCODINGKEY];
-			lines = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableAttributedString class], [NSMutableArray class], nil] forKey: LINESCODINGKEY];
-			backgroundColour = [decoder decodeObjectOfClass: [NSColor class] forKey: BACKGROUNDCOLORCODINGKEY];
-		} else {
-			[decoder decodeValueOfObjCType: @encode(int)
-										at: &startLine
-									  size: sizeof(int)];
-			[decoder decodeValueOfObjCType: @encode(int)
-										at: &endLine
-									  size: sizeof(int)];
-			[decoder decodeValueOfObjCType: @encode(int)
-										at: &xpos
-									  size: sizeof(int)];
-			[decoder decodeValueOfObjCType: @encode(int)
-										at: &ypos
-									  size: sizeof(int)];
-			lines = [decoder decodeObject];
-			backgroundColour = [decoder decodeObject];
-		}
+        if (decoder.allowsKeyedCoding) {
+            startLine = [decoder decodeIntForKey: STARTLINECODINGKEY];
+            endLine = [decoder decodeIntForKey: ENDLINECODINGKEY];
+            xpos = [decoder decodeIntForKey: XPOSCODINGKEY];
+            ypos = [decoder decodeIntForKey: YPOSCODINGKEY];
+            lines = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableAttributedString class], [NSMutableArray class], nil] forKey: LINESCODINGKEY];
+            backgroundColour = [decoder decodeObjectOfClass: [NSColor class] forKey: BACKGROUNDCOLORCODINGKEY];
+        } else {
+            [decoder decodeValueOfObjCType: @encode(int)
+                                        at: &startLine
+                                      size: sizeof(int)];
+            [decoder decodeValueOfObjCType: @encode(int)
+                                        at: &endLine
+                                      size: sizeof(int)];
+            [decoder decodeValueOfObjCType: @encode(int)
+                                        at: &xpos
+                                      size: sizeof(int)];
+            [decoder decodeValueOfObjCType: @encode(int)
+                                        at: &ypos
+                                      size: sizeof(int)];
+            lines = [decoder decodeObject];
+            backgroundColour = [decoder decodeObject];
+        }
     }
-	
+    
     return self;
 }
 
 + (BOOL)supportsSecureCoding
 {
-	return YES;
+    return YES;
 }
 
 #pragma mark -

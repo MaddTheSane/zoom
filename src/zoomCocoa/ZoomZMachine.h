@@ -24,26 +24,26 @@ extern int zoomImageCacheSize;
     NSMutableAttributedString* windowBuffer[3];
 
     // The file
-	NSData* storyData;
-	NSData* dataToRestore;
+    NSData* storyData;
+    NSData* dataToRestore;
     ZFile* machineFile;
 
     // Some pieces of state information
     NSMutableString* inputBuffer;
     ZBuffer*         outputBuffer;
-	
-	int terminatingCharacter;
+    
+    int terminatingCharacter;
     
     BOOL             filePromptFinished;
     id<ZFile>        lastFile;
     NSInteger        lastSize;
-	
-	BOOL wasRestored;
-	
-	int mousePosX, mousePosY;
-	
-	// Debugging state
-	BOOL waitingForBreakpoint;
+    
+    BOOL wasRestored;
+    
+    int mousePosX, mousePosY;
+    
+    // Debugging state
+    BOOL waitingForBreakpoint;
 }
 
 @property (readonly, retain) id<ZDisplay> display;

@@ -12,17 +12,17 @@
 @implementation ZoomUpperWindowView
 
 - (id)initWithFrame:(NSRect)frame
-           zoomView:(ZoomView*) view {
-    self = [super initWithFrame:frame];
-    if (self) {
-        zoomView = view;
+		   zoomView:(ZoomView*) view {
+	self = [super initWithFrame:frame];
+	if (self) {
+		zoomView = view;
 		
 		cursor = [[ZoomCursor alloc] init];
 		[cursor setDelegate: self];
 		
 		[cursor setShown: NO];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void) dealloc {
@@ -30,45 +30,45 @@
 }
 
 - (void)drawRect:(NSRect)rect {
-    NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
-    
-    int ypos = 0;
+	NSSize fixedSize = [@"M" sizeWithAttributes:
+						[NSDictionary dictionaryWithObjectsAndKeys:
+						 [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+	
+	int ypos = 0;
 	CGFloat width = [self bounds].size.width;
+	
+	// Draw each window in turn
+	for (ZoomUpperWindow* win in [zoomView upperWindows]) {
+		NSInteger y;
 
-    // Draw each window in turn
-    for (ZoomUpperWindow* win in [zoomView upperWindows]) {
-        NSInteger y;
-
-        // Get the lines from the window
-        NSArray* lines = [win lines];
-
-        // Work out how many to draw
-        NSInteger maxY = [win length];
-        if (maxY > [lines count]) maxY = [lines count];
-
-        // Fill in the background
-        NSRect winRect = NSMakeRect(0,
-                                    ypos*fixedSize.height,
-                                    rect.size.width,
-                                    (ypos+[win length])*fixedSize.height);
-        [[win backgroundColour] set];
-        NSRectFill(winRect);
-        
-        // Draw 'em
-        for (y=0; y<maxY; y++) {
-            NSMutableAttributedString* line = [lines objectAtIndex: y];
-
+		// Get the lines from the window
+		NSArray* lines = [win lines];
+		
+		// Work out how many to draw
+		NSInteger maxY = [win length];
+		if (maxY > [lines count]) maxY = [lines count];
+		
+		// Fill in the background
+		NSRect winRect = NSMakeRect(0,
+									ypos*fixedSize.height,
+									rect.size.width,
+									(ypos+[win length])*fixedSize.height);
+		[[win backgroundColour] set];
+		NSRectFill(winRect);
+		
+		// Draw 'em
+		for (y=0; y<maxY; y++) {
+			NSMutableAttributedString* line = [lines objectAtIndex: y];
+			
 			// Only draw the lines that we actually need to draw: keeps the processor usage down when
 			// flashing the cursor
 			if (NSIntersectsRect(rect, NSMakeRect(0, fixedSize.height * (ypos+y), width, fixedSize.height))) {
 				[line drawAtPoint: NSMakePoint(0, fixedSize.height*(ypos+y))];
 			}
-        }
-        
-        ypos += [win length];
-    }
+		}
+		
+		ypos += [win length];
+	}
 	
 	// Draw the cursor
 	if (inputLine) {
@@ -79,7 +79,7 @@
 }
 
 - (BOOL) isFlipped {
-    return YES;
+	return YES;
 }
 
 #pragma mark - Flashing the cursor
@@ -94,10 +94,10 @@
 	}
 
 	NSPoint cp = [activeWindow cursorPosition];
-		
-    NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+	
+	NSSize fixedSize = [@"M" sizeWithAttributes:
+						[NSDictionary dictionaryWithObjectsAndKeys:
+						 [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
 	
 	return NSMakePoint(cp.x * fixedSize.width, cp.y * fixedSize.height);
 }
@@ -112,9 +112,9 @@
 	
 	// Font size
 	NSFont* font = [zoomView fontWithStyle: ZFixedStyle];
-    NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+	NSSize fixedSize = [@"M" sizeWithAttributes:
+						[NSDictionary dictionaryWithObjectsAndKeys:
+						 [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
 	
 	// Get the cursor position
 	NSPoint cursorPos = [activeWindow cursorPosition];
@@ -122,7 +122,7 @@
 	int yp = cursorPos.y;
 
 	int startY = 0;
-    for (ZoomUpperWindow* win in zoomView.upperWindows) {
+	for (ZoomUpperWindow* win in zoomView.upperWindows) {
 		if (win == activeWindow) {
 			// Position the cursor
 			[cursor positionAt: NSMakePoint(fixedSize.width * xp, fixedSize.height * (yp + startY))

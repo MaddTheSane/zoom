@@ -12,46 +12,46 @@
 @implementation ZoomScrollView
 
 - (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        zoomView = nil;
+	self = [super initWithFrame:frame];
+	if (self) {
+		zoomView = nil;
 
-        upperDivider = [[NSBox alloc] initWithFrame:
-            NSMakeRect(0,0,2,2)];
-        [upperDivider setBoxType: NSBoxSeparator];
+		upperDivider = [[NSBox alloc] initWithFrame:
+						NSMakeRect(0,0,2,2)];
+		[upperDivider setBoxType: NSBoxSeparator];
 		
 		lastTileSize = NSMakeSize(-1,-1);
 		lastUpperSize = -1;
 		useDivider = YES;
-    }
-    return self;
+	}
+	return self;
 }
 
 - (id) initWithFrame: (NSRect) frame
-            zoomView: (ZoomView*) zView {
-    self = [self initWithFrame:frame];
-    if (self) {
-        zoomView = zView; // Not retained, as this is a component of a ZoomView
+			zoomView: (ZoomView*) zView {
+	self = [self initWithFrame:frame];
+	if (self) {
+		zoomView = zView; // Not retained, as this is a component of a ZoomView
 		scaleFactor = 1.0;
-        
-        upperView = [[ZoomUpperWindowView alloc] initWithFrame: frame
+		
+		upperView = [[ZoomUpperWindowView alloc] initWithFrame: frame
 													  zoomView: zView];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void) tile {
 	// Position the scroll view
 	NSSize thisTileSize = [self bounds].size;
 	
-    if (!NSEqualSizes(lastTileSize, thisTileSize)) {
+	if (!NSEqualSizes(lastTileSize, thisTileSize)) {
 		[super tile];
 	}
 
 	int upperHeight  = [zoomView upperWindowSize];
 	NSSize fixedSize = [@"M" sizeWithAttributes:
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			[zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];	
+						[NSDictionary dictionaryWithObjectsAndKeys:
+						 [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
 	
 	if (!NSEqualSizes(lastTileSize, thisTileSize) || lastUpperSize != upperHeight || !NSEqualSizes(lastFixedSize, fixedSize)) {
 		// Move the content view to accomodate the upper window
@@ -86,7 +86,7 @@
 		// Actually resize the contentView
 		contentFrame.origin.y    += sepHeight;
 		contentFrame.size.height -= sepHeight;
-			
+		
 		[contentView setFrame: contentFrame];
 
 		// The upper/lower view seperator
@@ -133,8 +133,8 @@
 }
 
 - (void) updateUpperWindows {
-    // Force a refresh of the upper window views
-    [upperView setNeedsDisplay: YES];
+	// Force a refresh of the upper window views
+	[upperView setNeedsDisplay: YES];
 }
 
 @synthesize scaleFactor;

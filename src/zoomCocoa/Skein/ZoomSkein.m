@@ -28,7 +28,7 @@
 	self = [super init];
 	
 	if (self) {
-		rootItem = [[ZoomSkeinItem alloc] initWithCommand: @"- start -"];		
+		rootItem = [[ZoomSkeinItem alloc] initWithCommand: @"- start -"];
 		activeItem = rootItem;
 		currentOutput = [[NSMutableString alloc] init];
 		

@@ -64,7 +64,7 @@ static SpeechChannel channel = nil;
 
 - (void) zoomWaitingForInput {
 	if (isImmediate) {
-		[self speak: text];		
+		[self speak: text];
 	}
 	
 	lastText = [text copy];
@@ -148,7 +148,7 @@ static SpeechChannel channel = nil;
 					whitespace = YES;
 					WriteBuffer(' ');
 				}
-					break;
+				break;
 				
 			case '\n':
 			case '\r':
@@ -216,13 +216,13 @@ static SpeechChannel channel = nil;
 		if (position <= 0) {
 			[toSpeak appendFormat: @"Most recent move:\n"];
 		} else {
-			[toSpeak appendFormat: @"%i moves ago:\n", position+1];			
+			[toSpeak appendFormat: @"%i moves ago:\n", position+1];
 		}
 		
 		if (position <= 0 && lastText) {
 			[toSpeak appendString: lastText];
 		} else {
-			[toSpeak appendFormat: @"%@.\n%@", [itemToSpeak command], [itemToSpeak result]];			
+			[toSpeak appendFormat: @"%@.\n%@", [itemToSpeak command], [itemToSpeak result]];
 		}
 		[self speak: toSpeak];
 		

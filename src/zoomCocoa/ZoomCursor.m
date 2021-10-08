@@ -70,7 +70,7 @@
 	// Cursor has, uh, blunked
 	
 	// Only send the message if our visibility has changed
-	BOOL nowVisible = [self visible];		
+	BOOL nowVisible = [self visible];
 	BOOL nowActive = [self activeStyle];
 	if (nowActive == lastActive &&
 		nowVisible == lastVisible) {
@@ -117,16 +117,16 @@
 #pragma mark - Positioning
 
 - (NSSize) sizeOfFont: (NSFont*) font {
-    // Hack: require a layout manager for OS X 10.6, but we don't have the entire text system to fall back on
-    NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
-    
-    // Width is one 'en'
-    CGFloat width = [@"n" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: NSFontAttributeName, font, nil]].width;
-    
-    // Height is decided by the layout manager
-    CGFloat height = [layoutManager defaultLineHeightForFont: font];
-    
-    return NSMakeSize(width, height);
+	// Hack: require a layout manager for OS X 10.6, but we don't have the entire text system to fall back on
+	NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
+	
+	// Width is one 'en'
+	CGFloat width = [@"n" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: NSFontAttributeName, font, nil]].width;
+	
+	// Height is decided by the layout manager
+	CGFloat height = [layoutManager defaultLineHeightForFont: font];
+	
+	return NSMakeSize(width, height);
 }
 
 - (void) positionAt: (NSPoint) pt
@@ -137,8 +137,8 @@
 	[self ZCblunk];
 	
 	// Move the cursor
-    NSSize fontSize = [self sizeOfFont: font];
-		
+	NSSize fontSize = [self sizeOfFont: font];
+	
 	cursorRect = NSMakeRect(pt.x, pt.y, fontSize.width, fontSize.height);
 	
 	cursorRect.origin.x = floor(cursorRect.origin.x + 0.5) + 0.5;
@@ -164,7 +164,7 @@
 	NSFont* font = [attributes objectForKey: NSFontAttributeName];
 	
 	// Move the cursor
-    NSSize fontSize = [self sizeOfFont: font];
+	NSSize fontSize = [self sizeOfFont: font];
 	CGFloat offset = [[string substringToIndex: index] sizeWithAttributes: attributes].width;
 	
 	cursorRect = NSMakeRect(cursorPos.x+offset, cursorPos.y, fontSize.width, fontSize.height);

@@ -14,7 +14,7 @@
 
 @class ZoomView;
 @interface ZoomClient : NSDocument {
-    NSData* gameData;
+	NSData* gameData;
 	
 	ZoomStory* story;
 	ZoomStoryID* storyId;

@@ -22,7 +22,7 @@
 	// The settings controls themselves
 	IBOutlet NSButton* displayWarnings;
 	IBOutlet NSButton* fatalWarnings;
-	IBOutlet NSButton* speakGameText;	
+	IBOutlet NSButton* speakGameText;
 	IBOutlet NSSlider* scrollbackLength;
 	IBOutlet NSButton* autosaveGames;
 	IBOutlet NSButton* keepGamesOrganised;
@@ -35,7 +35,7 @@
 	IBOutlet NSSlider* fontSizeSlider;
 	IBOutlet NSTextField* fontSizeDisplay;
 	IBOutlet NSTextField* fontPreview;
-		
+	
 	IBOutlet NSPopUpButton* glulxInterpreter;
 	IBOutlet NSPopUpButton* interpreter;
 	IBOutlet NSTextField* revision;

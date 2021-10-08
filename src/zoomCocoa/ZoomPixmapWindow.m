@@ -39,10 +39,10 @@
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocusFlipped:YES];
 	
-    NSColor* backgroundColour = style.reversed?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
+	NSColor* backgroundColour = style.reversed?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
 	[backgroundColour set];
 	NSRectFill(NSMakeRect(0, 0, [pixmap size].width, [pixmap size].height));
-			   
+	
 	[pixmap unlockFocus];
 }
 
@@ -50,20 +50,20 @@
 }
 
 - (NSSize) sizeOfFont: (NSFont*) font {
-    // Hack: require a layout manager for OS X 10.6, but we don't have the entire text system to fall back on
-    NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
-    
-    // Width is one 'em'
-    CGFloat width = [@"M" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: NSFontAttributeName, font, nil]].width;
-    
-    // Height is decided by the layout manager
-    CGFloat height = [layoutManager defaultLineHeightForFont: font];
-    
-    return NSMakeSize(width, height);
+	// Hack: require a layout manager for OS X 10.6, but we don't have the entire text system to fall back on
+	NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
+	
+	// Width is one 'em'
+	CGFloat width = [@"M" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: NSFontAttributeName, font, nil]].width;
+	
+	// Height is decided by the layout manager
+	CGFloat height = [layoutManager defaultLineHeightForFont: font];
+	
+	return NSMakeSize(width, height);
 }
 
 - (oneway void) writeString: (in bycopy NSString*) string
-		   withStyle: (in bycopy ZStyle*) style {
+				  withStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocusFlipped:YES];
 	
 	NSLog(@"Warning: should not call standard ZWindow writeString on a pixmap window");
@@ -87,7 +87,7 @@
 		withStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocusFlipped:YES];
 	
-    NSColor* foregroundColour = [zView foregroundColourForStyle: style];
+	NSColor* foregroundColour = [zView foregroundColourForStyle: style];
 	[foregroundColour set];
 	NSRectFill(rect);
 	
@@ -99,7 +99,7 @@
 		  atPoint: (in NSPoint) point
 		withStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocusFlipped:YES];
-		
+	
 	NSMutableDictionary* attr = [[zView attributesForStyle: style] mutableCopy];
 	
 	// Draw the background
@@ -161,16 +161,16 @@
 				  height: (out CGFloat*) height
 				  ascent: (out CGFloat*) ascent
 				 descent: (out CGFloat*) descent {
-    int fontnum;
+	int fontnum;
 	
-    fontnum =
-        (style.bold?1:0)|
-        (style.underline?2:0)|
-        (style.fixed?4:0)|
-        (style.symbolic?8:0);
-
+	fontnum =
+	(style.bold?1:0)|
+	(style.underline?2:0)|
+	(style.fixed?4:0)|
+	(style.symbolic?8:0);
+	
 	NSFont* font = [zView fontWithStyle: fontnum];
-    NSSize fontSize = [self sizeOfFont: font];
+	NSSize fontSize = [self sizeOfFont: font];
 	
 	*width = fontSize.width;
 	*ascent = [font ascender];
@@ -218,7 +218,7 @@
 - (void) plotImageWithNumber: (in int) number
 					 atPoint: (in NSPoint) point {
 	NSImage* img = [[zView resources] imageWithNumber: number];
-
+	
 	NSRect destRect;
 	destRect.origin = point;
 	destRect.size = [[zView resources] sizeForImageWithNumber: number
@@ -256,7 +256,7 @@
 - (id)initWithCoder:(NSCoder *)decoder {
 	self = [super init];
 	
-    if (self) {
+	if (self) {
 		if (decoder.allowsKeyedCoding) {
 			pixmap = [decoder decodeObjectOfClass: [NSImage class] forKey: PIXMAPCODINGKEY];
 			inputPos = [decoder decodePointForKey: INPUTPOSCODINGKEY];
@@ -266,9 +266,9 @@
 			inputPos = [decoder decodePoint];
 			inputStyle = [decoder decodeObject];
 		}
-    }
+	}
 	
-    return self;
+	return self;
 }
 
 + (BOOL)supportsSecureCoding

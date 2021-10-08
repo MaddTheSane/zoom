@@ -83,36 +83,36 @@ static NSImage* unchangedDark, *activeDark;
 + (void) initialize {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-    NSShadow* labelShadow = [[NSShadow alloc] init];
-	
-    [labelShadow setShadowOffset: NSMakeSize(0.4, -1)];
-    [labelShadow setShadowBlurRadius: 1.5];
-    [labelShadow setShadowColor: [NSColor colorWithCalibratedWhite:0.0 alpha:0.7]];
-	
-	unplayed   = [[[self class] imageNamed: @"Skein-unplayed"] retain];
-	selected   = [[[self class] imageNamed: @"Skein-selected"] retain];
-	active     = [[[self class] imageNamed: @"Skein-active"] retain];
-	unchanged  = [[[self class] imageNamed: @"Skein-unchanged"] retain];
-	changed    = [[[self class] imageNamed: @"Skein-changed"] retain];
-	annotation = [[[self class] imageNamed: @"Skein-annotation"] retain];
-	commentaryBadge = [[[self class] imageNamed: @"SkeinDiffersBadge"] retain];
-	
+		NSShadow* labelShadow = [[NSShadow alloc] init];
+		
+		[labelShadow setShadowOffset: NSMakeSize(0.4, -1)];
+		[labelShadow setShadowBlurRadius: 1.5];
+		[labelShadow setShadowColor: [NSColor colorWithCalibratedWhite:0.0 alpha:0.7]];
+		
+		unplayed   = [[[self class] imageNamed: @"Skein-unplayed"] retain];
+		selected   = [[[self class] imageNamed: @"Skein-selected"] retain];
+		active     = [[[self class] imageNamed: @"Skein-active"] retain];
+		unchanged  = [[[self class] imageNamed: @"Skein-unchanged"] retain];
+		changed    = [[[self class] imageNamed: @"Skein-changed"] retain];
+		annotation = [[[self class] imageNamed: @"Skein-annotation"] retain];
+		commentaryBadge = [[[self class] imageNamed: @"SkeinDiffersBadge"] retain];
+		
 #ifdef SkeinDrawingStyleNew
-	unchangedDark = [[[self class] darkenImage: unchanged] retain];
-	activeDark = [[[self class] darkenImage: active] retain];
+		unchangedDark = [[[self class] darkenImage: unchanged] retain];
+		activeDark = [[[self class] darkenImage: active] retain];
 #endif	
-	
-	itemTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
-		[NSFont systemFontOfSize: 10], NSFontAttributeName,
-		[NSColor blackColor], NSForegroundColorAttributeName,
-		nil] retain];
-	labelTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
-		[NSFont systemFontOfSize: 13], NSFontAttributeName,
-		[NSColor blackColor], NSForegroundColorAttributeName,
-		labelShadow, NSShadowAttributeName,
-		nil] retain];
-	
-	[labelShadow release];
+		
+		itemTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
+							   [NSFont systemFontOfSize: 10], NSFontAttributeName,
+							   [NSColor blackColor], NSForegroundColorAttributeName,
+							   nil] retain];
+		labelTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
+								[NSFont systemFontOfSize: 13], NSFontAttributeName,
+								[NSColor blackColor], NSForegroundColorAttributeName,
+								labelShadow, NSShadowAttributeName,
+								nil] retain];
+		
+		[labelShadow release];
 	});
 }
 
@@ -333,7 +333,7 @@ static NSImage* unchangedDark, *activeDark;
 	// Should only happen if there are no children
 	if (position == 0.0) position = itemWidth;
 	
-	// Center the children	
+	// Center the children
 	CGFloat center = position / 2.0;
 	
 	for (ZoomSkeinLayoutItem* childItem in children) {
@@ -493,7 +493,7 @@ static NSImage* unchangedDark, *activeDark;
 	itemRect.size.height = 52.0;
 	
 	// 'overflow' border
-	itemRect = NSInsetRect(itemRect, -4.0, -4.0);	
+	itemRect = NSInsetRect(itemRect, -4.0, -4.0);
 	
 	return itemRect;
 }
@@ -503,15 +503,15 @@ static NSImage* unchangedDark, *activeDark;
 	CGFloat ypos = ((CGFloat)[item level]) * itemHeight + (itemHeight/2.0);
 	CGFloat position = [item position];
 	CGFloat width = [item width];
-    
-    NSLayoutManager* layoutManager = [[[NSLayoutManager alloc] init] autorelease];
+	
+	NSLayoutManager* layoutManager = [[[NSLayoutManager alloc] init] autorelease];
 	
 	// Basic rect
 	itemRect.origin.x = position + globalOffset - (width/2.0);
 	itemRect.origin.y = ypos + 1;
 	itemRect.size.width = width;
 	itemRect.size.height = [layoutManager defaultLineHeightForFont: [NSFont systemFontOfSize: 10]];
-    
+	
 	// Move it down by a few pixels if this is a selected item
 	if ([item item] == selectedItem) {
 		itemRect.origin.y += 2;
@@ -712,7 +712,7 @@ static NSImage* unchangedDark, *activeDark;
 				// Draw the line
 				[line stroke];
 				[line release];
-								 
+				
 				// Thin it out again afterwards
 				if (highlightLine) {
 					[NSBezierPath setDefaultLineWidth: 1.0];
@@ -768,7 +768,7 @@ static NSImage* unchangedDark, *activeDark;
 	[[NSColor clearColor] set];
 	NSRectFill(imgRect);
 	[self drawItem: item
-		   atPoint: NSMakePoint(0,0)];	
+		   atPoint: NSMakePoint(0,0)];
 	[img unlockFocus];
 	
 	return [img autorelease];
@@ -793,7 +793,7 @@ static NSImage* unchangedDark, *activeDark;
 	imgRect.size = [self size];
 	
 	[self drawInRect: imgRect];
-		
+	
 	[res unlockFocus];
 	
 	return [res autorelease];
@@ -901,7 +901,7 @@ static NSImage* unchangedDark, *activeDark;
 	// Should only happen if there are no children
 	if (position == 0.0) position = itemWidth;
 	
-	// Center the children	
+	// Center the children
 	CGFloat center = position / 2.0;
 	
 	for (ZoomSkeinLayoutItem* childItem in children) {

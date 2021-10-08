@@ -124,35 +124,31 @@ static NSString* convertCommand(NSString* command) {
 - (void) itemIsBeingReplacedBy: (ZoomSkeinItem*) item {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemIsBeingReplaced
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  item, ZoomSIItem,
-														  self, ZoomSIOldItem,
-														  nil]];
+													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+																 item, ZoomSIItem,
+																 self, ZoomSIOldItem,
+																 nil]];
 }
 
 - (void) itemHasBeenRemovedFromTree {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemHasBeenRemovedFromTree
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  self, ZoomSIItem,
-														  nil]];
+													  userInfo: @{ZoomSIItem: self}];
 }
 
 - (void) itemHasNewChild: (ZoomSkeinItem*) newChild {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemHasNewChild
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  self, ZoomSIItem,
-														  newChild, ZoomSIChild,
-														  nil]];
+													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+																 self, ZoomSIItem,
+																 newChild, ZoomSIChild,
+																 nil]];
 }
 
 - (void) itemHasChanged {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemHasChanged
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  self, ZoomSIItem,
-														  nil]];
+													  userInfo: @{ZoomSIItem: self}];
 }
 
 // **** Data accessors ****
@@ -326,7 +322,7 @@ static NSString* convertCommand(NSString* command) {
 - (void) setBranchTemporary: (BOOL) isTemporary {
 	ZoomSkeinItem* lowerItem = self;
 	if (!isTemporary) {
-		// Find the lowermost item in this branch (ie, set this entire branch as temporary)		
+		// Find the lowermost item in this branch (ie, set this entire branch as temporary)
 		while ([[lowerItem children] count] == 1) {
 			lowerItem = [[[lowerItem children] allObjects] objectAtIndex: 0];
 		}
@@ -376,7 +372,7 @@ static int currentScore = 1;
 @synthesize annotation;
 
 - (void) setAnnotation: (NSString*) newAnnotation {
-	if (annotation == nil || ![newAnnotation isEqualToString: annotation]) 
+	if (annotation == nil || ![newAnnotation isEqualToString: annotation])
 		annotationSizeDidChange = YES;
 	else
 		return;					// Nothing to do
@@ -491,7 +487,7 @@ static int currentScore = 1;
 	while (top != nil) {
 		ourBranch = top;
 		top = [top parent];
-	
+		
 		while (top != nil && [[top children] count] <= 1) {
 			ourBranch = top;
 			top = [top parent];
@@ -507,7 +503,7 @@ static int currentScore = 1;
 				foundBranch = YES;
 				break;
 			}
-		}	
+		}
 
 		// See if we can find any differences there
 		while (foundBranch && (child = [childEnum nextObject])) {
@@ -631,10 +627,10 @@ static NSDictionary* labelTextAttributes = nil;
 - (NSSize) annotationSize {
 	if (!labelTextAttributes) {
 		labelTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSFont systemFontOfSize: 13], NSFontAttributeName,
-			[NSColor blackColor], NSForegroundColorAttributeName,
-			//labelShadow, NSShadowAttributeName,
-			nil];
+							   [NSFont systemFontOfSize: 13], NSFontAttributeName,
+							   [NSColor blackColor], NSForegroundColorAttributeName,
+							   //labelShadow, NSShadowAttributeName,
+							   nil];
 	}
 	
 	if (annotationSizeDidChange) {

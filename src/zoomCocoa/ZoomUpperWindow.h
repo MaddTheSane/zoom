@@ -18,7 +18,7 @@
     int xpos, ypos;
 
     NSColor* backgroundColour;
-	ZStyle* inputStyle;
+    ZStyle* inputStyle;
 }
 
 - (id) initWithZoomView: (ZoomView*) view;

@@ -14,10 +14,10 @@
 @class ZoomView;
 @class ZoomUpperWindowView;
 @interface ZoomScrollView : NSScrollView {
-    __weak ZoomView*            zoomView;
-    ZoomUpperWindowView* upperView;
-        
-    NSBox* upperDivider;
+	__weak ZoomView*            zoomView;
+	ZoomUpperWindowView* upperView;
+	
+	NSBox* upperDivider;
 	
 	CGFloat scaleFactor;
 	
@@ -29,7 +29,7 @@
 }
 
 - (id) initWithFrame: (NSRect) frame
-            zoomView: (ZoomView*) zView;
+			zoomView: (ZoomView*) zView;
 
 @property (nonatomic) CGFloat scaleFactor;
 - (void) updateUpperWindows;

@@ -22,14 +22,14 @@
 - (void) setSize {
     NSString* more = @"[More]";
     NSDictionary* moreAttributes =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSFont systemFontOfSize: 12], NSFontAttributeName,
-            [NSColor colorWithDeviceRed: 0
-                                  green: 0.6
-                                   blue: 0.9
-                                  alpha: 1.0], NSBackgroundColorAttributeName,
-            [NSColor blackColor], NSForegroundColorAttributeName,
-            nil];
+    [NSDictionary dictionaryWithObjectsAndKeys:
+     [NSFont systemFontOfSize: 12], NSFontAttributeName,
+     [NSColor colorWithDeviceRed: 0
+                           green: 0.6
+                            blue: 0.9
+                           alpha: 1.0], NSBackgroundColorAttributeName,
+     [NSColor blackColor], NSForegroundColorAttributeName,
+     nil];
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self frame];
     moreSize.width += 2;
@@ -42,14 +42,14 @@
 - (void)drawRect:(__unused NSRect)rect {
     NSString* more = @"[More]";
     NSDictionary* moreAttributes =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSFont systemFontOfSize: 12], NSFontAttributeName,
-            [NSColor colorWithDeviceRed: 0
-                                  green: 0.6
-                                   blue: 0.9
-                                  alpha: 1.0], NSBackgroundColorAttributeName,
-            [NSColor blackColor], NSForegroundColorAttributeName,
-            nil];
+    [NSDictionary dictionaryWithObjectsAndKeys:
+     [NSFont systemFontOfSize: 12], NSFontAttributeName,
+     [NSColor colorWithDeviceRed: 0
+                           green: 0.6
+                            blue: 0.9
+                           alpha: 1.0], NSBackgroundColorAttributeName,
+     [NSColor blackColor], NSForegroundColorAttributeName,
+     nil];
 
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self bounds];
@@ -68,7 +68,7 @@
                            green: .85
                             blue: 1
                            alpha: 1]
-        set];
+     set];
 
     [NSBezierPath strokeLineFromPoint: NSMakePoint(NSMinX(frame)+.5, NSMinY(frame)+.5)
                               toPoint: NSMakePoint(NSMinX(frame)+.5, NSMaxY(frame)-.5)];
@@ -79,7 +79,7 @@
                            green: .25
                             blue: .5
                            alpha: 1]
-        set];
+     set];
 
     [NSBezierPath strokeLineFromPoint: NSMakePoint(NSMinX(frame)+.5, NSMinY(frame)+.5)
                               toPoint: NSMakePoint(NSMaxX(frame)-.5, NSMinY(frame)+.5)];

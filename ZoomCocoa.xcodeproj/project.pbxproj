@@ -683,19 +683,19 @@
 		4B1E3F81050F7CC500A8E303 /* lex.l */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = lex.l; sourceTree = "<group>"; };
 		4B1E3F82050F7CC500A8E303 /* operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = operation.h; sourceTree = "<group>"; };
 		4B1E3F83050F7CC500A8E303 /* gram.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = gram.y; sourceTree = "<group>"; };
-		4B1E3F89050F7D5200A8E303 /* iff.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = iff.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3F89050F7D5200A8E303 /* iff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iff.c; sourceTree = "<group>"; };
 		4B1E3F8A050F7D5200A8E303 /* rc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rc.h; sourceTree = "<group>"; };
 		4B1E3F8B050F7D5200A8E303 /* font3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = font3.h; sourceTree = "<group>"; };
-		4B1E3F8C050F7D5200A8E303 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3F8C050F7D5200A8E303 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		4B1E3F8D050F7D5200A8E303 /* rc_parse.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = rc_parse.y; sourceTree = "<group>"; };
-		4B1E3F8E050F7D5200A8E303 /* options.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = options.c; sourceTree = "<group>"; tabWidth = 8; };
-		4B1E3F8F050F7D5200A8E303 /* file.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = file.c; sourceTree = "<group>"; tabWidth = 8; };
-		4B1E3F90050F7D5200A8E303 /* hash.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = hash.c; sourceTree = "<group>"; tabWidth = 8; };
-		4B1E3F91050F7D5200A8E303 /* blorb.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = blorb.c; sourceTree = "<group>"; tabWidth = 8; };
-		4B1E3F92050F7D5200A8E303 /* rc.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = rc.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3F8E050F7D5200A8E303 /* options.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = options.c; sourceTree = "<group>"; };
+		4B1E3F8F050F7D5200A8E303 /* file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = file.c; sourceTree = "<group>"; };
+		4B1E3F90050F7D5200A8E303 /* hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hash.c; sourceTree = "<group>"; };
+		4B1E3F91050F7D5200A8E303 /* blorb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blorb.c; sourceTree = "<group>"; };
+		4B1E3F92050F7D5200A8E303 /* rc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rc.c; sourceTree = "<group>"; };
 		4B1E3F93050F7D5200A8E303 /* rcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rcp.h; sourceTree = "<group>"; };
-		4B1E3F94050F7D5200A8E303 /* font3.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = font3.c; sourceTree = "<group>"; tabWidth = 8; };
-		4B1E3F95050F7D5200A8E303 /* menu.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = menu.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3F94050F7D5200A8E303 /* font3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = font3.c; sourceTree = "<group>"; };
+		4B1E3F95050F7D5200A8E303 /* menu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = menu.c; sourceTree = "<group>"; };
 		4B1E3F96050F7D5200A8E303 /* rc_lex.l */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = rc_lex.l; sourceTree = "<group>"; };
 		4B1E3F97050F7D5200A8E303 /* options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = options.h; sourceTree = "<group>"; };
 		4B1E3F98050F7D5200A8E303 /* menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menu.h; sourceTree = "<group>"; };
@@ -705,20 +705,20 @@
 		4B1E3FB0050F7DE200A8E303 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
 		4B1E3FB1050F7DE200A8E303 /* zmachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zmachine.h; sourceTree = "<group>"; };
 		4B1E3FB2050F7DE200A8E303 /* zscii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscii.h; sourceTree = "<group>"; tabWidth = 8; };
-		4B1E3FB3050F7DE200A8E303 /* state.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = state.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3FB3050F7DE200A8E303 /* state.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = state.c; sourceTree = "<group>"; };
 		4B1E3FB4050F7DE200A8E303 /* tokenise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenise.h; sourceTree = "<group>"; };
-		4B1E3FB5050F7DE200A8E303 /* tokenise.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = tokenise.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3FB5050F7DE200A8E303 /* tokenise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tokenise.c; sourceTree = "<group>"; };
 		4B1E3FB6050F7DE200A8E303 /* eval.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = eval.y; sourceTree = "<group>"; };
-		4B1E3FB7050F7DE200A8E303 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3FB7050F7DE200A8E303 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
 		4B1E3FB8050F7DE200A8E303 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = state.h; sourceTree = "<group>"; };
-		4B1E3FB9050F7DE200A8E303 /* zmachine.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = zmachine.c; sourceTree = "<group>"; tabWidth = 8; };
-		4B1E3FBA050F7DE200A8E303 /* zscii.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = zscii.c; sourceTree = "<group>"; tabWidth = 4; };
+		4B1E3FB9050F7DE200A8E303 /* zmachine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zmachine.c; sourceTree = "<group>"; };
+		4B1E3FBA050F7DE200A8E303 /* zscii.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zscii.c; sourceTree = "<group>"; };
 		4B1E3FBB050F7DE200A8E303 /* stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
-		4B1E3FBC050F7DE200A8E303 /* stream.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = stream.c; sourceTree = "<group>"; tabWidth = 8; };
-		4B1E3FBD050F7DE200A8E303 /* random.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = random.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3FBC050F7DE200A8E303 /* stream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream.c; sourceTree = "<group>"; };
+		4B1E3FBD050F7DE200A8E303 /* random.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = random.c; sourceTree = "<group>"; };
 		4B1E3FBE050F7DE200A8E303 /* random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = random.h; sourceTree = "<group>"; };
 		4B1E3FBF050F7DE200A8E303 /* interp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interp.h; sourceTree = "<group>"; };
-		4B1E3FC0050F7DE200A8E303 /* interp.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = interp.c; sourceTree = "<group>"; tabWidth = 8; };
+		4B1E3FC0050F7DE200A8E303 /* interp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = interp.c; sourceTree = "<group>"; };
 		4B1E3FD2050F7DFD00A8E303 /* TODO */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = TODO; sourceTree = SOURCE_ROOT; };
 		4B1E3FD3050F7E0800A8E303 /* THANKS */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = THANKS; sourceTree = SOURCE_ROOT; };
 		4B1E3FD4050F7E1000A8E303 /* README */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = README; sourceTree = SOURCE_ROOT; };
@@ -762,12 +762,12 @@
 		4B43DAAE09364CD100F03009 /* ZoomGlkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkWindowController.m; sourceTree = "<group>"; };
 		4B4D512006E3894F007FAD2B /* ZoomConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomConnector.h; sourceTree = "<group>"; };
 		4B4D512106E3894F007FAD2B /* ZoomConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomConnector.m; sourceTree = "<group>"; };
-		4B4EF620050FD66E00A8E303 /* ZFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFiles.m; sourceTree = "<group>"; usesTabs = 0; };
+		4B4EF620050FD66E00A8E303 /* ZFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFiles.m; sourceTree = "<group>"; };
 		4B4EF623050FDC6800A8E303 /* ZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomView.h; sourceTree = "<group>"; };
-		4B4EF624050FDC6800A8E303 /* ZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomView.m; sourceTree = "<group>"; usesTabs = 0; };
+		4B4EF624050FDC6800A8E303 /* ZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomView.m; sourceTree = "<group>"; };
 		4B5983DA070F059E0078165F /* archive.iFiction */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = archive.iFiction; path = src/archive.iFiction; sourceTree = "<group>"; };
 		4B5CBB2D069D640900C0AA88 /* ZoomCollapsingSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomCollapsingSplitView.h; sourceTree = "<group>"; };
-		4B5CBB2E069D640900C0AA88 /* ZoomCollapsingSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomCollapsingSplitView.m; sourceTree = "<group>"; };
+		4B5CBB2E069D640900C0AA88 /* ZoomCollapsingSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomCollapsingSplitView.m; sourceTree = "<group>"; usesTabs = 0; };
 		4B5CBB78069D656000C0AA88 /* ZoomStoryTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomStoryTableView.m; sourceTree = "<group>"; };
 		4B5CBB79069D656000C0AA88 /* ZoomStoryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomStoryTableView.h; sourceTree = "<group>"; };
 		4B5CBB9B069D671200C0AA88 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -785,7 +785,7 @@
 		4B7CB1B00936345D00F3B8F6 /* ZoomGlkPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkPlugIn.m; sourceTree = "<group>"; };
 		4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaGlk.xcodeproj; path = depends/CocoaGlk/CocoaGlk.xcodeproj; sourceTree = "<group>"; };
 		4B7D1DAD0534999E00A8E303 /* ZoomLowerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomLowerWindow.h; sourceTree = "<group>"; };
-		4B7D1DAE0534999E00A8E303 /* ZoomLowerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomLowerWindow.m; sourceTree = "<group>"; };
+		4B7D1DAE0534999E00A8E303 /* ZoomLowerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomLowerWindow.m; sourceTree = "<group>"; usesTabs = 0; };
 		4B807BA305BFEE2700681653 /* ZoomiFictionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomiFictionController.h; sourceTree = "<group>"; };
 		4B807BA405BFEE2700681653 /* ZoomiFictionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomiFictionController.m; sourceTree = "<group>"; };
 		4B807BA905BFEE7200681653 /* ZoomStoryOrganiser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomStoryOrganiser.h; sourceTree = "<group>"; };
@@ -841,13 +841,13 @@
 		4BC5562006B83F4600F0DD4A /* ZoomResourceDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomResourceDrop.h; sourceTree = "<group>"; };
 		4BC5562106B83F4600F0DD4A /* ZoomResourceDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomResourceDrop.m; sourceTree = "<group>"; };
 		4BCF3F27050F8BB200A8E303 /* ZoomProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomProtocol.h; sourceTree = "<group>"; };
-		4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomProtocol.m; sourceTree = "<group>"; usesTabs = 0; };
+		4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomProtocol.m; sourceTree = "<group>"; };
 		4BCF3F2B050F8E2400A8E303 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4BCF3F2D050F8ECD00A8E303 /* display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = display.h; sourceTree = "<group>"; };
 		4BCF3F2F050F9E8F00A8E303 /* ZoomServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomServer.h; sourceTree = "<group>"; };
 		4BCF3F30050F9E8F00A8E303 /* ZoomServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomServer.m; sourceTree = "<group>"; };
 		4BCF3F33050FAE5700A8E303 /* ZoomZMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomZMachine.h; sourceTree = "<group>"; };
-		4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomZMachine.m; sourceTree = "<group>"; usesTabs = 0; };
+		4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomZMachine.m; sourceTree = "<group>"; };
 		4BCF3F44050FB21C00A8E303 /* macreadme.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = macreadme.rtf; path = ../macos/macreadme.rtf; sourceTree = "<group>"; };
 		4BCF3F46050FB21C00A8E303 /* zoom-game.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "zoom-game.icns"; path = "../macos/zoom-game.icns"; sourceTree = "<group>"; };
 		4BCF3F4B050FB2C500A8E303 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -857,7 +857,7 @@
 		4BCF3F57050FB49F00A8E303 /* ZoomClient.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZoomClient.xib; sourceTree = "<group>"; };
 		4BCF3F59050FB57A00A8E303 /* ZoomClientController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomClientController.h; sourceTree = "<group>"; };
 		4BCF3F5A050FB57A00A8E303 /* ZoomClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomClientController.m; sourceTree = "<group>"; };
-		4BCF3F5E050FBAAF00A8E303 /* v6display.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = v6display.c; sourceTree = "<group>"; tabWidth = 8; };
+		4BCF3F5E050FBAAF00A8E303 /* v6display.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = v6display.c; sourceTree = "<group>"; };
 		4BCF3F5F050FBAAF00A8E303 /* v6display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v6display.h; sourceTree = "<group>"; };
 		4BCF3F62050FBB3F00A8E303 /* image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image.h; sourceTree = "<group>"; };
 		4BD274C408701E6700C1AE15 /* Info-ZoomView__Upgraded_.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-ZoomView__Upgraded_.plist"; sourceTree = "<group>"; };
@@ -895,14 +895,14 @@
 		4BD79AED0BA2CC06002C82B2 /* babel_multi_functions.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = babel_multi_functions.c; sourceTree = "<group>"; };
 		4BD79AEE0BA2CC06002C82B2 /* babel_story_functions.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = babel_story_functions.c; sourceTree = "<group>"; };
 		4BD79AF20BA2CC13002C82B2 /* babel.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = babel.c; sourceTree = "<group>"; };
-		4BDFA46305358F1200A8E303 /* ZoomUpperWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomUpperWindow.h; sourceTree = "<group>"; };
-		4BDFA46405358F1200A8E303 /* ZoomUpperWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomUpperWindow.m; sourceTree = "<group>"; };
+		4BDFA46305358F1200A8E303 /* ZoomUpperWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomUpperWindow.h; sourceTree = "<group>"; usesTabs = 0; };
+		4BDFA46405358F1200A8E303 /* ZoomUpperWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomUpperWindow.m; sourceTree = "<group>"; usesTabs = 0; };
 		4BDFA4AC0535C42C00A8E303 /* ZoomMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomMoreView.h; sourceTree = "<group>"; };
-		4BDFA4AD0535C42C00A8E303 /* ZoomMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomMoreView.m; sourceTree = "<group>"; };
+		4BDFA4AD0535C42C00A8E303 /* ZoomMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomMoreView.m; sourceTree = "<group>"; usesTabs = 0; };
 		4BDFA4B00535E10200A8E303 /* ZoomTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomTextView.h; sourceTree = "<group>"; };
-		4BDFA4B10535E10200A8E303 /* ZoomTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomTextView.m; sourceTree = "<group>"; };
-		4BE447B80510DE5900A8E303 /* ZDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDisplay.m; sourceTree = "<group>"; usesTabs = 0; };
-		4BE447BA0510E0E000A8E303 /* display.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = display.c; sourceTree = "<group>"; tabWidth = 8; };
+		4BDFA4B10535E10200A8E303 /* ZoomTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomTextView.m; sourceTree = "<group>"; usesTabs = 0; };
+		4BE447B80510DE5900A8E303 /* ZDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDisplay.m; sourceTree = "<group>"; };
+		4BE447BA0510E0E000A8E303 /* display.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = display.c; sourceTree = "<group>"; };
 		4BE5F510075121A400C25A70 /* ZoomTextToSpeech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomTextToSpeech.h; sourceTree = "<group>"; };
 		4BE5F511075121A400C25A70 /* ZoomTextToSpeech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomTextToSpeech.m; sourceTree = "<group>"; };
 		4BE621CF068C20D500369528 /* Z6Display.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Z6Display.m; sourceTree = "<group>"; };
@@ -910,7 +910,7 @@
 		4BE62209068C273400369528 /* ZoomPixmapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomPixmapWindow.m; sourceTree = "<group>"; };
 		4BE6236B068CB86300369528 /* ZoomCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomCursor.h; sourceTree = "<group>"; };
 		4BE6236C068CB86300369528 /* ZoomCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomCursor.m; sourceTree = "<group>"; };
-		4BECA80005B19BE1006840BA /* ifmetadata.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = ifmetadata.c; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
+		4BECA80005B19BE1006840BA /* ifmetadata.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = ifmetadata.c; sourceTree = "<group>"; tabWidth = 4; };
 		4BECA81B05B19CFB006840BA /* ifmetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifmetadata.h; sourceTree = "<group>"; };
 		4BF02D1E0C4A8141006FC32E /* ZoomGlkSaveRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlkSaveRef.h; sourceTree = "<group>"; };
 		4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkSaveRef.m; sourceTree = "<group>"; };
@@ -1115,6 +1115,7 @@
 				4B7286E70CD3CAFF0079D89B /* ZoomSaveQuickLook-Info.plist */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		4B1E3F55050F7B0E00A8E303 /* Products */ = {
 			isa = PBXGroup;
@@ -1179,8 +1180,10 @@
 				4B1E3F83050F7CC500A8E303 /* gram.y */,
 				55BE4AF9270A645600100A7D /* varopdecode.pl */,
 			);
+			indentWidth = 2;
 			path = builder;
 			sourceTree = SOURCE_ROOT;
+			tabWidth = 8;
 		};
 		4B1E3F88050F7CF100A8E303 /* Support */ = {
 			isa = PBXGroup;
@@ -1210,8 +1213,11 @@
 				4BCF3F5E050FBAAF00A8E303 /* v6display.c */,
 				4BCF3F5F050FBAAF00A8E303 /* v6display.h */,
 			);
+			indentWidth = 2;
 			name = Support;
 			sourceTree = "<group>";
+			tabWidth = 8;
+			usesTabs = 1;
 		};
 		4B1E3FAF050F7D8900A8E303 /* Interpreter */ = {
 			isa = PBXGroup;
@@ -1234,9 +1240,11 @@
 				4B1E3FBA050F7DE200A8E303 /* zscii.c */,
 				4B1E3FB2050F7DE200A8E303 /* zscii.h */,
 			);
+			indentWidth = 2;
 			name = Interpreter;
-			path = src;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
+			tabWidth = 8;
+			usesTabs = 1;
 		};
 		4B1E3FDB050F7E6F00A8E303 /* ZoomCocoa */ = {
 			isa = PBXGroup;
@@ -1254,6 +1262,7 @@
 			name = ZoomCocoa;
 			path = zoomCocoa;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		4B2EAFB105B08D2F0021A5E6 /* Metadata */ = {
 			isa = PBXGroup;
@@ -1607,6 +1616,7 @@
 			);
 			name = Metadata;
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		55BB92552048CCFE00AB4B5B /* ifdbWeb */ = {
 			isa = PBXGroup;

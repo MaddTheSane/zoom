@@ -55,7 +55,7 @@ NS_ENUM(NSInteger) {
 	ZoomTitleField,
 	ZoomYearField,
 	ZoomDescriptionField,
-
+	
 	ZoomTitleNewlineField,
 	ZoomYearNewlineField,
 	ZoomDescriptionNewlineField
@@ -77,7 +77,7 @@ NS_ENUM(NSInteger) {
 	NSURL* docDir = [[NSFileManager defaultManager] URLForDirectory: NSDocumentDirectory inDomain: NSUserDomainMask appropriateForURL:nil create: NO error: NULL];
 	
 	[[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
-		docDir, addDirectory, @"group", sortGroup, nil]];
+															  docDir, addDirectory, @"group", sortGroup, nil]];
 }
 
 - (void) dealloc {
@@ -99,7 +99,7 @@ NS_ENUM(NSInteger) {
 	[shadow setShadowOffset:NSMakeSize(1.1, -1.5)];
 	[shadow setShadowBlurRadius:0.2];
 	[shadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.6]];
-		
+	
 	// The title text
 	NSMutableAttributedString *headerString = [[NSMutableAttributedString alloc] initWithString:@"Title"];
 	NSRange range = NSMakeRange(0, [headerString length]);
@@ -147,27 +147,27 @@ NS_ENUM(NSInteger) {
 		 forTable: (NSTableView*) table {
 	// Can't use the traditional methods, as our table header view draws all over the normal
 	// column header
-		NSTableHeaderView* theHeader = [table headerView];
-		NSEnumerator* viewEnum = [[theHeader subviews] objectEnumerator];
+	NSTableHeaderView* theHeader = [table headerView];
+	NSEnumerator* viewEnum = [[theHeader subviews] objectEnumerator];
 
-		// Shadow creates an engraved look
-		NSShadow* shadow = [[NSShadow alloc] init];
-		[shadow setShadowOffset:NSMakeSize(1.1, -1.5)];
-		[shadow setShadowBlurRadius:0.2];
-		[shadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.6]];
-		
-		// The title text
-		NSMutableAttributedString *headerString = [[NSMutableAttributedString alloc] initWithString: title];
-		NSRange range = NSMakeRange(0, [headerString length]);
-		[headerString addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:11.0] range:range];
-		[headerString addAttribute:NSShadowAttributeName value:shadow range:range];
-		[headerString setAlignment:NSTextAlignmentCenter range:range];
-		
-		for (NSTextField* titleView in viewEnum) {
-			if ([titleView isKindOfClass: [NSTextField class]]) {
-				[titleView setAttributedStringValue: headerString];
-			}
+	// Shadow creates an engraved look
+	NSShadow* shadow = [[NSShadow alloc] init];
+	[shadow setShadowOffset:NSMakeSize(1.1, -1.5)];
+	[shadow setShadowBlurRadius:0.2];
+	[shadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.6]];
+
+	// The title text
+	NSMutableAttributedString *headerString = [[NSMutableAttributedString alloc] initWithString: title];
+	NSRange range = NSMakeRange(0, [headerString length]);
+	[headerString addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:11.0] range:range];
+	[headerString addAttribute:NSShadowAttributeName value:shadow range:range];
+	[headerString setAlignment:NSTextAlignmentCenter range:range];
+
+	for (NSTextField* titleView in viewEnum) {
+		if ([titleView isKindOfClass: [NSTextField class]]) {
+			[titleView setAttributedStringValue: headerString];
 		}
+	}
 }
 
 - (void) flipTo: (NSView*) view {
@@ -181,7 +181,7 @@ NS_ENUM(NSInteger) {
 				  style: ZoomAnimateFade];
 	
 	if (view == filterView) {
-		[flipButtonMatrix selectCellWithTag: 2];		
+		[flipButtonMatrix selectCellWithTag: 2];
 	} else if (view == infoView) {
 		[flipButtonMatrix selectCellWithTag: 1];
 	} else if (view == saveGameView) {
@@ -240,21 +240,21 @@ NS_ENUM(NSInteger) {
 	[gameDetailView setTextContainerInset: NSMakeSize(6.0, 6.0)];
 	[[gameDetailView textStorage] setDelegate: self];
 	[self setupSplitView];
-		
+	
 	// Set up the filter table headers
-		// We have NSShadow - go ahead
-		
-		// Note (and FIXME): a retained view is not released here
-		// (Being lazy: this doesn't matter, as the iFiction window is persistent)
-		[self createMetalTitleForTable: filterTable1];
-		[self createMetalTitleForTable: filterTable2];
-		
-		[self setTitle: @"Group"
-			  forTable: filterTable1];
-		[self setTitle: @"Author"
-			  forTable: filterTable2];
-
-
+	// We have NSShadow - go ahead
+	
+	// Note (and FIXME): a retained view is not released here
+	// (Being lazy: this doesn't matter, as the iFiction window is persistent)
+	[self createMetalTitleForTable: filterTable1];
+	[self createMetalTitleForTable: filterTable2];
+	
+	[self setTitle: @"Group"
+		  forTable: filterTable1];
+	[self setTitle: @"Author"
+		  forTable: filterTable2];
+	
+	
 	showDrawer = YES;
 	needsUpdating = YES;
 	
@@ -297,9 +297,9 @@ NS_ENUM(NSInteger) {
 	[mainTableView reloadData];
 	
 	[mainTableView registerForDraggedTypes:@[NSPasteboardTypeFileURL]];
-				   
+	
 	[mainTableView setDoubleAction:@selector(startNewGame:)];
-
+	
 	[self flipTo: filterView];
 }
 
@@ -329,7 +329,7 @@ NS_ENUM(NSInteger) {
 
 - (void)windowDidResize:(NSNotification *)notification {
 	[[self window] saveFrameUsingName: @"iFiction"];
-
+	
 	if (browserOn) [self setBrowserFontSize];
 	[self positionDownloadWindow];
 }
@@ -401,7 +401,7 @@ static dispatch_block_t onceTypesBlock = ^{
 #if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
 	dispatch_once(&onceTypesToken, onceTypesBlock);
 #endif
-
+	
 	// Add all the files we can
 	NSMutableArray<NSURL*> *selectedFiles = [filenames mutableCopy];
 	
@@ -410,7 +410,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		
 		NSURL *filename = [selectedFiles objectAtIndex:0];
 		NSString *path = filename.path;
-
+		
 		isDir = NO;
 		urlIsAvailableAndIsDirectory(filename, &isDir, NULL, NULL);
 		
@@ -452,7 +452,7 @@ static dispatch_block_t onceTypesBlock = ^{
 																   error: NULL];
 			}
 		}
-
+		
 		[selectedFiles removeObjectAtIndex:0];
 	}
 }
@@ -461,63 +461,63 @@ static dispatch_block_t onceTypesBlock = ^{
 #if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
 	dispatch_once(&onceTypesToken, onceTypesBlock);
 #endif
-
+	
 	// Add all the files we can
 	NSMutableArray* selectedFiles = [filenames mutableCopy];
 	
-	while( [selectedFiles count] > 0 ) 
-	@autoreleasepool {
-		BOOL isDir;
-		
-		NSString *filename = [selectedFiles objectAtIndex:0];
-
-		isDir = NO;
-		[[NSFileManager defaultManager] fileExistsAtPath: filename
-											 isDirectory: &isDir];
-		
-		NSString* fileType = [filename pathExtension];
-		Class plugin;
-		
-		if (isDir) {
-			NSArray* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: filename error:NULL];
+	while( [selectedFiles count] > 0 )
+		@autoreleasepool {
+			BOOL isDir;
 			
-			for (NSString* dirComponent in dirContents)
-			{
-				[selectedFiles addObject: [filename stringByAppendingPathComponent: dirComponent]];
-			}
-		} else if ([ZComFileTypes containsObject: fileType]) {
-			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFile: filename];
+			NSString *filename = [selectedFiles objectAtIndex:0];
 			
-			if (fileID != nil) 
-			{
-				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
-														  withIdent: fileID
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+			isDir = NO;
+			[[NSFileManager defaultManager] fileExistsAtPath: filename
+												 isDirectory: &isDir];
+			
+			NSString* fileType = [filename pathExtension];
+			Class plugin;
+			
+			if (isDir) {
+				NSArray* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: filename error:NULL];
 				
-			}
-		} else if ([blorbFileTypes containsObject: fileType]) {
-			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithGlulxFile: filename];
-			
-			if (fileID != nil)
-			{
-				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
-														  withIdent: fileID
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+				for (NSString* dirComponent in dirContents)
+				{
+					[selectedFiles addObject: [filename stringByAppendingPathComponent: dirComponent]];
+				}
+			} else if ([ZComFileTypes containsObject: fileType]) {
+				ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFile: filename];
 				
+				if (fileID != nil)
+				{
+					[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
+															  withIdent: fileID
+															   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+					
+				}
+			} else if ([blorbFileTypes containsObject: fileType]) {
+				ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithGlulxFile: filename];
+				
+				if (fileID != nil)
+				{
+					[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
+															  withIdent: fileID
+															   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+					
+				}
+			} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename])) {
+				ZoomPlugIn* instance = [[plugin alloc] initWithFilename: filename];
+				ZoomStoryID* fileID = [instance idForStory];
+				
+				if (fileID != nil) {
+					[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
+															  withIdent: fileID
+															   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+				}
 			}
-		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename])) {
-			ZoomPlugIn* instance = [[plugin alloc] initWithFilename: filename];
-			ZoomStoryID* fileID = [instance idForStory];
 			
-			if (fileID != nil) {
-				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
-														  withIdent: fileID
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];				
-			}
+			[selectedFiles removeObjectAtIndex:0];
 		}
-
-		[selectedFiles removeObjectAtIndex:0];
-	}
 }
 
 #pragma mark - IB actions
@@ -656,7 +656,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	if( ident == NULL )
 		return;
-		
+
 	// If an autosave file exists, query the user
 	NSString* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
 																				  create: NO];
@@ -706,7 +706,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	if (browserOn) {
 		
 	} else {
-		[self reloadTableData]; [mainTableView reloadData];		
+		[self reloadTableData]; [mainTableView reloadData];
 	}
 }
 
@@ -764,14 +764,14 @@ static dispatch_block_t onceTypesBlock = ^{
 											  order: 128
 											  modes: [NSArray arrayWithObjects: NSDefaultRunLoopMode, NSModalPanelRunLoopMode, nil]];
 		queuedUpdate = YES;
-	}	
+	}
 }
 
 - (void) finishUpdatingStoryList: (id) sender {
 	queuedUpdate = NO;
 	
 	[mainTableView reloadData];
-	[self configureFromMainTableSelection];	
+	[self configureFromMainTableSelection];
 }
 
 - (void) storyListChanged: (NSNotification*) not {
@@ -790,7 +790,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	} else {
 		indicatorCount--;
 	}
-		
+
 	if (indicatorCount <= 0) {
 		indicatorCount = 0;
 		[progressIndicator stopAnimation: self];
@@ -859,7 +859,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			
 			NSString* cA = [sA objectForKey: sortColumn];
 			NSString* cB = [sB objectForKey: sortColumn];
-
+			
 			if ([cA length] != [cB length]) {
 				if ([cA length] == 0) {
 					return NSOrderedDescending;
@@ -950,7 +950,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	NSString* searchText = [searchField stringValue];
 	
 	if (!tableFilter && [searchText length] <= 0) return NO; // Nothing to do
-		
+	
 	for (num = 0; num < [storyList count]; num++) {
 		ZoomStoryID* ident = [storyList objectAtIndex: num];
 		
@@ -970,7 +970,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			if (![thisStory containsText: searchText]) {
 				[storyList removeObjectAtIndex: num];
 				num--;
-				continue;				
+				continue;
 			}
 		}
 	}
@@ -1032,12 +1032,12 @@ static dispatch_block_t onceTypesBlock = ^{
 	// Generate + sort the second filter set
 	for (ZoomStoryID* ident in storyList) {
 		ZoomStory* thisStory = [self storyForID: ident];
-		NSString* filterItem2 = [thisStory objectForKey: filterKey2];		
+		NSString* filterItem2 = [thisStory objectForKey: filterKey2];
 		if ([filterItem2 length] != 0 && [filterSet2 indexOfObject: filterItem2] == NSNotFound) [filterSet2 addObject: filterItem2];
 	}
 	
 	[filterSet2 sortUsingSelector: @selector(caseInsensitiveCompare:)];
-	[filterTable2 reloadData];	
+	[filterTable2 reloadData];
 
 	// Continue filtering
 	isFiltered = [self filterTableDataPass2] || isFiltered;
@@ -1091,7 +1091,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 	
 	// Tidy up (prevents a dumb infinite loop possibility)
-	[[NSRunLoop currentRunLoop] cancelPerformSelectorsWithTarget: self];	
+	[[NSRunLoop currentRunLoop] cancelPerformSelectorsWithTarget: self];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
@@ -1108,19 +1108,19 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-- (id)				tableView: (NSTableView *) aTableView 
-	objectValueForTableColumn: (NSTableColumn *) aTableColumn 
+- (id)              tableView: (NSTableView *) aTableView
+	objectValueForTableColumn: (NSTableColumn *) aTableColumn
 						  row: (NSInteger) rowIndex {
-		
+	
 	// if (needsUpdating) [self reloadTableData];
-
+	
 	if (aTableView == mainTableView) {
 		// Retrieve row details
 		NSString* rowID = [aTableColumn identifier];
 		
 		ZoomStoryID* ident = [storyList objectAtIndex: rowIndex];
-		ZoomStory* story = [self storyForID: ident];		
-				
+		ZoomStory* story = [self storyForID: ident];
+		
 		// Return the value of the appropriate field
 		if ([rowID isEqualToString: @"rating"]) {
 			return @([story rating]);
@@ -1138,8 +1138,8 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-- (void)				tableView:(NSTableView *)tableView 
-   mouseDownInHeaderOfTableColumn:(NSTableColumn *)tableColumn {
+- (void)              tableView:(NSTableView *)tableView
+ mouseDownInHeaderOfTableColumn:(NSTableColumn *)tableColumn {
 	if (tableView == mainTableView) {
 		NSString* columnID = [tableColumn identifier];
 		
@@ -1167,7 +1167,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	} else {
 		// The add and info buttons always work
 		[addButton setEnabled: YES];
-		[infoButton setEnabled: YES];		
+		[infoButton setEnabled: YES];
 
 		// The other buttons depend on the current selection
 		NSIndexSet* rowEnum = [mainTableView selectedRowIndexes];
@@ -1234,14 +1234,14 @@ static dispatch_block_t onceTypesBlock = ^{
 		description = [story description];
 		
 		// Set up the save preview view
-		NSString* dir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident 
+		NSString* dir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
 																			  create: NO];
 		[previewView setDirectoryToUse: [dir stringByAppendingPathComponent: @"Saves"]];
 		
 		if ([previewView saveGamesAvailable] != saveGamesAvailable) {
 			// Set the 'saves' tab to dark blue if save games are available
 			saveGamesAvailable = [previewView saveGamesAvailable];
-
+			
 			// Prepare to animate to the 'saves available' button
 			ZoomFlipView* matrixAnimation = [[ZoomFlipView alloc] init];
 			[matrixAnimation prepareToAnimateView: flipButtonMatrix];
@@ -1267,7 +1267,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			// Finish the animation
 			[matrixAnimation animateTo: flipButtonMatrix
 								 style: ZoomAnimateFade];
-		} 
+		}
 		
 		// Set up the extra blorb resources display
 		[resourceDrop setDroppedFilename: [story objectForKey: @"ResourceFilename"]];
@@ -1290,7 +1290,7 @@ static dispatch_block_t onceTypesBlock = ^{
 				coverPictureNumber = (((int)fpc[0])<<24)|(((int)fpc[1])<<16)|(((int)fpc[2])<<8)|(((int)fpc[3])<<0);
 			}
 			
-			if (coverPictureNumber >= 0) {			
+			if (coverPictureNumber >= 0) {
 				// Attempt to retrieve the cover picture image
 				if (decodedFile != nil) {
 					NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
@@ -1323,7 +1323,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		comment = @"";
 		teaser = @"";
 		description = @"";
-
+		
 		[previewView setDirectoryToUse: nil];
 		
 		[resourceDrop setDroppedFilename: nil];
@@ -1348,10 +1348,10 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSInteger row = rowEnum.firstIndex;
 		BOOL extraNewline = NO;
 		NSAttributedString* newlineString = [[NSAttributedString alloc] initWithString: @"\n"
-																			 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																				 @(ZoomNoField), ZoomFieldAttribute,
-																				 @0, ZoomRowAttribute,
-																				 nil]];
+																			attributes: [NSDictionary dictionaryWithObjectsAndKeys:
+																						 @(ZoomNoField), ZoomFieldAttribute,
+																						 @0, ZoomRowAttribute,
+																						 nil]];
 		
 		while (row != NSNotFound) {
 			ZoomStoryID* ident = [storyList objectAtIndex: row];
@@ -1366,36 +1366,36 @@ static dispatch_block_t onceTypesBlock = ^{
 				[gameDetails appendAttributedString: newlineString];
 			}
 			[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: title
-																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																					  titleFont, NSFontAttributeName, 
-																					  @(ZoomTitleField), ZoomFieldAttribute,
-																					  @(row), ZoomRowAttribute,
-																					  story, ZoomStoryAttribute,
-																					  nil]]];
+																				 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
+																							  titleFont, NSFontAttributeName,
+																							  @(ZoomTitleField), ZoomFieldAttribute,
+																							  @(row), ZoomRowAttribute,
+																							  story, ZoomStoryAttribute,
+																							  nil]]];
 			[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: @"\n"
-																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																					  @(ZoomTitleNewlineField), ZoomFieldAttribute,
-																					  @(row), ZoomRowAttribute,
-																					  story, ZoomStoryAttribute,
-																					  nil]]];
-				
+																				 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
+																							  @(ZoomTitleNewlineField), ZoomFieldAttribute,
+																							  @(row), ZoomRowAttribute,
+																							  story, ZoomStoryAttribute,
+																							  nil]]];
+			
 			// Append the year of publication
 			int year = [story year];
 			if (year > 0) {
 				NSString* yearText = [NSString stringWithFormat: @"%i", year];
 				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: yearText
-																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
-																						  yearFont, NSFontAttributeName, 
-																						  @(ZoomYearField), ZoomFieldAttribute,
-																						  @(row), ZoomRowAttribute,
-																						  story, ZoomStoryAttribute,
-																						  nil]]];
+																					 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
+																								  yearFont, NSFontAttributeName,
+																								  @(ZoomYearField), ZoomFieldAttribute,
+																								  @(row), ZoomRowAttribute,
+																								  story, ZoomStoryAttribute,
+																								  nil]]];
 				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: @"\n"
-																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																						  @(ZoomYearNewlineField), ZoomFieldAttribute,
-																						  @(row), ZoomRowAttribute,
-																						  story, ZoomStoryAttribute,
-																						  nil]]];
+																					 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
+																								  @(ZoomYearNewlineField), ZoomFieldAttribute,
+																								  @(row), ZoomRowAttribute,
+																								  story, ZoomStoryAttribute,
+																								  nil]]];
 			}
 			
 			// Append the description
@@ -1405,12 +1405,12 @@ static dispatch_block_t onceTypesBlock = ^{
 			if (descText != nil) {
 				[gameDetails appendAttributedString: newlineString];
 				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: descText
-																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
-																						  descFont, NSFontAttributeName, 
-																						  @(ZoomDescriptionField), ZoomFieldAttribute,
-																						  @(row), ZoomRowAttribute,
-																						  story, ZoomStoryAttribute,
-																						  nil]]];
+																					 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
+																								  descFont, NSFontAttributeName,
+																								  @(ZoomDescriptionField), ZoomFieldAttribute,
+																								  @(row), ZoomRowAttribute,
+																								  story, ZoomStoryAttribute,
+																								  nil]]];
 				
 				if ([descText length] > 0) flipToDescription = YES;
 			}
@@ -1425,7 +1425,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSString* desc = @"Multiple games selected";
 		if (numSelected == 0) desc = @"No game selected";
 		[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: desc
-																			  attributes: [NSDictionary dictionaryWithObjectsAndKeys: descFont, NSFontAttributeName, nil]]];
+																			 attributes: [NSDictionary dictionaryWithObjectsAndKeys: descFont, NSFontAttributeName, nil]]];
 	}
 	
 	if (![[gameDetailView string] isEqualToString: [gameDetails string]]) {
@@ -1454,7 +1454,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		
 		if (previewSize.width > screenSize.width-128.0) {
 			CGFloat ratio = (screenSize.width-128.0)/previewSize.width;
-
+			
 			previewSize.width = floor(previewSize.width*ratio);
 			previewSize.height = floor(previewSize.height*ratio);
 		}
@@ -1505,12 +1505,12 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (void)tableView:(NSTableView *)tableView 
-   setObjectValue:(id)anObject 
-   forTableColumn:(NSTableColumn*)aTableColumn 
+   setObjectValue:(id)anObject
+   forTableColumn:(NSTableColumn*)aTableColumn
 			  row:(NSInteger)rowIndex {
 	//if (needsUpdating) [self reloadTableData];
-
-	if (tableView == mainTableView) {		
+	
+	if (tableView == mainTableView) {
 		ZoomStoryID* ident = [storyList objectAtIndex: rowIndex];
 		ZoomStory* story = [self storyForID: ident];
 		
@@ -1519,7 +1519,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		[story setObject: anObject
 				  forKey: [aTableColumn identifier]];
 	}
-
+	
 	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 }
 
@@ -1530,27 +1530,27 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	if( ![[ZoomPreferences globalPreferences] keepGamesOrganised] )
 		return nil;
-
+	
 	[mainTableView cancelEditTimer];
-
+	
 	ZoomStoryID* ident = [storyList objectAtIndex:row];
 	NSString* gamedir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident create: NO];
 	if( gamedir != NULL )
 	{
 		return [NSURL fileURLWithPath: gamedir];
 	}
-
+	
 	return nil;
 }
 
 - (NSDragOperation)tableView:(NSTableView *)tv
-                validateDrop:(id <NSDraggingInfo>)sender
-                 proposedRow:(NSInteger)row
-       proposedDropOperation:(NSTableViewDropOperation)op {
-    NSPasteboard * pasteboard = [sender draggingPasteboard];
-    NSArray * types = [pasteboard types];
+				validateDrop:(id <NSDraggingInfo>)sender
+				 proposedRow:(NSInteger)row
+	   proposedDropOperation:(NSTableViewDropOperation)op {
+	NSPasteboard * pasteboard = [sender draggingPasteboard];
+	NSArray * types = [pasteboard types];
 	
-	if( op == NSTableViewDropOn ) 
+	if( op == NSTableViewDropOn )
 	{
 		[tv setDropRow:row dropOperation:NSTableViewDropAbove];
 	}
@@ -1574,10 +1574,10 @@ static dispatch_block_t onceTypesBlock = ^{
 	   acceptDrop:(id <NSDraggingInfo>)sender
 			  row:(NSInteger)row
 	dropOperation:(NSTableViewDropOperation)op {
-    NSPasteboard * pasteboard = [sender draggingPasteboard];
+	NSPasteboard * pasteboard = [sender draggingPasteboard];
 	NSArray<NSURL*> * fileURLs = [pasteboard readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
 	[self addURLs:fileURLs];
-
+	
 	return YES;
 }
 
@@ -1635,13 +1635,13 @@ static dispatch_block_t onceTypesBlock = ^{
 
 - (void)splitViewMouseDownProcessed:(NSSplitView *)aSplitView 
 {
-    CGFloat pos = [splitView getSplitPercentage];
+	CGFloat pos = [splitView getSplitPercentage];
 	
-	if( pos > 0.0 ) 
+	if( pos > 0.0 )
 	{
 		splitViewPercentage = pos;
 		splitViewCollapsed = NO;
-	
+		
 		[[NSUserDefaults standardUserDefaults] setFloat: splitViewPercentage forKey:@"iFictionSplitViewPercentage"];
 		[[NSUserDefaults standardUserDefaults] setBool: splitViewCollapsed forKey:@"iFictionSplitViewCollapsed"];
 	}
@@ -1652,17 +1652,17 @@ static dispatch_block_t onceTypesBlock = ^{
 //
 
 - (void)splitViewDoubleClickedOnDivider:(NSSplitView *)aSplitView {
-    CGFloat pos = [splitView getSplitPercentage];
+	CGFloat pos = [splitView getSplitPercentage];
 	
-    if (pos == 0.0) 
+	if (pos == 0.0)
 	{
-        [splitView resizeSubviewsToPercentage:splitViewPercentage];
-    } 
-	else 
+		[splitView resizeSubviewsToPercentage:splitViewPercentage];
+	}
+	else
 	{
 		[splitView resizeSubviewsToPercentage:0.0];
 		[self collapseSplitView];
-    }
+	}
 }
 
 // collapseSplitView
@@ -1671,14 +1671,14 @@ static dispatch_block_t onceTypesBlock = ^{
 
 - (void)collapseSplitView {
 	splitViewCollapsed = YES;
-
+	
 	[[NSUserDefaults standardUserDefaults] setFloat: splitViewPercentage forKey:@"iFictionSplitViewPercentage"];
 	[[NSUserDefaults standardUserDefaults] setBool: splitViewCollapsed forKey:@"iFictionSplitViewCollapsed"];
-		
+	
 	// reset browser selection, since the browser is getting hidden
 	[filterTable2 selectRowIndexes: [NSIndexSet indexSetWithIndex:0] byExtendingSelection: NO];
 	[filterTable1 selectRowIndexes: [NSIndexSet indexSetWithIndex:0] byExtendingSelection: NO];
-		
+	
 	[self reloadTableData]; [mainTableView reloadData];
 }
 
@@ -1768,7 +1768,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	// Update the resource path
 	[story setObject: [[ZoomGameInfoController sharedGameInfoController] resourceFilename]
-				 forKey: @"ResourceFilename"];
+			  forKey: @"ResourceFilename"];
 	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	
 	// Perform organisation
@@ -1798,8 +1798,8 @@ static dispatch_block_t onceTypesBlock = ^{
 #pragma mark - NSText delegate
 
 - (BOOL)    	textView:(NSTextView *)aTextView
- shouldChangeTextInRange:(NSRange)affectedCharRange
-	   replacementString:(NSString *)replacementString {
+shouldChangeTextInRange:(NSRange)affectedCharRange
+	replacementString:(NSString *)replacementString {
 	if (aTextView == gameDetailView) {
 		// If there are no selected stories, then do not allow any editing
 		if ([mainTableView numberOfSelectedRows] <= 0) return NO;
@@ -1877,7 +1877,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	// We assume that the attributes are contiguous.
 	NSTextStorage* storage = [gameDetailView textStorage];
 	NSInteger pos = 0;
-
+	
 	ZoomStory* lastStory = nil;
 	NSString* title = nil;
 	NSString* year = nil;
@@ -1931,7 +1931,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			case ZoomYearField:
 				year = newAttributeValue;
 				break;
-			
+				
 			case ZoomDescriptionField:
 				description = newAttributeValue;
 				break;
@@ -1959,7 +1959,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			}
 			
 			NSString* searchUrl = [NSString stringWithFormat: @"%@search?searchfor=%@",
-				ifdbUrl, [self queryEncode: [searchField stringValue]]];
+								   ifdbUrl, [self queryEncode: [searchField stringValue]]];
 			[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: searchUrl]]];
 		}
 	}
@@ -1978,7 +1978,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		// Mysterious text view of DOOOOM
 		NSLog(@"Unknown text view");
 	}
-
+	
 	[self queueStoryUpdate];
 }
 
@@ -1988,7 +1988,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		// Get the edited range
 		NSRange edited = editedRange;
 		NSRange affectedCharRange = NSMakeRange(edited.location + edited.length, 0);
-
+		
 		// Work out the effective row/field/story at this position
 		if (affectedCharRange.location >= [storage length]) affectedCharRange.location--;
 		
@@ -2018,7 +2018,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSFont* titleFont = [NSFont boldSystemFontOfSize: 14];
 		NSFont* yearFont = [NSFont systemFontOfSize: 10];
 		NSFont* descFont = [NSFont systemFontOfSize: 11];
-
+		
 		NSFont* font;
 		switch ([field intValue]) {
 			case ZoomTitleNewlineField:
@@ -2039,11 +2039,11 @@ static dispatch_block_t onceTypesBlock = ^{
 		}
 		
 		NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-			font, NSFontAttributeName,
-			row, ZoomRowAttribute,
-			field, ZoomFieldAttribute,
-			story, ZoomStoryAttribute,
-			nil];
+									font, NSFontAttributeName,
+									row, ZoomRowAttribute,
+									field, ZoomFieldAttribute,
+									story, ZoomStoryAttribute,
+									nil];
 		
 		[storage addAttributes: attributes
 						 range: edited];
@@ -2301,7 +2301,7 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (IBAction) flipToSaves: (id) sender {
-	[self flipTo: saveGameView];	
+	[self flipTo: saveGameView];
 }
 
 #pragma mark - ResourceDrop delegate
@@ -2409,7 +2409,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		
 		if (filename) {
 			[[NSApp delegate] application: NSApp
-								 openFile: filename];			
+								 openFile: filename];
 		}
 		
 		// Select the story in the main table
@@ -2420,7 +2420,7 @@ static dispatch_block_t onceTypesBlock = ^{
 					   byExtendingSelection: NO];
 			[mainTableView scrollRowToVisible: storyRow];
 		}
-
+		
 		// Switch back to the browser view
 		if (browserOn) [self showLocalGames: self];
 	} else {
@@ -2430,11 +2430,11 @@ static dispatch_block_t onceTypesBlock = ^{
 			
 			story = [self createStoryCopy: story];
 			[story setGroup: groupName];
-
+			
 			/*
-			[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: storyId]
-													  withIdent: storyId
-													   organise: YES];
+			 [[ZoomStoryOrganiser sharedStoryOrganiser] addStory: [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: storyId]
+			 withIdent: storyId
+			 organise: YES];
 			 */
 		}
 		
@@ -2444,7 +2444,7 @@ static dispatch_block_t onceTypesBlock = ^{
 				  byExtendingSelection: NO];
 		[filterTable2 selectRowIndexes:[NSIndexSet indexSetWithIndex:0]
 				  byExtendingSelection: NO];
-
+		
 		NSTableColumn* filterColumn = [[filterTable1 tableColumns] objectAtIndex: 0];
 		
 		[filterColumn setIdentifier: @"group"];
@@ -2465,14 +2465,14 @@ static dispatch_block_t onceTypesBlock = ^{
 			NSString* storyFilename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: signpostId];
 			if (storyFilename) {
 				[[NSApp delegate] application: NSApp
-									 openFile: storyFilename];			
+									 openFile: storyFilename];
 			}
 		}
 		
 		// Switch back to the browser view
-		if (browserOn) [self showLocalGames: self];		
+		if (browserOn) [self showLocalGames: self];
 	}
-
+	
 	// Write any new metadata
 	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	
@@ -2516,8 +2516,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		[finished setSelector: @selector(finishPopDownload)];
 		
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: downloadView
-								   duration: 0.5
-								   finished: finished];
+													 duration: 0.5
+													 finished: finished];
 		[downloadWindow setAlphaValue: 1.0];
 	} else {
 		// Use a more prosaic animation on Tiger
@@ -2535,24 +2535,24 @@ static dispatch_block_t onceTypesBlock = ^{
 
 - (void) hideDownloadWindow: (double) duration {
 	if (![downloadWindow isVisible]) return;
-
+	
 	// Start the timer to fade the window out
 	[self cancelFadeTimer];
-
+	
 	if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 		// Fanicify the animation under leopard
 		[[downloadView progress] stopAnimation: self];
 		[[downloadView progress] setDoubleValue: 0];
-
+		
 		NSInvocation* finished = [NSInvocation invocationWithMethodSignature: [self methodSignatureForSelector: @selector(finishPopOutDownload)]];
 		[finished setTarget: self];
 		[finished setSelector: @selector(finishPopOutDownload)];
 		
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: downloadView
-									  duration: duration
-									  finished: finished];
+														duration: duration
+														finished: finished];
 		[downloadWindow setAlphaValue: 1.0];
-	} else {		
+	} else {
 		// Tiger animation
 		initialDownloadOpacity = [downloadWindow alphaValue];
 		downloadFadeStart = [NSDate date];
@@ -2584,13 +2584,13 @@ static dispatch_block_t onceTypesBlock = ^{
 - (void) fadeDownloadOut {
 	NSTimeInterval runTime = [[NSDate date] timeIntervalSinceDate: downloadFadeStart];
 	double done = runTime / 0.5;
-
+	
 	if (done < 0) done = 0;
 	if (done > 1) done = 1;
 	
 	done = -2.0*done*done*done + 3.0*done*done;
 	[downloadWindow setAlphaValue: 1-done];
-
+	
 	if (done >= 0.999) {
 		[self cancelFadeTimer];
 		[[self window] removeChildWindow: downloadWindow];
@@ -2642,7 +2642,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	} else {
 		// Default: add story files
 		[self addFilesFromDirectory: [download downloadDirectory]
-						  groupName: [[[download suggestedFilename] lastPathComponent] stringByDeletingPathExtension]];		
+						  groupName: [[[download suggestedFilename] lastPathComponent] stringByDeletingPathExtension]];
 	}
 	
 	if (download == activeDownload) {
@@ -2657,11 +2657,11 @@ static dispatch_block_t onceTypesBlock = ^{
 - (void) downloadFailed: (ZoomDownload*) download 
 				 reason: (NSString*) reason {
 	if (download != activeDownload) return;
-
+	
 	[activeDownload setDelegate: nil];
 	activeDownload = nil;
 	[[downloadView progress] stopAnimation: self];
-
+	
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = @"Could not complete the download.";
 	alert.informativeText = [NSString stringWithFormat:@"An error was encountered while trying to download the requested file%@%@.",
@@ -2683,18 +2683,18 @@ static dispatch_block_t onceTypesBlock = ^{
 - (void) download: (ZoomDownload*) download
 		completed: (float) complete {
 	if (download != activeDownload) return;
-
+	
 	[[downloadView progress] setIndeterminate: NO];
 	[[downloadView progress] setDoubleValue: complete * 100.0];
 }
 
 - (void)					webView: (WebView *)sender 
-	decidePolicyForNavigationAction: (NSDictionary *)actionInformation 
-							request:(NSURLRequest *)request 
-							  frame:(WebFrame *)frame 
-				   decisionListener:(id<WebPolicyDecisionListener>)listener {
+decidePolicyForNavigationAction: (NSDictionary *)actionInformation
+			 request:(NSURLRequest *)request
+			   frame:(WebFrame *)frame
+	decisionListener:(id<WebPolicyDecisionListener>)listener {
 	NSArray* archiveFiles = [NSArray arrayWithObjects: @"zip", @"tar", @"tgz", @"gz", @"bz2", @"z", nil];
-
+	
 	if ([[actionInformation objectForKey: WebActionNavigationTypeKey] intValue] == 0) {
 #ifdef DEVELOPMENT_BUILD
 		NSLog(@"Deciding policy for %@", [request URL]);
@@ -2706,8 +2706,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		// Get the URL to download
 		NSURL* url = [request URL];
 		
-		NSString* fakeFile = [[NSTemporaryDirectory() stringByAppendingPathComponent: @"FakeDirectory"] 
-								stringByAppendingPathComponent: [[url path] lastPathComponent]];
+		NSString* fakeFile = [[NSTemporaryDirectory() stringByAppendingPathComponent: @"FakeDirectory"]
+							  stringByAppendingPathComponent: [[url path] lastPathComponent]];
 		if ([self canPlayFile: fakeFile] || [archiveFiles containsObject: [[fakeFile pathExtension] lowercaseString]]) {
 			// Use mirror.ifarchive.org, not www.ifarchive.org
 			NSString* host = [url host];
@@ -2720,7 +2720,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			// Download the specified file
 			[activeDownload setDelegate: nil];
 			activeDownload = nil;
-
+			
 			signpostId = nil;
 			downloadUpdateList = NO;
 			downloadPlugin = NO;
@@ -2737,7 +2737,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	// Default is to use the request
 	if ([NSURLConnection canHandleRequest: request]) {
-		[listener use];		
+		[listener use];
 	} else {
 		[listener ignore];
 	}
@@ -2745,8 +2745,8 @@ static dispatch_block_t onceTypesBlock = ^{
 
 - (void)           webView:(WebView *)sender
    decidePolicyForMIMEType:(NSString *)type
-				   request:(NSURLRequest *)request 
-					 frame:(WebFrame *)frame 
+				   request:(NSURLRequest *)request
+					 frame:(WebFrame *)frame
 		  decisionListener:(id<WebPolicyDecisionListener>)listener {
 	if (![WebView canShowMIMEType: type]) {
 		[listener ignore];
@@ -2757,7 +2757,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			
 		}];
-
+		
 	} else {
 		[listener use];
 	}
@@ -2769,12 +2769,12 @@ static dispatch_block_t onceTypesBlock = ^{
 	if ([ifdbView canGoForward]) {
 		[forwardButton setEnabled: YES];
 	} else {
-		[forwardButton setEnabled: NO];		
+		[forwardButton setEnabled: NO];
 	}
 	if ([ifdbView canGoBack]) {
 		[backButton setEnabled: YES];
 	} else {
-		[backButton setEnabled: NO];		
+		[backButton setEnabled: NO];
 	}
 }
 
@@ -2786,7 +2786,7 @@ static dispatch_block_t onceTypesBlock = ^{
 - (IBAction) showIfDb: (id) sender {
 	ZoomFlipView* fv = [[ZoomFlipView alloc] init];
 	[fv setAnimationTime: 0.35];
-
+	
 	NSRect viewFrame = [mainView frame];
 	[fv setFrame: viewFrame];
 	[browserView setFrame: viewFrame];
@@ -2814,8 +2814,8 @@ static dispatch_block_t onceTypesBlock = ^{
 				identString = [identString substringToIndex: [identString length]-2];
 			}
 			
-			ifdbUrl = [NSString stringWithFormat: @"%@viewgame?ifid=%@&findmore", 
-				ifdbUrl, [self queryEncode: identString]];
+			ifdbUrl = [NSString stringWithFormat: @"%@viewgame?ifid=%@&findmore",
+					   ifdbUrl, [self queryEncode: identString]];
 			if (story != nil) {
 				ifdbUrl = [ifdbUrl stringByAppendingFormat: @"&title=%@", [self queryEncode: [story title]]];
 			}
@@ -2832,35 +2832,35 @@ static dispatch_block_t onceTypesBlock = ^{
 			[[ifdbView backForwardList] setCapacity: 256];
 		}
 		if (![[[[[ifdbView mainFrame] dataSource] request] URL] isEqualTo: ifdb]) {
-			[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: ifdb]];			
+			[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: ifdb]];
 		}
 	}
 	
 	if (!browserOn && [(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: continueButton
-									  duration: 0.25
-									  finished: nil];
+														duration: 0.25
+														finished: nil];
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: newgameButton
-									  duration: 0.20
-									  finished: nil];
+														duration: 0.20
+														finished: nil];
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: addButton
-									  duration: 0.15
-									  finished: nil];
+														duration: 0.15
+														finished: nil];
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: infoButton
-									  duration: 0.20
-									  finished: nil];
+														duration: 0.20
+														finished: nil];
 	}
-		
+	
 	[searchField setStringValue: @""];
 	usedBrowser = YES;
-	browserOn = YES; 
+	browserOn = YES;
 	[self updateButtons];
 }
 
 - (IBAction) showLocalGames: (id) sender {
 	ZoomFlipView* fv = [[ZoomFlipView alloc] init];
 	[fv setAnimationTime: 0.35];
-
+	
 	NSRect viewFrame = [browserView frame];
 	[fv setFrame: viewFrame];
 	[mainView setFrame: viewFrame];
@@ -2874,17 +2874,17 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	if (!browserOn && [(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: continueButton
-									  duration: 0.15
-									  finished: nil];
+													 duration: 0.15
+													 finished: nil];
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: newgameButton
-									  duration: 0.25
-									  finished: nil];
+													 duration: 0.25
+													 finished: nil];
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: addButton
-									  duration: 0.35
-									  finished: nil];
+													 duration: 0.35
+													 finished: nil];
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: infoButton
-									  duration: 0.25
-									  finished: nil];
+													 duration: 0.25
+													 finished: nil];
 	}
 }
 
@@ -2901,7 +2901,7 @@ static dispatch_block_t onceTypesBlock = ^{
 
 - (void)webView:(WebView *)sender didCommitLoadForFrame:(WebFrame *)frame {
 	[self updateBackForwardButtons];
-
+	
 	if (frame == [ifdbView mainFrame]) {
 		NSString* url = [[[[frame dataSource] request] URL] absoluteString];
 		if (url) [currentUrl setStringValue: url];
@@ -2919,13 +2919,13 @@ static dispatch_block_t onceTypesBlock = ^{
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
 	[self updateBackForwardButtons];
-
+	
 	if (frame == [ifdbView mainFrame]) {
 		NSString* url = [[[[frame dataSource] request] URL] absoluteString];
 		if (url) [currentUrl setStringValue: url];
-
+		
 		[progressIndicator stopAnimation: self];
-	}	
+	}
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
@@ -2951,7 +2951,7 @@ static dispatch_block_t onceTypesBlock = ^{
 																																		 ofType: @"html"]]]];
 				break;
 		}
-	}	
+	}
 }
 
 - (void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
@@ -2970,14 +2970,14 @@ static dispatch_block_t onceTypesBlock = ^{
 			case 102:
 				// Ignore these errors
 				break;
-			
+				
 			default:
 				// Open the error page
 				[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: [NSURL fileURLWithPath: [[NSBundle mainBundle] pathForResource: @"ifdb-failed"
 																																		 ofType: @"html"]]]];
 				break;
 		}
-	}	
+	}
 }
 
 - (void)webView:(WebView *)sender windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject {
@@ -2995,7 +2995,7 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (IBAction) goForward: (id) sender {
-	[ifdbView goForward];	
+	[ifdbView goForward];
 }
 
 - (IBAction) goHome: (id) sender; {
@@ -3003,7 +3003,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	if (!ifdbUrl) {
 		ifdbUrl = @"https://ifdb.tads.org/";
 	}
-	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: ifdbUrl]]];	
+	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: ifdbUrl]]];
 }
 
 - (IBAction) playIfdbGame: (id) sender {
@@ -3128,9 +3128,9 @@ static dispatch_block_t onceTypesBlock = ^{
 	if (url) {
 		[activeDownload setDelegate: nil];
 		activeDownload = nil;
-
+		
 		signpostId = downloadId;
-
+		
 		downloadUpdateList = NO;
 		downloadPlugin = NO;
 		
@@ -3144,7 +3144,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		
 		activeDownload = [[ZoomDownload alloc] initWithUrl: url];
 		[activeDownload setDelegate: self];
-		[activeDownload startDownload];		
+		[activeDownload startDownload];
 	}
 }
 
@@ -3182,7 +3182,7 @@ static unsigned int ValueForHexChar(int hex) {
 	NSString* interpreter = [activeSignpost interpreterDisplayName];
 	if (!interpreter || ![interpreter isKindOfClass: [NSString class]]) {
 		[self failedToInstallPlugin: @"Oops, Zoom forgot which interpreter it was trying to install."];
-		return;		
+		return;
 	}
 	
 	NSEnumerator* pluginEnum = [[update allValues] objectEnumerator];
@@ -3214,7 +3214,7 @@ static unsigned int ValueForHexChar(int hex) {
 	
 	if (!urlString || !md5raw || ![urlString isKindOfClass: [NSString class]] || ![md5raw isKindOfClass: [NSString class]]) {
 		[self failedToInstallPlugin: [NSString stringWithFormat: @"Zoom found a plugin for %@ at the specified site, but could not establish a URL to download it from.", interpreter]];
-		return;		
+		return;
 	}
 	
 	// Build a digest from string values
@@ -3270,7 +3270,7 @@ static unsigned int ValueForHexChar(int hex) {
 	}
 	
 	if (!installed) {
-		[self failedToInstallPlugin: @"No plugins were found in the file that was downloaded."];		
+		[self failedToInstallPlugin: @"No plugins were found in the file that was downloaded."];
 	}
 	
 	// Restart if necessary

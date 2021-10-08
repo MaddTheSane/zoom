@@ -15,22 +15,22 @@
 
 - (void)mouseDown:(NSEvent *)event 
 {
-    if( [event clickCount] == 2 ) 
-	{
+    if( [event clickCount] == 2 )
+    {
         id delegate = [self delegate];
         if( delegate && [delegate respondsToSelector:@selector(splitViewDoubleClickedOnDivider:)] )
-		{
+        {
             [delegate splitViewDoubleClickedOnDivider:self];
-		}
-	}
-	
+        }
+    }
+    
     [super mouseDown:event];
-	
-	id delegate = [self delegate];
-	if( delegate && [delegate respondsToSelector:@selector(splitViewMouseDownProcessed:)] )
-	{
-		[delegate splitViewMouseDownProcessed:self];
-	}
+    
+    id delegate = [self delegate];
+    if( delegate && [delegate respondsToSelector:@selector(splitViewMouseDownProcessed:)] )
+    {
+        [delegate splitViewMouseDownProcessed:self];
+    }
 
 }
 
@@ -43,12 +43,12 @@
     CGFloat splitTotalSize;
     id subview = [[self subviews] objectAtIndex:0];
     
-	if ([self isSubviewCollapsed:subview]) 
-	{
+    if ([self isSubviewCollapsed:subview])
+    {
         return 0.0;
-    }    
+    }
     
-	NSSize subview_size = [subview frame].size;
+    NSSize subview_size = [subview frame].size;
 
     if ([self isVertical])
     {
@@ -71,55 +71,55 @@
     CGFloat splitTotalSize;
     id subview_0 = [[self subviews] objectAtIndex:0];
     
-	//
-	// resize subview 0
-	//
-	
-	NSRect subview_0_frame = [subview_0 frame];
+    //
+    // resize subview 0
+    //
+    
+    NSRect subview_0_frame = [subview_0 frame];
 
     if ([self isVertical])
     {
         splitTotalSize = NSWidth([self frame]) - [self dividerThickness];
-		subview_0_frame.size.width = splitPercentage * splitTotalSize;
+        subview_0_frame.size.width = splitPercentage * splitTotalSize;
     }
     else
     {
         splitTotalSize = NSHeight([self frame]) - [self dividerThickness];
-		subview_0_frame.size.height = splitPercentage * splitTotalSize;
+        subview_0_frame.size.height = splitPercentage * splitTotalSize;
     }
 
-	[subview_0 setFrame:subview_0_frame];
+    [subview_0 setFrame:subview_0_frame];
 
-	//
-	// resize subview 1
-	//
-	
+    //
+    // resize subview 1
+    //
+    
     id subview_1 = [[self subviews] objectAtIndex:1];
     
-	NSRect subview_1_frame = [subview_1 frame];
+    NSRect subview_1_frame = [subview_1 frame];
 
     if ([self isVertical])
     {
         splitTotalSize = NSWidth([self frame]) - [self dividerThickness];
-		subview_1_frame.origin.x = 0.0;
-		subview_1_frame.size.width = (1.0 - splitPercentage) * splitTotalSize;
+        subview_1_frame.origin.x = 0.0;
+        subview_1_frame.size.width = (1.0 - splitPercentage) * splitTotalSize;
     }
     else
     {
         splitTotalSize = NSHeight([self frame]) - [self dividerThickness];
-		subview_1_frame.origin.y = 0.0;
-		subview_1_frame.size.height = (1.0 - splitPercentage) * splitTotalSize;
+        subview_1_frame.origin.y = 0.0;
+        subview_1_frame.size.height = (1.0 - splitPercentage) * splitTotalSize;
     }
 
-	[subview_1 setFrame:subview_1_frame];
+    [subview_1 setFrame:subview_1_frame];
 
-	//
-	// recalc split view
-	//
-	
-	[self adjustSubviews];
-			
-	[self setNeedsDisplay:YES];
+    //
+    // recalc split view
+    //
+    
+    [self adjustSubviews];
+    
+    [self setNeedsDisplay:YES];
 }
 
 @end

@@ -13,12 +13,12 @@
 
 - (id) initWithZoomView: (ZoomView*) zV {
     self = [super init];
-
+    
     if (self) {
-        zoomView = zV; // In Soviet Russia, zoomView retains us. 
-		backgroundStyle = [[ZStyle alloc] init];
+        zoomView = zV; // In Soviet Russia, zoomView retains us.
+        backgroundStyle = [[ZStyle alloc] init];
     }
-
+    
     return self;
 }
 
@@ -30,28 +30,28 @@
         [win cutLines];
     }
     
-	[zoomView clearLowerWindowWithStyle: style];
-	//[zoomView rearrangeUpperWindows];
-	[zoomView retileUpperWindowIfRequired];
+    [zoomView clearLowerWindowWithStyle: style];
+    //[zoomView rearrangeUpperWindows];
+    [zoomView retileUpperWindowIfRequired];
     [zoomView scrollToEnd];
     [zoomView resetMorePrompt];
-	[zoomView padToLowerWindow];
-	
-	backgroundStyle = [style copy];
+    [zoomView padToLowerWindow];
+    
+    backgroundStyle = [style copy];
 }
 
 @synthesize backgroundStyle;
 
 // Sets the input focus to this window
 - (oneway void) setFocus {
-	[zoomView setFocusedView: self];
+    [zoomView setFocusedView: self];
 }
 
 // Sending data to a window
 - (oneway void) writeString: (in bycopy NSString*) string
-           withStyle: (in bycopy ZStyle*) style {
-	[zoomView writeAttributedString: [zoomView formatZString: string
-												   withStyle: style]];
+                  withStyle: (in bycopy ZStyle*) style {
+    [zoomView writeAttributedString: [zoomView formatZString: string
+                                                   withStyle: style]];
     //[[[zoomView textView] textStorage] appendAttributedString:
     //    [zoomView formatZString: string
     //                  withStyle: style]];
@@ -59,7 +59,7 @@
     //    [zoomView formatZString: string
     //                  withStyle: style]];
     
-	[zoomView orOutputText: string];
+    [zoomView orOutputText: string];
     [zoomView scrollToEnd];
     [zoomView displayMoreIfNecessary];
 }
@@ -68,30 +68,30 @@
 #define BACKGROUNDSTYLECODINGKEY @"backgroundStyle"
 
 - (void) encodeWithCoder: (NSCoder*) encoder {
-	if (encoder.allowsKeyedCoding) {
-		[encoder encodeObject: backgroundStyle forKey: BACKGROUNDSTYLECODINGKEY];
-	} else {
-		[encoder encodeObject: backgroundStyle];
-	}
+    if (encoder.allowsKeyedCoding) {
+        [encoder encodeObject: backgroundStyle forKey: BACKGROUNDSTYLECODINGKEY];
+    } else {
+        [encoder encodeObject: backgroundStyle];
+    }
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-	self = [super init];
-	
+    self = [super init];
+    
     if (self) {
-		if (decoder.allowsKeyedCoding) {
-			backgroundStyle = [decoder decodeObjectOfClass: [ZStyle class] forKey: BACKGROUNDSTYLECODINGKEY];
-		} else {
-			backgroundStyle = [decoder decodeObject];
-		}
+        if (decoder.allowsKeyedCoding) {
+            backgroundStyle = [decoder decodeObjectOfClass: [ZStyle class] forKey: BACKGROUNDSTYLECODINGKEY];
+        } else {
+            backgroundStyle = [decoder decodeObject];
+        }
     }
-	
+    
     return self;
 }
 
 + (BOOL)supportsSecureCoding
 {
-	return YES;
+    return YES;
 }
 
 @synthesize zoomView;

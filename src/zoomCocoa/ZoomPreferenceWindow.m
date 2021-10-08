@@ -42,13 +42,13 @@ static NSDictionary*  itemDictionary = nil;
 	
 	// ... and the dictionary
 	itemDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-		generalSettingsItem, generalSettingsItemName,
-		gameSettingsItem, gameSettingsItemName,
-		displaySettingsItem, displaySettingsItemName,
-		fontSettingsItem, fontSettingsItemName,
-		colourSettingsItem, colourSettingsItemName,
-		typographicSettingsItem, typographicSettingsItemName,
-		nil];
+					  generalSettingsItem, generalSettingsItemName,
+					  gameSettingsItem, gameSettingsItemName,
+					  displaySettingsItem, displaySettingsItemName,
+					  fontSettingsItem, fontSettingsItemName,
+					  colourSettingsItem, colourSettingsItemName,
+					  typographicSettingsItem, typographicSettingsItemName,
+					  nil];
 	
 	// Set up the items
 	[generalSettingsItem setLabel: @"General"];
@@ -69,8 +69,8 @@ static NSDictionary*  itemDictionary = nil;
 	[gameSettingsItem setAction: @selector(gameSettings:)];
 	[displaySettingsItem setAction: @selector(displaySettings:)];
 	[fontSettingsItem setAction: @selector(fontSettings:)];
-	[colourSettingsItem setAction: @selector(colourSettings:)];	
-	[typographicSettingsItem setAction: @selector(typographicSettings:)];	
+	[colourSettingsItem setAction: @selector(colourSettings:)];
+	[typographicSettingsItem setAction: @selector(typographicSettings:)];
 }
 
 - (id) init {
@@ -107,9 +107,9 @@ static NSDictionary*  itemDictionary = nil;
 		
 		// Construct the item
 		NSMenuItem* fontItem = [[NSMenuItem alloc] init];
-		[fontItem setAttributedTitle: 
-			[[NSAttributedString alloc] initWithString: family
-											attributes: @{NSFontAttributeName: sampleFont}]];
+		[fontItem setAttributedTitle:
+		 [[NSAttributedString alloc] initWithString: family
+										 attributes: @{NSFontAttributeName: sampleFont}]];
 		
 		// Add to the menu
 		[result addItem: fontItem];
@@ -122,7 +122,7 @@ static NSDictionary*  itemDictionary = nil;
 - (void) windowDidLoad {
 	// Set the toolbar
 	toolbar = [[NSToolbar alloc] initWithIdentifier: @"preferencesToolbar2"];
-		
+	
 	[toolbar setDelegate: self];
 	[toolbar setDisplayMode: NSToolbarDisplayModeIconAndLabel];
 	[toolbar setAllowsUserCustomization: NO];
@@ -211,27 +211,27 @@ static NSDictionary*  itemDictionary = nil;
 // == Toolbar delegate functions ==
 
 - (NSToolbarItem *)toolbar: (NSToolbar *) toolbar
-     itemForItemIdentifier: (NSString *)  itemIdentifier
+	 itemForItemIdentifier: (NSString *)  itemIdentifier
  willBeInsertedIntoToolbar: (BOOL)        flag {
-    return [itemDictionary objectForKey: itemIdentifier];
+	return [itemDictionary objectForKey: itemIdentifier];
 }
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
-    return [NSArray arrayWithObjects:
-		generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier,
-		nil];
+	return [NSArray arrayWithObjects:
+			generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier,
+			nil];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar {
-    return [NSArray arrayWithObjects:
-		NSToolbarFlexibleSpaceItemIdentifier, generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier,
-		nil];
+	return [NSArray arrayWithObjects:
+			NSToolbarFlexibleSpaceItemIdentifier, generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier,
+			nil];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
-    return [NSArray arrayWithObjects:
+	return [NSArray arrayWithObjects:
 			generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, colourSettingsItemName, typographicSettingsItemName,
-		nil];	
+			nil];
 }
 
 // == Toolbar actions ==
@@ -282,11 +282,11 @@ static NSDictionary*  itemDictionary = nil;
 	// Sets our display from the 'simple' fonts the user has selected
 	
 	// Select the fonts
-	[self setButton: proportionalFont 
+	[self setButton: proportionalFont
 	   toFontFamily: [prefs proportionalFontFamily]];
 	[self setButton: fixedFont
 	   toFontFamily: [prefs fixedFontFamily]];
-	[self setButton: symbolicFont 
+	[self setButton: symbolicFont
 	   toFontFamily: [prefs symbolicFontFamily]];
 	
 	// Set the size display
@@ -312,7 +312,7 @@ static NSDictionary*  itemDictionary = nil;
 		case 9: return @"Medium grey";
 		case 10: return @"Dark grey";
 		default: return @"Unused colour";
-	}	
+	}
 }
 
 - (void) selectItemWithTag: (int) tag
@@ -423,7 +423,7 @@ static void appendStyle(NSMutableString* styleName,
 }
 
 - (id)              tableView:(NSTableView *)aTableView
-    objectValueForTableColumn:(NSTableColumn *)aTableColumn
+	objectValueForTableColumn:(NSTableColumn *)aTableColumn
 						  row:(NSInteger)rowIndex {
 	if (aTableView == fonts) {
 		// Fonts table
@@ -444,9 +444,9 @@ static void appendStyle(NSMutableString* styleName,
 			NSString* fontName;
 			NSFont* font = [fontArray objectAtIndex: rowIndex];
 			
-			fontName = [NSString stringWithFormat: @"%@ (%.2gpt)", 
-				[font fontName],
-				[font pointSize]];
+			fontName = [NSString stringWithFormat: @"%@ (%.2gpt)",
+						[font fontName],
+						[font pointSize]];
 			
 			NSAttributedString* res;
 			
@@ -468,9 +468,9 @@ static void appendStyle(NSMutableString* styleName,
 			
 			res = [[NSAttributedString alloc] initWithString: @"Sample"
 												  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-													  theColour, NSForegroundColorAttributeName,
-													  theColour, NSBackgroundColorAttributeName,
-													  nil]];
+															   theColour, NSForegroundColorAttributeName,
+															   theColour, NSBackgroundColorAttributeName,
+															   nil]];
 			
 			return res;
 		}
@@ -531,7 +531,7 @@ static void appendStyle(NSMutableString* styleName,
 
 	if (newFont) {
 		[prefFonts replaceObjectAtIndex: selFont
-						 withObject: newFont];
+							 withObject: newFont];
 		[prefs setFonts: prefFonts];
 		
 		[fonts reloadData];
@@ -569,7 +569,7 @@ static void appendStyle(NSMutableString* styleName,
 	for(  i = 0; i < [cols count]; i++ )
 	{
 		NSColor * color = [cols objectAtIndex: i];
-	
+		
 		NSColor*  transparent_color = [[color colorUsingColorSpace: [NSColorSpace genericRGBColorSpace]] colorWithAlphaComponent:([transparencySlider floatValue] / 100.0)];
 		
 		[cols replaceObjectAtIndex: i
@@ -577,7 +577,7 @@ static void appendStyle(NSMutableString* styleName,
 	}
 
 	[prefs setColours: cols];
-		
+	
 	[colours reloadData];
 }
 
@@ -710,7 +710,7 @@ static void appendStyle(NSMutableString* styleName,
 	
 	if (newState != [prefs useScreenFonts]) {
 		[prefs setUseScreenFonts: newState];
-	}	
+	}
 }
 
 - (IBAction) hyphenationChanged: (id) sender {
@@ -726,7 +726,7 @@ static void appendStyle(NSMutableString* styleName,
 	
 	if (newState != [prefs useLigatures]) {
 		[prefs setUseLigatures: newState];
-	}	
+	}
 }
 
 - (IBAction) kerningChanged: (id) sender {
@@ -734,7 +734,7 @@ static void appendStyle(NSMutableString* styleName,
 	
 	if (newState != [prefs useKerning]) {
 		[prefs setUseKerning: newState];
-	}	
+	}
 }
 
 #pragma mark - Story progress meter
@@ -783,7 +783,7 @@ static void appendStyle(NSMutableString* styleName,
 	
 	if (newState != oldState) {
 		[prefs setShowCoverPicture: newState];
-	}	
+	}
 }
 
 - (IBAction) colourChanged: (id) sender {

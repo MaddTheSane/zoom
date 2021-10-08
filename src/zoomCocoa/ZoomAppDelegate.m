@@ -53,19 +53,19 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		NSData* infocomData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"infocom" withExtension: @"iFiction"]];
 		NSData* archiveData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"archive" withExtension: @"iFiction"]];
 		
-		if (userData) 
+		if (userData)
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: userData]];
 		else
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
-
-		if (gameData) 
+		
+		if (gameData)
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: gameData]];
 		else
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 		
-		if (infocomData) 
+		if (infocomData)
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: infocomData]];
-		if (archiveData) 
+		if (archiveData)
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: archiveData]];
 	}
 	
@@ -76,7 +76,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 - (BOOL) applicationShouldOpenUntitledFile: (NSApplication*) sender {
 	// 'Opening an untitled file' is an action that occurs when the user clicks on the 'Z' icon...
-    return YES;
+	return YES;
 }
 
 - (BOOL) applicationOpenUntitledFile:(NSApplication *)theApplication {
@@ -116,7 +116,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		}
 		
 		return saveDir;
-	}	
+	}
 	
 	return nil;
 }
@@ -161,9 +161,9 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		NSDictionary* fileProperties = nil;
 		if ([[NSFileManager defaultManager] fileExistsAtPath: propertyListPath]) {
 			fileProperties = [NSPropertyListSerialization propertyListWithData: [NSData dataWithContentsOfFile: propertyListPath]
-															  options: NSPropertyListImmutable
+																	   options: NSPropertyListImmutable
 																		format: nil
-															  error: nil];
+																		 error: nil];
 		}
 		
 		// Retrieve the story identifier
@@ -198,7 +198,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			// Register this game with iFiction
 			ZoomStoryID* ident = [pluginInstance idForStory];
 			ZoomStory* story = nil;
-				
+			
 			if (ident != nil) {
 				story = [self findStory: ident];
 				if (story == nil) {
@@ -211,7 +211,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 				
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
 														  withIdent: ident
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];					
+														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
 				filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
 			}
 			
@@ -249,7 +249,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		[[ZoomiFictionController sharediFictionController] mergeiFictionFromFile: filename];
 		return YES;
 	}
-		
+	
 	return NO;
 }
 
@@ -295,7 +295,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 #endif
 	
 	// Load the leopard extensions if we're running on the right version of OS X
-    leopard = [[ZoomLeopard alloc] init];
+	leopard = [[ZoomLeopard alloc] init];
 	
 	// Ensure the shared plugin controller is created
 	[ZoomPlugInController sharedPlugInController];
@@ -389,7 +389,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
 	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-
+	
 	for (NSString* libDir in libraryDirs) {
 		BOOL isDir;
 		
@@ -565,7 +565,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	[pasteboard clearContents];
 	[pasteboard declareTypes: @[NSPasteboardTypeString]
 					   owner: self];
-	[pasteboard setString: [[[ZoomSkeinController sharedSkeinController] skein] transcriptToPoint: nil] 
+	[pasteboard setString: [[[ZoomSkeinController sharedSkeinController] skein] transcriptToPoint: nil]
 				  forType: NSPasteboardTypeString];
 }
 
@@ -617,8 +617,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 }
 
 - (void) saveTranscript: (NSSavePanel *) panel 
-             returnCode: (NSModalResponse) returnCode
-            contextInfo: (NSString*) data {
+			 returnCode: (NSModalResponse) returnCode
+			contextInfo: (NSString*) data {
 	if (returnCode != NSModalResponseOK) {
 		return;
 	}

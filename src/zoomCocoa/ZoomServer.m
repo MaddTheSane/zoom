@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 	
 #ifdef DEBUG
     {
-		NSLog(@"DEBUG");
+        NSLog(@"DEBUG");
         int x;
         for (x=0; x<10; x++) {
             NSLog(@"...%i...", 10-x);
@@ -35,59 +35,59 @@ int main(int argc, char** argv) {
         }
     }
 #endif
-	
+    
     // Indicates that the client should be able to connect
     NSLog(@"Server ready");
-	
-	// Connect to the view process
-	id<ZClient> client = nil;
-	NSString* connectionName = [NSString stringWithFormat: @"Zoom-%s",
-		argv[1]];
+    
+    // Connect to the view process
+    id<ZClient> client = nil;
+    NSString* connectionName = [NSString stringWithFormat: @"Zoom-%s",
+                                argv[1]];
+    
+    NSConnection* remoteConnection = [NSConnection connectionWithRegisteredName: connectionName
+                                                                           host: nil];
+    
+    if (remoteConnection == nil) {
+        NSLog(@"Warning: unable to locate connection %@. Aborting.", connectionName);
+    }
+    
+    client = (id<ZClient>)[remoteConnection rootProxy];
+    [client retain];
+    
+    if (client == nil) {
+        NSLog(@"Unable to locate client object for connection %@. Aborting", connectionName);
+        abort();
+    }
+    
+    mainMachine = [[ZoomZMachine alloc] init];
+    if ([client connectToDisplay: mainMachine] == nil) {
+        NSLog(@"Failed to connect to view");
+        abort();
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver: mainMachine
+                                             selector: @selector(connectionDied:)
+                                                 name: NSConnectionDidDieNotification
+                                               object: remoteConnection];
+    [[NSNotificationCenter defaultCenter] addObserver: mainMachine
+                                             selector: @selector(connectionDied:)
+                                                 name: NSPortDidBecomeInvalidNotification
+                                               object: [remoteConnection sendPort]];
+    [[NSNotificationCenter defaultCenter] addObserver: mainMachine
+                                             selector: @selector(connectionDied:)
+                                                 name: NSPortDidBecomeInvalidNotification
+                                               object: [remoteConnection receivePort]];
+    
+    NSLog(@"Server connected");
 
-	NSConnection* remoteConnection = [NSConnection connectionWithRegisteredName: connectionName
-																		   host: nil];
-	
-	if (remoteConnection == nil) {
-		NSLog(@"Warning: unable to locate connection %@. Aborting.", connectionName);
-	}
-	
-	client = (id<ZClient>)[remoteConnection rootProxy];
-	[client retain];
-	
-	if (client == nil) {
-		NSLog(@"Unable to locate client object for connection %@. Aborting", connectionName);
-		abort();
-	}
-	
-	mainMachine = [[ZoomZMachine alloc] init];
-	if ([client connectToDisplay: mainMachine] == nil) {
-		NSLog(@"Failed to connect to view");
-		abort();
-	}
-	
-	[[NSNotificationCenter defaultCenter] addObserver: mainMachine
-											 selector: @selector(connectionDied:)
-												 name: NSConnectionDidDieNotification
-											   object: remoteConnection];
-	[[NSNotificationCenter defaultCenter] addObserver: mainMachine
-											 selector: @selector(connectionDied:)
-												 name: NSPortDidBecomeInvalidNotification
-											   object: [remoteConnection sendPort]];
-	[[NSNotificationCenter defaultCenter] addObserver: mainMachine
-											 selector: @selector(connectionDied:)
-												 name: NSPortDidBecomeInvalidNotification
-											   object: [remoteConnection receivePort]];
-	
-	NSLog(@"Server connected");
-
-	// Main runloop
-	while (mainMachine != nil) {
-		[mainPool release];
-		mainPool = [[NSAutoreleasePool alloc] init];
+    // Main runloop
+    while (mainMachine != nil) {
+        [mainPool release];
+        mainPool = [[NSAutoreleasePool alloc] init];
         
         [mainLoop acceptInputForMode: NSDefaultRunLoopMode
                           beforeDate: [NSDate distantFuture]];
-	}
+    }
 
 #ifdef DEBUG
     NSLog(@"Finalising...");

@@ -39,12 +39,12 @@ typedef NS_ENUM(NSInteger, ZFileType) {
 };
 
 typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
-	ZValueRoutine = 1,
-	ZValueObject  = 2,
-	ZValueClass   = 4,
-	ZValueString  = 8,
-	ZValueArray   = 16,
-	ZValueAction  = 32,
+    ZValueRoutine = 1,
+    ZValueObject  = 2,
+    ZValueClass   = 4,
+    ZValueString  = 8,
+    ZValueArray   = 16,
+    ZValueAction  = 32,
 };
 
 // == Server-side objects ==
@@ -121,7 +121,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 - (unsigned char)	   readByte;
 - (unsigned short)	   readWord;
 - (unsigned int)	   readDWord;
-- (bycopy NSData*) readBlock: (NSInteger) length;
+- (bycopy NSData*)	   readBlock: (NSInteger) length;
 
 - (oneway void)		   seekTo: (off_t) pos;
 
@@ -190,19 +190,19 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 //! Plots a rectangle in a given style
 - (void) plotRect: (in NSRect) rect
-		withStyle: (in bycopy ZStyle*) style;
+        withStyle: (in bycopy ZStyle*) style;
 
 //! Plots some text of a given size at a given point
 - (void) plotText: (in bycopy NSString*) text
-		  atPoint: (in NSPoint) point
-		withStyle: (in bycopy ZStyle*) style;
+          atPoint: (in NSPoint) point
+        withStyle: (in bycopy ZStyle*) style;
 
 //! Gets information about a font
 - (void) getInfoForStyle: (in bycopy ZStyle*) style
-				   width: (out CGFloat*) width
-				  height: (out CGFloat*) height
-				  ascent: (out CGFloat*) ascent
-				 descent: (out CGFloat*) descent;
+                   width: (out CGFloat*) width
+                  height: (out CGFloat*) height
+                  ascent: (out CGFloat*) ascent
+                 descent: (out CGFloat*) descent;
 - (bycopy NSDictionary<NSAttributedStringKey,id>*) attributesForStyle: (in bycopy ZStyle*) style;
 
 //! Reading information about the pixmap
@@ -210,19 +210,19 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 //! Scrolls a region of the screen
 - (void) scrollRegion: (in NSRect) region
-			  toPoint: (in NSPoint) newPoint;
+              toPoint: (in NSPoint) newPoint;
 
 //! Measures a string
 - (NSSize) measureString: (in bycopy NSString*) string
-			   withStyle: (in bycopy ZStyle*) style;
+               withStyle: (in bycopy ZStyle*) style;
 
 //! Sets the input position in the window
 - (void) setInputPosition: (NSPoint) point
-				withStyle: (in bycopy ZStyle*) style;
+                withStyle: (in bycopy ZStyle*) style;
 
 //! Images
 - (void) plotImageWithNumber: (in int) number
-					 atPoint: (in NSPoint) point;
+                     atPoint: (in NSPoint) point;
 
 @end
 
@@ -235,9 +235,9 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 - (void) dimensionX: (out int*) xSize
                   Y: (out int*) ySize NS_SWIFT_NAME(dimension(x:y:));
 - (void) pixmapX: (out int*) xSize
-			   Y: (out int*) ySize NS_SWIFT_NAME(pixmap(x:y:));
+               Y: (out int*) ySize NS_SWIFT_NAME(pixmap(x:y:));
 - (void) fontWidth: (out int*) width
-			height: (out int*) height NS_SWIFT_NAME(font(width:height:));
+            height: (out int*) height NS_SWIFT_NAME(font(width:height:));
 
 @property (readonly) int foregroundColour;
 @property (readonly) int backgroundColour;
@@ -271,7 +271,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 //! Prompting for files
 - (void) promptForFileToWrite: (in ZFileType) type
-				  defaultName: (in bycopy NSString*) name;
+                  defaultName: (in bycopy NSString*) name;
 - (void) promptForFileToRead: (in ZFileType) type
                  defaultName: (in bycopy NSString*) name;
 
@@ -314,17 +314,17 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 //! File(s) from a package
 @interface ZPackageFile : NSObject<ZFile> {
-	NSFileWrapper* wrapper;
-	BOOL forWriting;
-	NSURL* writePath;
-	NSString* defaultFile;
-	
-	NSFileWrapper* data;
-	NSMutableData* writeData;
-	
-	NSDictionary<NSFileAttributeKey,id>* attributes;
-	
-	off_t pos;
+    NSFileWrapper* wrapper;
+    BOOL forWriting;
+    NSURL* writePath;
+    NSString* defaultFile;
+    
+    NSFileWrapper* data;
+    NSMutableData* writeData;
+    
+    NSDictionary<NSFileAttributeKey,id>* attributes;
+    
+    off_t pos;
 }
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
@@ -361,8 +361,8 @@ extern NSString* const ZStyleAttributeName NS_DEPRECATED_WITH_REPLACEMENT_MAC("Z
     BOOL isBold;
     BOOL isUnderline;
     BOOL isSymbolic;
-	
-	BOOL isForceFixed;
+    
+    BOOL isForceFixed;
 }
 
 @property int foregroundColour;
@@ -381,7 +381,7 @@ extern NSString* const ZStyleAttributeName NS_DEPRECATED_WITH_REPLACEMENT_MAC("Z
 //! Buffering
 @interface ZBuffer : NSObject<NSCopying,NSSecureCoding> {
     NSMutableArray<NSArray*>* buffer;
-	int bufferCount;
+    int bufferCount;
 }
 
 // Buffering
@@ -421,7 +421,7 @@ extern NSString* const ZStyleAttributeName NS_DEPRECATED_WITH_REPLACEMENT_MAC("Z
 		  inWindow: (id<ZPixmapWindow>) win;
 
 // Unbuffering
-//! YES if the buffer has no data
+//! \c YES if the buffer has no data
 @property (readonly) BOOL empty;
 //! Like blitting, only messier
 - (void) blat;

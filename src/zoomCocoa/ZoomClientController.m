@@ -23,21 +23,21 @@
 @synthesize zoomView;
 
 - (id) init {
-    self = [super initWithWindowNibName: @"ZoomClient"];
+	self = [super initWithWindowNibName: @"ZoomClient"];
 
-    if (self) {
-        [self setShouldCloseDocument: YES];
+	if (self) {
+		[self setShouldCloseDocument: YES];
 		isFullscreen = NO;
 		finished = NO;
 		closeConfirmed = NO;
-    }
+	}
 
-    return self;
+	return self;
 }
 
 - (void) dealloc {
-    if (zoomView) [zoomView setDelegate: nil];
-    if (zoomView) [zoomView killTask];
+	if (zoomView) [zoomView setDelegate: nil];
+	if (zoomView) [zoomView killTask];
 	
 	if (fadeTimer) {
 		[fadeTimer invalidate];
@@ -62,9 +62,9 @@
 	[self setWindowFrameAutosaveName: @"ZoomClientWindow"];
 
 	[[self window] setAlphaValue: 0.9999];
-    
+	
 	[zoomView setDelegate: self];
-    [zoomView runNewServer: nil];
+	[zoomView runNewServer: nil];
 	
 	// Add a skein view as an output receiver for the ZoomView
 	[zoomView addOutputReceiver: [[self document] skein]];
@@ -90,7 +90,7 @@
 				newline = YES;
 			}
 			
-			// Show an alert			
+			// Show an alert
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = @"Problems were encountered while loading this game";
 			alert.informativeText = errorText;
@@ -132,7 +132,7 @@
 	[self synchronizeWindowTitleWithDocumentName];
 	
 	[zoomView setResources: [[self document] resources]];
-    [[zoomView zMachine] loadStoryFile: [[self document] gameData]];
+	[[zoomView zMachine] loadStoryFile: [[self document] gameData]];
 	
 	if ([[self document] autosaveData] != nil) {
 		NSCoder* decoder;
@@ -192,7 +192,7 @@
 															  format: NSPropertyListXMLFormat_v1_0
 															 options: 0
 															   error: nil]
-													  forFilename: @"Info.plist"];
+	  forFilename: @"Info.plist"];
 }
 
 - (void) loadedSkeinData: (NSData*) skeinData {
@@ -244,8 +244,8 @@
 		modalDelegate: nil
 	   didEndSelector: nil
 		  contextInfo: nil];
-    [NSApp runModalForWindow: [gamePrefs window]];
-    [NSApp endSheet: [gamePrefs window]];
+	[NSApp runModalForWindow: [gamePrefs window]];
+	[NSApp endSheet: [gamePrefs window]];
 	
 	[[gamePrefs window] orderOut: self];
 }
@@ -353,9 +353,9 @@
 	
 	if (autosave) {
 		NSKeyedArchiver* theCoder = [[NSKeyedArchiver alloc] initRequiringSecureCoding: YES];
-	
+		
 		BOOL saveOK = [zoomView createAutosaveDataWithCoder: theCoder];
-	
+		
 		// Produce an autosave file
 		if (saveOK) {
 			[theCoder finishEncoding];
@@ -368,7 +368,7 @@
 													   error: NULL];
 		}
 	}
-		
+	
 	return YES;
 }
 
@@ -485,8 +485,8 @@
 		// As of 10.4, we need to create a separate full-screen window (10.4 tries to be 'clever' with the window borders, which messes things up
 		if (!normalWindow) normalWindow = [self window];
 		if (!fullscreenWindow) {
-			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
-																				styleMask: NSWindowStyleMaskBorderless
+			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds]
+																			 styleMask: NSWindowStyleMaskBorderless
 																			   backing: NSBackingStoreBuffered
 																				 defer: YES];
 			
@@ -533,7 +533,7 @@
 		
 		// Hide the menubar
 		[NSMenu setMenuBarVisible: NO];
-				
+		
 		// Resize the window
 		NSRect frame = [[[self window] screen] frame];
 		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
@@ -542,7 +542,7 @@
 											styleMask: NSWindowStyleMaskBorderless];
 			[[self window] setFrame: frame
 							display: YES
-							animate: YES];			
+							animate: YES];
 			[normalWindow orderOut: self];
 		} else {
 			[fullscreenWindow setOpaque: NO];
@@ -572,7 +572,7 @@
 			[[(ZoomAppDelegate*)[NSApp delegate] leopard]
 			 fullScreenView: zoomView
 			 fromFrame: oldWindowFrame
-			 toFrame: frame];			
+			 toFrame: frame];
 		}
 		
 		isFullscreen = YES;
@@ -714,17 +714,17 @@
 #pragma mark - Interacting with the skein
 
 - (void) restartGame {
-	 // Will force a restart
-	 [[self zoomView] runNewServer: nil];
+	// Will force a restart
+	[[self zoomView] runNewServer: nil];
 }
 
 - (void) playToPoint: (ZoomSkeinItem*) point
 		   fromPoint: (ZoomSkeinItem*) fromPoint {
-	 id inputSource = [ZoomSkein inputSourceFromSkeinItem: fromPoint
-												   toItem: point];
-	 
-	 
-	 [[self zoomView] setInputSource: inputSource];
+	id inputSource = [ZoomSkein inputSourceFromSkeinItem: fromPoint
+												  toItem: point];
+	
+	
+	[[self zoomView] setInputSource: inputSource];
 }
 
 #pragma mark - Window title

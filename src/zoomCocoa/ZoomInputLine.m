@@ -78,7 +78,7 @@
 	// Deal with/strip characters 0xf700-0xf8ff from the input string
 	BOOL endOfLine = NO;
 	NSMutableString* inString = [[NSMutableString alloc] init];
-		
+	
 	for (NSInteger x=0; x<[input length]; x++) {
 		unichar chr = [input characterAtIndex: x];
 		

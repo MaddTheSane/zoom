@@ -234,9 +234,9 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 - (void) removeStoryWithIdent: (ZoomStoryID*) ident {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomMetadataWillDestroyStory
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  ident, @"Ident",
-														  nil]];
+													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+																 ident, @"Ident",
+																 nil]];
 	
 	[dataLock lock];
 	
@@ -258,7 +258,7 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 			  toId: (ZoomStoryID*) copyID {
 	IFMB_CopyStory(metadata, [story story], [copyID ident]);
 }
-	
+
 
 #pragma mark - Saving the file
 

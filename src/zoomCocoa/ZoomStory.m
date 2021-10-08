@@ -32,10 +32,10 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 + (void) initialize {
 	NSUserDefaults* defs = [NSUserDefaults standardUserDefaults];
 	
-	[defs registerDefaults: 
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSDictionary dictionary], ZoomStoryExtraMetadata,
-			nil]];
+	[defs registerDefaults:
+	 [NSDictionary dictionaryWithObjectsAndKeys:
+	  [NSDictionary dictionary], ZoomStoryExtraMetadata,
+	  nil]];
 }
 
 + (NSString*) nameForKey: (NSString*) key {
@@ -123,7 +123,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 		result = [fileMetadata findOrCreateStory: fileID];
 		
 		if (result == nil) {
-			NSLog(@"Warning: found a game with an IFmd chunk, but which did not appear to contain any relevant metadata (looked for ID: %@)", fileID); 
+			NSLog(@"Warning: found a game with an IFmd chunk, but which did not appear to contain any relevant metadata (looked for ID: %@)", fileID);
 		}
 	}
 	
@@ -218,7 +218,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 - (void) storyDying: (NSNotification*) not {
 	// If this story is removed from the metabase, then invalidate this object
 	//
-	// Ideally, all story objects should be destroyed before they get removed from the metabase, but 
+	// Ideally, all story objects should be destroyed before they get removed from the metabase, but
 	// it's going to be far too hard to keep track of them all, so this will do as an alternative.
 	//
 	// An improvement that might be made: stories could be put into a temporary metabase here so that
@@ -528,7 +528,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	if (story == NULL) return nil;
 
 	if (![key isKindOfClass: [NSString class]]) {
-		[NSException raise: @"ZoomKeyNotString" 
+		[NSException raise: @"ZoomKeyNotString"
 					format: @"Metadata key is not a string"];
 		return nil;
 	}
@@ -615,8 +615,8 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	if (story == NULL) return NO;
 
 	// List of strings to check against
-	NSArray* stringsToCheck = [[NSArray alloc] initWithObjects: 
-		[self title], [self headline], [self author], [self genre], [self group], nil];
+	NSArray* stringsToCheck = [[NSArray alloc] initWithObjects:
+							   [self title], [self headline], [self author], [self genre], [self group], nil];
 	
 	// List of words to match against (we take off a word for each match)
 	NSMutableArray<NSString*>* words = [[text componentsSeparatedByString: @" "] mutableCopy];

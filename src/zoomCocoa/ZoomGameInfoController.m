@@ -26,7 +26,7 @@
 
 - (id) init {
 	self = [self initWithWindowNibPath: [[NSBundle bundleForClass: [ZoomGameInfoController class]] pathForResource: @"GameInfo"
-																											 ofType: @"nib"]
+																											ofType: @"nib"]
 								 owner: self];
 	
 	if (self) {
@@ -70,7 +70,7 @@
 	}
 	
 	[NSApp sendAction: @selector(infoGenreChanged:)
-				   to: nil 
+				   to: nil
 				 from: self];
 }
 
@@ -88,7 +88,7 @@
 	}
 	
 	[NSApp sendAction: @selector(infoMyRatingChanged:)
-				   to: nil 
+				   to: nil
 				 from: self];
 }
 
@@ -120,14 +120,14 @@ static NSString* stringOrEmpty(NSString* str) {
 		[ratingOn setEnabled: NO];		[ratingOn setState: NSControlStateValueOff];
 		
 		[resourceDrop setEnabled: NO]; [chooseResourceButton setEnabled: NO];
-	} else {		
+	} else {
 		gameInfo = info;
 
 		[gameName setEnabled: YES];		[gameName setStringValue: stringOrEmpty([info title])];
 		[headline setEnabled: YES];		[headline setStringValue: stringOrEmpty([info headline])];
 		[author setEnabled: YES];		[author setStringValue: stringOrEmpty([info author])];
 		[genre setEnabled: YES];		[genre setStringValue: stringOrEmpty([info genre])];
-		[year setEnabled: YES];			
+		[year setEnabled: YES];
 		
 		int yr = [info year];
 		if (yr > 0) {
@@ -206,17 +206,17 @@ static NSString* stringOrEmpty(NSString* str) {
 
 - (NSDictionary*) dictionary {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-		[self title], @"title",
-		[self headline], @"headline",
-		[self author], @"author",
-		[self genre], @"genre",
-		@([self year]), @"year",
-		[self group], @"group",
-		[self comments], @"comments",
-		[self teaser], @"teaser",
-		@([self zarfRating]), @"zarfRating",
-		@([self rating]), @"rating",
-		nil];
+			[self title], @"title",
+			[self headline], @"headline",
+			[self author], @"author",
+			[self genre], @"genre",
+			@([self year]), @"year",
+			[self group], @"group",
+			[self comments], @"comments",
+			[self teaser], @"teaser",
+			@([self zarfRating]), @"zarfRating",
+			@([self rating]), @"rating",
+			nil];
 }
 
 #pragma mark - NSText delegate

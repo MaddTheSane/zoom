@@ -100,32 +100,32 @@ ZByte* read_page(ZFile* file, int page_no) {
 
 ZByte* read_block(ZFile* file, int start_pos, int end_pos) {
     @autoreleasepool {
-    NSData* result = nil;
+        NSData* result = nil;
 
-    [file->theFile seekTo: start_pos];
-    result = [file->theFile readBlock: end_pos - start_pos];
+        [file->theFile seekTo: start_pos];
+        result = [file->theFile readBlock: end_pos - start_pos];
 
-    ZByte* res2 = malloc([result length]);
-    memcpy(res2, [result bytes], [result length]);
-    
-    return res2;
+        ZByte* res2 = malloc([result length]);
+        memcpy(res2, [result bytes], [result length]);
+        
+        return res2;
     }
 }
 
 void   read_block2(ZByte* block, ZFile* file, int start_pos, int end_pos) {
     @autoreleasepool {
-    NSData* result = nil;
+        NSData* result = nil;
 
-    [file->theFile seekTo: start_pos];
-    result = [file->theFile readBlock: end_pos - start_pos];
+        [file->theFile seekTo: start_pos];
+        result = [file->theFile readBlock: end_pos - start_pos];
 
-    memcpy(block, [result bytes], [result length]);
+        memcpy(block, [result bytes], [result length]);
     }
 }
 
 void   write_block(ZFile* file, const ZByte* block, int length) {
     @autoreleasepool {
-    [file->theFile writeBlock: [NSData dataWithBytes: block length: length]];
+        [file->theFile writeBlock: [NSData dataWithBytes: block length: length]];
     }
 }
 
@@ -142,9 +142,9 @@ void write_dword(ZFile* file, ZDWord word) {
 }
 
 ZDWord get_file_size(const char* filename) { 
-	return [[[[NSFileManager defaultManager] attributesOfItemAtPath: [[[NSFileManager defaultManager] stringWithFileSystemRepresentation:filename length:strlen(filename)] stringByResolvingSymlinksInPath]
-															  error: NULL] objectForKey: NSFileSize]
-		intValue];
+    return [[[[NSFileManager defaultManager] attributesOfItemAtPath: [[[NSFileManager defaultManager] stringWithFileSystemRepresentation:filename length:strlen(filename)] stringByResolvingSymlinksInPath]
+                                                              error: NULL] objectForKey: NSFileSize]
+            intValue];
     return 0;
 }
 
@@ -153,5 +153,5 @@ ZDWord get_size_of_file(ZFile* file) {
 }
 
 int end_of_file(ZFile* file) {
-	return [file->theFile endOfFile];
+    return [file->theFile endOfFile];
 }
