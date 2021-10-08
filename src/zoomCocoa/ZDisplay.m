@@ -250,6 +250,7 @@ void display_erase_line(int val) {
 #pragma mark - Display functions
 
 void display_prints(const int* buf) {
+    //TODO: read UTF32 bytes instead of conversion?
 	if (is_v6)
     {
 #ifdef DEBUG
@@ -262,7 +263,7 @@ void display_prints(const int* buf) {
 
     // Convert buf to an NSString
     int length;
-    static unichar* bufU = NULL;
+    unichar* bufU = NULL;
 
     for (length=0; buf[length] != 0; length++) {
         bufU = realloc(bufU, sizeof(unichar)*((length>>4)+1)<<4);
@@ -271,8 +272,9 @@ void display_prints(const int* buf) {
 
     if (length == 0) return;
 
-    NSString* str = [NSString stringWithCharacters: bufU
-                                            length: length];
+    NSString* str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                        length: length
+                                                  freeWhenDone: YES];
 	
 #ifdef DEBUG
 	NSLog(@"ZDisplay: display_prints(\"%@\")", str);
@@ -338,6 +340,7 @@ void display_printf(const char* format, ...) {
 #pragma mark - Input
 
 int display_readline(int* buf, int len, long int timeout) {
+    //TODO: read UTF32 bytes instead of conversion?
 	NOTE(@"display_readline");
     [mainMachine flushBuffers];
     
@@ -360,8 +363,9 @@ int display_readline(int* buf, int len, long int timeout) {
 			prefixBuf[x] = buf[x];
 		}
 		
-        prefix = [NSString stringWithCharacters: prefixBuf
-                                         length: x];
+        prefix = [[NSString alloc] initWithCharactersNoCopy: prefixBuf
+                                                     length: x
+                                               freeWhenDone: YES];
 	}
 
     // Cycle the autorelease pool

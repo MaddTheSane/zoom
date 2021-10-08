@@ -701,9 +701,9 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		}
 	}
 	
-	NSString* dir = [NSString stringWithCharacters: result
-											length: len];
-	free(result);
+	NSString* dir = [[NSString alloc] initWithCharactersNoCopy: result
+														length: len
+												  freeWhenDone: YES];
 	
 	return dir;
 }

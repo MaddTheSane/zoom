@@ -95,11 +95,12 @@ extern void  display_plot_rect(int x, int y,
 
 void  display_plot_gtext(const int* buf, int len,
 						 int style, int x, int y) {	
+    //TODO: read UTF32 bytes instead of conversion?
 	set_style(style);
 	
     // Convert buf to an NSString
     int length;
-    static unichar* bufU = NULL;
+    unichar* bufU = NULL;
 	
     for (length=0; length < len; length++) {
         bufU = realloc(bufU, sizeof(unichar)*((length>>4)+1)<<4);
@@ -109,8 +110,9 @@ void  display_plot_gtext(const int* buf, int len,
     if (length == 0) return;
 	
 	// Plot the text
-    NSString* str = [NSString stringWithCharacters: bufU
-                                            length: length];
+    NSString* str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                        length: length
+                                                  freeWhenDone: YES];
 	
 	[[mainMachine buffer] plotText: str
 						   atPoint: NSMakePoint(x, y)
@@ -180,11 +182,12 @@ static NSDictionary<NSAttributedStringKey, id>* styleAttributes(ZStyle* style) {
 }
 
 float display_measure_text(const int* buf, int len, int style) { 
+    //TODO: read UTF32 bytes instead of conversion?
 	set_style(style);
 	
     // Convert buf to an NSString
     int length;
-    static unichar* bufU = NULL;
+    unichar* bufU = NULL;
 	
     for (length=0; length < len; length++) {
         bufU = realloc(bufU, sizeof(unichar)*((length>>4)+1)<<4);
@@ -193,8 +196,9 @@ float display_measure_text(const int* buf, int len, int style) {
 	
     if (length == 0) return 0;
 	
-    NSString* str = [NSString stringWithCharacters: bufU
-                                            length: length];
+    NSString* str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                        length: length
+                                                  freeWhenDone: YES];
 	
 	// Measure the string
 	
