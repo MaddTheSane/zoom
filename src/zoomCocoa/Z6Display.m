@@ -96,7 +96,8 @@ extern void  display_plot_rect(int x, int y,
 void  display_plot_gtext(const int* buf, int len,
 						 int style, int x, int y) {	
 	set_style(style);
-    NSString* str = [[NSString alloc] initWithData: [NSData dataWithBytes:buf length:len * sizeof(int)]
+    NSString* str = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
+                                                                   length: len * sizeof(int)]
                                           encoding: NSUTF32StringEncoding];
     
     if (!str) {
@@ -187,7 +188,8 @@ static NSDictionary<NSAttributedStringKey, id>* styleAttributes(ZStyle* style) {
 float display_measure_text(const int* buf, int len, int style) { 
 	set_style(style);
 	
-    NSString* str = [[NSString alloc] initWithData: [NSData dataWithBytes:buf length:len * sizeof(int)]
+    NSString* str = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
+                                                                   length: len * sizeof(int)]
                                           encoding: NSUTF32StringEncoding];
     if (!str) {
     // Convert buf to an NSString

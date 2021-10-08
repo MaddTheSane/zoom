@@ -376,8 +376,8 @@ void cocoa_debug_handler(ZDWord pc) {
 static NSString* zscii_to_string(ZByte* buf) {
 	int len;
 	int* unistr = zscii_to_unicode(buf, &len);
-    NSData *dat = [[NSData alloc] initWithBytes:unistr
-                                         length:len * sizeof(int)];
+    NSData *dat = [[NSData alloc] initWithBytes: unistr
+                                         length: len * sizeof(int)];
 	
     NSString *res = [[NSString alloc] initWithData: dat
                                           encoding: NSUTF32StringEncoding];

@@ -266,7 +266,8 @@ void display_prints(const int* buf) {
     
     if (length == 0) return;
     
-    NSString *str = [[NSString alloc] initWithData: [NSData dataWithBytes:buf length:length * sizeof(int)]
+    NSString *str = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
+                                                                   length: length * sizeof(int)]
                                           encoding: NSUTF32StringEncoding];
 
     if (!str) {
@@ -360,7 +361,8 @@ int display_readline(int* buf, int len, long int timeout) {
     NSString* prefix = @"";
 	
     if (buf[0] != 0) {
-        prefix = [[NSString alloc] initWithData: [NSData dataWithBytes:buf length:len * sizeof(int)]
+        prefix = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
+                                                                length: len * sizeof(int)]
                                        encoding: NSUTF32StringEncoding];
         
         if (!prefix) {
