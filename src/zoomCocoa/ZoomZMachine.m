@@ -374,10 +374,16 @@ void cocoa_debug_handler(ZDWord pc) {
 }
 
 static NSString* zscii_to_string(ZByte* buf) {
-    //TODO: read UTF32 bytes instead of conversion?
 	int len;
 	int* unistr = zscii_to_unicode(buf, &len);
+    NSData *dat = [[NSData alloc] initWithBytes:unistr
+                                         length:len * sizeof(int)];
 	
+    NSString *res = [[NSString alloc] initWithData: dat
+                                          encoding: NSUTF32StringEncoding];
+    if (res) {
+        return res;
+    }
 	int x;
 	int strLen = 0;
 	
@@ -390,9 +396,9 @@ static NSString* zscii_to_string(ZByte* buf) {
 	}
 	cBuf[strLen] = 0;
 	
-	NSString* res = [[NSString alloc] initWithCharactersNoCopy: cBuf
-                                                        length: strLen
-                                                  freeWhenDone: YES];
+	res = [[NSString alloc] initWithCharactersNoCopy: cBuf
+                                              length: strLen
+                                        freeWhenDone: YES];
 	
 	return res;
 }

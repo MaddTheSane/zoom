@@ -55,7 +55,10 @@
 // Oh, and, umm, official Zoom terminology is 'Story' rather than 'Game'. Except I always
 // forget that.
 
-@implementation ZoomClient
+@implementation ZoomClient {
+	BOOL wasRestored;
+	NSMutableArray<NSString*>* loadingErrors;
+}
 
 - (id) init {
     self = [super init];

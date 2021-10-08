@@ -95,9 +95,11 @@ extern void  display_plot_rect(int x, int y,
 
 void  display_plot_gtext(const int* buf, int len,
 						 int style, int x, int y) {	
-    //TODO: read UTF32 bytes instead of conversion?
 	set_style(style);
-	
+    NSString* str = [[NSString alloc] initWithData: [NSData dataWithBytes:buf length:len * sizeof(int)]
+                                          encoding: NSUTF32StringEncoding];
+    
+    if (!str) {
     // Convert buf to an NSString
     int length;
     unichar* bufU = NULL;
@@ -110,9 +112,10 @@ void  display_plot_gtext(const int* buf, int len,
     if (length == 0) return;
 	
 	// Plot the text
-    NSString* str = [[NSString alloc] initWithCharactersNoCopy: bufU
-                                                        length: length
-                                                  freeWhenDone: YES];
+        str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                  length: length
+                                            freeWhenDone: YES];
+    }
 	
 	[[mainMachine buffer] plotText: str
 						   atPoint: NSMakePoint(x, y)
@@ -182,9 +185,11 @@ static NSDictionary<NSAttributedStringKey, id>* styleAttributes(ZStyle* style) {
 }
 
 float display_measure_text(const int* buf, int len, int style) { 
-    //TODO: read UTF32 bytes instead of conversion?
 	set_style(style);
 	
+    NSString* str = [[NSString alloc] initWithData: [NSData dataWithBytes:buf length:len * sizeof(int)]
+                                          encoding: NSUTF32StringEncoding];
+    if (!str) {
     // Convert buf to an NSString
     int length;
     unichar* bufU = NULL;
@@ -196,10 +201,10 @@ float display_measure_text(const int* buf, int len, int style) {
 	
     if (length == 0) return 0;
 	
-    NSString* str = [[NSString alloc] initWithCharactersNoCopy: bufU
-                                                        length: length
-                                                  freeWhenDone: YES];
-	
+        str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                  length: length
+                                            freeWhenDone: YES];
+    }
 	// Measure the string
 	
 #ifdef MEASURE_REMOTELY

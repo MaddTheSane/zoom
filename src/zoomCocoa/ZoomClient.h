@@ -11,33 +11,16 @@
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomView/ZoomSkein.h>
 #import <ZoomView/ZoomBlorbFile.h>
+#import <ZoomView/ZoomView.h>
 
-@class ZoomView;
-@interface ZoomClient : NSDocument {
-    NSData* gameData;
-	
-	ZoomStory* story;
-	ZoomStoryID* storyId;
-	
-	NSData* autosaveData;
-	
-	ZoomView*  defaultView;
-	ZoomSkein* skein;
-	NSData*   saveData;
-	
-	ZoomBlorbFile* resources;
-	
-	BOOL wasRestored;
-	
-	NSMutableArray* loadingErrors;
-}
+@interface ZoomClient : NSDocument
 
 @property (readonly, retain) NSData *gameData;
 @property (readonly, retain) ZoomStory *storyInfo;
 @property (readonly, retain) ZoomStoryID *storyId;
 @property (readonly, retain) ZoomSkein *skein;
 
-// Restoring from an autosave
+/// Restoring from an autosave
 - (void) loadDefaultAutosave;
 @property (retain) NSData *autosaveData;
 
@@ -45,10 +28,10 @@
 @property (readonly, retain) ZoomView *defaultView;
 @property (copy) NSData *saveData;
 
-// Resources
+/// Resources
 @property (retain) ZoomBlorbFile *resources;
 
-//! Errors that might have happened but we recovered from (for example, resources not found)
+/// Errors that might have happened but we recovered from (for example, resources not found)
 - (void) addLoadingError: (NSString*) loadingError;
 @property (readonly, nonatomic, copy) NSArray<NSString*> *loadingErrors;
 

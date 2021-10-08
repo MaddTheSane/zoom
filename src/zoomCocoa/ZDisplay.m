@@ -250,7 +250,6 @@ void display_erase_line(int val) {
 #pragma mark - Display functions
 
 void display_prints(const int* buf) {
-    //TODO: read UTF32 bytes instead of conversion?
 	if (is_v6)
     {
 #ifdef DEBUG
@@ -263,6 +262,14 @@ void display_prints(const int* buf) {
 
     // Convert buf to an NSString
     int length;
+    for (length=0; buf[length] != 0; length++) {}
+    
+    if (length == 0) return;
+    
+    NSString *str = [[NSString alloc] initWithData: [NSData dataWithBytes:buf length:length * sizeof(int)]
+                                          encoding: NSUTF32StringEncoding];
+
+    if (!str) {
     unichar* bufU = NULL;
 
     for (length=0; buf[length] != 0; length++) {
@@ -270,11 +277,10 @@ void display_prints(const int* buf) {
         bufU[length] = buf[length];
     }
 
-    if (length == 0) return;
-
-    NSString* str = [[NSString alloc] initWithCharactersNoCopy: bufU
-                                                        length: length
-                                                  freeWhenDone: YES];
+        str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                  length: length
+                                            freeWhenDone: YES];
+    }
 	
 #ifdef DEBUG
 	NSLog(@"ZDisplay: display_prints(\"%@\")", str);
@@ -340,7 +346,6 @@ void display_printf(const char* format, ...) {
 #pragma mark - Input
 
 int display_readline(int* buf, int len, long int timeout) {
-    //TODO: read UTF32 bytes instead of conversion?
 	NOTE(@"display_readline");
     [mainMachine flushBuffers];
     
@@ -354,19 +359,23 @@ int display_readline(int* buf, int len, long int timeout) {
 	// Prefix
     NSString* prefix = @"";
 	
-	if (buf[0] != 0) {
-        //TODO: use raw bytes instead of casting to unichars?
-		unichar* prefixBuf = malloc(sizeof(unichar)*len);
-		int x;
-		
-		for (x=0; x<len && buf[x] != 0; x++) {
-			prefixBuf[x] = buf[x];
-		}
-		
-        prefix = [[NSString alloc] initWithCharactersNoCopy: prefixBuf
-                                                     length: x
-                                               freeWhenDone: YES];
-	}
+    if (buf[0] != 0) {
+        prefix = [[NSString alloc] initWithData: [NSData dataWithBytes:buf length:len * sizeof(int)]
+                                       encoding: NSUTF32StringEncoding];
+        
+        if (!prefix) {
+            unichar* prefixBuf = malloc(sizeof(unichar)*len);
+            int x;
+            
+            for (x=0; x<len && buf[x] != 0; x++) {
+                prefixBuf[x] = buf[x];
+            }
+            
+            prefix = [[NSString alloc] initWithCharactersNoCopy: prefixBuf
+                                                         length: x
+                                                   freeWhenDone: YES];
+        }
+    }
 
     // Cycle the autorelease pool
     @autoreleasepool {

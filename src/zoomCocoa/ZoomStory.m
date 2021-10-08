@@ -539,7 +539,6 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	IFChar* value = IFMB_GetValue(story, [newKey UTF8String]);
 	
 	if (value != nil) {
-		//TODO: read UTF32 bytes instead of conversion?
 		int len = IFMB_StrLen(value);
 		unichar* characters = malloc(sizeof(unichar)*len);
 		int x;
