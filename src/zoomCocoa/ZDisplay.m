@@ -25,7 +25,6 @@
 #endif
 
 #pragma mark - Display state
-NSAutoreleasePool* displayPool = nil;
 static BOOL zDisplayForceFixed[8] = { NO, NO, NO, NO, NO, NO, NO, NO };
 static int is_v6 = 0;
 
@@ -170,7 +169,6 @@ ZDisplay* display_get_info(void) {
 void display_initialise(void) {
     NOTE(@"display_initialise");
 
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
     zDisplayCurrentStyle = [[ZStyle alloc] init];
     
     // Clear out the image cache
@@ -184,7 +182,6 @@ void display_initialise(void) {
 void display_reinitialise(void) {
     NOTE(@"display_reinitialise");
     
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
     zDisplayCurrentStyle = [[ZStyle alloc] init];
     
     // Clear out the image cache
@@ -199,7 +196,6 @@ void display_finalise(void) {
     NOTE(@"display_finalise");
     
     [mainMachine flushBuffers];
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
     zDisplayCurrentStyle = nil;
 }
 
@@ -353,9 +349,10 @@ int display_readline(int* buf, int len, long int timeout) {
     }
     
     // Prefix
-    NSString* prefix = [@"" retain];
+    NSString* prefix = @"";
     
     if (buf[0] != 0) {
+        //TODO: use raw bytes instead of casting to unichars?
         unichar* prefixBuf = malloc(sizeof(unichar)*len);
         int x;
         
@@ -363,14 +360,12 @@ int display_readline(int* buf, int len, long int timeout) {
             prefixBuf[x] = buf[x];
         }
         
-        [prefix release];
-        prefix = [[NSString stringWithCharacters: prefixBuf
-                                          length: x] retain];
+        prefix = [NSString stringWithCharacters: prefixBuf
+                                         length: x];
     }
 
     // Cycle the autorelease pool
-    [displayPool release];
-    displayPool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
     
     // Reset the terminating character
     [mainMachine inputTerminatedWithCharacter: 0];
@@ -386,7 +381,7 @@ int display_readline(int* buf, int len, long int timeout) {
     
     if (prefix != nil && [prefix length] > 0) {
         // Ask the display to backtrack input if possible
-        prefix = [[display backtrackInputOver: [prefix autorelease]] retain];
+        prefix = [display backtrackInputOver: prefix];
     }
 
     NSDate* when;
@@ -396,27 +391,17 @@ int display_readline(int* buf, int len, long int timeout) {
     } else {
         when = [NSDate distantFuture];
     }
-
-    [when retain];
     
     // Wait for input
     while (mainMachine != nil &&
            [mainMachine terminatingCharacter] == 0 &&
            [[mainMachine inputBuffer] length] == 0 &&
-           [when compare: [NSDate date]] == NSOrderedDescending) {
-        // Cycle the autorelease pool
-        [displayPool release];
-        displayPool = [[NSAutoreleasePool alloc] init];
-        
+           [when compare: [NSDate date]] == NSOrderedDescending) @autoreleasepool {
         [mainLoop acceptInputForMode: NSDefaultRunLoopMode
                           beforeDate: when];
     }
 
-    [when release];
-
-    // Cycle the autorelease pool
-    [displayPool release];
-    displayPool = [[NSAutoreleasePool alloc] init];
+    }
 
     // If there was a timeout, get the text so far
     NSString* inputToDate = nil;
@@ -429,7 +414,7 @@ int display_readline(int* buf, int len, long int timeout) {
     [display stopReceiving];
     
     // Copy the data
-    NSMutableString* inputBuffer = inputToDate==nil?[mainMachine inputBuffer]:[[inputToDate mutableCopy] autorelease];
+    NSMutableString* inputBuffer = inputToDate==nil?[mainMachine inputBuffer]:[inputToDate mutableCopy];
     
     // Add the prefix, if any
     if (prefix) {
@@ -482,7 +467,6 @@ int display_readline(int* buf, int len, long int timeout) {
     }
     
     [inputBuffer deleteCharactersInRange: NSMakeRange(0, realLen)];
-    [prefix release];
 
     return termChar;
 }
@@ -495,9 +479,7 @@ int display_readchar(long int timeout) {
     id<ZDisplay> display = [mainMachine display];
 
     // Cycle the autorelease pool
-    [displayPool release];
-    displayPool = [[NSAutoreleasePool alloc] init];
-    
+    @autoreleasepool {
     // Send the input style across
     [[mainMachine windowNumber: zDisplayCurrentWindow] setInputStyle: zDisplayCurrentStyle];
     
@@ -515,8 +497,6 @@ int display_readchar(long int timeout) {
         when = [NSDate distantFuture];
     }
 
-    [when retain];
-
     // Wait for input
     while (mainMachine != nil &&
            [[mainMachine inputBuffer] length] == 0 &&
@@ -524,12 +504,7 @@ int display_readchar(long int timeout) {
         [mainLoop acceptInputForMode: NSDefaultRunLoopMode
                           beforeDate: when];
     }
-
-    [when release];
-
-    // Cycle the autorelease pool
-    [displayPool release];
-    displayPool = [[NSAutoreleasePool alloc] init];
+    }
 
     // Finish up
     [display stopReceiving];
@@ -630,7 +605,7 @@ int display_set_style(int style) {
     (newStyle.symbolic?16:0);
     
     // Not using this any more
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
+    if (zDisplayCurrentStyle) zDisplayCurrentStyle = nil;
 
     BOOL flag = (style<0)?NO:YES;
     if (style < 0) style = -style;
@@ -679,7 +654,7 @@ void display_set_colour(int fore, int back) {
     NSLog(@"ZDisplay: display_set_colour(%i, %i)", fore, back);
 #endif
     
-    zDisplayCurrentStyle = [[zDisplayCurrentStyle autorelease] copy];
+    zDisplayCurrentStyle = [zDisplayCurrentStyle copy];
 
     if (fore == -1) fore = rc_get_foreground();
     if (back == -1) back = rc_get_background();
@@ -734,7 +709,6 @@ void display_set_window(int window) {
     ZStyle* newStyle = [zDisplayCurrentStyle copy];
     [newStyle setForceFixed: zDisplayForceFixed[zDisplayCurrentWindow]];
     
-    [zDisplayCurrentStyle autorelease];
     zDisplayCurrentStyle = newStyle;
 }
 
@@ -932,12 +906,12 @@ ZFile* get_file_write(int* size, const char* name, ZFile_type purpose) {
                                     defaultName: name ? @(name) : nil];
     
     wait_for_file();
-    res = [[mainMachine lastFile] retain];
+    res = [mainMachine lastFile];
     [mainMachine clearFile];
 
     if (res) {
         if (size) *size = (int)[mainMachine lastSize];
-        return open_file_from_object([res autorelease]);
+        return open_file_from_object(res);
     } else {
         if (size) *size = -1;
         return NULL;
@@ -952,12 +926,12 @@ ZFile* get_file_read(int* size, const char* name, ZFile_type purpose) {
                                    defaultName: name ? @(name) : nil];
     
     wait_for_file();
-    res = [[mainMachine lastFile] retain];
+    res = [mainMachine lastFile];
     [mainMachine clearFile];
 
     if (res) {
         if (size) *size = (int)[mainMachine lastSize];
-        return open_file_from_object([res autorelease]);
+        return open_file_from_object(res);
     } else {
         if (size) *size = -1;
         return NULL;

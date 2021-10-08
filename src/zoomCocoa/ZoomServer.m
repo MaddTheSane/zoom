@@ -13,15 +13,14 @@
 #include <unistd.h>
 #include "zmachine.h"
 
-NSAutoreleasePool* mainPool = nil;
 NSRunLoop*         mainLoop = nil;
 
 ZoomZMachine*      mainMachine = nil;
 
 // == The main() function ==
 int main(int argc, char** argv) {
-    // Create the main autorelease pool and runloop
-    mainPool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
+    // Create the main runloop
     mainLoop = [NSRunLoop currentRunLoop];
 
 	
@@ -52,7 +51,6 @@ int main(int argc, char** argv) {
     }
     
     client = (id<ZClient>)[remoteConnection rootProxy];
-    [client retain];
     
     if (client == nil) {
         NSLog(@"Unable to locate client object for connection %@. Aborting", connectionName);
@@ -81,10 +79,7 @@ int main(int argc, char** argv) {
     NSLog(@"Server connected");
 
     // Main runloop
-    while (mainMachine != nil) {
-        [mainPool release];
-        mainPool = [[NSAutoreleasePool alloc] init];
-        
+    while (mainMachine != nil) @autoreleasepool {
         [mainLoop acceptInputForMode: NSDefaultRunLoopMode
                           beforeDate: [NSDate distantFuture]];
     }
@@ -92,7 +87,7 @@ int main(int argc, char** argv) {
 #ifdef DEBUG
     NSLog(@"Finalising...");
 #endif
-    [mainPool release];
     
     return 0;
+    }
 }

@@ -10,8 +10,6 @@
 #import "ZoomProtocol.h"
 #import "ZoomServer.h"
 
-extern NSAutoreleasePool* displayPool;
-
 extern void cocoa_debug_handler(ZDWord pc);
 
 extern struct BlorbImage* zoomImageCache;
@@ -46,9 +44,9 @@ extern int zoomImageCacheSize;
     BOOL waitingForBreakpoint;
 }
 
-@property (readonly, retain) id<ZDisplay> display;
+@property (readonly, strong) id<ZDisplay> display;
 - (id<ZWindow>)  windowNumber: (int) num;
-@property (readonly, retain) NSMutableString *inputBuffer;
+@property (readonly, strong) NSMutableString *inputBuffer;
 @property (readonly) int terminatingCharacter;
 
 @property (readonly) int mousePosX;
@@ -56,11 +54,11 @@ extern int zoomImageCacheSize;
 
 - (void)                filePromptStarted;
 @property (readonly) BOOL filePromptFinished;
-@property (readonly, retain) id<ZFile> lastFile;
+@property (readonly, strong) id<ZFile> lastFile;
 @property (readonly) NSInteger lastSize;
 - (void)                clearFile;
 
-@property (readonly, retain) ZBuffer *buffer;
+@property (readonly, strong) ZBuffer *buffer;
 - (void) flushBuffers;
 
 - (void) breakpoint: (int) pc;

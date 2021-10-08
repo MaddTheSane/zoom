@@ -51,7 +51,7 @@ static int set_style(int style) {
     (newStyle.symbolic?16:0);
     
     // Not using this any more
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
+    if (zDisplayCurrentStyle) zDisplayCurrentStyle = nil;
     
     BOOL flag = (style<0)?NO:YES;
     if (style < 0) style = -style;
@@ -170,12 +170,11 @@ static NSDictionary<NSAttributedStringKey, id>* styleAttributes(ZStyle* style) {
         return lastAttributes;
     }
     
-    [lastAttributes release]; lastAttributes = nil;
-    [attributeStyle release]; attributeStyle = nil;
+    lastAttributes = nil;
+    attributeStyle = nil;
     
     attributeStyle = [style copy];
     lastAttributes = [(id<ZPixmapWindow>)[mainMachine windowNumber: 0] attributesForStyle: style];
-    [lastAttributes retain];
     
     return lastAttributes;
 }

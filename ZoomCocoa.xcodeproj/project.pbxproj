@@ -130,11 +130,11 @@
 		4BB8C15708C2497700D7D334 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBC050F7DE200A8E303 /* stream.c */; };
 		4BB8C15808C2497700D7D334 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBD050F7DE200A8E303 /* random.c */; };
 		4BB8C15908C2497700D7D334 /* interp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FC0050F7DE200A8E303 /* interp.c */; };
-		4BB8C15A08C2497700D7D334 /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		4BB8C15A08C2497700D7D334 /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; };
 		4BB8C15B08C2497700D7D334 /* ZoomServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F30050F9E8F00A8E303 /* ZoomServer.m */; };
 		4BB8C15C08C2497700D7D334 /* ZoomZMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */; };
 		4BB8C15D08C2497700D7D334 /* v6display.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F5E050FBAAF00A8E303 /* v6display.c */; };
-		4BB8C15E08C2497700D7D334 /* ZFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF620050FD66E00A8E303 /* ZFiles.m */; };
+		4BB8C15E08C2497700D7D334 /* ZFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF620050FD66E00A8E303 /* ZFiles.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4BB8C15F08C2497700D7D334 /* ZDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE447B80510DE5900A8E303 /* ZDisplay.m */; };
 		4BB8C16008C2497700D7D334 /* Z6Display.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE621CF068C20D500369528 /* Z6Display.m */; };
 		4BB8C16208C2497700D7D334 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
@@ -243,7 +243,6 @@
 		55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */; };
 		55BB924F2048AC4100AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92502048AC6D00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
-		55BB92512048ACAE00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92542048AF1300AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92702048D8D900AB4B5B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BB926F2048D8D900AB4B5B /* Media.xcassets */; };
 		55BB927120490D3100AB4B5B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
@@ -969,7 +968,6 @@
 				551E27D426F8464A007204E1 /* ZoomPlugIns.framework in Frameworks */,
 				4B39CA8408EEFE8F00BA5E90 /* CoreServices.framework in Frameworks */,
 				55BB927120490D3100AB4B5B /* Cocoa.framework in Frameworks */,
-				55BB92512048ACAE00AB4B5B /* libexpat.tbd in Frameworks */,
 				4B39C94708EEF79300BA5E90 /* Foundation.framework in Frameworks */,
 				4B39CBCB08EF006E00BA5E90 /* CoreFoundation.framework in Frameworks */,
 			);
@@ -2989,7 +2987,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3010,7 +3008,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
