@@ -63,11 +63,12 @@ static NSString* convertCommand(NSString* command) {
 	}
 	
 	if (needsChange) {
-		command = [NSString stringWithCharacters: uniBuf
-										  length: [command length] - spaces];
+		command = [[NSString alloc] initWithCharactersNoCopy: uniBuf
+													  length: [command length] - spaces
+												freeWhenDone: YES];
+	} else {
+		free(uniBuf);
 	}
-	
-	free(uniBuf);
 	
 	return command;
 }

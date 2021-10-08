@@ -360,8 +360,9 @@ int display_readline(int* buf, int len, long int timeout) {
             prefixBuf[x] = buf[x];
         }
         
-        prefix = [NSString stringWithCharacters: prefixBuf
-                                         length: x];
+        prefix = [[NSString alloc] initWithCharactersNoCopy: prefixBuf
+                                                     length: x
+                                               freeWhenDone: YES];
     }
 
     // Cycle the autorelease pool
