@@ -1301,10 +1301,7 @@ static void finalizeViews(void) {
     }
 	
 	// The foreground colour must have 100% alpha
-	foregroundColour = [NSColor colorWithDeviceRed: [foregroundColour redComponent]
-											 green: [foregroundColour greenComponent]
-											  blue: [foregroundColour blueComponent]
-											 alpha: 1.0];
+	foregroundColour = [foregroundColour colorWithAlphaComponent: 1.0];
 	
     // Generate the new attributes
     NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1357,10 +1354,7 @@ static void finalizeViews(void) {
     }
 	
 	// The foreground colour must have 100% alpha
-	foregroundColour = [NSColor colorWithDeviceRed: [foregroundColour redComponent]
-											 green: [foregroundColour greenComponent]
-											  blue: [foregroundColour blueComponent]
-											 alpha: 1.0];
+	foregroundColour = [foregroundColour colorWithAlphaComponent: 1.0];
 	
     // Generate the new attributes
     NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1412,10 +1406,7 @@ static void finalizeViews(void) {
     }
 	
 	// The foreground colour must have 100% alpha
-	res = [NSColor colorWithDeviceRed: [res redComponent]
-								green: [res greenComponent]
-								 blue: [res blueComponent]
-								alpha: 1.0];	
+	res = [res colorWithAlphaComponent: 1.0];	
     
     return res;
 }

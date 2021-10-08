@@ -258,7 +258,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 @end
 
 #pragma mark - ZStyle
-NSString* const ZStyleAttributeName = @"ZStyleAttribute";
+NSString* const ZStyleAttributeName = @"ZoomStyleAttributeName";
 
 @implementation ZStyle
 
