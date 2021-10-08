@@ -14,7 +14,6 @@
 @class ZoomZMachine;
 
 // Globals
-extern NSAutoreleasePool* mainPool;
 extern NSRunLoop*         mainLoop;
 
 extern ZoomZMachine*      mainMachine;

@@ -35,8 +35,8 @@
         display = nil;
         machineFile = NULL;
 
-        inputBuffer = [[NSMutableString allocWithZone: [self zone]] init];
-        outputBuffer = [[ZBuffer allocWithZone: [self zone]] init];
+        inputBuffer = [[NSMutableString alloc] init];
+        outputBuffer = [[ZBuffer alloc] init];
         lastFile = nil;
 		terminatingCharacter = 0;
 
@@ -60,31 +60,22 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
     if (windows[0])
-        [windows[0] release];
+        windows[0] = nil;
     if (windows[1])
-        [windows[1] release];
+        windows[1] = nil;
     if (windows[2])
-        [windows[2] release];
+        windows[2] = nil;
 
     int x;
     for (x=0; x<3; x++) {
-        [windowBuffer[x] release];
+        windowBuffer[x] = nil;
     }
-
-    [display release];
-    [inputBuffer release];
-    [outputBuffer release];
 
     mainMachine = nil;
     
-    if (lastFile) [lastFile release];
-
     if (machineFile) {
         close_file(machineFile);
     }
-	if (storyData) [storyData release];
-    
-    [super dealloc];
 }
 
 - (NSString*) description {
@@ -99,10 +90,9 @@
 #pragma mark - Setup
 - (void) loadStoryFile: (in bycopy NSData*) storyFile {
     // Create the machine file
-	storyData = [storyFile retain];
+    storyData = storyFile;
     ZDataFile* file = [[ZDataFile alloc] initWithData: storyFile];
     machineFile = open_file_from_object(file);
-    [file release];
 	
 	// Start initialising the Z-Machine
 	// (We do this so that we can load a save state at any time after this call)
@@ -147,9 +137,8 @@
 #pragma mark - Running
 - (oneway void) startRunningInDisplay: (in byref id<ZDisplay>) disp {
     @autoreleasepool {
-    
 	// Remember the display
-    display = [disp retain];
+        display = disp;
 	
 	// Set up colours
 	if (rc_defgame) {
@@ -166,9 +155,6 @@
     windows[1] = NULL;
     windows[2] = NULL;
 
-    // Cycle the autorelease pool
-    displayPool = [[NSAutoreleasePool alloc] init];
-    
     switch (machine.header[0]) {
         case 3:
             // Status window
@@ -178,13 +164,13 @@
         case 7:
         case 8:
             // Upper/lower window
-            windows[0] = [[display createLowerWindow] retain];
-            windows[1] = [[display createUpperWindow] retain];
-            windows[2] = [[display createUpperWindow] retain];
+            windows[0] = [display createLowerWindow];
+            windows[1] = [display createUpperWindow];
+            windows[2] = [display createUpperWindow];
             break;
 
         case 6:
-			windows[0] = [[display createPixmapWindow] retain];
+            windows[0] = [display createPixmapWindow];
             break;
     }
 
@@ -269,17 +255,10 @@ void cocoa_debug_handler(ZDWord pc) {
 		[display hitBreakpointAt: pc];
 		
 		// Wait for the display to request resumption
-		NSAutoreleasePool* breakpointPool = [[NSAutoreleasePool alloc] init];
-		
-		while (waitingForBreakpoint && (mainMachine != nil)) {
-			[breakpointPool release];
-			breakpointPool = [[NSAutoreleasePool alloc] init];
-			
+        while (waitingForBreakpoint && (mainMachine != nil)) @autoreleasepool {
 			[mainLoop acceptInputForMode: NSDefaultRunLoopMode
 							  beforeDate: [NSDate distantFuture]];
 		}
-		
-		[breakpointPool release];
 	}
 }
 
@@ -623,7 +602,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 - (bycopy NSData*) storyFile {
-	return [[storyData copy] autorelease];
+    return [storyData copy];
 }
 
 - (bycopy NSString*) restoreSaveState: (in bycopy NSData*) saveData {
@@ -693,8 +672,6 @@ static NSString* zscii_to_string(ZByte* buf) {
 #pragma mark - Receiving files
 - (oneway void) filePromptCancelled {
     if (lastFile) {
-        [lastFile close];
-        [lastFile release];
         lastFile = nil;
         lastSize = -1;
     }
@@ -704,12 +681,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 - (oneway void) promptedFileIs: (in byref id<ZFile>) file
 						  size: (NSInteger) size {
-    if (lastFile) {
-        [lastFile close];
-        [lastFile release];
-    }
-    
-    lastFile = [file retain];
+    lastFile = file;
     lastSize = size;
     
     filePromptFinished = YES;
@@ -718,8 +690,6 @@ static NSString* zscii_to_string(ZByte* buf) {
 - (void) filePromptStarted {
     filePromptFinished = NO;
     if (lastFile) {
-        [lastFile close];
-        [lastFile release];
         lastFile = nil;
     }
 }
@@ -730,8 +700,6 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 - (void) clearFile {
     if (lastFile) {
-        [lastFile close];
-        [lastFile release];
         lastFile = nil;
     }
 }
@@ -762,8 +730,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 - (void) flushBuffers {
     [display flushBuffer: outputBuffer];
-    [outputBuffer release];
-    outputBuffer = [[ZBuffer allocWithZone: [self zone]] init];
+    outputBuffer = [[ZBuffer alloc] init];
 }
 
 #pragma mark - Display size
