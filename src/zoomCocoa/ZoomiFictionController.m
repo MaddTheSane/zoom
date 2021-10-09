@@ -414,7 +414,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		isDir = NO;
 		urlIsAvailableAndIsDirectory(filename, &isDir, NULL, NULL);
 		
-		NSString* fileType = [filename pathExtension];
+		NSString* fileType = [[filename pathExtension] lowercaseString];
 		Class plugin;
 		
 		if (isDir) {
@@ -475,7 +475,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		[[NSFileManager defaultManager] fileExistsAtPath: filename
 											 isDirectory: &isDir];
 		
-		NSString* fileType = [filename pathExtension];
+		NSString* fileType = [[filename pathExtension] lowercaseString];
 		Class plugin;
 		
 		if (isDir) {
