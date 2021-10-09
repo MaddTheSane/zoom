@@ -10,6 +10,7 @@
 #import "ZoomAppDelegate.h"
 
 #include "ifmetabase.h"
+#include "ifmetadata.h"
 #include "ifmetaxml.h"
 
 #define ReportErrors

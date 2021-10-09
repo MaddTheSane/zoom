@@ -1,5 +1,30 @@
 framework module ZoomPlugIns {
 	
+	explicit module ifmetabase {
+		header "ifmetabase.h"
+		export *
+	}
+	
+	explicit module ifmetadata {
+		header "ifmetadata.h"
+		export *
+	}
+	
+	explicit module ifmetaxml {
+		header "ifmetaxml.h"
+		export *
+	}
+	
+	explicit module tads {
+		header "tads.h"
+		export *
+	}
+	
+	explicit module treaty {
+		header "treaty.h"
+		export *
+	}
+	
 	explicit module ZoomBabel {
 		requires objc
 		header "ZoomBabel.h"
@@ -93,31 +118,6 @@ framework module ZoomPlugIns {
 	explicit module ZoomStoryID {
 		requires objc
 		header "ZoomStoryID.h"
-		export *
-	}
-	
-	explicit module ifmetabase {
-		header "ifmetabase.h"
-		export *
-	}
-	
-	explicit module ifmetadata {
-		header "ifmetadata.h"
-		export *
-	}
-	
-	explicit module ifmetaxml {
-		header "ifmetaxml.h"
-		export *
-	}
-	
-	explicit module tads {
-		header "tads.h"
-		export *
-	}
-	
-	explicit module treaty {
-		header "treaty.h"
 		export *
 	}
 	

@@ -33,7 +33,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 //! Cocoa interface to the C ifmetadata class
 @interface ZoomMetadata : NSObject {
 	NSString* filename;
-	struct IFMetabase* metadata;
+	IFMetabase metadata;
 	
 	NSLock* dataLock;
 }

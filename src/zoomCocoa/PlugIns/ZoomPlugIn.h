@@ -20,8 +20,10 @@
 ///
 @interface ZoomPlugIn : NSObject {
 @private
-	NSString* gameFile;											// The game that this plugin will play
-	NSData* gameData;											// The game data (loaded on demand)
+	/// The game that this plugin will play
+	NSString* gameFile;
+	/// The game data (loaded on demand)
+	NSData* gameData;
 }
 
 // Informational functions (subclasses should normally override)

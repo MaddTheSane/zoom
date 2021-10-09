@@ -38,6 +38,10 @@
 
 #undef  IFMD_ALLOW_TESTING
 
+#ifdef __OBJC__
+#import <ZoomPlugins/ZoomStory.h>
+#endif
+
 /*
  * Some notes:
  *
