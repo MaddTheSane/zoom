@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (nullable ZoomStoryID*) idForFile: (NSString*) filename;
++ (nullable ZoomStoryID*) idForURL: (NSURL*) filename;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 - (nullable instancetype) initWithZCodeStory: (NSData*) gameData;
@@ -31,6 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 							 checksum: (int) checksum;
 
 @property (readonly) struct IFID *ident NS_RETURNS_INNER_POINTER;
+
+- (nullable instancetype) initWithZCodeFileAtURL: (NSURL*) zcodeFile error: (NSError**) outError;
+- (nullable instancetype) initWithGlulxFileAtURL: (NSURL*) glulxFile error: (NSError**) outError;
+
 
 - (nullable instancetype)initWithCoder:(NSCoder *)coder;
 

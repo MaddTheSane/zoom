@@ -22,6 +22,7 @@
 - (id) initWithZFile: (id<ZFile>) file NS_DESIGNATED_INITIALIZER; //!< Designated initialiser
 - (id) initWithData: (NSData*) blorbFile;
 - (id) initWithContentsOfFile: (NSString*) filename;
+- (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 
 // Cache control
 - (void) removeAdaptiveImagesFromCache;

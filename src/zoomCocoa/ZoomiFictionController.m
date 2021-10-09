@@ -2374,7 +2374,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		}
 		
 		// Must have an ID
-		ZoomStoryID* storyId = [ZoomStoryID idForFile: path.path];
+		ZoomStoryID* storyId = [ZoomStoryID idForURL: path];
 		if (!storyId) continue;
 		
 		// Organise this file

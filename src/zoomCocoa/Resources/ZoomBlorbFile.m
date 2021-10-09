@@ -178,6 +178,14 @@ static unsigned int Int4(const unsigned char* bytes) {
 								 [NSFileHandle fileHandleForReadingAtPath: filename]]];
 }
 
+- (id) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError {
+	NSFileHandle *fh = [NSFileHandle fileHandleForReadingFromURL: filename error: outError];
+	if (!fh) {
+		return nil;
+	}
+	return [self initWithZFile: [[ZHandleFile alloc] initWithFileHandle: fh]];
+}
+
 - (void) dealloc {
 	if (file) {
 		[file close];

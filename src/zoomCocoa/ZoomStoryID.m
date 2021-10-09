@@ -61,6 +61,49 @@ BOOL ZoomIsSpotlightIndexing = NO;
 	return result;
 }
 
++ (ZoomStoryID*) idForURL: (NSURL*) filename {
+	ZoomStoryID* result = nil;
+
+	if (!ZoomIsSpotlightIndexing) {
+		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename.path];
+		
+		if (plugin != nil) {
+			// Try asking the plugin for the type of this file
+			result = [plugin idForStory];
+		}
+		
+		if (result != nil) return result;
+	}
+	
+	// If this is a z-code or blorb file, then try the Z-Code ID
+	NSString* extension = [[filename pathExtension] lowercaseString];
+	
+	if ([extension isEqualToString: @"z3"]
+		|| [extension isEqualToString: @"z4"]
+		|| [extension isEqualToString: @"z5"]
+		|| [extension isEqualToString: @"z6"]
+		|| [extension isEqualToString: @"z7"]
+		|| [extension isEqualToString: @"z8"]
+		|| [extension isEqualToString: @"blb"]
+		|| [extension isEqualToString: @"zlb"]
+		|| [extension isEqualToString: @"zblorb"]) {
+		result = [[ZoomStoryID alloc] initWithZCodeFileAtURL: filename error: NULL];
+	}
+	
+	// if that fails, try using glulx parsing.
+	if ((result == nil) &&
+		([extension isEqualToString: @"gblorb"]
+		 || [extension isEqualToString: @"glb"]
+		 || [extension isEqualToString: @"blb"]
+		 || [extension isEqualToString: @"blorb"]
+		 || [extension isEqualToString: @"zblorb"]
+		 || [extension isEqualToString: @"zlb"])) {
+		result = [[ZoomStoryID alloc] initWithGlulxFileAtURL: filename error: NULL];
+	}
+	
+	return result;
+}
+
 - (id) initWithIdString: (NSString*) idString {
 	self = [super init];
 	
@@ -173,19 +216,27 @@ BOOL ZoomIsSpotlightIndexing = NO;
 	return self;
 }
 
-- (id) initWithZCodeFile: (NSString*) zcodeFile {
+// TODO: create error enums better suited for this task.
+
+- (instancetype) initWithZCodeFileAtURL: (NSURL*) zcodeFile error: (NSError**)outError {
 	self = [super init];
 	
 	if (self) {
 		const unsigned char* bytes;
 		NSInteger length;
 		
-		NSFileHandle* fh = [NSFileHandle fileHandleForReadingAtPath: zcodeFile];
+		NSFileHandle* fh = [NSFileHandle fileHandleForReadingFromURL: zcodeFile error: outError];
+		if (!fh) {
+			return nil;
+		}
 		NSData* data = [fh readDataToEndOfFile];
 		[fh closeFile];
 		
 		if ([data length] < 64) {
 			// This file is too short to be a Z-Code file
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 		
@@ -196,7 +247,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			// This is not a Z-Code file; it's possibly a blorb file, though
 						
 			// Try to interpret as a blorb file
-			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: zcodeFile];
+			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: zcodeFile error: outError];
 			
 			if (blorbFile == nil) {
 				return nil;
@@ -205,11 +256,17 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			// See if we can get the ZCOD chunk
 			data = [blorbFile dataForChunkWithType: @"ZCOD"];
 			if (data == nil) {
+				if (outError) {
+					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				}
 				return nil;
 			}
 			
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
+				if (outError) {
+					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				}
 				return nil;
 			}
 			
@@ -220,6 +277,9 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		
 		if (bytes[0] > 8) {
 			// This cannot be a Z-Code file
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 		
@@ -279,6 +339,9 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		}
 		
 		if (ident == nil) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 	}
@@ -286,19 +349,25 @@ BOOL ZoomIsSpotlightIndexing = NO;
 	return self;
 }
 
-- (id) initWithGlulxFile: (NSString*) glulxFile {
+- (instancetype) initWithGlulxFileAtURL: (NSURL*) glulxFile error:(NSError *__autoreleasing  _Nullable * _Nullable)outError {
 	self = [super init];
 	
 	if (self) {
 		// Read the header of this file
 		const unsigned char* bytes;
 		
-		NSFileHandle* fh = [NSFileHandle fileHandleForReadingAtPath: glulxFile];
+		NSFileHandle* fh = [NSFileHandle fileHandleForReadingFromURL: glulxFile error: outError];
+		if (!fh) {
+			return nil;
+		}
 		NSData* data = [fh readDataOfLength: 64];
 		[fh closeFile];
 		
 		if ([data length] < 64) {
 			// This file is too short to be a Glulx file
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 		
@@ -308,7 +377,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			// This is not a Z-Code file; it's possibly a blorb file, though
 			
 			// Try to interpret as a blorb file
-			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: glulxFile];
+			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: glulxFile error: outError];
 			
 			if (blorbFile == nil) {
 				return nil;
@@ -317,25 +386,37 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			// See if we can get the ZCOD chunk
 			data = [blorbFile dataForChunkWithType: @"GLUL"];
 			if (data == nil) {
+				if (outError) {
+					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				}
 				return nil;
 			}
 			
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
+				if (outError) {
+					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				}
 				return nil;
 			}
 			
 			// Change to using the blorb data instead
 			bytes = [data bytes];
 		} else if (bytes[0] == 'G' && bytes[1] == 'l' && bytes[2] == 'u' && bytes[3] == 'l') {
-			data = [NSData dataWithContentsOfFile: glulxFile];
+			data = [NSData dataWithContentsOfURL: glulxFile];
 			bytes = [data bytes];
 			
 			if ([data length] < 64) {
+				if (outError) {
+					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				}
 				return nil;
 			}
 		} else {
 			// Not a Glulx file
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 		
@@ -406,11 +487,22 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			needsFreeing = YES;
 		}
 		if (ident == nil) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 	}
 	
 	return self;
+}
+
+- (id) initWithZCodeFile: (NSString*) zcodeFile {
+	return [self initWithZCodeFileAtURL: [NSURL fileURLWithPath: zcodeFile] error: NULL];
+}
+
+- (id) initWithGlulxFile: (NSString*) glulxFile {
+	return [self initWithGlulxFileAtURL: [NSURL fileURLWithPath: glulxFile] error: NULL];
 }
 
 - (id) initWithData: (NSData*) genericGameData
