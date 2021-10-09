@@ -19,7 +19,7 @@ NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.errors";
 
 #define ZoomLocalizedStringWithDefaultValue(key, val, comment) \
-	NSLocalizedStringWithDefaultValue(key, nil, NSBundle.mainBundle, val, comment)
+	NSLocalizedStringWithDefaultValue(key, @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], val, comment)
 
 @implementation ZoomMetadata
 

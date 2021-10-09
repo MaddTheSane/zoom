@@ -40,7 +40,9 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 + (nullable NSString*) keyForTag: (NSInteger) tag;
 
 // Initialisation
-+ (nullable ZoomStory*) defaultMetadataForFile: (NSString*) filename;
++ (nullable ZoomStory*) defaultMetadataForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use +defaultMetadataForURL:error: instead");
++ (nullable ZoomStory*) defaultMetadataForURL: (NSURL*) filename
+										error: (NSError**) outError;
 
 - (instancetype) initWithStory: (IFStory) story
 					  metadata: (ZoomMetadata*) metadataContainer;
@@ -93,5 +95,3 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 @end
 
 NS_ASSUME_NONNULL_END
-
-#import <ZoomPlugIns/ZoomMetadata.h>

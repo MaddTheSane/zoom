@@ -238,6 +238,7 @@
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27DA26F84691007204E1 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		552A03812049E90900A4ECAA /* treaty.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD79A9E0BA2CABF002C82B2 /* treaty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		559BE445270CF16E00B93F2C /* NSStringXMLEncodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559BE444270CF16E00B93F2C /* NSStringXMLEncodeHelper.swift */; };
 		55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */; };
@@ -918,6 +919,7 @@
 		4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomBlorbFile.m; sourceTree = "<group>"; };
 		552A037F2049E74B00A4ECAA /* ZoomView.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ZoomView.modulemap; sourceTree = "<group>"; };
 		552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomPlugIns.modulemap; sourceTree = "<group>"; };
+		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
 		5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinWeb.h; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		559BE444270CF16E00B93F2C /* NSStringXMLEncodeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStringXMLEncodeHelper.swift; sourceTree = "<group>"; };
@@ -1324,6 +1326,7 @@
 		4B7CB0730936276B00F3B8F6 /* PlugIns */ = {
 			isa = PBXGroup;
 			children = (
+				553C83662712382B002782C0 /* Resources */,
 				55BE4AE7270998B100100A7D /* Quest */,
 				4B36C44F0955ECDD00874F9F /* Glulxe */,
 				552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */,
@@ -1617,6 +1620,14 @@
 			name = Metadata;
 			sourceTree = "<group>";
 			usesTabs = 1;
+		};
+		553C83662712382B002782C0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				553C837027123862002782C0 /* ZoomErrors.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
 		};
 		55BB92552048CCFE00AB4B5B /* ifdbWeb */ = {
 			isa = PBXGroup;
@@ -2116,6 +2127,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				553C836E27123862002782C0 /* ZoomErrors.strings in Resources */,
 				4B43DA8409364C7400F03009 /* GlkWindow.xib in Resources */,
 				4B152CE40B46CC07008CC1EF /* GameInfo.xib in Resources */,
 				4B152DBE0B46E929008CC1EF /* NoteWindow.xib in Resources */,
@@ -2572,6 +2584,14 @@
 				4B926A110CD1464B00CE0ADB /* en */,
 			);
 			name = "ifdb-failed.html";
+			sourceTree = "<group>";
+		};
+		553C837027123862002782C0 /* ZoomErrors.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				553C836F27123862002782C0 /* en */,
+			);
+			name = ZoomErrors.strings;
 			sourceTree = "<group>";
 		};
 		55BD080F21B7638800A8DD5F /* schema.strings */ = {

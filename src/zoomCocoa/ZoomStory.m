@@ -22,6 +22,24 @@ static NSString* const ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
 
 static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
 
+#ifndef __MAC_11_0
+#define __MAC_11_0          110000
+#endif
+
+static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
+	if (![url checkResourceIsReachableAndReturnError: NULL]) {
+		return NO;
+	}
+	if (isDirectory) {
+		NSNumber *dirNum;
+		[url getResourceValue: &dirNum forKey: NSURLIsDirectoryKey error: NULL];
+		*isDirectory = dirNum.boolValue;
+	}
+	
+	return YES;
+}
+
+
 @interface ZoomStory ()
 - (NSString*) newKeyForOld: (NSString*) key NS_RETURNS_NOT_RETAINED;
 
@@ -40,6 +58,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 
 + (NSString*) nameForKey: (NSString*) key {
 	// FIXME: internationalisation (this FIXME applies to most of Zoom, which is why it hasn't happened yet)
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
 	static NSDictionary* keyNameDict = nil;
 	
 	if (keyNameDict == nil) {
@@ -58,6 +77,22 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 			@"coverpicture": @"Cover picture number",
 		};
 	}
+#else
+	static NSDictionary* const keyNameDict = @{
+		@"title": @"Title",
+		@"headline": @"Headline",
+		@"author": @"Author",
+		@"genre": @"Genre",
+		@"group": @"Group",
+		@"year": @"Year",
+		@"zarfian": @"Zarfian rating",
+		@"teaser": @"Teaser",
+		@"comment": @"Comments",
+		@"rating": @"My Rating",
+		@"description": @"Description",
+		@"coverpicture": @"Cover picture number",
+	};
+#endif
 	
 	return [keyNameDict objectForKey: key];
 }
@@ -81,32 +116,52 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	return nil;
 }
 
-+ (ZoomStory*) defaultMetadataForFile: (NSString*) filename {
++ (ZoomStory*) defaultMetadataForURL: (NSURL*) filename
+							   error: (NSError**) outError {
 	// Gets the standard metadata for the given file
 	BOOL isDir;
+
+	if (!urlIsAvailable(filename, &isDir)) {
+		if (outError) {
+			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+											code: NSFileReadNoSuchFileError
+										userInfo: @{NSURLErrorKey: filename}];
+		}
+		return nil;
+	}
 	
-	if (![[NSFileManager defaultManager] fileExistsAtPath: filename
-											  isDirectory: &isDir]) return nil;
-	if (isDir) return nil;
+	if (isDir) {
+		if (outError) {
+			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+											code: NSFileReadUnknownError
+										userInfo: @{NSURLErrorKey: filename}];
+		}
+		return nil;
+	}
 	
 	// Get the ID for this file
 	// NSData* fileData = [NSData dataWithContentsOfFile: filename];
-	ZoomStoryID* fileID = [ZoomStoryID idForFile: filename];
+	ZoomStoryID* fileID = [ZoomStoryID idForURL: filename];
 	ZoomMetadata* fileMetadata = nil;
 	
 	if (fileID == nil) {
-		fileID = [[ZoomStoryID alloc] initWithData: [NSData dataWithContentsOfFile: filename]];
+		fileID = [[ZoomStoryID alloc] initWithData: [NSData dataWithContentsOfURL: filename]];
 	}
 	
 	// If this file is a blorb file, then extract the IFmd chunk
-	NSFileHandle* fh = [NSFileHandle fileHandleForReadingAtPath: filename];
+	NSFileHandle* fh = [NSFileHandle fileHandleForReadingFromURL: filename
+														   error: outError];
+	if (!fh) {
+		return nil;
+	}
 	NSData* data = [fh readDataOfLength: 64];
 	const unsigned char* bytes = [data bytes];
 	[fh closeFile];
 	
 	ZoomBlorbFile* blorb = nil;
 	if (bytes[0] == 'F' && bytes[1] == 'O' && bytes[2] == 'R' && bytes[3] == 'M') {
-		blorb = [[ZoomBlorbFile alloc] initWithContentsOfFile: filename];
+		blorb = [[ZoomBlorbFile alloc] initWithContentsOfURL: filename
+													   error: outError];
 		NSData* ifMD = [blorb dataForChunkWithType: @"IFmd"];
 		
 		if (ifMD != nil) {
@@ -123,7 +178,7 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 		result = [fileMetadata findOrCreateStory: fileID];
 		
 		if (result == nil) {
-			NSLog(@"Warning: found a game with an IFmd chunk, but which did not appear to contain any relevant metadata (looked for ID: %@)", fileID); 
+			NSLog(@"Warning: found a game with an IFmd chunk, but which did not appear to contain any relevant metadata (looked for ID: %@)", fileID);
 		}
 	}
 	
@@ -138,8 +193,8 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 		NSString* orgDir = [[[ZoomPreferences globalPreferences] organiserDirectory] stringByStandardizingPath];
 		BOOL storyIsOrganised = NO;
 		
-		NSString* mightBeOrgDir = [[[filename stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-		mightBeOrgDir = [mightBeOrgDir stringByStandardizingPath];
+		NSURL* mightBeOrgURL = [[[filename URLByDeletingLastPathComponent] URLByDeletingLastPathComponent] URLByDeletingLastPathComponent];
+		NSString *mightBeOrgDir = [mightBeOrgURL.path stringByStandardizingPath];
 		
 		if ([orgDir caseInsensitiveCompare: mightBeOrgDir] == NSOrderedSame) storyIsOrganised = YES;
 		if (![[[[filename lastPathComponent] stringByDeletingPathExtension] lowercaseString] isEqualToString: @"game"]) storyIsOrganised = NO;
@@ -149,10 +204,10 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 		NSString* gameName;
 		
 		if (storyIsOrganised) {
-			gameName = [[filename stringByDeletingLastPathComponent] lastPathComponent];
-			groupName = [[[filename stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] lastPathComponent];
+			gameName = [[filename URLByDeletingLastPathComponent] lastPathComponent];
+			groupName = [[[filename URLByDeletingLastPathComponent] URLByDeletingLastPathComponent] lastPathComponent];
 		} else {
-			gameName = [[filename stringByDeletingPathExtension] lastPathComponent];
+			gameName = [[filename URLByDeletingPathExtension] lastPathComponent];
 			groupName = @"";
 		}
 		
@@ -179,6 +234,11 @@ static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryEx
 	
 	// Return the result
 	return result;
+}
+
++ (ZoomStory*) defaultMetadataForFile: (NSString*) filename {
+	return [self defaultMetadataForURL: [NSURL fileURLWithPath: filename]
+								 error: NULL];
 }
 
 #pragma mark - Initialisation

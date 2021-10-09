@@ -7,6 +7,7 @@
 //
 
 #import "ZoomNotesController.h"
+#import "ZoomMetadata.h"
 
 
 @implementation ZoomNotesController
