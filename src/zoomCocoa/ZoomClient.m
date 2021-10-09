@@ -114,13 +114,8 @@
 		// Blorb files already have their resources pre-packaged: get the Z-Code chunk out of this file
 		gameData = nil;
 		
-		ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithData: data];
+		ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithData: data error:outError];
 		if (newRes == nil) {
-			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
-												code: NSFileReadCorruptFileError
-											userInfo: nil];
-			}
 			return NO;
 		}
 		
@@ -130,7 +125,9 @@
 		if (zcodChunks == nil || [zcodChunks count] <= 0) {
 			NSLog(@"Not a Z-Code file");
 			if (outError) {
-				*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+												code: NSFileReadCorruptFileError
+											userInfo: nil];
 			}
 			return NO;
 		}
@@ -150,14 +147,12 @@
 	}
 	
 	// Discover the metadata for this game
-	storyId = [[ZoomStoryID alloc] initWithZCodeStory: gameData];
+	storyId = [[ZoomStoryID alloc] initWithZCodeStory: gameData
+												error: outError];
 
 	if (storyId == nil) {
 		// Can't ID this story
 		gameData = nil;
-		if (outError) {
-			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
-		}
 		return NO;
 	}
 	

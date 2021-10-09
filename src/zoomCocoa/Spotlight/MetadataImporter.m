@@ -87,8 +87,11 @@ static Boolean GetMetadataForFile(void *thisInterface,
     Boolean success = NO;
 
 	// Get the story from the metadata database
-	ZoomStoryID * story_id = [[ZoomStoryID alloc] initWithZCodeFile:(__bridge NSString*)pathToFile];
+		ZoomStoryID * story_id = [[ZoomStoryID alloc] initWithZCodeFileAtURL: [NSURL fileURLWithPath: (__bridge NSString*)pathToFile] error: NULL];
 	ZoomStory * story = FindStory( story_id );
+		if (!story) {
+			return NO;
+		}
 
 //	NSLog( @"story_id = 0x%08lx story = 0x%08lx path = %@\n", story_id, story, pathToFile );
 	

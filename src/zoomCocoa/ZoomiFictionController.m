@@ -422,7 +422,8 @@ static dispatch_block_t onceTypesBlock = ^{
 			
 			[selectedFiles addObjectsFromArray: dirContents];
 		} else if ([ZComFileTypes containsObject: fileType]) {
-			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFile: path];
+			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFileAtURL: filename
+																		error: NULL];
 			
 			if (fileID != nil) {
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: filename
@@ -432,7 +433,8 @@ static dispatch_block_t onceTypesBlock = ^{
 				
 			}
 		} else if ([blorbFileTypes containsObject: fileType]) {
-			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithGlulxFile: path];
+			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithGlulxFileAtURL: filename
+																		error: NULL];
 			
 			if (fileID != nil) {
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: filename

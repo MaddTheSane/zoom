@@ -10,6 +10,12 @@
 
 #import <ZoomView/ZoomProtocol.h>
 
+extern NSErrorDomain const ZoomBlorbErrorDomain;
+typedef NS_ERROR_ENUM(ZoomBlorbErrorDomain, ZoomBlorbError) {
+	ZoomBlorbErrorTooSmall,
+	ZoomBlorbErrorNoFORMBlock
+};
+
 @interface ZoomBlorbFile : NSObject
 
 // Testing files

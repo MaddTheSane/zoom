@@ -15,6 +15,7 @@
 #include <CommonCrypto/CommonDigest.h>
 
 BOOL ZoomIsSpotlightIndexing = NO;
+NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.storyid.errors";
 
 @implementation ZoomStoryID
 
@@ -115,7 +116,11 @@ BOOL ZoomIsSpotlightIndexing = NO;
 	return self;
 }
 
-- (id) initWithZCodeStory: (NSData*) gameData {
+- (instancetype)initWithZCodeStory:(NSData *)gameData {
+	return [self initWithZCodeStory: gameData error: NULL];
+}
+
+- (id) initWithZCodeStory: (NSData*) gameData error: (NSError *__autoreleasing  _Nullable * _Nullable) outError {
 	self = [super init];
 	
 	if (self) {
@@ -131,7 +136,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			// This is not a Z-Code file; it's possibly a blorb file, though
 			
 			// Try to interpret as a blorb file
-			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithData: gameData];
+			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithData: gameData error: outError];
 			
 			if (blorbFile == nil) {
 				return nil;
@@ -216,8 +221,6 @@ BOOL ZoomIsSpotlightIndexing = NO;
 	return self;
 }
 
-// TODO: create error enums better suited for this task.
-
 - (instancetype) initWithZCodeFileAtURL: (NSURL*) zcodeFile error: (NSError**)outError {
 	self = [super init];
 	
@@ -235,7 +238,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		if ([data length] < 64) {
 			// This file is too short to be a Z-Code file
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
 			}
 			return nil;
 		}
@@ -257,7 +260,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			data = [blorbFile dataForChunkWithType: @"ZCOD"];
 			if (data == nil) {
 				if (outError) {
-					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoZCodeChunk userInfo: nil];
 				}
 				return nil;
 			}
@@ -265,7 +268,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
 				if (outError) {
-					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
 				}
 				return nil;
 			}
@@ -278,7 +281,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		if (bytes[0] > 8) {
 			// This cannot be a Z-Code file
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorBadZCodeVersion userInfo: nil];
 			}
 			return nil;
 		}
@@ -340,7 +343,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		
 		if (ident == nil) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoIdentGenerated userInfo: nil];
 			}
 			return nil;
 		}
@@ -366,7 +369,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		if ([data length] < 64) {
 			// This file is too short to be a Glulx file
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
 			}
 			return nil;
 		}
@@ -387,7 +390,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			data = [blorbFile dataForChunkWithType: @"GLUL"];
 			if (data == nil) {
 				if (outError) {
-					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoGlulxChunk userInfo: nil];
 				}
 				return nil;
 			}
@@ -395,7 +398,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
 				if (outError) {
-					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
 				}
 				return nil;
 			}
@@ -408,7 +411,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 			
 			if ([data length] < 64) {
 				if (outError) {
-					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
 				}
 				return nil;
 			}
@@ -488,7 +491,7 @@ BOOL ZoomIsSpotlightIndexing = NO;
 		}
 		if (ident == nil) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoIdentGenerated userInfo: nil];
 			}
 			return nil;
 		}

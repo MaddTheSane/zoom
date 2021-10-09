@@ -10,18 +10,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSErrorDomain const ZoomStoryIDErrorDomain;
+typedef NS_ERROR_ENUM(ZoomStoryIDErrorDomain, ZoomStoryIDError) {
+	ZoomStoryIDErrorFileTooSmall,
+	ZoomStoryIDErrorBadZCodeVersion,
+	ZoomStoryIDErrorNoZCodeChunk,
+	ZoomStoryIDErrorNoGlulxChunk,
+	ZoomStoryIDErrorNoIdentGenerated
+};
+
 @interface ZoomStoryID : NSObject<NSCopying, NSSecureCoding> {
 	struct IFID* ident;
 	BOOL needsFreeing;
 }
 
-+ (nullable ZoomStoryID*) idForFile: (NSString*) filename;
++ (nullable ZoomStoryID*) idForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -idForURL: instead");
 + (nullable ZoomStoryID*) idForURL: (NSURL*) filename;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
-- (nullable instancetype) initWithZCodeStory: (NSData*) gameData;
-- (nullable instancetype) initWithZCodeFile: (NSString*) zcodeFile;
-- (nullable instancetype) initWithGlulxFile: (NSString*) glulxFile;
+- (nullable instancetype) initWithZCodeStory: (NSData*) gameData DEPRECATED_MSG_ATTRIBUTE("Use -initWithZCodeStory:error: instead");
+- (nullable instancetype) initWithZCodeFile: (NSString*) zcodeFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithZCodeFileAtURL:error: instead");
+- (nullable instancetype) initWithGlulxFile: (NSString*) glulxFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithGlulxFileAtURL:error: instead");
 - (nullable instancetype) initWithData: (NSData*) genericGameData;
 - (nullable instancetype) initWithData: (NSData*) genericGameData
 								  type: (NSString*) type;
@@ -33,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) struct IFID *ident NS_RETURNS_INNER_POINTER;
 
+- (nullable instancetype) initWithZCodeStory: (NSData*) gameData error: (NSError**) outError;
 - (nullable instancetype) initWithZCodeFileAtURL: (NSURL*) zcodeFile error: (NSError**) outError;
 - (nullable instancetype) initWithGlulxFileAtURL: (NSURL*) glulxFile error: (NSError**) outError;
 

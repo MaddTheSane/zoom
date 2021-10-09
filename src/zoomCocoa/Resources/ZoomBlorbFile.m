@@ -8,6 +8,8 @@
 
 #import "ZoomBlorbFile.h"
 
+NSErrorDomain const ZoomBlorbErrorDomain = @"uk.org.logicalshift.zoomview.blorb.errors";
+
 @implementation ZoomBlorbFile {
 	id<ZFile> file;
 	
@@ -92,8 +94,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return [self initWithZFile:f error: NULL];
 }
 
-// TODO: create error enums better suited for this task.
-
 - (id) initWithZFile: (id<ZFile>) f error: (NSError**) outError {
 	self = [super init];
 	
@@ -113,14 +113,14 @@ static unsigned int Int4(const unsigned char* bytes) {
 		
 		if (header == nil) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadNoSuchFileError userInfo: nil];
 			}
 			return nil;
 		}
 		
 		if ([header length] != 12) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain code: ZoomBlorbErrorTooSmall userInfo: nil];
 			}
 			return nil;
 		}
@@ -128,7 +128,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		// File must begin with 'FORM'
 		if (memcmp([header bytes], "FORM", 4) != 0) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain code: ZoomBlorbErrorNoFORMBlock userInfo: nil];
 			}
 			return nil;
 		}
@@ -144,7 +144,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		
 		if (formLength + 8 > (unsigned)[file fileSize]) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain code: ZoomBlorbErrorTooSmall userInfo: nil];
 			}
 			return nil;
 		}
@@ -162,7 +162,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 			
 			if (blockHeader == nil || [blockHeader length] != 8) {
 				if (outError) {
-					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain code: ZoomBlorbErrorTooSmall userInfo: nil];
 				}
 				return nil;
 			}

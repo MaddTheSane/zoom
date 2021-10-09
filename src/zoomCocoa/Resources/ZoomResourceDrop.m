@@ -204,7 +204,8 @@ notAFilename:
 	}
 	
 	NSLog(@"Resource drop filename changed... Checking:");
-	ZoomBlorbFile* file = [[ZoomBlorbFile alloc] initWithContentsOfFile: droppedFilename];
+	ZoomBlorbFile* file = [[ZoomBlorbFile alloc] initWithContentsOfURL: [NSURL fileURLWithPath: droppedFilename]
+																 error: NULL];
 	if (file == nil) {
 		NSLog(@"Failed to load file");
 		return;
