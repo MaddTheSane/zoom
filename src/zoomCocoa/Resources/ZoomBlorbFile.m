@@ -49,6 +49,16 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return res;
 }
 
++ (BOOL) fileContentsAreBlorbAtURL: (NSURL*) filename {
+	id<ZFile> fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingFromURL: filename error: NULL]];
+	
+	BOOL res = [self zfileIsBlorb: fl];
+	[fl close];
+
+	return res;
+
+}
+
 + (BOOL) fileContentsIsBlorb: (NSString*) filename {
 	id<ZFile> fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingAtPath: filename]];
 	
@@ -60,7 +70,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 
 + (BOOL) zfileIsBlorb: (id<ZFile>) zfile {
 	// Possibly should write a faster means of doing this
-	ZoomBlorbFile* fl = [[[self class] alloc] initWithZFile: zfile];
+	ZoomBlorbFile* fl = [[[self class] alloc] initWithZFile: zfile error: NULL];
 	
 	if (fl == nil) return NO;
 	
@@ -79,10 +89,19 @@ static unsigned int Int4(const unsigned char* bytes) {
 #pragma mark - Initialisation
 
 - (id) initWithZFile: (id<ZFile>) f {
+	return [self initWithZFile:f error: NULL];
+}
+
+// TODO: create error enums better suited for this task.
+
+- (id) initWithZFile: (id<ZFile>) f error: (NSError**) outError {
 	self = [super init];
 	
 	if (self) {
 		if (f == nil) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSOSStatusErrorDomain code: paramErr userInfo: nil];
+			}
 			return nil;
 		}
 		
@@ -93,15 +112,24 @@ static unsigned int Int4(const unsigned char* bytes) {
 		NSData* header = [file readBlock: 12];
 		
 		if (header == nil) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 		
 		if ([header length] != 12) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 		
 		// File must begin with 'FORM'
 		if (memcmp([header bytes], "FORM", 4) != 0) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 		
@@ -115,6 +143,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 		formLength = (lBytes[0]<<24)|(lBytes[1]<<16)|(lBytes[2]<<8)|(lBytes[3]<<0);
 		
 		if (formLength + 8 > (unsigned)[file fileSize]) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+			}
 			return nil;
 		}
 		
@@ -130,6 +161,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 			NSData* blockHeader = [file readBlock: 8];
 			
 			if (blockHeader == nil || [blockHeader length] != 8) {
+				if (outError) {
+					*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				}
 				return nil;
 			}
 			
@@ -170,7 +204,11 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 - (id) initWithData: (NSData*) blorbFile {
-	return [self initWithZFile: [[ZDataFile alloc] initWithData: blorbFile]];
+	return [self initWithData: blorbFile error: NULL];
+}
+
+- (instancetype) initWithData: (NSData*) blorbFile error: (NSError**) outError {
+	return [self initWithZFile: [[ZDataFile alloc] initWithData: blorbFile] error: outError];
 }
 
 - (id) initWithContentsOfFile: (NSString*) filename {
@@ -183,7 +221,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	if (!fh) {
 		return nil;
 	}
-	return [self initWithZFile: [[ZHandleFile alloc] initWithFileHandle: fh]];
+	return [self initWithZFile: [[ZHandleFile alloc] initWithFileHandle: fh] error: outError];
 }
 
 - (void) dealloc {
