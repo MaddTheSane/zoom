@@ -357,7 +357,7 @@ static void finalizeViews(void) {
 		
 		// FIXME: test of the cursor
 		[pixmapCursor positionAt: NSMakePoint(100, 100)
-						withFont: [self fontWithStyle: 0]];
+						withFont: [self fontFromStyle: 0]];
 		[pixmapCursor setShown: NO];
 		[pixmapCursor setBlinking: YES];
 		[pixmapCursor setActive: YES];
@@ -483,14 +483,14 @@ static void finalizeViews(void) {
 	// Position the cursor
 	if (pixmapWindow != nil) {
 		ZStyle* style = [pixmapWindow inputStyle];
-		int fontnum =
-			(style.bold?1:0)|
-			(style.underline?2:0)|
-			(style.fixed?4:0)|
-			(style.symbolic?8:0);
+		ZFontStyle fontnum =
+			(style.bold?ZStyleBold:0)|
+			(style.underline?ZStyleUnderline:0)|
+			(style.fixed?ZStyleFixed:0)|
+			(style.symbolic?ZStyleSymbolic:0);
 		
 		[pixmapCursor positionAt: [pixmapWindow inputPos]
-						withFont: [self fontWithStyle: fontnum]];
+						withFont: [self fontFromStyle: fontnum]];
 		
 		[pixmapCursor setShown: !moreOn];
 	}
@@ -579,14 +579,14 @@ static void finalizeViews(void) {
 		
 		// Move the cursor to the appropriate position
 		ZStyle* style = [pixmapWindow inputStyle];
-		int fontnum =
-			(style.bold?1:0)|
-			(style.underline?2:0)|
-			(style.fixed?4:0)|
-			(style.symbolic?8:0);
+		ZFontStyle fontnum =
+			(style.bold?ZStyleBold:0)|
+			(style.underline?ZStyleUnderline:0)|
+			(style.fixed?ZStyleFixed:0)|
+			(style.symbolic?ZStyleSymbolic:0);
 		
 		[pixmapCursor positionAt: [pixmapWindow inputPos]
-						withFont: [self fontWithStyle: fontnum]];
+						withFont: [self fontFromStyle: fontnum]];
 
 		// Display the cursor
 		[pixmapCursor setShown: YES];
@@ -667,7 +667,7 @@ static void finalizeViews(void) {
                   Y: (out int*) ySize {
     NSSize fixedSize = [@"M" sizeWithAttributes:
         [NSDictionary dictionaryWithObjectsAndKeys:
-		 [self fontWithStyle:ZStyleFixed], NSFontAttributeName, nil]];
+		 [self fontFromStyle:ZStyleFixed], NSFontAttributeName, nil]];
     NSRect ourBounds = NSMakeRect(0,0,0,0);
 	
 	if (pixmapWindow == nil)
@@ -697,7 +697,7 @@ static void finalizeViews(void) {
 		*width = 1;
 		*height = 1;
 	} else {
-		NSFont*             font            = [self fontWithStyle: ZStyleFixed];
+		NSFont*             font            = [self fontFromStyle: ZStyleFixed];
         NSLayoutManager*    layoutManager   = [textView layoutManager];
 	
 		*width  = [@"m" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil]].width;
@@ -1224,7 +1224,7 @@ static void finalizeViews(void) {
 	} else {
 		// Point is in character coordinates
 		NSDictionary* fixedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-										 [self fontWithStyle:ZStyleFixed], NSFontAttributeName, nil];
+										 [self fontFromStyle:ZStyleFixed], NSFontAttributeName, nil];
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 		
 		int charX = floor(pointInView.x / fixedSize.width);
@@ -1263,15 +1263,15 @@ static void finalizeViews(void) {
 	
     // Font
     NSFont* fontToUse = nil;
-    int fontnum;
+	ZFontStyle fontnum;
 	
     fontnum =
-        (style.bold?1:0)|
-        (style.underline?2:0)|
-        (style.fixed?4:0)|
-        (style.symbolic?8:0);
+        (style.bold?ZStyleBold:0)|
+        (style.underline?ZStyleUnderline:0)|
+        (style.fixed?ZStyleFixed:0)|
+        (style.symbolic?ZStyleSymbolic:0);
 	
-    fontToUse = [fonts objectAtIndex: fontnum];
+    fontToUse = [self fontFromStyle: fontnum];
 	
     // Colour
     NSColor* foregroundColour = [style foregroundTrue];
@@ -1316,15 +1316,15 @@ static void finalizeViews(void) {
 
     // Font
     NSFont* fontToUse = nil;
-    int fontnum;
+	ZFontStyle fontnum;
 
     fontnum =
-        (style.bold?1:0)|
-        (style.underline?2:0)|
-        (style.fixed?4:0)|
-        (style.symbolic?8:0);
+        (style.bold?ZStyleBold:0)|
+        (style.underline?ZStyleUnderline:0)|
+        (style.fixed?ZStyleFixed:0)|
+        (style.symbolic?ZStyleSymbolic:0);
 
-    fontToUse = [fonts objectAtIndex: fontnum];
+    fontToUse = [self fontFromStyle: fontnum];
 
     // Colour
     NSColor* foregroundColour = [style foregroundTrue];
@@ -1423,6 +1423,10 @@ static void finalizeViews(void) {
 }
 
 - (NSFont*) fontWithStyle: (ZFontStyle) style {
+	return [self fontFromStyle: style];
+}
+
+- (NSFont*) fontFromStyle: (ZFontStyle) style {
     if (style < 0 || (unsigned)style >= 16) {
         return nil;
     }
@@ -1487,7 +1491,7 @@ static void finalizeViews(void) {
 
         // Force text display onto lower window (or where the lower window will be)
         NSDictionary* fixedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-										 [self fontWithStyle:ZStyleFixed], NSFontAttributeName, nil];
+										 [self fontFromStyle: ZStyleFixed], NSFontAttributeName, nil];
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 
         NSAttributedString* newLine = [[NSAttributedString alloc] initWithString: @"\n"
@@ -1909,7 +1913,6 @@ static void finalizeViews(void) {
             typeCode = '\?\?\?\?';
                 [panel setMessage: [NSString stringWithFormat: @"%@ data file", saveOpen]];
                 
-                // (Assume if setMessage is supported, we have 10.3)
                 [panel setAllowsOtherFileTypes: YES];
                 [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"dat", @"qut", nil]];
             break;

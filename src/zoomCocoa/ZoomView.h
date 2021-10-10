@@ -19,10 +19,10 @@
 #import <ZoomView/ZoomViewProtocols.h>
 
 typedef NS_OPTIONS(unsigned int, ZFontStyle) {
-	ZStyleBold = 1,
-	ZStyleUnderline = 2,
-	ZStyleFixed = 4,
-	ZStyleSymbolic = 8
+	ZStyleBold NS_SWIFT_NAME(bold) = 1,
+	ZStyleUnderline NS_SWIFT_NAME(underline) = 2,
+	ZStyleFixed NS_SWIFT_NAME(fixed) = 4,
+	ZStyleSymbolic NS_SWIFT_NAME(symbolic) = 8
 };
 
 extern NSAttributedStringKey const ZoomStyleAttributeName;
@@ -162,7 +162,8 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (NSString*) nextHistoryItem;
 
 // Fonts, colours, etc
-- (NSFont*) fontWithStyle: (ZFontStyle) style;
+- (NSFont*) fontWithStyle: (ZFontStyle) style NS_DEPRECATED_WITH_REPLACEMENT_MAC("-fontFromStyle:", 10.2, 10.15);
+- (NSFont*) fontFromStyle: (ZFontStyle) style;
 - (NSColor*) foregroundColourForStyle: (ZStyle*) style;
 - (NSColor*) backgroundColourForStyle: (ZStyle*) style;
 

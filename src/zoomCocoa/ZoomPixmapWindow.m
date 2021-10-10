@@ -169,7 +169,7 @@
         (style.fixed?4:0)|
         (style.symbolic?8:0);
 
-	NSFont* font = [zView fontWithStyle: fontnum];
+	NSFont* font = [zView fontFromStyle: fontnum];
     NSSize fontSize = [self sizeOfFont: font];
 	
 	*width = fontSize.width;
