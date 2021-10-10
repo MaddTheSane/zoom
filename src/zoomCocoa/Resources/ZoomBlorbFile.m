@@ -52,7 +52,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 + (BOOL) fileContentsAreBlorbAtURL: (NSURL*) filename {
-	id<ZFile> fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingFromURL: filename error: NULL]];
+	ZHandleFile *fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingFromURL: filename error: NULL]];
 	
 	BOOL res = [self zfileIsBlorb: fl];
 	[fl close];
@@ -62,7 +62,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 + (BOOL) fileContentsIsBlorb: (NSString*) filename {
-	id<ZFile> fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingAtPath: filename]];
+	ZHandleFile *fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingAtPath: filename]];
 	
 	BOOL res = [self zfileIsBlorb: fl];
 	[fl close];
@@ -72,7 +72,8 @@ static unsigned int Int4(const unsigned char* bytes) {
 
 + (BOOL) zfileIsBlorb: (id<ZFile>) zfile {
 	// Possibly should write a faster means of doing this
-	ZoomBlorbFile* fl = [[[self class] alloc] initWithZFile: zfile error: NULL];
+	ZoomBlorbFile* fl = [[[self class] alloc] initWithZFile: zfile
+													  error: NULL];
 	
 	if (fl == nil) return NO;
 	
@@ -91,7 +92,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 #pragma mark - Initialisation
 
 - (id) initWithZFile: (id<ZFile>) f {
-	return [self initWithZFile:f error: NULL];
+	return [self initWithZFile: f error: NULL];
 }
 
 - (id) initWithZFile: (id<ZFile>) f error: (NSError**) outError {
@@ -100,7 +101,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 	if (self) {
 		if (f == nil) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSOSStatusErrorDomain code: paramErr userInfo: nil];
+				*outError = [NSError errorWithDomain: NSOSStatusErrorDomain
+												code: paramErr
+											userInfo: nil];
 			}
 			return nil;
 		}
@@ -113,14 +116,18 @@ static unsigned int Int4(const unsigned char* bytes) {
 		
 		if (header == nil) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadNoSuchFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+												code: NSFileReadNoSuchFileError
+											userInfo: nil];
 			}
 			return nil;
 		}
 		
 		if ([header length] != 12) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain code: ZoomBlorbErrorTooSmall userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
+												code: ZoomBlorbErrorTooSmall
+											userInfo: nil];
 			}
 			return nil;
 		}
@@ -128,7 +135,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 		// File must begin with 'FORM'
 		if (memcmp([header bytes], "FORM", 4) != 0) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain code: ZoomBlorbErrorNoFORMBlock userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
+												code: ZoomBlorbErrorNoFORMBlock
+											userInfo: nil];
 			}
 			return nil;
 		}
@@ -144,7 +153,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 		
 		if (formLength + 8 > (unsigned)[file fileSize]) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain code: ZoomBlorbErrorTooSmall userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
+												code: ZoomBlorbErrorTooSmall
+											userInfo: nil];
 			}
 			return nil;
 		}
@@ -162,7 +173,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 			
 			if (blockHeader == nil || [blockHeader length] != 8) {
 				if (outError) {
-					*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain code: ZoomBlorbErrorTooSmall userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
+													code: ZoomBlorbErrorTooSmall
+												userInfo: nil];
 				}
 				return nil;
 			}
@@ -204,11 +217,13 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 - (id) initWithData: (NSData*) blorbFile {
-	return [self initWithData: blorbFile error: NULL];
+	return [self initWithData: blorbFile
+						error: NULL];
 }
 
 - (instancetype) initWithData: (NSData*) blorbFile error: (NSError**) outError {
-	return [self initWithZFile: [[ZDataFile alloc] initWithData: blorbFile] error: outError];
+	return [self initWithZFile: [[ZDataFile alloc] initWithData: blorbFile]
+						 error: outError];
 }
 
 - (id) initWithContentsOfFile: (NSString*) filename {
@@ -217,11 +232,13 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 - (id) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError {
-	NSFileHandle *fh = [NSFileHandle fileHandleForReadingFromURL: filename error: outError];
+	NSFileHandle *fh = [NSFileHandle fileHandleForReadingFromURL: filename
+														   error: outError];
 	if (!fh) {
 		return nil;
 	}
-	return [self initWithZFile: [[ZHandleFile alloc] initWithFileHandle: fh] error: outError];
+	return [self initWithZFile: [[ZHandleFile alloc] initWithFileHandle: fh]
+						 error: outError];
 }
 
 - (void) dealloc {

@@ -114,7 +114,8 @@
 		// Blorb files already have their resources pre-packaged: get the Z-Code chunk out of this file
 		gameData = nil;
 		
-		ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithData: data error:outError];
+		ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithData: data
+															  error: outError];
 		if (newRes == nil) {
 			return NO;
 		}

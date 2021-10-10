@@ -136,7 +136,8 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			// This is not a Z-Code file; it's possibly a blorb file, though
 			
 			// Try to interpret as a blorb file
-			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithData: gameData error: outError];
+			ZoomBlorbFile* blorbFile = [[ZoomBlorbFile alloc] initWithData: gameData
+																	 error: outError];
 			
 			if (blorbFile == nil) {
 				return nil;
