@@ -19,10 +19,10 @@
 #import <ZoomView/ZoomViewProtocols.h>
 
 typedef NS_OPTIONS(unsigned int, ZFontStyle) {
-	ZBoldStyle = 1,
-	ZUnderlineStyle = 2,
-	ZFixedStyle = 4,
-	ZSymbolicStyle = 8
+	ZStyleBold = 1,
+	ZStyleUnderline = 2,
+	ZStyleFixed = 4,
+	ZStyleSymbolic = 8
 };
 
 extern NSAttributedStringKey const ZoomStyleAttributeName;
@@ -254,3 +254,8 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (void) inputSourceHasFinished: (id<ZoomViewInputSource>) inputSource;
 
 @end
+
+static const ZFontStyle ZBoldStyle NS_DEPRECATED_WITH_REPLACEMENT_MAC("ZStyleBold", 10.2, 10.9) = ZStyleBold;
+static const ZFontStyle ZUnderlineStyle NS_DEPRECATED_WITH_REPLACEMENT_MAC("ZStyleUnderline", 10.2, 10.9) = ZStyleUnderline;
+static const ZFontStyle ZFixedStyle NS_DEPRECATED_WITH_REPLACEMENT_MAC("ZStyleFixed", 10.2, 10.9) = ZStyleFixed;
+static const ZFontStyle ZSymbolicStyle NS_DEPRECATED_WITH_REPLACEMENT_MAC("ZStyleSymbolic", 10.2, 10.9) = ZStyleSymbolic;

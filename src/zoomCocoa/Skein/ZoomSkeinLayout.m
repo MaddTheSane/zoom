@@ -695,7 +695,7 @@ static NSImage* unchangedDark, *activeDark;
 				[line lineToPoint: NSMakePoint(childXPos, annotated?endYPos-14:endYPos+10.0)];
 				
 				// Set the appropriate colour and dash pattern
-				if ([[child item] temporary]) {
+				if ([child item].temporary) {
 					CGFloat dashPattern[2];
 					
 					[tempChildLink set];

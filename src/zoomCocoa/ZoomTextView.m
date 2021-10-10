@@ -212,7 +212,7 @@
     
     NSSize fixedSize = [@"M" sizeWithAttributes:
         [NSDictionary dictionaryWithObjectsAndKeys:
-            [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+         [zoomView fontWithStyle:ZStyleFixed], NSFontAttributeName, nil]];
     
 	NSFontManager* fm = [NSFontManager sharedFontManager];
 	
