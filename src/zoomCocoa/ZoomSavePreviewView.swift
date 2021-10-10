@@ -148,6 +148,7 @@ class SavePreviewView: NSView {
 		needsDisplay = true
 	}
 	
+	@available(*, deprecated, renamed: "SavePreviewView.selectedSaveGameURL")
 	var selectedSaveGame: String? {
 		if let selVal = selected {
 			return upperWindowViews[selVal].filename
@@ -155,6 +156,15 @@ class SavePreviewView: NSView {
 			return nil
 		}
 	}
+	
+	var selectedSaveGameURL: URL? {
+		if let selVal = selected {
+			return upperWindowViews[selVal].fileURL
+		} else {
+			return nil
+		}
+	}
+
 	
 	func previewMouseUp(_ evt: NSEvent, in view: SavePreview) {
 		guard let clicked = upperWindowViews.firstIndex(of: view) else {

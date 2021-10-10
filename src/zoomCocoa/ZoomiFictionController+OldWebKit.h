@@ -8,11 +8,20 @@
 #ifndef ZoomiFictionController_OldWebKit_h
 #define ZoomiFictionController_OldWebKit_h
 
+#import <Cocoa/Cocoa.h>
 #import "ZoomiFictionController.h"
 #import <WebKit/WebKit.h>
 
-@interface ZoomiFictionController () <WebFrameLoadDelegate, WebPolicyDelegate> {
+@interface ZoomiFictionController () {
 	IBOutlet WebView* ifdbView;
+}
+
+- (BOOL) canPlayFile: (NSString*) filename;
+- (void) updateBackForwardButtons;
+- (void) hideDownloadWindow: (NSTimeInterval) duration;
+@end
+
+@interface ZoomiFictionController (OldWebKit) <WebFrameLoadDelegate, WebPolicyDelegate> {
 }
 
 @end

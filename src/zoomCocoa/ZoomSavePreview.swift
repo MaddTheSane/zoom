@@ -14,6 +14,7 @@ private let saveHighlightActive = NSImage(named: "saveHighlightActive")!
 private let saveBackground = NSImage(named: "saveBackground")!
 
 class SavePreview : NSView {
+	@available(*, deprecated, renamed: "SavePreview.fileURL")
 	var filename: String? {
 		return fileURL?.path
 	}
