@@ -165,7 +165,7 @@
 		story = [(ZoomAppDelegate*)[NSApp delegate] findStory: storyId];
 		
 		if (story == nil) {
-			story = [ZoomStory defaultMetadataForFile: [[self fileURL] path]];
+			story = [ZoomStory defaultMetadataForURL: [self fileURL] error: NULL];
 		}
 		
 		[story addID: storyId];

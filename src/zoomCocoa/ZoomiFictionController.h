@@ -141,7 +141,7 @@
 - (void) mergeiFictionFromFile: (NSString*) filename;
 - (NSArray<ZoomStory*>*) mergeiFictionFromMetabase: (ZoomMetadata*) newData;
 
-- (void) addFiles: (NSArray<NSString*> *)filenames;
+- (void) addFiles: (NSArray<NSString*> *)filenames DEPRECATED_MSG_ATTRIBUTE("use -addURLs: instead");
 - (void) addURLs: (NSArray<NSURL*> *)filenames;
 
 - (void) setupSplitView;
