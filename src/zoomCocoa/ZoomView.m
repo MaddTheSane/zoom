@@ -732,21 +732,12 @@ static void finalizeViews(void) {
 //! Sets the title of the window, or resets the title if text is an empty string.
 - (void)setWindowTitle:(in bycopy NSString *)text {
     if (@available(macOS 11.0, *)) {
-        if (self.window.subtitle.length == 0 && text.length != 0) {
-            self.window.subtitle = self.window.title;
-            self.window.title = text;
-        } else if (self.window.subtitle.length != 0 && text.length == 0) {
-            [self.window setTitleWithRepresentedFilename: self.window.representedFilename];
-            self.window.subtitle = @"";
-        } else {
-            self.window.title = text;
-        }
+		if (text == nil) {
+			text = @"";
+		}
+		self.window.subtitle = text;
     } else {
-        if (text.length != 0) {
-            self.window.title = text;
-        } else {
-            [self.window setTitleWithRepresentedFilename: self.window.representedFilename];
-        }
+		//TODO: implement
     }
 }
 
