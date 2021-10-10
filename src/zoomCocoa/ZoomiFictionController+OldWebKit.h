@@ -21,8 +21,7 @@
 - (void) hideDownloadWindow: (NSTimeInterval) duration;
 @end
 
-@interface ZoomiFictionController (OldWebKit) <WebFrameLoadDelegate, WebPolicyDelegate> {
-}
+@interface ZoomiFictionController (OldWebKit) <WebFrameLoadDelegate, WebPolicyDelegate>
 
 @end
 

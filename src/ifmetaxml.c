@@ -108,7 +108,7 @@ void IF_ReadIfiction(IFMetabase meta, const unsigned char* xml, size_t size) {
 
 /* Some string utility functions */
 
-static unsigned char bytesFromUTF8[256] = {
+static const unsigned char bytesFromUTF8[256] = {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

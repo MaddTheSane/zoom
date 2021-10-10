@@ -125,35 +125,27 @@ static NSString* convertCommand(NSString* command) {
 - (void) itemIsBeingReplacedBy: (ZoomSkeinItem*) item {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemIsBeingReplaced
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  item, ZoomSIItem,
-														  self, ZoomSIOldItem,
-														  nil]];
+													  userInfo: @{ZoomSIItem: item,
+																  ZoomSIOldItem: self}];
 }
 
 - (void) itemHasBeenRemovedFromTree {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemHasBeenRemovedFromTree
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  self, ZoomSIItem,
-														  nil]];
+													  userInfo: @{ZoomSIItem: self}];
 }
 
 - (void) itemHasNewChild: (ZoomSkeinItem*) newChild {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemHasNewChild
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  self, ZoomSIItem,
-														  newChild, ZoomSIChild,
-														  nil]];
+													  userInfo: @{ZoomSIItem: self,
+																  ZoomSIChild: newChild}];
 }
 
 - (void) itemHasChanged {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemHasChanged
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  self, ZoomSIItem,
-														  nil]];
+													  userInfo: @{ZoomSIItem: self}];
 }
 
 // **** Data accessors ****
@@ -177,9 +169,7 @@ static NSString* convertCommand(NSString* command) {
 
 - (void) mergeWith: (ZoomSkeinItem*) newItem {
 	// Merges this item with another
-	NSEnumerator* objEnum = [[newItem children] objectEnumerator];
-	
-	for (ZoomSkeinItem* childItem in objEnum) {
+	for (ZoomSkeinItem* childItem in [newItem children]) {
 		ZoomSkeinItem* oldChild = [self childWithCommand: [childItem command]];
 		
 		// Same reasoning as addChild: - this saves us a message call, which might allow us to deal with deeper skeins
