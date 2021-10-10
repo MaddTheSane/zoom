@@ -16,6 +16,10 @@
 
 #include "ifmetaxml.h"
 
+#ifdef HAVE_COREFOUNDATION
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 /* == Reading ifiction records == */
 
 #ifndef XMLCALL
@@ -108,6 +112,8 @@ void IF_ReadIfiction(IFMetabase meta, const unsigned char* xml, size_t size) {
 
 /* Some string utility functions */
 
+/* This isn't used if we're using CoreFoundation. */
+#ifndef HAVE_COREFOUNDATION
 static const unsigned char bytesFromUTF8[256] = {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -117,6 +123,7 @@ static const unsigned char bytesFromUTF8[256] = {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2, 3,3,3,3,3,3,3,3,4,4,4,4,5,5,5,5};
+#endif
 
 /* Compare an XML string against a C string */
 static int XCstrcmp(const XML_Char* a, const char* b) {
@@ -165,6 +172,22 @@ static char* Xascii(const IFChar* s) {
 }
 
 static IFChar* Xmdchar(const XML_Char* s, int len) {
+#ifdef HAVE_COREFOUNDATION
+	if (len < 0) len = Xstrlen(s);
+	static_assert(sizeof(XML_Char) == sizeof(char), "Expected XML_Char to be the same size as a char, as is in Apple's built-in expat.");
+	CFStringRef str = CFStringCreateWithBytesNoCopy(NULL, s, len, kCFStringEncodingUTF8, true, kCFAllocatorNull);
+	CFDataRef utf16Data = CFStringCreateExternalRepresentation(NULL, str, kCFStringEncodingUTF16LE, '?');
+	CFRelease(str);
+	
+	size_t dataLen = CFDataGetLength(utf16Data);
+	IFChar* res = malloc(dataLen+2);
+	CFDataGetBytes(utf16Data, CFRangeMake(0, dataLen), (UInt8 *)res);
+	res[dataLen/2] = 0;
+	
+	CFRelease(utf16Data);
+	
+	return res;
+#else
 	int x, pos;
 	IFChar* res;
 	
@@ -214,6 +237,7 @@ static IFChar* Xmdchar(const XML_Char* s, int len) {
 	res[pos] = 0;
 	
 	return res;
+#endif
 }
 
 /* Error handling/reporting */

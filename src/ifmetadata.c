@@ -172,7 +172,7 @@ static XML_Char* Xlower(XML_Char* s) {
 	return s;
 }
 
-static char* Xascii(XML_Char* s) {
+static char* Xascii(const XML_Char* s) {
 	/* Converts 's' to simple ASCII. The return value must be freed */
 	char* res;
 	int x;
@@ -203,7 +203,7 @@ static const unsigned char bytesFromUTF8[256] = {
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2, 3,3,3,3,3,3,3,3,4,4,4,4,5,5,5,5};
 
-static IFMDChar* Xmdchar(XML_Char* s) {
+static IFMDChar* Xmdchar(const XML_Char* s) {
 	/* Converts s to IFMDChars. Result needs to be freed */
 	int x, pos;
 	int len = Xstrlen(s);
