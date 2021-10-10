@@ -211,7 +211,7 @@ static IFChar* Xmdchar(const XML_Char* s, int len) {
 		}
 	}
 	
-	res[pos++] = 0;
+	res[pos] = 0;
 	
 	return res;
 }

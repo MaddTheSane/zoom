@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, ZSVbutton)
 	ZSVmainItem = 256
 };
 
-NSString* const ZoomSkeinItemPboardType = @"ZoomSkeinItemPboardType";
+NSString* const ZoomSkeinItemPboardType = @"uk.org.logicalshift.zoom.skein.item";
 NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 
 // Our sooper sekrit interface

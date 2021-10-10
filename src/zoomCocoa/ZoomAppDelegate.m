@@ -552,7 +552,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	NSString *data = [[[ZoomSkeinController sharedSkeinController] skein] transcriptToPoint: nil];
 	
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript: panel returnCode: result contextInfo: data];
+		[self saveTranscript: panel returnCode: result stringData: data];
 	}];
 }
 
@@ -588,7 +588,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	NSString *saveData = [[[ZoomSkeinController sharedSkeinController] skein] recordingToPoint: nil];
 	
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript: panel returnCode: result contextInfo: saveData];
+		[self saveTranscript: panel returnCode: result stringData: saveData];
 	}];
 }
 
@@ -612,13 +612,13 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	panel.directoryURL = directory;
 	
 	[panel beginSheetModalForWindow: [NSApp mainWindow] completionHandler: ^(NSModalResponse result) {
-		[self saveTranscript: panel returnCode: result contextInfo: xml];
+		[self saveTranscript: panel returnCode: result stringData: xml];
 	}];
 }
 
 - (void) saveTranscript: (NSSavePanel *) panel 
              returnCode: (NSModalResponse) returnCode
-            contextInfo: (NSString*) data {
+			 stringData: (NSString*) data {
 	if (returnCode != NSModalResponseOK) {
 		return;
 	}

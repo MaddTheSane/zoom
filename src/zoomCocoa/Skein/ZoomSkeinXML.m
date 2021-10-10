@@ -13,8 +13,6 @@
 
 NSErrorDomain const ZoomSkeinXMLParserErrorDomain = @"uk.org.logicalshift.zoomview.skein.xmlerrors";
 
-//TODO: migrate to NSXML* classes?
-
 #pragma mark - XML input class
 
 static NSString* const xmlAttributes = @"xmlAttributes";
@@ -104,9 +102,7 @@ static NSString* xmlEncode(NSString* str) {
 		[itemStack removeLastObject];
 		
 		// Push any children of this node
-		for (ZoomSkeinItem* childNode in [node children]) {
-			[itemStack addObject: childNode];
-		}
+		[itemStack addObjectsFromArray: [node children].allObjects];
 		
 		// Generate the XML for this node
 		[result appendFormat: @"  <item nodeId=\"%@\">\n",
@@ -155,6 +151,8 @@ static NSString* xmlEncode(NSString* str) {
 #pragma mark - Parsing the XML
 
 // Have to use expat: Apple's own XML parser is not available in Jaguar
+// TODO: Jaguar support is a distant memory.
+// FIXME: Using a native Obj-C class for XML parsing will probably result in cleaner code.
 
 - (BOOL) parseXmlData: (NSData*) data error: (NSError**) error {
 	@autoreleasepool {
@@ -508,101 +506,15 @@ static XMLCALL void charData    (void *userData,
 
 #pragma mark - XML callback messages
 
-static int Xstrlen(const XML_Char* a) {
-	int x;
-	
-	if (a == NULL) return 0;
-	
-	for (x=0; a[x] != 0; x++);
-	
-	return x;
-}
-
-static const unsigned char bytesFromUTF8[256] = {
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2, 3,3,3,3,3,3,3,3,4,4,4,4,5,5,5,5};
-
-static unichar* Xmdchar(const XML_Char* s, int len) {
-	/* Converts s to unichars. Result needs to be freed */
-	int x, pos;
-	unichar* res;
-	
-	res = malloc(sizeof(unichar)*(len+1));
-	pos = 0;
-	
-	for (x=0; x<len; x++) {
-		int chr = (unsigned char)s[x];
-		
-		if (chr < 127) {
-			res[pos++] = chr;
-		} else {
-			/* UTF-8 decode */
-			int bytes = bytesFromUTF8[chr];
-			int chrs[6];
-			int y;
-			int errorFlag;
-			
-			if (x+bytes >= len) break;
-			
-			/* Read+check the characters that make up this char */
-			errorFlag = 0;
-			for (y=0; y<=bytes; y++) {
-				chrs[y] = (unsigned char)s[x+y];
-				
-				if (chrs[y] < 127) errorFlag = 1;
-			}
-			if (errorFlag) continue; /* Ignore this character (error) */
-			
-			/* Get the UCS-4 character */
-			switch (bytes) {
-				case 1: chr = ((chrs[0]&~0xc0)<<6)|(chrs[1]&~0x80); break;
-				case 2: chr = ((chrs[0]&~0xe0)<<12)|((chrs[1]&~0x80)<<6)|(chrs[2]&~0x80); break;
-				case 3: chr = ((chrs[0]&~0xf0)<<18)|((chrs[1]&~0x80)<<12)|((chrs[2]&~0x80)<<6)|(chrs[3]&~0x80); break;
-				case 4: chr = ((chrs[0]&~0xf8)<<24)|((chrs[1]&~0x80)<<18)|((chrs[2]&~0x80)<<12)|((chrs[3]&~0x80)<<6)|(chrs[4]&~0x80); break;
-				case 5: chr = ((chrs[0]&~0xfc)<<28)|((chrs[1]&~0x80)<<24)|((chrs[2]&~0x80)<<18)|((chrs[3]&~0x80)<<12)|((chrs[4]&~0x80)<<6)|(chrs[5]&~0x80); break;
-			}
-			
-			x += bytes;
-			
-			res[pos++] = chr;
-		}
-	}
-	
-	res[x] = 0;
-	
-	return res;
-}
-
 static NSString* makeString(const XML_Char* data) {
-	unichar* res = Xmdchar(data, Xstrlen(data));
-	
-	int len;
-	for (len=0; res[len]!=0; len++);
-	
-	NSString* str = [[NSString alloc] initWithCharactersNoCopy: res
-														length: len
-												  freeWhenDone: YES];
-	
-	return str;
+	return @((const char*)data);
 }
 
 static NSString* makeStringLen(const XML_Char* data, int lenIn) {
-	unichar* res = Xmdchar(data, lenIn);
-	
-	int len;
-	for (len=0; res[len]!=0; len++);
-	
-	NSString* str = [[NSString alloc] initWithCharactersNoCopy: res
-														length: len
-												  freeWhenDone: YES];
-	
-	return str;
+	NSData *dat = [NSData dataWithBytes: data
+								 length: lenIn];
+	return [[NSString alloc] initWithData: dat
+								 encoding: NSUTF8StringEncoding];
 }
 
 - (void) startElement: (const XML_Char*) name
