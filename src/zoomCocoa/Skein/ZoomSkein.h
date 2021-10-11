@@ -71,7 +71,7 @@ typedef NS_ERROR_ENUM(ZoomSkeinXMLParserErrorDomain, ZoomSkeinXMLError) {
 
 @interface ZoomSkein(ZoomSkeinXML)
 
-//- (NSString*) xmlData;
+//- (NSString*) xmlData; // Moved to ZoomSkeinXMLSwift
 - (BOOL)      parseXmlData: (NSData*) data error: (NSError**) error;
 
 @end

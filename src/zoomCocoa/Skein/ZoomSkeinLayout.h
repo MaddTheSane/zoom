@@ -15,29 +15,7 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 	IFSkeinPackTight NS_SWIFT_NAME(tight)
 };
 
-@interface ZoomSkeinLayout : NSObject {
-	ZoomSkeinItem* rootItem;
-
-	// Item mapping
-	NSMutableDictionary<NSValue*,ZoomSkeinLayoutItem*>* itemForItem;
-	
-	// The layout
-	ZoomSkeinLayoutItem* tree;
-	NSMutableArray<NSMutableArray<ZoomSkeinLayoutItem*>*>* levels;
-	CGFloat globalOffset, globalWidth;
-	
-	CGFloat itemWidth;
-	CGFloat itemHeight;
-	IFSkeinPackingStyle packingStyle;
-	
-	// Highlighted skein line
-	ZoomSkeinItem* highlightedLineItem;
-	NSMutableSet<NSValue*>*  highlightedSet;
-	
-	// Some extra status
-	ZoomSkeinItem* activeItem;
-	ZoomSkeinItem* selectedItem;
-}
+@interface ZoomSkeinLayout : NSObject
 
 // Initialisation
 - (id) initWithRootItem: (ZoomSkeinItem*) item;

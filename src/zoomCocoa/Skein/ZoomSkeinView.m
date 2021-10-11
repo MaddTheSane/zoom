@@ -81,7 +81,50 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 
 @end
 
-@implementation ZoomSkeinView
+@implementation ZoomSkeinView {
+@private
+	// Layout
+	ZoomSkeinLayout* layout;
+	
+	// Cursor flags
+	BOOL overWindow;
+	BOOL overItem;
+	
+	NSMutableArray* trackingRects;
+	NSMutableArray* trackingItems;
+	ZoomSkeinItem* trackedItem;
+	ZoomSkeinItem* clickedItem;
+	
+	// Dragging items
+	BOOL    dragCanMove;
+
+	// Drag scrolling
+	BOOL    dragScrolling;
+	NSPoint dragOrigin;
+	NSRect  dragInitialVisible;
+	
+	// Clicking buttons
+	NSInteger activeButton;
+	NSInteger lastButton;
+	
+	// Annoyingly poor support for tracking rects band-aid
+	NSRect lastVisibleRect;
+	
+	// Editing things
+	ZoomSkeinItem* itemToEdit;
+	ZoomSkeinItem* mostRecentItem;
+	NSScrollView* fieldScroller;
+	NSTextView* fieldEditor;
+	NSTextStorage* fieldStorage;
+	
+	BOOL editingAnnotation;
+	
+	CGFloat itemWidth;
+	CGFloat itemHeight;
+	
+	// Context menu
+	ZoomSkeinItem* contextItem;
+}
 
 + (NSImage*) imageNamed: (NSString*) name {
 	NSImage* img = [NSImage imageNamed: name];

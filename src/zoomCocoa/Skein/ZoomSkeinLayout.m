@@ -27,7 +27,19 @@ static NSImage* unplayed, *selected, *active, *unchanged, *changed, *annotation,
 static NSImage* unchangedDark, *activeDark;
 #endif
 
-@implementation ZoomSkeinLayout
+@implementation ZoomSkeinLayout {
+	/// Item mapping
+	NSMutableDictionary<NSValue*,ZoomSkeinLayoutItem*>* itemForItem;
+	
+	// The layout
+	ZoomSkeinLayoutItem* tree;
+	NSMutableArray<NSMutableArray<ZoomSkeinLayoutItem*>*>* levels;
+	CGFloat globalOffset, globalWidth;
+	
+	// Highlighted skein line
+	ZoomSkeinItem* highlightedLineItem;
+	NSMutableSet<NSValue*>*  highlightedSet;
+}
 
 #pragma mark - Factory methods
 

@@ -15,34 +15,34 @@
 
 NSString* const ZoomPreferencesHaveChangedNotification = @"ZoomPreferencesHaveChangedNotification";
 
-static NSString* displayWarnings	= @"DisplayWarnings";
-static NSString* fatalWarnings		= @"FatalWarnings";
-static NSString* speakGameText		= @"SpeakGameText";
-static NSString* scrollbackLength	= @"ScrollbackLength";
-static NSString* confirmGameClose   = @"ConfirmGameClose";
-static NSString* keepGamesOrganised = @"KeepGamesOrganised";
-static NSString* autosaveGames		= @"autosaveGames";
+static NSString* const displayWarnings		= @"DisplayWarnings";
+static NSString* const fatalWarnings		= @"FatalWarnings";
+static NSString* const speakGameText		= @"SpeakGameText";
+static NSString* const scrollbackLength		= @"ScrollbackLength";
+static NSString* const confirmGameClose		= @"ConfirmGameClose";
+static NSString* const keepGamesOrganised	= @"KeepGamesOrganised";
+static NSString* const autosaveGames		= @"autosaveGames";
 
-static NSString* gameTitle			= @"GameTitle";
-static NSString* interpreter		= @"Interpreter";
-static NSString* glulxInterpreter	= @"GlulxInterpreter";
-static NSString* revision			= @"Revision";
+static NSString* const gameTitle			= @"GameTitle";
+static NSString* const interpreter			= @"Interpreter";
+static NSString* const glulxInterpreter		= @"GlulxInterpreter";
+static NSString* const revision				= @"Revision";
 
-static NSString* fonts				= @"Fonts";
-static NSString* colours			= @"Colours";
-static NSString* textMargin			= @"TextMargin";
-static NSString* useScreenFonts		= @"UseScreenFonts";
-static NSString* useHyphenation		= @"UseHyphenation";
-static NSString* useKerning			= @"UseKerning";
-static NSString* useLigatures		= @"UseLigatures";
+static NSString* const fonts				= @"Fonts";
+static NSString* const colours				= @"Colours";
+static NSString* const textMargin			= @"TextMargin";
+static NSString* const useScreenFonts		= @"UseScreenFonts";
+static NSString* const useHyphenation		= @"UseHyphenation";
+static NSString* const useKerning			= @"UseKerning";
+static NSString* const useLigatures			= @"UseLigatures";
 
-static NSString* organiserDirectory = @"organiserDirectory";
+static NSString* const organiserDirectory	= @"organiserDirectory";
 
-static NSString* foregroundColour   = @"ForegroundColour";
-static NSString* backgroundColour   = @"BackgroundColour";
-static NSString* showBorders		= @"ShowBorders";
-static NSString* showGlkBorders		= @"ShowGlkBorders";
-static NSString* showCoverPicture   = @"ShowCoverPicture";
+static NSString* const foregroundColour		= @"ForegroundColour";
+static NSString* const backgroundColour		= @"BackgroundColour";
+static NSString* const showBorders			= @"ShowBorders";
+static NSString* const showGlkBorders		= @"ShowGlkBorders";
+static NSString* const showCoverPicture		= @"ShowCoverPicture";
 
 // == Global preferences ==
 

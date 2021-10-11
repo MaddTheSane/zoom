@@ -15,17 +15,7 @@
 //! creating, allocating and deallocating these. Thus, I replaced it with a dedicated object.
 //!
 //! The performance increase is especially noticable with well-populated skeins
-@interface ZoomSkeinLayoutItem : NSObject {
-	ZoomSkeinItem* item;
-	BOOL		   onSkeinLine;
-	BOOL		   recentlyPlayed;
-	CGFloat        width;
-	CGFloat		   fullWidth;
-	CGFloat		   position;
-	NSArray*	   children;
-	int			   level;
-	NSInteger	   depth;
-}
+@interface ZoomSkeinLayoutItem : NSObject
 
 // Initialisation
 
