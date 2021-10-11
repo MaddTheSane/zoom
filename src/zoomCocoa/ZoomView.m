@@ -2085,24 +2085,24 @@ static void finalizeViews(void) {
 		if (returnCode != NSModalResponseOK) {
 			[[self zMachine] filePromptCancelled];
 		} else {
-			NSString* fn = [panel URL].path;
-			NSFileHandle* file = nil;
+			NSURL *fp = [panel URL];
 
 			[self storePanelPrefs: panel];
 			
-			if ([[fn pathExtension] isEqualToString: @"zoomSave"]) {
+			if ([[fp pathExtension] isEqualToString: @"zoomSave"]) {
 				ZPackageFile* f;
 				
-				f = [[ZPackageFile alloc] initWithPath: fn
-										   defaultFile: @"save.qut"
-											forWriting: NO];
+				f = [[ZPackageFile alloc] initWithURL: fp
+										  defaultFile: @"save.qut"
+										   forWriting: NO];
 				
 				if (f) {
 					NSData* skeinData = [f dataForFile: @"Skein.skein"];
 					if (skeinData) {
 						if ([self delegate] &&
-							[[self delegate] respondsToSelector: @selector(loadedSkeinData:)]) {
-							[[self delegate] loadedSkeinData: skeinData];
+							[[self delegate] respondsToSelector: @selector(loadedSkeinData:error:)]) {
+							//TODO: handle Skein load failure.
+							[[self delegate] loadedSkeinData: skeinData error: NULL];
 						}
 					}
 					
@@ -2112,16 +2112,18 @@ static void finalizeViews(void) {
 					[[self zMachine] filePromptCancelled];
 				}
 			} else {
-				file = [NSFileHandle fileHandleForReadingAtPath: fn];
+				NSFileHandle *file = [NSFileHandle fileHandleForReadingFromURL: fp error: NULL];
 			
 				if (file) {
-					ZDataFile* f;
-					NSData* fData = [file readDataToEndOfFile];
+					id<ZFile> f;
+					[file seekToEndOfFile];
+					NSInteger fileLen = [file offsetInFile];
+					[file seekToFileOffset:0];
 				
-					f = [[ZDataFile alloc] initWithData: fData];
+					f = [[ZHandleFile alloc] initWithFileHandle: file];
 				
 					[[self zMachine] promptedFileIs: f
-											   size: [fData length]];
+											   size: fileLen];
 				} else {
 					[[self zMachine] filePromptCancelled];
 				}

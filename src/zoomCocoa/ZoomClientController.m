@@ -196,8 +196,8 @@
 													  forFilename: @"Info.plist"];
 }
 
-- (void) loadedSkeinData: (NSData*) skeinData {
-	[[[self document] skein] parseXmlData: skeinData error: NULL];
+- (BOOL) loadedSkeinData: (NSData*) skeinData error:(NSError *__autoreleasing *)error {
+	return [[[self document] skein] parseXmlData: skeinData error: error];
 }
 
 - (NSString*) defaultSaveDirectory {

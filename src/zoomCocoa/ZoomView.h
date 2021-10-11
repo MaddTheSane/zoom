@@ -242,7 +242,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName;
 - (NSString*) defaultSaveDirectory;
 - (BOOL)      useSavePackage;
 - (void)      prepareSavePackage: (ZPackageFile*) file;
-- (void)	  loadedSkeinData: (NSData*) skeinData;
+- (BOOL)	  loadedSkeinData: (NSData*) skeinData error:(NSError**)error;
 
 - (void) hitBreakpoint: (int) pc;
 
