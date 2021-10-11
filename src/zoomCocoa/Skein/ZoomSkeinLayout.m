@@ -53,10 +53,10 @@ static NSImage* unchangedDark, *activeDark;
 												 ofType: @"png"];
 		
 		if (filename) {
-			img = [[[NSImage alloc] initWithContentsOfFile: filename] autorelease];
+			img = [[NSImage alloc] initWithContentsOfFile: filename];
 		}
 		if (!img) {
-			img = [[[ourBundle imageForResource:name] copy] autorelease];
+			img = [[ourBundle imageForResource:name] copy];
 		}
 	}
 	
@@ -88,8 +88,7 @@ static NSImage* unchangedDark, *activeDark;
 	
 	[highlighted unlockFocus];
 	
-	// Release
-	return [highlighted autorelease];
+	return highlighted;
 }
 
 + (void) initialize {
@@ -101,30 +100,28 @@ static NSImage* unchangedDark, *activeDark;
     [labelShadow setShadowBlurRadius: 1.5];
     [labelShadow setShadowColor: [NSColor colorWithCalibratedWhite:0.0 alpha:0.7]];
 	
-	unplayed   = [[[self class] imageNamed: @"Skein-unplayed"] retain];
-	selected   = [[[self class] imageNamed: @"Skein-selected"] retain];
-	active     = [[[self class] imageNamed: @"Skein-active"] retain];
-	unchanged  = [[[self class] imageNamed: @"Skein-unchanged"] retain];
-	changed    = [[[self class] imageNamed: @"Skein-changed"] retain];
-	annotation = [[[self class] imageNamed: @"Skein-annotation"] retain];
-	commentaryBadge = [[[self class] imageNamed: @"SkeinDiffersBadge"] retain];
+		unplayed   = [[self class] imageNamed: @"Skein-unplayed"];
+		selected   = [[self class] imageNamed: @"Skein-selected"];
+		active     = [[self class] imageNamed: @"Skein-active"];
+		unchanged  = [[self class] imageNamed: @"Skein-unchanged"];
+		changed    = [[self class] imageNamed: @"Skein-changed"];
+		annotation = [[self class] imageNamed: @"Skein-annotation"];
+		commentaryBadge = [[self class] imageNamed: @"SkeinDiffersBadge"];
 	
 #ifdef SkeinDrawingStyleNew
-	unchangedDark = [[[self class] darkenImage: unchanged] retain];
-	activeDark = [[[self class] darkenImage: active] retain];
+		unchangedDark = [[self class] darkenImage: unchanged];
+		activeDark = [[self class] darkenImage: active];
 #endif	
 	
-	itemTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
+		itemTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
 		[NSFont systemFontOfSize: 10], NSFontAttributeName,
 		[NSColor blackColor], NSForegroundColorAttributeName,
-		nil] retain];
-	labelTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
+							  nil];
+		labelTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
 		[NSFont systemFontOfSize: 13], NSFontAttributeName,
 		[NSColor blackColor], NSForegroundColorAttributeName,
 		labelShadow, NSShadowAttributeName,
-		nil] retain];
-	
-	[labelShadow release];
+							   nil];
 	});
 }
 
@@ -183,7 +180,7 @@ static NSImage* unchangedDark, *activeDark;
 	self = [super init];
 	
 	if (self) {
-		rootItem = [item retain];
+		rootItem = item;
 
 		itemWidth = 120.0; // Pixels
 		itemHeight = 96.0;
@@ -191,28 +188,6 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	if (rootItem) [rootItem release];
-	
-	if (itemForItem) [itemForItem release];
-	
-	if (tree) [tree release];
-	if (levels) [levels release];
-	
-	if (highlightedSet) [highlightedSet release];
-	if (highlightedLineItem) [highlightedLineItem release];
-	
-	if (selectedItem) {
-		[selectedItem release];
-	}
-	
-	if (activeItem) {
-		[activeItem release];
-	}
-	
-	[super dealloc];
 }
 
 #pragma mark - Setting skein data
@@ -232,20 +207,18 @@ static NSImage* unchangedDark, *activeDark;
 		if (![[activeItem children] containsObject: item]) {
 			ZoomSkeinItem* skeinItem = activeItem;
 			while (skeinItem != nil) {
-				ZoomSkeinLayoutItem* layoutItem = [itemForItem objectForKey: [NSValue valueWithPointer: skeinItem]];
+				ZoomSkeinLayoutItem* layoutItem = [itemForItem objectForKey: [NSValue valueWithNonretainedObject: skeinItem]];
 				[layoutItem setRecentlyPlayed: NO];
 				skeinItem = [skeinItem parent];
 			}
 		}
-		
-		[activeItem release];
 	}
-	activeItem = [item retain];
+	activeItem = item;
 	
 	// Mark everything upwards of the active item as played
 	ZoomSkeinItem* skeinItem = activeItem;
 	while (skeinItem != nil) {
-		ZoomSkeinLayoutItem* layoutItem = [itemForItem objectForKey: [NSValue valueWithPointer: skeinItem]];
+		ZoomSkeinLayoutItem* layoutItem = [itemForItem objectForKey: [NSValue valueWithNonretainedObject: skeinItem]];
 		[layoutItem setRecentlyPlayed: YES];
 		skeinItem = [skeinItem parent];
 	}
@@ -268,7 +241,6 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	// This set is a set of NSValue pointers to zoomSkeinItems. It's used while drawing.
-	[highlightedSet release];
 	highlightedSet = [[NSMutableSet alloc] init];
 	
 	// Iterate up from the highlighted item
@@ -276,7 +248,7 @@ static NSImage* unchangedDark, *activeDark;
 	
 	while (currentItem != nil) {
 		// Store this item
-		ZoomSkeinLayoutItem* itemUpwards = [itemForItem objectForKey: [NSValue valueWithPointer: currentItem]];
+		ZoomSkeinLayoutItem* itemUpwards = [itemForItem objectForKey: [NSValue valueWithNonretainedObject: currentItem]];
 		[itemUpwards setOnSkeinLine: YES];
 		
 		// Up the tree
@@ -291,7 +263,7 @@ static NSImage* unchangedDark, *activeDark;
 		currentItem = [[[currentItem children] allObjects] objectAtIndex: 0];
 		
 		// Store this item
-		ZoomSkeinLayoutItem* itemUpwards = [itemForItem objectForKey: [NSValue valueWithPointer: currentItem]];
+		ZoomSkeinLayoutItem* itemUpwards = [itemForItem objectForKey: [NSValue valueWithNonretainedObject: currentItem]];
 		[itemUpwards setOnSkeinLine: YES];
 		[itemUpwards setRecentlyPlayed: NO];
 		// [[itemForItem objectForKey: [NSValue valueWithPointer: currentItem]] setOnSkeinLine: YES];
@@ -302,8 +274,7 @@ static NSImage* unchangedDark, *activeDark;
 	// Do nothing if there's nothing to do
 	if (itemOnLine == highlightedLineItem) return;
 	
-	[highlightedLineItem release];
-	highlightedLineItem = [itemOnLine retain];
+	highlightedLineItem = itemOnLine;
 	
 	[self updateHighlightDetails];
 }
@@ -370,7 +341,7 @@ static NSImage* unchangedDark, *activeDark;
 	
 	// Index this item
 	[itemForItem setObject: result
-					forKey: [NSValue valueWithPointer: item]];
+					forKey: [NSValue valueWithNonretainedObject: item]];
 	
 	// Add to the 'levels' array, which contains which items to draw at which levels
 	while (level >= [levels count]) {
@@ -378,7 +349,6 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	[[levels objectAtIndex: level] addObject: result];
-	[result release]; // Is retained in the levels array, so we don't autorelease (saves some time. Might cause bugs in the future though, so NOTE THIS)
 	
 	return result;
 }
@@ -409,22 +379,16 @@ static NSImage* unchangedDark, *activeDark;
 - (void) layoutSkeinLoose {	
 	if (rootItem == nil) return;
 	
-	if (itemForItem) [itemForItem release];
 	itemForItem = [[NSMutableDictionary alloc] init];
 	
 	// Perform initial layout of the items
 	if (tree) {
-		[tree release];
 		tree = nil;
-	}
-	if (levels) {
-		[levels release];
-		levels = nil;
 	}
 	levels = [[NSMutableArray alloc] init];
 	
-	tree = [[self layoutSkeinItemLoose: rootItem
-							 withLevel: 0] retain];
+	tree = [self layoutSkeinItemLoose: rootItem
+							withLevel: 0];
 	
 	if (tree != nil) {
 		// Transform the 'relative' positions of all items into 'absolute' positions
@@ -463,7 +427,7 @@ static NSImage* unchangedDark, *activeDark;
 #pragma mark - Raw item data
 
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item {
-	return [itemForItem objectForKey: [NSValue valueWithPointer: item]]; // Yeah, yeah. Items are distinguished by command, not location in the tree
+	return [itemForItem objectForKey: [NSValue valueWithNonretainedObject: item]]; // Yeah, yeah. Items are distinguished by command, not location in the tree
 }
 
 - (CGFloat) xposForItem: (ZoomSkeinItem*) item {
@@ -516,7 +480,7 @@ static NSImage* unchangedDark, *activeDark;
 	CGFloat position = [item position];
 	CGFloat width = [item width];
     
-    NSLayoutManager* layoutManager = [[[NSLayoutManager alloc] init] autorelease];
+    NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
 	
 	// Basic rect
 	itemRect.origin.x = position + globalOffset - (width/2.0);
@@ -723,7 +687,6 @@ static NSImage* unchangedDark, *activeDark;
 				
 				// Draw the line
 				[line stroke];
-				[line release];
 								 
 				// Thin it out again afterwards
 				if (highlightLine) {
@@ -783,7 +746,7 @@ static NSImage* unchangedDark, *activeDark;
 		   atPoint: NSMakePoint(0,0)];	
 	[img unlockFocus];
 	
-	return [img autorelease];
+	return img;
 }
 
 - (NSImage*) image {
@@ -808,7 +771,7 @@ static NSImage* unchangedDark, *activeDark;
 		
 	[res unlockFocus];
 	
-	return [res autorelease];
+	return res;
 }
 
 #pragma mark - Alternative packing style(s)
@@ -832,22 +795,16 @@ static NSImage* unchangedDark, *activeDark;
 	// 'Tight' packing style will always use horizontal space if it's available.
 	if (rootItem == nil) return;
 	
-	if (itemForItem) [itemForItem release];
 	itemForItem = [[NSMutableDictionary alloc] init];
 	
 	// Perform initial layout of the items
 	if (tree) {
-		[tree release];
 		tree = nil;
-	}
-	if (levels) {
-		[levels release];
-		levels = nil;
 	}
 	levels = [[NSMutableArray alloc] init];
 	
-	tree = [[self layoutSkeinItemTight: rootItem
-							 withLevel: 0] retain];
+	tree = [self layoutSkeinItemTight: rootItem
+							withLevel: 0];
 	
 	if (tree != nil) {
 		// Transform the 'relative' positions of all items into 'absolute' positions
@@ -938,7 +895,7 @@ static NSImage* unchangedDark, *activeDark;
 	
 	// Index this item
 	[itemForItem setObject: result
-					forKey: [NSValue valueWithPointer: item]];
+					forKey: [NSValue valueWithNonretainedObject: item]];
 	
 	// Add to the 'levels' array, which contains which items to draw at which levels
 	while (level >= [levels count]) {
@@ -946,7 +903,6 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	[[levels objectAtIndex: level] addObject: result];
-	[result release]; // Is retained in the levels array, so we don't autorelease (saves some time. Might cause bugs in the future though, so NOTE THIS)
 	
 	return result;
 }
