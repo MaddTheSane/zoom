@@ -53,7 +53,7 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 - (NSArray<ZoomSkeinItem*>*) itemsWithAnnotation: (NSString*) annotation;
 
 // Converting to strings/other file formats
-- (NSString*) transcriptToPoint: (ZoomSkeinItem*) item;
+- (NSString*) transcriptToPoint: (nullable ZoomSkeinItem*) item;
 - (NSString*) recordingToPoint: (nullable ZoomSkeinItem*) item;
 
 @end
