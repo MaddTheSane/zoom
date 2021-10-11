@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// Commentary comparison results
 typedef NS_ENUM(NSInteger, ZoomSkeinComparison) {
 	/// One side of the comparison doesn't exist (eg, no commentary for an item)
@@ -47,16 +49,16 @@ extern NSString* const ZoomSIChild;
 @interface ZoomSkeinItem : NSObject<NSSecureCoding>
 
 // Initialisation
-+ (instancetype) skeinItemWithCommand: (NSString*) command;
++ (instancetype) skeinItemWithCommand: (nullable NSString*) command;
 
-- (instancetype) initWithCommand: (NSString*) command;
+- (instancetype) initWithCommand: (nullable NSString*) command;
 
 // Data accessors
 
 // Skein tree
 @property (readonly, weak) ZoomSkeinItem* parent;
 @property (nonatomic, readonly, copy) NSSet<ZoomSkeinItem*> *children;
-- (ZoomSkeinItem*) childWithCommand: (NSString*) command;
+- (nullable ZoomSkeinItem*) childWithCommand: (NSString*) command;
 
 - (ZoomSkeinItem*) addChild: (ZoomSkeinItem*) childItem;
 - (void)		   removeChild: (ZoomSkeinItem*) childItem;
@@ -69,9 +71,9 @@ extern NSString* const ZoomSIChild;
 
 // Item data
 /// Command input
-@property (nonatomic, copy) NSString *command;
+@property (nonatomic, copy, nullable) NSString *command;
 /// Command result
-@property (nonatomic, copy) NSString *result;
+@property (nonatomic, copy, nullable) NSString *result;
 
 // Item state
 /// Whether or not this item has been made permanent by saving
@@ -92,17 +94,17 @@ extern NSString* const ZoomSIChild;
 /// Allows the player to designate certain areas of the skein as having specific annotations and colours
 /// (So, for example an area can be called 'solution to the maximum mouse melee puzzle')
 /// Each 'annotation' colours a new area of the skein.
-@property (nonatomic, copy) NSString *annotation;
+@property (nonatomic, copy, nullable) NSString *annotation;
 
 // Commentary
 
 /// Could be used by an IDE to store commentary or perhaps the 'ideal' text the game should be
 /// producing for this item.
-@property (nonatomic, copy) NSString *commentary;
+@property (nonatomic, copy, nullable) NSString *commentary;
 /// Results of comparing the result to the commentary.
 @property (nonatomic, readonly) ZoomSkeinComparison commentaryComparison;
 /// Finds the first item following this one that has a difference.
-- (ZoomSkeinItem*) nextDiff;
+- (nullable ZoomSkeinItem*) nextDiff;
 
 // Drawing/sizing
 @property (readonly) NSSize commandSize;
@@ -111,3 +113,5 @@ extern NSString* const ZoomSIChild;
 - (void) drawAnnotationAtPosition: (NSPoint) position;
 
 @end
+
+NS_ASSUME_NONNULL_END

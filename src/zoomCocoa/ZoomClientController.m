@@ -18,6 +18,7 @@
 #import <ZoomPlugIns/ZoomWindowThatCanBecomeKey.h>
 #import "ZoomAppDelegate.h"
 @import ZoomPlugIns.Swift;
+@import ZoomView.Swift;
 
 @implementation ZoomClientController
 @synthesize zoomView;

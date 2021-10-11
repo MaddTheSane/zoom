@@ -11,12 +11,14 @@
 #import <ZoomView/ZoomSkeinItem.h>
 #import <ZoomView/ZoomViewProtocols.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomSkein.changedNotification);
 
 @interface ZoomSkein : NSObject <ZoomViewOutputReceiver> {
 	ZoomSkeinItem* rootItem;
 	
-	// Web data
+	/// Web data
 	NSMutableData* webData;
 }
 
@@ -38,9 +40,9 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 - (void) removeTemporaryItems: (int) maxTemps;
 
 // Creating a Zoom input receiver
-+ (id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
++ (nullable id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
 						 toItem: (ZoomSkeinItem*) item2;
-- (id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
+- (nullable id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
 						 toItem: (ZoomSkeinItem*) item2;
 
 // Annotation lists
@@ -52,7 +54,7 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 
 // Converting to strings/other file formats
 - (NSString*) transcriptToPoint: (ZoomSkeinItem*) item;
-- (NSString*) recordingToPoint: (ZoomSkeinItem*) item;
+- (NSString*) recordingToPoint: (nullable ZoomSkeinItem*) item;
 
 @end
 
@@ -69,8 +71,9 @@ typedef NS_ERROR_ENUM(ZoomSkeinXMLParserErrorDomain, ZoomSkeinXMLError) {
 
 @interface ZoomSkein(ZoomSkeinXML)
 
-- (NSString*) xmlData;
+//- (NSString*) xmlData;
 - (BOOL)      parseXmlData: (NSData*) data error: (NSError**) error;
 
 @end
 
+NS_ASSUME_NONNULL_END

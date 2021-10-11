@@ -7,14 +7,8 @@
 
 import Foundation
 
-extension NSString {
-	@objc(stringByEscapingXMLCharacters) public func byEscapingXMLCharacters() -> String {
-		return (self as String).byEscapingXMLCharacters()
-	}
-}
-
 extension String {
-	public func byEscapingXMLCharacters() -> String {
+	func byEscapingXMLCharacters() -> String {
 		let charArray = self.map { theChar -> String? in
 			switch theChar {
 			case "\n":

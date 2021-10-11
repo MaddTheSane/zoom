@@ -10,6 +10,7 @@
 #import "ZoomSkein.h"
 #import <GlkView/GlkFileRef.h>
 #import <GlkView/GlkFileStream.h>
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomGlkSaveRef
 

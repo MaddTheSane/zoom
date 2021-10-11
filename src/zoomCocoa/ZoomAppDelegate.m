@@ -21,6 +21,7 @@
 #import <ZoomPlugIns/ZoomPlugInManager.h>
 #import <ZoomPlugIns/ZoomPlugInController.h>
 #import "ZoomStoryOrganiser.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 #import <Sparkle/Sparkle.h>
 
