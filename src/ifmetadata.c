@@ -1229,42 +1229,18 @@ CFStringRef IFStrCpyCF(const IFMDChar* src) {
 }
 
 IFMDChar* IFMakeStrCF(const CFStringRef src) {
-	/* UTF-16 to UCS-4 */
+	/* UTF-16 to UTF-32 */
 	IFMDChar* res;
-	UniChar* buffer;
-	CFIndex len = CFStringGetLength(src);
-	CFIndex pos, x;
 	
-	CFRange r;
+	CFDataRef extData = CFStringCreateExternalRepresentation(NULL, src, kCFStringEncodingUTF32LE, '?');
+	CFIndex len = CFDataGetLength(extData);
+	res = malloc(len + 4); /* + 4 for terminating NULL */
+	CFDataGetBytes(extData, CFRangeMake(0, len), (UInt8 *)res);
+	CFRelease(extData);
 	
-	/* Allocate buffers */
-	buffer = malloc(sizeof(UniChar)*len); /* Always same length or shorter */
-	res = malloc(sizeof(IFMDChar)*(len+1));
+	/* null terminator */
+	res[len/4] = 0;
 	
-	r.location = 0; r.length = len;
-	CFStringGetCharacters(src, r, buffer);
-	
-	/* Perform conversion */
-	pos = 0;
-	for (x=0; x<len; x++) {
-		UniChar chr = buffer[x];
-		
-		if (chr >= 0xd800 && chr <= 0xdbff && (x+1)<len) {
-			/* High surrogate */
-			UniChar chr2 = buffer[++x];
-			
-			if (chr2 >= 0xdc00 && chr2 <= 0xdfff) {
-				/* Low surrogate */
-				res[pos++] = ((chr-0xd800)<<10) + (chr2-0xdfff) + 0x10000;
-			}
-		} else {
-			res[pos++] = chr;
-		}
-	}
-	
-	/* Tidy up */
-	res[pos] = 0;
-	free(buffer);
 	
 	/* Return results */
 	return res;
