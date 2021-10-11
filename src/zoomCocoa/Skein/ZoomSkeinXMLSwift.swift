@@ -13,6 +13,12 @@ private func idFor(_ item: ZoomSkeinItem) -> String {
 }
 
 extension ZoomSkein {
+	func preparseXMLData(_ data: Data) throws -> [AnyHashable: Any] {
+		let parseDel = SkeinXMLParseDelegate()
+		try parseDel.parseData(data)
+		return [:]
+	}
+	
 	/// Creates an XML representation of the Skein.
 	@objc public func xmlData() -> String {
 		// Structure summary (note to me: write this up properly later)
@@ -92,5 +98,29 @@ extension ZoomSkein {
 		result += "</Skein>\n"
 		
 		return result
+	}
+}
+
+private let xmlAttributes = "xmlAttributes"
+private let xmlName = "xmlName"
+private let xmlChildren = "xmlChildren"
+private let xmlType = "xmlType"
+private let xmlChars = "xmlChars"
+
+private let xmlElement = "xmlElement"
+private let xmlCharData = "xmlCharData"
+
+
+private class SkeinXMLParseDelegate: NSObject, XMLParserDelegate {
+	
+	func parseData(_ data: Data) throws {
+		let parser = XMLParser()
+		parser.delegate = self
+		
+		if !parser.parse() {
+			if let err = parser.parserError {
+				throw err
+			}
+		}
 	}
 }
