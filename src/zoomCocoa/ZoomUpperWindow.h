@@ -33,5 +33,3 @@
 @property (weak) ZoomView *zoomView;
 
 @end
-
-#import <ZoomView/ZoomView.h>

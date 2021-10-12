@@ -7,6 +7,7 @@
 //
 
 #import "ZoomUpperWindow.h"
+#import "ZoomView.h"
 
 static NSString* blankLine(NSInteger length);
 
