@@ -110,7 +110,7 @@ static NSMutableDictionary* babelCache = nil;
 			[babelTask setLaunchPath: babelPath];
 			[babelTask setStandardOutput: [babelStdOut fileHandleForWriting]];
 			
-			[babelTask setArguments: [NSArray arrayWithObjects: @"-fish", filename, nil]];
+			[babelTask setArguments: @[@"-fish", filename]];
 			
 			[[NSNotificationCenter defaultCenter] addObserver: self
 													 selector: @selector(babelTaskFinished:)
@@ -250,7 +250,7 @@ static NSMutableDictionary* babelCache = nil;
 			[ifidTask setLaunchPath: babelPath];
 			[ifidTask setStandardOutput: [ifidStdOut fileHandleForWriting]];
 			
-			[ifidTask setArguments: [NSArray arrayWithObjects: @"-ifid", filename, nil]];
+			[ifidTask setArguments: @[@"-ifid", filename]];
 			
 			[[NSNotificationCenter defaultCenter] addObserver: self
 													 selector: @selector(ifidTaskFinished:)

@@ -58,7 +58,7 @@
 		if (!plist) return NO;
 		if (![plist isKindOfClass: [NSDictionary class]]) return NO;
 		
-		ifids = [[NSArray arrayWithObjects: [plist objectForKey: @"IFID"], nil] mutableCopy];
+		ifids = [NSMutableArray arrayWithObject: [plist objectForKey: @"IFID"]];
 		interpreterDisplayName	= [[plist objectForKey: @"Interpreter"] copy];
 		interpreterURL			= [[plist objectForKey: @"InterpreterURL"] copy];
 		interpreterVersion		= [[plist objectForKey: @"InterpreterVersion"] copy];

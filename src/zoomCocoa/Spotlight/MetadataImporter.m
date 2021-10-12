@@ -124,7 +124,7 @@ static Boolean GetMetadataForFile(void *thisInterface,
 	NSString * author = [story author];
 	if( author )
 	{
-		[nsAttribs setObject:[NSArray arrayWithObject:author] forKey:(NSString *)kMDItemAuthors];
+		[nsAttribs setObject:@[author] forKey:(NSString *)kMDItemAuthors];
 	}
 
 	//
@@ -232,9 +232,9 @@ static Boolean GetMetadataForFile(void *thisInterface,
 	// keywords
 	//
 	
-	NSArray * keywords = [NSArray arrayWithObjects:@"Zoom", @"Z-Machine", @"ZMachine", @"Interactive Fiction", @"IF",
+	NSArray * keywords = @[@"Zoom", @"Z-Machine", @"ZMachine", @"Interactive Fiction", @"IF",
 							@"ZCode", @"Z-Code", @"Text Adventure", @"Text Adventures", @"Adventure Game", 
-							@"Adventure Games", @"Text Game", @"Text Games", @"Game", @"Games", nil];	
+							@"Adventure Games", @"Text Game", @"Text Games", @"Game", @"Games"];	
 	if( keywords )
 	{
 		[nsAttribs setObject:keywords forKey:(NSString *)kMDItemKeywords];

@@ -231,20 +231,16 @@ static int lastDownloadId = 0;
 	
 	if ([pathExtension isEqualToString: @"zip"]) {
 		// Unarchive as a .zip file
-		[result setArguments: [NSArray arrayWithObjects:
-			@"ditto",
-			@"-x",
-			@"-k",
-			@"-",
-			directory,
-			nil]];
+		[result setArguments: @[@"ditto",
+								@"-x",
+								@"-k",
+								@"-",
+								directory]];
 	} else if ([pathExtension isEqualToString: @"tar"]) {
 		// Is a something.tar file
-		[result setArguments: [NSArray arrayWithObjects:
-			@"tar",
-			@"-xC",
-			directory,
-			nil]];
+		[result setArguments: @[@"tar",
+								@"-xC",
+								directory]];
 	} else if ([pathExtension isEqualToString: @"gz"]
 			   || [pathExtension isEqualToString: @"bz2"]
 			   || [pathExtension isEqualToString: @"z"]) {
@@ -259,9 +255,7 @@ static int lastDownloadId = 0;
 		if ([pathExtension isEqualToString: @"z"])		unarchiver = @"uncompress";
 		
 		// Create the unarchiver
-		[result setArguments: [NSArray arrayWithObjects: 
-			unarchiver,
-			nil]];
+		[result setArguments: @[unarchiver]];
 		
 		// Create the pipes to connect the next task to the unarchiver
 		NSPipe* pipe = [NSPipe pipe];
@@ -286,10 +280,7 @@ static int lastDownloadId = 0;
 												contents: [NSData data]
 											  attributes: nil];
 
-		[result setArguments: [NSArray arrayWithObjects: 
-			@"cat",
-			@"-",
-			nil]];
+		[result setArguments: @[@"cat", @"-"]];
 		[result setStandardOutput: [NSFileHandle fileHandleForWritingAtPath: destFile]];
 	}
 	

@@ -253,7 +253,7 @@ static NSString* stringOrEmpty(NSString* str) {
 
 - (IBAction)chooseResourceFile:(id)sender {
 	NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-	NSArray* filetypes = [NSArray arrayWithObjects: @"blb", @"blorb", nil];
+	NSArray* filetypes = @[@"blb", @"blorb"];
 	
 	[openPanel setAllowsMultipleSelection: NO];
 	[openPanel setCanChooseDirectories: NO];

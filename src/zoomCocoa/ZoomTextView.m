@@ -267,10 +267,8 @@
 			}
 			
 			// Add this line to the set of pasted lines
-            [pastedLines addObject: [NSArray arrayWithObjects:
-                [NSValue valueWithRect: r],
-                str,
-                nil]];
+            [pastedLines addObject: @[@(r),
+                                      str]];
 
             r.origin.y -= offset;
 
@@ -304,10 +302,9 @@
 
 		// If it's still in the view, then add it to the modified array
 		if (NSMaxY(lineRect) > 0) {
-			[newLines addObject: [NSArray arrayWithObjects:
-				[NSValue valueWithRect: lineRect],
-				str,
-				nil]];
+			[newLines addObject: @[
+				@(lineRect),
+				str]];
 		}
 	}
 	

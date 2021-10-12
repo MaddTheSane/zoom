@@ -810,7 +810,7 @@ static void finalizeViews(void) {
 												 target: self
 											   argument: nil
 												  order: 65
-												  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+												  modes: @[NSDefaultRunLoopMode]];
 			willDisplayMore = YES;
 		}
 		
@@ -1707,8 +1707,8 @@ static void finalizeViews(void) {
 
     // Prepare for launch
     [zoomTask setLaunchPath: serverName];	
-	[zoomTask setArguments: [NSArray arrayWithObjects: 
-		[NSString stringWithFormat: @"%i", getpid()], nil]];
+	[zoomTask setArguments: @[
+		[NSString stringWithFormat: @"%i", getpid()]]];
     
 #if 0
     zoomTaskStdout = [[NSPipe allocWithZone: [self zone]] init];
@@ -1906,7 +1906,7 @@ static void finalizeViews(void) {
         case ZFileQuetzal:
             typeCode = 'IFZS';
                 [panel setMessage: [NSString stringWithFormat: @"%@ saved game (quetzal) file", saveOpen]];
-                [panel setAllowedFileTypes: [NSArray arrayWithObjects: usePackage?@"zoomSave":@"qut", nil]];
+                [panel setAllowedFileTypes: @[usePackage?@"zoomSave":@"qut"]];
             break;
             
         case ZFileData:
@@ -1914,19 +1914,19 @@ static void finalizeViews(void) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ data file", saveOpen]];
                 
                 [panel setAllowsOtherFileTypes: YES];
-                [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"dat", @"qut", nil]];
+                [panel setAllowedFileTypes: @[@"dat", @"qut"]];
             break;
             
         case ZFileRecording:
             typeCode = 'TEXT';
                 [panel setMessage: [NSString stringWithFormat: @"%@ command recording file", saveOpen]];
-                [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"txt", @"rec", nil]];
+                [panel setAllowedFileTypes: @[@"txt", @"rec"]];
             break;
             
         case ZFileTranscript:
             typeCode = 'TEXT';
                 [panel setMessage: [NSString stringWithFormat: @"%@ transcript recording file", saveOpen]];
-                [panel setAllowedFileTypes: [NSArray arrayWithObject: (NSString*)kUTTypePlainText]];
+                [panel setAllowedFileTypes: @[(NSString*)kUTTypePlainText]];
             break;
     }
 }

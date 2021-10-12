@@ -764,7 +764,7 @@ static dispatch_block_t onceTypesBlock = ^{
 											 target: self
 										   argument: self
 											  order: 128
-											  modes: [NSArray arrayWithObjects: NSDefaultRunLoopMode, NSModalPanelRunLoopMode, nil]];
+											  modes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode]];
 		queuedUpdate = YES;
 	}	
 }
@@ -2325,7 +2325,7 @@ static dispatch_block_t onceTypesBlock = ^{
 #pragma mark - Handling downloads
 
 - (BOOL) canPlayFile: (NSString*) filename {
-	NSArray* fileTypes = [NSArray arrayWithObjects: @"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", @"signpost", nil];
+	NSArray* fileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", @"signpost"];
 	NSString* extn = [[filename pathExtension] lowercaseString];
 	
 	if ([fileTypes containsObject: extn]) {

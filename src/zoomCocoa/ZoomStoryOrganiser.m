@@ -293,9 +293,9 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 				
 				if (fileID == nil) {
 					// Pass this off to the main thread
-					[self performSelectorOnMainThread: @selector(foundFileNotInDatabase:)
-										   withObject: [NSArray arrayWithObjects: groupName, gameName, gameFile, nil]
-										waitUntilDone: NO];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[self foundFileNotInDatabase:@[groupName, gameName, gameFile]];
+					});
 				}
 				[storyLock unlock];
 			}
@@ -1044,7 +1044,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 										 target: self
 									   argument: story
 										  order: 128
-										  modes: [NSArray arrayWithObjects: NSDefaultRunLoopMode, NSModalPanelRunLoopMode, nil]];
+										  modes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode]];
 }
 
 - (void) finishChangingStory: (ZoomStory*) story {

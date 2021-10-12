@@ -510,23 +510,19 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
     // Create a new write
     [buffer addObject:
-        [NSArray arrayWithObjects:
-            ZBufferWriteString,
-            [NSMutableString stringWithString: string],
-            style,
-            window,
-            nil]];
+        @[ZBufferWriteString,
+          [NSMutableString stringWithString: string],
+          style,
+          window]];
 	[self addedToBuffer];
 }
 
 - (void) clearWindow: (id<ZWindow>) window
            withStyle: (ZStyle*) style {
     [buffer addObject:
-        [NSArray arrayWithObjects:
-            ZBufferClearWindow,
-            style,
-            window,
-            nil]];
+        @[ZBufferClearWindow,
+          style,
+          window]];
 	[self addedToBuffer];
 }
 
@@ -534,22 +530,18 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 - (void) moveTo: (NSPoint) newCursorPos
        inWindow: (id<ZUpperWindow>) window {
     [buffer addObject:
-        [NSArray arrayWithObjects:
-            ZBufferMoveTo,
-            @(newCursorPos),
-            window,
-            nil]];
+        @[ZBufferMoveTo,
+          @(newCursorPos),
+          window]];
 	[self addedToBuffer];
 }
 
 - (void) eraseLineInWindow: (id<ZUpperWindow>) window
                  withStyle: (ZStyle*) style {
     [buffer addObject:
-        [NSArray arrayWithObjects:
-            ZBufferEraseLine,
-            style,
-            window,
-            nil]];    
+        @[ZBufferEraseLine,
+          style,
+          window]];
 	[self addedToBuffer];
 }
 
@@ -557,12 +549,10 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
          startLine: (int) startLine
            endLine: (int) endLine {
     [buffer addObject:
-        [NSArray arrayWithObjects:
-            ZBufferSetWindow,
-            @(startLine),
-            @(endLine),
-            window,
-            nil]];
+        @[ZBufferSetWindow,
+          @(startLine),
+          @(endLine),
+          window]];
 	[self addedToBuffer];
 }
 
@@ -571,12 +561,10 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		withStyle: (ZStyle*) style
 		 inWindow: (id<ZPixmapWindow>) window {
     [buffer addObject:
-        [NSArray arrayWithObjects:
-            ZBufferPlotRect,
-			@(rect),
-			style,
-			window,
-            nil]];
+        @[ZBufferPlotRect,
+          @(rect),
+          style,
+          window]];
 	[self addedToBuffer];
 }
 
@@ -585,13 +573,11 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		withStyle: (ZStyle*) style
 		 inWindow: (id<ZPixmapWindow>) win {
     [buffer addObject:
-        [NSArray arrayWithObjects:
-            ZBufferPlotText,
-			[text copy],
-			@(point),
-			style,
-			win,
-            nil]];
+        @[ZBufferPlotText,
+          [text copy],
+          @(point),
+          style,
+          win]];
 	[self addedToBuffer];
 }
 
@@ -599,12 +585,10 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 			  toPoint: (NSPoint) newPoint
 			 inWindow: (id<ZPixmapWindow>) win {
 	[buffer addObject:
-		[NSArray arrayWithObjects:
-			ZBufferScrollRegion,
-			@(region),
-			@(newPoint),
-			win,
-			nil]];
+		@[ZBufferScrollRegion,
+          @(region),
+          @(newPoint),
+          win]];
 }
 
 - (void) plotImage: (int) number

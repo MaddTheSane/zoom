@@ -217,21 +217,15 @@ static NSDictionary*  itemDictionary = nil;
 }
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
-    return [NSArray arrayWithObjects:
-		generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier,
-		nil];
+    return @[generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar {
-    return [NSArray arrayWithObjects:
-		NSToolbarFlexibleSpaceItemIdentifier, generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier,
-		nil];
+    return @[NSToolbarFlexibleSpaceItemIdentifier, generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
-    return [NSArray arrayWithObjects:
-			generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, colourSettingsItemName, typographicSettingsItemName,
-		nil];	
+    return @[generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, colourSettingsItemName, typographicSettingsItemName];	
 }
 
 // == Toolbar actions ==

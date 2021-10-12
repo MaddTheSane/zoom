@@ -89,7 +89,7 @@
 										 target: whichView
 									   argument: zMachine
 										  order: 16
-										  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+										  modes: @[NSDefaultRunLoopMode]];
 	
 	// Using the runloop there stops the server from receiving any messages before this call returns.
 	// As things currently stand, that basically ensures that this call returns at all before the Z-Machine

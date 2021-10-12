@@ -699,7 +699,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 											 target: self
 										   argument: nil
 											  order: 64
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+											  modes: @[NSDefaultRunLoopMode]];
 	} else if (trackedItem != nil) {
 		// Finish a click on any item button
 		if (activeButton != ZSVnoButton) {
