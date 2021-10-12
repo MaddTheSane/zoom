@@ -34,6 +34,9 @@
 
 #include "scare.h"
 #include "glk.h"
+#ifdef COCOAGLK
+#include "cocoaglk.h"
+#endif
 
 #if defined (SPATTERLIGHT)
 extern glui32 gli_determinism;
@@ -3338,9 +3341,6 @@ glk_main (void)
 /*---------------------------------------------------------------------*/
 /*  Glk linkage relevant only to the UNIX platform                     */
 /*---------------------------------------------------------------------*/
-#ifdef COCOAGLK
-
-#else
 #ifdef TRUE
 
 #include "glkstart.h"
@@ -3428,7 +3428,9 @@ glkunix_startup_code (glkunix_startup_t * data)
           restore_from = argv[++argv_index];
           continue;
         }
+#ifndef COCOAGLK
       return FALSE;
+#endif
     }
 
   /* On invalid usage, set a complaint message and return. */
@@ -3444,7 +3446,11 @@ glkunix_startup_code (glkunix_startup_t * data)
     }
 
   /* Open a stream to the TAF file, complain if this fails. */
+#ifdef COCOAGLK
+  game_stream = cocoaglk_get_input_stream();
+#else
   game_stream = glkunix_stream_open_pathname (argv[argv_index], FALSE, 0);
+#endif
   if (!game_stream)
     {
       gsc_game = NULL;
@@ -3458,6 +3464,9 @@ glkunix_startup_code (glkunix_startup_t * data)
    * If a restore requested, open a stream to the TAF (TAS) file, and
    * again, complain if this fails.
    */
+#ifdef COCOAGLK
+  restore_stream = cocoaglk_get_stream_for_key("savefile");
+#else
   if (restore_from)
     {
       restore_stream = glkunix_stream_open_pathname (restore_from, FALSE, 0);
@@ -3473,6 +3482,7 @@ glkunix_startup_code (glkunix_startup_t * data)
     }
   else
     restore_stream = NULL;
+#endif
 
   /* Set SCARE trace flags and other general setup from the environment. */
   if (getenv ("SC_TRACE_FLAGS"))
@@ -3588,4 +3598,3 @@ winglk_startup_code (const char *cmdline)
                            enable_debugger, stable_random, locale);
 }
 #endif /* _WIN32 */
-#endif

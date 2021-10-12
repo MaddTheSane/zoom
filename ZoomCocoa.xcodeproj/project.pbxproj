@@ -239,7 +239,6 @@
 		551E27DA26F84691007204E1 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		552A03812049E90900A4ECAA /* treaty.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD79A9E0BA2CABF002C82B2 /* treaty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		552CEEE22715110D009D87A5 /* scobjcts.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBA2715110B009D87A5 /* scobjcts.c */; };
-		552CEEE42715110D009D87A5 /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBC2715110B009D87A5 /* os_glk.c */; };
 		552CEEE72715110D009D87A5 /* screstrs.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC12715110B009D87A5 /* screstrs.c */; };
 		552CEEE82715110D009D87A5 /* scinterf.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC22715110C009D87A5 /* scinterf.c */; };
 		552CEEEA2715110D009D87A5 /* scrunner.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC52715110C009D87A5 /* scrunner.c */; };
@@ -262,7 +261,8 @@
 		552CEF002715110D009D87A5 /* scprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEDF2715110D009D87A5 /* scprintf.c */; };
 		552CEF012715110D009D87A5 /* sctafpar.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEE02715110D009D87A5 /* sctafpar.c */; };
 		552CEF05271512E5009D87A5 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
-		552CEF06271512E5009D87A5 /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
+		552CEF1A27152C5F009D87A5 /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBC2715110B009D87A5 /* os_glk.c */; };
+		552CEF2327152D0F009D87A5 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
@@ -545,6 +545,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4BD2747808701E6700C1AE15;
 			remoteInfo = ZoomView;
+		};
+		552CEF2127152C5F009D87A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 552CEF1127152BDA009D87A5;
+			remoteInfo = glkmain;
 		};
 		554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1131,8 +1138,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552CEF2327152D0F009D87A5 /* libglkmain.a in Frameworks */,
 				552CEF05271512E5009D87A5 /* GlkClient.framework in Frameworks */,
-				552CEF06271512E5009D87A5 /* GlkView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,6 +1460,7 @@
 				4B7CB1CD093634DD00F3B8F6 /* imagetest */,
 				4BD093970FACAEEE001F7EF0 /* git-client */,
 				554E440D204E6DD4000A7D6D /* SwiftGlk.app */,
+				552CEF2227152C5F009D87A5 /* libglkmain.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1741,9 +1749,11 @@
 				552CEED32715110C009D87A5 /* scutils.c */,
 				552CEED92715110C009D87A5 /* scvars.c */,
 			);
+			indentWidth = 2;
 			name = scare;
 			path = depends/scare;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		553C83662712382B002782C0 /* Resources */ = {
 			isa = PBXGroup;
@@ -2232,6 +2242,13 @@
 			remoteRef = 4BF6A8C40E2D5F8800A9CD10 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		552CEF2227152C5F009D87A5 /* libglkmain.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libglkmain.a;
+			remoteRef = 552CEF2127152C5F009D87A5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		554E440D204E6DD4000A7D6D /* SwiftGlk.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -2539,12 +2556,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552CEF1A27152C5F009D87A5 /* os_glk.c in Sources */,
 				552CEF012715110D009D87A5 /* sctafpar.c in Sources */,
 				552CEEF42715110D009D87A5 /* scserial.c in Sources */,
 				552CEEF22715110D009D87A5 /* sctaffil.c in Sources */,
 				552CEF002715110D009D87A5 /* scprintf.c in Sources */,
 				552CEEEA2715110D009D87A5 /* scrunner.c in Sources */,
-				552CEEE42715110D009D87A5 /* os_glk.c in Sources */,
 				552CEEE82715110D009D87A5 /* scinterf.c in Sources */,
 				552CEEFA2715110D009D87A5 /* scparser.c in Sources */,
 				552CEEF62715110D009D87A5 /* scevents.c in Sources */,
