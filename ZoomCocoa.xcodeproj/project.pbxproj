@@ -238,6 +238,31 @@
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27DA26F84691007204E1 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		552A03812049E90900A4ECAA /* treaty.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD79A9E0BA2CABF002C82B2 /* treaty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		552CEEE22715110D009D87A5 /* scobjcts.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBA2715110B009D87A5 /* scobjcts.c */; };
+		552CEEE42715110D009D87A5 /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBC2715110B009D87A5 /* os_glk.c */; };
+		552CEEE72715110D009D87A5 /* screstrs.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC12715110B009D87A5 /* screstrs.c */; };
+		552CEEE82715110D009D87A5 /* scinterf.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC22715110C009D87A5 /* scinterf.c */; };
+		552CEEEA2715110D009D87A5 /* scrunner.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC52715110C009D87A5 /* scrunner.c */; };
+		552CEEEC2715110D009D87A5 /* sclocale.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC72715110C009D87A5 /* sclocale.c */; };
+		552CEEEE2715110D009D87A5 /* scnpcs.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC92715110C009D87A5 /* scnpcs.c */; };
+		552CEEEF2715110D009D87A5 /* scexpr.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEECA2715110C009D87A5 /* scexpr.c */; };
+		552CEEF02715110D009D87A5 /* scdebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEECB2715110C009D87A5 /* scdebug.c */; };
+		552CEEF12715110D009D87A5 /* scprops.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEECD2715110C009D87A5 /* scprops.c */; };
+		552CEEF22715110D009D87A5 /* sctaffil.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEECE2715110C009D87A5 /* sctaffil.c */; };
+		552CEEF42715110D009D87A5 /* scserial.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEED02715110C009D87A5 /* scserial.c */; };
+		552CEEF62715110D009D87A5 /* scevents.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEED22715110C009D87A5 /* scevents.c */; };
+		552CEEF72715110D009D87A5 /* scutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEED32715110C009D87A5 /* scutils.c */; };
+		552CEEF82715110D009D87A5 /* sctasks.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEED52715110C009D87A5 /* sctasks.c */; };
+		552CEEF92715110D009D87A5 /* scmemos.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEED72715110C009D87A5 /* scmemos.c */; };
+		552CEEFA2715110D009D87A5 /* scparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEED82715110C009D87A5 /* scparser.c */; };
+		552CEEFB2715110D009D87A5 /* scvars.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEED92715110C009D87A5 /* scvars.c */; };
+		552CEEFC2715110D009D87A5 /* scgamest.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEDB2715110D009D87A5 /* scgamest.c */; };
+		552CEEFD2715110D009D87A5 /* scresour.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEDC2715110D009D87A5 /* scresour.c */; };
+		552CEEFF2715110D009D87A5 /* sclibrar.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEDE2715110D009D87A5 /* sclibrar.c */; };
+		552CEF002715110D009D87A5 /* scprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEDF2715110D009D87A5 /* scprintf.c */; };
+		552CEF012715110D009D87A5 /* sctafpar.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEE02715110D009D87A5 /* sctafpar.c */; };
+		552CEF05271512E5009D87A5 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
+		552CEF06271512E5009D87A5 /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
@@ -635,6 +660,15 @@
 			name = "Copy frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		552CEEAC2715109C009D87A5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		55EFEC46256272BD001E0823 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -921,6 +955,39 @@
 		4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomBlorbFile.m; sourceTree = "<group>"; };
 		552A037F2049E74B00A4ECAA /* ZoomView.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ZoomView.modulemap; sourceTree = "<group>"; };
 		552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomPlugIns.modulemap; sourceTree = "<group>"; };
+		552CEEAE2715109C009D87A5 /* scare */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scare; sourceTree = BUILT_PRODUCTS_DIR; };
+		552CEEBA2715110B009D87A5 /* scobjcts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scobjcts.c; sourceTree = "<group>"; };
+		552CEEBC2715110B009D87A5 /* os_glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_glk.c; sourceTree = "<group>"; };
+		552CEEBF2715110B009D87A5 /* scare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scare.h; sourceTree = "<group>"; };
+		552CEEC02715110B009D87A5 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		552CEEC12715110B009D87A5 /* screstrs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = screstrs.c; sourceTree = "<group>"; };
+		552CEEC22715110C009D87A5 /* scinterf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scinterf.c; sourceTree = "<group>"; };
+		552CEEC42715110C009D87A5 /* scgamest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scgamest.h; sourceTree = "<group>"; };
+		552CEEC52715110C009D87A5 /* scrunner.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scrunner.c; sourceTree = "<group>"; };
+		552CEEC72715110C009D87A5 /* sclocale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sclocale.c; sourceTree = "<group>"; };
+		552CEEC82715110C009D87A5 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		552CEEC92715110C009D87A5 /* scnpcs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scnpcs.c; sourceTree = "<group>"; };
+		552CEECA2715110C009D87A5 /* scexpr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scexpr.c; sourceTree = "<group>"; };
+		552CEECB2715110C009D87A5 /* scdebug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scdebug.c; sourceTree = "<group>"; };
+		552CEECC2715110C009D87A5 /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		552CEECD2715110C009D87A5 /* scprops.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scprops.c; sourceTree = "<group>"; };
+		552CEECE2715110C009D87A5 /* sctaffil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sctaffil.c; sourceTree = "<group>"; };
+		552CEED02715110C009D87A5 /* scserial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scserial.c; sourceTree = "<group>"; };
+		552CEED22715110C009D87A5 /* scevents.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scevents.c; sourceTree = "<group>"; };
+		552CEED32715110C009D87A5 /* scutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scutils.c; sourceTree = "<group>"; };
+		552CEED52715110C009D87A5 /* sctasks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sctasks.c; sourceTree = "<group>"; };
+		552CEED62715110C009D87A5 /* scare.hdr */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = scare.hdr; sourceTree = "<group>"; };
+		552CEED72715110C009D87A5 /* scmemos.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scmemos.c; sourceTree = "<group>"; };
+		552CEED82715110C009D87A5 /* scparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scparser.c; sourceTree = "<group>"; };
+		552CEED92715110C009D87A5 /* scvars.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scvars.c; sourceTree = "<group>"; };
+		552CEEDA2715110D009D87A5 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		552CEEDB2715110D009D87A5 /* scgamest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scgamest.c; sourceTree = "<group>"; };
+		552CEEDC2715110D009D87A5 /* scresour.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scresour.c; sourceTree = "<group>"; };
+		552CEEDD2715110D009D87A5 /* os_ansi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_ansi.c; sourceTree = "<group>"; };
+		552CEEDE2715110D009D87A5 /* sclibrar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sclibrar.c; sourceTree = "<group>"; };
+		552CEEDF2715110D009D87A5 /* scprintf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scprintf.c; sourceTree = "<group>"; };
+		552CEEE02715110D009D87A5 /* sctafpar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sctafpar.c; sourceTree = "<group>"; };
+		552CEEE12715110D009D87A5 /* scprotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scprotos.h; sourceTree = "<group>"; };
 		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
 		553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZoomiFictionController+OldWebKit.m"; sourceTree = "<group>"; };
 		553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSkeinXMLSwift.swift; sourceTree = "<group>"; };
@@ -1060,6 +1127,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		552CEEAB2715109C009D87A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				552CEF05271512E5009D87A5 /* GlkClient.framework in Frameworks */,
+				552CEF06271512E5009D87A5 /* GlkView.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55BE4AE02709988700100A7D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1113,6 +1189,7 @@
 				4BCF3F41050FB1C300A8E303 /* ZoomClient */,
 				4BCF3F42050FB1D800A8E303 /* Resources */,
 				4BD79A8A0BA2C95A002C82B2 /* babel */,
+				552CEEAF2715109C009D87A5 /* scare */,
 				4B1E3F5F050F7B8100A8E303 /* Frameworks */,
 				4B1E3F55050F7B0E00A8E303 /* Products */,
 				4BD274C408701E6700C1AE15 /* Info-ZoomView__Upgraded_.plist */,
@@ -1142,6 +1219,7 @@
 				4BD79A8F0BA2C9AA002C82B2 /* babel */,
 				4B7286E60CD3CAFF0079D89B /* ZoomSaveQuickLook.qlgenerator */,
 				55BE4AE32709988700100A7D /* ZoomQuest.zoomplugin */,
+				552CEEAE2715109C009D87A5 /* scare */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1627,6 +1705,46 @@
 			sourceTree = "<group>";
 			usesTabs = 1;
 		};
+		552CEEAF2715109C009D87A5 /* scare */ = {
+			isa = PBXGroup;
+			children = (
+				552CEECC2715110C009D87A5 /* ChangeLog */,
+				552CEEC02715110B009D87A5 /* COPYING */,
+				552CEEC82715110C009D87A5 /* Makefile */,
+				552CEEDD2715110D009D87A5 /* os_ansi.c */,
+				552CEEBC2715110B009D87A5 /* os_glk.c */,
+				552CEEDA2715110D009D87A5 /* README */,
+				552CEEBF2715110B009D87A5 /* scare.h */,
+				552CEED62715110C009D87A5 /* scare.hdr */,
+				552CEECB2715110C009D87A5 /* scdebug.c */,
+				552CEED22715110C009D87A5 /* scevents.c */,
+				552CEECA2715110C009D87A5 /* scexpr.c */,
+				552CEEDB2715110D009D87A5 /* scgamest.c */,
+				552CEEC42715110C009D87A5 /* scgamest.h */,
+				552CEEC22715110C009D87A5 /* scinterf.c */,
+				552CEEDE2715110D009D87A5 /* sclibrar.c */,
+				552CEEC72715110C009D87A5 /* sclocale.c */,
+				552CEED72715110C009D87A5 /* scmemos.c */,
+				552CEEC92715110C009D87A5 /* scnpcs.c */,
+				552CEEBA2715110B009D87A5 /* scobjcts.c */,
+				552CEED82715110C009D87A5 /* scparser.c */,
+				552CEEDF2715110D009D87A5 /* scprintf.c */,
+				552CEECD2715110C009D87A5 /* scprops.c */,
+				552CEEE12715110D009D87A5 /* scprotos.h */,
+				552CEEDC2715110D009D87A5 /* scresour.c */,
+				552CEEC12715110B009D87A5 /* screstrs.c */,
+				552CEEC52715110C009D87A5 /* scrunner.c */,
+				552CEED02715110C009D87A5 /* scserial.c */,
+				552CEECE2715110C009D87A5 /* sctaffil.c */,
+				552CEEE02715110D009D87A5 /* sctafpar.c */,
+				552CEED52715110C009D87A5 /* sctasks.c */,
+				552CEED32715110C009D87A5 /* scutils.c */,
+				552CEED92715110C009D87A5 /* scvars.c */,
+			);
+			name = scare;
+			path = depends/scare;
+			sourceTree = "<group>";
+		};
 		553C83662712382B002782C0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1954,6 +2072,23 @@
 			productReference = 4BD79A8F0BA2C9AA002C82B2 /* babel */;
 			productType = "com.apple.product-type.tool";
 		};
+		552CEEAD2715109C009D87A5 /* scare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 552CEEB92715109C009D87A5 /* Build configuration list for PBXNativeTarget "scare" */;
+			buildPhases = (
+				552CEEAA2715109C009D87A5 /* Sources */,
+				552CEEAB2715109C009D87A5 /* Frameworks */,
+				552CEEAC2715109C009D87A5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = scare;
+			productName = scare;
+			productReference = 552CEEAE2715109C009D87A5 /* scare */;
+			productType = "com.apple.product-type.tool";
+		};
 		55BE4AE22709988700100A7D /* ZoomQuest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55BE4AE42709988800100A7D /* Build configuration list for PBXNativeTarget "ZoomQuest" */;
@@ -1990,6 +2125,9 @@
 					};
 					4BD2747808701E6700C1AE15 = {
 						LastSwiftMigration = 1300;
+					};
+					552CEEAD2715109C009D87A5 = {
+						CreatedOnToolsVersion = 13.0;
 					};
 					55BE4AE22709988700100A7D = {
 						CreatedOnToolsVersion = 13.0;
@@ -2032,6 +2170,7 @@
 				4BD79A8E0BA2C9AA002C82B2 /* babel */,
 				4B7286E50CD3CAFF0079D89B /* ZoomSaveQuickLook */,
 				55BE4AE22709988700100A7D /* ZoomQuest */,
+				552CEEAD2715109C009D87A5 /* scare */,
 			);
 		};
 /* End PBXProject section */
@@ -2393,6 +2532,36 @@
 				4BD79AF00BA2CC06002C82B2 /* babel_multi_functions.c in Sources */,
 				4BD79AF10BA2CC06002C82B2 /* babel_story_functions.c in Sources */,
 				4BD79AF30BA2CC13002C82B2 /* babel.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		552CEEAA2715109C009D87A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				552CEF012715110D009D87A5 /* sctafpar.c in Sources */,
+				552CEEF42715110D009D87A5 /* scserial.c in Sources */,
+				552CEEF22715110D009D87A5 /* sctaffil.c in Sources */,
+				552CEF002715110D009D87A5 /* scprintf.c in Sources */,
+				552CEEEA2715110D009D87A5 /* scrunner.c in Sources */,
+				552CEEE42715110D009D87A5 /* os_glk.c in Sources */,
+				552CEEE82715110D009D87A5 /* scinterf.c in Sources */,
+				552CEEFA2715110D009D87A5 /* scparser.c in Sources */,
+				552CEEF62715110D009D87A5 /* scevents.c in Sources */,
+				552CEEF72715110D009D87A5 /* scutils.c in Sources */,
+				552CEEF92715110D009D87A5 /* scmemos.c in Sources */,
+				552CEEEC2715110D009D87A5 /* sclocale.c in Sources */,
+				552CEEFD2715110D009D87A5 /* scresour.c in Sources */,
+				552CEEE22715110D009D87A5 /* scobjcts.c in Sources */,
+				552CEEF02715110D009D87A5 /* scdebug.c in Sources */,
+				552CEEEE2715110D009D87A5 /* scnpcs.c in Sources */,
+				552CEEEF2715110D009D87A5 /* scexpr.c in Sources */,
+				552CEEFB2715110D009D87A5 /* scvars.c in Sources */,
+				552CEEFC2715110D009D87A5 /* scgamest.c in Sources */,
+				552CEEF12715110D009D87A5 /* scprops.c in Sources */,
+				552CEEFF2715110D009D87A5 /* sclibrar.c in Sources */,
+				552CEEF82715110D009D87A5 /* sctasks.c in Sources */,
+				552CEEE72715110D009D87A5 /* screstrs.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3212,6 +3381,33 @@
 			};
 			name = Release;
 		};
+		552CEEB22715109C009D87A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		552CEEB32715109C009D87A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		55BE4AE52709988800100A7D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3365,6 +3561,15 @@
 			buildConfigurations = (
 				4BD79A920BA2C9C9002C82B2 /* Debug */,
 				4BD79A930BA2C9C9002C82B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		552CEEB92715109C009D87A5 /* Build configuration list for PBXNativeTarget "scare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				552CEEB22715109C009D87A5 /* Debug */,
+				552CEEB32715109C009D87A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
