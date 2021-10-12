@@ -189,6 +189,14 @@ NS_ENUM(NSInteger) {
 	}
 	
 	topPanelView = view;
+	NSLayoutConstraint *constraint = [topPanelView.leftAnchor constraintEqualToAnchor: fadeView.superview.leftAnchor];
+	constraint.active = YES;
+	constraint = [topPanelView.rightAnchor constraintEqualToAnchor: fadeView.superview.rightAnchor];
+	constraint.active = YES;
+	constraint = [topPanelView.topAnchor constraintEqualToAnchor: fadeView.bottomAnchor];
+	constraint.active = YES;
+	constraint = [topPanelView.bottomAnchor constraintEqualToAnchor: fadeView.superview.bottomAnchor];
+	constraint.active = YES;
 	[flipButtonMatrix setNextKeyView: view];
 	[view setNextKeyView: mainTableView];
 }
@@ -1578,9 +1586,13 @@ static dispatch_block_t onceTypesBlock = ^{
 	dropOperation:(NSTableViewDropOperation)op {
     NSPasteboard * pasteboard = [sender draggingPasteboard];
 	NSArray<NSURL*> * fileURLs = [pasteboard readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
-	[self addURLs:fileURLs];
+	if (fileURLs) {
+		[self addURLs:fileURLs];
 
-	return YES;
+		return YES;
+	}
+	
+	return NO;
 }
 
 
@@ -2719,10 +2731,20 @@ static dispatch_block_t onceTypesBlock = ^{
 	[browserView setFrame: viewFrame];
 	[self setBrowserFontSize];
 	
+	browserView.translatesAutoresizingMaskIntoConstraints = NO;
 	[fv prepareToAnimateView: mainView];
 	[fv animateTo: browserView
 			style: ZoomAnimateRight];
 	
+	NSLayoutConstraint *constraint = [browserView.leftAnchor constraintEqualToAnchor: browserView.superview.leftAnchor];
+	constraint.active = YES;
+	constraint = [browserView.rightAnchor constraintEqualToAnchor: browserView.superview.rightAnchor];
+	constraint.active = YES;
+	constraint = [browserView.topAnchor constraintEqualToAnchor: browserView.superview.topAnchor];
+	constraint.active = YES;
+	constraint = [browserView.topAnchor constraintEqualToAnchor: browserView.superview.bottomAnchor];
+	constraint.active = YES;
+
 	NSString* ifdbUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"ZoomIfdbUrl"];
 	if (!ifdbUrl) {
 		ifdbUrl = @"http://ifdb.tads.org/";

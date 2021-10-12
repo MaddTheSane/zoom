@@ -12,6 +12,7 @@
                 <outlet property="backButton" destination="345" id="351"/>
                 <outlet property="browserView" destination="319" id="334"/>
                 <outlet property="continueButton" destination="64" id="69"/>
+                <outlet property="fadeView" destination="253" id="KI9-kB-s0u"/>
                 <outlet property="filterTable1" destination="262" id="269"/>
                 <outlet property="filterTable2" destination="265" id="270"/>
                 <outlet property="filterView" destination="214" id="243"/>
@@ -128,15 +129,15 @@
                     <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="196">
                         <rect key="frame" x="107" y="18" width="16" height="16"/>
                     </progressIndicator>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="340">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="340" userLabel="Main View">
                         <rect key="frame" x="7" y="50" width="570" height="326"/>
                         <subviews>
                             <splitView translatesAutoresizingMaskIntoConstraints="NO" id="163" customClass="ZoomCollapsingSplitView">
                                 <rect key="frame" x="0.0" y="0.0" width="570" height="326"/>
                                 <subviews>
-                                    <box fixedFrame="YES" borderType="line" title="Title" titlePosition="noTitle" id="154">
+                                    <box fixedFrame="YES" borderType="line" title="Title" titlePosition="noTitle" id="154" userLabel="Slide Superview">
                                         <rect key="frame" x="-3" y="-2" width="576" height="123"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" id="vjL-Ek-qcQ">
                                             <rect key="frame" x="3" y="3" width="570" height="117"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,9 +232,9 @@
                                             </constraints>
                                         </view>
                                     </box>
-                                    <box fixedFrame="YES" borderType="line" title="Title" titlePosition="noTitle" id="161">
+                                    <box fixedFrame="YES" borderType="line" title="Title" titlePosition="noTitle" id="161" userLabel="Stories">
                                         <rect key="frame" x="-3" y="124" width="576" height="206"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" id="0Fb-nS-MUv">
                                             <rect key="frame" x="3" y="3" width="570" height="200"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -376,7 +377,6 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="74" secondAttribute="bottom" constant="10" id="1Bk-Tc-E5q"/>
-                    <constraint firstItem="340" firstAttribute="centerX" secondItem="51" secondAttribute="centerX" id="1du-pL-Ti4"/>
                     <constraint firstItem="62" firstAttribute="width" secondItem="46" secondAttribute="width" id="2cz-SS-RtP"/>
                     <constraint firstItem="64" firstAttribute="height" secondItem="46" secondAttribute="height" id="4D8-XD-qXk"/>
                     <constraint firstItem="46" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="8" id="4fD-j0-ZgN"/>
@@ -391,6 +391,7 @@
                     <constraint firstItem="340" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="7" id="JaJ-fN-MR1"/>
                     <constraint firstItem="62" firstAttribute="height" secondItem="46" secondAttribute="height" id="K9O-wF-OIg"/>
                     <constraint firstItem="74" firstAttribute="leading" secondItem="89" secondAttribute="trailing" constant="8" symbolic="YES" id="KTG-K0-7Db"/>
+                    <constraint firstItem="51" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="TLG-rv-dMk"/>
                     <constraint firstAttribute="bottom" secondItem="51" secondAttribute="bottom" constant="15" id="WAu-au-fRz"/>
                     <constraint firstItem="46" firstAttribute="baseline" secondItem="62" secondAttribute="baseline" id="ZZt-5m-jyx"/>
                     <constraint firstItem="62" firstAttribute="baseline" secondItem="64" secondAttribute="baseline" id="dCH-P9-bHe"/>
@@ -550,7 +551,7 @@
             </view>
             <point key="canvasLocation" x="-257" y="-738"/>
         </window>
-        <customView id="203" userLabel="Information" customClass="WhiteView" customModule="Zoom" customModuleProvider="target">
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="203" userLabel="Information" customClass="WhiteView" customModule="Zoom" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="565" height="113"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -613,6 +614,10 @@ Cg
                             </textView>
                         </subviews>
                     </clipView>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="429" id="Lif-BF-WTh"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="116" id="cZp-QR-oe6"/>
+                    </constraints>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="400">
                         <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -623,7 +628,7 @@ Cg
                     </scroller>
                 </scrollView>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="206" customClass="HQImageView" customModule="Zoom" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="136" height="113"/>
+                    <rect key="frame" x="0.0" y="2" width="136" height="113"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="113" id="WCF-fO-3Bx"/>
                         <constraint firstAttribute="width" constant="136" id="xsa-eQ-Tw1"/>
@@ -648,9 +653,8 @@ Cg
             </connections>
             <point key="canvasLocation" x="-621" y="439"/>
         </customView>
-        <customView id="214" userLabel="FilterView">
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="214" userLabel="FilterView">
             <rect key="frame" x="0.0" y="0.0" width="568" height="120"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <box horizontalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="267">
                     <rect key="frame" x="282" y="-1" width="5" height="122"/>
@@ -759,6 +763,7 @@ Cg
                 <constraint firstAttribute="bottom" secondItem="261" secondAttribute="bottom" id="BJD-I9-Eip"/>
                 <constraint firstItem="261" firstAttribute="top" secondItem="264" secondAttribute="top" id="JzK-CJ-srL"/>
                 <constraint firstItem="267" firstAttribute="top" secondItem="214" secondAttribute="top" constant="-1" id="OGZ-e1-r5d"/>
+                <constraint firstItem="264" firstAttribute="width" secondItem="261" secondAttribute="width" id="X6t-P7-jpt"/>
                 <constraint firstItem="261" firstAttribute="top" secondItem="214" secondAttribute="top" id="apS-jF-D0N"/>
                 <constraint firstAttribute="trailing" secondItem="264" secondAttribute="trailing" id="kTU-Fj-9OW"/>
                 <constraint firstItem="261" firstAttribute="leading" secondItem="214" secondAttribute="leading" id="owp-Fs-Hc5"/>
@@ -780,9 +785,8 @@ Cg
             <rect key="frame" x="0.0" y="0.0" width="536" height="127"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="290">
+                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="290">
                     <rect key="frame" x="0.0" y="0.0" width="536" height="127"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" autoresizesSubviews="NO" id="R9s-wD-Bt6">
                         <rect key="frame" x="0.0" y="0.0" width="536" height="127"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -809,6 +813,12 @@ Cg
                     </scroller>
                 </scrollView>
             </subviews>
+            <constraints>
+                <constraint firstItem="290" firstAttribute="leading" secondItem="280" secondAttribute="leading" id="HkK-JZ-l7A"/>
+                <constraint firstAttribute="trailing" secondItem="290" secondAttribute="trailing" id="KQ0-Qz-PFd"/>
+                <constraint firstItem="290" firstAttribute="top" secondItem="280" secondAttribute="top" id="lju-rk-cAe"/>
+                <constraint firstAttribute="bottom" secondItem="290" secondAttribute="bottom" id="ugh-Xk-yBB"/>
+            </constraints>
             <point key="canvasLocation" x="-121" y="-242"/>
         </customView>
         <customView id="319" userLabel="Browser">
@@ -821,7 +831,7 @@ Cg
                         <rect key="frame" x="1" y="1" width="568" height="373"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="326" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
+                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="326" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="351" width="568" height="22"/>
                                 <subviews>
                                     <button hidden="YES" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="348">
@@ -880,7 +890,7 @@ Cg
                                             <outlet property="nextKeyView" destination="346" id="363"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="327">
+                                    <button verticalHuggingPriority="750" ambiguous="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="327">
                                         <rect key="frame" x="475" y="2" width="88" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Story Browser" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="383">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -911,8 +921,11 @@ Cg
                                     <constraint firstItem="346" firstAttribute="top" secondItem="347" secondAttribute="top" id="sQl-Dk-4cN"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="332" customClass="WebView">
-                                <rect key="frame" x="0.0" y="0.0" width="568" height="351"/>
+                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="332" customClass="WebView">
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="343"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="568" id="3mF-XZ-etK"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="nextKeyView" destination="345" id="368"/>
                                 </connections>
@@ -931,13 +944,15 @@ Cg
                 </box>
             </subviews>
             <constraints>
+                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="375" id="0kM-RL-RiQ"/>
                 <constraint firstAttribute="bottom" secondItem="338" secondAttribute="bottom" id="9SL-Vi-8ay"/>
                 <constraint firstItem="338" firstAttribute="leading" secondItem="319" secondAttribute="leading" id="DoE-Db-rgM"/>
                 <constraint firstItem="338" firstAttribute="top" secondItem="319" secondAttribute="top" id="KTD-HL-fhi"/>
                 <constraint firstAttribute="trailing" secondItem="338" secondAttribute="trailing" id="Klf-gd-QON"/>
+                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="570" id="Rgt-tc-jkZ"/>
             </constraints>
             <accessibility description="Backwards"/>
-            <point key="canvasLocation" x="14" y="460"/>
+            <point key="canvasLocation" x="14" y="459.5"/>
         </customView>
     </objects>
     <resources>

@@ -11,6 +11,7 @@
 #import <ZoomPlugIns/ZoomStory.h>
 @class CollapsableView;
 @class SavePreviewView;
+@class FadeView;
 #import "ZoomCollapsingSplitView.h"
 #import <ZoomPlugIns/ZoomResourceDrop.h>
 #import "ZoomStoryTableView.h"
@@ -37,6 +38,7 @@
 	IBOutlet NSView* infoView;
 	IBOutlet NSView* saveGameView;
 	IBOutlet NSMatrix* flipButtonMatrix;
+	IBOutlet FadeView *fadeView;
 	
 	IBOutlet NSView* mainView;
 	IBOutlet NSView* browserView;
