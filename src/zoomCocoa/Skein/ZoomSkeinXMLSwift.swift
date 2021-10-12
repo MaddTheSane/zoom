@@ -13,7 +13,7 @@ private func idFor(_ item: ZoomSkeinItem) -> String {
 }
 
 extension ZoomSkein {
-	func preparseXMLData(_ data: Data) throws -> [AnyHashable: Any] {
+	@objc public func preparseXMLData(_ data: Data) throws -> [AnyHashable: Any] {
 		let parseDel = SkeinXMLParseDelegate()
 		try parseDel.parseData(data)
 		return [:]
