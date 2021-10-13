@@ -45,8 +45,7 @@ extension ZoomSkein {
 		// All item fields are optional.
 		// Root item usually has the command '- start -'
 
-		var result = ""
-		result +=
+		var result =
 #"""
 <Skein rootNode="\#(idFor(rootItem))" xmlns="http://www.logicalshift.org.uk/IF/Skein">
    <generator>Zoom</generator>
@@ -83,19 +82,19 @@ extension ZoomSkein {
 			result += #"    <temporary score="\#(node.temporaryScore)">\#(node.isTemporary ? "YES" : "NO")</temporary>\n"#
 			
 			if node.children.count > 0 {
-				result += "    <children>\n"
+				result.append("    <children>\n")
 				
 				for childNode in node.children {
 					result += #"      <child nodeId="\#(idFor(childNode))"/>\n"#
 				}
 				
-				result += "    </children>\n"
+				result.append("    </children>\n")
 			}
 			
-			result += "  </item>\n"
+			result.append("  </item>\n")
 		}
 		// Write footer
-		result += "</Skein>\n"
+		result.append("</Skein>\n")
 		
 		return result
 	}

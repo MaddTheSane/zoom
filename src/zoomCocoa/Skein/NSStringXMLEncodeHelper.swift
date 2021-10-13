@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
 	func byEscapingXMLCharacters() -> String {
-		let charArray = self.map { theChar -> String? in
+		let charArray = self.compactMap { theChar -> String? in
 			switch theChar {
 			case "\n":
 				return "\n"
@@ -29,14 +29,14 @@ extension String {
 			case "'":
 				return "&apos;"
 				
-			case "\0" ..< "\u{20}":
+			case "\0" ..< "\n", "\u{b}" ..< "\u{20}":
 				// Ignore (expat can't parse these)
 				return nil
 				
 			default:
 				return String(theChar)
 			}
-		}.compactMap({$0})
+		}
 		
 		return charArray.joined()
 	}
