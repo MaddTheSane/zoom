@@ -33,7 +33,7 @@ public class Adrift: ZoomGlkPlugIn {
 	public override class func canRunPath(_ path: String!) -> Bool {
 		if let path = path {
 			let fileURL = URL(fileURLWithPath: path)
-			return isAdriftFile(at: fileURL)
+			return isCompatibleAdriftFile(at: fileURL)
 		}
 		return false
 	}
@@ -160,7 +160,7 @@ private let versionData: Data = {
 ///
 /// It seems fairly unlikely that the obfuscated form of that
 /// word would occur in the wild
-func isAdriftFile(at url: URL) -> Bool {
+func isCompatibleAdriftFile(at url: URL) -> Bool {
 	var rng = VisualBasicRNG()
 	guard let fh = try? FileHandle(forReadingFrom: url) else {
 		return false
@@ -169,9 +169,27 @@ func isAdriftFile(at url: URL) -> Bool {
 	guard data.count >= 12 else {
 		return false
 	}
-	let buf = data.subdata(in: 0 ..< 7).map { val in
+	var buf = data.subdata(in: 0 ..< 7).map { val in
 		return rng.translate(byte: val)
 	}
 	let bufDat = Data(buf)
-	return bufDat == versionData
+	guard bufDat == versionData else {
+		return false
+	}
+	_=rng.translate(byte: 0)
+	buf = [0,0,0]
+	buf[0] = rng.translate(byte: data[8])
+	_=rng.translate(byte: 0)
+	buf[1] = rng.translate(byte: data[10])
+	buf[2] = rng.translate(byte: data[11])
+	let versDat = Data(buf)
+	guard let bufTxt = String(data: versDat, encoding: .utf8),
+			let adv = Int32(bufTxt) else {
+		return false
+	}
+	// We can't run version 5.00 Adrift files yet
+	guard adv < 500 else {
+		return false
+	}
+	return true
 }
