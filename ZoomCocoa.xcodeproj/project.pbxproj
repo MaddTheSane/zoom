@@ -263,6 +263,7 @@
 		552CEF05271512E5009D87A5 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
 		552CEF1A27152C5F009D87A5 /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBC2715110B009D87A5 /* os_glk.c */; };
 		552CEF2327152D0F009D87A5 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
+		552CF02427168668009D87A5 /* ZoomAdrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CF02327168668009D87A5 /* ZoomAdrift.swift */; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
@@ -552,6 +553,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = 552CEF1127152BDA009D87A5;
 			remoteInfo = glkmain;
+		};
+		552CF01B27168530009D87A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
+			remoteInfo = ZoomPlugIns;
+		};
+		552CF01D27168530009D87A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BD2747808701E6700C1AE15;
+			remoteInfo = ZoomView;
+		};
+		552CF01F27168530009D87A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 552CEEAD2715109C009D87A5;
+			remoteInfo = scare;
 		};
 		554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -995,6 +1017,9 @@
 		552CEEDF2715110D009D87A5 /* scprintf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scprintf.c; sourceTree = "<group>"; };
 		552CEEE02715110D009D87A5 /* sctafpar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sctafpar.c; sourceTree = "<group>"; };
 		552CEEE12715110D009D87A5 /* scprotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scprotos.h; sourceTree = "<group>"; };
+		552CF01727168508009D87A5 /* Adrift.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Adrift.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		552CF022271685A2009D87A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		552CF02327168668009D87A5 /* ZoomAdrift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAdrift.swift; sourceTree = "<group>"; };
 		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
 		553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZoomiFictionController+OldWebKit.m"; sourceTree = "<group>"; };
 		553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSkeinXMLSwift.swift; sourceTree = "<group>"; };
@@ -1143,6 +1168,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		552CF01427168508009D87A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55BE4AE02709988700100A7D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1227,6 +1259,7 @@
 				4B7286E60CD3CAFF0079D89B /* ZoomSaveQuickLook.qlgenerator */,
 				55BE4AE32709988700100A7D /* ZoomQuest.zoomplugin */,
 				552CEEAE2715109C009D87A5 /* scare */,
+				552CF01727168508009D87A5 /* Adrift.zoomPlugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1415,6 +1448,7 @@
 		4B7CB0730936276B00F3B8F6 /* PlugIns */ = {
 			isa = PBXGroup;
 			children = (
+				552CF02127168593009D87A5 /* Adrift */,
 				553C83662712382B002782C0 /* Resources */,
 				55BE4AE7270998B100100A7D /* Quest */,
 				4B36C44F0955ECDD00874F9F /* Glulxe */,
@@ -1754,6 +1788,15 @@
 			path = depends/scare;
 			sourceTree = "<group>";
 			usesTabs = 0;
+		};
+		552CF02127168593009D87A5 /* Adrift */ = {
+			isa = PBXGroup;
+			children = (
+				552CF022271685A2009D87A5 /* Info.plist */,
+				552CF02327168668009D87A5 /* ZoomAdrift.swift */,
+			);
+			path = Adrift;
+			sourceTree = "<group>";
 		};
 		553C83662712382B002782C0 /* Resources */ = {
 			isa = PBXGroup;
@@ -2099,6 +2142,26 @@
 			productReference = 552CEEAE2715109C009D87A5 /* scare */;
 			productType = "com.apple.product-type.tool";
 		};
+		552CF01627168508009D87A5 /* Adrift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 552CF01827168508009D87A5 /* Build configuration list for PBXNativeTarget "Adrift" */;
+			buildPhases = (
+				552CF01327168508009D87A5 /* Sources */,
+				552CF01427168508009D87A5 /* Frameworks */,
+				552CF01527168508009D87A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				552CF01C27168530009D87A5 /* PBXTargetDependency */,
+				552CF01E27168530009D87A5 /* PBXTargetDependency */,
+				552CF02027168530009D87A5 /* PBXTargetDependency */,
+			);
+			name = Adrift;
+			productName = Adrift;
+			productReference = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */;
+			productType = "com.apple.product-type.bundle";
+		};
 		55BE4AE22709988700100A7D /* ZoomQuest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55BE4AE42709988800100A7D /* Build configuration list for PBXNativeTarget "ZoomQuest" */;
@@ -2138,6 +2201,10 @@
 					};
 					552CEEAD2715109C009D87A5 = {
 						CreatedOnToolsVersion = 13.0;
+					};
+					552CF01627168508009D87A5 = {
+						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
 					};
 					55BE4AE22709988700100A7D = {
 						CreatedOnToolsVersion = 13.0;
@@ -2181,6 +2248,7 @@
 				4B7286E50CD3CAFF0079D89B /* ZoomSaveQuickLook */,
 				55BE4AE22709988700100A7D /* ZoomQuest */,
 				552CEEAD2715109C009D87A5 /* scare */,
+				552CF01627168508009D87A5 /* Adrift */,
 			);
 		};
 /* End PBXProject section */
@@ -2327,6 +2395,13 @@
 				4BB8C17608C249B100D7D334 /* ZoomServer in Resources */,
 				4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */,
 				4BD2749E08701E6700C1AE15 /* archive.iFiction in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		552CF01527168508009D87A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2582,6 +2657,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		552CF01327168508009D87A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				552CF02427168668009D87A5 /* ZoomAdrift.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55BE4ADF2709988700100A7D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2703,6 +2786,21 @@
 			isa = PBXTargetDependency;
 			target = 4BD2747808701E6700C1AE15 /* ZoomView */;
 			targetProxy = 552A0387204B360700A4ECAA /* PBXContainerItemProxy */;
+		};
+		552CF01C27168530009D87A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
+			targetProxy = 552CF01B27168530009D87A5 /* PBXContainerItemProxy */;
+		};
+		552CF01E27168530009D87A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BD2747808701E6700C1AE15 /* ZoomView */;
+			targetProxy = 552CF01D27168530009D87A5 /* PBXContainerItemProxy */;
+		};
+		552CF02027168530009D87A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 552CEEAD2715109C009D87A5 /* scare */;
+			targetProxy = 552CF01F27168530009D87A5 /* PBXContainerItemProxy */;
 		};
 		55982BEC21C0CE43002B601B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3408,6 +3506,12 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -3420,8 +3524,74 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		552CF01927168508009D87A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Adrift/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Adrift";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.Adrift;
+				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Debug;
+		};
+		552CF01A27168508009D87A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Adrift/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Adrift";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.Adrift;
+				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = zoomPlugin;
 			};
 			name = Release;
 		};
@@ -3587,6 +3757,15 @@
 			buildConfigurations = (
 				552CEEB22715109C009D87A5 /* Debug */,
 				552CEEB32715109C009D87A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		552CF01827168508009D87A5 /* Build configuration list for PBXNativeTarget "Adrift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				552CF01927168508009D87A5 /* Debug */,
+				552CF01A27168508009D87A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
