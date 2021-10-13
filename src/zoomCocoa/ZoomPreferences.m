@@ -167,7 +167,7 @@ static NSArray* DefaultColours(void) {
 - (id) initWithDefaultPreferences {
 	self = [self init];
 	
-	if (self) @autoreleasepool {
+	if (self) {
 		// Defaults
 		[prefs setObject: @NO
 				  forKey: displayWarnings];

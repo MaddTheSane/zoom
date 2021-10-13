@@ -634,17 +634,13 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 - (void) startedActing {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryOrganiserProgressNotification
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-														  @YES, @"ActionStarting",
-														  nil]];
+													  userInfo: @{@"ActionStarting": @YES}];
 }
 
 - (void) endedActing {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomStoryOrganiserProgressNotification
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-														  @NO, @"ActionStarting",
-														  nil]];
+													  userInfo: @{@"ActionStarting": @NO}];
 }
 
 #pragma mark - Retrieving story information
