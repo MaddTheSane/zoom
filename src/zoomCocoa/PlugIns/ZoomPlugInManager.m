@@ -131,8 +131,6 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 #pragma mark - Dealing with existing plugins
 
 - (void) loadPlugIn: (NSString*) pluginBundlePath {
-    return;
-    
 	NSBundle* pluginBundle = [NSBundle bundleWithPath: pluginBundlePath];
 	
 	NSString* version = [self versionForBundle: pluginBundlePath];

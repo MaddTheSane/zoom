@@ -8,6 +8,7 @@
 
 #import "ZoomGlkDocument.h"
 #import "ZoomGlkWindowController.h"
+#import "ZoomPlugIn.h"
 
 @implementation ZoomGlkDocument
 

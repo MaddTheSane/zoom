@@ -264,6 +264,8 @@
 		552CEF1A27152C5F009D87A5 /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBC2715110B009D87A5 /* os_glk.c */; };
 		552CEF2327152D0F009D87A5 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
 		552CF02427168668009D87A5 /* ZoomAdrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CF02327168668009D87A5 /* ZoomAdrift.swift */; };
+		552CF02D27176CFC009D87A5 /* scare in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552CEEAE2715109C009D87A5 /* scare */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
@@ -575,6 +577,27 @@
 			remoteGlobalIDString = 552CEEAD2715109C009D87A5;
 			remoteInfo = scare;
 		};
+		552CF02E27176D24009D87A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B51AA5507E877C900576AB9;
+			remoteInfo = GlkClient;
+		};
+		552CF03027176D24009D87A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 552CEF1027152BDA009D87A5;
+			remoteInfo = glkmain;
+		};
+		552CF03227176D45009D87A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 552CF01627168508009D87A5;
+			remoteInfo = Adrift;
+		};
 		554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
@@ -626,6 +649,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glulxe plugin */,
 				4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glulxe plugin */,
 			);
 			name = "Copy Glulxe plugin";
@@ -689,14 +713,15 @@
 			name = "Copy frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		552CEEAC2715109C009D87A5 /* CopyFiles */ = {
+		552CF02627176CED009D87A5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
+				552CF02D27176CFC009D87A5 /* scare in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		55EFEC46256272BD001E0823 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -2070,6 +2095,7 @@
 				4B51A95108FAC71400232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
+				552CF03327176D45009D87A5 /* PBXTargetDependency */,
 				55BE4AF327099AB400100A7D /* PBXTargetDependency */,
 				55BC633F2055DC0E001F8CFB /* PBXTargetDependency */,
 				4BB8C18908C249F400D7D334 /* PBXTargetDependency */,
@@ -2131,11 +2157,12 @@
 			buildPhases = (
 				552CEEAA2715109C009D87A5 /* Sources */,
 				552CEEAB2715109C009D87A5 /* Frameworks */,
-				552CEEAC2715109C009D87A5 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				552CF02F27176D24009D87A5 /* PBXTargetDependency */,
+				552CF03127176D24009D87A5 /* PBXTargetDependency */,
 			);
 			name = scare;
 			productName = scare;
@@ -2149,6 +2176,7 @@
 				552CF01327168508009D87A5 /* Sources */,
 				552CF01427168508009D87A5 /* Frameworks */,
 				552CF01527168508009D87A5 /* Resources */,
+				552CF02627176CED009D87A5 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2236,10 +2264,10 @@
 			);
 			projectRoot = "";
 			targets = (
+				4BB8C18808C249F400D7D334 /* Zoom */,
 				4BB8C12208C2497700D7D334 /* ZoomServer */,
 				4B1E3F67050F7BB700A8E303 /* Interpreter */,
 				4BB8C0DC08C2452E00D7D334 /* Builder */,
-				4BB8C18808C249F400D7D334 /* Zoom */,
 				4BD2747808701E6700C1AE15 /* ZoomView */,
 				4B39C92A08EEF63400BA5E90 /* ZoomMetadataImporter */,
 				4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */,
@@ -2801,6 +2829,21 @@
 			isa = PBXTargetDependency;
 			target = 552CEEAD2715109C009D87A5 /* scare */;
 			targetProxy = 552CF01F27168530009D87A5 /* PBXContainerItemProxy */;
+		};
+		552CF02F27176D24009D87A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GlkClient;
+			targetProxy = 552CF02E27176D24009D87A5 /* PBXContainerItemProxy */;
+		};
+		552CF03127176D24009D87A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = glkmain;
+			targetProxy = 552CF03027176D24009D87A5 /* PBXContainerItemProxy */;
+		};
+		552CF03327176D45009D87A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 552CF01627168508009D87A5 /* Adrift */;
+			targetProxy = 552CF03227176D45009D87A5 /* PBXContainerItemProxy */;
 		};
 		55982BEC21C0CE43002B601B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

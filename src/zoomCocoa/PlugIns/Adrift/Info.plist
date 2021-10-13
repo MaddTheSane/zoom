@@ -19,7 +19,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
-	<string>$(PRODUCT_MODULE_NAME).Quest</string>
+	<string>$(PRODUCT_MODULE_NAME).Adrift</string>
 	<key>ZoomPlugin</key>
 	<dict>
 		<key>Author</key>
