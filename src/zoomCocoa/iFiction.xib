@@ -44,7 +44,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="iFiction" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="iFiction" animationBehavior="default" id="5" userLabel="Main Window">
+        <window title="iFiction" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="iFiction" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" id="5" userLabel="Main Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="284" y="145" width="584" height="384"/>
@@ -527,7 +527,7 @@
             </items>
             <point key="canvasLocation" x="-863" y="-1298"/>
         </menu>
-        <window title="Cover Art" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="CoverArt" animationBehavior="default" titlebarAppearsTransparent="YES" id="198" userLabel="CoverArtPreview">
+        <window title="Cover Art" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="CoverArt" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" id="198" userLabel="CoverArtPreview">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="193" y="91" width="513" height="429"/>
@@ -552,13 +552,12 @@
             <point key="canvasLocation" x="-257" y="-738"/>
         </window>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="203" userLabel="Information" customClass="WhiteView" customModule="Zoom" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="565" height="113"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <rect key="frame" x="0.0" y="0.0" width="565" height="116"/>
             <subviews>
                 <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="286">
-                    <rect key="frame" x="136" y="0.0" width="429" height="113"/>
+                    <rect key="frame" x="136" y="0.0" width="429" height="116"/>
                     <clipView key="contentView" drawsBackground="NO" id="UB6-ym-eLH">
-                        <rect key="frame" x="0.0" y="0.0" width="429" height="113"/>
+                        <rect key="frame" x="0.0" y="0.0" width="429" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="287">
@@ -566,7 +565,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="429" height="113"/>
+                                <size key="minSize" width="429" height="116"/>
                                 <size key="maxSize" width="1000" height="10000000"/>
                                 <attributedString key="textStorage">
                                     <fragment content="Curses">
@@ -623,7 +622,7 @@ Cg
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="401">
-                        <rect key="frame" x="413" y="0.0" width="16" height="113"/>
+                        <rect key="frame" x="413" y="0.0" width="16" height="116"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
@@ -825,14 +824,14 @@ Cg
             <rect key="frame" x="0.0" y="0.0" width="570" height="375"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <box boxType="custom" borderType="line" title="Title" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="338">
-                    <rect key="frame" x="0.0" y="0.0" width="570" height="375"/>
+                <box borderType="line" title="Title" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="338">
+                    <rect key="frame" x="-3" y="-4" width="576" height="381"/>
                     <view key="contentView" id="QDo-a1-jtK">
-                        <rect key="frame" x="1" y="1" width="568" height="373"/>
+                        <rect key="frame" x="3" y="3" width="570" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="326" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="351" width="568" height="22"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="326" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="353" width="570" height="22"/>
                                 <subviews>
                                     <button hidden="YES" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="348">
                                         <rect key="frame" x="70" y="2" width="51" height="18"/>
@@ -890,8 +889,8 @@ Cg
                                             <outlet property="nextKeyView" destination="346" id="363"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" ambiguous="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="327">
-                                        <rect key="frame" x="475" y="2" width="88" height="18"/>
+                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="327">
+                                        <rect key="frame" x="477" y="2" width="88" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Story Browser" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="383">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -921,8 +920,8 @@ Cg
                                     <constraint firstItem="346" firstAttribute="top" secondItem="347" secondAttribute="top" id="sQl-Dk-4cN"/>
                                 </constraints>
                             </customView>
-                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="332" customClass="WebView">
-                                <rect key="frame" x="0.0" y="0.0" width="568" height="343"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="332" customClass="WebView">
+                                <rect key="frame" x="0.0" y="0.0" width="570" height="353"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="568" id="3mF-XZ-etK"/>
                                 </constraints>
@@ -944,12 +943,10 @@ Cg
                 </box>
             </subviews>
             <constraints>
-                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="375" id="0kM-RL-RiQ"/>
                 <constraint firstAttribute="bottom" secondItem="338" secondAttribute="bottom" id="9SL-Vi-8ay"/>
                 <constraint firstItem="338" firstAttribute="leading" secondItem="319" secondAttribute="leading" id="DoE-Db-rgM"/>
                 <constraint firstItem="338" firstAttribute="top" secondItem="319" secondAttribute="top" id="KTD-HL-fhi"/>
                 <constraint firstAttribute="trailing" secondItem="338" secondAttribute="trailing" id="Klf-gd-QON"/>
-                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="570" id="Rgt-tc-jkZ"/>
             </constraints>
             <accessibility description="Backwards"/>
             <point key="canvasLocation" x="14" y="459.5"/>
