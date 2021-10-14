@@ -600,14 +600,19 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	
 	if (value != nil) {
 		int len = IFMB_StrLen(value);
+		NSString* result = [[NSString alloc] initWithBytes:value length:len*2 encoding:NSUTF16LittleEndianStringEncoding];
+		if (result) {
+			[metadata unlock];
+			return result;
+		}
 		unichar* characters = malloc(sizeof(unichar)*len);
 		int x;
 		
 		for (x=0; x<len; x++) characters[x] = value[x];
 		
-		NSString* result = [[NSString alloc] initWithCharactersNoCopy: characters
-															   length: len
-														 freeWhenDone: YES];
+		result = [[NSString alloc] initWithCharactersNoCopy: characters
+													 length: len
+											   freeWhenDone: YES];
 		
 		[metadata unlock];
 		return result;

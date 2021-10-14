@@ -471,29 +471,26 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	return 1;
 }
 
-static NSComparisonResult SortPlugInInfo(id a, id b, void* context) {
-	ZoomPlugInInfo* first = a;
-	ZoomPlugInInfo* second = b;
-	
-	// First sort by status: unknown at the bottom, new and updated at the top
-	ZoomPlugInStatus firstStatus = [first status];
-	ZoomPlugInStatus secondStatus = [second status];
-	
-	if (RankForStatus(firstStatus) < RankForStatus(secondStatus))
-		return NSOrderedDescending;
-	else if (RankForStatus(firstStatus) > RankForStatus(secondStatus))
-		return NSOrderedAscending;
-	else
-		return NSOrderedSame;
-	
-	// Then sort by the name of the plugin
-	return [[first name] caseInsensitiveCompare: [second name]];
-}
-
 - (void) sortInformation {
 	// Sorts the plugin information array
-	[pluginInformation sortUsingFunction: SortPlugInInfo
-								 context: (__bridge void * _Nullable)(self)];
+	[pluginInformation sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+		ZoomPlugInInfo* first = obj1;
+		ZoomPlugInInfo* second = obj2;
+		
+		// First sort by status: unknown at the bottom, new and updated at the top
+		ZoomPlugInStatus firstStatus = [first status];
+		ZoomPlugInStatus secondStatus = [second status];
+		
+		if (RankForStatus(firstStatus) < RankForStatus(secondStatus))
+			return NSOrderedDescending;
+		else if (RankForStatus(firstStatus) > RankForStatus(secondStatus))
+			return NSOrderedAscending;
+		else
+			return NSOrderedSame;
+		
+		// Then sort by the name of the plugin
+		return [[first name] caseInsensitiveCompare: [second name]];
+	}];
 }
 
 - (void) addPlugInsFromDirectory: (NSString*) directory

@@ -90,7 +90,7 @@
 ///
 /// The window controller proper
 ///
-@interface ZoomGlkWindowController(ZoomPrivate)
+@interface ZoomGlkWindowController(/*ZoomPrivate*/)
 
 - (void) prefsChanged: (NSNotification*) not;
 

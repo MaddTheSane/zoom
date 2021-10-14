@@ -1473,8 +1473,8 @@
 		4B7CB0730936276B00F3B8F6 /* PlugIns */ = {
 			isa = PBXGroup;
 			children = (
-				552CF02127168593009D87A5 /* Adrift */,
 				553C83662712382B002782C0 /* Resources */,
+				552CF02127168593009D87A5 /* Adrift */,
 				55BE4AE7270998B100100A7D /* Quest */,
 				4B36C44F0955ECDD00874F9F /* Glulxe */,
 				552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */,

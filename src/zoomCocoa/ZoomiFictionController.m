@@ -878,10 +878,10 @@ static dispatch_block_t onceTypesBlock = ^{
 				}
 			}
 			
-			NSComparisonResult res = [cA caseInsensitiveCompare: cB];
+			NSComparisonResult res = [cA localizedCaseInsensitiveCompare: cB];
 			
 			if (res == NSOrderedSame) {
-				return [[sA title] caseInsensitiveCompare: [sB title]];
+				return [[sA title] localizedCaseInsensitiveCompare: [sB title]];
 			} else {
 				return res;
 			}
