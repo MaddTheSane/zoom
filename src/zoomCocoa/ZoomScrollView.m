@@ -51,7 +51,7 @@
 	int upperHeight  = [zoomView upperWindowSize];
 	NSSize fixedSize = [@"M" sizeWithAttributes:
 		[NSDictionary dictionaryWithObjectsAndKeys:
-		 [zoomView fontFromStyle:ZStyleFixed], NSFontAttributeName, nil]];	
+		 [zoomView fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil]];	
 	
 	if (!NSEqualSizes(lastTileSize, thisTileSize) || lastUpperSize != upperHeight || !NSEqualSizes(lastFixedSize, fixedSize)) {
 		// Move the content view to accomodate the upper window

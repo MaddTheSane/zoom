@@ -31,11 +31,11 @@ public class Adrift: ZoomGlkPlugIn {
 	}
 	
 	public override class func canRunPath(_ path: String!) -> Bool {
-		if let path = path {
-			let fileURL = URL(fileURLWithPath: path)
-			return isCompatibleAdriftFile(at: fileURL)
+		guard let path = path else {
+			return false
 		}
-		return false
+		let fileURL = URL(fileURLWithPath: path)
+		return isCompatibleAdriftFile(at: fileURL)
 	}
 	
 	public override init!(filename gameFile: String!) {
@@ -70,7 +70,7 @@ public class Adrift: ZoomGlkPlugIn {
 }
 
 // MARK: - code adapted from Babel
-struct VisualBasicRNG {
+private struct VisualBasicRNG {
 	private var vbrState: Int32 = VisualBasicRNG.VB_INIT
 	/* VB RNG constants */
 	private static let VB_RAND1: Int32 = 0x43FD43FD

@@ -484,10 +484,10 @@ static void finalizeViews(void) {
 	if (pixmapWindow != nil) {
 		ZStyle* style = [pixmapWindow inputStyle];
 		ZFontStyle fontnum =
-			(style.bold?ZStyleBold:0)|
-			(style.underline?ZStyleUnderline:0)|
-			(style.fixed?ZStyleFixed:0)|
-			(style.symbolic?ZStyleSymbolic:0);
+			(style.bold?ZFontStyleBold:0)|
+			(style.underline?ZFontStyleUnderline:0)|
+			(style.fixed?ZFontStyleFixed:0)|
+			(style.symbolic?ZFontStyleSymbolic:0);
 		
 		[pixmapCursor positionAt: [pixmapWindow inputPos]
 						withFont: [self fontFromStyle: fontnum]];
@@ -580,10 +580,10 @@ static void finalizeViews(void) {
 		// Move the cursor to the appropriate position
 		ZStyle* style = [pixmapWindow inputStyle];
 		ZFontStyle fontnum =
-			(style.bold?ZStyleBold:0)|
-			(style.underline?ZStyleUnderline:0)|
-			(style.fixed?ZStyleFixed:0)|
-			(style.symbolic?ZStyleSymbolic:0);
+			(style.bold?ZFontStyleBold:0)|
+			(style.underline?ZFontStyleUnderline:0)|
+			(style.fixed?ZFontStyleFixed:0)|
+			(style.symbolic?ZFontStyleSymbolic:0);
 		
 		[pixmapCursor positionAt: [pixmapWindow inputPos]
 						withFont: [self fontFromStyle: fontnum]];
@@ -667,7 +667,7 @@ static void finalizeViews(void) {
                   Y: (out int*) ySize {
     NSSize fixedSize = [@"M" sizeWithAttributes:
         [NSDictionary dictionaryWithObjectsAndKeys:
-		 [self fontFromStyle:ZStyleFixed], NSFontAttributeName, nil]];
+		 [self fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil]];
     NSRect ourBounds = NSMakeRect(0,0,0,0);
 	
 	if (pixmapWindow == nil)
@@ -697,7 +697,7 @@ static void finalizeViews(void) {
 		*width = 1;
 		*height = 1;
 	} else {
-		NSFont*             font            = [self fontFromStyle: ZStyleFixed];
+		NSFont*             font            = [self fontFromStyle: ZFontStyleFixed];
         NSLayoutManager*    layoutManager   = [textView layoutManager];
 	
 		*width  = [@"m" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil]].width;
@@ -1224,7 +1224,7 @@ static void finalizeViews(void) {
 	} else {
 		// Point is in character coordinates
 		NSDictionary* fixedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-										 [self fontFromStyle:ZStyleFixed], NSFontAttributeName, nil];
+										 [self fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil];
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 		
 		int charX = floor(pointInView.x / fixedSize.width);
@@ -1266,10 +1266,10 @@ static void finalizeViews(void) {
 	ZFontStyle fontnum;
 	
     fontnum =
-        (style.bold?ZStyleBold:0)|
-        (style.underline?ZStyleUnderline:0)|
-        (style.fixed?ZStyleFixed:0)|
-        (style.symbolic?ZStyleSymbolic:0);
+        (style.bold?ZFontStyleBold:0)|
+        (style.underline?ZFontStyleUnderline:0)|
+        (style.fixed?ZFontStyleFixed:0)|
+        (style.symbolic?ZFontStyleSymbolic:0);
 	
     fontToUse = [self fontFromStyle: fontnum];
 	
@@ -1319,10 +1319,10 @@ static void finalizeViews(void) {
 	ZFontStyle fontnum;
 
     fontnum =
-        (style.bold?ZStyleBold:0)|
-        (style.underline?ZStyleUnderline:0)|
-        (style.fixed?ZStyleFixed:0)|
-        (style.symbolic?ZStyleSymbolic:0);
+        (style.bold?ZFontStyleBold:0)|
+        (style.underline?ZFontStyleUnderline:0)|
+        (style.fixed?ZFontStyleFixed:0)|
+        (style.symbolic?ZFontStyleSymbolic:0);
 
     fontToUse = [self fontFromStyle: fontnum];
 
@@ -1491,7 +1491,7 @@ static void finalizeViews(void) {
 
         // Force text display onto lower window (or where the lower window will be)
         NSDictionary* fixedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-										 [self fontFromStyle: ZStyleFixed], NSFontAttributeName, nil];
+										 [self fontFromStyle: ZFontStyleFixed], NSFontAttributeName, nil];
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 
         NSAttributedString* newLine = [[NSAttributedString alloc] initWithString: @"\n"
