@@ -575,9 +575,7 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 		return @"zcode.coverpicture";
 	}
 
-	int x;
-	
-	for (x=0; x<[key length]; x++) {
+	for (NSInteger x=0; x<[key length]; x++) {
 		if ([key characterAtIndex: x] == '.') return key;
 	}
 	

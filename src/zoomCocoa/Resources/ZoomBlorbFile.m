@@ -227,8 +227,8 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 - (id) initWithContentsOfFile: (NSString*) filename {
-	return [self initWithZFile: [[ZHandleFile alloc] initWithFileHandle:
-								 [NSFileHandle fileHandleForReadingAtPath: filename]]];
+	return [self initWithContentsOfURL: [NSURL fileURLWithPath: filename]
+								 error: NULL];
 }
 
 - (id) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError {
