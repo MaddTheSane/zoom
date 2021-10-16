@@ -109,9 +109,9 @@ static NSImage* unchangedDark, *activeDark;
 		commentaryBadge = [[self class] imageNamed: @"SkeinDiffersBadge"];
 	
 #ifdef SkeinDrawingStyleNew
-		unchangedDark = [[self class] darkenImage: unchanged];
-		activeDark = [[self class] darkenImage: active];
-#endif	
+		unchangedDark = [[self class] imageNamed: @"Skein-unchanged-dark"];
+		activeDark = [[self class] imageNamed: @"Skein-active-dark"];
+#endif
 	
 		itemTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
 		[NSFont systemFontOfSize: 10], NSFontAttributeName,
@@ -135,35 +135,12 @@ static NSImage* unchangedDark, *activeDark;
 	// Images must be 90x30
 	if (width <= 0.0) width = 1.0;
 	
-	// Draw the middle bit
-	NSRect bitToDraw = NSMakeRect(pos.x, pos.y, 50, 30);
-	NSRect bitToDrawFrom = NSMakeRect(20, 0, 50, 30);
-	CGFloat p;
-	
-	for (p=width; p>=0.0; p-=50.0) {
-		if (p < 50.0) {
-			bitToDrawFrom.size.width = bitToDraw.size.width = p;
-		}
-		
-		bitToDraw.origin.x = pos.x + p - bitToDraw.size.width;
-		
-		[img drawInRect: bitToDraw
-			   fromRect: bitToDrawFrom
-			  operation: NSCompositingOperationSourceOver
-			   fraction: 1.0
-		 respectFlipped: YES
-				  hints: nil];
-	}
+	// use image slicing
+	NSRect fullDrawRect = NSMakeRect(pos.x-20, pos.y, width + 20 + 20, 30);
 	
 	// Draw the edge bits
-	[img drawInRect: NSMakeRect(pos.x-20, pos.y, 20, 30)
-		   fromRect: NSMakeRect(0,0,20,30)
-		  operation: NSCompositingOperationSourceOver
-		   fraction: 1.0
-	 respectFlipped: YES
-			  hints: nil];
-	[img drawInRect: NSMakeRect(pos.x+width, pos.y, 20, 30)
-		   fromRect: NSMakeRect(70,0,20,30)
+	[img drawInRect: fullDrawRect
+		   fromRect: NSZeroRect
 		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0
 	 respectFlipped: YES
