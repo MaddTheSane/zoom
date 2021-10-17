@@ -5,17 +5,14 @@
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "bottom" : 0,
           "left" : 134,
-          "right" : 135,
-          "top" : 0
+          "right" : 135
         },
         "center" : {
-          "height" : 23,
-          "mode" : "stretch",
+          "mode" : "tile",
           "width" : 1
         },
-        "mode" : "9-part"
+        "mode" : "3-part-horizontal"
       },
       "scale" : "1x"
     },

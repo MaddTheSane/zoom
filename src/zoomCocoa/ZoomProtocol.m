@@ -4,7 +4,7 @@
 #define maxBufferCount 1024
 NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification";
 
-// Implementation of the various standard classes
+#pragma mark Implementation of the various standard classes
 @implementation ZHandleFile
 - (id) init {
     self = [super init];

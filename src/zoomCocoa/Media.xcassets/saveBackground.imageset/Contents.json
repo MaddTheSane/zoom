@@ -9,7 +9,7 @@
           "right" : 288
         },
         "center" : {
-          "mode" : "stretch",
+          "mode" : "tile",
           "width" : 1
         },
         "mode" : "3-part-horizontal"

@@ -5,8 +5,8 @@
       "idiom" : "universal",
       "resizing" : {
         "cap-insets" : {
-          "left" : 20,
-          "right" : 20
+          "left" : 15,
+          "right" : 15
         },
         "center" : {
           "mode" : "tile",
