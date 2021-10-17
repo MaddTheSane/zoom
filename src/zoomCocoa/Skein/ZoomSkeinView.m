@@ -107,7 +107,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	NSInteger activeButton;
 	NSInteger lastButton;
 	
-	// Annoyingly poor support for tracking rects band-aid
+	/// Annoyingly poor support for tracking rects band-aid
 	NSRect lastVisibleRect;
 	
 	// Editing things
@@ -126,34 +126,15 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	ZoomSkeinItem* contextItem;
 }
 
-+ (NSImage*) imageNamed: (NSString*) name {
-	NSImage* img = [NSImage imageNamed: name];
-	
-	if (img == nil) {
-		// Try to load from the framework instead
-		NSBundle* ourBundle = [NSBundle bundleForClass: [self class]];
-		NSString* filename = [ourBundle pathForResource: name
-												 ofType: @"png"];
-		
-		img = [ourBundle imageForResource:name];
-		if (filename && !img) {
-			img = [[NSImage alloc] initWithContentsOfFile: filename];
-		}
-	}
-	
-	//[img setFlipped: YES];
-	return img;
-}
-
 + (void) initialize {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		add        = [[self class] imageNamed: @"SkeinAdd"];
-		delete     = [[self class] imageNamed: @"SkeinDelete"];
-		locked     = [[self class] imageNamed: @"SkeinLocked"];
-		unlocked   = [[self class] imageNamed: @"SkeinUnlocked"];
-		annotate   = [[self class] imageNamed: @"SkeinAnnotate"];
-		transcript = [[self class] imageNamed: @"SkeinTranscript"];
+		add        = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinAdd"];
+		delete     = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinDelete"];
+		locked     = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinLocked"];
+		unlocked   = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinUnlocked"];
+		annotate   = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinAnnotate"];
+		transcript = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinTranscript"];
 		
 		itemTextAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 10],
 							   NSForegroundColorAttributeName: [NSColor blackColor]};

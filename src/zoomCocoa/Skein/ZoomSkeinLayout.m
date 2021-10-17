@@ -43,54 +43,6 @@ static NSImage* unchangedDark, *activeDark;
 
 #pragma mark - Factory methods
 
-+ (NSImage*) imageNamed: (NSString*) name {
-	NSImage* img = [NSImage imageNamed: name];
-	
-	if (img == nil) {
-		// Try to load from the framework instead
-		NSBundle* ourBundle = [NSBundle bundleForClass: [self class]];
-		NSString* filename = [ourBundle pathForResource: name
-												 ofType: @"png"];
-		
-		if (filename) {
-			img = [[NSImage alloc] initWithContentsOfFile: filename];
-		}
-		if (!img) {
-			img = [[ourBundle imageForResource:name] copy];
-		}
-	}
-	
-	return img;
-}
-
-+ (NSImage*) darkenImage: (NSImage*) image {
-	NSRect imgRect;
-	
-	imgRect.origin = NSMakePoint(0,0);
-	imgRect.size = [image size];
-
-	NSImage* highlighted = [[NSImage alloc] initWithSize: imgRect.size];
-	
-	[highlighted lockFocus];
-	
-	// Background
-	[[NSColor colorWithDeviceRed: 0.0
-						   green: 0.0
-							blue: 0.0
-						   alpha: 0.3] set];
-	NSRectFill(imgRect);
-	
-	// The item
-	[image drawAtPoint: NSMakePoint(0,0)
-			  fromRect: imgRect
-			 operation: NSCompositingOperationDestinationAtop
-			  fraction: 1.0];
-	
-	[highlighted unlockFocus];
-	
-	return highlighted;
-}
-
 + (void) initialize {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
@@ -100,17 +52,17 @@ static NSImage* unchangedDark, *activeDark;
     [labelShadow setShadowBlurRadius: 1.5];
     [labelShadow setShadowColor: [NSColor colorWithCalibratedWhite:0.0 alpha:0.7]];
 	
-		unplayed   = [[self class] imageNamed: @"Skein-unplayed"];
-		selected   = [[self class] imageNamed: @"Skein-selected"];
-		active     = [[self class] imageNamed: @"Skein-active"];
-		unchanged  = [[self class] imageNamed: @"Skein-unchanged"];
-		changed    = [[self class] imageNamed: @"Skein-changed"];
-		annotation = [[self class] imageNamed: @"Skein-annotation"];
-		commentaryBadge = [[self class] imageNamed: @"SkeinDiffersBadge"];
+		unplayed   = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-unplayed"];
+		selected   = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-selected"];
+		active     = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-active"];
+		unchanged  = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-unchanged"];
+		changed    = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-changed"];
+		annotation = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-annotation"];
+		commentaryBadge = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinDiffersBadge"];
 	
 #ifdef SkeinDrawingStyleNew
-		unchangedDark = [[self class] imageNamed: @"Skein-unchanged-dark"];
-		activeDark = [[self class] imageNamed: @"Skein-active-dark"];
+		unchangedDark = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-unchanged-dark"];
+		activeDark = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-active-dark"];
 #endif
 	
 		itemTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -604,13 +556,8 @@ static NSImage* unchangedDark, *activeDark;
 			
 			// Draw the 'commentary changed' badge if necessary
 			if ([skeinItem commentaryComparison] == ZoomSkeinDifferent) {
-				NSRect fromRect;
-				
-				fromRect.origin = NSMakePoint(0,0);
-				fromRect.size = [commentaryBadge size];
-				
 				[commentaryBadge drawAtPoint: NSMakePoint(xpos + bgWidth/2.0 + 4, ypos + 6)
-									fromRect: fromRect
+									fromRect: NSZeroRect
 								   operation: NSCompositingOperationSourceOver
 									fraction: 1.0];
 			}
