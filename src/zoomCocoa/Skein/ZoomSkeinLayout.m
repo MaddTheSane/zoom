@@ -564,7 +564,6 @@ static NSImage* unchangedDark, *activeDark;
 			
 			// Draw links to the children
 			[[NSColor blackColor] set];
-			NSEnumerator* childEnumerator = [[item children] objectEnumerator];
 			
 			CGFloat startYPos = ypos + 10.0 + size.height;
 			CGFloat endYPos = ypos - 10.0 + itemHeight;
@@ -576,7 +575,7 @@ static NSImage* unchangedDark, *activeDark;
 #endif
 			NSColor* permChildLink = [NSColor blackColor];
 			
-			for (ZoomSkeinLayoutItem* child in childEnumerator) {
+			for (ZoomSkeinLayoutItem* child in [item children]) {
 				CGFloat childXPos = [child position] + globalOffset;
 				BOOL annotated = [[child item] annotation]!=nil;
 				
@@ -667,7 +666,7 @@ static NSImage* unchangedDark, *activeDark;
 	[[NSColor clearColor] set];
 	NSRectFill(imgRect);
 	[self drawItem: item
-		   atPoint: NSMakePoint(0,0)];	
+		   atPoint: NSZeroPoint];
 	[img unlockFocus];
 	
 	return img;

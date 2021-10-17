@@ -176,7 +176,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	
 	if (!highlight) {
 		[button drawAtPoint: pt
-				   fromRect: imgRect
+				   fromRect: NSZeroRect
 				  operation: NSCompositingOperationSourceOver
 				   fraction: 1.0];
 	} else {
@@ -193,7 +193,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		
 		// The item
 		[button drawAtPoint: NSMakePoint(0,0)
-				   fromRect: imgRect
+				   fromRect: NSZeroRect
 				  operation: NSCompositingOperationDestinationAtop
 				   fraction: 1.0];
 		
