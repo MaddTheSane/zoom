@@ -268,7 +268,7 @@ void display_prints(const int* buf) {
     
     NSString *str = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
                                                                    length: length * sizeof(int)]
-                                          encoding: NSUTF32StringEncoding];
+                                          encoding: NSUTF32LittleEndianStringEncoding];
 
     if (!str) {
     unichar* bufU = NULL;
@@ -363,7 +363,7 @@ int display_readline(int* buf, int len, long int timeout) {
     if (buf[0] != 0) {
         prefix = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
                                                                 length: len * sizeof(int)]
-                                       encoding: NSUTF32StringEncoding];
+                                       encoding: NSUTF32LittleEndianStringEncoding];
         
         if (!prefix) {
             unichar* prefixBuf = malloc(sizeof(unichar)*len);

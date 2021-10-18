@@ -19,6 +19,7 @@
 #import <ZoomView/ZoomViewProtocols.h>
 
 typedef NS_OPTIONS(unsigned int, ZFontStyle) {
+	ZFontStyleNone = 0,
 	ZFontStyleBold = 1,
 	ZFontStyleUnderline = 2,
 	ZFontStyleFixed = 4,

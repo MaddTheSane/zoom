@@ -803,7 +803,7 @@
 		4B1E3FB7050F7DE200A8E303 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
 		4B1E3FB8050F7DE200A8E303 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = state.h; sourceTree = "<group>"; };
 		4B1E3FB9050F7DE200A8E303 /* zmachine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zmachine.c; sourceTree = "<group>"; };
-		4B1E3FBA050F7DE200A8E303 /* zscii.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zscii.c; sourceTree = "<group>"; };
+		4B1E3FBA050F7DE200A8E303 /* zscii.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = zscii.c; sourceTree = "<group>"; tabWidth = 4; };
 		4B1E3FBB050F7DE200A8E303 /* stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
 		4B1E3FBC050F7DE200A8E303 /* stream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream.c; sourceTree = "<group>"; };
 		4B1E3FBD050F7DE200A8E303 /* random.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = random.c; sourceTree = "<group>"; };

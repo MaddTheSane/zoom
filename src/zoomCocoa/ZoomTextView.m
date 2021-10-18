@@ -295,7 +295,7 @@
 	
 	for (NSArray* line in pastedLines) {
 		// Work out the new position of this line
-		NSRect lineRect = [[line objectAtIndex: 0] rectValue];;
+		NSRect lineRect = [[line objectAtIndex: 0] rectValue];
 		NSAttributedString* str = [line objectAtIndex: 1];
 		
 		lineRect.origin.y -= offset;

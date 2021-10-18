@@ -380,7 +380,7 @@ static NSString* zscii_to_string(ZByte* buf) {
                                          length: len * sizeof(int)];
 	
     NSString *res = [[NSString alloc] initWithData: dat
-                                          encoding: NSUTF32StringEncoding];
+                                          encoding: NSUTF32LittleEndianStringEncoding];
     if (res) {
         return res;
     }
