@@ -947,7 +947,9 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		[wrapper addRegularFileWithContents: writeData
 						  preferredFilename: defaultFile];
         if (attributes) {
-            wrapper.fileAttributes = attributes;
+            NSMutableDictionary *attribDict = [wrapper.fileAttributes mutableCopy];
+            [attribDict addEntriesFromDictionary:attributes];
+            wrapper.fileAttributes = attribDict;
         }
 		
 		[wrapper writeToURL: writePath
