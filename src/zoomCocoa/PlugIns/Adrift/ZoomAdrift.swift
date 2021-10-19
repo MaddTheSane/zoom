@@ -38,16 +38,22 @@ public class Adrift: ZoomGlkPlugIn {
 		return isCompatibleAdriftFile(at: fileURL)
 	}
 	
-	public override init!(filename gameFile: String!) {
-		super.init(filename: gameFile)
+	public override class func canRun(_ path: URL!) -> Bool {
+		guard let fileURL = path else {
+			return false
+		}
+		return isCompatibleAdriftFile(at: fileURL)
+	}
+	
+	public override init!(url gameFile: URL!) {
+		super.init(url: gameFile)
 		self.setClientPath(Bundle(for: Adrift.self).path(forAuxiliaryExecutable: "scare"))
 	}
 	
 	public override func idForStory() -> ZoomStoryID! {
-		guard let gamePath = gameFilename else {
+		guard let gameURL = gameURL else {
 			return nil
 		}
-		let gameURL = URL(fileURLWithPath: gamePath)
 		guard let stringID = stringIDForAdriftFile(at: gameURL) else {
 			return nil
 		}

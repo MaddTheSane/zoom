@@ -123,7 +123,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 - (out bycopy ZoomStoryID*) idForFile: (in bycopy NSString*) filename {
 	ZoomIsSpotlightIndexing = NO;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: filename]) return nil;
-	return [ZoomStoryID idForFile: filename];
+	return [ZoomStoryID idForURL: [NSURL fileURLWithPath: filename]];
 }
 
 - (void) preferenceThread: (NSDictionary*) threadDictionary {
@@ -417,6 +417,21 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 
 			[data copyStory: oldStory];
 			[data writeToDefaultFile];
+		} else {
+			possibleResource = [[[gameFile stringByDeletingLastPathComponent] stringByAppendingPathComponent: gameFile.stringByDeletingPathExtension.lastPathComponent] stringByAppendingPathExtension:@"blb"];
+			isDir = NO;
+			exists = [[NSFileManager defaultManager] fileExistsAtPath: possibleResource
+														  isDirectory: &isDir];
+			
+			if (exists && !isDir) {
+				NSLog(@"Found resources for game at %@", possibleResource);
+				
+				[oldStory setObject: possibleResource
+							 forKey: @"ResourceFilename"];
+
+				[data copyStory: oldStory];
+				[data writeToDefaultFile];
+			}
 		}
 	}
 	

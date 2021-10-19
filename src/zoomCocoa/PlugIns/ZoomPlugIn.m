@@ -37,7 +37,14 @@
 }
 
 + (BOOL) canRunPath: (NSString*) path {
-	return NO;
+	if ([self methodForSelector:@selector(canRunURL:)] == [ZoomPlugIn methodForSelector:@selector(canRunURL:)]) {
+		return NO;
+	}
+	return [self canRunURL: [NSURL fileURLWithPath: path]];
+}
+
++ (BOOL) canRunURL: (NSURL*) path {
+	return [self canRunPath: path.path];
 }
 
 #pragma mark - Designated initialiser
@@ -50,10 +57,14 @@
 }
 
 - (id) initWithFilename: (NSString*) filename {
+	return [self initWithURL: [NSURL fileURLWithPath:filename]];
+}
+
+- (id) initWithURL:(NSURL *)fileURL {
 	self = [super init];
 	
 	if (self) {
-		gameFile = [filename copy];
+		gameFile = [fileURL copy];
 		gameData = nil;
 	}
 	
@@ -62,12 +73,16 @@
 
 #pragma mark - Getting information about what this plugin should be doing
 
-@synthesize gameFilename=gameFile;
+@synthesize gameURL=gameFile;
 @synthesize gameData;
+
+- (NSString *)gameFilename {
+	return gameFile.path;
+}
 
 - (NSData*) gameData {
 	if (gameData == nil) {
-		gameData = [[NSData alloc] initWithContentsOfFile: gameFile];
+		gameData = [[NSData alloc] initWithContentsOfURL: gameFile];
 	}
 	
 	return gameData;
@@ -99,7 +114,12 @@
 
 - (ZoomStory*) defaultMetadata {
 	// Just use the default metadata-establishing routine
-	return [ZoomStory defaultMetadataForFile: gameFile]; 
+	return [self defaultMetadataWithError: NULL];
+}
+
+- (ZoomStory*) defaultMetadataWithError:(NSError *__autoreleasing *)outError {
+	// Just use the default metadata-establishing routine
+	return [ZoomStory defaultMetadataForURL: gameFile error:outError];
 }
 
 - (NSImage*) coverImage {

@@ -12,6 +12,30 @@
 
 @implementation ZoomGlulxe
 
++ (BOOL) canRunURL: (NSURL *)path {
+	NSString* extn = [[path pathExtension] lowercaseString];
+	
+	// We can run .ulx files
+	if ([extn isEqualToString: @"ulx"]) return YES;
+	
+	// ... and we can run blorb files with a Glulx block in them
+	if ([extn isEqualToString: @"blb"] || [extn isEqualToString: @"glb"] || [extn isEqualToString: @"gblorb"] || [extn isEqualToString: @"zblorb"] || [extn isEqualToString: @"blorb"]) {
+		if (![[NSFileManager defaultManager] fileExistsAtPath: path.path]) {
+			// If no file exists at the path, then claim ownership of it
+			return YES;
+		}
+		
+		ZoomBlorbFile* blorb = [[ZoomBlorbFile alloc] initWithContentsOfURL: path
+																	  error: NULL];
+		
+		if (blorb != nil && [blorb dataForChunkWithType: @"GLUL"] != nil) {
+			return YES;
+		}
+	}
+	
+	return [super canRunURL: path];
+}
+
 + (BOOL) canRunPath: (NSString*) path {
 	NSString* extn = [[path pathExtension] lowercaseString];
 	
@@ -47,9 +71,9 @@
 	return @"Andrew Hunter";
 }
 
-- (id) initWithFilename: (NSString*) gameFile {
+- (id) initWithURL: (NSURL*) gameFile {
 	// Initialise as usual
-	self = [super initWithFilename: gameFile];
+	self = [super initWithURL: gameFile];
 	
 	if (self) {
 		// Work out which client to use
@@ -68,21 +92,27 @@
 	return self;
 }
 
+- (id) initWithFilename: (NSString*) gameFile {
+	return [self initWithURL: [NSURL fileURLWithPath: gameFile]];
+}
+
 #pragma mark - Metadata
 
 - (ZoomStoryID*) idForStory {
 	// Generate an MD5-based ID
-	return [[ZoomStoryID alloc] initWithGlulxFile: [self gameFilename]];
+	return [[ZoomStoryID alloc] initWithGlulxFileAtURL: [self gameURL]
+												 error: NULL];
 }
 
 - (ZoomStory*) defaultMetadata {
 	// Just use the default metadata-establishing routine
-	return [ZoomStory defaultMetadataForFile: [self gameFilename]]; 
+	return [ZoomStory defaultMetadataForURL: [self gameURL] error: NULL];
 }
 
 - (NSImage*) coverImage {
 	// Try decoding the cover picture, if available
-	ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: [self gameFilename]];
+	ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: [self gameURL]
+																		error: NULL];
 	int coverPictureNumber = -1;
 	
 	// Try to retrieve the frontispiece tag (overrides metadata if present)
@@ -122,7 +152,8 @@
 
 - (NSImage*) logo {
 	// Try decoding the cover picture, if available
-	ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: [self gameFilename]];
+	ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: [self gameURL]
+																		error: NULL];
 	int coverPictureNumber = -1;
 	
 	// Try to retrieve the frontispiece tag (overrides metadata if present)

@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy) NSString *clientPath;
 //! The file that should be passed to the client as the file to run
 - (void) setInputFilename: (NSString*) inputPath;
+//! The file that should be passed to the client as the file to run
+- (void) setInputURL: (NSURL*) inputPath;
 //! The logo to display for this story
 @property (retain) NSImage *logo;
 //! The plugin that created this document

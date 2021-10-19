@@ -27,11 +27,15 @@ public class Quest: ZoomPlugIn {
 		return false
 	}
 	
+	public override class func canRun(_ path: URL!) -> Bool {
+		return false
+	}
+	
 	public override class func canRunPath(_ path: String!) -> Bool {
 		return false
 	}
 	
-	public override init!(filename gameFile: String!) {
+	public override init!(url gameFile: URL!) {
 		return nil
 	}
 	

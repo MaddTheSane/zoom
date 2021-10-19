@@ -36,6 +36,12 @@
 	[self setFileURL: [NSURL fileURLWithPath:newInputPath]];
 }
 
+- (void) setInputURL: (NSURL*) inputPath {
+	self->inputPath = [inputPath.path copy];
+	
+	self.fileURL = inputPath;
+}
+
 @synthesize storyData;
 @synthesize logo;
 @synthesize preferredSaveDirectory=preferredSaveDir;

@@ -36,7 +36,7 @@
 		// Tell it what it needs to know
 		[document setStoryData: story];
 		[document setClientPath: clientPath];
-		[document setInputFilename: [self gameFilename]];
+		[document setInputURL: [self gameURL]];
 		[document setLogo: [self logo]];
 		[document setPreferredSaveDirectory: preferredSaveDir];
 		[document setPlugIn: self];
@@ -55,7 +55,7 @@
 		// Tell it what it needs to know
 		[document setStoryData: story];
 		[document setClientPath: clientPath];
-		[document setInputFilename: [self gameFilename]];
+		[document setInputURL: [self gameURL]];
 		[document setLogo: [self logo]];
 		[document setPreferredSaveDirectory: preferredSaveDir];
 		[document setSaveGame: saveGame];

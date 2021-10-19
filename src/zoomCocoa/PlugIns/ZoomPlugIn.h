@@ -21,7 +21,7 @@
 @interface ZoomPlugIn : NSObject {
 @private
 	/// The game that this plugin will play
-	NSString* gameFile;
+	NSURL* gameFile;
 	/// The game data (loaded on demand)
 	NSData* gameData;
 }
@@ -38,15 +38,23 @@
 @property (class, readonly) BOOL canLoadSavegames;
 
 /// \c YES if the specified file is one that the plugin can run
-+ (BOOL) canRunPath: (NSString*) path;
++ (BOOL) canRunPath: (NSString*) path DEPRECATED_MSG_ATTRIBUTE("Use +canRunURL: instead");
+
+/// \c YES if the specified file URL is one that the plugin can run
++ (BOOL) canRunURL: (NSURL*) path;
 
 // Designated initialiser
 //! Initialises this plugin to play a specific game
-- (id) initWithFilename: (NSString*) gameFile NS_DESIGNATED_INITIALIZER;
+- (id) initWithFilename: (NSString*) gameFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithURL: instead");
+
+//! Initialises this plugin to play a specific game
+- (id) initWithURL: (NSURL*) gameFile NS_DESIGNATED_INITIALIZER;
 
 // Getting information about what this plugin should be doing
 //! Gets the game associated with this plugin
-@property (readonly, copy) NSString *gameFilename;
+@property (readonly, copy) NSString *gameFilename DEPRECATED_MSG_ATTRIBUTE("Use -gameURL instead");
+//! Gets the game associated with this plugin
+@property (readonly, copy) NSURL *gameURL;
 //! Gets the data for the game associated with this plugin
 @property (readonly, copy) NSData *gameData;
 
@@ -62,6 +70,8 @@
 - (ZoomStoryID*) idForStory;
 //! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
 - (ZoomStory*) defaultMetadata;
+//! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
+- (ZoomStory*) defaultMetadataWithError:(NSError**)outError;
 //! Retrieves the picture to use for the cover image
 - (NSImage*) coverImage;
 
