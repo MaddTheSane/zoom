@@ -31,9 +31,13 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 /// Causes this class to load all of the plugins
 - (void) loadPlugIns;
 /// Gets the plugin for the specified file
-- (Class) plugInForFile: (NSString*) fileName;
+- (Class) plugInForFile: (NSString*) fileName DEPRECATED_MSG_ATTRIBUTE("Use -plugInForURL: instead");
+/// Gets the plugin for the specified URL
+- (Class) plugInForURL: (NSURL*) fileName;
 /// Gets a plug-in instance for the specified file
-- (ZoomPlugIn*) instanceForFile: (NSString*) filename;
+- (__kindof ZoomPlugIn*) instanceForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -instanceForURL: instead");
+/// Gets a plug-in instance for the specified URL
+- (__kindof ZoomPlugIn*) instanceForURL: (NSURL*) filename;
 
 //// The loaded plugin bundles
 - (NSArray<NSBundle*>*) pluginBundles;

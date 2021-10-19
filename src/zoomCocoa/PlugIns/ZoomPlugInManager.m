@@ -223,7 +223,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	}	
 }
 
-- (Class) plugInForFile: (NSString*) filename {
+- (Class) plugInForURL: (NSURL*) fileName {
 #if VERBOSITY >= 3
 	NSLog(@"= Seeking a plugin for %@", filename);
 #endif
@@ -231,7 +231,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	[self loadPlugIns];
 	
 	for (Class pluginClass in pluginClasses) {
-		if ([pluginClass canRunPath: filename]) {
+		if ([pluginClass canRunURL: fileName]) {
 #if VERBOSITY >=3
 			NSLog(@"= Found %@", [pluginClass description]);
 #endif
@@ -245,10 +245,18 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	return nil;
 }
 
+- (Class) plugInForFile: (NSString*) filename {
+	return [self plugInForURL: [NSURL fileURLWithPath: filename]];
+}
+
 - (ZoomPlugIn*) instanceForFile: (NSString*) filename {
+	return [self instanceForURL: [NSURL fileURLWithPath: filename]];
+}
+
+- (ZoomPlugIn*) instanceForURL: (NSURL*) filename{
 	[pluginLock lock];
 	
-	Class pluginClass = [self plugInForFile: filename];
+	Class pluginClass = [self plugInForURL: filename];
 	if (pluginClass == nil) {
 		[pluginLock unlock];
 		return nil;
@@ -257,7 +265,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 #if VERBOSITY >= 3
 	NSLog(@"= Instantiating %@ for %@", [pluginClass description], filename);
 #endif
-	ZoomPlugIn* instance = [[pluginClass alloc] initWithFilename: filename];
+	ZoomPlugIn* instance = [[pluginClass alloc] initWithURL: filename];
 	
 	[pluginLock unlock];
 	return instance;	
@@ -276,24 +284,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 }
 
 - (NSArray*) arrayForVersion: (NSString*) version {
-	NSMutableArray* result = [NSMutableArray array];
-	
-	unichar chr;
-	int lastPos = 0;
-	int x;
-	for (x=0; x<[version length]; x++) {
-		chr = [version characterAtIndex: x];
-		
-		if (chr == '.') {
-			[result addObject: [version substringWithRange: NSMakeRange(lastPos, x-lastPos)]];
-			lastPos = x+1;
-		}
-	}
-	if (x != lastPos) {
-		[result addObject: [version substringWithRange: NSMakeRange(lastPos, x-lastPos)]];		
-	}
-	
-	return result;
+	return [version componentsSeparatedByString:@"."];
 }
 
 - (BOOL) version: (NSString*) oldVersion

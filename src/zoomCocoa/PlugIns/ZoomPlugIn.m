@@ -37,14 +37,11 @@
 }
 
 + (BOOL) canRunPath: (NSString*) path {
-	if ([self methodForSelector:@selector(canRunURL:)] == [ZoomPlugIn methodForSelector:@selector(canRunURL:)]) {
-		return NO;
-	}
 	return [self canRunURL: [NSURL fileURLWithPath: path]];
 }
 
 + (BOOL) canRunURL: (NSURL*) path {
-	return [self canRunPath: path.path];
+	return NO;
 }
 
 #pragma mark - Designated initialiser

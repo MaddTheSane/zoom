@@ -12,7 +12,7 @@ import ZoomPlugIns.ZoomGlkWindowController
 import ZoomPlugIns.ZoomGlkDocument
 import CommonCrypto
 
-public class Adrift: ZoomGlkPlugIn {
+final public class Adrift: ZoomGlkPlugIn {
 	public override class var pluginVersion: String! {
 		return Bundle(for: Adrift.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String
 	}
@@ -28,14 +28,6 @@ public class Adrift: ZoomGlkPlugIn {
 	//TODO: implement
 	public override class var canLoadSavegames: Bool {
 		return false
-	}
-	
-	public override class func canRunPath(_ path: String!) -> Bool {
-		guard let path = path else {
-			return false
-		}
-		let fileURL = URL(fileURLWithPath: path)
-		return isCompatibleAdriftFile(at: fileURL)
 	}
 	
 	public override class func canRun(_ path: URL!) -> Bool {

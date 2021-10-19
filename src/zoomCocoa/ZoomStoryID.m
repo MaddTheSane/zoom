@@ -20,53 +20,14 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 @implementation ZoomStoryID
 
 + (ZoomStoryID*) idForFile: (NSString*) filename {
-	ZoomStoryID* result = nil;
-
-	if (!ZoomIsSpotlightIndexing) {
-		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename];
-		
-		if (plugin != nil) {
-			// Try asking the plugin for the type of this file
-			result = [plugin idForStory];
-		}
-		
-		if (result != nil) return result;
-	}
-	
-	// If this is a z-code or blorb file, then try the Z-Code ID
-	NSString* extension = [[filename pathExtension] lowercaseString];
-	
-	if ([extension isEqualToString: @"z3"]
-		|| [extension isEqualToString: @"z4"]
-		|| [extension isEqualToString: @"z5"]
-		|| [extension isEqualToString: @"z6"]
-		|| [extension isEqualToString: @"z7"]
-		|| [extension isEqualToString: @"z8"]
-		|| [extension isEqualToString: @"blb"]
-		|| [extension isEqualToString: @"zlb"]
-		|| [extension isEqualToString: @"zblorb"]) {
-		result = [[ZoomStoryID alloc] initWithZCodeFile: filename];
-	}
-	
-	// if that fails, try using glulx parsing.
-	if ((result == nil) &&
-		([extension isEqualToString: @"gblorb"]
-		 || [extension isEqualToString: @"glb"]
-		 || [extension isEqualToString: @"blb"]
-		 || [extension isEqualToString: @"blorb"]
-		 || [extension isEqualToString: @"zblorb"]
-		 || [extension isEqualToString: @"zlb"])) {
-		result = [[ZoomStoryID alloc] initWithGlulxFile: filename];
-	}
-	
-	return result;
+	return [self idForURL: [NSURL fileURLWithPath: filename]];
 }
 
 + (ZoomStoryID*) idForURL: (NSURL*) filename {
 	ZoomStoryID* result = nil;
 
 	if (!ZoomIsSpotlightIndexing) {
-		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename.path];
+		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForURL: filename];
 		
 		if (plugin != nil) {
 			// Try asking the plugin for the type of this file
