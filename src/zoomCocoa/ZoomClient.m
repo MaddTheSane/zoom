@@ -453,7 +453,9 @@
 	ZoomView* savedView = nil;
 		
 	if (savedViewArchive) {
-		savedView = [NSKeyedUnarchiver unarchivedObjectOfClass: [ZoomView class] fromData: savedViewArchive error: NULL];
+//		savedView = [NSKeyedUnarchiver unarchivedObjectOfClass: [ZoomView class] fromData: savedViewArchive error: NULL];
+		// Needed because some class in NSTextStorage doesn't play nice with secure coding.
+		savedView = [NSKeyedUnarchiver unarchiveObjectWithData: savedViewArchive];
 		if (!savedView) {
 			savedView = [NSUnarchiver unarchiveObjectWithData: savedViewArchive];
 		}

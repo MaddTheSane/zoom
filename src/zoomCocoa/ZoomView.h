@@ -34,7 +34,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 @class ZoomPixmapWindow;
 @class ZoomLowerWindow;
 @class ZoomUpperWindow;
-@interface ZoomView : NSView <ZDisplay, NSCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate, ZoomCursorDelegate, ZoomInputLineDelegate> {
+@interface ZoomView : NSView <ZDisplay, NSSecureCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate, ZoomCursorDelegate, ZoomInputLineDelegate> {
     // Subviews
 	BOOL editingTextView;
 	BOOL willScrollToEnd;

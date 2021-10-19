@@ -2542,7 +2542,8 @@ static void finalizeViews(void) {
 			upperWindows = [NSMutableArray arrayWithArray: [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSArray class], [ZoomUpperWindow class], nil] forKey: ZoomUpperWindowsCodingKey]];
 			lowerWindows = [NSMutableArray arrayWithArray: [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSArray class], [ZoomLowerWindow class], nil] forKey: ZoomLowerWindowsCodingKey]];
 			
-			NSTextStorage* storage = [decoder decodeObjectOfClass: [NSTextStorage class] forKey: ZoomTextViewStorageCodingKey];
+			// Needed because some class in NSTextStorage doesn't play nice with secure coding.
+			NSTextStorage* storage = [decoder decodeObjectForKey: ZoomTextViewStorageCodingKey];
 			
 			[[textView textStorage] beginEditing];
 			// Workaround for a bug in Cocoa
@@ -2616,6 +2617,10 @@ static void finalizeViews(void) {
     }
 	
     return self;
+}
+
++ (BOOL)supportsSecureCoding {
+	return YES;
 }
 
 - (void) restoreSaveState: (NSData*) state {
