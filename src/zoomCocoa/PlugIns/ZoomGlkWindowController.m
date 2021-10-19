@@ -299,7 +299,7 @@
 			 withStatus: (GlkLogStatus) status {
 	// Choose a style for this message
 	CGFloat msgSize = 10;
-	NSColor* msgColour = [NSColor grayColor];
+	NSColor* msgColour = [NSColor systemGrayColor];
 	BOOL isBold = NO;
 	
 	switch (status) {
@@ -312,26 +312,23 @@
 			
 		case GlkLogCustom:
 			msgSize = 12;
-			msgColour = [NSColor blackColor];
+			msgColour = [NSColor textColor];
 			break;
 			
 		case GlkLogWarning:
-			msgColour = [NSColor blueColor];
+			msgColour = [NSColor systemBlueColor];
 			msgSize = 12;
 			break;
 			
 		case GlkLogError:
 			msgSize = 12;
-			msgColour = [NSColor redColor];
+			msgColour = [NSColor systemRedColor];
 			isBold = YES;
 			break;
 			
 		case GlkLogFatalError:
 			msgSize = 12;
-			msgColour = [NSColor colorWithDeviceRed: 0.8
-											  green: 0
-											   blue: 0
-											  alpha: 1.0];
+			msgColour = [NSColor systemOrangeColor];
 			isBold = YES;
 			break;
 	}
@@ -355,7 +352,9 @@
 																 attributes: msgAttributes];
 	
 	// Append this message to the log
+	[[logText textStorage] beginEditing];
 	[[logText textStorage] appendAttributedString: newMsg];
+	[[logText textStorage] endEditing];
 	
 	// Show the log drawer
 	if (status >= GlkLogWarning && (status >= GlkLogFatalError || [[ZoomPreferences globalPreferences] displayWarnings])) {
