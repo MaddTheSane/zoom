@@ -22,8 +22,8 @@
 	//! The view onto the game this controller is running
 	IBOutlet GlkView* glkView;
 
-	//! The drawer that's opened while dealing with log messages
-	IBOutlet NSDrawer* logDrawer;
+	//! The panel that has log messages
+	IBOutlet NSPanel* logPanel;
 	//! The text contained in the drawer
 	IBOutlet NSTextView* logText;
 	
@@ -45,7 +45,7 @@
 	ZoomTextToSpeech* tts;
 	
 	BOOL running;
-	//! YES if the user has OKed closing the game while it's still running
+	//! \c YES if the user has OKed closing the game while it's still running
 	BOOL closeConfirmed;
 	
 	//! The skein/transcript for this window
