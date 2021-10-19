@@ -501,7 +501,6 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
                             <menuItem title="Story Information" keyEquivalent="i" id="254">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="displayGameInfoWindow:" target="-1" id="329"/>
                                 </connections>

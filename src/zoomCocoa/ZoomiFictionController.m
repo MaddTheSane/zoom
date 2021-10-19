@@ -254,8 +254,8 @@ NS_ENUM(NSInteger) {
 		
 		// Note (and FIXME): a retained view is not released here
 		// (Being lazy: this doesn't matter, as the iFiction window is persistent)
-		[self createMetalTitleForTable: filterTable1];
-		[self createMetalTitleForTable: filterTable2];
+//		[self createMetalTitleForTable: filterTable1];
+//		[self createMetalTitleForTable: filterTable2];
 		
 		[self setTitle: @"Group"
 			  forTable: filterTable1];
