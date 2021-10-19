@@ -341,9 +341,11 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	
 	// Run the thread
 	CFRetain((__bridge CFTypeRef)(self)); // Released by the thread when it finishes
-	[NSThread detachNewThreadSelector: @selector(preferenceThread:)
-							 toTarget: self
-						   withObject: threadDictionary];
+	NSThread *preferenceThread = [[NSThread alloc] initWithTarget: self
+														 selector: @selector(preferenceThread:)
+														   object: threadDictionary];
+	preferenceThread.name = @"Zoom Preference Thread";
+	[preferenceThread start];
 }
 
 - (void) organiserChanged {
@@ -1361,9 +1363,11 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	
 	// Run a separate thread to do (some of) the work
 	CFRetain((__bridge CFTypeRef)(self)); // Released by the thread when it finishes
-	[NSThread detachNewThreadSelector: @selector(organiserThread:)
-							 toTarget: self
-						   withObject: threadDictionary];
+	NSThread *organizerThread = [[NSThread alloc] initWithTarget: self
+														selector: @selector(organiserThread:)
+														  object: threadDictionary];
+	organizerThread.name = @"Zoom Organiser Thread";
+	[organizerThread start];
 	[storyLock unlock];
 }
 
