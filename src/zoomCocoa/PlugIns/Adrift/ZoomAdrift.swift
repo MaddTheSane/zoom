@@ -60,10 +60,6 @@ final public class Adrift: ZoomGlkPlugIn {
 	public override func coverImage() -> NSImage! {
 		return nil
 	}
-	
-	public override func setPreferredSaveDirectory(_ dir: String!) {
-		
-	}
 }
 
 // MARK: - code adapted from Babel

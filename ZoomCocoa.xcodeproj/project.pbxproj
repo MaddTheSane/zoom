@@ -1029,7 +1029,7 @@
 		552CEED22715110C009D87A5 /* scevents.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scevents.c; sourceTree = "<group>"; };
 		552CEED32715110C009D87A5 /* scutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scutils.c; sourceTree = "<group>"; };
 		552CEED52715110C009D87A5 /* sctasks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sctasks.c; sourceTree = "<group>"; };
-		552CEED62715110C009D87A5 /* scare.hdr */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = scare.hdr; sourceTree = "<group>"; };
+		552CEED62715110C009D87A5 /* scare.hdr */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = scare.hdr; sourceTree = "<group>"; };
 		552CEED72715110C009D87A5 /* scmemos.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scmemos.c; sourceTree = "<group>"; };
 		552CEED82715110C009D87A5 /* scparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scparser.c; sourceTree = "<group>"; };
 		552CEED92715110C009D87A5 /* scvars.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scvars.c; sourceTree = "<group>"; };
