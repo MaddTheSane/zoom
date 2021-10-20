@@ -1381,12 +1381,16 @@ static dispatch_block_t onceTypesBlock = ^{
 																					  @(ZoomTitleField), ZoomFieldAttribute,
 																					  @(row), ZoomRowAttribute,
 																					  story, ZoomStoryAttribute,
+																							   NSColor.textColor,
+																							   NSForegroundColorAttributeName,
 																					  nil]]];
 			[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: @"\n"
 																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																					  @(ZoomTitleNewlineField), ZoomFieldAttribute,
 																					  @(row), ZoomRowAttribute,
 																					  story, ZoomStoryAttribute,
+																							   NSColor.textColor,
+																							   NSForegroundColorAttributeName,
 																					  nil]]];
 				
 			// Append the year of publication
@@ -1399,12 +1403,16 @@ static dispatch_block_t onceTypesBlock = ^{
 																						  @(ZoomYearField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
+																								   NSColor.textColor,
+																								   NSForegroundColorAttributeName,
 																						  nil]]];
 				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: @"\n"
 																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 																						  @(ZoomYearNewlineField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
+																								   NSColor.textColor,
+																								   NSForegroundColorAttributeName,
 																						  nil]]];
 			}
 			
@@ -1420,6 +1428,8 @@ static dispatch_block_t onceTypesBlock = ^{
 																						  @(ZoomDescriptionField), ZoomFieldAttribute,
 																						  @(row), ZoomRowAttribute,
 																						  story, ZoomStoryAttribute,
+																								   NSColor.textColor,
+																								   NSForegroundColorAttributeName,
 																						  nil]]];
 				
 				if ([descText length] > 0) flipToDescription = YES;

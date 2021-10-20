@@ -32,7 +32,7 @@
 		[[self propertyDictionary] setObject: rootLayer = [CALayer layer]
 									  forKey: @"RootLayer"];
 		rootLayer.layoutManager = self;
-		rootLayer.backgroundColor = [NSColor whiteColor].CGColor;
+		rootLayer.backgroundColor = [NSColor textBackgroundColor].CGColor;
 		[rootLayer removeAllAnimations];
 	}
 	
@@ -40,7 +40,7 @@
 	CALayer* viewLayer = [view layer];
 	if (viewLayer== nil) {
 		viewLayer = [CALayer layer];
-		viewLayer.backgroundColor = [NSColor whiteColor].CGColor;
+		viewLayer.backgroundColor = [NSColor textBackgroundColor].CGColor;
 		
 		[view setLayer: viewLayer];
 	}

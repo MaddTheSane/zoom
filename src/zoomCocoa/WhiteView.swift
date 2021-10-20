@@ -11,7 +11,7 @@ public class WhiteView: NSView {
 	public override func draw(_ dirtyRect: NSRect) {
 		let ourRect = self.bounds
 
-		NSColor.white.set()
+		NSColor.textBackgroundColor.set()
 		ourRect.fill()
 	}
 }
