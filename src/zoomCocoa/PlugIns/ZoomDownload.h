@@ -21,8 +21,6 @@
 	/// The expected MD5 for the downloaded file
 	NSData* md5;
 	
-	/// The connection that the download will be loaded via
-	NSURLConnection* connection;
 	/// A file handle containing the file that we're downloading
 	NSFileHandle* downloadFile;
 	/// The file that the download is going to
@@ -39,7 +37,7 @@
 	/// The main unarchiving task
 	NSTask* task;
 	/// The set of subtasks that are currently running
-	NSMutableArray* subtasks;
+	NSMutableArray<NSTask*>* subtasks;
 }
 
 // Initialisation

@@ -10,8 +10,15 @@
 
 #include <CommonCrypto/CommonDigest.h>
 
+@interface ZoomDownload () <NSURLSessionDataDelegate, NSURLSessionDelegate>
 
-@implementation ZoomDownload
+@end
+
+@implementation ZoomDownload {
+	NSURLSession *session;
+	/// The connection that the download will be loaded via
+	NSURLSessionDataTask *dataTask;
+}
 
 #pragma mark - Initialisation
 
@@ -52,6 +59,11 @@ static int lastDownloadId = 0;
 		}
 		
 		url = [newUrl copy];
+		NSURLSessionConfiguration *config = [NSURLSessionConfiguration.ephemeralSessionConfiguration copy];
+		config.networkServiceType = NSURLNetworkServiceTypeBackground;
+		session = [NSURLSession sessionWithConfiguration: config
+												delegate: self
+										   delegateQueue: nil];
 	}
 	
 	return self;
@@ -102,7 +114,7 @@ static int lastDownloadId = 0;
 
 - (void) startDownload {
 	// Do nothing if this download is already running
-	if (connection != nil) return;
+	if (dataTask != nil) return;
 	
 	// Let the delegate know
 	if (delegate && [delegate respondsToSelector: @selector(downloadStarting:)]) {
@@ -115,8 +127,7 @@ static int lastDownloadId = 0;
 	NSURLRequest* request = [NSURLRequest requestWithURL: url
 											 cachePolicy: NSURLRequestReloadIgnoringCacheData
 										 timeoutInterval: 30];
-	connection = [NSURLConnection connectionWithRequest: request
-												delegate: self];
+	dataTask = [session dataTaskWithRequest: request];
 }
 
 - (void) createDownloadDirectory {
@@ -155,8 +166,8 @@ static int lastDownloadId = 0;
 		}
 	}
 
-	[connection cancel];
-	connection = nil;
+	[dataTask cancel];
+	dataTask = nil;
 	tmpFile = nil;
 	downloadFile = nil;
 	task = nil;
@@ -173,7 +184,7 @@ static int lastDownloadId = 0;
 }
 
 - (void) succeeded {
-	connection = nil;
+	dataTask = nil;
 
 	task = nil;
 	subtasks = nil;
@@ -350,14 +361,10 @@ static int lastDownloadId = 0;
 	}
 }
 
--(NSURLRequest *) connection:(NSURLConnection *)connection 
-			 willSendRequest:(NSURLRequest *)request 
-			redirectResponse:(NSURLResponse *)redirectResponse {
-	return request;
-}
-
-- (void)  connection:(NSURLConnection *)conn
-  didReceiveResponse:(NSURLResponse *)response {
+- (void)URLSession:(NSURLSession *)session
+		  dataTask:(NSURLSessionDataTask *)dataTask
+didReceiveResponse:(NSURLResponse *)response
+ completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
 	NSInteger status = 200;
 	if ([response isKindOfClass: [NSHTTPURLResponse class]]) {
 		status = [(NSHTTPURLResponse*)response statusCode];
@@ -391,6 +398,7 @@ static int lastDownloadId = 0;
 			default:
 				[self failed: [NSString stringWithFormat: @"Server reported code %li", (long)status]];
 		}
+		completionHandler(NSURLSessionResponseCancel);
 		return;
 	}
 	
@@ -431,34 +439,19 @@ static int lastDownloadId = 0;
 		NSLog(@"...Could not create file");
 		
 		[self failed: @"Unable to save the download to disk"];
+		completionHandler(NSURLSessionResponseCancel);
 		return;
 	}
 	
 	if (delegate && [delegate respondsToSelector: @selector(downloading:)]) {
 		[delegate downloading: self];
 	}
+	completionHandler(NSURLSessionResponseAllow);
 }
 
-- (void)connection:(NSURLConnection *)conn
-  didFailWithError:(NSError *)error {
-	// Delete the downloaded file
-	if (downloadFile) {
-		[downloadFile closeFile];
-		downloadFile = nil;
-		
-		[[NSFileManager defaultManager] removeItemAtPath: tmpFile
-												   error: nil];
-	}
-	
-	tmpFile = nil;
-	
-	NSLog(@"Download failed with error: %@", error);
-	
-	// Inform the delegate, and give up
-	[self failed: [NSString stringWithFormat: @"Connection failed: %@", [error localizedDescription]]];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+- (void)URLSession:(NSURLSession *)session
+		  dataTask:(NSURLSessionDataTask *)dataTask
+	didReceiveData:(NSData *)data {
 	// Write to the download file
 	if (downloadFile) {
 		[downloadFile writeData: data];
@@ -477,7 +470,28 @@ static int lastDownloadId = 0;
 	}
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)conn {
+-    (void)URLSession:(NSURLSession *)session
+				 task:(NSURLSessionTask *)task
+ didCompleteWithError:(nullable NSError *)error {
+	if (error) {
+		// Delete the downloaded file
+		if (downloadFile) {
+			[downloadFile closeFile];
+			downloadFile = nil;
+			
+			[[NSFileManager defaultManager] removeItemAtPath: tmpFile
+													   error: nil];
+		}
+		
+		tmpFile = nil;
+		
+		NSLog(@"Download failed with error: %@", error);
+		
+		// Inform the delegate, and give up
+		[self failed: [NSString stringWithFormat: @"Connection failed: %@", [error localizedDescription]]];
+
+		return;
+	}
 	if (downloadFile) {
 		// Finish writing the file
 		[downloadFile closeFile];
