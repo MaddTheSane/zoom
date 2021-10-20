@@ -128,6 +128,7 @@ static int lastDownloadId = 0;
 											 cachePolicy: NSURLRequestReloadIgnoringCacheData
 										 timeoutInterval: 30];
 	dataTask = [session dataTaskWithRequest: request];
+	dataTask.taskDescription = [NSString stringWithFormat:@"Zoom: Downloading %@", url.lastPathComponent];
 }
 
 - (void) createDownloadDirectory {
