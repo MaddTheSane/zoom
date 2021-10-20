@@ -3465,7 +3465,7 @@ glkunix_startup_code (glkunix_startup_t * data)
    * again, complain if this fails.
    */
 #ifdef COCOAGLK
-  restore_stream = cocoaglk_get_stream_for_key("savefile");
+  restore_stream = cocoaglk_get_stream_for_key("savegame");
 #else
   if (restore_from)
     {
