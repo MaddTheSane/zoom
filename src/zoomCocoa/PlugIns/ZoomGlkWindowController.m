@@ -645,7 +645,7 @@
 		if (preferredDirectory != nil) [panel setDirectoryURL:[NSURL fileURLWithPath:preferredDirectory]];
 		
 		[panel beginSheetModalForWindow: [self window] completionHandler: ^(NSModalResponse result) {
-			[self panelDidEnd:panel returnCode:result contextInfo:nil];
+			[self panelDidEnd:panel returnCode:result];
 		}];
 		
 		lastPanel = panel;
@@ -662,7 +662,7 @@
 		[panel setAllowedFileTypes: allowedFiletypes];
 		
 		[panel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
-			[self panelDidEnd:panel returnCode:result contextInfo:nil];
+			[self panelDidEnd:panel returnCode:result];
 		}];
 
 		lastPanel = panel;
@@ -672,8 +672,7 @@
 }
 
 - (void) panelDidEnd: (NSSavePanel*) panel
-		  returnCode: (NSModalResponse) returnCode
-		 contextInfo: (void*) willBeNil {
+		  returnCode: (NSModalResponse) returnCode {
 	if (!promptHandler) return;
 	
 	if (returnCode == NSModalResponseOK) {

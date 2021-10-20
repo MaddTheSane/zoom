@@ -25,9 +25,8 @@ final public class Adrift: ZoomGlkPlugIn {
 		return #"C.W. "Madd the Sane" Betts"#
 	}
 	
-	//TODO: implement
 	public override class var canLoadSavegames: Bool {
-		return false
+		return true
 	}
 	
 	public override class func canRun(_ path: URL!) -> Bool {
