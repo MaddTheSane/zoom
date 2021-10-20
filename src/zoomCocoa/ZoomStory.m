@@ -60,8 +60,9 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	// FIXME: internationalisation (this FIXME applies to most of Zoom, which is why it hasn't happened yet)
 #if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
 	static NSDictionary* keyNameDict = nil;
+	static dispatch_once_t onceToken;
 	
-	if (keyNameDict == nil) {
+	dispatch_once(&onceToken, ^{
 		keyNameDict = @{
 			@"title": @"Title",
 			@"headline": @"Headline",
@@ -76,7 +77,7 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 			@"description": @"Description",
 			@"coverpicture": @"Cover picture number",
 		};
-	}
+	});
 #else
 	static NSDictionary* const keyNameDict = @{
 		@"title": @"Title",

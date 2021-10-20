@@ -121,7 +121,7 @@
     NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
     
     // Width is one 'en'
-    CGFloat width = [@"n" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: NSFontAttributeName, font, nil]].width;
+    CGFloat width = [@"n" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil]].width;
     
     // Height is decided by the layout manager
     CGFloat height = [layoutManager defaultLineHeightForFont: font];

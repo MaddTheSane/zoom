@@ -22,7 +22,7 @@ extension ZoomSkein {
 	public func parse(contentsOf url: URL) throws {
 		let parseDel = SkeinXMLParseDelegate()
 		try parseDel.parse(contentsOf: url)
-		try parsePreprocessedDictionary(parseDel.processedXML )
+		try parsePreprocessedDictionary(parseDel.processedXML)
 	}
 	
 	/// Creates an XML representation of the Skein.

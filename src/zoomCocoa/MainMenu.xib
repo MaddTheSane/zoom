@@ -119,6 +119,11 @@
                                     <action selector="saveSkein:" target="-1" id="355"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Show In Finder" keyEquivalent="r" id="YsZ-TG-0vH">
+                                <connections>
+                                    <action selector="revealInFinder:" target="-1" id="POw-9G-vgf"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="74"/>
                             <menuItem title="Page Setup..." keyEquivalent="P" id="77">
                                 <connections>
@@ -198,7 +203,8 @@
                                                 <action selector="addFontTrait:" target="290" id="297"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Italic" tag="1" keyEquivalent="i" id="269">
+                                        <menuItem title="Italic" tag="1" id="269">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="addFontTrait:" target="290" id="293"/>
                                             </connections>

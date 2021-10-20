@@ -558,7 +558,7 @@
                     <rect key="frame" x="136" y="0.0" width="429" height="116"/>
                     <clipView key="contentView" drawsBackground="NO" id="UB6-ym-eLH">
                         <rect key="frame" x="0.0" y="0.0" width="429" height="116"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="287">
                                 <rect key="frame" x="0.0" y="0.0" width="429" height="195"/>
@@ -662,7 +662,7 @@ Cg
                     <rect key="frame" x="285" y="0.0" width="283" height="120"/>
                     <clipView key="contentView" id="X6h-ec-nhq">
                         <rect key="frame" x="0.0" y="0.0" width="283" height="120"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="406" id="265">
                                 <rect key="frame" x="0.0" y="0.0" width="283" height="97"/>
@@ -709,7 +709,7 @@ Cg
                     <rect key="frame" x="0.0" y="0.0" width="284" height="120"/>
                     <clipView key="contentView" id="5rr-uN-MMo">
                         <rect key="frame" x="0.0" y="0.0" width="284" height="120"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="403" id="262">
                                 <rect key="frame" x="0.0" y="0.0" width="284" height="97"/>
@@ -788,7 +788,7 @@ Cg
                     <rect key="frame" x="0.0" y="0.0" width="536" height="127"/>
                     <clipView key="contentView" autoresizesSubviews="NO" id="R9s-wD-Bt6">
                         <rect key="frame" x="0.0" y="0.0" width="536" height="127"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="289" customClass="SavePreviewView" customModule="Zoom" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="536" height="127"/>

@@ -25,14 +25,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="684" height="508"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="25" customClass="GlkView">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="25" customClass="GlkView">
                         <rect key="frame" x="0.0" y="0.0" width="684" height="508"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
                             <outlet property="delegate" destination="-2" id="26"/>
                         </connections>
                     </customView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="25" secondAttribute="bottom" id="A7g-4F-wk6"/>
+                    <constraint firstItem="25" firstAttribute="top" secondItem="24" secondAttribute="top" id="JqH-Pq-67t"/>
+                    <constraint firstItem="25" firstAttribute="leading" secondItem="24" secondAttribute="leading" id="tox-Fz-Dea"/>
+                    <constraint firstAttribute="trailing" secondItem="25" secondAttribute="trailing" id="yl6-Ms-BPm"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="30"/>

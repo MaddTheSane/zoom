@@ -339,7 +339,7 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 	
 	NSEnumerator* children = [[element objectForKey: ZoomSkeinXMLChildren] objectEnumerator];
 	
-	for (NSDictionary* child in children) {
+	for (SkeinXMLElement* child in children) {
 		if ([[child objectForKey: ZoomSkeinXMLType] isEqualToString: xmlCharData]) {
 			if (res == nil) {
 				res = [[NSMutableString alloc] initWithString: [child objectForKey: ZoomSkeinXMLChars]];
@@ -352,13 +352,13 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 	return res;
 }
 
-- (NSArray*) childrenForElement: (NSDictionary*) element
+- (NSArray*) childrenForElement: (SkeinXMLElement*) element
 					   withName: (NSString*) elementName {
 	NSMutableArray* res = nil;
 	
 	NSEnumerator* children = [[element objectForKey: ZoomSkeinXMLChildren] objectEnumerator];
 	
-	for (NSDictionary* child in children) {
+	for (SkeinXMLElement* child in children) {
 		if ([[child objectForKey: ZoomSkeinXMLType] isEqualToString: xmlElement] &&
 			[[child objectForKey: ZoomSkeinXMLName] isEqualToString: elementName]) {
 			if (res == nil) {
