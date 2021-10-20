@@ -15,30 +15,33 @@ NSErrorDomain const ZoomSkeinXMLParserErrorDomain = @"uk.org.logicalshift.zoomvi
 
 #pragma mark - XML input class
 
-static NSString* const xmlAttributes = @"xmlAttributes";
-static NSString* const xmlName	     = @"xmlName";
-static NSString* const xmlChildren   = @"xmlChildren";
-static NSString* const xmlType	     = @"xmlType";
-static NSString* const xmlChars      = @"xmlChars";
+NSString* const ZoomSkeinXMLAttributes	= @"xmlAttributes";
+NSString* const ZoomSkeinXMLName		= @"xmlName";
+NSString* const ZoomSkeinXMLChildren	= @"xmlChildren";
+NSString* const ZoomSkeinXMLType		= @"xmlType";
+NSString* const ZoomSkeinXMLChars		= @"xmlChars";
 
 static NSString* const xmlElement    = @"xmlElement";
 static NSString* const xmlCharData   = @"xmlCharData";
 
+typedef NSDictionary<ZoomSkeinXMLKey,id> SkeinXMLElement;
+typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDictionary;
+
 @interface ZoomSkeinXMLInput : NSObject {
 	NSMutableDictionary* result;
-	NSMutableArray*      xmlStack;
+	NSMutableArray<NSMutableDictionary*>*      xmlStack;
 }
 
 - (BOOL) processXML: (NSData*) xml;
 - (void) processPreprocessedDictionary:(NSDictionary*)preDict;
 - (NSDictionary*) processedXML;
 
-- (NSDictionary*) childForElement: (NSDictionary*) element
-						 withName: (NSString*) elementName;
-- (NSArray<NSDictionary*>*) childrenForElement: (NSDictionary*) element
-									  withName: (NSString*) elementName;
-- (NSString*) innerTextForElement: (NSDictionary*) element;
-- (NSString*) attributeValueForElement: (NSDictionary*) element
+- (SkeinXMLElement*) childForElement: (SkeinXMLDictionary*) element
+							withName: (NSString*) elementName;
+- (NSArray<SkeinXMLElement*>*) childrenForElement: (SkeinXMLDictionary*) element
+										 withName: (NSString*) elementName;
+- (NSString*) innerTextForElement: (SkeinXMLElement*) element;
+- (NSString*) attributeValueForElement: (SkeinXMLElement*) element
 							  withName: (NSString*) elementName;
 
 @end
@@ -356,17 +359,17 @@ static XMLCALL void charData    (void *userData,
 }
 
 // In the DOM, would iterate. Doesn't here (shouldn't matter)
-- (NSString*) innerTextForElement: (NSDictionary*) element {
+- (NSString*) innerTextForElement: (SkeinXMLElement*) element {
 	NSMutableString* res = nil;
 	
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [[element objectForKey: ZoomSkeinXMLChildren] objectEnumerator];
 	
 	for (NSDictionary* child in children) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlCharData]) {
+		if ([[child objectForKey: ZoomSkeinXMLType] isEqualToString: xmlCharData]) {
 			if (res == nil) {
-				res = [[NSMutableString alloc] initWithString: [child objectForKey: xmlChars]];
+				res = [[NSMutableString alloc] initWithString: [child objectForKey: ZoomSkeinXMLChars]];
 			} else {
-				[res appendString: [child objectForKey: xmlChars]];
+				[res appendString: [child objectForKey: ZoomSkeinXMLChars]];
 			}
 		}
 	}
@@ -378,11 +381,11 @@ static XMLCALL void charData    (void *userData,
 					   withName: (NSString*) elementName {
 	NSMutableArray* res = nil;
 	
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [[element objectForKey: ZoomSkeinXMLChildren] objectEnumerator];
 	
 	for (NSDictionary* child in children) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlElement] &&
-			[[child objectForKey: xmlName] isEqualToString: elementName]) {
+		if ([[child objectForKey: ZoomSkeinXMLType] isEqualToString: xmlElement] &&
+			[[child objectForKey: ZoomSkeinXMLName] isEqualToString: elementName]) {
 			if (res == nil) {
 				res = [[NSMutableArray alloc] init];
 			}
@@ -394,13 +397,13 @@ static XMLCALL void charData    (void *userData,
 	return res;
 }
 
-- (NSDictionary*) childForElement: (NSDictionary*) element
+- (NSDictionary*) childForElement: (SkeinXMLDictionary*) element
 						 withName: (NSString*) elementName {
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [[element objectForKey: ZoomSkeinXMLChildren] objectEnumerator];
 	
 	for (NSDictionary* child in children) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlElement] &&
-			[[child objectForKey: xmlName] isEqualToString: elementName]) {
+		if ([[child objectForKey: ZoomSkeinXMLType] isEqualToString: xmlElement] &&
+			[[child objectForKey: ZoomSkeinXMLName] isEqualToString: elementName]) {
 			return child;
 		}
 	}
@@ -410,7 +413,7 @@ static XMLCALL void charData    (void *userData,
 
 - (NSString*) attributeValueForElement: (NSDictionary*) element
 							  withName: (NSString*) elementName {
-	return [[element objectForKey: xmlAttributes] objectForKey: elementName];
+	return [[element objectForKey: ZoomSkeinXMLAttributes] objectForKey: elementName];
 }
 
 #pragma mark - XML callback messages
@@ -433,9 +436,9 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	NSMutableDictionary* element = [NSMutableDictionary dictionary];
 
 	[element setObject: xmlElement
-				forKey: xmlType];
+				forKey: ZoomSkeinXMLType];
 	[element setObject: makeString(name)
-				forKey: xmlName];
+				forKey: ZoomSkeinXMLName];
 	
 	// Attributes
 	if (atts != NULL) {
@@ -448,15 +451,15 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 		}
 		
 		[element setObject: attributes
-					forKey: xmlAttributes];
+					forKey: ZoomSkeinXMLAttributes];
 	}
 	
 	// Add as a child of the previous element
-	NSMutableArray* children = [lastElement objectForKey: xmlChildren];
+	NSMutableArray* children = [lastElement objectForKey: ZoomSkeinXMLChildren];
 	if (children == nil) {
 		children = [NSMutableArray array];
 		[lastElement setObject: children
-						forKey: xmlChildren];
+						forKey: ZoomSkeinXMLChildren];
 	}
 	[children addObject: element];
 	
@@ -475,22 +478,22 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	
 	// Create this element
 	NSMutableDictionary* lastElement = [xmlStack lastObject];
-	NSMutableArray* children = [lastElement objectForKey: xmlChildren];
+	NSMutableArray* children = [lastElement objectForKey: ZoomSkeinXMLChildren];
 	NSMutableDictionary* element;
 	BOOL addAsChild;
 	
-	if (children && [[[children lastObject] objectForKey: xmlType] isEqualToString: xmlCharData]) {
+	if (children && [[[children lastObject] objectForKey: ZoomSkeinXMLType] isEqualToString: xmlCharData]) {
 		element = [children lastObject];
-		[[element objectForKey: xmlChars] appendString: makeStringLen(s, len)];
+		[[element objectForKey: ZoomSkeinXMLChars] appendString: makeStringLen(s, len)];
 		
 		addAsChild = NO;
 	} else {
 		element = [NSMutableDictionary dictionary];
 		
 		[element setObject: xmlCharData
-					forKey: xmlType];
+					forKey: ZoomSkeinXMLType];
 		[element setObject: [makeStringLen(s, len) mutableCopy]
-					forKey: xmlChars];
+					forKey: ZoomSkeinXMLChars];
 		
 		addAsChild = YES;
 	}
@@ -500,7 +503,7 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 		if (children == nil) {
 			children = [NSMutableArray array];
 			[lastElement setObject: children
-						forKey: xmlChildren];
+						forKey: ZoomSkeinXMLChildren];
 		}
 		[children addObject: element];
 	}

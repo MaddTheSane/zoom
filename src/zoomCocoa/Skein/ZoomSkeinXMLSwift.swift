@@ -13,7 +13,7 @@ private func idFor(_ item: ZoomSkeinItem) -> String {
 }
 
 extension ZoomSkein {
-	@objc public func preparseXMLData(_ data: Data) throws -> [AnyHashable: Any] {
+	@objc public func preparseXMLData(_ data: Data) throws -> [ZoomSkeinXMLKey: [[ZoomSkeinXMLKey : Any]]] {
 		let parseDel = SkeinXMLParseDelegate()
 		try parseDel.parseData(data)
 		return parseDel.processedXML
@@ -22,7 +22,7 @@ extension ZoomSkein {
 	public func parse(contentsOf url: URL) throws {
 		let parseDel = SkeinXMLParseDelegate()
 		try parseDel.parse(contentsOf: url)
-		try parsePreprocessedDictionary(parseDel.processedXML)
+		try parsePreprocessedDictionary(parseDel.processedXML )
 	}
 	
 	/// Creates an XML representation of the Skein.
@@ -106,18 +106,12 @@ extension ZoomSkein {
 	}
 }
 
-private let xmlAttributes = "xmlAttributes"
-private let xmlName = "xmlName"
-private let xmlChildren = "xmlChildren"
-private let xmlType = "xmlType"
-private let xmlChars = "xmlChars"
-
 private let xmlElement = "xmlElement"
 private let xmlCharData = "xmlCharData"
 
 
 private class SkeinXMLParseDelegate: NSObject, XMLParserDelegate {
-	private(set) var processedXML = [AnyHashable: Any]()
+	private(set) var processedXML = [ZoomSkeinXMLKey : [[ZoomSkeinXMLKey : Any]]]()
 	
 	func parseData(_ data: Data) throws {
 		let parser = XMLParser(data: data)
