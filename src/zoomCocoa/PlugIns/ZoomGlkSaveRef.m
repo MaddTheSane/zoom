@@ -207,7 +207,7 @@
 	if ([[NSFileManager defaultManager] fileExistsAtPath: skeinPath]) {
 		if (!skein) skein = [[ZoomSkein alloc] init];
 		
-		[skein parseXmlData: [NSData dataWithContentsOfFile: skeinPath] error: NULL];
+		[skein parseXMLContentsAtURL: [NSURL fileURLWithPath: skeinPath] error: NULL];
 	}
 	
 	// Inform the delegate we're about to start reading

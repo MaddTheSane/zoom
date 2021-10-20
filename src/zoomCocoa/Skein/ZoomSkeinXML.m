@@ -13,11 +13,13 @@ NSErrorDomain const ZoomSkeinXMLParserErrorDomain = @"uk.org.logicalshift.zoomvi
 
 #pragma mark - XML input class
 
-NSString* const ZoomSkeinXMLAttributes	= @"xmlAttributes";
-NSString* const ZoomSkeinXMLName		= @"xmlName";
-NSString* const ZoomSkeinXMLChildren	= @"xmlChildren";
-NSString* const ZoomSkeinXMLType		= @"xmlType";
-NSString* const ZoomSkeinXMLChars		= @"xmlChars";
+typedef NSString *ZoomSkeinXMLKey NS_TYPED_ENUM;
+
+static ZoomSkeinXMLKey const ZoomSkeinXMLAttributes	= @"xmlAttributes";
+static ZoomSkeinXMLKey const ZoomSkeinXMLName		= @"xmlName";
+static ZoomSkeinXMLKey const ZoomSkeinXMLChildren	= @"xmlChildren";
+static ZoomSkeinXMLKey const ZoomSkeinXMLType		= @"xmlType";
+static ZoomSkeinXMLKey const ZoomSkeinXMLChars		= @"xmlChars";
 
 static NSString* const xmlElement    = @"xmlElement";
 static NSString* const xmlCharData   = @"xmlCharData";
@@ -30,7 +32,8 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 	NSMutableArray<NSMutableDictionary*>*      xmlStack;
 }
 
-- (BOOL) processXML: (NSData*) xml;
+- (BOOL) processXML: (NSData*) xml error: (NSError**) outError;
+- (BOOL) processXMLAtURL: (NSURL*) url error: (NSError**) outError;
 - (void) processPreprocessedDictionary:(NSDictionary*)preDict;
 - (NSDictionary*) processedXML;
 
@@ -49,8 +52,6 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 #pragma mark - Parsing the XML
 
 // Have to use expat: Apple's own XML parser is not available in Jaguar
-// TODO: Jaguar support is a distant memory.
-// FIXME: Using a native Obj-C class for XML parsing will probably result in cleaner code.
 
 - (BOOL) parsePreprocessedDictionary:(NSDictionary*)preDict error:(NSError**)outError {
 	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
@@ -64,21 +65,27 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
 	
 	// Process the XML associated with this file
-	if (![inputParser processXML: data]) {
+	if (![inputParser processXML: data error: error]) {
 		// Failed to parse
 		NSLog(@"ZoomSkein: Failed to parse skein XML data");
-		if (error) {
-			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
-										 code: ZoomSkeinXMLErrorParserFailed
-									 userInfo: @{
-				NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to parse skein XML data",
-				NSLocalizedDescriptionKey: @"ZoomSkein: Failed to parse skein XML data"
-			}];
-		}
-		
 		return NO;
 	}
 	
+		return [self parseXMLInput: inputParser error: error];
+	}
+}
+
+- (BOOL) parseXMLContentsAtURL: (NSURL*) url error: (NSError**) error {
+	@autoreleasepool {
+		ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
+		
+		// Process the XML associated with this file
+		if (![inputParser processXMLAtURL: url error: error]) {
+			// Failed to parse
+			NSLog(@"ZoomSkein: Failed to parse skein XML data");
+			return NO;
+		}
+		
 		return [self parseXMLInput: inputParser error: error];
 	}
 }
@@ -309,7 +316,7 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 	return self;
 }
 
-- (BOOL) processXML: (NSData*) xml {
+- (BOOL) processXML: (NSData*) xml error: (NSError**) outError {
 	// Setup our state
 	result = [[NSMutableDictionary alloc] init];
 	xmlStack = [[NSMutableArray alloc] init];
@@ -322,7 +329,39 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 	theParser.delegate = self;
 	
 	// Perform the parsing
-	return [theParser parse];
+	BOOL success = [theParser parse];
+	if (!success && outError) {
+		*outError = theParser.parserError;
+	}
+	return success;
+}
+
+- (BOOL) processXMLAtURL: (NSURL*) url error: (NSError**) outError {
+	// Setup our state
+	result = [[NSMutableDictionary alloc] init];
+	xmlStack = [[NSMutableArray alloc] init];
+	
+	// Initial element on the stack
+	[xmlStack addObject: result];
+	
+	// Initialise the expat parser
+	NSXMLParser *theParser = [[NSXMLParser alloc] initWithContentsOfURL: url];
+	if (!theParser) {
+		if (outError) {
+			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+											code: NSFileReadUnknownError
+										userInfo: @{NSURLErrorKey: url}];
+		}
+		return NO;
+	}
+	theParser.delegate = self;
+	
+	// Perform the parsing
+	BOOL success = [theParser parse];
+	if (!success && outError) {
+		*outError = theParser.parserError;
+	}
+	return success;
 }
 
 - (NSDictionary*) processedXML {

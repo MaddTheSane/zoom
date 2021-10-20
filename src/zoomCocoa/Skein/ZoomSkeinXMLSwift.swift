@@ -13,18 +13,6 @@ private func idFor(_ item: ZoomSkeinItem) -> String {
 }
 
 extension ZoomSkein {
-	@objc public func preparseXMLData(_ data: Data) throws -> [ZoomSkeinXMLKey: [[ZoomSkeinXMLKey : Any]]] {
-		let parseDel = SkeinXMLParseDelegate()
-		try parseDel.parseData(data)
-		return parseDel.processedXML
-	}
-	
-	public func parse(contentsOf url: URL) throws {
-		let parseDel = SkeinXMLParseDelegate()
-		try parseDel.parse(contentsOf: url)
-		try parsePreprocessedDictionary(parseDel.processedXML)
-	}
-	
 	/// Creates an XML representation of the Skein.
 	@objc public func xmlData() -> String {
 		// Structure summary (note to me: write this up properly later)
@@ -103,49 +91,5 @@ extension ZoomSkein {
 		result.append("</Skein>\n")
 		
 		return result
-	}
-}
-
-private let xmlElement = "xmlElement"
-private let xmlCharData = "xmlCharData"
-
-
-private class SkeinXMLParseDelegate: NSObject, XMLParserDelegate {
-	private(set) var processedXML = [ZoomSkeinXMLKey : [[ZoomSkeinXMLKey : Any]]]()
-	
-	func parseData(_ data: Data) throws {
-		let parser = XMLParser(data: data)
-		parser.delegate = self
-		
-		if !parser.parse() {
-			if let err = parser.parserError {
-				throw err
-			}
-		}
-	}
-	
-	func parse(contentsOf url: URL) throws {
-		guard let parser = XMLParser(contentsOf: url) else {
-			throw CocoaError(.fileReadUnknown, userInfo: [NSURLErrorKey: url])
-		}
-		parser.delegate = self
-		
-		if !parser.parse() {
-			if let err = parser.parserError {
-				throw err
-			}
-		}
-	}
-
-	func parser(_ parser: XMLParser, foundCharacters string: String) {
-		
-	}
-	
-	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-		
-	}
-	
-	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-		
 	}
 }

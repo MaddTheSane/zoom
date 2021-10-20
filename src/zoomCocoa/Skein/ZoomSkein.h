@@ -69,19 +69,11 @@ typedef NS_ERROR_ENUM(ZoomSkeinXMLParserErrorDomain, ZoomSkeinXMLError) {
 	ZoomSkeinXMLErrorNoRootNode,
 };
 
-typedef NSString *ZoomSkeinXMLKey NS_TYPED_ENUM;
-
-extern ZoomSkeinXMLKey const ZoomSkeinXMLAttributes;
-extern ZoomSkeinXMLKey const ZoomSkeinXMLName;
-extern ZoomSkeinXMLKey const ZoomSkeinXMLChildren;
-extern ZoomSkeinXMLKey const ZoomSkeinXMLType;
-extern ZoomSkeinXMLKey const ZoomSkeinXMLChars;
-
 @interface ZoomSkein(ZoomSkeinXML)
 
 //- (NSString*) xmlData; // Moved to ZoomSkeinXMLSwift
-- (BOOL)      parseXmlData: (NSData*) data error: (NSError**) error;
-- (BOOL) parsePreprocessedDictionary:(NSDictionary<ZoomSkeinXMLKey,NSArray<NSDictionary<ZoomSkeinXMLKey,id>*>*>*)preDict error:(NSError**)outError;
+- (BOOL) parseXmlData: (NSData*) data error: (NSError**) error;
+- (BOOL) parseXMLContentsAtURL: (NSURL*) url error: (NSError**) error;
 
 @end
 
