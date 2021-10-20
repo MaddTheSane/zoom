@@ -73,6 +73,7 @@ typedef NS_ERROR_ENUM(ZoomSkeinXMLParserErrorDomain, ZoomSkeinXMLError) {
 
 //- (NSString*) xmlData; // Moved to ZoomSkeinXMLSwift
 - (BOOL)      parseXmlData: (NSData*) data error: (NSError**) error;
+- (BOOL) parsePreprocessedDictionary:(NSDictionary*)preDict error:(NSError**)outError;
 
 @end
 

@@ -30,6 +30,7 @@ static NSString* const xmlCharData   = @"xmlCharData";
 }
 
 - (BOOL) processXML: (NSData*) xml;
+- (void) processPreprocessedDictionary:(NSDictionary*)preDict;
 - (NSDictionary*) processedXML;
 
 - (NSDictionary*) childForElement: (NSDictionary*) element
@@ -49,6 +50,12 @@ static NSString* const xmlCharData   = @"xmlCharData";
 // Have to use expat: Apple's own XML parser is not available in Jaguar
 // TODO: Jaguar support is a distant memory.
 // FIXME: Using a native Obj-C class for XML parsing will probably result in cleaner code.
+
+- (BOOL) parsePreprocessedDictionary:(NSDictionary*)preDict error:(NSError**)outError {
+	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
+	[inputParser processPreprocessedDictionary: preDict];
+	return [self parseXMLInput: inputParser error: outError];
+}
 
 - (BOOL) parseXmlData: (NSData*) data error: (NSError**) error {
 	@autoreleasepool {
@@ -71,16 +78,21 @@ static NSString* const xmlCharData   = @"xmlCharData";
 		return NO;
 	}
 	
+		return [self parseXMLInput: inputParser error: error];
+	}
+}
+
+- (BOOL) parseXMLInput:(ZoomSkeinXMLInput*)inputParser error:(NSError**)outError {
 	// OK, actually process the data
 	NSDictionary* skein = [inputParser childForElement: [inputParser processedXML]
 											  withName: @"Skein"];
 	
 	if (skein == nil) {
 		NSLog(@"ZoomSkein: Failed to find root 'Skein' element");
-		if (error) {
-			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
-										 code: ZoomSkeinXMLErrorNoRootSkein
-									 userInfo: @{
+		if (outError) {
+			*outError = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+											code: ZoomSkeinXMLErrorNoRootSkein
+										userInfo: @{
 				NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to find root 'Skein' element",
 				NSLocalizedDescriptionKey: @"ZoomSkein: Failed to find root 'Skein' element"
 			}];
@@ -103,16 +115,14 @@ static NSString* const xmlCharData   = @"xmlCharData";
 	
 	if (rootNodeId == nil) {
 		NSLog(@"ZoomSkein: No root node ID specified");
-		if (error) {
-			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
-										 code: ZoomSkeinXMLErrorNoRootNodeID
-									 userInfo: @{
+		if (outError) {
+			*outError = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+											code: ZoomSkeinXMLErrorNoRootNodeID
+										userInfo: @{
 				NSDebugDescriptionErrorKey: @"ZoomSkein: No root node ID specified",
 				NSLocalizedDescriptionKey: @"ZoomSkein: No root node ID specified"
 			}];
 		}
-
-
 		return NO;
 	}
 	
@@ -155,10 +165,10 @@ static NSString* const xmlCharData   = @"xmlCharData";
 			// (Hahaha)
 			NSString *spoon = [NSString stringWithFormat:@"ZoomSkein: Programmer is a spoon (item ID: %@)", itemNodeId];
 			NSLog(@"%@", spoon);
-			if (error) {
-				*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
-											 code: ZoomSkeinXMLErrorProgrammerIsASpoon
-										 userInfo: @{
+			if (outError) {
+				*outError = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+												code: ZoomSkeinXMLErrorProgrammerIsASpoon
+											userInfo: @{
 					NSDebugDescriptionErrorKey: spoon,
 					NSLocalizedDescriptionKey: spoon
 				}];
@@ -178,7 +188,7 @@ static NSString* const xmlCharData   = @"xmlCharData";
 		BOOL played = [[inputParser innerTextForElement: [inputParser childForElement: item
 																			 withName: @"played"]] isEqualToString: @"YES"];
 		BOOL changed = [[inputParser innerTextForElement: [inputParser childForElement: item
-																			 withName: @"changed"]] isEqualToString: @"YES"];
+																			  withName: @"changed"]] isEqualToString: @"YES"];
 		BOOL temporary = [[inputParser innerTextForElement: [inputParser childForElement: item
 																				withName: @"temporary"]] isEqualToString: @"YES"];
 		int  tempVal = [[inputParser attributeValueForElement: [inputParser childForElement: item
@@ -200,7 +210,7 @@ static NSString* const xmlCharData   = @"xmlCharData";
 		[newItem setTemporary: temporary];
 		[newItem setTemporaryScore: tempVal];
 	}
-		
+	
 	// Item dictionary III: fill in the item children
 	for (NSDictionary* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
@@ -216,10 +226,10 @@ static NSString* const xmlCharData   = @"xmlCharData";
 			// (Hahaha)
 			NSString *spoon = [NSString stringWithFormat:@"ZoomSkein: Programmer is a spoon (item ID: %@)", itemNodeId];
 			NSLog(@"%@", spoon);
-			if (error) {
-				*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
-											 code: ZoomSkeinXMLErrorProgrammerIsASpoon
-										 userInfo: @{
+			if (outError) {
+				*outError = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+												code: ZoomSkeinXMLErrorProgrammerIsASpoon
+											userInfo: @{
 					NSDebugDescriptionErrorKey: spoon,
 					NSLocalizedDescriptionKey: spoon
 				}];
@@ -256,10 +266,10 @@ static NSString* const xmlCharData   = @"xmlCharData";
 	// Root item
 	ZoomSkeinItem* newRoot = [itemDictionary objectForKey: rootNodeId];
 	if (newRoot == nil) {
-		if (error) {
-			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
-										 code: ZoomSkeinXMLErrorNoRootNode
-									 userInfo: @{
+		if (outError) {
+			*outError = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+											code: ZoomSkeinXMLErrorNoRootNode
+										userInfo: @{
 				NSDebugDescriptionErrorKey: @"ZoomSkein: No root node",
 				NSLocalizedDescriptionKey: @"ZoomSkein: No root node"
 			}];
@@ -278,7 +288,6 @@ static NSString* const xmlCharData   = @"xmlCharData";
 	[self zoomSkeinChanged];
 
 	return YES;
-	}
 }
 
 @end
@@ -340,6 +349,10 @@ static XMLCALL void charData    (void *userData,
 
 - (NSDictionary*) processedXML {
 	return result;
+}
+
+- (void) processPreprocessedDictionary:(NSDictionary*)preDict {
+	result = [preDict mutableCopy];
 }
 
 // In the DOM, would iterate. Doesn't here (shouldn't matter)

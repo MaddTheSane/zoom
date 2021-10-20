@@ -16,7 +16,13 @@ extension ZoomSkein {
 	@objc public func preparseXMLData(_ data: Data) throws -> [AnyHashable: Any] {
 		let parseDel = SkeinXMLParseDelegate()
 		try parseDel.parseData(data)
-		return [:]
+		return parseDel.processedXML
+	}
+	
+	public func parse(contentsOf url: URL) throws {
+		let parseDel = SkeinXMLParseDelegate()
+		try parseDel.parse(contentsOf: url)
+		try parsePreprocessedDictionary(parseDel.processedXML)
 	}
 	
 	/// Creates an XML representation of the Skein.
@@ -111,9 +117,10 @@ private let xmlCharData = "xmlCharData"
 
 
 private class SkeinXMLParseDelegate: NSObject, XMLParserDelegate {
+	private(set) var processedXML = [AnyHashable: Any]()
 	
 	func parseData(_ data: Data) throws {
-		let parser = XMLParser()
+		let parser = XMLParser(data: data)
 		parser.delegate = self
 		
 		if !parser.parse() {
@@ -121,5 +128,30 @@ private class SkeinXMLParseDelegate: NSObject, XMLParserDelegate {
 				throw err
 			}
 		}
+	}
+	
+	func parse(contentsOf url: URL) throws {
+		guard let parser = XMLParser(contentsOf: url) else {
+			throw CocoaError(.fileReadUnknown, userInfo: [NSURLErrorKey: url])
+		}
+		parser.delegate = self
+		
+		if !parser.parse() {
+			if let err = parser.parserError {
+				throw err
+			}
+		}
+	}
+
+	func parser(_ parser: XMLParser, foundCharacters string: String) {
+		
+	}
+	
+	func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+		
+	}
+	
+	func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+		
 	}
 }
