@@ -51,14 +51,6 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 
 #pragma mark - Parsing the XML
 
-// Have to use expat: Apple's own XML parser is not available in Jaguar
-
-- (BOOL) parsePreprocessedDictionary:(NSDictionary*)preDict error:(NSError**)outError {
-	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
-	[inputParser processPreprocessedDictionary: preDict];
-	return [self parseXMLInput: inputParser error: outError];
-}
-
 - (BOOL) parseXmlData: (NSData*) data error: (NSError**) error {
 	@autoreleasepool {
 	
