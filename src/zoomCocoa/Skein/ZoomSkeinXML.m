@@ -9,8 +9,6 @@
 #import "ZoomSkein.h"
 #import <ZoomView/ZoomView-Swift.h>
 
-#include <expat.h>
-
 NSErrorDomain const ZoomSkeinXMLParserErrorDomain = @"uk.org.logicalshift.zoomview.skein.xmlerrors";
 
 #pragma mark - XML input class
@@ -27,7 +25,7 @@ static NSString* const xmlCharData   = @"xmlCharData";
 typedef NSDictionary<ZoomSkeinXMLKey,id> SkeinXMLElement;
 typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDictionary;
 
-@interface ZoomSkeinXMLInput : NSObject {
+@interface ZoomSkeinXMLInput : NSObject <NSXMLParserDelegate> {
 	NSMutableDictionary* result;
 	NSMutableArray<NSMutableDictionary*>*      xmlStack;
 }
@@ -139,7 +137,7 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 	NSArray* items = [inputParser childrenForElement: skein
 											withName: @"item"];
 	
-	for (NSDictionary* item in items) {
+	for (SkeinXMLElement* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
 															withName: @"nodeId"];
 		
@@ -244,7 +242,7 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 		NSArray* itemKids =[inputParser childrenForElement: [inputParser childForElement: item
 																				withName: @"children"]
 												  withName: @"child"];
-		for (NSDictionary* child in itemKids) {
+		for (SkeinXMLElement* child in itemKids) {
 			NSString* kidNodeId = [inputParser attributeValueForElement: child
 															   withName: @"nodeId"];
 			if (kidNodeId == nil) {
@@ -311,16 +309,6 @@ typedef NSDictionary<ZoomSkeinXMLKey,NSArray<SkeinXMLElement*>*> SkeinXMLDiction
 	return self;
 }
 
-// XML processing functions
-static XMLCALL void startElement(void *userData,
-								 const XML_Char *name,
-								 const XML_Char **atts);
-static XMLCALL void endElement  (void *userData,
-								 const XML_Char *name);
-static XMLCALL void charData    (void *userData,
-								 const XML_Char *s,
-								 int len);
-
 - (BOOL) processXML: (NSData*) xml {
 	// Setup our state
 	result = [[NSMutableDictionary alloc] init];
@@ -330,24 +318,11 @@ static XMLCALL void charData    (void *userData,
 	[xmlStack addObject: result];
 	
 	// Initialise the expat parser
-	XML_Parser theParser;
-	
-	theParser = XML_ParserCreate(NULL);
-	
-	XML_SetElementHandler(theParser, startElement, endElement);
-	XML_SetCharacterDataHandler(theParser, charData);
-	XML_SetUserData(theParser, (__bridge void *)(self));
+	NSXMLParser *theParser = [[NSXMLParser alloc] initWithData: xml];
+	theParser.delegate = self;
 	
 	// Perform the parsing
-	int status = XML_Parse(theParser, [xml bytes], (int)[xml length], 1);
-	
-	// Tidy up the parser
-	XML_ParserFree(theParser);
-		
-	// Abort here if the parser fails
-	if (status != XML_STATUS_OK) return NO;
-	
-	return YES;
+	return [theParser parse];
 }
 
 - (NSDictionary*) processedXML {
@@ -416,41 +391,25 @@ static XMLCALL void charData    (void *userData,
 	return [[element objectForKey: ZoomSkeinXMLAttributes] objectForKey: elementName];
 }
 
-#pragma mark - XML callback messages
+#pragma mark - NSXML callback messages
 
-static NSString* makeString(const XML_Char* data) {
-	return @((const char*)data);
-}
-
-static NSString* makeStringLen(const XML_Char* data, int lenIn) {
-	NSData *dat = [NSData dataWithBytes: data
-								 length: lenIn];
-	return [[NSString alloc] initWithData: dat
-								 encoding: NSUTF8StringEncoding];
-}
-
-- (void) startElement: (const XML_Char*) name
-	   withAttributes: (const XML_Char**) atts {
+-   (void)parser: (NSXMLParser *) parser
+ didStartElement: (NSString *) elementName
+	namespaceURI: (NSString *) namespaceURI
+   qualifiedName: (NSString *) qName
+	  attributes: (NSDictionary<NSString *,NSString *> *) attributeDict {
 	// Create this element
 	NSMutableDictionary* lastElement = [xmlStack lastObject];
 	NSMutableDictionary* element = [NSMutableDictionary dictionary];
 
 	[element setObject: xmlElement
 				forKey: ZoomSkeinXMLType];
-	[element setObject: makeString(name)
+	[element setObject: elementName
 				forKey: ZoomSkeinXMLName];
 	
 	// Attributes
-	if (atts != NULL) {
-		NSMutableDictionary* attributes = [NSMutableDictionary dictionary];
-		
-		int x;
-		for (x=0; atts[x] != NULL; x+=2) {
-			[attributes setObject: makeString(atts[x+1])
-						   forKey: makeString(atts[x])];
-		}
-		
-		[element setObject: attributes
+	if ([attributeDict count] != 0) {
+		[element setObject: [attributeDict mutableCopy]
 					forKey: ZoomSkeinXMLAttributes];
 	}
 	
@@ -467,14 +426,19 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	[xmlStack addObject: element];
 }
 
-- (void) endElement: (__unused const XML_Char*) name {
+- (void) parser: (NSXMLParser *)parser
+  didEndElement: (NSString *)elementName
+   namespaceURI: (NSString *)namespaceURI
+  qualifiedName: (NSString *)qName {
 	// Pop the last element
 	[xmlStack removeLastObject];
 }
 
-- (void) charData: (const XML_Char*) s
-	   withLength: (int) len {
-	if (len <= 0) return;
+-   (void)parser: (NSXMLParser *)parser
+ foundCharacters: (NSString *) string {
+	if (string.length == 0) {
+		return;
+	}
 	
 	// Create this element
 	NSMutableDictionary* lastElement = [xmlStack lastObject];
@@ -484,7 +448,7 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	
 	if (children && [[[children lastObject] objectForKey: ZoomSkeinXMLType] isEqualToString: xmlCharData]) {
 		element = [children lastObject];
-		[[element objectForKey: ZoomSkeinXMLChars] appendString: makeStringLen(s, len)];
+		[[element objectForKey: ZoomSkeinXMLChars] appendString: string];
 		
 		addAsChild = NO;
 	} else {
@@ -492,7 +456,7 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 		
 		[element setObject: xmlCharData
 					forKey: ZoomSkeinXMLType];
-		[element setObject: [makeStringLen(s, len) mutableCopy]
+		[element setObject: [string mutableCopy]
 					forKey: ZoomSkeinXMLChars];
 		
 		addAsChild = YES;
@@ -509,26 +473,4 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	}
 }
 
-#pragma mark - XML callback implementation
-
-static XMLCALL void startElement(void *userData,
-								 const XML_Char *name,
-								 const XML_Char **atts) {
-	[(__bridge ZoomSkeinXMLInput*)userData startElement: name
-										 withAttributes: atts];
-}
-
-static XMLCALL void endElement(void *userData,
-								 const XML_Char *name) {
-	[(__bridge ZoomSkeinXMLInput*)userData endElement: name];
-}
-
-static XMLCALL void charData(void *userData,
-							 const XML_Char *s,
-							 int len) {
-	[(__bridge ZoomSkeinXMLInput*)userData charData: s
-										 withLength: len];
-}
-
 @end
-
