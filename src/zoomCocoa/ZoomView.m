@@ -222,12 +222,14 @@ static void finalizeViews(void) {
 		[invertTransform invert];
 		[invertTransform translateXBy: realFrame.origin.x
 								  yBy: realFrame.origin.y];
-		[invertTransform set];
+		[invertTransform concat];
 
 		[pixmap drawInRect: bounds
 				  fromRect: NSZeroRect
 				 operation: NSCompositingOperationSourceOver
-				  fraction: 1.0];
+				  fraction: 1.0
+			respectFlipped: YES
+					 hints: nil];
 		
 		[[NSGraphicsContext currentContext] restoreGraphicsState];
 				

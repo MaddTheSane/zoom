@@ -228,7 +228,9 @@
 	[img drawInRect: destRect
 		   fromRect: NSZeroRect
 		  operation: NSCompositingOperationSourceOver
-		   fraction: 1.0];
+		   fraction: 1.0
+	 respectFlipped: YES
+			  hints: nil];
 	[pixmap unlockFocus];
 	
 	[zView setNeedsDisplay: YES];
