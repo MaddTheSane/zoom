@@ -10,7 +10,22 @@
 #import "ZoomStoryID.h"
 
 
-@implementation ZoomSignPost
+@implementation ZoomSignPost {
+	// The signpost data
+	NSMutableArray<NSString*>* ifids;
+	NSString* interpreterDisplayName;
+	NSString* interpreterURL;
+	NSString* interpreterVersion;
+	NSString* pluginVersion;
+	NSString* downloadURL;
+	NSString* errorMessage;
+	
+	// Parsing state
+	BOOL reparseAsPlist;
+	BOOL parseError;
+	NSMutableArray<NSString*>* pathStack;
+	NSMutableArray<NSMutableString*>* cDataStack;
+}
 
 #pragma mark - Initialising
 

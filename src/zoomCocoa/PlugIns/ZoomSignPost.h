@@ -15,22 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Class that deals with understanding IFDB signpost files.
 ///
-@interface ZoomSignPost : NSObject<NSXMLParserDelegate> {
-	// The signpost data
-	NSMutableArray* ifids;
-	NSString* interpreterDisplayName;
-	NSString* interpreterURL;
-	NSString* interpreterVersion;
-	NSString* pluginVersion;
-	NSString* downloadURL;
-	NSString* errorMessage;
-	
-	// Parsing state
-	BOOL reparseAsPlist;
-	BOOL parseError;
-	NSMutableArray* pathStack;
-	NSMutableArray* cDataStack;
-}
+@interface ZoomSignPost : NSObject<NSXMLParserDelegate>
 
 #pragma mark - Initialising
 
