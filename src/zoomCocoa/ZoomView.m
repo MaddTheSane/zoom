@@ -1301,7 +1301,7 @@ static void finalizeViews(void) {
         fontToUse, NSFontAttributeName,
         foregroundColour, NSForegroundColorAttributeName,
         backgroundColour, NSBackgroundColorAttributeName,
-		@([viewPrefs useLigatures]), NSLigatureAttributeName,
+		@([viewPrefs useLigatures] ? 1 : 0), NSLigatureAttributeName,
 		[style copy], ZoomStyleAttributeName,
         nil];
 	
@@ -1316,46 +1316,8 @@ static void finalizeViews(void) {
 
     NSMutableAttributedString* result;
 
-    // Font
-    NSFont* fontToUse = nil;
-	ZFontStyle fontnum;
-
-    fontnum =
-        (style.bold?ZFontStyleBold:0)|
-        (style.underline?ZFontStyleUnderline:0)|
-        (style.fixed?ZFontStyleFixed:0)|
-        (style.symbolic?ZFontStyleSymbolic:0);
-
-    fontToUse = [self fontFromStyle: fontnum];
-
-    // Colour
-    NSColor* foregroundColour = [style foregroundTrue];
-    NSColor* backgroundColour = [style backgroundTrue];
-
-    if (foregroundColour == nil) {
-        foregroundColour = [colours objectAtIndex: [style foregroundColour]];
-    }
-    if (backgroundColour == nil) {
-        backgroundColour = [colours objectAtIndex: [style backgroundColour]];
-    }
-	
-    if (style.reversed) {
-        NSColor* tmp = foregroundColour;
-
-        foregroundColour = backgroundColour;
-        backgroundColour = tmp;
-    }
-	
-	// The foreground colour must have 100% alpha
-	foregroundColour = [foregroundColour colorWithAlphaComponent: 1.0];
-	
     // Generate the new attributes
-    NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-        fontToUse, NSFontAttributeName,
-        foregroundColour, NSForegroundColorAttributeName,
-        backgroundColour, NSBackgroundColorAttributeName,
-		[style copy], ZoomStyleAttributeName,
-        nil];
+    NSDictionary* newAttr = [self attributesForStyle: style];
 
     // Create + append the newly attributed string
     result = [[NSMutableAttributedString alloc] initWithString: zString
@@ -1369,14 +1331,14 @@ static void finalizeViews(void) {
 	// FIXME: better to do this with preferences now, but Inform still uses these calls
     
     originalFonts = [[NSArray alloc] initWithArray: newFonts
-															  copyItems: YES];
+										 copyItems: YES];
 
 	[self setScaleFactor: scaleFactor];
 }
 
 - (void) setColours: (NSArray*) newColours {
     colours = [[NSArray alloc] initWithArray: newColours
-                                                        copyItems: YES];
+								   copyItems: YES];
 	
 	[self reformatWindow];
 }
