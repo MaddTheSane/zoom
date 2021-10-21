@@ -22,7 +22,7 @@
 #import "ZoomJSError.h"
 #import "ZoomSignPost.h"
 
-@interface ZoomiFictionController : NSWindowController <NSTextStorageDelegate, ZoomDownloadDelegate, NSTableViewDataSource, NSOpenSavePanelDelegate, NSControlTextEditingDelegate, NSMenuItemValidation>
+@interface ZoomiFictionController : NSWindowController <NSTextStorageDelegate, ZoomDownloadDelegate, NSTableViewDataSource, NSOpenSavePanelDelegate, NSControlTextEditingDelegate, NSMenuItemValidation, NSTabViewDelegate>
 {
 	IBOutlet NSButton* addButton;
 	IBOutlet NSButton* newgameButton;
@@ -33,11 +33,10 @@
 	//IBOutlet CollapsableView* collapseView;
 	
 	IBOutlet ZoomFlipView* flipView;
-	IBOutlet NSView* topPanelView;
-	IBOutlet NSView* filterView;
-	IBOutlet NSView* infoView;
-	IBOutlet NSView* saveGameView;
-	IBOutlet NSMatrix* flipButtonMatrix;
+	IBOutlet NSTabView* topPanelView;
+	IBOutlet NSButton *savesFlipButton;
+	IBOutlet NSButton *infoFlipButton;
+	IBOutlet NSButton *filtersFlipButton;
 	IBOutlet FadeView *fadeView;
 	
 	IBOutlet NSView* mainView;

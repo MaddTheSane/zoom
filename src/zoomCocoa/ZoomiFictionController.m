@@ -30,6 +30,10 @@
 
 #import <ZoomPlugIns/ifmetabase.h>
 
+#define ZoomFiltersTabIdentifier @"ZoomFilters"
+#define ZoomSavesTabIdentifier @"ZoomSaves"
+#define ZoomInfoTabIdentifier @"ZoomInfo"
+
 @interface ZoomiFictionController()
 
 - (NSString*) queryEncode: (NSString*) string;
@@ -170,37 +174,6 @@ NS_ENUM(NSInteger) {
 		}
 }
 
-- (void) flipTo: (NSView*) view {
-	NSRect viewFrame = [topPanelView bounds];
-	viewFrame.origin = NSMakePoint(0,0);
-	
-	[view setFrame: viewFrame];
-	
-	[flipView prepareToAnimateView: topPanelView];
-	[flipView animateTo: view
-				  style: ZoomAnimateFade];
-	
-	if (view == filterView) {
-		[flipButtonMatrix selectCellWithTag: 2];		
-	} else if (view == infoView) {
-		[flipButtonMatrix selectCellWithTag: 1];
-	} else if (view == saveGameView) {
-		[flipButtonMatrix selectCellWithTag: 0];
-	}
-	
-	topPanelView = view;
-	NSLayoutConstraint *constraint = [topPanelView.leftAnchor constraintEqualToAnchor: fadeView.superview.leftAnchor];
-	constraint.active = YES;
-	constraint = [topPanelView.rightAnchor constraintEqualToAnchor: fadeView.superview.rightAnchor];
-	constraint.active = YES;
-	constraint = [topPanelView.topAnchor constraintEqualToAnchor: fadeView.bottomAnchor];
-	constraint.active = YES;
-	constraint = [topPanelView.bottomAnchor constraintEqualToAnchor: fadeView.superview.bottomAnchor];
-	constraint.active = YES;
-	[flipButtonMatrix setNextKeyView: view];
-	[view setNextKeyView: mainTableView];
-}
-
 - (void) positionDownloadWindow {
 	if (![downloadWindow isVisible]) return;
 	
@@ -308,7 +281,7 @@ NS_ENUM(NSInteger) {
 				   
 	[mainTableView setDoubleAction:@selector(startNewGame:)];
 
-	[self flipTo: filterView];
+	[topPanelView selectTabViewItemWithIdentifier: ZoomFiltersTabIdentifier];
 }
 
 - (void) close {
@@ -417,7 +390,6 @@ static dispatch_block_t onceTypesBlock = ^{
 		BOOL isDir;
 		
 		NSURL *filename = [selectedFiles objectAtIndex:0];
-		NSString *path = filename.path;
 
 		isDir = NO;
 		urlIsAvailableAndIsDirectory(filename, &isDir, NULL, NULL);
@@ -451,8 +423,8 @@ static dispatch_block_t onceTypesBlock = ^{
 																   error: NULL];
 				
 			}
-		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: path])) {
-			ZoomPlugIn* instance = [[plugin alloc] initWithFilename: path];
+		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForURL:filename])) {
+			ZoomPlugIn* instance = [(ZoomPlugIn*)[plugin alloc] initWithURL: filename];
 			ZoomStoryID* fileID = [instance idForStory];
 			
 			if (fileID != nil) {
@@ -556,7 +528,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 	
 	// Show files that have a valid plugin
-	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: [url path]];
+	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForURL: url];
 	
 	if (pluginClass != nil) {
 		return YES;
@@ -1073,31 +1045,16 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	// Highlight the 'filter' button if some filtering has occurred
 	if (isFiltered != wasFiltered) {
-		// Prepare to animate to the new style of filtering
-		ZoomFlipView* matrixAnimation = [[ZoomFlipView alloc] init];
-		[matrixAnimation prepareToAnimateView: flipButtonMatrix];
-		
-		// Get the cell containing the 'filter' button
-		NSButtonCell* filterButtonCell = [flipButtonMatrix cellWithTag: 2];
-		
 		// Set its text colour to dark red if filtered
 		NSColor* filterColour;
 		
 		if (isFiltered) {
-			filterColour = [NSColor colorWithDeviceRed: 0.7 green: 0 blue: 0 alpha: 1.0];
+			filterColour = [NSColor systemRedColor];
 		} else {
-			filterColour = [NSColor blackColor];
+			filterColour = nil;
 		}
 		
-		NSMutableAttributedString* filterButtonTitle = [[filterButtonCell attributedTitle] mutableCopy];
-		[filterButtonTitle addAttributes: [NSDictionary dictionaryWithObjectsAndKeys: filterColour, NSForegroundColorAttributeName, nil]
-								   range: NSMakeRange(0, [filterButtonTitle length])];
-		
-		[filterButtonCell setAttributedTitle: filterButtonTitle];
-		
-		// Finish the animation
-		[matrixAnimation animateTo: flipButtonMatrix
-							 style: ZoomAnimateFade];
+		[filtersFlipButton setContentTintColor:filterColour];
 	}
 	
 	// Tidy up (prevents a dumb infinite loop possibility)
@@ -1252,32 +1209,17 @@ static dispatch_block_t onceTypesBlock = ^{
 			// Set the 'saves' tab to dark blue if save games are available
 			saveGamesAvailable = [previewView saveGamesAvailable];
 
-			// Prepare to animate to the 'saves available' button
-			ZoomFlipView* matrixAnimation = [[ZoomFlipView alloc] init];
-			[matrixAnimation prepareToAnimateView: flipButtonMatrix];
-			
-			// Get the cell containing the 'save' button
-			NSButtonCell* filterButtonCell = [flipButtonMatrix cellWithTag: 0];
-			
 			// Set its text colour
 			NSColor* filterColour;
 			
 			if (saveGamesAvailable) {
-				filterColour = [NSColor colorWithDeviceRed: 0.7 green: 0 blue: 0.3 alpha: 1.0];
+				filterColour = [NSColor systemBlueColor];
 			} else {
-				filterColour = [NSColor blackColor];
+				filterColour = nil;
 			}
 			
-			NSMutableAttributedString* filterButtonTitle = [[filterButtonCell attributedTitle] mutableCopy];
-			[filterButtonTitle addAttributes: [NSDictionary dictionaryWithObjectsAndKeys: filterColour, NSForegroundColorAttributeName, nil]
-									   range: NSMakeRange(0, [filterButtonTitle length])];
-			
-			[filterButtonCell setAttributedTitle: filterButtonTitle];
-			
-			// Finish the animation
-			[matrixAnimation animateTo: flipButtonMatrix
-								 style: ZoomAnimateFade];
-		} 
+			savesFlipButton.contentTintColor = filterColour;
+		}
 		
 		// Set up the extra blorb resources display
 		[resourceDrop setDroppedFilename: [story objectForKey: @"ResourceFilename"]];
@@ -1437,7 +1379,9 @@ static dispatch_block_t onceTypesBlock = ^{
 			extraNewline = YES;
 			
 			// Always flip if the description view is already displayed
-			if (topPanelView == infoView) flipToDescription = YES;
+			if ([topPanelView.selectedTabViewItem.identifier isEqualToString:ZoomInfoTabIdentifier]) {
+				flipToDescription = YES;
+			}
 			row = [rowEnum indexGreaterThanIndex:row];
 		}
 	} else {
@@ -1449,7 +1393,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 	
 	if (![[gameDetailView string] isEqualToString: [gameDetails string]]) {
-		if (flipToDescription) [flipView prepareToAnimateView: topPanelView];
+//		if (flipToDescription) [flipView prepareToAnimateView: topPanelView];
 		[[gameDetailView textStorage] setDelegate: nil];
 		[[gameDetailView textStorage] setAttributedString: gameDetails];
 		[[gameDetailView textStorage] setDelegate: self];
@@ -1498,13 +1442,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	// Flip any views that need flipping
 	if (flipToDescription) {
-		[[gameDetailView layoutManager] setBackgroundLayoutEnabled: NO];
-		[infoView setFrame: [topPanelView frame]];
-		[flipView animateTo: infoView
-					  style: ZoomAnimateFade];
-		[flipButtonMatrix selectCellWithTag: 1];
-		topPanelView = infoView;
-		[[gameDetailView layoutManager] setBackgroundLayoutEnabled: YES];
+		[topPanelView selectTabViewItemWithIdentifier: ZoomInfoTabIdentifier];
 	}
 }
 
@@ -2317,15 +2255,15 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (IBAction) flipToFilter: (id) sender {
-	[self flipTo: filterView];
+	[topPanelView selectTabViewItemWithIdentifier: ZoomFiltersTabIdentifier];
 }
 
 - (IBAction) flipToInfo: (id) sender {
-	[self flipTo: infoView];
+	[topPanelView selectTabViewItemWithIdentifier: ZoomInfoTabIdentifier];
 }
 
 - (IBAction) flipToSaves: (id) sender {
-	[self flipTo: saveGameView];	
+	[topPanelView selectTabViewItemWithIdentifier: ZoomSavesTabIdentifier];
 }
 
 #pragma mark - ResourceDrop delegate
@@ -3145,6 +3083,26 @@ static unsigned int ValueForHexChar(int hex) {
 		// Retry the signpost
 		[self openSignPost: [activeSignpost data]
 			 forceDownload: YES];
+	}
+}
+
+#pragma mark - NSTabViewDelegate
+
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(nullable NSTabViewItem *)tabViewItem {
+	if (tabView == topPanelView) {
+		if ([tabViewItem.identifier isEqualToString:ZoomFiltersTabIdentifier]) {
+			[savesFlipButton setState:NSControlStateValueOff];
+			[infoFlipButton setState:NSControlStateValueOff];
+			[filtersFlipButton setState:NSControlStateValueOn];
+		} else if ([tabViewItem.identifier isEqualToString:ZoomInfoTabIdentifier]) {
+			[savesFlipButton setState:NSControlStateValueOff];
+			[infoFlipButton setState:NSControlStateValueOn];
+			[filtersFlipButton setState:NSControlStateValueOff];
+		} else if ([tabViewItem.identifier isEqualToString:ZoomSavesTabIdentifier]) {
+			[savesFlipButton setState:NSControlStateValueOn];
+			[infoFlipButton setState:NSControlStateValueOff];
+			[filtersFlipButton setState:NSControlStateValueOff];
+		}
 	}
 }
 
