@@ -115,6 +115,7 @@ static NSMutableDictionary* notesDictionary = nil;
 	[self updateFromStory];
 }
 
+@synthesize gameInfo=story;
 - (void) setGameInfo: (ZoomStory*) newStory {
 	[self textDidEndEditing: nil];
 	
