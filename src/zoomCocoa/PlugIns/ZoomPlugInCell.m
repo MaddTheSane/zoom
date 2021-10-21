@@ -68,15 +68,15 @@
 	if (drawWidth < drawHeight) drawWidth = drawHeight;
 	
 	// Decide on the fonts and colours to use
-	NSColor* standardColour = [NSColor blackColor];
-	NSColor* infoColour = [NSColor grayColor];
-	NSColor* highlightColour = [NSColor redColor];
-	NSColor* highlightColour2 = [NSColor blueColor];
+	NSColor* standardColour = [NSColor textColor];
+	NSColor* infoColour = [NSColor placeholderTextColor];
+	NSColor* highlightColour = [NSColor systemRedColor];
+	NSColor* highlightColour2 = [NSColor systemBlueColor];
 	if ([self isHighlighted]) {
-		standardColour = [NSColor whiteColor];
-		highlightColour = [NSColor whiteColor];
-		highlightColour2 = [NSColor whiteColor];
-		infoColour = [NSColor whiteColor];
+		standardColour = [NSColor selectedTextColor];
+		highlightColour = [NSColor selectedTextColor];
+		highlightColour2 = [NSColor selectedTextColor];
+		infoColour = [NSColor selectedTextColor];
 	}
 
 	NSFont* nameFont = [NSFont boldSystemFontOfSize: 13];

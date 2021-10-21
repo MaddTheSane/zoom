@@ -658,10 +658,10 @@ static NSColor* getTrue(int col) {
     g = ((double)(col&0x3e0))/992.0;
     b = ((double)(col&0x7c00))/31744.0;
 
-    return [NSColor colorWithDeviceRed: r
-                                 green: g
-                                  blue: b
-                                 alpha: 1.0];
+    return [NSColor colorWithSRGBRed: r
+                               green: g
+                                blue: b
+                               alpha: 1.0];
 }
 
 void display_set_colour(int fore, int back) {

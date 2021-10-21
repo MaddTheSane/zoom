@@ -100,10 +100,10 @@
 	if (![self visible]) return;
 
 	// Cursor colour
-	[[NSColor colorWithDeviceRed: 0.3
-						   green: 0.8
-							blue: 1.0
-						   alpha: 0.6] set];
+	[[NSColor colorWithSRGBRed: 0.3
+						 green: 0.8
+						  blue: 1.0
+						 alpha: 0.6] set];
 	
 	// Draw the cursor
 	if ([self activeStyle]) {

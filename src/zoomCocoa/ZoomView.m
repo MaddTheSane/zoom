@@ -100,7 +100,7 @@ static void finalizeViews(void) {
 
         [textScroller setHasHorizontalScroller: NO];
         [textScroller setHasVerticalScroller: YES];
-		[textScroller setBackgroundColor: [NSColor whiteColor]];
+		[textScroller setBackgroundColor: [NSColor textBackgroundColor]];
 		[textScroller setDrawsBackground: YES];
         
         NSSize contentSize = [textScroller contentSize];
@@ -1265,9 +1265,7 @@ static void finalizeViews(void) {
 	
     // Font
     NSFont* fontToUse = nil;
-	ZFontStyle fontnum;
-	
-    fontnum =
+	ZFontStyle fontnum =
         (style.bold?ZFontStyleBold:0)|
         (style.underline?ZFontStyleUnderline:0)|
         (style.fixed?ZFontStyleFixed:0)|

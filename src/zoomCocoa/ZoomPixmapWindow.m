@@ -8,6 +8,7 @@
 
 #include <tgmath.h>
 #import "ZoomPixmapWindow.h"
+#import "ZoomView.h"
 
 
 @implementation ZoomPixmapWindow
@@ -161,13 +162,11 @@
 				  height: (out CGFloat*) height
 				  ascent: (out CGFloat*) ascent
 				 descent: (out CGFloat*) descent {
-    int fontnum;
-	
-    fontnum =
-        (style.bold?1:0)|
-        (style.underline?2:0)|
-        (style.fixed?4:0)|
-        (style.symbolic?8:0);
+	ZFontStyle fontnum =
+        (style.bold?ZFontStyleBold:0)|
+        (style.underline?ZFontStyleUnderline:0)|
+        (style.fixed?ZFontStyleFixed:0)|
+        (style.symbolic?ZFontStyleSymbolic:0);
 
 	NSFont* font = [zView fontFromStyle: fontnum];
     NSSize fontSize = [self sizeOfFont: font];

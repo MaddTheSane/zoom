@@ -7,6 +7,7 @@
 //
 
 #import "ZoomPreferences.h"
+#import "ZoomView.h"
 
 
 @implementation ZoomPreferences
@@ -109,6 +110,9 @@ static NSLock*          globalLock = nil;
 }
 
 static NSArray* DefaultFonts(void) {
+	static NSArray *defaultFontsRet;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
 	NSString* defaultFontName = @"Gill Sans";
 	NSString* fixedFontName = @"Courier";
 	NSFontManager* mgr = [NSFontManager sharedFontManager];
@@ -127,8 +131,7 @@ static NSArray* DefaultFonts(void) {
 	if (variableFont == nil) variableFont = [NSFont systemFontOfSize: 12];
 	if (fixedFont == nil) fixedFont = [NSFont userFixedPitchFontOfSize: 12];
 	
-	int x;
-	for (x=0; x<16; x++) {
+	for (ZFontStyle x=0; x<16; x++) {
 		NSFont* thisFont = variableFont;
 		if ((x&4)) thisFont = fixedFont;
 		
@@ -141,25 +144,30 @@ static NSArray* DefaultFonts(void) {
 		
 		[defaultFonts addObject: thisFont];
 	}
-	
-	return defaultFonts;
+		defaultFontsRet = [NSArray arrayWithArray:defaultFonts];
+	});
+	return defaultFontsRet;
 }
 
 static NSArray* DefaultColours(void) {
-	NSArray* defaultColours = @[
-		[NSColor colorWithDeviceRed: 0 green: 0 blue: 0 alpha: 1],
-		[NSColor colorWithDeviceRed: 1 green: 0 blue: 0 alpha: 1],
-		[NSColor colorWithDeviceRed: 0 green: 1 blue: 0 alpha: 1],
-		[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha: 1],
-		[NSColor colorWithDeviceRed: 0 green: 0 blue: 1 alpha: 1],
-		[NSColor colorWithDeviceRed: 1 green: 0 blue: 1 alpha: 1],
-		[NSColor colorWithDeviceRed: 0 green: 1 blue: 1 alpha: 1],
-		[NSColor colorWithDeviceRed: 1 green: 1 blue: .8 alpha: 1],
-		
-		[NSColor colorWithDeviceRed: .73 green: .73 blue: .73 alpha: 1],
-		[NSColor colorWithDeviceRed: .53 green: .53 blue: .53 alpha: 1],
-		[NSColor colorWithDeviceRed: .26 green: .26 blue: .26 alpha: 1],
+	static NSArray* defaultColours;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		defaultColours = @[
+			[NSColor colorWithSRGBRed: 0 green: 0 blue: 0 alpha: 1],
+			[NSColor colorWithSRGBRed: 1 green: 0 blue: 0 alpha: 1],
+			[NSColor colorWithSRGBRed: 0 green: 1 blue: 0 alpha: 1],
+			[NSColor colorWithSRGBRed: 1 green: 1 blue: 0 alpha: 1],
+			[NSColor colorWithSRGBRed: 0 green: 0 blue: 1 alpha: 1],
+			[NSColor colorWithSRGBRed: 1 green: 0 blue: 1 alpha: 1],
+			[NSColor colorWithSRGBRed: 0 green: 1 blue: 1 alpha: 1],
+			[NSColor colorWithSRGBRed: 1 green: 1 blue: .8 alpha: 1],
+			
+			[NSColor colorWithSRGBRed: .73 green: .73 blue: .73 alpha: 1],
+			[NSColor colorWithSRGBRed: .53 green: .53 blue: .53 alpha: 1],
+			[NSColor colorWithSRGBRed: .26 green: .26 blue: .26 alpha: 1],
 		];
+	});
 	
 	return defaultColours;
 }

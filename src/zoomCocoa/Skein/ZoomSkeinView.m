@@ -185,10 +185,10 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		[highlighted lockFocus];
 		
 		// Background
-		[[NSColor colorWithDeviceRed: 0.0
-							   green: 0.0
-								blue: 0.0
-							   alpha: 0.4] set];
+		[[NSColor colorWithSRGBRed: 0.0
+							 green: 0.0
+							  blue: 0.0
+							 alpha: 0.4] set];
 		NSRectFill(imgRect);
 		
 		// The item
