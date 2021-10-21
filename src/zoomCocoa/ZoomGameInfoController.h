@@ -11,7 +11,7 @@
 	IBOutlet NSTextField* gameName;
 	IBOutlet NSTextField* headline;
 	IBOutlet NSTextField* author;
-	IBOutlet NSTextField* genre;
+	IBOutlet NSComboBox* genre;
 	IBOutlet NSTextField* year;
 	IBOutlet NSTextField* group;
 	
@@ -44,7 +44,7 @@
 // Setting up the game info window
 @property (nonatomic, retain) ZoomStory *gameInfo;
 
-@property (retain) id infoOwner;
+@property (strong) id infoOwner;
 
 // Reading the current (updated) contents of the game info window
 @property (readonly, copy) NSString *title;
