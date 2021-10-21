@@ -21,19 +21,19 @@
         <window title="Plug-ins for Zoom" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="285" y="536" width="492" height="343"/>
+            <rect key="contentRect" x="285" y="536" width="562" height="383"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <view key="contentView" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="492" height="343"/>
-                <autoresizingMask key="autoresizingMask"/>
+            <value key="minSize" type="size" width="562" height="383"/>
+            <view key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                <rect key="frame" x="0.0" y="0.0" width="492" height="347"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="38" horizontalPageScroll="10" verticalLineScroll="38" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="20" y="56" width="452" height="267"/>
-                        <clipView key="contentView" id="SHB-Qq-0z9">
+                        <rect key="frame" x="20" y="60" width="452" height="267"/>
+                        <clipView key="contentView" translatesAutoresizingMaskIntoConstraints="NO" id="SHB-Qq-0z9">
                             <rect key="frame" x="1" y="1" width="450" height="265"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="36" id="8">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="8">
                                     <rect key="frame" x="0.0" y="0.0" width="450" height="265"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -45,11 +45,7 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="33">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
+                                            <customCell key="dataCell" alignment="left" id="3f2-WW-9qd" customClass="ZoomPlugInCell"/>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         </tableColumn>
                                     </tableColumns>
@@ -60,6 +56,10 @@
                                 </tableView>
                             </subviews>
                         </clipView>
+                        <constraints>
+                            <constraint firstAttribute="width" priority="250" constant="452" id="OrL-tu-rh7"/>
+                            <constraint firstAttribute="height" priority="250" constant="267" id="ehD-HR-4Bh"/>
+                        </constraints>
                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="34">
                             <rect key="frame" x="-100" y="-100" width="435" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
@@ -112,19 +112,20 @@ DQ
                     <constraint firstItem="12" firstAttribute="centerX" secondItem="14" secondAttribute="centerX" id="9bh-xN-6XG"/>
                     <constraint firstItem="26" firstAttribute="baseline" secondItem="11" secondAttribute="baseline" id="AR1-kd-g4p"/>
                     <constraint firstItem="14" firstAttribute="top" secondItem="12" secondAttribute="bottom" constant="1" id="Dt8-f5-z1x"/>
+                    <constraint firstItem="14" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="12" secondAttribute="leading" id="GCZ-Nt-ddg"/>
                     <constraint firstItem="26" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="12" secondAttribute="trailing" constant="8" symbolic="YES" id="MlD-dK-GDq"/>
+                    <constraint firstItem="26" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6" secondAttribute="leading" constant="20" id="O64-rp-fmi"/>
                     <constraint firstAttribute="bottom" secondItem="11" secondAttribute="bottom" constant="20" id="QFN-Yb-QqK"/>
                     <constraint firstItem="12" firstAttribute="baseline" secondItem="26" secondAttribute="baseline" id="X2A-zt-uYi"/>
-                    <constraint firstItem="12" firstAttribute="top" secondItem="7" secondAttribute="bottom" constant="12" id="bRi-Bn-2vV"/>
+                    <constraint firstItem="26" firstAttribute="top" secondItem="7" secondAttribute="bottom" constant="20" symbolic="YES" id="a4h-ti-UYr"/>
                     <constraint firstItem="7" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="e8E-YM-NrG"/>
                     <constraint firstItem="7" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="lMr-1e-pek"/>
                     <constraint firstItem="12" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="ncK-Lz-Vwg"/>
                     <constraint firstItem="11" firstAttribute="leading" secondItem="26" secondAttribute="trailing" constant="12" symbolic="YES" id="osp-SR-ok5"/>
-                    <constraint firstItem="26" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="14" secondAttribute="trailing" constant="8" symbolic="YES" id="snp-0S-evr"/>
                     <constraint firstItem="7" firstAttribute="top" secondItem="6" secondAttribute="top" constant="20" symbolic="YES" id="u5u-uk-ss5"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="14" y="111"/>
+            <point key="canvasLocation" x="49" y="1044.5"/>
         </window>
     </objects>
 </document>
