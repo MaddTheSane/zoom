@@ -2099,14 +2099,15 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (IBAction) revealInFinder: (id) sender {
-	if ([self selectedFilename] != nil) {
-		NSString* dir = [[self selectedFilename] stringByDeletingLastPathComponent];
+	NSString *fileName;
+	if ((fileName = [self selectedFilename])) {
+		NSString* dir = [fileName stringByDeletingLastPathComponent];
 		BOOL isDir;
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath: dir
 												 isDirectory: &isDir]) {
 			if (isDir) {
-				[[NSWorkspace sharedWorkspace] selectFile: [self selectedFilename]
+				[[NSWorkspace sharedWorkspace] selectFile: fileName
 								 inFileViewerRootedAtPath: dir];
 			}
 		}
