@@ -60,10 +60,10 @@
 	IBOutlet NSButton* zoomBorders;
 	IBOutlet NSButton* showCoverPicture;
 	
-	// The toolbar
+	/// The toolbar
 	NSToolbar* toolbar;
 	
-	// The preferences that we're editing
+	/// The preferences that we're editing
 	ZoomPreferences* prefs;
 }
 

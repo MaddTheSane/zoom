@@ -13,15 +13,19 @@
 
 // = Animations =
 
-- (void) popView: (NSView*) view									//!< Causes a view to do a 'pop up' animation
+/// Causes a view to do a 'pop up' animation
+- (void) popView: (NSView*) view
 		duration: (NSTimeInterval) seconds
 		finished: (NSInvocation*) finished;
-- (void) popOutView: (NSView*) view									//!< Causes a view to do a 'pop out' animation
+/// Causes a view to do a 'pop out' animation
+- (void) popOutView: (NSView*) view
 		   duration: (NSTimeInterval) seconds
 		   finished: (NSInvocation*) finished;
-- (void) clearLayersForView: (NSView*) view;						//!< Removes the layers for the specified view
+/// Removes the layers for the specified view
+- (void) clearLayersForView: (NSView*) view;
 
-- (void) fullScreenView: (NSView*) view								//!< Animates a view to full screen
+/// Animates a view to full screen
+- (void) fullScreenView: (NSView*) view
 			  fromFrame: (NSRect) oldWindowFrame
 				toFrame: (NSRect) newWindowFrame;
 @end
@@ -30,7 +34,8 @@
 /// Implementation of the ZoomLeopard protocol
 ///
 @interface ZoomLeopard : NSObject<ZoomLeopard, CAAnimationDelegate> {
-	NSMutableArray* animationsWillFinish;							//!< Array of animations that will finished
+	/// Array of animations that will finished
+	NSMutableArray* animationsWillFinish;
 	NSMutableArray* finishInvocations;
 }
 

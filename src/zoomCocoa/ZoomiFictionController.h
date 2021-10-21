@@ -94,22 +94,35 @@
 	NSString*       sortColumn;
 	
 	// The browser
-	BOOL usedBrowser;							// YES if the browser has been used
-	BOOL browserOn;								// YES if the browser is being displayed
-	BOOL smallBrowser;							// YES if we've turned on small fonts in the browser
+	/// \c YES if the browser has been used
+	BOOL usedBrowser;
+	/// \c YES if the browser is being displayed
+	BOOL browserOn;
+	/// \c YES if we've turned on small fonts in the browser
+	BOOL smallBrowser;
 	
-	ZoomDownload* activeDownload;				// The currently active download
-	NSTimer* downloadFadeTimer;					// The fade in/out timer for the download window
-	NSDate* downloadFadeStart;					// The time the current fade operation started
-	double initialDownloadOpacity;				// The opacity when the last fade operation started
+	/// The currently active download
+	ZoomDownload* activeDownload;
+	/// The fade in/out timer for the download window
+	NSTimer* downloadFadeTimer;
+	/// The time the current fade operation started
+	NSDate* downloadFadeStart;
+	/// The opacity when the last fade operation started
+	double initialDownloadOpacity;
 	
-	ZoomStoryID* signpostId;					// Story to open after the download has completed
-	NSString* installPlugin;					// The name of the plugin to install
-	ZoomSignPost* activeSignpost;				// The active signpost file
-	BOOL downloadUpdateList;					// YES if we're trying to download an update list
-	BOOL downloadPlugin;						// YES if we're trying to download a .zoomplugin file
+	/// Story to open after the download has completed
+	ZoomStoryID* signpostId;
+	/// The name of the plugin to install
+	NSString* installPlugin;
+	/// The active signpost file
+	ZoomSignPost* activeSignpost;
+	/// \c YES if we're trying to download an update list
+	BOOL downloadUpdateList;
+	/// \c YES if we're trying to download a .zoomplugin file
+	BOOL downloadPlugin;
 	
-	ZoomJSError* lastError;						// The last error to occur
+	/// The last error to occur
+	ZoomJSError* lastError;
 }
 
 @property (class, readonly, strong) ZoomiFictionController *sharediFictionController NS_SWIFT_NAME(shared);
