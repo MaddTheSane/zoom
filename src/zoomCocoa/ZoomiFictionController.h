@@ -27,7 +27,6 @@
 	IBOutlet NSButton* addButton;
 	IBOutlet NSButton* newgameButton;
 	IBOutlet NSButton* continueButton;
-	// IBOutlet NSButton* drawerButton;
 	IBOutlet NSButton* infoButton;
 	
 	//IBOutlet CollapsableView* collapseView;

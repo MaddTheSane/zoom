@@ -196,8 +196,8 @@ NS_ENUM(NSInteger) {
 	[ifdbView setCustomUserAgent: @"Mozilla/5.0 (Macintosh; U; Mac OS X; en-us) AppleWebKit (KHTML like Gecko) uk.org.logicalshift.zoom/1.1.2/release"];
 #endif	
 	
-	NSURL* loadingPage = [NSURL fileURLWithPath: [[NSBundle mainBundle] pathForResource: @"ifdb-loading"
-																				 ofType: @"html"]];
+	NSURL* loadingPage = [[NSBundle mainBundle] URLForResource: @"ifdb-loading"
+												 withExtension: @"html"];
 	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: loadingPage]];
 	
 	NSView* clearView = [[ClearView alloc] init];
