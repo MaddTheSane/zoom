@@ -51,8 +51,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		// Load the metadata
 		NSData* userData = [NSData dataWithContentsOfFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]];
 		NSData* gameData = [NSData dataWithContentsOfFile: [configDir stringByAppendingPathComponent: @"gamedata.iFiction"]];
-		NSData* infocomData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"infocom" withExtension: @"iFiction"]];
-		NSData* archiveData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"archive" withExtension: @"iFiction"]];
+		NSURL* infocomURL = [[NSBundle mainBundle] URLForResource: @"infocom" withExtension: @"iFiction"];
+		NSURL* archiveURL = [[NSBundle mainBundle] URLForResource: @"archive" withExtension: @"iFiction"];
 		
 		if (userData) 
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: userData]];
@@ -64,10 +64,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		else
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 		
-		if (infocomData) 
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: infocomData]];
-		if (archiveData) 
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: archiveData]];
+		if (infocomURL)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: infocomURL error: NULL]];
+		if (archiveURL)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: archiveURL error: NULL]];
 	}
 	
 	return self;

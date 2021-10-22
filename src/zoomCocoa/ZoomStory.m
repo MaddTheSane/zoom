@@ -58,42 +58,30 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 
 + (NSString*) nameForKey: (NSString*) key {
 	// FIXME: internationalisation (this FIXME applies to most of Zoom, which is why it hasn't happened yet)
+#define DICT @{@"title": @"Title", \
+@"headline": @"Headline", \
+@"author": @"Author", \
+@"genre": @"Genre", \
+@"group": @"Group", \
+@"year": @"Year", \
+@"zarfian": @"Zarfian rating", \
+@"teaser": @"Teaser", \
+@"comment": @"Comments", \
+@"rating": @"My Rating", \
+@"description": @"Description", \
+@"coverpicture": @"Cover picture number"}
+	
 #if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
 	static NSDictionary* keyNameDict = nil;
 	static dispatch_once_t onceToken;
 	
 	dispatch_once(&onceToken, ^{
-		keyNameDict = @{
-			@"title": @"Title",
-			@"headline": @"Headline",
-			@"author": @"Author",
-			@"genre": @"Genre",
-			@"group": @"Group",
-			@"year": @"Year",
-			@"zarfian": @"Zarfian rating",
-			@"teaser": @"Teaser",
-			@"comment": @"Comments",
-			@"rating": @"My Rating",
-			@"description": @"Description",
-			@"coverpicture": @"Cover picture number",
-		};
+		keyNameDict = DICT;
 	});
 #else
-	static NSDictionary* const keyNameDict = @{
-		@"title": @"Title",
-		@"headline": @"Headline",
-		@"author": @"Author",
-		@"genre": @"Genre",
-		@"group": @"Group",
-		@"year": @"Year",
-		@"zarfian": @"Zarfian rating",
-		@"teaser": @"Teaser",
-		@"comment": @"Comments",
-		@"rating": @"My Rating",
-		@"description": @"Description",
-		@"coverpicture": @"Cover picture number",
-	};
+	static NSDictionary* const keyNameDict = DICT;
 #endif
+#undef DICT
 	
 	return [keyNameDict objectForKey: key];
 }
@@ -550,34 +538,37 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 }
 
 - (NSString*) newKeyForOld: (NSString*) key {
-	if ([key isEqualToString: @"title"]) {
-		return @"bibliographic.title";
-	} else if ([key isEqualToString: @"headline"])  {
-		return @"bibliographic.headline";
-	} else if ([key isEqualToString: @"author"]) {
-		return @"bibliographic.author";
-	} else if ([key isEqualToString: @"genre"]) {
-		return @"bibliographic.genre";
-	} else if ([key isEqualToString: @"group"]) {
-		return @"bibliographic.group";
-	} else if ([key isEqualToString: @"year"]) {
-		return @"bibliographic.firstpublished";
-	} else if ([key isEqualToString: @"zarfian"]) {
-		return @"bibliographic.forgiveness";
-	} else if ([key isEqualToString: @"teaser"]) {
-		return @"zoom.teaser";
-	} else if ([key isEqualToString: @"comment"]) {
-		return @"zoom.comment";
-	} else if ([key isEqualToString: @"rating"]) {
-		return @"zoom.rating";
-	} else if ([key isEqualToString: @"description"]) {
-		return @"bibliographic.description";
-	} else if ([key isEqualToString: @"coverpicture"]) {
-		return @"zcode.coverpicture";
+#define DICT @{@"title": @"bibliographic.title", \
+@"headline": @"bibliographic.headline", \
+@"author": @"bibliographic.author", \
+@"genre": @"bibliographic.genre", \
+@"group": @"bibliographic.group", \
+@"year": @"bibliographic.firstpublished", \
+@"zarfian": @"bibliographic.forgiveness", \
+@"teaser": @"zoom.teaser", \
+@"comment": @"zoom.comment", \
+@"rating": @"zoom.rating", \
+@"description": @"bibliographic.description", \
+@"coverpicture": @"zcode.coverpicture"}
+	
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
+	static NSDictionary* newForOldDict = nil;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		newForOldDict = DICT;
+	});
+#else
+	static NSDictionary* const newForOldDict = DICT;
+#endif
+#undef DICT
+	NSString *result = newForOldDict[key];
+	if (result) {
+		return result;
 	}
 
-	for (NSInteger x=0; x<[key length]; x++) {
-		if ([key characterAtIndex: x] == '.') return key;
+	if ([key containsString: @"."]) {
+		return key;
 	}
 	
 	return [NSString stringWithFormat: @"zoom.extra.%@", key];
