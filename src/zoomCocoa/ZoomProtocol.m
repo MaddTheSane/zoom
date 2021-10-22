@@ -290,8 +290,7 @@ NSString* const ZStyleAttributeName = @"ZoomStyleAttributeName";
 }
 
 - (id) copyWithZone: (NSZone*) zone {
-    ZStyle* style;
-    style = [[[self class] allocWithZone: zone] init];
+    ZStyle* style = [[[self class] alloc] init];
 
     [style setForegroundColour: foregroundColour];
     [style setBackgroundColour: backgroundColour];

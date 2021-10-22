@@ -7,6 +7,41 @@
 
 import Foundation
 
+private extension String {
+	func byEscapingXMLCharacters() -> String {
+		let charArray = self.compactMap { theChar -> String? in
+			switch theChar {
+			case "\n":
+				return "\n"
+				
+			case "&":
+				return "&amp;"
+				
+			case "<":
+				return "&lt;"
+				
+			case ">":
+				return "&gt;"
+				
+			case "\"":
+				return "&quot;"
+				
+			case "'":
+				return "&apos;"
+				
+			case "\0" ..< "\n", "\u{b}" ..< "\u{20}":
+				// Ignore (expat can't parse these)
+				return nil
+				
+			default:
+				return String(theChar)
+			}
+		}
+		
+		return charArray.joined()
+	}
+}
+
 /// Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node).
 private func idFor(_ item: ZoomSkeinItem) -> String {
 	return String(format: "node-%p", item)
