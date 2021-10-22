@@ -340,8 +340,8 @@ void cocoa_debug_handler(ZDWord pc) {
 	return 0;
 }
 
-- (unsigned) typeMasksForValue: (unsigned) value {
-	unsigned mask = 0;
+- (ZValueTypeMasks) typeMasksForValue: (unsigned) value {
+	ZValueTypeMasks mask = 0;
 	
 	// Get the region
 	int region = [self zRegion: value];
@@ -403,7 +403,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return res;
 }
 
-- (bycopy NSString*) descriptionForValue: (unsigned) value {
+- (bycopy NSString*) descriptionForValue: (ZValueTypeMasks) value {
 	NSMutableString* description = [NSMutableString string];
 	unsigned mask = [self typeMasksForValue: value];
 	

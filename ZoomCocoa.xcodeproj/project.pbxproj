@@ -936,7 +936,7 @@
 		4BCF3F2F050F9E8F00A8E303 /* ZoomServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomServer.h; sourceTree = "<group>"; };
 		4BCF3F30050F9E8F00A8E303 /* ZoomServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomServer.m; sourceTree = "<group>"; };
 		4BCF3F33050FAE5700A8E303 /* ZoomZMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomZMachine.h; sourceTree = "<group>"; };
-		4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomZMachine.m; sourceTree = "<group>"; };
+		4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomZMachine.m; sourceTree = "<group>"; usesTabs = 1; };
 		4BCF3F44050FB21C00A8E303 /* macreadme.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = macreadme.rtf; path = ../macos/macreadme.rtf; sourceTree = "<group>"; };
 		4BCF3F46050FB21C00A8E303 /* zoom-game.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "zoom-game.icns"; path = "../macos/zoom-game.icns"; sourceTree = "<group>"; };
 		4BCF3F4B050FB2C500A8E303 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -2210,6 +2210,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Zoom;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					4B7CB08009362A3B00F3B8F6 = {

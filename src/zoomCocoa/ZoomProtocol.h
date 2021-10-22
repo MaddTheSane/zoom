@@ -103,9 +103,9 @@ NS_SWIFT_NAME(ZMachineProtocol)
 - (int)         lineForAddress: (int) address;
 - (int)			characterForAddress: (int) address;
 
-- (unsigned)			 typeMasksForValue: (unsigned) value;
+- (ZValueTypeMasks)		 typeMasksForValue: (unsigned) value;
 - (int)					 zRegion: (int) addr;
-- (bycopy NSString*) descriptionForValue: (unsigned) value;
+- (bycopy NSString*) descriptionForValue: (ZValueTypeMasks) value;
 
 - (void) setWindowTitle: (in bycopy NSString*) text;
 
