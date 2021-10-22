@@ -346,8 +346,6 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 @end
 
 //! Style attributes
-extern NSString* const ZStyleAttributeName NS_DEPRECATED_WITH_REPLACEMENT_MAC("ZoomStyleAttributeName", 10.2, 10.9);
-//! Style attributes
 @interface ZStyle : NSObject<NSCopying, NSSecureCoding> {
     // Colour
     int foregroundColour;
