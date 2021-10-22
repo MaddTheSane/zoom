@@ -2185,10 +2185,18 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (void) mergeiFictionFromFile: (NSString*) filename {
+	[self mergeiFictionFromURL: [NSURL fileURLWithPath:filename]
+						 error: NULL];
+}
+
+- (BOOL) mergeiFictionFromURL: (NSURL*) filename error: (NSError**) outError {
 	// Read the file
-	ZoomMetadata* newData = [[ZoomMetadata alloc] initWithContentsOfFile: filename];
+	ZoomMetadata* newData = [[ZoomMetadata alloc] initWithContentsOfURL: filename
+																  error: outError];
 	
-	if (newData == nil) return;
+	if (newData == nil) {
+		return NO;
+	}
 	
 	// Perform the merge
 	NSArray<ZoomStory*>* replacements = [self mergeiFictionFromMetabase: newData];
@@ -2214,6 +2222,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			[self configureFromMainTableSelection];
 		}];
 	}
+	return YES;
 }
 
 #pragma mark - Saving iFiction data
@@ -2246,8 +2255,9 @@ static dispatch_block_t onceTypesBlock = ^{
 		}
 		
 		// Save it!
-		[newMetadata writeToFile: [panel URL].path
-					  atomically: YES];
+		[newMetadata writeToURL: [panel URL]
+					 atomically: YES
+						  error: NULL];
 		
 		// Store any preference changes
 		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]

@@ -130,6 +130,14 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 
 - (id) initWithData: (NSData*) xmlData
 		   filename: (NSString*) fname {
+	return [self initWithData: xmlData
+					  fileURL: [NSURL fileURLWithPath:fname]
+						error: NULL];
+}
+
+- (instancetype) initWithData: (NSData*) xmlData
+					  fileURL: (NSURL*) fname
+						error: (NSError**) error {
 	self = [super init];
 	
 	if (self) {
@@ -163,13 +171,26 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 }
 
 - (id) initWithContentsOfFile: (NSString*) fname {
-	return [self initWithData: [NSData dataWithContentsOfFile: fname]
-					 filename: fname];
+	return [self initWithContentsOfURL: [NSURL fileURLWithPath: fname]
+								 error: NULL];
+}
+
+- (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError {
+	NSData *data = [NSData dataWithContentsOfURL: filename
+										 options: NSDataReadingMappedIfSafe
+										   error: outError];
+	if (!data) {
+		return nil;
+	}
+	return [self initWithData: data
+					  fileURL: filename
+						error: outError];
 }
 
 - (id) initWithData: (NSData*) xmlData {
 	return [self initWithData: xmlData
-					 filename: nil];
+					  fileURL: nil
+						error: NULL];
 }
 
 - (void) dealloc {
@@ -300,6 +321,18 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 	
 	return [self writeToFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]
 				  atomically: YES];
+}
+
+- (BOOL) writeToDefaultFileWithError:(NSError *__autoreleasing *)outError {
+	// The app delegate may not be the best place for this routine... Maybe a function somewhere
+	// would be better?
+	NSString* configDir = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory];
+	NSURL *configURL = [NSURL fileURLWithPath: configDir];
+	configURL = [configURL URLByAppendingPathComponent:@"metadata.iFiction"];
+	
+	return [self writeToURL: configURL
+				 atomically: YES
+					  error: outError];
 }
 
 #pragma mark - Errors

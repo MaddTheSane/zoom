@@ -42,10 +42,7 @@ final public class Adrift: ZoomGlkPlugIn {
 	}
 	
 	public override func idForStory() -> ZoomStoryID! {
-		guard let gameURL = gameURL else {
-			return nil
-		}
-		guard let stringID = stringIDForAdriftFile(at: gameURL) else {
+		guard let gameURL = gameURL, let stringID = stringIDForAdriftFile(at: gameURL) else {
 			return nil
 		}
 		

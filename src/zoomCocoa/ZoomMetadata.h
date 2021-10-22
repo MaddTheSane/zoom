@@ -32,7 +32,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 
 //! Cocoa interface to the C ifmetadata class
 @interface ZoomMetadata : NSObject {
-	NSString* filename;
+	NSURL* filename;
 	IFMetabase metadata;
 	
 	NSLock* dataLock;
@@ -43,6 +43,8 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 - (id) init;
 //! Calls initWithData
 - (id) initWithContentsOfFile: (NSString*) filename;
+//! Calls initWithData
+- (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 //! Designated initialiser
 - (id) initWithData: (NSData*) xmlData;
 
@@ -71,6 +73,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 - (BOOL)    writeToURL: (NSURL*)path
 			atomically: (BOOL)flag
 				 error: (NSError**)error;
+- (BOOL) writeToDefaultFileWithError: (NSError**) outError;
 - (BOOL) writeToDefaultFile;
 
 @end
