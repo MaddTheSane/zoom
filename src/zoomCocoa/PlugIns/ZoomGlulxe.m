@@ -69,10 +69,6 @@
 	return self;
 }
 
-- (id) initWithFilename: (NSString*) gameFile {
-	return [self initWithURL: [NSURL fileURLWithPath: gameFile]];
-}
-
 #pragma mark - Metadata
 
 - (ZoomStoryID*) idForStory {

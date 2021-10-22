@@ -13,8 +13,8 @@
 
 #pragma mark - Initialisation
 
-- (id) initWithFilename: (NSString*) gameFile {
-	self = [super initWithFilename: gameFile];
+- (id)initWithURL: (NSURL *) gameFile {
+	self = [super initWithURL: gameFile];
 	
 	if (self) {
 	}

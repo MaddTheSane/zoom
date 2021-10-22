@@ -19,7 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class SUUpdater;
-@interface ZoomAppDelegate : NSObject <NSApplicationDelegate, NSOpenSavePanelDelegate> {
+@interface ZoomAppDelegate : NSObject <NSApplicationDelegate, NSOpenSavePanelDelegate, NSMenuItemValidation> {
 	ZoomPreferenceWindow* preferencePanel;
 	IBOutlet SUUpdater* updater;
 	
