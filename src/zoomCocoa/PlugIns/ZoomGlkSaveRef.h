@@ -23,7 +23,7 @@
 	NSString* path;
 	
 	//! The preview lines to save for this object
-	NSArray* preview;
+	NSArray<NSString*>* preview;
 	//! The skein to save for this object (or the skein loaded for this object)
 	ZoomSkein* skein;
 	

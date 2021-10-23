@@ -31,4 +31,8 @@
 //! If non-nil, sets the logo to display for this game
 - (NSImage*) logo;
 
+@property (copy) NSString *clientPath;
+
+@property (copy) NSString *preferredSaveDirectory;
+
 @end

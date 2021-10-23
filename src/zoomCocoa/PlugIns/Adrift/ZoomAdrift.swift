@@ -38,7 +38,7 @@ final public class Adrift: ZoomGlkPlugIn {
 	
 	public override init!(url gameFile: URL!) {
 		super.init(url: gameFile)
-		self.setClientPath(Bundle(for: Adrift.self).path(forAuxiliaryExecutable: "scare"))
+		clientPath = Bundle(for: Adrift.self).path(forAuxiliaryExecutable: "scare")
 	}
 	
 	public override func idForStory() -> ZoomStoryID! {

@@ -34,12 +34,12 @@
 		document = [[ZoomGlkDocument alloc] init];
 
 		// Tell it what it needs to know
-		[document setStoryData: story];
-		[document setClientPath: clientPath];
-		[document setInputURL: [self gameURL]];
-		[document setLogo: [self logo]];
-		[document setPreferredSaveDirectory: preferredSaveDir];
-		[document setPlugIn: self];
+		document.storyData = story;
+		document.clientPath = clientPath;
+		[document setInputURL: self.gameURL];
+		document.logo = self.logo;
+		document.preferredSaveDirectory = preferredSaveDir;
+		document.plugIn = self;
 	}
 	
 	// Return it
@@ -53,13 +53,13 @@
 		document = [[ZoomGlkDocument alloc] init];
 		
 		// Tell it what it needs to know
-		[document setStoryData: story];
-		[document setClientPath: clientPath];
-		[document setInputURL: [self gameURL]];
-		[document setLogo: [self logo]];
-		[document setPreferredSaveDirectory: preferredSaveDir];
-		[document setSaveGame: saveGame];
-		[document setPlugIn: self];
+		document.storyData = story;
+		document.clientPath = clientPath;
+		[document setInputURL: self.gameURL];
+		document.logo = self.logo;
+		document.preferredSaveDirectory = preferredSaveDir;
+		document.saveGame = saveGame;
+		document.plugIn = self;
 	}
 	
 	// Return it
@@ -68,16 +68,12 @@
 
 #pragma mark - Configuring the client
 
-- (void) setClientPath: (NSString*) newPath {
-	clientPath = [newPath copy];
-}
+@synthesize clientPath;
 
 - (NSImage*) logo {
 	return nil;
 }
 
-- (void) setPreferredSaveDirectory: (NSString*) dir {
-	preferredSaveDir = [dir copy];
-}
+@synthesize preferredSaveDirectory = preferredSaveDir;
 
 @end

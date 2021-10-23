@@ -111,21 +111,21 @@
 	ZoomPreferences* zPrefs = [ZoomPreferences globalPreferences];
 	
 	// Set the fonts according to the Zoom preferences object
-	[prefs setProportionalFont: [[zPrefs fonts] objectAtIndex: 0]];
-	[prefs setFixedFont: [[zPrefs fonts] objectAtIndex: 4]];
+	prefs.proportionalFont = zPrefs.fonts[0];
+	prefs.fixedFont = zPrefs.fonts[4];
 	
 	// Set the typography options according to the Zoom preferences object
-	[prefs setTextMargin: [zPrefs textMargin]];
-	[prefs setUseScreenFonts: [zPrefs useScreenFonts]];
-	[prefs setUseHyphenation: [zPrefs useHyphenation]];
-	[prefs setUseKerning: [zPrefs useKerning]];
-	[prefs setUseLigatures: [zPrefs useLigatures]];
+	prefs.textMargin = zPrefs.textMargin;
+	prefs.useScreenFonts = zPrefs.useScreenFonts;
+	prefs.useHyphenation = zPrefs.useHyphenation;
+	prefs.useKerning = zPrefs.useKerning;
+	prefs.useLigatures = zPrefs.useLigatures;
 	
-	[prefs setScrollbackLength: [zPrefs scrollbackLength]];
+	prefs.scrollbackLength = zPrefs.scrollbackLength;
 	
 	// Set the foreground/background colours
-	NSColor* foreground = [[zPrefs colours] objectAtIndex: [zPrefs foregroundColour]];
-	NSColor* background = [[zPrefs colours] objectAtIndex: [zPrefs backgroundColour]];
+	NSColor* foreground = zPrefs.colours[zPrefs.foregroundColour];
+	NSColor* background = zPrefs.colours[zPrefs.backgroundColour];
 	
 	NSMutableDictionary* newStyles = [NSMutableDictionary dictionary];
 
