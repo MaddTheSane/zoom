@@ -928,7 +928,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	if (gameDirs && [ident description] != nil)
 		confDir = [gameDirs objectForKey: [ident description]];
 
-	BOOL isDir;
+	BOOL isDir=NO;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: confDir
 											  isDirectory: &isDir]) {
 		confDir = nil;

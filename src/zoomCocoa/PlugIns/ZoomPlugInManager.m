@@ -35,7 +35,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	/// The last check for updates request that was sent
 	NSURLRequest* lastRequest;
 	/// The connection for the last request
-	NSURLConnection* checkConnection;
+	NSURLSessionDataTask *checkConnectionTask;
 	/// The response to the last check for updates request
 	NSURLResponse* checkResponse;
 	/// The data returned for the last check for updates request
@@ -49,6 +49,8 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	ZoomPlugInInfo* downloadInfo;
 	/// The active download for this object
 	ZoomDownload* currentDownload;
+	
+	NSURLSession *session;
 }
 
 #pragma mark - Initialisation
@@ -111,6 +113,12 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	
 	if (self) {
 		pluginLock = [[NSLock alloc] init];
+		
+		NSURLSessionConfiguration *config = [NSURLSessionConfiguration.ephemeralSessionConfiguration copy];
+		config.networkServiceType = NSURLNetworkServiceTypeBackground;
+		session = [NSURLSession sessionWithConfiguration: config
+												delegate: self
+										   delegateQueue: nil];
 	}
 	
 	return self;
@@ -581,8 +589,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	lastRequest = [NSURLRequest requestWithURL: nextUrl
 									cachePolicy: NSURLRequestReloadIgnoringCacheData
 								timeoutInterval: 20];
-	checkConnection = [NSURLConnection connectionWithRequest: lastRequest
-													 delegate: self];
+	checkConnectionTask = [session dataTaskWithRequest: lastRequest];
 }
 
 - (void) checkForUpdatesFrom: (NSArray*) urls {
@@ -676,33 +683,34 @@ static int RankForStatus(ZoomPlugInStatus status) {
 
 #pragma mark - Handling URL events
 
-- (void)  connection:(NSURLConnection *)connection 
-  didReceiveResponse:(NSURLResponse *)response {
-	if (connection == checkConnection) {
+- (void)  URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
+  didReceiveResponse:(NSURLResponse *)response
+   completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
+	if (dataTask == checkConnectionTask) {
 		// Got a response to the last check for updates URL
 		checkResponse = response;
 		checkData = [[NSMutableData alloc] init];
+		completionHandler(NSURLSessionResponseAllow);
+	} else {
+		completionHandler(NSURLSessionResponseCancel);
 	}
 }
 
-- (void)connection:(NSURLConnection *)connection 
-  didFailWithError:(NSError *)error {
-	if (connection == checkConnection) {
-		// Got a response to the last check for updates URL
-		checkResponse = nil;
-		
-		NSLog(@"Error while checking for updates: %@", error);
-	}
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	if (connection == checkConnection) {
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+	if (dataTask == checkConnectionTask) {
 		[checkData appendData: data];
 	}
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	if (connection == checkConnection) {
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
+	if (task == checkConnectionTask) {
+		if (error) {
+			// Got a response to the last check for updates URL
+			checkResponse = nil;
+			
+			NSLog(@"Error while checking for updates: %@", error);
+			return;
+		}
 		NSDictionary* result = nil;
 		
 		if (checkResponse != nil && checkData != nil) {
@@ -743,12 +751,12 @@ static int RankForStatus(ZoomPlugInStatus status) {
 		
 		// Move on to the next URL
 		lastRequest = nil;
-		checkConnection = nil;
+		checkConnectionTask = nil;
 		checkResponse = nil;
 		checkData = nil;
 		
 		[self startNextCheck];
-	}	
+	}
 }
 
 #pragma mark - Installing new plugins
