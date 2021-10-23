@@ -590,6 +590,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 									cachePolicy: NSURLRequestReloadIgnoringCacheData
 								timeoutInterval: 20];
 	checkConnectionTask = [session dataTaskWithRequest: lastRequest];
+	checkConnectionTask.taskDescription = @"Zoom plug-in update check";
 }
 
 - (void) checkForUpdatesFrom: (NSArray*) urls {
