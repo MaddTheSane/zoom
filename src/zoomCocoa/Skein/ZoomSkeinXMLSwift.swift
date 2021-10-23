@@ -23,7 +23,7 @@ private extension String {
 			case ">":
 				return "&gt;"
 				
-			case "\"":
+			case #"""#:
 				return "&quot;"
 				
 			case "'":

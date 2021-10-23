@@ -731,7 +731,7 @@ static void finalizeViews(void) {
 	inputPos = 0;
 }
 
-//! Sets the title of the window, or resets the title if text is an empty string.
+//! Sets the subtitle of the window.
 - (void)setWindowTitle:(in bycopy NSString *)text {
     if (@available(macOS 11.0, *)) {
 		if (text == nil) {

@@ -111,7 +111,6 @@
 		4BB8C0E008C2452E00D7D334 /* gram.y in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F83050F7CC500A8E303 /* gram.y */; };
 		4BB8C0E108C2452E00D7D334 /* lex.l in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F81050F7CC500A8E303 /* lex.l */; };
 		4BB8C0E208C2452E00D7D334 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F80050F7CC500A8E303 /* main.c */; };
-		4BB8C14708C2497700D7D334 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F89050F7D5200A8E303 /* iff.c */; };
 		4BB8C14808C2497700D7D334 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8C050F7D5200A8E303 /* main.c */; };
 		4BB8C14908C2497700D7D334 /* rc_parse.y in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8D050F7D5200A8E303 /* rc_parse.y */; };
 		4BB8C14A08C2497700D7D334 /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3F8E050F7D5200A8E303 /* options.c */; };
@@ -181,7 +180,6 @@
 		4BD2748D08701E6700C1AE15 /* ZoomConnector.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4D512006E3894F007FAD2B /* ZoomConnector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BD2748F08701E6700C1AE15 /* ZoomSkeinLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BAADD7B079053030076ACC4 /* ZoomSkeinLayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C13FD05C5A94B00E5796D /* Credits.rtf */; };
-		4BD2749E08701E6700C1AE15 /* archive.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4B5983DA070F059E0078165F /* archive.iFiction */; };
 		4BD274A108701E6700C1AE15 /* ZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EF624050FDC6800A8E303 /* ZoomView.m */; };
 		4BD274A208701E6700C1AE15 /* ZoomLowerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D1DAE0534999E00A8E303 /* ZoomLowerWindow.m */; };
 		4BD274A308701E6700C1AE15 /* ZoomUpperWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFA46405358F1200A8E303 /* ZoomUpperWindow.m */; };
@@ -2417,7 +2415,6 @@
 				55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */,
 				4BB8C17608C249B100D7D334 /* ZoomServer in Resources */,
 				4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */,
-				4BD2749E08701E6700C1AE15 /* archive.iFiction in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2526,7 +2523,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BB8C14708C2497700D7D334 /* iff.c in Sources */,
 				4BB8C14808C2497700D7D334 /* main.c in Sources */,
 				4BB8C14908C2497700D7D334 /* rc_parse.y in Sources */,
 				4BB8C14A08C2497700D7D334 /* options.c in Sources */,
