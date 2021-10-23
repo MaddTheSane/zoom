@@ -24,11 +24,8 @@
     NSDictionary* moreAttributes =
         [NSDictionary dictionaryWithObjectsAndKeys:
             [NSFont systemFontOfSize: 12], NSFontAttributeName,
-            [NSColor colorWithSRGBRed: 0
-                                green: 0.6
-                                 blue: 0.9
-                                alpha: 1.0], NSBackgroundColorAttributeName,
-            [NSColor blackColor], NSForegroundColorAttributeName,
+            [NSColor controlAccentColor], NSBackgroundColorAttributeName,
+            [NSColor labelColor], NSForegroundColorAttributeName,
             nil];
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self frame];
@@ -44,11 +41,8 @@
     NSDictionary* moreAttributes =
         [NSDictionary dictionaryWithObjectsAndKeys:
             [NSFont systemFontOfSize: 12], NSFontAttributeName,
-            [NSColor colorWithSRGBRed: 0
-                                green: 0.6
-                                 blue: 0.9
-                                alpha: 1.0], NSBackgroundColorAttributeName,
-            [NSColor blackColor], NSForegroundColorAttributeName,
+            [NSColor controlAccentColor], NSBackgroundColorAttributeName,
+            [NSColor labelColor], NSForegroundColorAttributeName,
             nil];
 
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
@@ -64,22 +58,14 @@
     // Draw the border
     [NSBezierPath setDefaultLineWidth: 0.5];
     
-    [[NSColor colorWithSRGBRed: 0
-                         green: .85
-                          blue: 1
-                         alpha: 1]
-        set];
+    [[NSColor selectedTextBackgroundColor] set];
 
     [NSBezierPath strokeLineFromPoint: NSMakePoint(NSMinX(frame)+.5, NSMinY(frame)+.5)
                               toPoint: NSMakePoint(NSMinX(frame)+.5, NSMaxY(frame)-.5)];
     [NSBezierPath strokeLineFromPoint: NSMakePoint(NSMinX(frame)+.5, NSMaxY(frame)-.5)
                               toPoint: NSMakePoint(NSMaxX(frame)-.5, NSMaxY(frame)-.5)];;
     
-    [[NSColor colorWithSRGBRed: 0
-                         green: .25
-                          blue: .5
-                         alpha: 1]
-        set];
+    [[NSColor selectedContentBackgroundColor] set];
 
     [NSBezierPath strokeLineFromPoint: NSMakePoint(NSMinX(frame)+.5, NSMinY(frame)+.5)
                               toPoint: NSMakePoint(NSMaxX(frame)-.5, NSMinY(frame)+.5)];
