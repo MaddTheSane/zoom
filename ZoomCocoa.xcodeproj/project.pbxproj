@@ -268,6 +268,7 @@
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
+		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */; };
 		55BB924F2048AC4100AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92502048AC6D00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
@@ -1045,6 +1046,7 @@
 		553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZoomiFictionController+OldWebKit.m"; sourceTree = "<group>"; };
 		553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSkeinXMLSwift.swift; sourceTree = "<group>"; };
 		5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinWeb.h; sourceTree = "<group>"; };
+		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDownloadView.swift; sourceTree = "<group>"; };
 		55BB924E2048AC4000AB4B5B /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
@@ -1624,6 +1626,7 @@
 				4BCF3F44050FB21C00A8E303 /* macreadme.rtf */,
 				4BCF3F46050FB21C00A8E303 /* zoom-game.icns */,
 				55BE4AD62707B32200100A7D /* InfoPlist.strings */,
+				5563A5742724B707005B40E0 /* Localizable.strings */,
 			);
 			name = Resources;
 			path = src/zoomCocoa;
@@ -2389,6 +2392,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5563A5722724B707005B40E0 /* Localizable.strings in Resources */,
 				4BB8C1BA08C249F400D7D334 /* MainMenu.xib in Resources */,
 				55BE4AD42707B32200100A7D /* InfoPlist.strings in Resources */,
 				4BB8C1BB08C249F400D7D334 /* ZoomClient.xib in Resources */,
@@ -2916,6 +2920,14 @@
 				553C836F27123862002782C0 /* en */,
 			);
 			name = ZoomErrors.strings;
+			sourceTree = "<group>";
+		};
+		5563A5742724B707005B40E0 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5563A5732724B707005B40E0 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		55BD080F21B7638800A8DD5F /* schema.strings */ = {
