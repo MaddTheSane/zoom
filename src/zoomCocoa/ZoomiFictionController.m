@@ -2207,7 +2207,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		alert.messageText = @"Some story descriptions are already in the database";
 		alert.informativeText = @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?";
 		[alert addButtonWithTitle:@"Use new"];
-		[alert addButtonWithTitle:@"Keep new"];
+		[alert addButtonWithTitle:@"Keep old"];
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode != NSAlertFirstButtonReturn) return;
 			
