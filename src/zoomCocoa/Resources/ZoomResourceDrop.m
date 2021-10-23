@@ -39,7 +39,7 @@ static NSImage* blorbImage;
 }
 
 - (void)drawRect:(NSRect)rect {
-	if (![self enabled]) return;
+	if (!self.enabled) return;
 	
 	NSRect bounds = [self bounds];
 	

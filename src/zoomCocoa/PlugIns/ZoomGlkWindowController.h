@@ -75,7 +75,7 @@
 - (void) setLogo: (NSImage*) logo;
 //! The .glksave saved game file that this controller should load on startup
 - (void) setSaveGame: (NSString*) path;
-//! Set to YES if the plugin knows how to open save games
+//! Set to \c YES if the plugin knows how to open save games
 - (void) setCanOpenSaveGame: (BOOL) canOpenSaveGame;
 
 @property (copy) NSImage *logo;

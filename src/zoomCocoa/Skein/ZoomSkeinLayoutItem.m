@@ -87,7 +87,7 @@
 	[self findItemsOnLevel: findLevel
 					result: result];
 	
-	return result;
+	return [result copy];
 }
 
 @end

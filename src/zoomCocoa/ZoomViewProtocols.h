@@ -31,6 +31,6 @@
 - (NSString*) nextCommand;
 
 //! Return \c YES if you want to turn off more prompts
-- (BOOL) disableMorePrompt;
+@property (nonatomic, readonly) BOOL disableMorePrompt;
 
 @end

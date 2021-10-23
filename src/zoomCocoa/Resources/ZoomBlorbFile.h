@@ -20,16 +20,17 @@ typedef NS_ERROR_ENUM(ZoomBlorbErrorDomain, ZoomBlorbError) {
 
 // Testing files
 + (BOOL) dataIsBlorbFile: (NSData*) data;
-+ (BOOL) fileContentsIsBlorb: (NSString*) filename;
-+ (BOOL) fileContentsAreBlorbAtURL: (NSURL*) filename;
++ (BOOL) fileContentsIsBlorb: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use +URLContentsAreBlorb: instead");
++ (BOOL) URLContentsAreBlorb: (NSURL*) filename;
 + (BOOL) zfileIsBlorb: (id<ZFile>) file;
 
 // Initialisation
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
-- (id) initWithZFile: (id<ZFile>) file error: (NSError**) outError NS_DESIGNATED_INITIALIZER; //!< Designated initialiser
-- (id) initWithZFile: (id<ZFile>) file DEPRECATED_MSG_ATTRIBUTE("Use -initWithZFile:error: instead");
+/// Designated initialiser
+- (instancetype) initWithZFile: (id<ZFile>) file error: (NSError**) outError NS_DESIGNATED_INITIALIZER;
+- (id) initWithZFile: (id<ZFile>) file DEPRECATED_MSG_ATTRIBUTE("Use -initWithZFile:error: instead") NS_SWIFT_UNAVAILABLE("");
 - (instancetype) initWithData: (NSData*) blorbFile error: (NSError**) outError;
-- (id) initWithData: (NSData*) blorbFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithData:error: instead");
+- (id) initWithData: (NSData*) blorbFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithData:error: instead") NS_SWIFT_UNAVAILABLE("");
 - (id) initWithContentsOfFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -initWithContentsOfURL:error: instead");
 - (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 

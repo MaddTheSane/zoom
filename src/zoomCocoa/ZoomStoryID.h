@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#include <ZoomPlugIns/ifmetabase.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +21,7 @@ typedef NS_ERROR_ENUM(ZoomStoryIDErrorDomain, ZoomStoryIDError) {
 };
 
 @interface ZoomStoryID : NSObject<NSCopying, NSSecureCoding> {
-	struct IFID* ident;
+	IFID ident;
 	BOOL needsFreeing;
 }
 
@@ -34,13 +35,13 @@ typedef NS_ERROR_ENUM(ZoomStoryIDErrorDomain, ZoomStoryIDError) {
 - (nullable instancetype) initWithData: (NSData*) genericGameData;
 - (nullable instancetype) initWithData: (NSData*) genericGameData
 								  type: (NSString*) type;
-- (instancetype) initWithIdent: (struct IFID*) ident;
+- (instancetype) initWithIdent: (IFID) ident;
 - (instancetype) initWithIdString: (NSString*) idString;
 - (instancetype) initWithZcodeRelease: (int) release
 							   serial: (const unsigned char*) serial
 							 checksum: (int) checksum;
 
-@property (readonly) struct IFID *ident NS_RETURNS_INNER_POINTER;
+@property (readonly) IFID ident NS_RETURNS_INNER_POINTER;
 
 - (nullable instancetype) initWithZCodeStory: (NSData*) gameData error: (NSError**) outError;
 - (nullable instancetype) initWithZCodeFileAtURL: (NSURL*) zcodeFile error: (NSError**) outError;

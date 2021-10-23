@@ -103,7 +103,7 @@
 		}
 
 		// The upper window view
-		[zoomView setUpperBuffer: (upperMargin*scaleFactor) + sepHeight];
+		[zoomView setUpperBufferHeight: (upperMargin*scaleFactor) + sepHeight];
 		
 		if (upperMargin > 0) {
 			// Resize the upper window

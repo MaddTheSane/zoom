@@ -22,7 +22,7 @@
 // Flags
 @property BOOL willOrganise;
 
-@property (nonatomic) BOOL enabled;
+@property (nonatomic, getter=isEnabled) BOOL enabled;
 
 @property (copy) NSString *droppedFilename;
 

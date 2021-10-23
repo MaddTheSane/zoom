@@ -304,7 +304,7 @@
 - (BOOL)readFromFileWrapper:(NSFileWrapper *)wrapper
 					 ofType:(NSString *)docType
 					  error:(NSError * _Nullable * _Nullable)outError {
-	if (![[docType lowercaseString] isEqualToString: @"quetzal saved game"] && ![wrapper isDirectory]) {		
+	if (![docType isEqualToString: @"public.qut"] && ![wrapper isDirectory]) {
 		// Note that resources might come from elsewhere later on in the load process, too
 		[self findResourcesForFile: [[self fileURL] path]];
 		
@@ -315,7 +315,7 @@
 	}
 
 	if (![docType isEqualToString: @"uk.org.logicalshift.zoomsave"] &&
-		![[docType lowercaseString] isEqualToString: @"quetzal saved game"]) {
+		![docType isEqualToString: @"public.qut"]) {
 		// Process only zoomSave files
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
@@ -323,7 +323,7 @@
 		return NO;
 	}
 	
-	BOOL isSingleFile = [[docType lowercaseString] isEqualToString: @"quetzal saved game"];
+	BOOL isSingleFile = [docType isEqualToString: @"public.qut"];
 	
 	// NOTE: a future version of Zoom will add a story type identifier to the zoomSave file format, to
 	// support various types of Glk games.

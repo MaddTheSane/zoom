@@ -593,7 +593,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	checkConnectionTask.taskDescription = @"Zoom plug-in update check";
 }
 
-- (void) checkForUpdatesFrom: (NSArray*) urls {
+- (void) checkForUpdatesFromURLs: (NSArray*) urls {
 	// Get the set of URLs to check
 	NSSet* uniqueUrls = [NSSet setWithArray: urls];
 	
@@ -631,7 +631,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	[whereToCheck addObject: [NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"ZoomPluginFeedURL"]]];
 	
 	// Start the check
-	[self checkForUpdatesFrom: whereToCheck];
+	[self checkForUpdatesFromURLs: whereToCheck];
 }
 
 - (BOOL) addUpdatedPlugin: (ZoomPlugInInfo*) plugin {

@@ -25,7 +25,7 @@
 
 // Drawing
 - (void) draw;
-@property (readonly) BOOL visible;
+@property (readonly, getter=isVisible) BOOL visible;
 @property (readonly) BOOL activeStyle;
 
 // Positioning

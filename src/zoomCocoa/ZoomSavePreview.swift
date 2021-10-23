@@ -181,7 +181,7 @@ class SavePreview : NSView {
 		var lines = 0
 		var upperLines: [Any]
 		if let preview = preview {
-			upperLines = preview.lines()
+			upperLines = preview.lines
 		} else if let previewLines = previewLines {
 			upperLines = previewLines
 		} else {

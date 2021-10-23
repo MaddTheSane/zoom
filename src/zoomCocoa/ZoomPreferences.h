@@ -79,42 +79,6 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 // The dictionary
 @property (readonly, copy) NSDictionary<NSString*,id> *dictionary;
 
-// Setting preferences
-- (void) setDisplayWarnings: (BOOL) flag;
-- (void) setFatalWarnings: (BOOL) flag;
-- (void) setSpeakGameText: (BOOL) flag;
-- (void) setConfirmGameClose: (BOOL) flag;
-- (void) setScrollbackLength: (CGFloat) value;
-- (void) setGlulxInterpreter: (GlulxInterpreter) value;
-
-- (void) setGameTitle: (NSString*) title;
-- (void) setInterpreter: (int) interpreter;
-- (void) setRevision: (unsigned char) revision;
-
-- (void) setFonts: (NSArray<NSFont*>*) fonts;
-- (void) setColours: (NSArray<NSColor*>*) colours;
-
-- (void) setProportionalFontFamily: (NSString*) fontFamily;
-- (void) setFixedFontFamily: (NSString*) fontFamily;
-- (void) setSymbolicFontFamily: (NSString*) fontFamily;
-- (void) setFontSize: (CGFloat) size;
-
-- (void) setTextMargin: (CGFloat) textMargin;
-- (void) setUseScreenFonts: (BOOL) useScreenFonts;
-- (void) setUseHyphenation: (BOOL) useHyphenation;
-- (void) setUseKerning: (BOOL) useKerning;
-- (void) setUseLigatures: (BOOL) useLigatures;
-
-- (void) setOrganiserDirectory: (NSString*) directory;
-- (void) setKeepGamesOrganised: (BOOL) value;
-- (void) setAutosaveGames: (BOOL) value;
-
-- (void) setShowBorders: (BOOL) value;
-- (void) setShowGlkBorders: (BOOL) value;
-- (void) setForegroundColour: (int) value;
-- (void) setBackgroundColour: (int) value;
-- (void) setShowCoverPicture: (BOOL) value;
-
 // Notifications
 - (void) preferencesHaveChanged;
 

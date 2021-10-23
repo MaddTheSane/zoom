@@ -17,7 +17,7 @@
 	CGFloat pastedScaleFactor;
 }
 
-- (void) pasteUpperWindowLinesFrom: (ZoomUpperWindow*) win;
+- (void) pasteUpperWindowLinesFromZoomWindow: (ZoomUpperWindow*) win;
 - (void) clearPastedLines;
 
 @property CGFloat pastedLineScaleFactor;

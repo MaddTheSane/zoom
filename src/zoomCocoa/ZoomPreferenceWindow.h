@@ -67,7 +67,7 @@
 	ZoomPreferences* prefs;
 }
 
-- (void) setPreferences: (ZoomPreferences*) prefs;
+@property (nonatomic, strong) ZoomPreferences *preferences;
 
 // Interface actions
 - (IBAction) glulxInterpreterChanged: (id) sender;

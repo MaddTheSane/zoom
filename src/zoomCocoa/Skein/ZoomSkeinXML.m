@@ -11,7 +11,7 @@
 
 NSErrorDomain const ZoomSkeinXMLParserErrorDomain = @"uk.org.logicalshift.zoomview.skein.xmlerrors";
 
-#pragma mark - XML input class
+#pragma mark XML input class
 
 static NSString* const xmlAttributes = @"xmlAttributes";
 static NSString* const xmlName	     = @"xmlName";
@@ -51,11 +51,24 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 	@autoreleasepool {
 	
 	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
+		NSError *tmpError = nil;
 	
 	// Process the XML associated with this file
-	if (![inputParser processXML: data error: error]) {
+	if (![inputParser processXML: data error: &tmpError]) {
 		// Failed to parse
 		NSLog(@"ZoomSkein: Failed to parse skein XML data");
+		if (error) {
+			NSMutableDictionary *errDict = [@{
+				NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to parse skein XML data",
+				NSLocalizedDescriptionKey: @"ZoomSkein: Failed to parse skein XML data"
+			} mutableCopy];
+			if (tmpError) {
+				errDict[NSUnderlyingErrorKey] = tmpError;
+			}
+			*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+										 code: ZoomSkeinXMLErrorParserFailed
+									 userInfo: errDict];
+		}
 		return NO;
 	}
 	
@@ -66,11 +79,24 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 - (BOOL) parseXMLContentsAtURL: (NSURL*) url error: (NSError**) error {
 	@autoreleasepool {
 		ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
-		
+		NSError *tmpError = nil;
+
 		// Process the XML associated with this file
-		if (![inputParser processXMLAtURL: url error: error]) {
+		if (![inputParser processXMLAtURL: url error: &tmpError]) {
 			// Failed to parse
 			NSLog(@"ZoomSkein: Failed to parse skein XML data");
+			if (error) {
+				NSMutableDictionary *errDict = [@{
+					NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to parse skein XML data",
+					NSLocalizedDescriptionKey: @"ZoomSkein: Failed to parse skein XML data"
+				} mutableCopy];
+				if (tmpError) {
+					errDict[NSUnderlyingErrorKey] = tmpError;
+				}
+				*error = [NSError errorWithDomain: ZoomSkeinXMLParserErrorDomain
+											 code: ZoomSkeinXMLErrorParserFailed
+										 userInfo: errDict];
+			}
 			return NO;
 		}
 		

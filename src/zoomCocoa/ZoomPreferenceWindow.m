@@ -355,6 +355,7 @@ static NSDictionary*  itemDictionary = nil;
 					inPopup: backgroundColour];
 }
 
+@synthesize preferences = prefs;
 - (void) setPreferences: (ZoomPreferences*) preferences {
 	prefs = preferences;
 	

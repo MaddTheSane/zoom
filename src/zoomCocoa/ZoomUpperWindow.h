@@ -24,7 +24,7 @@
 - (id) initWithZoomView: (ZoomView*) view;
 
 @property (readonly, nonatomic) int length;
-- (NSArray<NSMutableAttributedString*>*) lines;
+@property (readonly, copy) NSArray<NSMutableAttributedString*> *lines;
 @property (readonly, strong) NSColor *backgroundColour;
 - (void)     cutLines;
 

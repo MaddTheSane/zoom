@@ -172,7 +172,7 @@
 
 @synthesize pastedLineScaleFactor=pastedScaleFactor;
 
-- (void) pasteUpperWindowLinesFrom: (ZoomUpperWindow*) win {
+- (void) pasteUpperWindowLinesFromZoomWindow: (ZoomUpperWindow*) win {
     NSArray* lines = [win lines];
     BOOL changed;
     

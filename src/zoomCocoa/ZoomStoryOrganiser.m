@@ -26,6 +26,8 @@ static NSString*const extraDefaultsName = @"ZoomStoryOrganiserExtra";
 static NSString*const ZoomGameDirectories = @"ZoomGameDirectories";
 static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 
+// TODO: migrate to CoreData
+
 @implementation ZoomStoryOrganiser {
 	// Preference loading/checking thread
 	NSPort* port1;

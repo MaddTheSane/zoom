@@ -389,12 +389,12 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 - (NSString*) zoomConfigDirectory {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
-	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
 
 	for (NSString* libDir in libraryDirs) {
 		BOOL isDir;
 		
-		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
+		NSString* zoomLib = [libDir stringByAppendingPathComponent: @"Zoom"];
 		if ([[NSFileManager defaultManager] fileExistsAtPath: zoomLib isDirectory: &isDir]) {
 			if (isDir) {
 				return zoomLib;
@@ -403,7 +403,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 	
 	for (NSString* libDir in libraryDirs) {
-		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
+		NSString* zoomLib = [libDir stringByAppendingPathComponent: @"Zoom"];
 		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
 									  withIntermediateDirectories: NO
 													   attributes: nil
@@ -474,7 +474,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 	
 	// Show files that have a valid plugin
-	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: [url path]];
+	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForURL: url];
 	
 	if (pluginClass != nil) {
 		return YES;

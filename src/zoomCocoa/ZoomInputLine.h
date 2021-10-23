@@ -10,12 +10,12 @@
 
 #import <ZoomView/ZoomCursor.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ZoomInputLineDelegate;
 
 @interface ZoomInputLine : NSObject {
 	ZoomCursor* cursor;
-	
-	__weak id<ZoomInputLineDelegate> delegate;
 	
 	NSMutableString* lineString;
 	NSMutableDictionary<NSAttributedStringKey, id>* attributes;
@@ -31,12 +31,12 @@
 
 - (void) keyDown: (NSEvent*) evt;
 
-- (NSString*) inputLine;
+@property (readonly, copy) NSString *inputLine;
 
 @property (weak) id<ZoomInputLineDelegate> delegate;
 
-- (NSString*) lastHistoryItem;
-- (NSString*) nextHistoryItem;
+@property (readonly, copy, nullable) NSString *lastHistoryItem;
+@property (readonly, copy, nullable) NSString *nextHistoryItem;
 
 - (void) updateCursor;
 
@@ -48,7 +48,9 @@
 - (void) inputLineHasChanged: (ZoomInputLine*) sender;
 - (void) endOfLineReached: (ZoomInputLine*) sender;
 
-- (NSString*) lastHistoryItem;
-- (NSString*) nextHistoryItem;
+@property (nonatomic, readonly, copy, nullable) NSString *lastHistoryItem;
+@property (nonatomic, readonly, copy, nullable) NSString *nextHistoryItem;
 
 @end
+
+NS_ASSUME_NONNULL_END

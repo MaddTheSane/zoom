@@ -51,7 +51,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return res;
 }
 
-+ (BOOL) fileContentsAreBlorbAtURL: (NSURL*) filename {
++ (BOOL) URLContentsAreBlorb: (NSURL*) filename {
 	ZHandleFile *fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingFromURL: filename error: NULL]];
 	
 	BOOL res = [self zfileIsBlorb: fl];
@@ -62,12 +62,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 + (BOOL) fileContentsIsBlorb: (NSString*) filename {
-	ZHandleFile *fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingAtPath: filename]];
-	
-	BOOL res = [self zfileIsBlorb: fl];
-	[fl close];
-
-	return res;
+	return [self URLContentsAreBlorb: [NSURL fileURLWithPath: filename]];
 }
 
 + (BOOL) zfileIsBlorb: (id<ZFile>) zfile {

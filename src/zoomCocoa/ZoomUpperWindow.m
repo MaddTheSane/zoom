@@ -153,7 +153,7 @@ static NSString* blankLine(NSInteger length) {
 }
 
 - (NSArray*) lines {
-    return lines;
+    return [lines copy];
 }
 
 @synthesize backgroundColour;

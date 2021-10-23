@@ -29,7 +29,7 @@
 		delegate   = nil;
 		flasher = nil;
 		
-		lastVisible = [self visible];
+		lastVisible = [self isVisible];
 		lastActive = [self activeStyle];
 	}
 	
@@ -53,7 +53,7 @@
 	return [NSSet setWithObjects:@"shown", @"blinking", @"blink", nil];
 }
 
-- (BOOL) visible {
+- (BOOL) isVisible {
 	return (isShown&&(!isBlinking||blink));
 }
 
@@ -70,7 +70,7 @@
 	// Cursor has, uh, blunked
 	
 	// Only send the message if our visibility has changed
-	BOOL nowVisible = [self visible];		
+	BOOL nowVisible = self.visible;
 	BOOL nowActive = [self activeStyle];
 	if (nowActive == lastActive &&
 		nowVisible == lastVisible) {
@@ -96,8 +96,9 @@
 }
 
 #pragma mark - Drawing
+
 - (void) draw {
-	if (![self visible]) return;
+	if (!self.visible) return;
 
 	// Cursor colour
 	[[NSColor colorWithSRGBRed: 0.3

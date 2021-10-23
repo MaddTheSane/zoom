@@ -176,8 +176,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 
 // The upper window
 @property (nonatomic, readonly) int upperWindowSize;
-- (void) setUpperBuffer: (CGFloat) bufHeight;
-- (CGFloat) upperBufferHeight;
+@property (nonatomic) CGFloat upperBufferHeight;
 - (void) rearrangeUpperWindows;
 @property (nonatomic, readonly, copy) NSArray<ZoomUpperWindow*> *upperWindows;
 - (void) padToLowerWindow;
@@ -240,7 +239,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 - (void) zMachineStarted: (id) sender;
 - (void) zMachineFinished: (id) sender;
 
-- (NSString*) defaultSaveDirectory;
+@property (nonatomic, readonly, copy) NSString *defaultSaveDirectory;
 - (BOOL)      useSavePackage;
 - (void)      prepareSavePackage: (ZPackageFile*) file;
 - (BOOL)	  loadedSkeinData: (NSData*) skeinData error:(NSError**)error;

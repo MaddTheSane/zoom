@@ -25,7 +25,8 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 @property (class, readonly, copy) NSString *plugInsPath;
 
 // Setting the delegate
-@property (weak) id<ZoomPlugInManagerDelegate> delegate;	//!< Sets a new plug-in delegate
+/// The plug-in delegate
+@property (weak) id<ZoomPlugInManagerDelegate> delegate;
 
 // Dealing with existing plugins
 /// Causes this class to load all of the plugins
@@ -77,7 +78,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 /// Array of \c ZoomPlugInInfo objects containing the information about all the plugins known about by this object
 - (NSArray<ZoomPlugInInfo*>*) informationForPlugins;
 /// Performs a check for updates operation on the specified URLs
-- (void) checkForUpdatesFrom: (NSArray<NSURL*>*) urls;
+- (void) checkForUpdatesFromURLs: (NSArray<NSURL*>*) urls;
 /// Performs a general check for updates operation
 - (void) checkForUpdates;
 

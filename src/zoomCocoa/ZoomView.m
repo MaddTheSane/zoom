@@ -465,7 +465,7 @@ static void finalizeViews(void) {
 		
 		// Paste stuff
 		for (ZoomUpperWindow* win in upperWindows) {
-			[textView pasteUpperWindowLinesFrom: win];
+			[textView pasteUpperWindowLinesFromZoomWindow: win];
 		}
 		
 		if ([focusedView isKindOfClass: [ZoomUpperWindow class]]) {
@@ -548,7 +548,7 @@ static void finalizeViews(void) {
 
 		// Paste stuff
 		for (ZoomUpperWindow* win in upperWindows) {
-			[textView pasteUpperWindowLinesFrom: win];
+			[textView pasteUpperWindowLinesFromZoomWindow: win];
 		}
     
 		BOOL isUpperWindow = [focusedView isKindOfClass: [ZoomUpperWindow class]];
@@ -1407,7 +1407,7 @@ static void finalizeViews(void) {
     return height;
 }
 
-- (void) setUpperBuffer: (CGFloat) bufHeight {
+- (void) setUpperBufferHeight: (CGFloat) bufHeight {
     // Update the upper window buffer
 	BOOL wasEditingTextView = editingTextView;
 	editingTextView = NO;
@@ -1758,7 +1758,7 @@ static void finalizeViews(void) {
 
     // Paste stuff
     for (ZoomUpperWindow* win in aSelf->upperWindows) {
-        [textView pasteUpperWindowLinesFrom: win];
+        [textView pasteUpperWindowLinesFromZoomWindow: win];
     }
     
     // Notify the delegate
