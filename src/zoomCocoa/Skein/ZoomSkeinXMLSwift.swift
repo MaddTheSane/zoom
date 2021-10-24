@@ -23,13 +23,13 @@ private extension String {
 			case ">":
 				return "&gt;"
 				
-			case #"""#:
+			case "\"":
 				return "&quot;"
 				
 			case "'":
 				return "&apos;"
 				
-			case "\0" ..< "\n", "\u{b}" ..< "\u{20}":
+			case "\0" ..< " ":
 				// Ignore (expat can't parse these)
 				return nil
 				

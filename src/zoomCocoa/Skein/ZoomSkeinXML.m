@@ -88,7 +88,8 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 			if (error) {
 				NSMutableDictionary *errDict = [@{
 					NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to parse skein XML data",
-					NSLocalizedDescriptionKey: @"ZoomSkein: Failed to parse skein XML data"
+					NSLocalizedDescriptionKey: @"ZoomSkein: Failed to parse skein XML data",
+					NSURLErrorKey: url
 				} mutableCopy];
 				if (tmpError) {
 					errDict[NSUnderlyingErrorKey] = tmpError;
@@ -155,8 +156,8 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 	// Item dictionary: populate with items ready to be linked together
 	NSMutableDictionary* itemDictionary = [NSMutableDictionary dictionary];
 	
-	NSArray* items = [inputParser childrenForElement: skein
-											withName: @"item"];
+	NSArray<SkeinXMLElement*>* items = [inputParser childrenForElement: skein
+															  withName: @"item"];
 	
 	for (SkeinXMLElement* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
@@ -173,7 +174,7 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 	}
 	
 	// Item dictionary II: fill in the node data
-	for (NSDictionary* item in items) {
+	for (SkeinXMLElement* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
 															withName: @"nodeId"];
 		
@@ -181,7 +182,7 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 			continue;
 		}
 		
-		ZoomSkeinItem* newItem = [itemDictionary objectForKey: itemNodeId];
+		ZoomSkeinItem* newItem = itemDictionary[itemNodeId];
 		if (newItem == nil) {
 			// Should never happen
 			// (Hahaha)
@@ -234,7 +235,7 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 	}
 	
 	// Item dictionary III: fill in the item children
-	for (NSDictionary* item in items) {
+	for (SkeinXMLElement* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
 															withName: @"nodeId"];
 		
@@ -242,7 +243,7 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 			continue;
 		}
 		
-		ZoomSkeinItem* newItem = [itemDictionary objectForKey: itemNodeId];
+		ZoomSkeinItem* newItem = itemDictionary[itemNodeId];
 		if (newItem == nil) {
 			// Should never happen
 			// (Hahaha)
@@ -271,7 +272,7 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 				continue;
 			}
 			
-			ZoomSkeinItem* kidItem = [itemDictionary objectForKey: kidNodeId];
+			ZoomSkeinItem* kidItem = itemDictionary[kidNodeId];
 			
 			if (kidItem == nil) {
 				NSLog(@"ZoomSkein: Warning: unable to find node %@", kidNodeId);
@@ -279,8 +280,7 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 			}
 			
 			ZoomSkeinItem* newKid = [newItem addChild: kidItem];
-			[itemDictionary setObject: newKid
-							   forKey: kidNodeId];
+			itemDictionary[kidNodeId] = newKid;
 			kidItem = newKid;
 		}
 	}
@@ -386,14 +386,14 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 - (NSString*) innerTextForElement: (SkeinXMLElement*) element {
 	NSMutableString* res = nil;
 	
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [element[xmlChildren] objectEnumerator];
 	
 	for (SkeinXMLElement* child in children) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlCharData]) {
+		if ([child[xmlType] isEqualToString: xmlCharData]) {
 			if (res == nil) {
-				res = [[NSMutableString alloc] initWithString: [child objectForKey: xmlChars]];
+				res = [[NSMutableString alloc] initWithString: child[xmlChars]];
 			} else {
-				[res appendString: [child objectForKey: xmlChars]];
+				[res appendString: child[xmlChars]];
 			}
 		}
 	}
@@ -405,11 +405,11 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 										 withName: (NSString*) elementName {
 	NSMutableArray* res = nil;
 	
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [element[xmlChildren] objectEnumerator];
 	
 	for (SkeinXMLElement* child in children) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlElement] &&
-			[[child objectForKey: xmlName] isEqualToString: elementName]) {
+		if ([child[xmlType] isEqualToString: xmlElement] &&
+			[child[xmlName] isEqualToString: elementName]) {
 			if (res == nil) {
 				res = [[NSMutableArray alloc] init];
 			}
@@ -423,11 +423,11 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 
 - (SkeinXMLElement*) childForElement: (SkeinXMLElement*) element
 							withName: (NSString*) elementName {
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [element[xmlChildren] objectEnumerator];
 	
 	for (SkeinXMLElement* child in children) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlElement] &&
-			[[child objectForKey: xmlName] isEqualToString: elementName]) {
+		if ([child[xmlType] isEqualToString: xmlElement] &&
+			[child[xmlName] isEqualToString: elementName]) {
 			return child;
 		}
 	}
@@ -437,7 +437,7 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 
 - (NSString*) attributeValueForElement: (SkeinXMLElement*) element
 							  withName: (NSString*) elementName {
-	return [[element objectForKey: xmlAttributes] objectForKey: elementName];
+	return [element[xmlAttributes] objectForKey: elementName];
 }
 
 #pragma mark - NSXML callback messages
@@ -451,23 +451,19 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 	NSMutableDictionary* lastElement = [xmlStack lastObject];
 	NSMutableDictionary* element = [NSMutableDictionary dictionary];
 
-	[element setObject: xmlElement
-				forKey: xmlType];
-	[element setObject: elementName
-				forKey: xmlName];
+	element[xmlType] = xmlElement;
+	element[xmlName] = elementName;
 	
 	// Attributes
 	if ([attributeDict count] != 0) {
-		[element setObject: [attributeDict mutableCopy]
-					forKey: xmlAttributes];
+		element[xmlAttributes] = [attributeDict mutableCopy];
 	}
 	
 	// Add as a child of the previous element
-	NSMutableArray* children = [lastElement objectForKey: xmlChildren];
+	NSMutableArray* children = lastElement[xmlChildren];
 	if (children == nil) {
 		children = [NSMutableArray array];
-		[lastElement setObject: children
-						forKey: xmlChildren];
+		lastElement[xmlChildren] = children;
 	}
 	[children addObject: element];
 	
@@ -491,22 +487,20 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 	
 	// Create this element
 	NSMutableDictionary* lastElement = [xmlStack lastObject];
-	NSMutableArray* children = [lastElement objectForKey: xmlChildren];
+	NSMutableArray<NSMutableDictionary*>* children = lastElement[xmlChildren];
 	NSMutableDictionary* element;
 	BOOL addAsChild;
 	
-	if (children && [[[children lastObject] objectForKey: xmlType] isEqualToString: xmlCharData]) {
+	if (children && [[children lastObject][xmlType] isEqualToString: xmlCharData]) {
 		element = [children lastObject];
-		[[element objectForKey: xmlChars] appendString: string];
+		[element[xmlChars] appendString: string];
 		
 		addAsChild = NO;
 	} else {
 		element = [NSMutableDictionary dictionary];
 		
-		[element setObject: xmlCharData
-					forKey: xmlType];
-		[element setObject: [string mutableCopy]
-					forKey: xmlChars];
+		element[xmlType] = xmlCharData;
+		element[xmlChars] = [string mutableCopy];
 		
 		addAsChild = YES;
 	}
@@ -515,8 +509,7 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 	if (addAsChild) {
 		if (children == nil) {
 			children = [NSMutableArray array];
-			[lastElement setObject: children
-						forKey: xmlChildren];
+			lastElement[xmlChildren] = children;
 		}
 		[children addObject: element];
 	}
