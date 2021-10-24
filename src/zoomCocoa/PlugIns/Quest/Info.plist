@@ -29,7 +29,7 @@
 		<key>Image</key>
 		<string>../../Resources/GlkClient.icns</string>
 		<key>InterpreterAuthor</key>
-		<string>Andrew Plotkin</string>
+		<string>Mark J. Tilford</string>
 		<key>InterpreterVersion</key>
 		<string>0.5.4</string>
 		<key>Version</key>

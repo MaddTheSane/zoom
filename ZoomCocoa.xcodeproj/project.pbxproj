@@ -278,10 +278,12 @@
 		55BA3C1A27253B5B007F6C82 /* geas-runner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BF827253B5A007F6C82 /* geas-runner.cc */; };
 		55BA3C1B27253B5B007F6C82 /* geasglk.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BFA27253B5B007F6C82 /* geasglk.cc */; };
 		55BA3C1D27253B5B007F6C82 /* geasglkterm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BFD27253B5B007F6C82 /* geasglkterm.c */; };
-		55BA3C1F27253B5B007F6C82 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3C0027253B5B007F6C82 /* Makefile */; };
 		55BA3C2927253CA6007F6C82 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
 		55BA3C2A27253CA6007F6C82 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
 		55BA3C3227253D40007F6C82 /* geas in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55BA3BD227253B21007F6C82 /* geas */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55BA3C3527254529007F6C82 /* gpl.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55BA3BE127253B5A007F6C82 /* gpl.txt */; };
+		55BA3C362725452D007F6C82 /* CREDITS in Resources */ = {isa = PBXBuildFile; fileRef = 55BA3BE427253B5A007F6C82 /* CREDITS */; };
+		55BA3C3727254530007F6C82 /* CONTACT.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55BA3BDF27253B5A007F6C82 /* CONTACT.txt */; };
 		55BB924F2048AC4100AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92502048AC6D00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92512048ACAE00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
@@ -302,8 +304,6 @@
 		55BE4AE9270998F600100A7D /* ZoomQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AE8270998F600100A7D /* ZoomQuest.swift */; };
 		55BE4AEE270999A500100A7D /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		55BE4AEF270999A500100A7D /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
-		55BE4AF62709A23600100A7D /* QuestDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AF42709A23600100A7D /* QuestDocument.swift */; };
-		55BE4AF72709A23600100A7D /* QuestDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BE4AF52709A23600100A7D /* QuestDocument.xib */; };
 		55BE4AF8270A635600100A7D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 		55BE4B11270AB65400100A7D /* ZoomCollapsableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4B10270AB65400100A7D /* ZoomCollapsableView.swift */; };
 		55BE4B47270BE58900100A7D /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 55BE4B46270BE58900100A7D /* Sparkle */; };
@@ -1120,13 +1120,11 @@
 		55BA3BE827253B5A007F6C82 /* readfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = readfile.cc; sourceTree = "<group>"; };
 		55BA3BE927253B5A007F6C82 /* istring.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = istring.cc; sourceTree = "<group>"; };
 		55BA3BEA27253B5A007F6C82 /* general.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = general.hh; sourceTree = "<group>"; };
-		55BA3BEB27253B5A007F6C82 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		55BA3BEC27253B5A007F6C82 /* istring.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = istring.hh; sourceTree = "<group>"; };
 		55BA3BED27253B5A007F6C82 /* GeasRunner.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GeasRunner.hh; sourceTree = "<group>"; };
 		55BA3BEE27253B5A007F6C82 /* geas-util.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "geas-util.hh"; sourceTree = "<group>"; };
 		55BA3BEF27253B5A007F6C82 /* geas-state.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "geas-state.hh"; sourceTree = "<group>"; };
 		55BA3BF027253B5A007F6C82 /* uncas.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = uncas.pl; sourceTree = "<group>"; };
-		55BA3BF127253B5A007F6C82 /* module.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = module.mk; sourceTree = "<group>"; };
 		55BA3BF227253B5A007F6C82 /* readfile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = readfile.hh; sourceTree = "<group>"; };
 		55BA3BF327253B5A007F6C82 /* geasfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geasfile.cc; sourceTree = "<group>"; };
 		55BA3BF427253B5A007F6C82 /* geasfile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geasfile.hh; sourceTree = "<group>"; };
@@ -1135,29 +1133,7 @@
 		55BA3BF727253B5A007F6C82 /* reserved_words.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reserved_words.hh; sourceTree = "<group>"; };
 		55BA3BF827253B5A007F6C82 /* geas-runner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "geas-runner.cc"; sourceTree = "<group>"; };
 		55BA3BFA27253B5B007F6C82 /* geasglk.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geasglk.cc; sourceTree = "<group>"; };
-		55BA3BFB27253B5B007F6C82 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		55BA3BFC27253B5B007F6C82 /* module.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = module.mk; sourceTree = "<group>"; };
 		55BA3BFD27253B5B007F6C82 /* geasglkterm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = geasglkterm.c; sourceTree = "<group>"; };
-		55BA3BFF27253B5B007F6C82 /* GeasWindow.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeasWindow.cc; sourceTree = "<group>"; };
-		55BA3C0027253B5B007F6C82 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		55BA3C0127253B5B007F6C82 /* GeasWindow.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GeasWindow.hh; sourceTree = "<group>"; };
-		55BA3C0227253B5B007F6C82 /* module.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = module.mk; sourceTree = "<group>"; };
-		55BA3C0327253B5B007F6C82 /* VariableWidget.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VariableWidget.hh; sourceTree = "<group>"; };
-		55BA3C0427253B5B007F6C82 /* InventoryWidget.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InventoryWidget.hh; sourceTree = "<group>"; };
-		55BA3C0527253B5B007F6C82 /* ObjectsWidget.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectsWidget.cc; sourceTree = "<group>"; };
-		55BA3C0627253B5B007F6C82 /* CompassWidget.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CompassWidget.hh; sourceTree = "<group>"; };
-		55BA3C0727253B5B007F6C82 /* ChoiceWidget.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ChoiceWidget.hh; sourceTree = "<group>"; };
-		55BA3C0827253B5B007F6C82 /* ChoiceWidget.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChoiceWidget.cc; sourceTree = "<group>"; };
-		55BA3C0927253B5B007F6C82 /* CompassWidget.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompassWidget.cc; sourceTree = "<group>"; };
-		55BA3C0A27253B5B007F6C82 /* VariableWidget.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VariableWidget.cc; sourceTree = "<group>"; };
-		55BA3C0B27253B5B007F6C82 /* InventoryWidget.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InventoryWidget.cc; sourceTree = "<group>"; };
-		55BA3C0C27253B5B007F6C82 /* gtk-geas.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "gtk-geas.cc"; sourceTree = "<group>"; };
-		55BA3C0D27253B5B007F6C82 /* ObjectsWidget.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectsWidget.hh; sourceTree = "<group>"; };
-		55BA3C0E27253B5B007F6C82 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		55BA3C1027253B5B007F6C82 /* wxgeas.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wxgeas.hh; sourceTree = "<group>"; };
-		55BA3C1127253B5B007F6C82 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		55BA3C1227253B5B007F6C82 /* wxgeas.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wxgeas.cc; sourceTree = "<group>"; };
-		55BA3C1327253B5B007F6C82 /* module.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = module.mk; sourceTree = "<group>"; };
 		55BB924E2048AC4000AB4B5B /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		55BB926F2048D8D900AB4B5B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		55BD080E21B7638800A8DD5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
@@ -1174,8 +1150,6 @@
 		55BE4AE32709988700100A7D /* ZoomQuest.zoomplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoomQuest.zoomplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BE4AE8270998F600100A7D /* ZoomQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomQuest.swift; sourceTree = "<group>"; };
 		55BE4AF0270999B400100A7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55BE4AF42709A23600100A7D /* QuestDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDocument.swift; sourceTree = "<group>"; };
-		55BE4AF52709A23600100A7D /* QuestDocument.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestDocument.xib; sourceTree = "<group>"; };
 		55BE4AF9270A645600100A7D /* varopdecode.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = varopdecode.pl; sourceTree = "<group>"; };
 		55BE4B10270AB65400100A7D /* ZoomCollapsableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomCollapsableView.swift; sourceTree = "<group>"; };
 		55BE4B18270ACA4000100A7D /* ZoomiFictionController+OldWebKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZoomiFictionController+OldWebKit.h"; sourceTree = "<group>"; };
@@ -1952,13 +1926,12 @@
 				55BA3BDE27253B5A007F6C82 /* doc */,
 				55BA3BE527253B5A007F6C82 /* geas-core */,
 				55BA3BF927253B5B007F6C82 /* glk-ui */,
-				55BA3BFE27253B5B007F6C82 /* gtk-ui */,
-				55BA3C0E27253B5B007F6C82 /* Makefile */,
-				55BA3C0F27253B5B007F6C82 /* wx-ui */,
 			);
+			indentWidth = 2;
 			name = geas;
 			path = depends/geas;
 			sourceTree = "<group>";
+			tabWidth = 8;
 		};
 		55BA3BDE27253B5A007F6C82 /* doc */ = {
 			isa = PBXGroup;
@@ -1976,25 +1949,23 @@
 		55BA3BE527253B5A007F6C82 /* geas-core */ = {
 			isa = PBXGroup;
 			children = (
-				55BA3BE627253B5A007F6C82 /* geas-util.cc */,
+				55BA3BF627253B5A007F6C82 /* geas-impl.hh */,
+				55BA3BF827253B5A007F6C82 /* geas-runner.cc */,
 				55BA3BE727253B5A007F6C82 /* geas-state.cc */,
-				55BA3BE827253B5A007F6C82 /* readfile.cc */,
-				55BA3BE927253B5A007F6C82 /* istring.cc */,
-				55BA3BEA27253B5A007F6C82 /* general.hh */,
-				55BA3BEB27253B5A007F6C82 /* Makefile */,
-				55BA3BEC27253B5A007F6C82 /* istring.hh */,
-				55BA3BED27253B5A007F6C82 /* GeasRunner.hh */,
-				55BA3BEE27253B5A007F6C82 /* geas-util.hh */,
 				55BA3BEF27253B5A007F6C82 /* geas-state.hh */,
-				55BA3BF027253B5A007F6C82 /* uncas.pl */,
-				55BA3BF127253B5A007F6C82 /* module.mk */,
-				55BA3BF227253B5A007F6C82 /* readfile.hh */,
+				55BA3BE627253B5A007F6C82 /* geas-util.cc */,
+				55BA3BEE27253B5A007F6C82 /* geas-util.hh */,
 				55BA3BF327253B5A007F6C82 /* geasfile.cc */,
 				55BA3BF427253B5A007F6C82 /* geasfile.hh */,
+				55BA3BED27253B5A007F6C82 /* GeasRunner.hh */,
+				55BA3BEA27253B5A007F6C82 /* general.hh */,
+				55BA3BE927253B5A007F6C82 /* istring.cc */,
+				55BA3BEC27253B5A007F6C82 /* istring.hh */,
 				55BA3BF527253B5A007F6C82 /* LimitStack.hh */,
-				55BA3BF627253B5A007F6C82 /* geas-impl.hh */,
+				55BA3BE827253B5A007F6C82 /* readfile.cc */,
+				55BA3BF227253B5A007F6C82 /* readfile.hh */,
 				55BA3BF727253B5A007F6C82 /* reserved_words.hh */,
-				55BA3BF827253B5A007F6C82 /* geas-runner.cc */,
+				55BA3BF027253B5A007F6C82 /* uncas.pl */,
 			);
 			path = "geas-core";
 			sourceTree = "<group>";
@@ -2003,44 +1974,9 @@
 			isa = PBXGroup;
 			children = (
 				55BA3BFA27253B5B007F6C82 /* geasglk.cc */,
-				55BA3BFB27253B5B007F6C82 /* Makefile */,
-				55BA3BFC27253B5B007F6C82 /* module.mk */,
 				55BA3BFD27253B5B007F6C82 /* geasglkterm.c */,
 			);
 			path = "glk-ui";
-			sourceTree = "<group>";
-		};
-		55BA3BFE27253B5B007F6C82 /* gtk-ui */ = {
-			isa = PBXGroup;
-			children = (
-				55BA3BFF27253B5B007F6C82 /* GeasWindow.cc */,
-				55BA3C0027253B5B007F6C82 /* Makefile */,
-				55BA3C0127253B5B007F6C82 /* GeasWindow.hh */,
-				55BA3C0227253B5B007F6C82 /* module.mk */,
-				55BA3C0327253B5B007F6C82 /* VariableWidget.hh */,
-				55BA3C0427253B5B007F6C82 /* InventoryWidget.hh */,
-				55BA3C0527253B5B007F6C82 /* ObjectsWidget.cc */,
-				55BA3C0627253B5B007F6C82 /* CompassWidget.hh */,
-				55BA3C0727253B5B007F6C82 /* ChoiceWidget.hh */,
-				55BA3C0827253B5B007F6C82 /* ChoiceWidget.cc */,
-				55BA3C0927253B5B007F6C82 /* CompassWidget.cc */,
-				55BA3C0A27253B5B007F6C82 /* VariableWidget.cc */,
-				55BA3C0B27253B5B007F6C82 /* InventoryWidget.cc */,
-				55BA3C0C27253B5B007F6C82 /* gtk-geas.cc */,
-				55BA3C0D27253B5B007F6C82 /* ObjectsWidget.hh */,
-			);
-			path = "gtk-ui";
-			sourceTree = "<group>";
-		};
-		55BA3C0F27253B5B007F6C82 /* wx-ui */ = {
-			isa = PBXGroup;
-			children = (
-				55BA3C1027253B5B007F6C82 /* wxgeas.hh */,
-				55BA3C1127253B5B007F6C82 /* Makefile */,
-				55BA3C1227253B5B007F6C82 /* wxgeas.cc */,
-				55BA3C1327253B5B007F6C82 /* module.mk */,
-			);
-			path = "wx-ui";
 			sourceTree = "<group>";
 		};
 		55BB92552048CCFE00AB4B5B /* ifdbWeb */ = {
@@ -2075,8 +2011,6 @@
 			children = (
 				55BE4AE8270998F600100A7D /* ZoomQuest.swift */,
 				55BE4AF0270999B400100A7D /* Info.plist */,
-				55BE4AF42709A23600100A7D /* QuestDocument.swift */,
-				55BE4AF52709A23600100A7D /* QuestDocument.xib */,
 			);
 			path = Quest;
 			sourceTree = "<group>";
@@ -2669,6 +2603,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55BA3C3727254530007F6C82 /* CONTACT.txt in Resources */,
+				55BA3C3527254529007F6C82 /* gpl.txt in Resources */,
+				55BA3C362725452D007F6C82 /* CREDITS in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2676,7 +2613,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55BE4AF72709A23600100A7D /* QuestDocument.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2937,7 +2873,6 @@
 				55BA3C1627253B5B007F6C82 /* readfile.cc in Sources */,
 				55BA3C1A27253B5B007F6C82 /* geas-runner.cc in Sources */,
 				55BA3C1B27253B5B007F6C82 /* geasglk.cc in Sources */,
-				55BA3C1F27253B5B007F6C82 /* Makefile in Sources */,
 				55BA3C1927253B5B007F6C82 /* geasfile.cc in Sources */,
 				55BA3C1727253B5B007F6C82 /* istring.cc in Sources */,
 				55BA3C1D27253B5B007F6C82 /* geasglkterm.c in Sources */,
@@ -2950,7 +2885,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BE4AE9270998F600100A7D /* ZoomQuest.swift in Sources */,
-				55BE4AF62709A23600100A7D /* QuestDocument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
