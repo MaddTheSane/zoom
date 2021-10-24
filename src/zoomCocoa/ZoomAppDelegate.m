@@ -124,8 +124,9 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 - (BOOL)application: (NSApplication *)theApplication
 		   openFile: (NSString *)filename {
+	NSURL *fileURL = [NSURL fileURLWithPath: filename];
 	// Just show the existing document if it already exists
-	NSDocument* existingDocument = [[NSDocumentController sharedDocumentController] documentForURL: [NSURL fileURLWithPath: filename]];
+	NSDocument* existingDocument = [[NSDocumentController sharedDocumentController] documentForURL: fileURL];
 	if (existingDocument && [[existingDocument windowControllers] count] > 0) {
 		[[[existingDocument windowControllers] objectAtIndex: 0] showWindow: self];
 		return YES;
@@ -137,7 +138,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	// If this is a .signpost file, then pass it to the ifiction window
 	if ([[[filename pathExtension] lowercaseString] isEqualToString: @"signpost"]) {
-		[[ZoomiFictionController sharediFictionController] openSignPost: [NSData dataWithContentsOfFile: filename]
+		[[ZoomiFictionController sharediFictionController] openSignPost: [NSData dataWithContentsOfURL: fileURL]
 														  forceDownload: NO];
 		return YES;
 	}
@@ -189,11 +190,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}
 
 	// See if there's a plug-in that can handle this file. This gives plug-ins first shot at handling blorb files.
-	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename];
+	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForURL: fileURL];
 	
 	if (pluginClass) {
-		// TODO: work out when to release this class
-		ZoomPlugIn* pluginInstance = [[pluginClass alloc] initWithFilename: filename];
+		ZoomPlugIn* pluginInstance = [[pluginClass alloc] initWithURL: fileURL];
 		
 		if (pluginInstance) {
 			// Register this game with iFiction
@@ -223,10 +223,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			if (saveFilename) {
 				pluginDocument = [pluginInstance gameDocumentWithMetadata: story
 																 saveGame: saveFilename];
-				[pluginDocument setFileURL: [NSURL fileURLWithPath: saveFilename]];
+				[pluginDocument setFileURL: fileURL];
 			} else {
 				pluginDocument = [pluginInstance gameDocumentWithMetadata: story];
-				[pluginDocument setFileURL: [NSURL fileURLWithPath: filename]];
+				[pluginDocument setFileURL: fileURL];
 			}
 			
 			[[NSDocumentController sharedDocumentController] addDocument: pluginDocument];
@@ -239,7 +239,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 	// See if there's a built-in document handler for this file type (basically, this means z-code files)
 	// TODO: we should probably do this with a plug-in now
-	if ([[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: [NSURL fileURLWithPath: filename]
+	if ([[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: fileURL
 																			   display: YES
 																				 error: NULL]) {
 		return YES;
