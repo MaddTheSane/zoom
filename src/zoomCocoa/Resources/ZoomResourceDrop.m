@@ -131,14 +131,14 @@ static NSImage* blorbImage;
 		// Is a filename array: we can handle one filename, which must be a .blb, .glb or .zlb file
 		if ([filenames count] != 1) goto notAFilename;
 		
-		NSString* filename = [filenames objectAtIndex: 0].path;
-		if (![filename isKindOfClass: [NSString class]]) goto notAFilename;
+		NSURL* filename = [filenames objectAtIndex: 0];
+		if (![filename isKindOfClass: [NSURL class]]) goto notAFilename;
 		
 		if (!([[filename pathExtension] isEqualToString: @"blb"] || 
 			  [[filename pathExtension] isEqualToString: @"zlb"] ||
 			  [[filename pathExtension] isEqualToString: @"glb"] ||
 			  [[filename pathExtension] isEqualToString: @"zblorb"] ||
-			  [ZoomBlorbFile fileContentsIsBlorb: filename])) {
+			  [ZoomBlorbFile URLContentsAreBlorb: filename])) {
 			// MAYBE IMPLEMENT ME: check if this is a blorb file anyway (look for an IFRS file?)
 			goto notAFilename;
 		}
