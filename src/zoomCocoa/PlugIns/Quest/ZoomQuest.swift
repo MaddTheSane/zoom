@@ -6,11 +6,11 @@
 //
 
 import Cocoa
-import ZoomPlugIns.ZoomPlugIn
+import ZoomPlugIns.ZoomGlkPlugIn
 import ZoomPlugIns.ZoomGlkWindowController
 import ZoomPlugIns.ZoomGlkDocument
 
-public class Quest: ZoomPlugIn {
+public class Quest: ZoomGlkPlugIn {
 	public override class var pluginVersion: String! {
 		return Bundle(for: Quest.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String
 	}
@@ -28,27 +28,15 @@ public class Quest: ZoomPlugIn {
 	}
 	
 	public override class func canRun(_ path: URL!) -> Bool {
-		return false
-	}
-	
-	public override class func canRunPath(_ path: String!) -> Bool {
+		guard let url = path else {
+			return false
+		}
 		return false
 	}
 	
 	public override init!(url gameFile: URL!) {
-		return nil
-	}
-	
-	public override func gameDocument(withMetadata story: ZoomStory!) -> NSDocument! {
-		let toRet = QuestDocument()
-		toRet.plugIn = self
-		return toRet
-	}
-	
-	public override func gameDocument(withMetadata story: ZoomStory!, saveGame: String!) -> NSDocument! {
-		let toRet = QuestDocument()
-		toRet.plugIn = self
-		return toRet
+		super.init(url: gameFile)
+		clientPath = Bundle(for: Quest.self).path(forAuxiliaryExecutable: "geas")
 	}
 	
 	/*
@@ -62,9 +50,5 @@ public class Quest: ZoomPlugIn {
 	
 	public override func coverImage() -> NSImage! {
 		return nil
-	}
-	
-	public override func setPreferredSaveDirectory(_ dir: String!) {
-		
 	}
 }
