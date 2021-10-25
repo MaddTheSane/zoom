@@ -60,7 +60,6 @@ static NSLock*          globalLock = nil;
 
 + (void)initialize {
 	@autoreleasepool {
-	
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
 	ZoomPreferences* defaultPrefs = [[[self class] alloc] initWithDefaultPreferences];
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObject: [defaultPrefs dictionary]
@@ -69,7 +68,6 @@ static NSLock*          globalLock = nil;
     [defaults registerDefaults: appDefaults];
 	
 	globalLock = [[NSLock alloc] init];
-	
 	}
 }
 
@@ -170,6 +168,37 @@ static NSArray* DefaultColours(void) {
 	});
 	
 	return defaultColours;
+}
+
+static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<NSString*, id> *b, NSString *key) {
+	id aVal = a[key];
+	id bVal = b[key];
+	return [aVal isEqual:bVal];
+}
+
+- (BOOL)isEqual:(id)object {
+	if ([object isKindOfClass:[ZoomPreferences class]]) {
+		ZoomPreferences* toCMP = object;
+		BOOL retVal = YES;
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, displayWarnings);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, fatalWarnings);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, speakGameText);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, gameTitle);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, interpreter);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, revision);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, glulxInterpreter);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, displayWarnings);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, fonts);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, colours);
+
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, foregroundColour);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, backgroundColour);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, showBorders);
+		retVal &= compareValuesUsingKey(self->prefs, toCMP->prefs, showGlkBorders);
+		
+		return retVal;
+	}
+	return NO;
 }
 
 - (id) initWithDefaultPreferences {
@@ -789,7 +818,9 @@ static NSArray* DefaultColours(void) {
 	
 	if (self) {
 		if (coder.allowsKeyedCoding) {
-			prefs = [coder decodeObjectOfClasses:[NSSet setWithObjects:[NSDictionary class], [NSString class], [NSColor class], [NSFont class], [NSArray class], [NSNumber class], nil] forKey: @"prefs"];
+			prefs = [[NSMutableDictionary alloc] initWithDictionary:
+					 [coder decodeObjectOfClasses: [NSSet setWithObjects: [NSDictionary class], [NSString class], [NSColor class], [NSFont class], [NSArray class], [NSNumber class], nil] forKey: @"prefs"]
+														  copyItems: YES];
 		} else {
 			prefs = [coder decodeObject];
 		}
@@ -808,6 +839,15 @@ static NSArray* DefaultColours(void) {
 
 + (BOOL)supportsSecureCoding {
 	return YES;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+	NSDictionary *ourDict = [self dictionary];
+	__kindof ZoomPreferences *copyPref = [(ZoomPreferences*)[[self class] alloc] initWithDictionary:ourDict];
+
+	return copyPref;
 }
 
 @end

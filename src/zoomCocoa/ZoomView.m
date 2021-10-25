@@ -2170,6 +2170,7 @@ static void finalizeViews(void) {
 												 name: ZoomPreferencesHaveChangedNotification
 											   object: viewPrefs];
 }
+@synthesize preferences=viewPrefs;
 
 - (void) preferencesHaveChanged: (NSNotification*)not {
 	// Usually called by the notification manager

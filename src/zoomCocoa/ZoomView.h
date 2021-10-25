@@ -190,6 +190,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 
 // Setting/updating preferences
 - (void) setPreferences: (ZoomPreferences*) prefs;
+@property (nonatomic, strong) ZoomPreferences *preferences;
 - (void) preferencesHaveChanged: (NSNotification*)noti;
 
 - (void) reformatWindow;

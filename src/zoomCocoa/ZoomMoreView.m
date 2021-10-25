@@ -20,7 +20,7 @@
 }
 
 - (void) setSize {
-    NSString* more = @"[More]";
+    NSString* more = @"[More…]";
     NSDictionary* moreAttributes =
         [NSDictionary dictionaryWithObjectsAndKeys:
             [NSFont systemFontOfSize: 12], NSFontAttributeName,
@@ -30,6 +30,7 @@
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self frame];
     moreSize.width += 2;
+    moreSize.width = ceil(moreSize.width);
     moreSize.height += 2;
     frame.size = moreSize;
     
@@ -37,7 +38,7 @@
 }
 
 - (void)drawRect:(__unused NSRect)rect {
-    NSString* more = @"[More]";
+    NSString* more = @"[More…]";
     NSDictionary* moreAttributes =
         [NSDictionary dictionaryWithObjectsAndKeys:
             [NSFont systemFontOfSize: 12], NSFontAttributeName,

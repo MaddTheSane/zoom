@@ -256,9 +256,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 	
 	NSDictionary<NSString*,NSNumber*>* cD = chunk;
 	
-	[file seekTo: [[cD objectForKey: @"offset"] unsignedIntValue]];
+	[file seekTo: cD[@"offset"].unsignedIntValue];
 	
-	return [file readBlock: [[cD objectForKey: @"length"] unsignedIntValue]];
+	return [file readBlock: cD[@"length"].unsignedIntValue];
 }
 
 - (NSData*) dataForChunkWithType: (NSString*) chunkType {

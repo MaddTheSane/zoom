@@ -31,9 +31,9 @@
 		<key>InterpreterAuthor</key>
 		<string>Mark J. Tilford</string>
 		<key>InterpreterVersion</key>
-		<string>0.5.4</string>
+		<string>0.4</string>
 		<key>Version</key>
-		<string>0.1</string>
+		<string>$(MARKETING_VERSION)</string>
 		<key>ZoomVersion</key>
 		<integer>112</integer>
 	</dict>
