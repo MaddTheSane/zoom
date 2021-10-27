@@ -456,7 +456,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	BOOL isPackage;
 	BOOL isReadable;
 	
-	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, &isPackage, &isReadable);
+	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, &isPackage, &isReadable, NULL);
 	if (!exists) return NO;
 	
 	// Show directories that are not packages
@@ -508,7 +508,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	BOOL exists;
 	BOOL isDirectory;
 
-	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, NULL, NULL);
+	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, NULL, NULL, NULL);
 	
 	if (!exists) return NO;
 	if (isDirectory) return NO;
@@ -647,8 +647,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 @end
 
-BOOL urlIsAvailableAndIsDirectory(NSURL *url, BOOL *isDirectory, BOOL *isPackage, BOOL *isReadable) {
-	if (![url checkResourceIsReachableAndReturnError: NULL]) {
+BOOL urlIsAvailableAndIsDirectory(NSURL *url, BOOL *isDirectory, BOOL *isPackage, BOOL *isReadable, NSError **error) {
+	if (![url checkResourceIsReachableAndReturnError: error]) {
 		return NO;
 	}
 	if (isDirectory) {

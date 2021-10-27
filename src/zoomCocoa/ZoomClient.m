@@ -249,16 +249,18 @@
 }
 
 - (BOOL) checkResourceFile: (NSString*) file {
-	NSFileManager* fm = [NSFileManager defaultManager];
+	return [self checkResourceURL: [NSURL fileURLWithPath: file] error: NULL];
+}
+
+- (BOOL) checkResourceURL: (NSURL*) file error: (NSError**) outError {
 	BOOL exists, isDir;
 	
 	// Check that the file exists
-	exists = [fm fileExistsAtPath: file
-					  isDirectory: &isDir];
+	exists = urlIsAvailableAndIsDirectory(file, &isDir, NULL, NULL, outError);
 	if (!exists || isDir) return NO;
 	
 	// Try to load it as a blorb resource file
-	ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithContentsOfFile: file];
+	ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithContentsOfURL: file error: outError];
 	if (newRes == nil) return NO;
 	
 	// Set resources appropriately

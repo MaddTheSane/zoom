@@ -40,6 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-BOOL urlIsAvailableAndIsDirectory(NSURL *url, BOOL *__nullable isDirectory, BOOL *__nullable isPackage, BOOL *__nullable isReadable) NS_SWIFT_NAME(urlIsAvailable(_:isDirectory:isPackage:isReadable:)) ;
+BOOL urlIsAvailableAndIsDirectory(NSURL *url, BOOL *__nullable isDirectory, BOOL *__nullable isPackage, BOOL *__nullable isReadable, NSError **error) NS_SWIFT_NAME(urlIsAvailable(_:isDirectory:isPackage:isReadable:error:)) NS_SWIFT_NOTHROW;
 
 NS_ASSUME_NONNULL_END

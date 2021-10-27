@@ -10,7 +10,7 @@ import ZoomPlugIns.ZoomGlkPlugIn
 import ZoomPlugIns.ZoomGlkWindowController
 import ZoomPlugIns.ZoomGlkDocument
 
-public class Quest: ZoomGlkPlugIn {
+final public class Quest: ZoomGlkPlugIn {
 	public override class var pluginVersion: String! {
 		return Bundle(for: Quest.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String
 	}

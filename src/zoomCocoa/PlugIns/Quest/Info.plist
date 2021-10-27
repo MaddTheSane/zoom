@@ -14,12 +14,46 @@
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Legacy Quest CAS file</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.co.textadventures.cas</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleSignature</key>
 	<string>YZZY</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).Quest</string>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Legacy Quest CAS file</string>
+			<key>UTTypeIdentifier</key>
+			<string>uk.co.textadventures.cas</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cas</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>ZoomPlugin</key>
 	<dict>
 		<key>Author</key>
@@ -27,7 +61,7 @@
 		<key>DisplayName</key>
 		<string>Quest</string>
 		<key>Image</key>
-		<string>../../Resources/GlkClient.icns</string>
+		<string>GlkClient</string>
 		<key>InterpreterAuthor</key>
 		<string>Mark J. Tilford</string>
 		<key>InterpreterVersion</key>

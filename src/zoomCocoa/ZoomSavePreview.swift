@@ -81,7 +81,7 @@ class SavePreview : NSView {
 				reason = "File has the wrong extension (\(saveURL.pathExtension))"
 			}
 			var isDir: ObjCBool = false
-			if !urlIsAvailable(saveURL, isDirectory: &isDir, isPackage: nil, isReadable: nil) {
+			if !urlIsAvailable(saveURL, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) {
 				genuine = false
 				reason = reason ?? "File does not exist"
 			}
@@ -94,17 +94,17 @@ class SavePreview : NSView {
 			let zPreview = saveURL.appendingPathComponent("ZoomPreview.dat")
 			let status = saveURL.appendingPathComponent("ZoomStatus.dat")
 			
-			if !urlIsAvailable(saveQut, isDirectory: &isDir, isPackage: nil, isReadable: nil) || isDir.boolValue {
+			if !urlIsAvailable(saveQut, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) || isDir.boolValue {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
 			
-			if !urlIsAvailable(zPreview, isDirectory: &isDir, isPackage: nil, isReadable: nil) || isDir.boolValue {
+			if !urlIsAvailable(zPreview, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) || isDir.boolValue {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
 			
-			if !urlIsAvailable(status, isDirectory: &isDir, isPackage: nil, isReadable: nil) || isDir.boolValue {
+			if !urlIsAvailable(status, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) || isDir.boolValue {
 				genuine = false
 				reason = reason ?? "Contents do not look like a saved game"
 			}
@@ -130,7 +130,7 @@ class SavePreview : NSView {
 		let dir = fileURL!.deletingLastPathComponent().deletingLastPathComponent()
 		var isDir: ObjCBool = false
 		
-		guard urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil), isDir.boolValue else {
+		guard urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil), isDir.boolValue else {
 			return
 		}
 		

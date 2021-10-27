@@ -37,8 +37,8 @@
 @interface ZoomiFictionController()
 
 - (NSString*) queryEncode: (NSString*) string;
-- (void) installSignpostPluginFrom: (NSData*) signpostXml;
-- (void) installPluginFrom: (ZoomDownload*) downloadedPlugin;
+- (void) installSignpostPluginFromData: (NSData*) signpostXml;
+- (void) installPluginFromDownload: (ZoomDownload*) downloadedPlugin;
 - (void) updateBackForwardButtons;
 
 @end
@@ -392,7 +392,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSURL *filename = [selectedFiles objectAtIndex:0];
 
 		isDir = NO;
-		urlIsAvailableAndIsDirectory(filename, &isDir, NULL, NULL);
+		urlIsAvailableAndIsDirectory(filename, &isDir, NULL, NULL, NULL);
 		
 		NSString* fileType = [[filename pathExtension] lowercaseString];
 		Class plugin;
@@ -510,7 +510,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	BOOL isPackage;
 	BOOL isReadable;
 	
-	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, &isPackage, &isReadable);
+	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, &isPackage, &isReadable, NULL);
 	if (!exists) return NO;
 	
 	// Show directories that are not packages
@@ -563,7 +563,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	BOOL exists;
 	BOOL isDirectory;
 	
-	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, NULL, NULL);
+	exists = urlIsAvailableAndIsDirectory(url, &isDirectory, NULL, NULL, NULL);
 	
 	if (!exists) return NO;
 	if (isDirectory) return YES;
@@ -2327,7 +2327,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	for (NSURL* path in dirEnum) {
 		// Must exist
 		BOOL isDir;
-		if (!urlIsAvailableAndIsDirectory(path, &isDir, NULL, NULL)) {
+		if (!urlIsAvailableAndIsDirectory(path, &isDir, NULL, NULL, NULL)) {
 			continue;
 		}
 		
@@ -2598,7 +2598,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		}
 		
 		if (xmlFile) {
-			[self installSignpostPluginFrom: [NSData dataWithContentsOfFile: xmlFile]];
+			[self installSignpostPluginFromData: [NSData dataWithContentsOfFile: xmlFile]];
 		} else {
 			// Butterfingers
 			NSAlert *alert = [[NSAlert alloc] init];
@@ -2611,7 +2611,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		}
 	} else if (downloadPlugin) {
 		// We've downloaded a plugin and need to install it
-		[self installPluginFrom: activeDownload];
+		[self installPluginFromDownload: activeDownload];
 	} else {
 		// Default: add story files
 		[self addFilesFromDirectory: [download downloadDirectory]
@@ -2971,7 +2971,7 @@ static unsigned int ValueForHexChar(int hex) {
 	return 0;
 }
 
-- (void) installSignpostPluginFrom: (NSData*) signpostXml {
+- (void) installSignpostPluginFromData: (NSData*) signpostXml {
 	// Parse the property list
 	NSDictionary* update = [NSPropertyListSerialization propertyListWithData: signpostXml
 																	 options: NSPropertyListImmutable
@@ -3053,7 +3053,7 @@ static unsigned int ValueForHexChar(int hex) {
 	[activeDownload startDownload];
 }
 
-- (void) installPluginFrom: (ZoomDownload*) downloadedPlugin {
+- (void) installPluginFromDownload: (ZoomDownload*) downloadedPlugin {
 	NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [downloadedPlugin downloadDirectory] error: NULL] objectEnumerator];
 	NSString* path;
 	BOOL installed = NO;

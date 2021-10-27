@@ -64,7 +64,7 @@ class SavePreviewView: NSView {
 				previewURL.appendPathComponent("ZoomPreview.dat")
 				
 				var isDir: ObjCBool = false
-				guard urlIsAvailable(previewURL, isDirectory: &isDir, isPackage: nil, isReadable: nil), !isDir.boolValue else {
+				guard urlIsAvailable(previewURL, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil), !isDir.boolValue else {
 					continue
 				}
 				

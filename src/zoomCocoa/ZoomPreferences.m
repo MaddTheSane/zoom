@@ -62,8 +62,7 @@ static NSLock*          globalLock = nil;
 	@autoreleasepool {
     NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
 	ZoomPreferences* defaultPrefs = [[[self class] alloc] initWithDefaultPreferences];
-    NSDictionary *appDefaults = [NSDictionary dictionaryWithObject: [defaultPrefs dictionary]
-															forKey: @"ZoomGlobalPreferences"];
+	NSDictionary *appDefaults = @{@"ZoomGlobalPreferences": [defaultPrefs dictionary]};
 	
     [defaults registerDefaults: appDefaults];
 	
