@@ -264,7 +264,41 @@
 		552CF02427168668009D87A5 /* ZoomAdrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CF02327168668009D87A5 /* ZoomAdrift.swift */; };
 		552CF02D27176CFC009D87A5 /* scare in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552CEEAE2715109C009D87A5 /* scare */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		55368A862728FE3000740A0A /* ZoomQuest.zoomplugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 55BE4AE32709988700100A7D /* ZoomQuest.zoomplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55368A862728FE3000740A0A /* ZoomQuest.zoomPlugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 55BE4AE32709988700100A7D /* ZoomQuest.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55368AA6272A03F600740A0A /* ZoomAGT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55368AA5272A03C700740A0A /* ZoomAGT.swift */; };
+		55368AE4272A045800740A0A /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
+		55368AE5272A045800740A0A /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
+		55368B01272A049100740A0A /* agilstub.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AA8272A044A00740A0A /* agilstub.c */; };
+		55368B03272A04A600740A0A /* agt2agx.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB6272A044A00740A0A /* agt2agx.c */; };
+		55368B04272A04B300740A0A /* agtread.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB9272A044A00740A0A /* agtread.c */; };
+		55368B05272A04B300740A0A /* agtread.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB9272A044A00740A0A /* agtread.c */; };
+		55368B06272A04BC00740A0A /* gamedata.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AC2272A044A00740A0A /* gamedata.c */; };
+		55368B07272A04BD00740A0A /* gamedata.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AC2272A044A00740A0A /* gamedata.c */; };
+		55368B08272A04C600740A0A /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB2272A044A00740A0A /* util.c */; };
+		55368B09272A04C600740A0A /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB2272A044A00740A0A /* util.c */; };
+		55368B0A272A04CF00740A0A /* agxfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAA272A044A00740A0A /* agxfile.c */; };
+		55368B0B272A04D000740A0A /* agxfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAA272A044A00740A0A /* agxfile.c */; };
+		55368B0C272A04D800740A0A /* auxfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB7272A044A00740A0A /* auxfile.c */; };
+		55368B0D272A04E200740A0A /* filename.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB5272A044A00740A0A /* filename.c */; };
+		55368B0E272A04E300740A0A /* filename.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB5272A044A00740A0A /* filename.c */; };
+		55368B0F272A04FD00740A0A /* interface.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAC272A044A00740A0A /* interface.c */; };
+		55368B10272A050900740A0A /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAB272A044A00740A0A /* os_glk.c */; };
+		55368B11272A052A00740A0A /* agil in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368AE9272A045800740A0A /* agil */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55368B12272A052A00740A0A /* agt2agx in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368B00272A046400740A0A /* agt2agx */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55368B17272A054800740A0A /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ACF272A044A00740A0A /* parser.c */; };
+		55368B18272A054C00740A0A /* savegame.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ACA272A044A00740A0A /* savegame.c */; };
+		55368B19272A055000740A0A /* metacommand.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AC5272A044A00740A0A /* metacommand.c */; };
+		55368B1A272A056800740A0A /* runverb.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AC1272A044A00740A0A /* runverb.c */; };
+		55368B1B272A057900740A0A /* token.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ABA272A044A00740A0A /* token.c */; };
+		55368B1C272A058400740A0A /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB3272A044A00740A0A /* exec.c */; };
+		55368B1D272A058900740A0A /* agil.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB1272A044A00740A0A /* agil.c */; };
+		55368B1E272A059D00740A0A /* object.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAF272A044A00740A0A /* object.c */; };
+		55368B1F272A05CA00740A0A /* GPL in Resources */ = {isa = PBXBuildFile; fileRef = 55368AC6272A044A00740A0A /* GPL */; };
+		55368B20272A05DB00740A0A /* readme.glk in Resources */ = {isa = PBXBuildFile; fileRef = 55368ABC272A044A00740A0A /* readme.glk */; };
+		55368B21272A062F00740A0A /* auxfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB7272A044A00740A0A /* auxfile.c */; };
+		55368B22272A064C00740A0A /* debugcmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ACC272A044A00740A0A /* debugcmd.c */; };
+		55368B23272A075900740A0A /* disassemble.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAD272A044A00740A0A /* disassemble.c */; };
+		55368B2B272A0AFC00740A0A /* readme.agility in Resources */ = {isa = PBXBuildFile; fileRef = 55368AD1272A044A00740A0A /* readme.agility */; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
@@ -608,6 +642,76 @@
 			remoteGlobalIDString = 552CF01627168508009D87A5;
 			remoteInfo = Adrift;
 		};
+		55368A8A272A035E00740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
+			remoteInfo = ZoomPlugIns;
+		};
+		55368A8C272A035E00740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BD2747808701E6700C1AE15;
+			remoteInfo = ZoomView;
+		};
+		55368AD5272A045800740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B51AA5507E877C900576AB9;
+			remoteInfo = GlkClient;
+		};
+		55368AD7272A045800740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B51AA4607E8770600576AB9;
+			remoteInfo = GlkView;
+		};
+		55368AD9272A045800740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 552CEF1027152BDA009D87A5;
+			remoteInfo = glkmain;
+		};
+		55368AEC272A046400740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B51AA5507E877C900576AB9;
+			remoteInfo = GlkClient;
+		};
+		55368AEE272A046400740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B51AA4607E8770600576AB9;
+			remoteInfo = GlkView;
+		};
+		55368AF0272A046400740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 552CEF1027152BDA009D87A5;
+			remoteInfo = glkmain;
+		};
+		55368B13272A053600740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55368AD3272A045800740A0A;
+			remoteInfo = agil;
+		};
+		55368B15272A053600740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55368AEA272A046400740A0A;
+			remoteInfo = agt2agx;
+		};
 		554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
@@ -687,7 +791,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				55368A862728FE3000740A0A /* ZoomQuest.zoomplugin in Copy Glulxe plugin */,
+				55368A862728FE3000740A0A /* ZoomQuest.zoomPlugin in Copy Glulxe plugin */,
 				552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glulxe plugin */,
 				4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glulxe plugin */,
 			);
@@ -762,14 +866,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		55BA3BD027253B21007F6C82 /* CopyFiles */ = {
+		55368A96272A035E00740A0A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
+				55368B11272A052A00740A0A /* agil in CopyFiles */,
+				55368B12272A052A00740A0A /* agt2agx in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		55BA3C3127253D2E007F6C82 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -1103,6 +1209,53 @@
 		552CF01727168508009D87A5 /* Adrift.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Adrift.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		552CF022271685A2009D87A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552CF02327168668009D87A5 /* ZoomAdrift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAdrift.swift; sourceTree = "<group>"; };
+		55368A9B272A035E00740A0A /* AGT.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AGT.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		55368AA4272A03C700740A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55368AA5272A03C700740A0A /* ZoomAGT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAGT.swift; sourceTree = "<group>"; };
+		55368AA8272A044A00740A0A /* agilstub.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agilstub.c; sourceTree = "<group>"; };
+		55368AA9272A044A00740A0A /* agility.hdr */ = {isa = PBXFileReference; explicitFileType = text; path = agility.hdr; sourceTree = "<group>"; };
+		55368AAA272A044A00740A0A /* agxfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agxfile.c; sourceTree = "<group>"; };
+		55368AAB272A044A00740A0A /* os_glk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_glk.c; sourceTree = "<group>"; };
+		55368AAC272A044A00740A0A /* interface.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = interface.c; sourceTree = "<group>"; };
+		55368AAD272A044A00740A0A /* disassemble.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = disassemble.c; sourceTree = "<group>"; };
+		55368AAE272A044A00740A0A /* Makefile.linux */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.linux; sourceTree = "<group>"; };
+		55368AAF272A044A00740A0A /* object.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = object.c; sourceTree = "<group>"; };
+		55368AB0272A044A00740A0A /* agility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = agility.h; sourceTree = "<group>"; };
+		55368AB1272A044A00740A0A /* agil.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agil.c; sourceTree = "<group>"; };
+		55368AB2272A044A00740A0A /* util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		55368AB3272A044A00740A0A /* exec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; };
+		55368AB4272A044A00740A0A /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		55368AB5272A044A00740A0A /* filename.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = filename.c; sourceTree = "<group>"; };
+		55368AB6272A044A00740A0A /* agt2agx.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agt2agx.c; sourceTree = "<group>"; };
+		55368AB7272A044A00740A0A /* auxfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = auxfile.c; sourceTree = "<group>"; };
+		55368AB8272A044A00740A0A /* Makefile.glk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.glk; sourceTree = "<group>"; };
+		55368AB9272A044A00740A0A /* agtread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agtread.c; sourceTree = "<group>"; };
+		55368ABA272A044A00740A0A /* token.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = token.c; sourceTree = "<group>"; };
+		55368ABB272A044A00740A0A /* os_termcap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_termcap.c; sourceTree = "<group>"; };
+		55368ABC272A044A00740A0A /* readme.glk */ = {isa = PBXFileReference; explicitFileType = text; path = readme.glk; sourceTree = "<group>"; };
+		55368ABD272A044A00740A0A /* agtout.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agtout.c; sourceTree = "<group>"; };
+		55368ABE272A044A00740A0A /* os_none.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_none.c; sourceTree = "<group>"; };
+		55368ABF272A044A00740A0A /* changes.txt */ = {isa = PBXFileReference; explicitFileType = text; path = changes.txt; sourceTree = "<group>"; };
+		55368AC0272A044A00740A0A /* Makefile.dos */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.dos; sourceTree = "<group>"; };
+		55368AC1272A044A00740A0A /* runverb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = runverb.c; sourceTree = "<group>"; };
+		55368AC2272A044A00740A0A /* gamedata.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gamedata.c; sourceTree = "<group>"; };
+		55368AC3272A044A00740A0A /* readme.linux */ = {isa = PBXFileReference; explicitFileType = text; path = readme.linux; sourceTree = "<group>"; };
+		55368AC4272A044A00740A0A /* readme.dos */ = {isa = PBXFileReference; explicitFileType = text; path = readme.dos; sourceTree = "<group>"; };
+		55368AC5272A044A00740A0A /* metacommand.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = metacommand.c; sourceTree = "<group>"; };
+		55368AC6272A044A00740A0A /* GPL */ = {isa = PBXFileReference; explicitFileType = text; path = GPL; sourceTree = "<group>"; };
+		55368AC7272A044A00740A0A /* exec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = exec.h; sourceTree = "<group>"; };
+		55368AC8272A044A00740A0A /* Makefile.plain */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.plain; sourceTree = "<group>"; };
+		55368AC9272A044A00740A0A /* os_dos.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_dos.c; sourceTree = "<group>"; };
+		55368ACA272A044A00740A0A /* savegame.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = savegame.c; sourceTree = "<group>"; };
+		55368ACB272A044A00740A0A /* linux_pict */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = linux_pict; sourceTree = "<group>"; };
+		55368ACC272A044A00740A0A /* debugcmd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = debugcmd.c; sourceTree = "<group>"; };
+		55368ACD272A044A00740A0A /* porting.txt */ = {isa = PBXFileReference; explicitFileType = text; path = porting.txt; sourceTree = "<group>"; };
+		55368ACE272A044A00740A0A /* interp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interp.h; sourceTree = "<group>"; };
+		55368ACF272A044A00740A0A /* parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
+		55368AD1272A044A00740A0A /* readme.agility */ = {isa = PBXFileReference; explicitFileType = text; path = readme.agility; sourceTree = "<group>"; };
+		55368AD2272A044A00740A0A /* os_curses.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_curses.c; sourceTree = "<group>"; };
+		55368AE9272A045800740A0A /* agil */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agil; sourceTree = BUILT_PRODUCTS_DIR; };
+		55368B00272A046400740A0A /* agt2agx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agt2agx; sourceTree = BUILT_PRODUCTS_DIR; };
 		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
 		553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZoomiFictionController+OldWebKit.m"; sourceTree = "<group>"; };
 		553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSkeinXMLSwift.swift; sourceTree = "<group>"; };
@@ -1149,7 +1302,7 @@
 		55BE4AD927082EF800100A7D /* WhiteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteView.swift; sourceTree = "<group>"; };
 		55BE4ADB270832BA00100A7D /* FadeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeView.swift; sourceTree = "<group>"; };
 		55BE4ADD2708C2C000100A7D /* HQImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HQImageView.swift; sourceTree = "<group>"; };
-		55BE4AE32709988700100A7D /* ZoomQuest.zoomplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoomQuest.zoomplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		55BE4AE32709988700100A7D /* ZoomQuest.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoomQuest.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BE4AE8270998F600100A7D /* ZoomQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomQuest.swift; sourceTree = "<group>"; };
 		55BE4AF0270999B400100A7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BE4AF9270A645600100A7D /* varopdecode.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = varopdecode.pl; sourceTree = "<group>"; };
@@ -1281,6 +1434,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55368A91272A035E00740A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55368AE3272A045800740A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55368AE4272A045800740A0A /* GlkClient.framework in Frameworks */,
+				55368AE5272A045800740A0A /* libglkmain.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55368AFA272A046400740A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55BA3BCF27253B21007F6C82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1342,9 +1518,7 @@
 				4B1E3F5E050F7B2C00A8E303 /* Zoom */,
 				4BCF3F41050FB1C300A8E303 /* ZoomClient */,
 				4BCF3F42050FB1D800A8E303 /* Resources */,
-				4BD79A8A0BA2C95A002C82B2 /* babel */,
-				552CEEAF2715109C009D87A5 /* scare */,
-				55BA3BD327253B21007F6C82 /* geas */,
+				55368A87272A00DE00740A0A /* Dependencies */,
 				4B1E3F5F050F7B8100A8E303 /* Frameworks */,
 				4B1E3F55050F7B0E00A8E303 /* Products */,
 				4BD274C408701E6700C1AE15 /* Info-ZoomView__Upgraded_.plist */,
@@ -1373,10 +1547,13 @@
 				4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */,
 				4BD79A8F0BA2C9AA002C82B2 /* babel */,
 				4B7286E60CD3CAFF0079D89B /* ZoomSaveQuickLook.qlgenerator */,
-				55BE4AE32709988700100A7D /* ZoomQuest.zoomplugin */,
+				55BE4AE32709988700100A7D /* ZoomQuest.zoomPlugin */,
 				552CEEAE2715109C009D87A5 /* scare */,
 				552CF01727168508009D87A5 /* Adrift.zoomPlugin */,
 				55BA3BD227253B21007F6C82 /* geas */,
+				55368A9B272A035E00740A0A /* AGT.zoomPlugin */,
+				55368AE9272A045800740A0A /* agil */,
+				55368B00272A046400740A0A /* agt2agx */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1566,6 +1743,7 @@
 			isa = PBXGroup;
 			children = (
 				553C83662712382B002782C0 /* Resources */,
+				55368AA3272A03B600740A0A /* AGT */,
 				552CF02127168593009D87A5 /* Adrift */,
 				55BE4AE7270998B100100A7D /* Quest */,
 				4B36C44F0955ECDD00874F9F /* Glulxe */,
@@ -1740,8 +1918,7 @@
 				4BD79A9B0BA2CABF002C82B2 /* modules.h */,
 				4BD79A9E0BA2CABF002C82B2 /* treaty.h */,
 			);
-			name = babel;
-			path = depends/babel;
+			path = babel;
 			sourceTree = "<group>";
 			usesTabs = 0;
 		};
@@ -1900,8 +2077,7 @@
 				552CEED92715110C009D87A5 /* scvars.c */,
 			);
 			indentWidth = 2;
-			name = scare;
-			path = depends/scare;
+			path = scare;
 			sourceTree = "<group>";
 			usesTabs = 0;
 		};
@@ -1912,6 +2088,76 @@
 				552CF02327168668009D87A5 /* ZoomAdrift.swift */,
 			);
 			path = Adrift;
+			sourceTree = "<group>";
+		};
+		55368A87272A00DE00740A0A /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				55368AA7272A044A00740A0A /* agil111src_glk */,
+				4BD79A8A0BA2C95A002C82B2 /* babel */,
+				55BA3BD327253B21007F6C82 /* geas */,
+				552CEEAF2715109C009D87A5 /* scare */,
+			);
+			name = Dependencies;
+			path = depends;
+			sourceTree = "<group>";
+		};
+		55368AA3272A03B600740A0A /* AGT */ = {
+			isa = PBXGroup;
+			children = (
+				55368AA4272A03C700740A0A /* Info.plist */,
+				55368AA5272A03C700740A0A /* ZoomAGT.swift */,
+			);
+			path = AGT;
+			sourceTree = "<group>";
+		};
+		55368AA7272A044A00740A0A /* agil111src_glk */ = {
+			isa = PBXGroup;
+			children = (
+				55368AB1272A044A00740A0A /* agil.c */,
+				55368AB0272A044A00740A0A /* agility.h */,
+				55368AA9272A044A00740A0A /* agility.hdr */,
+				55368AA8272A044A00740A0A /* agilstub.c */,
+				55368AB6272A044A00740A0A /* agt2agx.c */,
+				55368ABD272A044A00740A0A /* agtout.c */,
+				55368AB9272A044A00740A0A /* agtread.c */,
+				55368AAA272A044A00740A0A /* agxfile.c */,
+				55368AB7272A044A00740A0A /* auxfile.c */,
+				55368ABF272A044A00740A0A /* changes.txt */,
+				55368AB4272A044A00740A0A /* config.h */,
+				55368ACC272A044A00740A0A /* debugcmd.c */,
+				55368AAD272A044A00740A0A /* disassemble.c */,
+				55368AB3272A044A00740A0A /* exec.c */,
+				55368AC7272A044A00740A0A /* exec.h */,
+				55368AB5272A044A00740A0A /* filename.c */,
+				55368AC2272A044A00740A0A /* gamedata.c */,
+				55368AC6272A044A00740A0A /* GPL */,
+				55368AAC272A044A00740A0A /* interface.c */,
+				55368ACE272A044A00740A0A /* interp.h */,
+				55368ACB272A044A00740A0A /* linux_pict */,
+				55368AC0272A044A00740A0A /* Makefile.dos */,
+				55368AB8272A044A00740A0A /* Makefile.glk */,
+				55368AAE272A044A00740A0A /* Makefile.linux */,
+				55368AC8272A044A00740A0A /* Makefile.plain */,
+				55368AC5272A044A00740A0A /* metacommand.c */,
+				55368AAF272A044A00740A0A /* object.c */,
+				55368AD2272A044A00740A0A /* os_curses.c */,
+				55368AC9272A044A00740A0A /* os_dos.c */,
+				55368AAB272A044A00740A0A /* os_glk.c */,
+				55368ABE272A044A00740A0A /* os_none.c */,
+				55368ABB272A044A00740A0A /* os_termcap.c */,
+				55368ACF272A044A00740A0A /* parser.c */,
+				55368ACD272A044A00740A0A /* porting.txt */,
+				55368AD1272A044A00740A0A /* readme.agility */,
+				55368AC4272A044A00740A0A /* readme.dos */,
+				55368ABC272A044A00740A0A /* readme.glk */,
+				55368AC3272A044A00740A0A /* readme.linux */,
+				55368AC1272A044A00740A0A /* runverb.c */,
+				55368ACA272A044A00740A0A /* savegame.c */,
+				55368ABA272A044A00740A0A /* token.c */,
+				55368AB2272A044A00740A0A /* util.c */,
+			);
+			path = agil111src_glk;
 			sourceTree = "<group>";
 		};
 		553C83662712382B002782C0 /* Resources */ = {
@@ -1930,8 +2176,7 @@
 				55BA3BF927253B5B007F6C82 /* glk-ui */,
 			);
 			indentWidth = 2;
-			name = geas;
-			path = depends/geas;
+			path = geas;
 			sourceTree = "<group>";
 			tabWidth = 8;
 		};
@@ -2011,8 +2256,8 @@
 		55BE4AE7270998B100100A7D /* Quest */ = {
 			isa = PBXGroup;
 			children = (
-				55BE4AE8270998F600100A7D /* ZoomQuest.swift */,
 				55BE4AF0270999B400100A7D /* Info.plist */,
+				55BE4AE8270998F600100A7D /* ZoomQuest.swift */,
 			);
 			path = Quest;
 			sourceTree = "<group>";
@@ -2338,13 +2583,72 @@
 			productReference = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */;
 			productType = "com.apple.product-type.bundle";
 		};
+		55368A88272A035E00740A0A /* AGT */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55368A98272A035E00740A0A /* Build configuration list for PBXNativeTarget "AGT" */;
+			buildPhases = (
+				55368A8F272A035E00740A0A /* Sources */,
+				55368A91272A035E00740A0A /* Frameworks */,
+				55368A92272A035E00740A0A /* Resources */,
+				55368A96272A035E00740A0A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55368B14272A053600740A0A /* PBXTargetDependency */,
+				55368B16272A053600740A0A /* PBXTargetDependency */,
+				55368A89272A035E00740A0A /* PBXTargetDependency */,
+				55368A8B272A035E00740A0A /* PBXTargetDependency */,
+			);
+			name = AGT;
+			productName = Adrift;
+			productReference = 55368A9B272A035E00740A0A /* AGT.zoomPlugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+		55368AD3272A045800740A0A /* agil */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55368AE6272A045800740A0A /* Build configuration list for PBXNativeTarget "agil" */;
+			buildPhases = (
+				55368ADA272A045800740A0A /* Sources */,
+				55368AE3272A045800740A0A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55368AD4272A045800740A0A /* PBXTargetDependency */,
+				55368AD6272A045800740A0A /* PBXTargetDependency */,
+				55368AD8272A045800740A0A /* PBXTargetDependency */,
+			);
+			name = agil;
+			productName = geas;
+			productReference = 55368AE9272A045800740A0A /* agil */;
+			productType = "com.apple.product-type.tool";
+		};
+		55368AEA272A046400740A0A /* agt2agx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55368AFD272A046400740A0A /* Build configuration list for PBXNativeTarget "agt2agx" */;
+			buildPhases = (
+				55368AF1272A046400740A0A /* Sources */,
+				55368AFA272A046400740A0A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55368AEB272A046400740A0A /* PBXTargetDependency */,
+				55368AED272A046400740A0A /* PBXTargetDependency */,
+				55368AEF272A046400740A0A /* PBXTargetDependency */,
+			);
+			name = agt2agx;
+			productName = geas;
+			productReference = 55368B00272A046400740A0A /* agt2agx */;
+			productType = "com.apple.product-type.tool";
+		};
 		55BA3BD127253B21007F6C82 /* geas */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55BA3BDD27253B21007F6C82 /* Build configuration list for PBXNativeTarget "geas" */;
 			buildPhases = (
 				55BA3BCE27253B21007F6C82 /* Sources */,
 				55BA3BCF27253B21007F6C82 /* Frameworks */,
-				55BA3BD027253B21007F6C82 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2376,7 +2680,7 @@
 			);
 			name = ZoomQuest;
 			productName = Quest;
-			productReference = 55BE4AE32709988700100A7D /* ZoomQuest.zoomplugin */;
+			productReference = 55BE4AE32709988700100A7D /* ZoomQuest.zoomPlugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -2452,6 +2756,9 @@
 				552CEEAD2715109C009D87A5 /* scare */,
 				552CF01627168508009D87A5 /* Adrift */,
 				55BA3BD127253B21007F6C82 /* geas */,
+				55368A88272A035E00740A0A /* AGT */,
+				55368AD3272A045800740A0A /* agil */,
+				55368AEA272A046400740A0A /* agt2agx */,
 			);
 		};
 /* End PBXProject section */
@@ -2608,6 +2915,16 @@
 				55BA3C3727254530007F6C82 /* CONTACT.txt in Resources */,
 				55BA3C3527254529007F6C82 /* gpl.txt in Resources */,
 				55BA3C362725452D007F6C82 /* CREDITS in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55368A92272A035E00740A0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55368B2B272A0AFC00740A0A /* readme.agility in Resources */,
+				55368B20272A05DB00740A0A /* readme.glk in Resources */,
+				55368B1F272A05CA00740A0A /* GPL in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2867,6 +3184,54 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55368A8F272A035E00740A0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55368AA6272A03F600740A0A /* ZoomAGT.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55368ADA272A045800740A0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55368B0F272A04FD00740A0A /* interface.c in Sources */,
+				55368B19272A055000740A0A /* metacommand.c in Sources */,
+				55368B0A272A04CF00740A0A /* agxfile.c in Sources */,
+				55368B1C272A058400740A0A /* exec.c in Sources */,
+				55368B04272A04B300740A0A /* agtread.c in Sources */,
+				55368B17272A054800740A0A /* parser.c in Sources */,
+				55368B1A272A056800740A0A /* runverb.c in Sources */,
+				55368B0D272A04E200740A0A /* filename.c in Sources */,
+				55368B1D272A058900740A0A /* agil.c in Sources */,
+				55368B18272A054C00740A0A /* savegame.c in Sources */,
+				55368B1B272A057900740A0A /* token.c in Sources */,
+				55368B21272A062F00740A0A /* auxfile.c in Sources */,
+				55368B10272A050900740A0A /* os_glk.c in Sources */,
+				55368B22272A064C00740A0A /* debugcmd.c in Sources */,
+				55368B1E272A059D00740A0A /* object.c in Sources */,
+				55368B06272A04BC00740A0A /* gamedata.c in Sources */,
+				55368B08272A04C600740A0A /* util.c in Sources */,
+				55368B23272A075900740A0A /* disassemble.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55368AF1272A046400740A0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55368B09272A04C600740A0A /* util.c in Sources */,
+				55368B03272A04A600740A0A /* agt2agx.c in Sources */,
+				55368B0B272A04D000740A0A /* agxfile.c in Sources */,
+				55368B01272A049100740A0A /* agilstub.c in Sources */,
+				55368B0E272A04E300740A0A /* filename.c in Sources */,
+				55368B0C272A04D800740A0A /* auxfile.c in Sources */,
+				55368B05272A04B300740A0A /* agtread.c in Sources */,
+				55368B07272A04BD00740A0A /* gamedata.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55BA3BCE27253B21007F6C82 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3032,6 +3397,56 @@
 			isa = PBXTargetDependency;
 			target = 552CF01627168508009D87A5 /* Adrift */;
 			targetProxy = 552CF03227176D45009D87A5 /* PBXContainerItemProxy */;
+		};
+		55368A89272A035E00740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
+			targetProxy = 55368A8A272A035E00740A0A /* PBXContainerItemProxy */;
+		};
+		55368A8B272A035E00740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BD2747808701E6700C1AE15 /* ZoomView */;
+			targetProxy = 55368A8C272A035E00740A0A /* PBXContainerItemProxy */;
+		};
+		55368AD4272A045800740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GlkClient;
+			targetProxy = 55368AD5272A045800740A0A /* PBXContainerItemProxy */;
+		};
+		55368AD6272A045800740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GlkView;
+			targetProxy = 55368AD7272A045800740A0A /* PBXContainerItemProxy */;
+		};
+		55368AD8272A045800740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = glkmain;
+			targetProxy = 55368AD9272A045800740A0A /* PBXContainerItemProxy */;
+		};
+		55368AEB272A046400740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GlkClient;
+			targetProxy = 55368AEC272A046400740A0A /* PBXContainerItemProxy */;
+		};
+		55368AED272A046400740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GlkView;
+			targetProxy = 55368AEE272A046400740A0A /* PBXContainerItemProxy */;
+		};
+		55368AEF272A046400740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = glkmain;
+			targetProxy = 55368AF0272A046400740A0A /* PBXContainerItemProxy */;
+		};
+		55368B14272A053600740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55368AD3272A045800740A0A /* agil */;
+			targetProxy = 55368B13272A053600740A0A /* PBXContainerItemProxy */;
+		};
+		55368B16272A053600740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55368AEA272A046400740A0A /* agt2agx */;
+			targetProxy = 55368B15272A053600740A0A /* PBXContainerItemProxy */;
 		};
 		55982BEC21C0CE43002B601B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3854,6 +4269,144 @@
 			};
 			name = Release;
 		};
+		55368A99272A035E00740A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/AGT/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Adrift";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.AGT;
+				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Debug;
+		};
+		55368A9A272A035E00740A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/AGT/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Adrift";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.AGT;
+				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Release;
+		};
+		55368AE7272A045800740A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"GLK=1",
+					"__unix=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55368AE8272A045800740A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"GLK=1",
+					"__unix=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		55368AFE272A046400740A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55368AFF272A046400740A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		55BA3BD627253B21007F6C82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3915,7 +4468,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.zoom.Quest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = zoomplugin;
+				WRAPPER_EXTENSION = zoomPlugin;
 			};
 			name = Debug;
 		};
@@ -3940,7 +4493,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.zoom.Quest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = zoomplugin;
+				WRAPPER_EXTENSION = zoomPlugin;
 			};
 			name = Release;
 		};
@@ -4060,6 +4613,33 @@
 			buildConfigurations = (
 				552CF01927168508009D87A5 /* Debug */,
 				552CF01A27168508009D87A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55368A98272A035E00740A0A /* Build configuration list for PBXNativeTarget "AGT" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55368A99272A035E00740A0A /* Debug */,
+				55368A9A272A035E00740A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55368AE6272A045800740A0A /* Build configuration list for PBXNativeTarget "agil" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55368AE7272A045800740A0A /* Debug */,
+				55368AE8272A045800740A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55368AFD272A046400740A0A /* Build configuration list for PBXNativeTarget "agt2agx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55368AFE272A046400740A0A /* Debug */,
+				55368AFF272A046400740A0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
