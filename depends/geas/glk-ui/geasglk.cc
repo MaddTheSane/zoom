@@ -42,16 +42,16 @@
 class GeasGlkInterface : public GeasInterface
 {
 protected:
-    virtual std::string get_file (std::string) const;
-    virtual GeasResult print_normal (std::string);
+    virtual std::string get_file (const std::string &) const;
+    virtual GeasResult print_normal (const std::string &);
     virtual GeasResult print_newline ();
 
-    virtual void set_foreground (std::string);
-    virtual void set_background (std::string);
+    virtual void set_foreground (const std::string &);
+    virtual void set_background (const std::string &);
 
-    virtual uint make_choice (std::string, std::vector<std::string>);
+    virtual uint make_choice (const std::string &, std::vector<std::string>);
 
-  virtual std::string absolute_name (std::string, std::string) const;
+  virtual std::string absolute_name (const std::string &, const std::string &) const;
 public:
     GeasGlkInterface() { ; }
 };
@@ -149,7 +149,7 @@ glk_put_cstring(const char *s)
 }
 
 GeasResult
-GeasGlkInterface::print_normal (std::string s)
+GeasGlkInterface::print_normal (const std::string &s)
 {
     glk_put_cstring(s.c_str());
     return r_success;
@@ -168,7 +168,7 @@ GeasResult GeasGlkInterface::set_style (const GeasFontStyle &style)
 #endif
 
 void
-GeasGlkInterface::set_foreground (std::string s) 
+GeasGlkInterface::set_foreground (const std::string &s)
 { 
     if (s != "") 
     {
@@ -176,7 +176,7 @@ GeasGlkInterface::set_foreground (std::string s)
 }
 
 void
-GeasGlkInterface::set_background (std::string s) 
+GeasGlkInterface::set_background (const std::string &s)
 { 
     if (s != "") 
     {
@@ -188,7 +188,7 @@ GeasGlkInterface::set_background (std::string s)
  * GeasInterface?
  */
 std::string
-GeasGlkInterface::get_file (std::string fname) const
+GeasGlkInterface::get_file (const std::string &fname) const
 {
   std::ifstream ifs;
   ifs.open(fname.c_str());
@@ -211,7 +211,7 @@ GeasGlkInterface::get_file (std::string fname) const
 }
 
 uint
-GeasGlkInterface::make_choice (std::string label, std::vector<std::string> v)
+GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string> v)
 {
     size_t n;
 
@@ -276,7 +276,7 @@ got_choice:
     return choice - 1;
 }
 
-std::string GeasGlkInterface::absolute_name (std::string rel_name, std::string parent) const {
+std::string GeasGlkInterface::absolute_name (const std::string &rel_name, const std::string &parent) const {
   std::cerr << "absolute_name ('" << rel_name << "', '" << parent << "')\n";
   assert (parent[0] == '/');
   if (rel_name[0] == '/')

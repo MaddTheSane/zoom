@@ -81,16 +81,16 @@ class geas_implementation : public GeasRunner
 public:
   geas_implementation (GeasInterface *in_gi) : GeasRunner (in_gi), undo_buffer (20) {}
   //void set_game (std::string s);
-  void set_game (std::string s);
+  void set_game (const std::string &s);
 
-  void run_command (std::string);
+  void run_command (const std::string &);
   bool try_match (std::string s, bool, bool);
   match_rv match_command (std::string input, std::string action) const;
   match_rv match_command (std::string input, uint ichar,
 			  std::string action, uint achar, match_rv rv) const;
   bool dereference_vars (std::vector<match_binding> &bindings, bool is_internal) const;
   bool dereference_vars (std::vector<match_binding>&, const std::vector<std::string>&, bool is_internal) const;
-  bool match_object (std::string text, std::string name, bool is_internal = false) const;
+  bool match_object (const std::string &text, const std::string &name, bool is_internal = false) const;
   void set_vars (const std::vector<match_binding> &v);
   bool run_commands (std::string, const GeasBlock *, bool is_internal = false);
 

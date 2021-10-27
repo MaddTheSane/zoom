@@ -127,7 +127,7 @@ public:
   */
 };
 
-void save_game_to (std::string gamename, std::string savename, const GeasState &gs);
+void save_game_to (const std::string &gamename, const std::string &savename, const GeasState &gs);
 
 std::ostream &operator<< (std::ostream &o, const std::map <std::string, std::string> &m);
 std::ostream &operator<< (std::ostream &o, const PropertyRecord &pr);

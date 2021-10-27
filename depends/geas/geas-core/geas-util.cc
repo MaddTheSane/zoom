@@ -186,7 +186,7 @@ string lcase (string s)
 vector<string> split_param (const string &s)
 {
   vector<string> rv;
-  std::basic_string<char>::size_type c1 = 0, c2;
+  std::string::size_type c1 = 0, c2;
 
   for (;;)
     {
@@ -204,13 +204,17 @@ vector<string> split_param (const string &s)
 vector<string> split_f_args (const string &s)
 {
   vector<string> rv = split_param (s);
-  for (uint i = 0; i < rv.size(); i ++)
+  for (auto &i: rv)
     {
-      string tmp = rv[i];
+      const string &tmp = i;
       if (tmp[0] == '_')
-	rv[i][0] = ' ';
+	{
+	  i[0] = ' ';
+	}
       if (tmp[tmp.length() - 1] == '_')
-	rv[i][tmp.length() - 1] = ' ';
+	{
+	  i[tmp.length() - 1] = ' ';
+	}
     }
   return rv;
 }
@@ -219,7 +223,7 @@ void show_split (const string &s)
 {
   vector<string> tmp = split_param (s);
   cerr << "Splitting <" << s << ">: ";
-  for (uint i = 0; i < tmp.size(); i ++)
-    cerr << "<" << tmp[i] << ">, ";
+  for (const auto &i: tmp)
+    cerr << "<" << i << ">, ";
   cerr << "\n";
 }

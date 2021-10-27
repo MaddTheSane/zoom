@@ -51,7 +51,7 @@ public:
   GeasOutputStream &put (unsigned long i) { o << i; o.put (char (0)); return *this; } // for Mac OS X ...
   
 
-  void write_out (string gamename, string savename)
+  void write_out (const string &gamename, const string &savename)
   {
     ofstream ofs;
     ofs.open (savename.c_str());
@@ -122,7 +122,7 @@ void write_to (GeasOutputStream &gos, const GeasState &gs)
   write_to (gos, gs.ivars);
 }
 
-void save_game_to (std::string gamename, std::string savename, const GeasState &gs)
+void save_game_to (const std::string &gamename, const std::string &savename, const GeasState &gs)
 {
   GeasOutputStream gos;
   write_to (gos, gs);
