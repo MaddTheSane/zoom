@@ -185,9 +185,9 @@ int geas_implementation::get_ivar (const string &varname) const
 }
 int geas_implementation::get_ivar (const string &varname, size_t index) const
 {
-  for (uint i = 0; i < state.ivars.size(); i ++)
-    if (ci_equal (state.ivars[i].name, varname))
-      return state.ivars[i].get(index);
+  for (auto &i: state.ivars)
+    if (ci_equal (i.name, varname))
+      return i.get(index);
   gi->debug_print ("get_ivar: Tried to read undefined int '" + varname +
 		   "' [" + string_int(index) + "]");
   return -32767;
@@ -196,7 +196,10 @@ void geas_implementation::set_ivar (const string &varname, int varval)
 {
   std::string::size_type i1 = varname.find ('[');
   if (i1 == string::npos)
-    return set_ivar (varname, 0, varval); 
+    {
+      set_ivar (varname, 0, varval);
+      return;
+    }
   if (varname[varname.length() - 1] != ']')
     {
       gi->debug_print ("set_ivar: Badly formatted name " + varname);
@@ -366,7 +369,7 @@ void geas_implementation::set_obj_property (const string &obj, const string &pro
     }
 }
 
-void geas_implementation::set_obj_action (const string &obj, const string &act) 
+void geas_implementation::set_obj_action (const string &obj, const string &act)
 {
   state.props.push_back (PropertyRecord (obj, "action " + act));
 }
@@ -859,11 +862,11 @@ void geas_implementation::set_game (string s)
       /* TODO do I run the startscript or print the opening text first? */
       run_script ("displaytext <intro>");
 
-      for (uint i = 0; i < game.data.size(); i ++)
+      for (auto i: game.data)
 	// SENSITIVE?
-	if (first_token (game.data[i], c1, c2) == "startscript")
+	if (first_token (i, c1, c2) == "startscript")
 	  {
-	    run_script_as ("game", game.data[i].substr (c2 + 1));
+	    run_script_as ("game", i.substr (c2 + 1));
 	    //run_script (game.data[i].substr (c2 + 1));
 	    break;
 	  }
@@ -887,15 +890,15 @@ void geas_implementation::regen_var_objects ()
 {
   string tmp;
   vector <string> objs;
-  for (uint i = 0; i < state.objs.size(); i ++)
+  for (auto &i: state.objs)
     {
       //cerr << "r_v_o: Checking '" << state.objs[i].name << "' (" << state.objs[i].parent << "): " << ((state.objs[i].parent == state.location) ? "YES" : "NO") << endl;
-      if (ci_equal (state.objs[i].parent, state.location) && 
-	  !get_obj_property (state.objs[i].name, "hidden", tmp) &&
-	  !get_obj_property (state.objs[i].name, "invisible", tmp))
+      if (ci_equal (i.parent, state.location) &&
+	  !get_obj_property (i.name, "hidden", tmp) &&
+	  !get_obj_property (i.name, "invisible", tmp))
 	  //!state.objs[i].hidden &&
 	  //!state.objs[i].invisible)
-	objs.push_back (state.objs[i].name);
+	objs.push_back (i.name);
     }
   string qobjs = "", qfobjs = "";
   string objname, prefix, main, suffix, propval, print1, print2;
