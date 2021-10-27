@@ -1218,7 +1218,6 @@
 		55368AAB272A044A00740A0A /* os_glk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_glk.c; sourceTree = "<group>"; };
 		55368AAC272A044A00740A0A /* interface.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = interface.c; sourceTree = "<group>"; };
 		55368AAD272A044A00740A0A /* disassemble.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = disassemble.c; sourceTree = "<group>"; };
-		55368AAE272A044A00740A0A /* Makefile.linux */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.linux; sourceTree = "<group>"; };
 		55368AAF272A044A00740A0A /* object.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = object.c; sourceTree = "<group>"; };
 		55368AB0272A044A00740A0A /* agility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = agility.h; sourceTree = "<group>"; };
 		55368AB1272A044A00740A0A /* agil.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agil.c; sourceTree = "<group>"; };
@@ -1228,32 +1227,22 @@
 		55368AB5272A044A00740A0A /* filename.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = filename.c; sourceTree = "<group>"; };
 		55368AB6272A044A00740A0A /* agt2agx.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agt2agx.c; sourceTree = "<group>"; };
 		55368AB7272A044A00740A0A /* auxfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = auxfile.c; sourceTree = "<group>"; };
-		55368AB8272A044A00740A0A /* Makefile.glk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.glk; sourceTree = "<group>"; };
 		55368AB9272A044A00740A0A /* agtread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agtread.c; sourceTree = "<group>"; };
 		55368ABA272A044A00740A0A /* token.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = token.c; sourceTree = "<group>"; };
-		55368ABB272A044A00740A0A /* os_termcap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_termcap.c; sourceTree = "<group>"; };
 		55368ABC272A044A00740A0A /* readme.glk */ = {isa = PBXFileReference; explicitFileType = text; path = readme.glk; sourceTree = "<group>"; };
 		55368ABD272A044A00740A0A /* agtout.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agtout.c; sourceTree = "<group>"; };
-		55368ABE272A044A00740A0A /* os_none.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_none.c; sourceTree = "<group>"; };
 		55368ABF272A044A00740A0A /* changes.txt */ = {isa = PBXFileReference; explicitFileType = text; path = changes.txt; sourceTree = "<group>"; };
-		55368AC0272A044A00740A0A /* Makefile.dos */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.dos; sourceTree = "<group>"; };
 		55368AC1272A044A00740A0A /* runverb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = runverb.c; sourceTree = "<group>"; };
 		55368AC2272A044A00740A0A /* gamedata.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gamedata.c; sourceTree = "<group>"; };
-		55368AC3272A044A00740A0A /* readme.linux */ = {isa = PBXFileReference; explicitFileType = text; path = readme.linux; sourceTree = "<group>"; };
-		55368AC4272A044A00740A0A /* readme.dos */ = {isa = PBXFileReference; explicitFileType = text; path = readme.dos; sourceTree = "<group>"; };
 		55368AC5272A044A00740A0A /* metacommand.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = metacommand.c; sourceTree = "<group>"; };
 		55368AC6272A044A00740A0A /* GPL */ = {isa = PBXFileReference; explicitFileType = text; path = GPL; sourceTree = "<group>"; };
 		55368AC7272A044A00740A0A /* exec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = exec.h; sourceTree = "<group>"; };
-		55368AC8272A044A00740A0A /* Makefile.plain */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.plain; sourceTree = "<group>"; };
-		55368AC9272A044A00740A0A /* os_dos.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_dos.c; sourceTree = "<group>"; };
 		55368ACA272A044A00740A0A /* savegame.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = savegame.c; sourceTree = "<group>"; };
-		55368ACB272A044A00740A0A /* linux_pict */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = linux_pict; sourceTree = "<group>"; };
 		55368ACC272A044A00740A0A /* debugcmd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = debugcmd.c; sourceTree = "<group>"; };
 		55368ACD272A044A00740A0A /* porting.txt */ = {isa = PBXFileReference; explicitFileType = text; path = porting.txt; sourceTree = "<group>"; };
 		55368ACE272A044A00740A0A /* interp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interp.h; sourceTree = "<group>"; };
 		55368ACF272A044A00740A0A /* parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
 		55368AD1272A044A00740A0A /* readme.agility */ = {isa = PBXFileReference; explicitFileType = text; path = readme.agility; sourceTree = "<group>"; };
-		55368AD2272A044A00740A0A /* os_curses.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_curses.c; sourceTree = "<group>"; };
 		55368AE9272A045800740A0A /* agil */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agil; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368B00272A046400740A0A /* agt2agx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agt2agx; sourceTree = BUILT_PRODUCTS_DIR; };
 		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
@@ -2134,24 +2123,13 @@
 				55368AC6272A044A00740A0A /* GPL */,
 				55368AAC272A044A00740A0A /* interface.c */,
 				55368ACE272A044A00740A0A /* interp.h */,
-				55368ACB272A044A00740A0A /* linux_pict */,
-				55368AC0272A044A00740A0A /* Makefile.dos */,
-				55368AB8272A044A00740A0A /* Makefile.glk */,
-				55368AAE272A044A00740A0A /* Makefile.linux */,
-				55368AC8272A044A00740A0A /* Makefile.plain */,
 				55368AC5272A044A00740A0A /* metacommand.c */,
 				55368AAF272A044A00740A0A /* object.c */,
-				55368AD2272A044A00740A0A /* os_curses.c */,
-				55368AC9272A044A00740A0A /* os_dos.c */,
 				55368AAB272A044A00740A0A /* os_glk.c */,
-				55368ABE272A044A00740A0A /* os_none.c */,
-				55368ABB272A044A00740A0A /* os_termcap.c */,
 				55368ACF272A044A00740A0A /* parser.c */,
 				55368ACD272A044A00740A0A /* porting.txt */,
 				55368AD1272A044A00740A0A /* readme.agility */,
-				55368AC4272A044A00740A0A /* readme.dos */,
 				55368ABC272A044A00740A0A /* readme.glk */,
-				55368AC3272A044A00740A0A /* readme.linux */,
 				55368AC1272A044A00740A0A /* runverb.c */,
 				55368ACA272A044A00740A0A /* savegame.c */,
 				55368ABA272A044A00740A0A /* token.c */,
