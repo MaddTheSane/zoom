@@ -316,7 +316,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 
 #pragma mark - Getting information about plugins
 
-- (NSDictionary*) plistForBundle: (NSString*) pluginBundle {
+- (NSDictionary*) plistForBundleAtPath: (NSString*) pluginBundle {
 	if (pluginBundle == nil) return nil;
 	
 	// Standardise the plugin path
@@ -371,7 +371,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 
 - (NSString*) nameForBundle: (NSString*) pluginBundle {
 	// Get the plist for the plugin
-	NSDictionary* plist = [self plistForBundle: pluginBundle];
+	NSDictionary* plist = [self plistForBundleAtPath: pluginBundle];
 	if (plist == nil) return nil;
 	NSDictionary* zoomPlugins = [plist objectForKey: @"ZoomPlugin"];
 	
@@ -387,7 +387,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 
 - (NSString*) authorForBundle: (NSString*) pluginBundle {
 	// Get the plist for the plugin
-	NSDictionary* plist = [self plistForBundle: pluginBundle];
+	NSDictionary* plist = [self plistForBundleAtPath: pluginBundle];
 	if (plist == nil) return nil;
 	NSDictionary* zoomPlugins = [plist objectForKey: @"ZoomPlugin"];
 	
@@ -406,7 +406,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 
 - (NSString*) versionForBundle: (NSString*) pluginBundle {
 	// Get the plist for the plugin
-	NSDictionary* plist = [self plistForBundle: pluginBundle];
+	NSDictionary* plist = [self plistForBundleAtPath: pluginBundle];
 	if (plist == nil) return nil;
 	NSDictionary* zoomPlugins = [plist objectForKey: @"ZoomPlugin"];
 	
@@ -422,7 +422,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 
 - (NSString*) terpAuthorForBundle: (NSString*) pluginBundle {
 	// Get the plist for the plugin
-	NSDictionary* plist = [self plistForBundle: pluginBundle];
+	NSDictionary* plist = [self plistForBundleAtPath: pluginBundle];
 	if (plist == nil) return nil;
 	NSDictionary* zoomPlugins = [plist objectForKey: @"ZoomPlugin"];
 	
@@ -484,8 +484,6 @@ static int RankForStatus(ZoomPlugInStatus status) {
 			return NSOrderedDescending;
 		else if (RankForStatus(firstStatus) > RankForStatus(secondStatus))
 			return NSOrderedAscending;
-		else
-			return NSOrderedSame;
 		
 		// Then sort by the name of the plugin
 		return [[first name] caseInsensitiveCompare: [second name]];

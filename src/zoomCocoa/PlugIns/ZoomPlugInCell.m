@@ -37,15 +37,9 @@
 	}
 	
 	// Load the image for this plugin
-	NSString* imageFile = [objectValue imagePath];
 	NSImage* pluginImage = objectValue.image;
-	if (pluginImage == nil && imageFile != nil && [[NSFileManager defaultManager] fileExistsAtPath: imageFile]) {
-		pluginImage = [[NSImage alloc] initWithContentsOfFile: imageFile];
-	} else if (pluginImage == nil) {
-		pluginImage = [NSImage imageNamed: @"zoom-app"];
-	}
 	
-	[pluginImage setCacheMode: NSImageCacheNever];
+//	[pluginImage setCacheMode: NSImageCacheNever];
 	
 	// Draw the image for this plugin
 	CGFloat drawHeight, drawWidth;

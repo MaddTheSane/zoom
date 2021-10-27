@@ -408,7 +408,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 
 @end
 
-// == ZBuffer ==
+#pragma mark - ZBuffer
 
 // Buffer type strings
 static NSString* const ZBufferWriteString  = @"ZBWS";

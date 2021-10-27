@@ -15,7 +15,7 @@
 #pragma mark - Initialisation
 
 - (id) initWithBundleFilename: (NSString*) bundle {
-	NSDictionary* plist = [[ZoomPlugInManager sharedPlugInManager] plistForBundle: bundle];
+	NSDictionary* plist = [[ZoomPlugInManager sharedPlugInManager] plistForBundleAtPath: bundle];
 
 	// No information available if there's no plist for this bundle
 	if (plist == nil) {
@@ -27,24 +27,29 @@
 	
 	if (self) {
 		// Get the information out of the plist
-		imagePath = [[plist objectForKey: @"ZoomPlugin"] objectForKey: @"Image"];
+		NSString *imagePath = [[plist objectForKey: @"ZoomPlugin"] objectForKey: @"Image"];
 		if (imagePath) {
 			// trim and clean-up!
 			NSString *tmpImgName = [imagePath.lastPathComponent stringByDeletingPathExtension];
 			NSImage *tmpImage = [[NSBundle bundleWithPath:bundle] imageForResource:tmpImgName];
 			if (!tmpImage) {
-				tmpImage = [[NSBundle mainBundle] imageForResource:tmpImgName];
+				tmpImage = [NSImage imageNamed:tmpImgName];
 			}
 			if (!tmpImage) {
-				tmpImage = [NSImage imageNamed:tmpImgName];
+				tmpImage = [[NSBundle mainBundle] imageForResource:tmpImgName];
 			}
 			if (tmpImage) {
 				image = tmpImage;
 			}
 		}
 		
-		if (imagePath != nil) {
+		if (imagePath != nil && image == nil) {
 			imagePath = [[bundle stringByAppendingPathComponent: imagePath] stringByStandardizingPath];
+			image = [[NSImage alloc] initWithContentsOfFile:imagePath];
+		}
+		
+		if (!image) {
+			image = [NSImage imageNamed: @"zoom-app"];
 		}
 		
 		// Work out the status (installed or downloaded as we're working from a path)
@@ -89,8 +94,7 @@ static unsigned int ValueForHexChar(int hex) {
 		interpreterAuthor	= [plist objectForKey: @"InterpreterAuthor"];
 		interpreterVersion	= [plist objectForKey: @"InterpreterVersion"];
 		version				= [plist objectForKey: @"Version"];
-		imagePath			= nil;
-		image				= [NSImage imageNamed: @"zoom-app"];
+		image				= nil;
 		status				= ZoomPlugInNotKnown;
 		
 		if ([plist objectForKey: @"URL"] != nil) {
@@ -157,7 +161,6 @@ static unsigned int ValueForHexChar(int hex) {
 	newInfo->interpreterAuthor 	= [interpreterAuthor copy];
 	newInfo->version 			= [version copy];
 	newInfo->image 				= [image copy];
-	newInfo->imagePath			= [imagePath copy];
 	newInfo->location 			= [location copy];
 	newInfo->md5 				= [md5 copy];
 	newInfo->status 			= status;
@@ -174,7 +177,6 @@ static unsigned int ValueForHexChar(int hex) {
 @synthesize version;
 @synthesize interpreterAuthor;
 @synthesize interpreterVersion;
-@synthesize imagePath;
 @synthesize status;
 
 - (NSString*) description {
