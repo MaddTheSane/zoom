@@ -186,7 +186,7 @@ string lcase (string s)
 vector<string> split_param (string s)
 {
   vector<string> rv;
-  uint c1 = 0, c2;
+  std::basic_string<char>::size_type c1 = 0, c2;
 
   for (;;)
     {

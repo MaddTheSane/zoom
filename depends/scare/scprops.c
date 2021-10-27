@@ -282,7 +282,7 @@ prop_find_child (sc_prop_noderef_t parent, sc_int type, sc_vartype_t name)
   if (parent->child_list)
     {
       sc_int index_;
-      sc_prop_noderef_t child;
+      sc_prop_noderef_t child = NULL;
 
       /* Do the lookup based on name type. */
       switch (type)

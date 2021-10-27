@@ -49,6 +49,8 @@ bool starts_with (std::string, std::string);
 bool ends_with (std::string, std::string);
 
 std::string string_int (int i);
+std::string string_int (uint i);
+std::string string_int (size_t i);
 
 std::string trim_braces (std::string s);
 

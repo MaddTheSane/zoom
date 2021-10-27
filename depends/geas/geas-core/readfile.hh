@@ -32,11 +32,11 @@
 #include <iostream>
 
 std::vector<std::string> tokenize (std::string s);
-std::string next_token (std::string full, uint &tok_start, uint &tok_end, bool cvt_paren = false);
-std::string first_token (std::string s, uint &t_start, uint &t_end);
+std::string next_token (std::string full, std::string::size_type &tok_start, std::string::size_type &tok_end, bool cvt_paren = false);
+std::string first_token (std::string s, std::string::size_type &t_start, std::string::size_type &t_end);
 std::string nth_token (std::string s, int n);
 std::string get_token (std::string s, bool cvt_paren = false);
-bool find_token (std::string s, std::string tok, int &tok_start, int &tok_end, bool cvt_paren = false);
+bool find_token (std::string s, std::string tok, std::string::size_type &tok_start, std::string::size_type &tok_end, bool cvt_paren = false);
 GeasFile read_geas_file (GeasInterface *, std::string);
 
 enum trim_modes { TRIM_SPACES, TRIM_UNDERSCORE, TRIM_BRACE };

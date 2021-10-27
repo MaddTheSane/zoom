@@ -60,12 +60,12 @@ struct GeasFile
   //std::vector<GeasBlock> rooms, objects, textblocks, functions, procedures,
   //  types, synonyms, game, variables, timers, choices;
   std::map <std::string, std::string> obj_types;
-  std::map <std::string, std::vector<int> > type_indecies;
+  std::map <std::string, std::vector<size_t> > type_indecies;
 
   void register_block (std::string blockname, std::string blocktype);
 
   const GeasBlock &block (std::string type, uint index) const;
-  uint size (std::string type) const;
+  size_t size (std::string type) const;
 
   void read_into (const std::vector<std::string>&, std::string, uint, bool, const reserved_words&, const reserved_words&);
 

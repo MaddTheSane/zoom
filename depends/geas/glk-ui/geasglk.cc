@@ -264,7 +264,7 @@ got_choice:
         choice = 1;
     }
     if((size_t)choice > n) {
-        choice = n;
+        choice = (int)n;
     }
 
     std::stringstream u;

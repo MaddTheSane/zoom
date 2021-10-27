@@ -186,7 +186,7 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       for (uint j = 0; j < go.data.size(); j ++)
 	{
 	  string line = go.data[j];
-	  uint c1, c2;
+	  std::string::size_type c1, c2;
 	  string tok = first_token (line, c1, c2);
 	  if (tok == "interval")
 	    {
@@ -230,7 +230,7 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	{
 	  string line = go.data[j];
 	  cerr << "   Line #" << j << " of var: \"" << line << "\"" << endl;
-	  uint c1, c2;
+	  std::string::size_type c1, c2;
 	  string tok = first_token (line, c1, c2);
 	  if (tok == "type")
 	    {

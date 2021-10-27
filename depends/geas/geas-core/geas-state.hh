@@ -65,10 +65,10 @@ public:
 
   SVarRecord () {}
   SVarRecord (std::string in_name) : name (in_name) { set (0, ""); }
-  uint size() const { return data.size(); }
-  uint max() const { return size() - 1; }
-  void set (uint i, std::string val) { if (i >= size()) data.resize(i+1); data[i] = val; }
-  std::string get (uint i) const { if (i < size()) return data[i]; return "!";}
+  size_t size() const { return data.size(); }
+  size_t max() const { return size() - 1; }
+  void set (size_t i, std::string val) { if (i >= size()) data.resize(i+1); data[i] = val; }
+  std::string get (size_t i) const { if (i < size()) return data[i]; return "!";}
   void set (std::string val) { data[0] = val; }
   std::string get() const { return data[0]; }
 };
@@ -82,10 +82,10 @@ public:
 
   IVarRecord () {}
   IVarRecord (std::string in_name) : name (in_name) { set (0, 0); }
-  uint size() const { return data.size(); }
-  uint max() const { return size() - 1; }
-  void set (uint i, int val) { if (i >= size()) data.resize(i+1); data[i] = val; }
-  int get (uint i) const { if (i < size()) return data[i]; else return -32767;}
+  size_t size() const { return data.size(); }
+  size_t max() const { return size() - 1; }
+  void set (size_t i, int val) { if (i >= size()) data.resize(i+1); data[i] = val; }
+  int get (size_t i) const { if (i < size()) return data[i]; else return -32767;}
   void set(int val) { data[0] = val; }
   int get() const { return data[0]; }
 };

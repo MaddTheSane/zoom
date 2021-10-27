@@ -99,17 +99,17 @@ public:
   std::string substitute_synonyms (std::string) const;
 
   void set_svar (std::string, std::string);
-  void set_svar (std::string, uint, std::string);
+  void set_svar (std::string, size_t, std::string);
   void set_ivar (std::string, int);
-  void set_ivar (std::string, uint, int);
+  void set_ivar (std::string, size_t, int);
 
   std::string get_svar (std::string) const;
-  std::string get_svar (std::string, uint) const;
+  std::string get_svar (std::string, size_t) const;
   int get_ivar (std::string) const;
-  int get_ivar (std::string, uint) const;
+  int get_ivar (std::string, size_t) const;
 
-  bool find_ivar (std::string, uint &) const;
-  bool find_svar (std::string, uint &) const;
+  bool find_ivar (std::string, size_t &) const;
+  bool find_svar (std::string, size_t &) const;
 
   void regen_var_look ();
   void regen_var_dirs ();
