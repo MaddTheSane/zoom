@@ -2157,8 +2157,10 @@
 				55368ABA272A044A00740A0A /* token.c */,
 				55368AB2272A044A00740A0A /* util.c */,
 			);
+			indentWidth = 2;
 			path = agil111src_glk;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		553C83662712382B002782C0 /* Resources */ = {
 			isa = PBXGroup;
