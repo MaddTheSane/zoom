@@ -38,10 +38,10 @@
 	
 	// Load the image for this plugin
 	NSString* imageFile = [objectValue imagePath];
-	NSImage* pluginImage = nil;
-	if (imageFile != nil && [[NSFileManager defaultManager] fileExistsAtPath: imageFile]) {
+	NSImage* pluginImage = objectValue.image;
+	if (pluginImage == nil && imageFile != nil && [[NSFileManager defaultManager] fileExistsAtPath: imageFile]) {
 		pluginImage = [[NSImage alloc] initWithContentsOfFile: imageFile];
-	} else {
+	} else if (pluginImage == nil) {
 		pluginImage = [NSImage imageNamed: @"zoom-app"];
 	}
 	
@@ -69,14 +69,14 @@
 	
 	// Decide on the fonts and colours to use
 	NSColor* standardColour = [NSColor textColor];
-	NSColor* infoColour = [NSColor placeholderTextColor];
+	NSColor* infoColour = [NSColor secondaryLabelColor];
 	NSColor* highlightColour = [NSColor systemRedColor];
 	NSColor* highlightColour2 = [NSColor systemBlueColor];
 	if ([self isHighlighted]) {
-		standardColour = [NSColor selectedTextColor];
-		highlightColour = [NSColor selectedTextColor];
-		highlightColour2 = [NSColor selectedTextColor];
-		infoColour = [NSColor selectedTextColor];
+		standardColour = [NSColor whiteColor];
+		highlightColour = [NSColor whiteColor];
+		highlightColour2 = [NSColor whiteColor];
+		infoColour = [NSColor whiteColor];
 	}
 
 	NSFont* nameFont = [NSFont boldSystemFontOfSize: 13];

@@ -56,6 +56,8 @@ typedef NS_ENUM(int, ZoomPlugInStatus) {
 @property (readonly, copy) NSString *interpreterVersion;
 /// The path to an image that represents this plugin
 @property (readonly, copy) NSString *imagePath;
+/// The image that represents this plugin
+@property (readonly, copy) NSImage *image;
 /// Where this plugin is located
 @property (readonly, strong) NSURL *location;
 /// The URL for updates to this plugin

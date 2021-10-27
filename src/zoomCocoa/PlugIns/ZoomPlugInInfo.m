@@ -27,11 +27,24 @@
 	
 	if (self) {
 		// Get the information out of the plist
-		image = nil;
-		image				= [[plist objectForKey: @"ZoomPlugin"] objectForKey: @"Image"];		
+		imagePath = [[plist objectForKey: @"ZoomPlugin"] objectForKey: @"Image"];
+		if (imagePath) {
+			// trim and clean-up!
+			NSString *tmpImgName = [imagePath.lastPathComponent stringByDeletingPathExtension];
+			NSImage *tmpImage = [[NSBundle bundleWithPath:bundle] imageForResource:tmpImgName];
+			if (!tmpImage) {
+				tmpImage = [[NSBundle mainBundle] imageForResource:tmpImgName];
+			}
+			if (!tmpImage) {
+				tmpImage = [NSImage imageNamed:tmpImgName];
+			}
+			if (tmpImage) {
+				image = tmpImage;
+			}
+		}
 		
-		if (image != nil) {
-			image = [[bundle stringByAppendingPathComponent: image] stringByStandardizingPath];
+		if (imagePath != nil) {
+			imagePath = [[bundle stringByAppendingPathComponent: imagePath] stringByStandardizingPath];
 		}
 		
 		// Work out the status (installed or downloaded as we're working from a path)
@@ -76,7 +89,8 @@ static unsigned int ValueForHexChar(int hex) {
 		interpreterAuthor	= [plist objectForKey: @"InterpreterAuthor"];
 		interpreterVersion	= [plist objectForKey: @"InterpreterVersion"];
 		version				= [plist objectForKey: @"Version"];
-		image				= nil;		
+		imagePath			= nil;
+		image				= [NSImage imageNamed: @"zoom-app"];
 		status				= ZoomPlugInNotKnown;
 		
 		if ([plist objectForKey: @"URL"] != nil) {
@@ -143,6 +157,7 @@ static unsigned int ValueForHexChar(int hex) {
 	newInfo->interpreterAuthor 	= [interpreterAuthor copy];
 	newInfo->version 			= [version copy];
 	newInfo->image 				= [image copy];
+	newInfo->imagePath			= [imagePath copy];
 	newInfo->location 			= [location copy];
 	newInfo->md5 				= [md5 copy];
 	newInfo->status 			= status;
@@ -159,7 +174,7 @@ static unsigned int ValueForHexChar(int hex) {
 @synthesize version;
 @synthesize interpreterAuthor;
 @synthesize interpreterVersion;
-@synthesize imagePath = image;
+@synthesize imagePath;
 @synthesize status;
 
 - (NSString*) description {
@@ -171,5 +186,6 @@ static unsigned int ValueForHexChar(int hex) {
 @synthesize download = updateDownload;
 @synthesize md5;
 @synthesize updateUrl;
+@synthesize image;
 
 @end
