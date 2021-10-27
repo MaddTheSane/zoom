@@ -38,11 +38,11 @@ using namespace std;
 static const string dir_names[] = {"north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "up", "down", "out"};
 static const string short_dir_names[] = {"n", "s", "e", "w", "ne", "nw", "se", "sw", "u", "d", "out"};
 
-const ObjectRecord *get_obj_record (const vector<ObjectRecord> &v, string name)
+static const ObjectRecord *get_obj_record (const vector<ObjectRecord> &v, const string &name)
 {
-  for (uint i = 0; i < v.size(); i ++)
-    if (ci_equal (v[i].name, name))
-      return &v[i];
+  for (auto &i : v)
+    if (ci_equal (i.name, name))
+      return &i;
   return NULL;
 }
 
@@ -52,7 +52,7 @@ GeasRunner *GeasRunner::get_runner (GeasInterface *gi) {
   return new geas_implementation (gi);
 }
 
-bool geas_implementation::find_ivar (string name, size_t &rv) const
+bool geas_implementation::find_ivar (const string &name, size_t &rv) const
 {
   for (uint n = 0; n < state.ivars.size(); n ++)
     if (ci_equal (state.ivars[n].name, name))
@@ -63,7 +63,7 @@ bool geas_implementation::find_ivar (string name, size_t &rv) const
   return false;
 }
 
-bool geas_implementation::find_svar (string name, size_t &rv) const
+bool geas_implementation::find_svar (const string &name, size_t &rv) const
 {
   //name = lcase (name);
   for (uint n = 0; n < state.svars.size(); n ++)
@@ -75,7 +75,7 @@ bool geas_implementation::find_svar (string name, size_t &rv) const
   return false;
 }
 
-void geas_implementation::set_svar (string varname, string varval) 
+void geas_implementation::set_svar (const string &varname, const string &varval)
 {
   cerr << "set_svar (" << varname << ", " << varval << ")\n";
   std::string::size_type i1 = varname.find ('[');
@@ -99,7 +99,7 @@ void geas_implementation::set_svar (string varname, string varval)
   return;
 }
 
-void geas_implementation::set_svar (string varname, size_t index, string varval)
+void geas_implementation::set_svar (const string &varname, size_t index, const string &varval)
 {
   size_t n, m;
   if (!find_svar (varname, n))
@@ -135,9 +135,9 @@ void geas_implementation::set_svar (string varname, size_t index, string varval)
     }
 }
 
-string geas_implementation::get_svar (string varname) const 
+string geas_implementation::get_svar (const string &varname) const
 { 
-  std::string::size_type i1 = varname.find ('[');
+  auto i1 = varname.find ('[');
   if (i1 == string::npos)
     return get_svar (varname, 0); 
   if (varname[varname.length() - 1] != ']')
@@ -153,19 +153,19 @@ string geas_implementation::get_svar (string varname) const
       return get_svar (arrayname, get_ivar (indextext));
   return get_svar (arrayname, parse_int (indextext));
 }
-string geas_implementation::get_svar (string varname, size_t index) const
+string geas_implementation::get_svar (const string &varname, size_t index) const
 {
-  for (uint i = 0; i < state.svars.size(); i ++)
+  for (auto &i: state.svars)
     {
-      if (ci_equal (state.svars[i].name, varname))
-	return state.svars[i].get(index);
+      if (ci_equal (i.name, varname))
+	return i.get(index);
     }
 
   gi->debug_print ("get_svar (" + varname + ", " + string_int (index) + "): No such variable defined.");
   return "";
 }
 
-int geas_implementation::get_ivar (string varname) const
+int geas_implementation::get_ivar (const string &varname) const
 {
   std::string::size_type i1 = varname.find ('[');
   if (i1 == string::npos)
@@ -183,7 +183,7 @@ int geas_implementation::get_ivar (string varname) const
       return get_ivar (arrayname, get_ivar (indextext));
   return get_ivar (arrayname, parse_int (indextext));
 }
-int geas_implementation::get_ivar (string varname, size_t index) const
+int geas_implementation::get_ivar (const string &varname, size_t index) const
 {
   for (uint i = 0; i < state.ivars.size(); i ++)
     if (ci_equal (state.ivars[i].name, varname))
@@ -192,7 +192,7 @@ int geas_implementation::get_ivar (string varname, size_t index) const
 		   "' [" + string_int(index) + "]");
   return -32767;
 }
-void geas_implementation::set_ivar (string varname, int varval) 
+void geas_implementation::set_ivar (const string &varname, int varval)
 {
   std::string::size_type i1 = varname.find ('[');
   if (i1 == string::npos)
@@ -214,7 +214,7 @@ void geas_implementation::set_ivar (string varname, int varval)
   set_ivar (arrayname, parse_int (indextext), varval);
 }
 
-void geas_implementation::set_ivar (string varname, size_t index, int varval)
+void geas_implementation::set_ivar (const string &varname, size_t index, int varval)
 {
   size_t n, m;
   if (!find_ivar (varname, n))
@@ -280,14 +280,14 @@ ostream &operator << (ostream &o, const set<string> &s)
   return o;
 }
 
-bool geas_implementation::has_obj_action (string obj, string prop) const
+bool geas_implementation::has_obj_action (const string &obj, const string &prop) const
 {
   string tmp;
   return get_obj_action (obj, prop, tmp);
 }
 
 
-bool geas_implementation::get_obj_action (string objname, string actname,
+bool geas_implementation::get_obj_action (const string &objname, const string &actname,
 					  string &rv) const
 {
   //string backup_object = this_object;
@@ -296,10 +296,10 @@ bool geas_implementation::get_obj_action (string objname, string actname,
   cerr << "get_obj_action (" << objname << ", " << actname << ")\n";
   string tok;
   std::string::size_type c1, c2;
-  for (size_t i = state.props.size() - 1; i + 1 > 0; i --)
-    if (state.props[i].name == objname)
+  for (auto i = state.props.rbegin(); i != state.props.rend(); ++i)
+    if (i->name == objname)
       {
-	string line = state.props[i].data;
+	const string &line = i->data;
 	// SENSITIVE?
 	if (first_token (line, c1, c2) != "action")
 	  continue;
@@ -316,21 +316,21 @@ bool geas_implementation::get_obj_action (string objname, string actname,
   //return bool_rv;
 }
 
-bool geas_implementation::has_obj_property (string obj, string prop) const
+bool geas_implementation::has_obj_property (const string &obj, const string &prop) const
 {
   string tmp;
   return get_obj_property (obj, prop, tmp);
 }
 
-bool geas_implementation::get_obj_property(string obj, string prop, 
+bool geas_implementation::get_obj_property(const string &obj, const string &prop,
 					   string &string_rv) const
 {
   string is_prop = "properties " + prop;
   string not_prop = "properties not " + prop;
-  for (size_t i = state.props.size() - 1; i + 1 > 0; i --)
-    if (ci_equal (state.props[i].name, obj))
+  for (auto i = state.props.rbegin(); i != state.props.rend(); ++i)
+    if (ci_equal (i->name, obj))
       {
-	string dat = state.props[i].data;
+	const string &dat = i->data;
 	//cerr << "In looking for " << obj << ":" << prop << ", got line "
 	//     << dat << endl;
 	if (ci_equal (dat, not_prop))
@@ -355,7 +355,7 @@ bool geas_implementation::get_obj_property(string obj, string prop,
   return gf.get_obj_property (obj, prop, string_rv);
 }
 
-void geas_implementation::set_obj_property (string obj, string prop) 
+void geas_implementation::set_obj_property (const string &obj, const string &prop)
 {
   state.props.push_back (PropertyRecord (obj, "properties " + prop));
   if (ci_equal (prop, "hidden") || ci_equal (prop, "not hidden") || 
@@ -366,17 +366,17 @@ void geas_implementation::set_obj_property (string obj, string prop)
     }
 }
 
-void geas_implementation::set_obj_action (string obj, string act) 
+void geas_implementation::set_obj_action (const string &obj, const string &act) 
 {
   state.props.push_back (PropertyRecord (obj, "action " + act));
 }
 
-void geas_implementation::move (string obj, string dest)
+void geas_implementation::move (const string &obj, const string &dest)
 {
-  for (uint i = 0; i < state.objs.size(); i ++)
-    if (ci_equal (state.objs[i].name, obj))
+  for (auto &i: state.objs)
+    if (ci_equal (i.name, obj))
       {
-	state.objs[i].parent = dest;
+	i.parent = dest;
 	gi->update_sidebars();
 	regen_var_objects();
 	return;
@@ -385,7 +385,7 @@ void geas_implementation::move (string obj, string dest)
 		   "' to '" + dest + "'.");
 }
 
-string geas_implementation::get_obj_parent (string obj)
+string geas_implementation::get_obj_parent (const string &obj)
 {
   //obj = lcase (obj);
   for (uint i = 0; i < state.objs.size(); i ++)
@@ -395,7 +395,7 @@ string geas_implementation::get_obj_parent (string obj)
   return "";
 }
 
-void geas_implementation::goto_room (string room)
+void geas_implementation::goto_room (const string &room)
 {
   state.location = room;
   regen_var_room();
@@ -510,7 +510,7 @@ void geas_implementation::display_error (string errorname, string obj)
     gi->debug_print ("Bad error name " + errorname);
 }
 
-string geas_implementation::displayed_name (string obj) const
+string geas_implementation::displayed_name (const string &obj) const
 {
   string rv = obj, tmp;
 
@@ -535,7 +535,7 @@ string geas_implementation::displayed_name (string obj) const
  * - destination, internal format
  * - script (optional)
  */
-vector<vector<string> > geas_implementation::get_places (string room)
+vector<vector<string> > geas_implementation::get_places (const string &room)
 {
   vector<vector<string> > rv;
 
@@ -638,7 +638,7 @@ vector<vector<string> > geas_implementation::get_places (string room)
   return rv;
 }
 
-string geas_implementation::exit_dest (string room, string dir, bool *is_script) const
+string geas_implementation::exit_dest (const string &room, const string &dir, bool *is_script) const
 {
   std::string::size_type c1, c2;
   string tok;
@@ -1480,7 +1480,7 @@ bool geas_implementation::dereference_vars (vector<match_binding> &bindings, con
   return rv;
 }
 
-string geas_implementation::get_obj_name (string name, const vector<string> &where, bool is_internal) const
+string geas_implementation::get_obj_name (const string &name, const vector<string> &where, bool is_internal) const
 {
   vector<string> objs, printed_objs;
   for (uint objnum = 0; objnum < state.objs.size(); objnum ++)
@@ -2036,7 +2036,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
   return false;
 }
 
-void geas_implementation::run_script_as (string obj, string scr)
+void geas_implementation::run_script_as (const string &obj, const string &scr)
 {
   string backup_object, garbage;
   backup_object = this_object;
@@ -2045,13 +2045,13 @@ void geas_implementation::run_script_as (string obj, string scr)
   this_object = backup_object;
 }
 
-void geas_implementation::run_script (string s)
+void geas_implementation::run_script (const string &s)
 {
   string garbage;
   run_script (s, garbage);
 }
 
-void geas_implementation::run_script (string s, string &rv)
+void geas_implementation::run_script (const string &s, string &rv)
 {
   //print_formatted ("     Running script " + s + ".");
   cerr << "Script line '" << s << "'\n";
@@ -3052,7 +3052,7 @@ void geas_implementation::run_script (string s, string &rv)
   gi->debug_print ("Unrecognized script " + s);
 }
 
-bool geas_implementation::eval_conds (string s)
+bool geas_implementation::eval_conds (const string &s)
 {
   cerr << "if (" + s + ")" << endl;
 
@@ -3081,7 +3081,7 @@ bool geas_implementation::eval_conds (string s)
   return rv;
 }
 
-bool geas_implementation::eval_cond (string s)
+bool geas_implementation::eval_cond (const string &s)
 {
   std::string::size_type c1, c2;
   string tok = first_token (s, c1, c2);
@@ -3317,7 +3317,7 @@ bool geas_implementation::eval_cond (string s)
   return false;
 }
 
-void geas_implementation::run_procedure (string pname, vector<string> args)
+void geas_implementation::run_procedure (const string &pname, vector<string> args)
 {
   cerr << "run_procedure " << pname << " (" << args << ")\n";
   vector<string> backup = function_args;
@@ -3326,7 +3326,7 @@ void geas_implementation::run_procedure (string pname, vector<string> args)
   function_args = backup;
 }
 
-void geas_implementation::run_procedure (string pname)
+void geas_implementation::run_procedure (const string &pname)
 {
   for (uint i = 0; i < gf.size ("procedure"); i ++)
     if (ci_equal (gf.block ("procedure", i).name, pname))
@@ -3343,7 +3343,7 @@ void geas_implementation::run_procedure (string pname)
   gi->debug_print ("No procedure " + pname + " found.");
 }
 
-string geas_implementation::run_function (string pname, vector<string> args)
+string geas_implementation::run_function (const string &pname, vector<string> args)
 {
   cerr << "run_function (w/ args) " << pname << " (" << args << ")\n";
   /* Parameter is handled specially because it can't change the stack */
@@ -3374,14 +3374,14 @@ string geas_implementation::run_function (string pname, vector<string> args)
   return rv;
 }
 
-string geas_implementation::bad_arg_count (string fname)
+string geas_implementation::bad_arg_count (const string &fname)
 {
   gi->debug_print ("Called " + fname + " with " + 
 		   string_int(function_args.size()) + " arguments.");
   return "";
 }
 
-string geas_implementation::run_function (string pname)
+string geas_implementation::run_function (const string &pname)
 {
   cerr << "geas_implementation::run_function (" << pname << ", " << function_args << ")\n";
   //pname = lcase (pname);
@@ -3624,7 +3624,7 @@ v2string geas_implementation::get_room_contents ()
   return get_room_contents (state.location);
 }
 
-v2string geas_implementation::get_room_contents (string room)
+v2string geas_implementation::get_room_contents (const string &room)
 {
   v2string rv;
   string objname;
@@ -3759,13 +3759,13 @@ vector<bool> geas_implementation::get_valid_exits()
   return rv;
 }
 
-void geas_implementation::print_eval_p (string s)
+void geas_implementation::print_eval_p (const string &s)
 { print_formatted (pcase (eval_string (s))); }
 
-void geas_implementation::print_eval (string s)
+void geas_implementation::print_eval (const string &s)
 { print_formatted (eval_string (s)); }
 
-string geas_implementation::eval_string (string s)
+string geas_implementation::eval_string (const string &s)
 {
   string rv;
   std::string::size_type i, j;

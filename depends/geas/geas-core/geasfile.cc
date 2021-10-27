@@ -39,7 +39,7 @@ reserved_words obj_tag_property ("look", "examine", "speak", "take", "alias", "p
 
 reserved_words room_tag_property ("look", "alias", "prefix", "indescription", "description", "north", "south", "east", "west", "northwest", "northeast", "southeast", "southwest", "up", "down", "out", (char *) NULL);
 
-void GeasFile::debug_print (string s) const
+void GeasFile::debug_print (const string &s) const
 {
   if (gi == NULL)
     cerr << s << endl;
@@ -47,7 +47,7 @@ void GeasFile::debug_print (string s) const
     gi->debug_print (s);
 }
 
-const GeasBlock *GeasFile::find_by_name (string type, string name) const 
+const GeasBlock *GeasFile::find_by_name (const string &type, const string &name) const
 {
   //name = lcase (name);
   for (uint i = 0; i < size(type); i ++)
@@ -61,7 +61,7 @@ const GeasBlock *GeasFile::find_by_name (string type, string name) const
   return NULL;
 }
 
-const GeasBlock &GeasFile::block (std::string type, uint index) const { 
+const GeasBlock &GeasFile::block (const std::string &type, size_t index) const { 
   std::map<std::string, std::vector<size_t> >::const_iterator iter;
   iter = type_indecies.find(type);
   if (!(iter != type_indecies.end() && index < (*iter).second.size()))
@@ -100,7 +100,7 @@ ostream &operator<< (ostream &o, const map<string, vector<int> >& m)
 }
 */
 
-size_t GeasFile::size (std::string type) const {
+size_t GeasFile::size (const std::string &type) const {
   //cerr << "GeasFile::size (" << type << ")" << endl;
 
   // SENSITIVE?
@@ -118,7 +118,7 @@ size_t GeasFile::size (std::string type) const {
 }
 
 
-bool GeasFile::obj_has_property (string objname, string propname) const
+bool GeasFile::obj_has_property (const string &objname, const string &propname) const
 {
   string tmp;
   return get_obj_property (objname, propname, tmp);
@@ -130,7 +130,7 @@ ostream &operator<< (ostream &, const set<string>&);
  * Currently only works for actual objects, not rooms or the game
  */
 //set<string, CI_LESS> GeasFile::get_obj_keys (string obj) const
-set<string> GeasFile::get_obj_keys (string obj) const
+set<string> GeasFile::get_obj_keys (const string &obj) const
 { 
   //set<string, CI_LESS> rv;
   set<string> rv;
@@ -138,7 +138,7 @@ set<string> GeasFile::get_obj_keys (string obj) const
   return rv;
 }
 
-void GeasFile::get_obj_keys (string obj, set<string> &rv) const
+void GeasFile::get_obj_keys (const string &obj, set<string> &rv) const
 {
   cerr << "get_obj_keys (gf, <" << obj << ">)\n";
   //set<string> rv;
@@ -213,7 +213,7 @@ void GeasFile::get_obj_keys (string obj, set<string> &rv) const
   cerr << "Returning (" << rv << ")\n";
 }
 
-void GeasFile::get_type_keys (string typen, set<string> &rv) const
+void GeasFile::get_type_keys (const string &typen, set<string> &rv) const
 {
   cerr << "get_type_keys (" << typen << ", " << rv << ")\n";
   const GeasBlock* gb = find_by_name ("type", typen);
@@ -257,7 +257,7 @@ void GeasFile::get_type_keys (string typen, set<string> &rv) const
   cerr << "Returning (" << rv << ")\n";
 }
 
-bool GeasFile::get_obj_property (string objname, string propname, string &string_rv) const
+bool GeasFile::get_obj_property (const string &objname, const string &propname, string &string_rv) const
 {
   cerr << "g_o_p: Getting prop <" << propname << "> of obj <" << objname << ">\n";
   string_rv = "!";
@@ -356,7 +356,7 @@ bool GeasFile::get_obj_property (string objname, string propname, string &string
   return bool_rv;
 }
 
-void GeasFile::get_type_property (string typenamex, string propname, bool &bool_rv, string &string_rv) const
+void GeasFile::get_type_property (const string &typenamex, const string &propname, bool &bool_rv, string &string_rv) const
 {
   //cerr << "  Checking type <" << typenamex << "> for prop <" << propname << ">\n";
   const GeasBlock *block = find_by_name ("type", typenamex);
@@ -432,7 +432,7 @@ void GeasFile::get_type_property (string typenamex, string propname, bool &bool_
 	      
 
 
-bool GeasFile::obj_of_type (string objname, string typenamex) const
+bool GeasFile::obj_of_type (const string &objname, const string &typenamex) const
 {
   if (!has (obj_types, objname))
     {
@@ -469,7 +469,7 @@ bool GeasFile::obj_of_type (string objname, string typenamex) const
 }
 
 
-bool GeasFile::type_of_type (string subtype, string supertype) const
+bool GeasFile::type_of_type (const string &subtype, const string &supertype) const
 {
   if (ci_equal (subtype, supertype))
     return true;
@@ -499,7 +499,7 @@ bool GeasFile::type_of_type (string subtype, string supertype) const
 
 
 
-bool GeasFile::get_obj_action (string objname, string propname, string &string_rv) const
+bool GeasFile::get_obj_action (const string &objname, const string &propname, string &string_rv) const
 {
   cerr << "g_o_a: Getting action <" << propname << "> of object <" << objname << ">\n";
   string_rv = "!";
@@ -579,7 +579,7 @@ bool GeasFile::get_obj_action (string objname, string propname, string &string_r
   return bool_rv;
 }
 
-void GeasFile::get_type_action (string typenamex, string actname, bool &bool_rv, string &string_rv) const
+void GeasFile::get_type_action (const string &typenamex, const string &actname, bool &bool_rv, string &string_rv) const
 {
   //cerr << "  Checking type <" << typenamex << "> for action <" << actname << ">\n";
   const GeasBlock *block = find_by_name ("type", typenamex);
@@ -616,7 +616,7 @@ void GeasFile::get_type_action (string typenamex, string actname, bool &bool_rv,
     }
 }
  
-void GeasFile::register_block (string blockname, string blocktype)
+void GeasFile::register_block (const string &blockname, const string &blocktype)
 {
   cerr << "registering block " << blockname << " / " << blocktype << endl;
   if (has (obj_types, blockname))
@@ -630,7 +630,7 @@ void GeasFile::register_block (string blockname, string blocktype)
   obj_types[blockname] = blocktype;
 }
 
-string GeasFile::static_svar_lookup (string varname) const
+string GeasFile::static_svar_lookup (const string &varname) const
 {
   cerr << "static_svar_lookup(" << varname << ")" << endl;
   //varname = lcase (varname);
@@ -677,7 +677,7 @@ string GeasFile::static_svar_lookup (string varname) const
   return "";
 }
 
-string GeasFile::static_ivar_lookup (string varname) const
+string GeasFile::static_ivar_lookup (const string &varname) const
 {
   //varname = lcase (varname);
   for (uint i = 0; i < size("variable"); i ++)
@@ -718,7 +718,7 @@ string GeasFile::static_ivar_lookup (string varname) const
   return "-32768";
 }
 
-string GeasFile::static_eval (string input) const
+string GeasFile::static_eval (const string &input) const
 {
   //cerr << "static_eval (" << input << ")" << endl;
   string rv = "";

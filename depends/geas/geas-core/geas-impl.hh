@@ -98,18 +98,18 @@ public:
 
   std::string substitute_synonyms (std::string) const;
 
-  void set_svar (std::string, std::string);
-  void set_svar (std::string, size_t, std::string);
-  void set_ivar (std::string, int);
-  void set_ivar (std::string, size_t, int);
+  void set_svar (const std::string &, const std::string &);
+  void set_svar (const std::string &, size_t, const std::string &);
+  void set_ivar (const std::string &, int);
+  void set_ivar (const std::string &, size_t, int);
 
-  std::string get_svar (std::string) const;
-  std::string get_svar (std::string, size_t) const;
-  int get_ivar (std::string) const;
-  int get_ivar (std::string, size_t) const;
+  std::string get_svar (const std::string &) const;
+  std::string get_svar (const std::string &, size_t) const;
+  int get_ivar (const std::string &) const;
+  int get_ivar (const std::string &, size_t) const;
 
-  bool find_ivar (std::string, size_t &) const;
-  bool find_svar (std::string, size_t &) const;
+  bool find_ivar (const std::string &, size_t &) const;
+  bool find_svar (const std::string &, size_t &) const;
 
   void regen_var_look ();
   void regen_var_dirs ();
@@ -118,54 +118,54 @@ public:
 
   void look();
 
-  std::string displayed_name (std::string object) const;
+  std::string displayed_name (const std::string &object) const;
   //std::string get_obj_name (const std::vector<std::string> &args) const;
-	std::string get_obj_name (std::string name, const std::vector<std::string> &where, bool is_internal) const;
+	std::string get_obj_name (const std::string &name, const std::vector<std::string> &where, bool is_internal) const;
 
-  bool has_obj_property (std::string objname, std::string propname) const;
-  bool get_obj_property (std::string objname, std::string propname,
+  bool has_obj_property (const std::string &objname, const std::string &propname) const;
+  bool get_obj_property (const std::string &objname, const std::string &propname,
 			 std::string &rv) const;
-  bool has_obj_action (std::string obj, std::string prop) const;
-  bool get_obj_action (std::string objname, std::string actname,
+  bool has_obj_action (const std::string &obj, const std::string &prop) const;
+  bool get_obj_action (const std::string &objname, const std::string &actname,
 		       std::string &rv) const;
-  std::string exit_dest (std::string room, std::string dir, bool *is_act = NULL) const;
-  std::vector<std::vector<std::string> > get_places (std::string room);
+  std::string exit_dest (const std::string &room, const std::string &dir, bool *is_act = NULL) const;
+  std::vector<std::vector<std::string> > get_places (const std::string &room);
 
-  void set_obj_property (std::string obj, std::string prop);
-  void set_obj_action (std::string obj, std::string act);
-  void move (std::string obj, std::string dest);
-  void goto_room (std::string room);
-  std::string get_obj_parent (std::string obj);
+  void set_obj_property (const std::string &obj, const std::string &prop);
+  void set_obj_action (const std::string &obj, const std::string &act);
+  void move (const std::string &obj, const std::string &dest);
+  void goto_room (const std::string &room);
+  std::string get_obj_parent (const std::string &obj);
   
-  void print_eval (std::string);
-  void print_eval_p (std::string);
-  std::string eval_string (std::string s);
-  std::string eval_param (std::string s) { assert (is_param(s)); return eval_string (param_contents(s)); }
+  void print_eval (const std::string &);
+  void print_eval_p (const std::string &);
+  std::string eval_string (const std::string &s);
+  std::string eval_param (const std::string &s) { assert (is_param(s)); return eval_string (param_contents(s)); }
 
 
-  void run_script_as (std::string, std::string);
-  void run_script (std::string);
-  void run_script (std::string, std::string &);
-  void run_procedure (std::string);
-  void run_procedure (std::string, std::vector<std::string> args);
-  std::string run_function (std::string);
-  std::string run_function (std::string, std::vector<std::string> args);
-  std::string bad_arg_count (std::string);
+  void run_script_as (const std::string &, const std::string &);
+  void run_script (const std::string &);
+  void run_script (const std::string &, std::string &);
+  void run_procedure (const std::string &);
+  void run_procedure (const std::string &, std::vector<std::string> args);
+  std::string run_function (const std::string &);
+  std::string run_function (const std::string &, std::vector<std::string> args);
+  std::string bad_arg_count (const std::string &);
 
-  bool eval_conds (std::string);
-  bool eval_cond (std::string);
+  bool eval_conds (const std::string &);
+  bool eval_cond (const std::string &);
   GeasState state;
 
   virtual void tick_timers();
   virtual v2string get_inventory();
   virtual v2string get_room_contents();
-  v2string get_room_contents(std::string);
+  v2string get_room_contents(const std::string &);
   virtual vstring get_status_vars();
   virtual std::vector<bool> get_valid_exits();
 
 
-  inline void print_formatted (std::string s) const { if (outputting) gi->print_formatted(s); }
-  inline void print_normal (std::string s) const { if (outputting) gi->print_normal(s); }
+  inline void print_formatted (const std::string &s) const { if (outputting) gi->print_formatted(s); }
+  inline void print_normal (const std::string &s) const { if (outputting) gi->print_normal(s); }
   inline void print_newline () const { if (outputting) gi->print_newline(); }
 
   /*

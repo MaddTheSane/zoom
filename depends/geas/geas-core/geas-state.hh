@@ -46,7 +46,7 @@ struct ObjectRecord
 struct ExitRecord
 {
   std::string src, dest;
-  ExitRecord (std::string in_src, std::string in_dest) : src(in_src), dest(in_dest) {}
+  ExitRecord (const std::string &in_src, const std::string &in_dest) : src(in_src), dest(in_dest) {}
 };
 
 struct TimerRecord
@@ -64,12 +64,12 @@ public:
   std::string name;
 
   SVarRecord () {}
-  SVarRecord (std::string in_name) : name (in_name) { set (0, ""); }
+  SVarRecord (const std::string &in_name) : name (in_name) { set (0, ""); }
   size_t size() const { return data.size(); }
   size_t max() const { return size() - 1; }
-  void set (size_t i, std::string val) { if (i >= size()) data.resize(i+1); data[i] = val; }
+  void set (size_t i, const std::string &val) { if (i >= size()) data.resize(i+1); data[i] = val; }
   std::string get (size_t i) const { if (i < size()) return data[i]; return "!";}
-  void set (std::string val) { data[0] = val; }
+  void set (const std::string &val) { data[0] = val; }
   std::string get() const { return data[0]; }
 };
 
@@ -81,7 +81,7 @@ public:
   std::string name;
 
   IVarRecord () {}
-  IVarRecord (std::string in_name) : name (in_name) { set (0, 0); }
+  IVarRecord (const std::string &in_name) : name (in_name) { set (0, 0); }
   size_t size() const { return data.size(); }
   size_t max() const { return size() - 1; }
   void set (size_t i, int val) { if (i >= size()) data.resize(i+1); data[i] = val; }

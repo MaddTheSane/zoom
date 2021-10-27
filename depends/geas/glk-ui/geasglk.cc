@@ -94,7 +94,7 @@ void glk_main(void)
 
     if (!glk_gestalt(gestalt_Timer, 0))
     {
-      glk_put_string(
+      glk_put_cstring(
         "** The underlying Glk library does not support timers.\n"
         "** If this game tries to use timers, then some\n"
         "** functionality may not work correctly.\n"
