@@ -20,7 +20,7 @@ final public class Quest: ZoomGlkPlugIn {
 	}
 	
 	public override class var pluginAuthor: String! {
-		return "C.W. \"Madd the Sane\" Betts"
+		return #"C.W. "Madd the Sane" Betts"#
 	}
 	
 	public override class var canLoadSavegames: Bool {
@@ -31,7 +31,7 @@ final public class Quest: ZoomGlkPlugIn {
 		guard let url = path else {
 			return false
 		}
-		return false
+		return url.lastPathComponent.lowercased() == "cas"
 	}
 	
 	public override init!(url gameFile: URL!) {

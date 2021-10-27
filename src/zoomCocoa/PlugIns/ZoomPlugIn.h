@@ -69,7 +69,7 @@
 //! Retrieves the unique ID for this story (UUIDs are preferred, or MD5s if the game format does not support that)
 - (ZoomStoryID*) idForStory;
 //! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
-- (ZoomStory*) defaultMetadata;
+- (ZoomStory*) defaultMetadata DEPRECATED_MSG_ATTRIBUTE("Use -defaultMetadataWithError: instead") NS_SWIFT_UNAVAILABLE("");
 //! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
 - (ZoomStory*) defaultMetadataWithError:(NSError**)outError;
 //! Retrieves the picture to use for the cover image

@@ -264,6 +264,7 @@
 		552CF02427168668009D87A5 /* ZoomAdrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CF02327168668009D87A5 /* ZoomAdrift.swift */; };
 		552CF02D27176CFC009D87A5 /* scare in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552CEEAE2715109C009D87A5 /* scare */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55368A862728FE3000740A0A /* ZoomQuest.zoomplugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 55BE4AE32709988700100A7D /* ZoomQuest.zoomplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
@@ -686,6 +687,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				55368A862728FE3000740A0A /* ZoomQuest.zoomplugin in Copy Glulxe plugin */,
 				552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glulxe plugin */,
 				4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glulxe plugin */,
 			);

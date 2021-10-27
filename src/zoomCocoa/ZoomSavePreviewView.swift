@@ -152,11 +152,7 @@ class SavePreviewView: NSView {
 	
 	@available(*, deprecated, renamed: "SavePreviewView.selectedSaveGameURL")
 	var selectedSaveGame: String? {
-		if let selVal = selected {
-			return upperWindowViews[selVal].filename
-		} else {
-			return nil
-		}
+		return selectedSaveGameURL?.path
 	}
 	
 	var selectedSaveGameURL: URL? {
