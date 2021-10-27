@@ -19,8 +19,12 @@
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>Legacy Quest CAS file</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>uk.co.textadventures.cas</string>
@@ -29,8 +33,12 @@
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>Legacy Quest source file</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>uk.co.textadventures.asl</string>
