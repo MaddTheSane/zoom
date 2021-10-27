@@ -141,8 +141,7 @@ func stringIDForAdriftFile(at url: URL) -> String? {
 
 private let versionData: Data = {
 	let versionString = "Version"
-	let versionData = versionString.data(using: .ascii)!
-	return Data(versionData.subdata(in: 0 ..< 7))
+	return versionString.data(using: .ascii)!
 }()
 
 /// The claim algorithm for ADRIFT is to unobfuscate the first

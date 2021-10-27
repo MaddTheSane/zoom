@@ -10,6 +10,11 @@ import ZoomPlugIns.ZoomGlkPlugIn
 import ZoomPlugIns.ZoomGlkWindowController
 import ZoomPlugIns.ZoomGlkDocument
 
+private var casHeader: Data = {
+	let strData = "QCGF002"
+	return strData.data(using: .ascii)!
+}()
+
 final public class Quest: ZoomGlkPlugIn {
 	public override class var pluginVersion: String! {
 		return Bundle(for: Quest.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String
@@ -31,7 +36,30 @@ final public class Quest: ZoomGlkPlugIn {
 		guard let url = path else {
 			return false
 		}
-		return url.lastPathComponent.lowercased() == "cas"
+		
+		guard let hand = try? FileHandle(forReadingFrom: path) else {
+			return false
+		}
+		
+		var datToTest: Data
+		
+		if #available(macOS 10.15.4, *) {
+			guard let outDat = try? hand.read(upToCount: 7), outDat.count == 7 else {
+				return false
+			}
+			datToTest = outDat
+		} else {
+			let outDat = hand.readData(ofLength: 7)
+			guard outDat.count == 7 else {
+				return false
+			}
+			datToTest = outDat
+		}
+		if datToTest == casHeader {
+			return true
+		}
+		
+		return url.lastPathComponent.lowercased() == "asl"
 	}
 	
 	public override init!(url gameFile: URL!) {

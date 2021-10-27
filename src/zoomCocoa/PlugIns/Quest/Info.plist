@@ -26,6 +26,16 @@
 				<string>uk.co.textadventures.cas</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Legacy Quest source file</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.co.textadventures.asl</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleSignature</key>
 	<string>YZZY</string>
@@ -50,6 +60,24 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>cas</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Legacy Quest source file</string>
+			<key>UTTypeIdentifier</key>
+			<string>uk.co.textadventures.asl</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>asl</string>
 				</array>
 			</dict>
 		</dict>
