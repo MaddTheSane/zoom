@@ -19,6 +19,7 @@
 #import "ZoomAppDelegate.h"
 @import ZoomPlugIns.Swift;
 @import ZoomView.Swift;
+#import "Zoom-Swift.h"
 
 @implementation ZoomClientController
 @synthesize zoomView;
@@ -612,7 +613,7 @@
 }
 
 - (NSImage*) logo {
-	NSImage* result = [ZoomStoryOrganiser frontispieceForFile: [[self document] fileURL].path];
+	NSImage* result = [ZoomStoryOrganiser frontispieceForURL: [[self document] fileURL]];
 	if (result == nil) return nil;
 	
 	return [self resizeLogo: result];

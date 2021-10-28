@@ -17,6 +17,7 @@
 #import <ZoomView/ZoomPreferences.h>
 #import <ZoomPlugIns/ZoomPlugInManager.h>
 #import <ZoomPlugIns/ZoomPlugIn.h>
+#import "Zoom-Swift.h"
 
 NSString*const ZoomStoryOrganiserChangedNotification = @"ZoomStoryOrganiserChangedNotification";
 NSString*const ZoomStoryOrganiserProgressNotification = @"ZoomStoryOrganiserProgressNotification";
@@ -35,63 +36,6 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	//TODO: Use some other method of multithreading: NSConnection is deprecateed.
 	NSConnection* mainThread;
 	NSConnection* subThread;
-}
-
-#pragma mark - Shared functions
-
-+ (NSImage*) frontispieceForBlorb: (ZoomBlorbFile*) decodedFile {
-	int coverPictureNumber = -1;
-	
-	// Try to retrieve the frontispiece tag (overrides metadata if present)
-	NSData* front = [decodedFile dataForChunkWithType: @"Fspc"];
-	if (front != nil && [front length] >= 4) {
-		const unsigned char* fpc = [front bytes];
-		
-		coverPictureNumber = (((int)fpc[0])<<24)|(((int)fpc[1])<<16)|(((int)fpc[2])<<8)|(((int)fpc[3])<<0);
-	}
-	
-	if (coverPictureNumber >= 0) {			
-		// Attempt to retrieve the cover picture image
-		if (decodedFile != nil) {
-			NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
-			
-			if (coverPictureData) {
-				NSImage* coverPicture = [[NSImage alloc] initWithData: coverPictureData];
-				
-				// Sometimes the image size and pixel size do not match up
-				NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
-				NSSize pixSize = NSMakeSize([coverRep pixelsWide], [coverRep pixelsHigh]);
-				
-				if (!NSEqualSizes(pixSize, [coverPicture size])) {
-					[coverPicture setSize: pixSize];
-				}
-				
-				if (coverPicture != nil) {
-					return coverPicture;
-				}
-			}
-		}
-	}
-	
-	return nil;
-}
-
-+ (NSImage*) frontispieceForFile: (NSString*) filename {
-	// First see if a plugin can provide the image...
-	ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename];
-	NSImage* res = nil;
-	if (plugin != nil) {
-		res = [plugin coverImage];
-		if (res != nil) return res;
-	} else {
-		// Then try using the standard blorb decoder
-		ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: filename];
-		
-		if (decodedFile != nil) res = [self frontispieceForBlorb: decodedFile];
-		if (res != nil) return res;
-	}
-
-	return nil;
 }
 
 #pragma mark - Internal functions

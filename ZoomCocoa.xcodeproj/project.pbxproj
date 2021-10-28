@@ -299,6 +299,7 @@
 		55368B22272A064C00740A0A /* debugcmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ACC272A044A00740A0A /* debugcmd.c */; };
 		55368B23272A075900740A0A /* disassemble.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAD272A044A00740A0A /* disassemble.c */; };
 		55368B2B272A0AFC00740A0A /* readme.agility in Resources */ = {isa = PBXBuildFile; fileRef = 55368AD1272A044A00740A0A /* readme.agility */; };
+		55368B34272B562300740A0A /* ZoomStoryOrganiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55368B33272B562300740A0A /* ZoomStoryOrganiser.swift */; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
@@ -1245,6 +1246,7 @@
 		55368AD1272A044A00740A0A /* readme.agility */ = {isa = PBXFileReference; explicitFileType = text; path = readme.agility; sourceTree = "<group>"; };
 		55368AE9272A045800740A0A /* agil */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agil; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368B00272A046400740A0A /* agt2agx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agt2agx; sourceTree = BUILT_PRODUCTS_DIR; };
+		55368B33272B562300740A0A /* ZoomStoryOrganiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomStoryOrganiser.swift; sourceTree = "<group>"; };
 		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
 		553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZoomiFictionController+OldWebKit.m"; sourceTree = "<group>"; };
 		553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSkeinXMLSwift.swift; sourceTree = "<group>"; };
@@ -1800,6 +1802,7 @@
 				4B926A1E0CD1480B00CE0ADB /* ZoomJSError.m */,
 				55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */,
 				55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */,
+				55368B33272B562300740A0A /* ZoomStoryOrganiser.swift */,
 				4B807BA905BFEE7200681653 /* ZoomStoryOrganiser.h */,
 				4B807BAA05BFEE7200681653 /* ZoomStoryOrganiser.m */,
 				4B5CBB79069D656000C0AA88 /* ZoomStoryTableView.h */,
@@ -3059,6 +3062,7 @@
 				4B840AD20CC2BB9C0071F3B3 /* ZoomWindowThatIsKey.m in Sources */,
 				4B926A200CD1480B00CE0ADB /* ZoomJSError.m in Sources */,
 				4B9DC7ED15027DF0003DF057 /* ZoomLeopard.m in Sources */,
+				55368B34272B562300740A0A /* ZoomStoryOrganiser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

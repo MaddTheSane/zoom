@@ -47,10 +47,6 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 //! The shared organiser
 @property (class, readonly, retain) ZoomStoryOrganiser *sharedStoryOrganiser;
 
-// Image management
-+ (NSImage*) frontispieceForBlorb: (ZoomBlorbFile*) decodedFile;
-+ (NSImage*) frontispieceForFile: (NSString*) filename;
-
 // Storing stories
 - (void) addStory: (NSString*) filename
 		withIdent: (ZoomStoryID*) ident;
