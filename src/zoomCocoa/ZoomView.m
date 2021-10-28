@@ -1345,16 +1345,16 @@ static void finalizeViews(void) {
     NSColor* res;
 
     if (style.reversed) {
-        res = [style backgroundTrue];
+        res = style.backgroundTrue;
     } else {
-        res = [style foregroundTrue];
+        res = style.foregroundTrue;
     }
 
     if (res == nil) {
         if (style.reversed) {
-            res = [colours objectAtIndex: [style backgroundColour]];
+            res = colours[style.backgroundColour];
         } else {
-            res = [colours objectAtIndex: [style foregroundColour]];
+            res = colours[style.foregroundColour];
         }
     }
 	
@@ -1368,16 +1368,16 @@ static void finalizeViews(void) {
     NSColor* res;
 
     if (!style.reversed) {
-        res = [style backgroundTrue];
+        res = style.backgroundTrue;
     } else {
-        res = [style foregroundTrue];
+        res = style.foregroundTrue;
     }
 
     if (res == nil) {
         if (!style.reversed) {
-            res = [colours objectAtIndex: [style backgroundColour]];
+            res = colours[style.backgroundColour];
         } else {
-            res = [colours objectAtIndex: [style foregroundColour]];
+            res = colours[style.foregroundColour];
         }
     }
 
