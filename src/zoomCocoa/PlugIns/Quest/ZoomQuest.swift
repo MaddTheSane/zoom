@@ -59,7 +59,7 @@ final public class Quest: ZoomGlkPlugIn {
 			return true
 		}
 		
-		return url.lastPathComponent.lowercased() == "asl"
+		return url.pathExtension.lowercased() == "asl"
 	}
 	
 	public override init!(url gameFile: URL!) {
