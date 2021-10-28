@@ -203,7 +203,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			if (ident != nil) {
 				story = [self findStory: ident];
 				if (story == nil) {
-					story = [pluginInstance defaultMetadata];
+					story = [pluginInstance defaultMetadataWithError: NULL];
 					if (story != nil) {
 						[[self userMetadata] copyStory: story
 												  toId: ident];

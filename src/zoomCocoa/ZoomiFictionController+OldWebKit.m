@@ -16,7 +16,7 @@
 							request:(NSURLRequest *)request
 							  frame:(WebFrame *)frame
 				   decisionListener:(id<WebPolicyDecisionListener>)listener {
-	NSArray* archiveFiles = [NSArray arrayWithObjects: @"zip", @"tar", @"tgz", @"gz", @"bz2", @"z", nil];
+	NSArray* archiveFiles = @[@"zip", @"tar", @"tgz", @"gz", @"bz2", @"z"];
 
 	if ([[actionInformation objectForKey: WebActionNavigationTypeKey] intValue] == 0) {
 #ifdef DEVELOPMENT_BUILD

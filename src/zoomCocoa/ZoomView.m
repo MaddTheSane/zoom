@@ -668,8 +668,7 @@ static void finalizeViews(void) {
 - (void) dimensionX: (out int*) xSize
                   Y: (out int*) ySize {
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-		 [self fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil]];
+						@{NSFontAttributeName: [self fontFromStyle:ZFontStyleFixed]}];
     NSRect ourBounds = NSMakeRect(0,0,0,0);
 	
 	if (pixmapWindow == nil)
