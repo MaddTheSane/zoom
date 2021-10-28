@@ -724,7 +724,7 @@ static void finalizeViews(void) {
 
 - (void) clearLowerWindowWithStyle: (ZStyle*) style {
     [[[textView textStorage] mutableString] replaceCharactersInRange: NSMakeRange(0, inputPos)
-																	 withString: @""];
+														  withString: @""];
     [textView setBackgroundColor: style.reversed?[self foregroundColourForStyle: style]:[self backgroundColourForStyle: style]];
     [textView clearPastedLines]; 
 	
@@ -839,7 +839,7 @@ static void finalizeViews(void) {
     NSRange endGlyph = [textView selectionRangeForProposedRange:
         NSMakeRange([[textView textStorage] length]-1, 1)
                                                     granularity: NSSelectByCharacter];
-    if (endGlyph.location > 0xf0000000) {
+    if (endGlyph.location == NSNotFound) {
         return; // Doesn't exist
     }
 
@@ -904,9 +904,9 @@ static void finalizeViews(void) {
 			NSMakeRange([[textView textStorage] length]-1, 1)
 												   granularity: NSSelectByCharacter];
 	} else {
-		endGlyph = NSMakeRange(0xffffffff,0);
+		endGlyph = NSMakeRange(NSNotFound,0);
 	}
-    if (endGlyph.location < 0xf0000000) {
+    if (endGlyph.location != NSNotFound) {
         NSRect endRect = [mgr boundingRectForGlyphRange: endGlyph
                                         inTextContainer: [textView textContainer]];
         maxHeight = endRect.origin.y;
@@ -1475,7 +1475,7 @@ static void finalizeViews(void) {
             NSRange endGlyph = [textView selectionRangeForProposedRange:
                 NSMakeRange([[textView textStorage] length]-1, 1)
                                                             granularity: NSSelectByCharacter];
-            if (endGlyph.location > 0xf0000000) {
+            if (endGlyph.location == NSNotFound) {
                 return; // Doesn't exist
             }
 
@@ -1563,7 +1563,7 @@ static void finalizeViews(void) {
         NSRange endGlyph = [textView selectionRangeForProposedRange:
             NSMakeRange([[textView textStorage] length]-1, 1)
                                                     granularity: NSSelectByCharacter];
-        if (endGlyph.location > 0xf0000000) {
+        if (endGlyph.location == NSNotFound) {
 			if (editingTextView) {
 #ifdef ZoomTraceTextEditing
 				NSLog(@"Begin editing: pad to lower window");
