@@ -41,14 +41,13 @@ static NSDictionary*  itemDictionary = nil;
 	typographicSettingsItem = [[NSToolbarItem alloc] initWithItemIdentifier: typographicSettingsItemName];
 	
 	// ... and the dictionary
-	itemDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-		generalSettingsItem, generalSettingsItemName,
-		gameSettingsItem, gameSettingsItemName,
-		displaySettingsItem, displaySettingsItemName,
-		fontSettingsItem, fontSettingsItemName,
-		colourSettingsItem, colourSettingsItemName,
-		typographicSettingsItem, typographicSettingsItemName,
-		nil];
+	itemDictionary = @{
+		generalSettingsItemName: generalSettingsItem,
+		gameSettingsItemName: gameSettingsItem,
+		displaySettingsItemName: displaySettingsItem,
+		fontSettingsItemName: fontSettingsItem,
+		colourSettingsItemName: colourSettingsItem,
+		typographicSettingsItemName: typographicSettingsItem};
 	
 	// Set up the items
 	[generalSettingsItem setLabel: @"General"];
@@ -462,10 +461,10 @@ static void appendStyle(NSMutableString* styleName,
 			NSAttributedString* res;
 			
 			res = [[NSAttributedString alloc] initWithString: @"Sample"
-												  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-													  theColour, NSForegroundColorAttributeName,
-													  theColour, NSBackgroundColorAttributeName,
-													  nil]];
+												  attributes: @{
+				NSForegroundColorAttributeName: theColour,
+				NSBackgroundColorAttributeName: theColour
+			}];
 			
 			return res;
 		}

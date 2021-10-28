@@ -65,15 +65,14 @@ static NSImage* unchangedDark, *activeDark;
 		activeDark = [[NSBundle bundleForClass: [self class]] imageForResource: @"Skein-active-dark"];
 #endif
 	
-		itemTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-		[NSFont systemFontOfSize: 10], NSFontAttributeName,
-		[NSColor blackColor], NSForegroundColorAttributeName,
-							  nil];
-		labelTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-		[NSFont systemFontOfSize: 13], NSFontAttributeName,
-		[NSColor blackColor], NSForegroundColorAttributeName,
-		labelShadow, NSShadowAttributeName,
-							   nil];
+		itemTextAttributes = @{
+			NSFontAttributeName: [NSFont systemFontOfSize: 10],
+			NSForegroundColorAttributeName: [NSColor textColor],
+		};
+		labelTextAttributes = @{
+			NSFontAttributeName: [NSFont systemFontOfSize: 13],
+			NSForegroundColorAttributeName: [NSColor textColor],
+			NSShadowAttributeName: labelShadow};
 	});
 }
 

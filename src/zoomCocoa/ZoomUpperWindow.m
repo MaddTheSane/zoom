@@ -70,9 +70,7 @@ static NSString* blankLine(NSInteger length);
     // Make sure there is enough space on this line for the text
     if ([thisLine length] <= xpos+strlen) {
         NSFont* fixedFont = [theView fontFromStyle: ZFontStyleFixed];
-        NSDictionary* clearStyle = [NSDictionary dictionaryWithObjectsAndKeys:
-            fixedFont, NSFontAttributeName,
-            nil];
+        NSDictionary* clearStyle = @{NSFontAttributeName: fixedFont};
 		NSInteger spacesLen = (xpos+strlen)-[thisLine length];
 
         NSAttributedString* spaceString = [[NSAttributedString alloc]

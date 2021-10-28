@@ -98,9 +98,7 @@ static NSMutableDictionary* notesDictionary = nil;
 		
 		if (currentNotes == nil) {
 			currentNotes = [[NSAttributedString alloc] initWithString: @""
-															attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																[NSFont systemFontOfSize: 10], NSFontAttributeName,
-																nil]];
+														   attributes: @{NSFontAttributeName: [NSFont systemFontOfSize: 10]}];
 		}
 		
 		[[notes textStorage] setAttributedString: currentNotes];

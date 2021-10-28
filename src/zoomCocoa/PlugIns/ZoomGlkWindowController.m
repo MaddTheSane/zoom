@@ -342,10 +342,8 @@
 		font = [NSFont systemFontOfSize: msgSize];
 	}
 	
-	NSDictionary* msgAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-		font, NSFontAttributeName,
-		msgColour, NSForegroundColorAttributeName,
-		nil];
+	NSDictionary* msgAttributes = @{NSFontAttributeName: font,
+									NSForegroundColorAttributeName: msgColour};
 	
 	// Create the attributed string
 	NSAttributedString* newMsg = [[NSAttributedString alloc] initWithString: [message stringByAppendingString: @"\n"]

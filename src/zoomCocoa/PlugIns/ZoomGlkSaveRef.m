@@ -101,11 +101,9 @@
 	}
 	
 	// Build the final save wrapper
-	NSFileWrapper* saveWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			savePropertyWrapper, @"Info.plist",
-			saveGameWrapper, @"Save.data",
-			nil, nil]];
+	NSFileWrapper* saveWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:@{
+		@"Info.plist": savePropertyWrapper,
+		@"Save.data": saveGameWrapper}];
 	
 	if (skeinWrapper) {
 		[saveWrapper addFileWrapper: skeinWrapper];

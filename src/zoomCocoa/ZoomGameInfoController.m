@@ -205,18 +205,16 @@ static NSString* stringOrEmpty(NSString* str) {
 }
 
 - (NSDictionary*) dictionary {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-		[self title], @"title",
-		[self headline], @"headline",
-		[self author], @"author",
-		[self genre], @"genre",
-		@([self year]), @"year",
-		[self group], @"group",
-		[self comments], @"comments",
-		[self teaser], @"teaser",
-		@([self zarfRating]), @"zarfRating",
-		@([self rating]), @"rating",
-		nil];
+	return @{@"title": [self title],
+			 @"headline": [self headline],
+			 @"author": [self author],
+			 @"genre": [self genre],
+			 @"year": @([self year]),
+			 @"group": [self group],
+			 @"comments": [self comments],
+			 @"teaser": [self teaser],
+			 @"zarfRating": @([self zarfRating]),
+			 @"rating": @([self rating])};
 }
 
 #pragma mark - NSText delegate

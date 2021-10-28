@@ -75,10 +75,10 @@ static NSImage* blorbImage;
 	remainingRect.size.height -= imgRect.size.height + 8;
 	
 	[description drawInRect: remainingRect
-			 withAttributes: [NSDictionary dictionaryWithObjectsAndKeys: 
-				 [NSFont systemFontOfSize: 11], NSFontAttributeName,
-				 paraStyle, NSParagraphStyleAttributeName,
-				 nil]];
+			 withAttributes: @{
+		NSFontAttributeName:[NSFont systemFontOfSize: 11],
+		NSParagraphStyleAttributeName: paraStyle
+	}];
 }
 
 - (void) setWillOrganise: (BOOL) wO {

@@ -31,8 +31,7 @@
 
 - (void)drawRect:(NSRect)rect {
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-		 [zoomView fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil]];
+						@{NSFontAttributeName: [zoomView fontFromStyle:ZFontStyleFixed]}];
     
     int ypos = 0;
 	CGFloat width = [self bounds].size.width;
@@ -96,8 +95,7 @@
 	NSPoint cp = [activeWindow cursorPosition];
 		
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-		 [zoomView fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil]];
+						@{NSFontAttributeName: [zoomView fontFromStyle:ZFontStyleFixed]}];
 	
 	return NSMakePoint(cp.x * fixedSize.width, cp.y * fixedSize.height);
 }
@@ -113,8 +111,7 @@
 	// Font size
 	NSFont* font = [zoomView fontFromStyle: ZFontStyleFixed];
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-		 [zoomView fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil]];
+						@{NSFontAttributeName: font}];
 	
 	// Get the cursor position
 	NSPoint cursorPos = [activeWindow cursorPosition];

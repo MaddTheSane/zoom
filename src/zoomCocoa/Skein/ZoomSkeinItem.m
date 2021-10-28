@@ -600,10 +600,9 @@ static NSDictionary* labelTextAttributes = nil;
 
 - (NSSize) commandSize {
 	if (!itemTextAttributes) {
-		itemTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-							  [NSFont systemFontOfSize: 10], NSFontAttributeName,
-							  [NSColor blackColor], NSForegroundColorAttributeName,
-							  nil];
+		itemTextAttributes = @{
+			NSFontAttributeName: [NSFont systemFontOfSize: 10],
+			NSForegroundColorAttributeName: [NSColor textColor]};
 	}
 	
 	if (commandSizeDidChange) {
@@ -621,11 +620,11 @@ static NSDictionary* labelTextAttributes = nil;
 
 - (NSSize) annotationSize {
 	if (!labelTextAttributes) {
-		labelTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSFont systemFontOfSize: 13], NSFontAttributeName,
-			[NSColor blackColor], NSForegroundColorAttributeName,
+		labelTextAttributes = @{
+			NSFontAttributeName: [NSFont systemFontOfSize: 13],
+			NSForegroundColorAttributeName: [NSColor textColor]
 			//labelShadow, NSShadowAttributeName,
-			nil];
+		};
 	}
 	
 	if (annotationSizeDidChange) {

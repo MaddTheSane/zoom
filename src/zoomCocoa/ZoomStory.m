@@ -50,10 +50,7 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 + (void) initialize {
 	NSUserDefaults* defs = [NSUserDefaults standardUserDefaults];
 	
-	[defs registerDefaults: 
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSDictionary dictionary], ZoomStoryExtraMetadata,
-			nil]];
+	[defs registerDefaults: @{ZoomStoryExtraMetadata: @{}}];
 }
 
 + (NSString*) nameForKey: (NSString*) key {

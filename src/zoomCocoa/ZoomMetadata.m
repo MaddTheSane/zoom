@@ -256,9 +256,7 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 - (void) removeStoryWithIdent: (ZoomStoryID*) ident {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomMetadataWillDestroyStory
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  ident, @"Ident",
-														  nil]];
+													  userInfo: @{@"Ident": ident}];
 	
 	[dataLock lock];
 	

@@ -326,11 +326,10 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	NSDictionary* extraPrefs = [[NSUserDefaults standardUserDefaults] objectForKey: extraDefaultsName];
 	
 	// Detach a thread to decode the dictionary
-	NSDictionary* threadDictionary =
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			prefs, @"preferences",
-			extraPrefs, @"extraPreferences",
-			nil];
+	NSDictionary* threadDictionary = @{
+		@"preferences": prefs,
+		@"extraPreferences": extraPrefs
+	};
 	
 	// Create a connection so the threads can communicate
 	port1 = [NSPort port];
@@ -448,13 +447,16 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 #pragma mark - Initialisation
 
 + (void) initialize {
-	// User defaults
-    NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
-	ZoomStoryOrganiser* defaultPrefs = [[[self class] alloc] init];
-	
-    NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys: [defaultPrefs dictionary], defaultName, nil];
-	
-    [defaults registerDefaults: appDefaults];	
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		// User defaults
+		NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+		ZoomStoryOrganiser* defaultPrefs = [[[self class] alloc] init];
+		
+		NSDictionary *appDefaults = @{defaultName: [defaultPrefs dictionary]};
+		
+		[defaults registerDefaults: appDefaults];
+	});
 }
 
 - (id) init {
@@ -1348,11 +1350,11 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[mainThreadConnection setRootObject: self];
 	
 	// Create the information dictionary
-	NSDictionary* threadDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-		threadPort1, @"threadPort1",
-		threadPort2, @"threadPort2",
-		mainThreadConnection,  @"mainThread",
-		nil];
+	NSDictionary* threadDictionary = @{
+		@"threadPort1": threadPort1,
+		@"threadPort2": threadPort2,
+		@"mainThread": mainThreadConnection
+	};
 	
 	[storyLock lock];
 	if (alreadyOrganising) {

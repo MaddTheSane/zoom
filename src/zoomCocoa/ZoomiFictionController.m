@@ -77,11 +77,13 @@ NS_ENUM(NSInteger) {
 }
 
 + (void) initialize {
-	// Create user defaults
-	NSURL* docDir = [[NSFileManager defaultManager] URLForDirectory: NSDocumentDirectory inDomain: NSUserDomainMask appropriateForURL:nil create: NO error: NULL];
-	
-	[[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
-		docDir, addDirectory, @"group", sortGroup, nil]];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		// Create user defaults
+		NSURL* docDir = [[NSFileManager defaultManager] URLForDirectory: NSDocumentDirectory inDomain: NSUserDomainMask appropriateForURL:nil create: NO error: NULL];
+		
+		[[NSUserDefaults standardUserDefaults] registerDefaults: @{addDirectory: docDir, sortGroup: @"group"}];
+	});
 }
 
 - (void) dealloc {
@@ -1300,10 +1302,10 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSInteger row = rowEnum.firstIndex;
 		BOOL extraNewline = NO;
 		NSAttributedString* newlineString = [[NSAttributedString alloc] initWithString: @"\n"
-																			 attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																				 @(ZoomNoField), ZoomFieldAttribute,
-																				 @0, ZoomRowAttribute,
-																				 nil]];
+																			attributes: @{
+			ZoomFieldAttribute: @(ZoomNoField),
+			ZoomRowAttribute: @0
+		}];
 		
 		while (row != NSNotFound) {
 			ZoomStoryID* ident = [storyList objectAtIndex: row];
@@ -1318,44 +1320,41 @@ static dispatch_block_t onceTypesBlock = ^{
 				[gameDetails appendAttributedString: newlineString];
 			}
 			[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: title
-																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																					  titleFont, NSFontAttributeName, 
-																					  @(ZoomTitleField), ZoomFieldAttribute,
-																					  @(row), ZoomRowAttribute,
-																					  story, ZoomStoryAttribute,
-																							   NSColor.textColor,
-																							   NSForegroundColorAttributeName,
-																					  nil]]];
+																				 attributes: @{
+				NSFontAttributeName: titleFont,
+				ZoomFieldAttribute: @(ZoomTitleField),
+				ZoomRowAttribute: @(row),
+				ZoomStoryAttribute: story,
+				NSForegroundColorAttributeName: NSColor.textColor
+			}]];
 			[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: @"\n"
-																				  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																					  @(ZoomTitleNewlineField), ZoomFieldAttribute,
-																					  @(row), ZoomRowAttribute,
-																					  story, ZoomStoryAttribute,
-																							   NSColor.textColor,
-																							   NSForegroundColorAttributeName,
-																					  nil]]];
+																				  attributes: @{
+				ZoomFieldAttribute: @(ZoomTitleNewlineField),
+				ZoomRowAttribute: @(row),
+				ZoomStoryAttribute: story,
+				NSForegroundColorAttributeName: NSColor.textColor
+			}]];
 				
 			// Append the year of publication
 			int year = [story year];
 			if (year > 0) {
 				NSString* yearText = [NSString stringWithFormat: @"%i", year];
 				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: yearText
-																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
-																						  yearFont, NSFontAttributeName, 
-																						  @(ZoomYearField), ZoomFieldAttribute,
-																						  @(row), ZoomRowAttribute,
-																						  story, ZoomStoryAttribute,
-																								   NSColor.textColor,
-																								   NSForegroundColorAttributeName,
-																						  nil]]];
+																					 attributes: @{
+					NSFontAttributeName: yearFont,
+					ZoomFieldAttribute: @(ZoomYearField),
+					ZoomRowAttribute: @(row),
+					ZoomStoryAttribute: story,
+					NSForegroundColorAttributeName: NSColor.textColor
+				}]];
 				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: @"\n"
-																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																						  @(ZoomYearNewlineField), ZoomFieldAttribute,
-																						  @(row), ZoomRowAttribute,
-																						  story, ZoomStoryAttribute,
-																								   NSColor.textColor,
-																								   NSForegroundColorAttributeName,
-																						  nil]]];
+																					 attributes: @{
+					NSFontAttributeName: yearFont,
+					ZoomFieldAttribute: @(ZoomYearNewlineField),
+					ZoomRowAttribute: @(row),
+					ZoomStoryAttribute: story,
+					NSForegroundColorAttributeName: NSColor.textColor
+				}]];
 			}
 			
 			// Append the description
@@ -1365,14 +1364,13 @@ static dispatch_block_t onceTypesBlock = ^{
 			if (descText != nil) {
 				[gameDetails appendAttributedString: newlineString];
 				[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: descText
-																					  attributes: [NSDictionary dictionaryWithObjectsAndKeys: 
-																						  descFont, NSFontAttributeName, 
-																						  @(ZoomDescriptionField), ZoomFieldAttribute,
-																						  @(row), ZoomRowAttribute,
-																						  story, ZoomStoryAttribute,
-																								   NSColor.textColor,
-																								   NSForegroundColorAttributeName,
-																						  nil]]];
+																					 attributes: @{
+					NSFontAttributeName: descFont,
+					ZoomFieldAttribute: @(ZoomDescriptionField),
+					ZoomRowAttribute: @(row),
+					ZoomStoryAttribute: story,
+					NSForegroundColorAttributeName: NSColor.textColor
+				}]];
 				
 				if ([descText length] > 0) flipToDescription = YES;
 			}
@@ -1389,7 +1387,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSString* desc = @"Multiple games selected";
 		if (numSelected == 0) desc = @"No game selected";
 		[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: desc
-																			  attributes: [NSDictionary dictionaryWithObjectsAndKeys: descFont, NSFontAttributeName, nil]]];
+																			 attributes:
+											  @{NSFontAttributeName: descFont}]];
 	}
 	
 	if (![[gameDetailView string] isEqualToString: [gameDetails string]]) {
@@ -2000,12 +1999,10 @@ static dispatch_block_t onceTypesBlock = ^{
 				break;
 		}
 		
-		NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-			font, NSFontAttributeName,
-			row, ZoomRowAttribute,
-			field, ZoomFieldAttribute,
-			story, ZoomStoryAttribute,
-			nil];
+		NSDictionary* attributes = @{NSFontAttributeName: font,
+									 ZoomRowAttribute: row,
+									 ZoomFieldAttribute: field,
+									 ZoomStoryAttribute: story};
 		
 		[storage addAttributes: attributes
 						 range: edited];

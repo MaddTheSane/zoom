@@ -701,7 +701,7 @@ static void finalizeViews(void) {
 		NSFont*             font            = [self fontFromStyle: ZFontStyleFixed];
         NSLayoutManager*    layoutManager   = [textView layoutManager];
 	
-		*width  = [@"m" sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil]].width;
+		*width  = [@"m" sizeWithAttributes: @{NSFontAttributeName: font}].width;
 		*height = ceil([layoutManager defaultLineHeightForFont: font])+1.0;
 	}
 }
@@ -1224,8 +1224,7 @@ static void finalizeViews(void) {
 									  Y: pointInView.y];
 	} else {
 		// Point is in character coordinates
-		NSDictionary* fixedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-										 [self fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil];
+		NSDictionary* fixedAttributes = @{NSFontAttributeName: [self fontFromStyle:ZFontStyleFixed]};
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 		
 		int charX = floor(pointInView.x / fixedSize.width);
@@ -1294,13 +1293,12 @@ static void finalizeViews(void) {
 	foregroundColour = [foregroundColour colorWithAlphaComponent: 1.0];
 	
     // Generate the new attributes
-    NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-        fontToUse, NSFontAttributeName,
-        foregroundColour, NSForegroundColorAttributeName,
-        backgroundColour, NSBackgroundColorAttributeName,
-		@([viewPrefs useLigatures] ? 1 : 0), NSLigatureAttributeName,
-		[style copy], ZoomStyleAttributeName,
-        nil];
+	NSDictionary* newAttr = @{
+		NSFontAttributeName: fontToUse,
+		NSForegroundColorAttributeName: foregroundColour,
+		NSBackgroundColorAttributeName: backgroundColour,
+		NSLigatureAttributeName: @([viewPrefs useLigatures] ? 1 : 0),
+		ZoomStyleAttributeName: [style copy]};
 	
 	return newAttr;
 }
@@ -1451,8 +1449,7 @@ static void finalizeViews(void) {
         lastUpperWindowSize = newSize;
 
         // Force text display onto lower window (or where the lower window will be)
-        NSDictionary* fixedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-										 [self fontFromStyle: ZFontStyleFixed], NSFontAttributeName, nil];
+		NSDictionary* fixedAttributes = @{NSFontAttributeName: [self fontFromStyle:ZFontStyleFixed]};
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 
         NSAttributedString* newLine = [[NSAttributedString alloc] initWithString: @"\n"

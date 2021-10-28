@@ -211,8 +211,7 @@
     CGFloat topPoint = NSMaxY(ourBounds) - containerBounds.size.height;
     
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-         [zoomView fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil]];
+                        @{NSFontAttributeName: [zoomView fontFromStyle:ZFontStyleFixed]}];
     
 	NSFontManager* fm = [NSFontManager sharedFontManager];
 	

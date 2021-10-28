@@ -21,12 +21,10 @@
 
 - (void) setSize {
     NSString* more = @"[More…]";
-    NSDictionary* moreAttributes =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSFont systemFontOfSize: 12], NSFontAttributeName,
-            [NSColor controlAccentColor], NSBackgroundColorAttributeName,
-            [NSColor labelColor], NSForegroundColorAttributeName,
-            nil];
+    NSDictionary* moreAttributes = @{
+        NSFontAttributeName: [NSFont systemFontOfSize: 12],
+        NSBackgroundColorAttributeName: [NSColor controlAccentColor],
+        NSForegroundColorAttributeName: [NSColor labelColor]};
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self frame];
     moreSize.width += 2;
@@ -39,12 +37,10 @@
 
 - (void)drawRect:(__unused NSRect)rect {
     NSString* more = @"[More…]";
-    NSDictionary* moreAttributes =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSFont systemFontOfSize: 12], NSFontAttributeName,
-            [NSColor controlAccentColor], NSBackgroundColorAttributeName,
-            [NSColor labelColor], NSForegroundColorAttributeName,
-            nil];
+    NSDictionary* moreAttributes =@{
+        NSFontAttributeName: [NSFont systemFontOfSize: 12],
+        NSBackgroundColorAttributeName: [NSColor controlAccentColor],
+        NSForegroundColorAttributeName: [NSColor labelColor]};
 
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self bounds];

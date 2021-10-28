@@ -9,6 +9,9 @@
 #import "ZoomBlorbFile.h"
 
 NSErrorDomain const ZoomBlorbErrorDomain = @"uk.org.logicalshift.zoomview.blorb.errors";
+static NSString *const ZoomBlorbID = @"id";
+static NSString *const ZoomBlorbLength = @"length";
+static NSString *const ZoomBlorbOffset = @"offset";
 
 @implementation ZoomBlorbFile {
 	id<ZFile> file;
@@ -182,11 +185,10 @@ static unsigned int Int4(const unsigned char* bytes) {
 			unsigned int blockLength = (lBytes[0]<<24)|(lBytes[1]<<16)|(lBytes[2]<<8)|(lBytes[3]<<0);
 			
 			// Create the block data
-			NSDictionary* block = [NSDictionary dictionaryWithObjectsAndKeys:
-				blockID, @"id",
-				@(blockLength), @"length",
-				@(pos+8), @"offset",
-				nil];
+			NSDictionary* block = @{
+				ZoomBlorbID: blockID,
+				ZoomBlorbLength: @(blockLength),
+				ZoomBlorbOffset: @(pos+8)};
 			
 			// Store it
 			[iffBlocks addObject: block];
@@ -251,14 +253,14 @@ static unsigned int Int4(const unsigned char* bytes) {
 - (NSData*) dataForChunk: (NSDictionary<NSString*,id>*) chunk {
 	if (![chunk isKindOfClass: [NSDictionary class]]) return nil;
 	if (!file) return nil;
-	if (![[chunk objectForKey: @"offset"] isKindOfClass: [NSNumber class]]) return nil;
-	if (![[chunk objectForKey: @"length"] isKindOfClass: [NSNumber class]]) return nil;
+	if (![[chunk objectForKey: ZoomBlorbOffset] isKindOfClass: [NSNumber class]]) return nil;
+	if (![[chunk objectForKey: ZoomBlorbLength] isKindOfClass: [NSNumber class]]) return nil;
 	
 	NSDictionary<NSString*,NSNumber*>* cD = chunk;
 	
-	[file seekTo: cD[@"offset"].unsignedIntValue];
+	[file seekTo: cD[ZoomBlorbOffset].unsignedIntValue];
 	
-	return [file readBlock: cD[@"length"].unsignedIntValue];
+	return [file readBlock: cD[ZoomBlorbLength].unsignedIntValue];
 }
 
 - (NSData*) dataForChunkWithType: (NSString*) chunkType {
@@ -366,8 +368,8 @@ static unsigned int Int4(const unsigned char* bytes) {
 		if (denom == 0) ratio = 0; else ratio = ((double)num)/((double)denom);
 		NSNumber* maxRatio = @(ratio);
 		
-		NSDictionary* entry = [NSDictionary dictionaryWithObjectsAndKeys:
-			stdRatio, @"stdRatio", minRatio, @"minRatio", maxRatio, @"maxRatio", nil];
+		NSDictionary* entry = @{
+			@"stdRatio": stdRatio, @"minRatio": minRatio, @"maxRatio": maxRatio};
 
 		[resolution setObject: entry
 					   forKey: imageNum];
@@ -604,7 +606,7 @@ static const int cacheUpperLimit = 64;
 	
 	if (imageBlock == nil) return NSMakeSize(0,0);
 	
-	NSString* type = [imageBlock objectForKey: @"id"];
+	NSString* type = [imageBlock objectForKey: ZoomBlorbID];
 	
 	if ([type isEqualToString: @"Rect"]) {
 		// Nonstandard extension: rectangle
@@ -668,7 +670,7 @@ static const int cacheUpperLimit = 64;
 	
 	if (imageBlock == nil) return nil;
 	
-	NSString* type = [imageBlock objectForKey: @"id"];
+	NSString* type = [imageBlock objectForKey: ZoomBlorbID];
 	NSImage* res = nil;
 	
 	// Retrieve the image from the cache if possible
