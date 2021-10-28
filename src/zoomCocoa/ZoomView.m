@@ -1818,6 +1818,13 @@ static void finalizeViews(void) {
 		if ([isDir isEqualToString:NSURLFileResourceTypeDirectory]) return YES;
 	}
 	
+	NSString *p;
+	if ([url getResourceValue: &p forKey: NSURLTypeIdentifierKey error: NULL]) {
+		if ([[panel allowedFileTypes] containsObject: p]) {
+			return YES;
+		}
+	}
+	
 	return NO;
 
 }
@@ -1827,6 +1834,13 @@ static void finalizeViews(void) {
 
 	if ([[panel allowedFileTypes] containsObject:[url pathExtension]]) {
 		return YES;
+	}
+	
+	NSString *p;
+	if ([url getResourceValue: &p forKey: NSURLTypeIdentifierKey error: NULL]) {
+		if ([[panel allowedFileTypes] containsObject: p]) {
+			return YES;
+		}
 	}
 	
 	if ([[panel allowedFileTypes] containsObject: @"zoomSave"]) {
