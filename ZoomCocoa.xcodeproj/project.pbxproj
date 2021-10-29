@@ -713,6 +713,13 @@
 			remoteGlobalIDString = 55368AEA272A046400740A0A;
 			remoteInfo = agt2agx;
 		};
+		55368B7C272CA88D00740A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55368A88272A035E00740A0A;
+			remoteInfo = AGT;
+		};
 		554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
@@ -2471,6 +2478,7 @@
 				4B51A95108FAC71400232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
+				55368B7D272CA88D00740A0A /* PBXTargetDependency */,
 				552CF03327176D45009D87A5 /* PBXTargetDependency */,
 				55BE4AF327099AB400100A7D /* PBXTargetDependency */,
 				55BC633F2055DC0E001F8CFB /* PBXTargetDependency */,
@@ -3431,6 +3439,11 @@
 			isa = PBXTargetDependency;
 			target = 55368AEA272A046400740A0A /* agt2agx */;
 			targetProxy = 55368B15272A053600740A0A /* PBXContainerItemProxy */;
+		};
+		55368B7D272CA88D00740A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55368A88272A035E00740A0A /* AGT */;
+			targetProxy = 55368B7C272CA88D00740A0A /* PBXContainerItemProxy */;
 		};
 		55982BEC21C0CE43002B601B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

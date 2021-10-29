@@ -293,8 +293,9 @@
  * AGiliTy code.  The os_glk.c module handles the translations.
  */
 #ifdef GLK  
-#define NEED_STR_CMP			/* Inherited from PLAIN. */
-#define NEED_STRN_CMP			/* Inherited from PLAIN. */
+#undef NEED_STR_CMP
+#undef NEED_STRN_CMP
+#define HAVE_STRDUP
 #define BUFF_SIZE	0		/* Inherited from PLAIN. */
 #define CBUF_SIZE	(5000L)		/* Inherited from PLAIN. */
 #define INBUFF_SIZE	(1024)		/* Inherited from PLAIN. */

@@ -601,7 +601,7 @@ static const int cacheUpperLimit = 64;
 		[[resourceIndex objectForKey: @"Pict"] objectForKey: 
 			@(num)]];
 	
-	if (imageBlock == nil) return NSMakeSize(0,0);
+	if (imageBlock == nil) return NSZeroSize;
 	
 	NSString* type = [imageBlock objectForKey: ZoomBlorbID];
 	

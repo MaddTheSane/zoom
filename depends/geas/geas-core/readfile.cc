@@ -472,7 +472,7 @@ GeasFile read_geas_file (GeasInterface *gi, const string &filename)
       success = preprocess (split_lines (file_contents), filename, data, gi);
     }
 
-  cerr << "File load was " << (success ? "success" : "failure") << "\n";
+  cerr << "File load was " << (success ? "success" : "failure") << endl;
 
   if (success)
     return GeasFile (data, gi);
