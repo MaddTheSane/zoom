@@ -127,16 +127,16 @@ public:
   */
 };
 
-void save_game_to (const std::string &gamename, const std::string &savename, const GeasState &gs);
+extern void save_game_to (const std::string &gamename, const std::string &savename, const GeasState &gs);
 
-std::ostream &operator<< (std::ostream &o, const std::map <std::string, std::string> &m);
-std::ostream &operator<< (std::ostream &o, const PropertyRecord &pr);
-std::ostream &operator<< (std::ostream &o, const ObjectRecord &objr);
-std::ostream &operator<< (std::ostream &o, const ExitRecord er);
-std::ostream &operator<< (std::ostream &o, const TimerRecord &tr);
-std::ostream &operator<< (std::ostream &o, const SVarRecord &sr);
-std::ostream &operator<< (std::ostream &o, const IVarRecord &ir);
-std::ostream &operator<< (std::ostream &o, const GeasState &gs);
+extern std::ostream &operator<< (std::ostream &o, const std::map <std::string, std::string> &m);
+extern std::ostream &operator<< (std::ostream &o, const PropertyRecord &pr);
+extern std::ostream &operator<< (std::ostream &o, const ObjectRecord &objr);
+extern std::ostream &operator<< (std::ostream &o, const ExitRecord er);
+extern std::ostream &operator<< (std::ostream &o, const TimerRecord &tr);
+extern std::ostream &operator<< (std::ostream &o, const SVarRecord &sr);
+extern std::ostream &operator<< (std::ostream &o, const IVarRecord &ir);
+extern std::ostream &operator<< (std::ostream &o, const GeasState &gs);
 
 
 #endif

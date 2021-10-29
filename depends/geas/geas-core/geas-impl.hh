@@ -39,7 +39,7 @@ struct match_binding
   void set (std::string vt, uint i) { var_text = vt; end = i; }
 };
 
-std::ostream &operator<< (std::ostream &, const match_binding &);
+extern std::ostream &operator<< (std::ostream &, const match_binding &);
 
 
 struct match_rv
@@ -52,7 +52,7 @@ struct match_rv
   operator bool () { return success; }
 };
 
-std::ostream &operator<< (std::ostream &o, const match_rv &rv);
+extern std::ostream &operator<< (std::ostream &o, const match_rv &rv);
 /*
   inline ostream &operator<< (ostream &o, const match_rv &rv) 
 {

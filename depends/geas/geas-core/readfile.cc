@@ -542,7 +542,7 @@ ostream &operator << (ostream &o, const GeasFile &gf)
 
 
 
-string compilation_tokens[256] = 
+const string compilation_tokens[256] = 
 {"", "game", "procedure", "room", "object", "character", "text", "selection", 
  "define", "end", "", "asl-version", "game", "version", "author", "copyright", 
  "info", "start", "possitems", "startitems", "prefix", "look", "out", "gender",

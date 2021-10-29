@@ -62,7 +62,7 @@ public:
   }
 };
 
-std::ostream &operator<< (std::ostream &o, const GeasFontStyle &gfs);
+extern std::ostream &operator<< (std::ostream &o, const GeasFontStyle &gfs);
 
 enum GeasResult
   {
