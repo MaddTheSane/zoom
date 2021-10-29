@@ -559,14 +559,11 @@ static const int cacheUpperLimit = 64;
 		}
 		
 		// Remove objects from the cache until there are cacheLowerLimit left
-		int x;
 		NSInteger numToRemove = [oldestEntries count] - cacheLowerLimit;
 		
 		NSLog(@"%li entries to remove", (long)numToRemove);
 
-		for (x=0; x<numToRemove; x++) {
-			NSDictionary* entry = oldestEntries[x];
-			
+		for (NSDictionary* entry in oldestEntries) {
 			[cache removeObjectForKey: entry[@"num"]];
 		}
 	}
@@ -587,7 +584,7 @@ static const int cacheUpperLimit = 64;
 	
 	NSLog(@"Removing %lu adaptive entries from the cache", (unsigned long)[keysToRemove count]);
 	
-	[cache removeObjectsForKeys:keysToRemove];
+	[cache removeObjectsForKeys: keysToRemove];
 }
 
 #pragma mark - Decoded data

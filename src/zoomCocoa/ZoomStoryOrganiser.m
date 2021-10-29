@@ -521,7 +521,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		ZoomPlugIn* pluginInstance = pluginClass?[[pluginClass alloc] initWithFilename: filename]:nil;
 		
 		if (pluginInstance) {
-			theStory = [pluginInstance defaultMetadata];
+			theStory = [pluginInstance defaultMetadataWithError: NULL];
 		} else {
 			theStory = [ZoomStory defaultMetadataForFile: filename];
 		}

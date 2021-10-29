@@ -116,7 +116,7 @@
 
 - (ZoomStory*) defaultMetadataWithError:(NSError *__autoreleasing *)outError {
 	// Just use the default metadata-establishing routine
-	return [ZoomStory defaultMetadataForURL: gameFile error:outError];
+	return [ZoomStory defaultMetadataForURL: gameFile error: outError];
 }
 
 - (NSImage*) coverImage {
