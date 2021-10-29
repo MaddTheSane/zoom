@@ -49,6 +49,7 @@ protected:
     virtual void set_foreground (const std::string &);
     virtual void set_background (const std::string &);
 
+    virtual std::string get_string ();
     virtual uint make_choice (const std::string &, std::vector<std::string>);
 
   virtual std::string absolute_name (const std::string &, const std::string &) const;
@@ -56,11 +57,12 @@ public:
     GeasGlkInterface() { ; }
 };
 
-void glk_put_cstring(const char *);
+static void glk_put_cstring(const char *);
+
+#include <cassert>
 
 extern "C" {
 
-#include <assert.h>
 #include "glk.h"
 
 winid_t mainglkwin;
@@ -112,7 +114,7 @@ void glk_main(void)
     while(1) {
         if(prompt) {
             glk_window_clear(inputwin);
-            glk_put_string_stream(inputwinstream, "> ");
+            glk_put_string_stream(inputwinstream, (char*)(const char*)"> ");
             glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
             prompt = 0;
         }
@@ -210,6 +212,25 @@ GeasGlkInterface::get_file (const std::string &fname) const
   return rv;
 }
 
+std::string
+GeasGlkInterface::get_string ()
+{
+  char buf[200];
+  glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
+  while(1) {
+    event_t ev;
+
+    glk_select(&ev);
+
+    if (ev.type == evtype_LineInput && ev.win == inputwin) {
+      return std::string(buf, ev.val1);
+    }
+    /* All other events, including timer, are deliberately
+     * ignored.
+     */
+  }
+}
+
 uint
 GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string> v)
 {
@@ -238,28 +259,7 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
     s1 = "Choose [1-" + s + "]> ";
     glk_put_string_stream(inputwinstream, (char *)(s1.c_str()));
 
-    int choice = 1;
-    char buf[200];
-    glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
-    while(1) {
-        event_t ev;
-
-        glk_select(&ev);
-
-        switch(ev.type) {
-        case evtype_LineInput:
-            if(ev.win == inputwin) {
-                buf[ev.val1] = '\0';
-                choice = atoi(buf);
-                goto got_choice;
-            }
-            break;
-        /* All other events, including timer, are deliberately
-         * ignored.
-         */
-        }
-    }
-got_choice:
+    int choice = atoi(get_string().c_str());
     if(choice < 1) {
         choice = 1;
     }
