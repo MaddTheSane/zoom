@@ -687,7 +687,7 @@ string string_int (size_t i)
   return o.str();
 }
 
-void report_error (string s)
+void report_error (const string &s)
 {
   //cerr << s << endl; 
   cerr << s << endl; 

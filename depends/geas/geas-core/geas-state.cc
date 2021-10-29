@@ -69,8 +69,8 @@ public:
 template <class T> void write_to (GeasOutputStream &gos, const vector<T> &v) 
 { 
   gos.put(v.size());
-  for (uint i = 0; i < v.size(); i ++)
-    write_to (gos, v[i]);
+  for (const auto i: v)
+    write_to (gos, i);
 }
   
 void write_to (GeasOutputStream &gos, const PropertyRecord &pr)
@@ -302,7 +302,7 @@ ostream &operator<< (ostream &o, const ObjectRecord &objr)
   return o; 
 }
 
-ostream &operator<< (ostream &o, const ExitRecord er) 
+ostream &operator<< (ostream &o, const ExitRecord &er) 
 { 
   return o << er.src << ": " << er.dest;
 }

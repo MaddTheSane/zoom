@@ -31,8 +31,6 @@
 
 using namespace std;
 
-void report_error(string s);
-
 reserved_words obj_tag_property ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", (char *) NULL);
 
 
@@ -42,7 +40,7 @@ reserved_words room_tag_property ("look", "alias", "prefix", "indescription", "d
 void GeasFile::debug_print (const string &s) const
 {
   if (gi == NULL)
-    cerr << s << endl;
+    report_error(s);
   else
     gi->debug_print (s);
 }
@@ -714,16 +712,16 @@ string GeasFile::static_eval (const string &input) const
 {
   //cerr << "static_eval (" << input << ")" << endl;
   string rv = "";
-  for (uint i = 0; i < input.length(); i ++)
+  for (size_t i = 0; i < input.length(); i ++)
     {
       if (input[i] == '#')
 	{
-	  uint j;
+	  size_t j;
 	  for (j = i+1; j < input.length() && input[j] != '#'; j ++)
 	    ;
 	  if (j == input.length())
 	    throw string ("Error processing '" + input + "', odd hashes");
-	  uint k;
+	  size_t k;
 	  for (k = i + 1; k < j && input[k] != ':'; k ++)
 	    ;
 	  if (k == ':')
@@ -756,7 +754,7 @@ string GeasFile::static_eval (const string &input) const
 	}
       else if (input[i] == '%')
 	{
-	  uint j;
+	  size_t j;
 	  for (j = i; j < input.length() && input[j] != '%'; j ++)
 	    ;
 	  if (j == input.length())
