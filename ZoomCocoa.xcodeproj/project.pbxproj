@@ -300,6 +300,10 @@
 		55368B23272A075900740A0A /* disassemble.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAD272A044A00740A0A /* disassemble.c */; };
 		55368B2B272A0AFC00740A0A /* readme.agility in Resources */ = {isa = PBXBuildFile; fileRef = 55368AD1272A044A00740A0A /* readme.agility */; };
 		55368B34272B562300740A0A /* ZoomStoryOrganiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55368B33272B562300740A0A /* ZoomStoryOrganiser.swift */; };
+		55368B7E272CA98F00740A0A /* gpl.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55BA3BE127253B5A007F6C82 /* gpl.txt */; };
+		55368B7F272CA99700740A0A /* CREDITS in Resources */ = {isa = PBXBuildFile; fileRef = 55BA3BE427253B5A007F6C82 /* CREDITS */; };
+		55368B82272CAA2A00740A0A /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 552CEEC02715110B009D87A5 /* COPYING */; };
+		55368B83272CAA3600740A0A /* README in Resources */ = {isa = PBXBuildFile; fileRef = 552CEEDA2715110D009D87A5 /* README */; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C8372271289A3002782C0 /* ZoomiFictionController+OldWebKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 553C8371271289A3002782C0 /* ZoomiFictionController+OldWebKit.m */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
@@ -317,9 +321,6 @@
 		55BA3C2927253CA6007F6C82 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
 		55BA3C2A27253CA6007F6C82 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
 		55BA3C3227253D40007F6C82 /* geas in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55BA3BD227253B21007F6C82 /* geas */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		55BA3C3527254529007F6C82 /* gpl.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55BA3BE127253B5A007F6C82 /* gpl.txt */; };
-		55BA3C362725452D007F6C82 /* CREDITS in Resources */ = {isa = PBXBuildFile; fileRef = 55BA3BE427253B5A007F6C82 /* CREDITS */; };
-		55BA3C3727254530007F6C82 /* CONTACT.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55BA3BDF27253B5A007F6C82 /* CONTACT.txt */; };
 		55BB924F2048AC4100AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92502048AC6D00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92512048ACAE00AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
@@ -1185,7 +1186,7 @@
 		552CEEBA2715110B009D87A5 /* scobjcts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scobjcts.c; sourceTree = "<group>"; };
 		552CEEBC2715110B009D87A5 /* os_glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_glk.c; sourceTree = "<group>"; };
 		552CEEBF2715110B009D87A5 /* scare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scare.h; sourceTree = "<group>"; };
-		552CEEC02715110B009D87A5 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		552CEEC02715110B009D87A5 /* COPYING */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = COPYING; sourceTree = "<group>"; };
 		552CEEC12715110B009D87A5 /* screstrs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = screstrs.c; sourceTree = "<group>"; };
 		552CEEC22715110C009D87A5 /* scinterf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scinterf.c; sourceTree = "<group>"; };
 		552CEEC42715110C009D87A5 /* scgamest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scgamest.h; sourceTree = "<group>"; };
@@ -1195,7 +1196,7 @@
 		552CEEC92715110C009D87A5 /* scnpcs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scnpcs.c; sourceTree = "<group>"; };
 		552CEECA2715110C009D87A5 /* scexpr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scexpr.c; sourceTree = "<group>"; };
 		552CEECB2715110C009D87A5 /* scdebug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scdebug.c; sourceTree = "<group>"; };
-		552CEECC2715110C009D87A5 /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		552CEECC2715110C009D87A5 /* ChangeLog */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = ChangeLog; sourceTree = "<group>"; };
 		552CEECD2715110C009D87A5 /* scprops.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scprops.c; sourceTree = "<group>"; };
 		552CEECE2715110C009D87A5 /* sctaffil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sctaffil.c; sourceTree = "<group>"; };
 		552CEED02715110C009D87A5 /* scserial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scserial.c; sourceTree = "<group>"; };
@@ -1206,7 +1207,7 @@
 		552CEED72715110C009D87A5 /* scmemos.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scmemos.c; sourceTree = "<group>"; };
 		552CEED82715110C009D87A5 /* scparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scparser.c; sourceTree = "<group>"; };
 		552CEED92715110C009D87A5 /* scvars.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scvars.c; sourceTree = "<group>"; };
-		552CEEDA2715110D009D87A5 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		552CEEDA2715110D009D87A5 /* README */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = README; sourceTree = "<group>"; };
 		552CEEDB2715110D009D87A5 /* scgamest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scgamest.c; sourceTree = "<group>"; };
 		552CEEDC2715110D009D87A5 /* scresour.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scresour.c; sourceTree = "<group>"; };
 		552CEEDD2715110D009D87A5 /* os_ansi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_ansi.c; sourceTree = "<group>"; };
@@ -1262,12 +1263,12 @@
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDownloadView.swift; sourceTree = "<group>"; };
 		55BA3BD227253B21007F6C82 /* geas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = geas; sourceTree = BUILT_PRODUCTS_DIR; };
-		55BA3BDF27253B5A007F6C82 /* CONTACT.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CONTACT.txt; sourceTree = "<group>"; };
+		55BA3BDF27253B5A007F6C82 /* CONTACT.txt */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = CONTACT.txt; sourceTree = "<group>"; };
 		55BA3BE027253B5A007F6C82 /* INSTALL-OSX-GTK.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "INSTALL-OSX-GTK.txt"; sourceTree = "<group>"; };
-		55BA3BE127253B5A007F6C82 /* gpl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gpl.txt; sourceTree = "<group>"; };
+		55BA3BE127253B5A007F6C82 /* gpl.txt */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = gpl.txt; sourceTree = "<group>"; };
 		55BA3BE227253B5A007F6C82 /* INSTALL-OSX-GLK.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "INSTALL-OSX-GLK.txt"; sourceTree = "<group>"; };
 		55BA3BE327253B5A007F6C82 /* INSTALL-OSX.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "INSTALL-OSX.txt"; sourceTree = "<group>"; };
-		55BA3BE427253B5A007F6C82 /* CREDITS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CREDITS; sourceTree = "<group>"; };
+		55BA3BE427253B5A007F6C82 /* CREDITS */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = CREDITS; sourceTree = "<group>"; };
 		55BA3BE627253B5A007F6C82 /* geas-util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "geas-util.cc"; sourceTree = "<group>"; };
 		55BA3BE727253B5A007F6C82 /* geas-state.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "geas-state.cc"; sourceTree = "<group>"; };
 		55BA3BE827253B5A007F6C82 /* readfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = readfile.cc; sourceTree = "<group>"; };
@@ -2744,9 +2745,9 @@
 				4BD79A8E0BA2C9AA002C82B2 /* babel */,
 				4B7286E50CD3CAFF0079D89B /* ZoomSaveQuickLook */,
 				55BE4AE22709988700100A7D /* ZoomQuest */,
-				552CEEAD2715109C009D87A5 /* scare */,
-				552CF01627168508009D87A5 /* Adrift */,
 				55BA3BD127253B21007F6C82 /* geas */,
+				552CF01627168508009D87A5 /* Adrift */,
+				552CEEAD2715109C009D87A5 /* scare */,
 				55368A88272A035E00740A0A /* AGT */,
 				55368AD3272A045800740A0A /* agil */,
 				55368AEA272A046400740A0A /* agt2agx */,
@@ -2903,9 +2904,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55BA3C3727254530007F6C82 /* CONTACT.txt in Resources */,
-				55BA3C3527254529007F6C82 /* gpl.txt in Resources */,
-				55BA3C362725452D007F6C82 /* CREDITS in Resources */,
+				55368B83272CAA3600740A0A /* README in Resources */,
+				55368B82272CAA2A00740A0A /* COPYING in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2923,6 +2923,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55368B7E272CA98F00740A0A /* gpl.txt in Resources */,
+				55368B7F272CA99700740A0A /* CREDITS in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
