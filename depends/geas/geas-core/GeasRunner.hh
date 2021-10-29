@@ -189,6 +189,8 @@ protected:
 public:
   GeasRunner (GeasInterface *_gi) : gi (_gi) {}
 
+  virtual bool is_running() const = 0;
+  virtual std::string get_banner() = 0;
   virtual void run_command(const std::string &) = 0;
 
   virtual v2string get_inventory() = 0;

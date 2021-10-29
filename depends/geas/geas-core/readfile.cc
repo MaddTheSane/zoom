@@ -48,7 +48,9 @@ string next_token (const string &full, std::string::size_type &tok_start, std::s
       return "";
     }
   tok_end = tok_start + 1;
-  if (full[tok_start] == '<')
+  if (full[tok_start] == '{' || full[tok_start] == '}')
+    /* brace is a token by itself */;
+  else if (full[tok_start] == '<')
     {
       while (tok_end < full.length() && full [tok_end] != '>')
 	++ tok_end;
@@ -216,7 +218,8 @@ void GeasFile::read_into (const vector<string> &in_data,
   std::string::size_type t1, t2;
   string line = in_data[cur_line];
   // SENSITIVE?
-  assert (first_token (line, t1, t2) == "define");
+  string token = first_token (line, t1, t2);
+  assert (token == "define");
   string blocktype = out_block.blocktype = next_token (line, t1, t2); // "object", or the like
   //cerr << "r_i: Pushing back block of type " << blocktype << "\n";
   type_indecies[blocktype].push_back (blocknum);
@@ -322,7 +325,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 		  if (rest == "to")
 		    {
 		      rest = next_token (line, t1, t2);
-		      string rhs = line.substr (t2 + 1);
+		      string rhs = line.substr (t2);
 		      // SENSITIVE?
 		      if (rest == "anything")
 			line = lhs + "to anything> " + rhs;
@@ -336,11 +339,11 @@ void GeasFile::read_into (const vector<string> &in_data,
 		    }
 		  // SENSITIVE?
 		  else if (rest == "anything")
-		    line = lhs + "anything> " + line.substr (t2 + 1);
+		    line = lhs + "anything> " + line.substr (t2);
 		  else if (is_param(rest))
-		    line = lhs + param_contents(rest) +"> " +line.substr(t2+1);
+		    line = lhs + param_contents(rest) +"> " +line.substr(t2);
 		  else
-		    line = "action <give> " + line.substr (t1 + 1);
+		    line = "action <give> " + line.substr (t1);
 		}
 	      else		
 		line = "action <" + tok + "> " + line.substr (t1);

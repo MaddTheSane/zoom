@@ -12,13 +12,16 @@
 #include <stddef.h>
 
 #include <unistd.h>
+#include <string.h>
 
 #include "glk.h"
 #include "glkstart.h"
 
-const char *storyfilename;
+const char *storyfilename = NULL;
+int use_inputwindow = 0;
 
 glkunix_argumentlist_t glkunix_arguments[] = {
+    { "-w", glkunix_arg_NoValue,    "-w:       Use a separate input window."},
     { "", glkunix_arg_ValueFollows, "filename: The game file to load."},
     { NULL, glkunix_arg_End, NULL }
 };
@@ -26,15 +29,28 @@ glkunix_argumentlist_t glkunix_arguments[] = {
 int
 glkunix_startup_code(glkunix_startup_t *data)
 {
-  storyfilename = data->argv[1];
+  int i = 1;
 
-  if (storyfilename) {
-    /* We close stderr because the Geas core prints a lot of debug stuff
-     * to stderr.  This corrupts the curses based display unless
-     * redirected.
-     */
-    close(2);
-    return 1;
+  if (data->argc > 1 && strcmp (data->argv[i], "-w") == 0) {
+      use_inputwindow = 1;
+      i++;
   }
-  return 0;
+
+#ifdef GARGLK
+  garglk_set_program_name("Geas 0.4");
+  garglk_set_program_info(
+        "Geas 0.4 by Mark Tilford and David Jones.\n"
+        "Additional Glk support by Simon Baldwin.");
+#endif
+
+  if (i == data->argc - 1) {
+      storyfilename = data->argv[i];
+#ifdef GARGLK
+      char *s = strrchr(storyfilename, '/');
+      if (!s) s = strrchr(storyfilename, '\\');
+      garglk_set_story_name(s ? s + 1 : storyfilename);
+#endif
+  }
+
+  return 1;
 }

@@ -15,17 +15,22 @@
   Glk Window arrangment.
 
     +---------+
-    |         |
+    |    B    |
+    +---------+
     |    M    |
     |         |
     +---------+
     |    I    |
     +---------+
 
+  B is a one line "banner window", showing the game name and author.  Kept
+  in the global variable, it's optional, null if unavailable.
+  optional.
   M is the main window where the text of the game appears.  Kept in the
   global variable mainglkwin.
   I is a one line "input window" where the user inputs their commands.
-  Kept in the global variable inputwin.
+  Kept in the global variable inputwin, it's optional, and if not separate
+  is set to mainglkwin.
 
   Maybe in future revisions there will be a status window (including a
   compass rose).
@@ -36,6 +41,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <cstdlib>
 
 #include "GeasRunner.hh"
 
@@ -48,6 +54,7 @@ protected:
 
     virtual void set_foreground (const std::string &);
     virtual void set_background (const std::string &);
+    virtual GeasResult set_style (const GeasFontStyle &);
 
     virtual std::string get_string ();
     virtual uint make_choice (const std::string &, std::vector<std::string>);
@@ -59,20 +66,29 @@ public:
 
 static void glk_put_cstring(const char *);
 
-#include <cassert>
-
 extern "C" {
 
+#include <assert.h>
 #include "glk.h"
 
 winid_t mainglkwin;
 winid_t inputwin;
+winid_t bannerwin;
 strid_t inputwinstream;
 
-extern const char *storyfilename;       /* defined in geasglkterm.c */
+extern const char *storyfilename;  /* defined in geasglkterm.c */
+extern int use_inputwindow;
+
+static int ignore_lines = 0;  /* count of lines to ignore in game output */
+
+static std::string banner;
+static void draw_banner();
 
 void glk_main(void)
 {
+    char err_buf[1024];
+    char cur_buf[1024];
+    glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_ReverseColor, 1);
     /* Open the main window. */
     mainglkwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
     if (!mainglkwin) {
@@ -82,64 +98,113 @@ void glk_main(void)
     }
     glk_set_window(mainglkwin);
 
-    inputwin = glk_window_open(mainglkwin,
-        winmethod_Below | winmethod_Fixed,
-        1,
-        wintype_TextBuffer,
-        0);
-
-    if (!inputwin) {
+    if (!storyfilename) {
+	sprintf(err_buf,"No game name or more than one game name given.\n"
+			"Try -h for help.\n");
+	glk_put_string(err_buf);
         return;
     }
 
+    glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+    bannerwin = glk_window_open(mainglkwin,
+                                winmethod_Above | winmethod_Fixed,
+                                1, wintype_TextGrid, 0);
+
+    if (use_inputwindow)
+        inputwin = glk_window_open(mainglkwin,
+                                   winmethod_Below | winmethod_Fixed,
+                                   1, wintype_TextBuffer, 0);
+    else
+        inputwin = NULL;
+
+    if (!inputwin)
+        inputwin = mainglkwin;
+
     inputwinstream = glk_window_get_stream(inputwin);
 
-    if (!glk_gestalt(gestalt_Timer, 0))
-    {
-      glk_put_cstring(
-        "** The underlying Glk library does not support timers.\n"
-        "** If this game tries to use timers, then some\n"
-        "** functionality may not work correctly.\n"
-        );
+    if (!glk_gestalt(gestalt_Timer, 0)) {
+	sprintf(err_buf,"\nNote -- The underlying Glk library does not support"
+                        " timers.  If this game tries to use timers, then some"
+                        " functionality may not work correctly.\n\n");
+	glk_put_string(err_buf);
     }
 
     GeasRunner *gr = GeasRunner::get_runner(new GeasGlkInterface());
     gr->set_game(storyfilename);
+    banner = gr->get_banner();
+    draw_banner();
 
     glk_request_timer_events(1000);
 
     char buf[200];
     bool prompt = 1;
 
-    while(1) {
-        if(prompt) {
+    while(gr->is_running()) {
+        if (inputwin != mainglkwin)
             glk_window_clear(inputwin);
-            glk_put_string_stream(inputwinstream, (char*)(const char*)"> ");
-            glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
-            prompt = 0;
-        }
+        else
+            glk_put_cstring("\n");
+        sprintf(cur_buf, "> ");
+        glk_put_string_stream(inputwinstream, cur_buf);
+
+        char buf[200];
+
+        glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
 
         event_t ev;
+        ev.type = evtype_None;
 
-        glk_select(&ev);
+        while(ev.type != evtype_LineInput) {
+            glk_select(&ev);
 
-        switch(ev.type) {
-        case evtype_LineInput:
-            if(ev.win == inputwin) {
-                std::string cmd = std::string(buf, ev.val1);
-                gr->run_command(cmd);
-                prompt = 1;
+            switch(ev.type) {
+            case evtype_LineInput:
+                if(ev.win == inputwin) {
+                    std::string cmd = std::string(buf, ev.val1);
+                    if(inputwin == mainglkwin)
+                        ignore_lines = 2;
+                    gr->run_command(cmd);
+                }
+                break;
+
+            case evtype_Timer:
+                gr->tick_timers();
+                break;
+
+            case evtype_Arrange:
+            case evtype_Redraw:
+                draw_banner();
+                break;
             }
-            break;
-
-        case evtype_Timer:
-            gr->tick_timers();
-            break;
         }
     }
 }
 
 } /* extern "C" */
+
+void
+draw_banner()
+{
+  glui32 width;
+  int index;
+  if (bannerwin)
+    {
+      glk_window_clear(bannerwin);
+      glk_window_move_cursor(bannerwin, 0, 0);
+      strid_t stream = glk_window_get_stream(bannerwin);
+
+      glk_set_style_stream(stream, style_User1);
+      glk_window_get_size (bannerwin, &width, NULL);
+      for (index = 0; index < width; index++)
+        glk_put_char_stream (stream, ' ');
+      glk_window_move_cursor(bannerwin, 1, 0);
+
+      if (banner.empty())
+        glk_put_string_stream(stream, (char*)"Geas 0.4");
+      else
+        glk_put_string_stream(stream, (char*)banner.c_str());
+    }
+}
 
 void
 glk_put_cstring(const char *s)
@@ -153,21 +218,42 @@ glk_put_cstring(const char *s)
 GeasResult
 GeasGlkInterface::print_normal (const std::string &s)
 {
-    glk_put_cstring(s.c_str());
+    if(!ignore_lines)
+        glk_put_cstring(s.c_str());
     return r_success;
 }
 
 GeasResult
 GeasGlkInterface::print_newline ()
 {
-    return print_normal ("\n");
+    if (!ignore_lines)
+        glk_put_cstring("\n");
+    else
+        ignore_lines--;
+    return r_success;
 }
 
 
-#if 0
-GeasResult GeasGlkInterface::set_style (const GeasFontStyle &style)
-{ return r_success; }
-#endif
+GeasResult
+GeasGlkInterface::set_style (const GeasFontStyle &style)
+{
+    // Glk styles are defined before the window opens, so at this point we can only
+    // pick the most suitable style, not define a new one.
+    glui32 match;
+    if (style.is_italic && style.is_bold)
+        match = style_Alert;
+    else if (style.is_italic)
+        match = style_Emphasized;
+    else if (style.is_bold)
+        match = style_Subheader;
+    else if (style.is_underlined)
+        match = style_User2;
+    else
+        match = style_Normal;
+
+    glk_set_style_stream(glk_window_get_stream(mainglkwin), match);
+    return r_success;
+}
 
 void
 GeasGlkInterface::set_foreground (const std::string &s)
@@ -193,7 +279,7 @@ std::string
 GeasGlkInterface::get_file (const std::string &fname) const
 {
   std::ifstream ifs;
-  ifs.open(fname.c_str());
+  ifs.open(fname.c_str(), std::ios::in | std::ios::binary);
   if (! ifs.is_open())
     {
       glk_put_cstring("Couldn't open ");
@@ -236,6 +322,8 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
 {
     size_t n;
 
+    glk_window_clear(inputwin);
+
     glk_put_cstring(label.c_str());
     glk_put_char(0x0a);
     n = v.size();
@@ -250,7 +338,6 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
         glk_put_cstring("\n");
     }
 
-    glk_window_clear(inputwin);
     std::stringstream t;
     std::string s;
     std::string s1;
@@ -278,7 +365,9 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
 
 std::string GeasGlkInterface::absolute_name (const std::string &rel_name, const std::string &parent) const {
   std::cerr << "absolute_name ('" << rel_name << "', '" << parent << "')\n";
-  assert (parent[0] == '/');
+  if (parent[0] != '/')
+    return rel_name;
+
   if (rel_name[0] == '/')
     {
       std::cerr << "  --> " << rel_name << "\n";

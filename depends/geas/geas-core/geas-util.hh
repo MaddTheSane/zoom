@@ -30,6 +30,10 @@
 #include <string>
 #include "readfile.hh"
 #include <map>
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <cassert>
 
 typedef std::vector<std::string> vstring;
 
@@ -91,5 +95,26 @@ template<class T> std::ostream &operator << (std::ostream &o, std::vector<T> v)
 }
 
 template <class KEYTYPE, class VALTYPE> bool has (std::map<KEYTYPE, VALTYPE> m, KEYTYPE key) { return m.find (key) != m.end(); };
+
+class Logger
+{
+ public:
+  Logger ();
+  ~Logger ();
+
+ private:
+  class Nullstreambuf : public std::streambuf
+  {
+   protected:
+    int overflow (int c)
+    {
+      return traits_type::not_eof (c);
+    }
+  };
+
+  std::ofstream *logfilestr_;
+  std::streambuf *cerrbuf_;
+  static Nullstreambuf cnull;
+};
 
 #endif

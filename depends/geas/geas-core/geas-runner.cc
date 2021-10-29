@@ -739,7 +739,7 @@ void geas_implementation::look()
       if ((tmp = get_svar ("quest.doorways.places")) != "")
 	print_formatted ("You can go to " + tmp + ".");
       if ((tmp = get_svar ("quest.lookdesc")) != "")
-	print_formatted ("|b" + tmp + "|xb");
+	print_formatted (tmp);
     }
 }      
 
@@ -749,8 +749,10 @@ void geas_implementation::set_game (const string &s)
   try 
     {
       gf = read_geas_file (gi, s);
-      if (gf.blocks.size() == 0)
+      if (gf.blocks.size() == 0) {
+        is_running_ = false;
 	return;
+      }
       //print_formatted ("Ready...|n|cbblack|crred|clblue|cggreen|cyyellow|n|uunderlined: |cbblack|crred|clblue|cggreen|cyyellow|xu|n");
       //cerr << "Read game " << gf << endl;
       std::string::size_type tok_start, tok_end;
@@ -1133,11 +1135,60 @@ string geas_implementation::substitute_synonyms (string s) const
   cerr << "substitute_synonyms (" << orig << ") -> '" << s << "'\n";
   return s;
 }
+ 
+bool geas_implementation::is_running () const
+{
+  return is_running_;
+}
+
+std::string geas_implementation::get_banner ()
+{
+  string banner;
+  const GeasBlock *gb = gf.find_by_name ("game", "game");
+  if (gb)
+    {
+      string line = gb->data[0];
+      std::string::size_type c1, c2;
+      string tok = first_token (line, c1, c2);
+      tok = next_token (line, c1, c2);
+      tok = next_token (line, c1, c2);
+      if (is_param (tok))
+        {
+          banner = eval_param (tok);
+
+          for (const string &line: gb->data)
+            {
+              if (first_token (line, c1, c2) == "game" &&
+                  next_token (line, c1, c2) == "version" &&
+                  is_param (tok = next_token (line, c1, c2)))
+                {
+                  banner += ", v";
+                  banner += eval_param (tok);
+                }
+            }
+  
+          for (const string &line: gb->data)
+            {
+               if (first_token (line, c1, c2) == "game" &&
+                   next_token (line, c1, c2) == "author" &&
+                   is_param (tok = next_token (line, c1, c2)))
+                {
+                  banner += " | ";
+                  banner += eval_param (tok);
+                }
+            }
+        }
+    }
+  return banner;
+}
 
 void geas_implementation::run_command (const string &s1)
 {
   string s = s1;
   /* if s == "restore" or "restart" or "quit" or "undo" */
+
+  if (!is_running_)
+    return;
 
   print_newline();
   print_normal("> " + s);
@@ -1897,18 +1948,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       return true;
     }
 
-  for (uint i = 0; i < current_places.size(); i ++)
-    if (cmd == "go to " + current_places[i][1] ||
-	cmd == "go to " + current_places[i][2])
-      {
-	if (current_places[i].size() == 5)
-	  run_script_as (state.location, current_places[i][4]);
-	//run_script (current_places[i][4]);
-	else
-	  goto_room (current_places[i][3]);
-	return true;
-      }
-
   for (uint i = 0; i < ARRAYSIZE(dir_names); i ++)
     if (cmd == dir_names[i] || cmd == "go " + dir_names[i] ||
 	cmd == short_dir_names[i] || cmd == "go " + short_dir_names[i])
@@ -1934,6 +1973,27 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  }
 	return true;
       }
+
+  if ((match = match_command (cmd, "go to #@room#")) ||
+      (match = match_command (cmd, "go #@room#")))
+    {
+      assert (match.bindings.size() == 1);
+      string destination = match.bindings[0].var_text;
+      for (uint i = 0; i < current_places.size(); i ++) {
+	if (ci_equal(destination, current_places[i][1]) ||
+	    ci_equal(destination, current_places[i][2]))
+	  {
+	    if (current_places[i].size() == 5)
+	      run_script_as (state.location, current_places[i][4]);
+	      //run_script (current_places[i][4]);
+	    else
+	      goto_room (current_places[i][3]);
+	    return true;
+	  }
+      }
+      display_error ("badplace", destination);
+      return true;
+    }
 
   if (ci_equal (cmd, "inventory") || ci_equal (cmd, "i"))
     {
@@ -2018,8 +2078,8 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
   
   if (ci_equal (cmd, "quit"))
     {
-      exit(0);
-      // TODO 
+      is_running_ = false;
+      return true;
     }
 
   return false;
@@ -2053,12 +2113,13 @@ void geas_implementation::run_script (const string &s, string &rv)
 
   if (tok[0] == '{')
     {
-      std::string::size_type brace1, brace2;
-      for (brace1 = 0; brace1 < s.length() && s[brace1] != '{'; brace1 ++)
+      std::string::size_type brace1 = c1 + 1, brace2;
+      for (brace2 = s.length() - 1; brace2 >= brace1 && s[brace2] != '}'; brace2 --)
 	;
-      for (brace2 = s.length() - 1; brace2 > 0 && s[brace2] != '}'; brace2 --)
-	;
-      run_script (s.substr (brace1 + 1, brace2 - brace1 - 2));
+      if (brace2 >= brace1)
+	run_script (s.substr (brace1, brace2 - brace1));
+      else
+	gi->debug_print ("Unterminated brace block in " + s);
       return;
     }
 
@@ -2267,7 +2328,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	{
 	  for (uint i = 0; i < gb->data.size(); i ++)
 	    {
-	      print_normal (gb->data[i]);
+	      print_formatted (gb->data[i]);
 	      print_newline();
 	    }
 	}
