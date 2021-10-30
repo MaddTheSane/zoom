@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -81,7 +81,7 @@
                         </connections>
                     </searchField>
                     <button toolTip="Starts the selected story from the beginning" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="62" userLabel="Play">
-                        <rect key="frame" x="41" y="11.5" width="25.5" height="29.5"/>
+                        <rect key="frame" x="41" y="12" width="25.5" height="29.5"/>
                         <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="376">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
@@ -138,7 +138,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="570" height="160"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <tabView type="noTabsNoBorder" initialItem="TCL-bM-r4o" translatesAutoresizingMaskIntoConstraints="NO" id="248">
+                                            <tabView type="noTabsNoBorder" initialItem="SUz-x9-7U4" translatesAutoresizingMaskIntoConstraints="NO" id="248">
                                                 <rect key="frame" x="0.0" y="0.0" width="570" height="138"/>
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
@@ -300,7 +300,7 @@ Cg
                                                                     <rect key="frame" x="284" y="0.0" width="283" height="138"/>
                                                                     <clipView key="contentView" id="X6h-ec-nhq">
                                                                         <rect key="frame" x="0.0" y="0.0" width="283" height="138"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="406" id="265">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="283" height="115"/>
@@ -351,7 +351,7 @@ Cg
                                                                     <rect key="frame" x="0.0" y="0.0" width="283" height="138"/>
                                                                     <clipView key="contentView" id="5rr-uN-MMo">
                                                                         <rect key="frame" x="0.0" y="0.0" width="283" height="138"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="403" id="262">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="283" height="115"/>
@@ -498,7 +498,6 @@ Cg
                                             <constraint firstItem="253" firstAttribute="trailing" secondItem="248" secondAttribute="trailing" id="g0t-fD-vbL"/>
                                             <constraint firstItem="253" firstAttribute="leading" secondItem="248" secondAttribute="leading" id="kYp-AC-bue"/>
                                             <constraint firstItem="253" firstAttribute="leading" secondItem="154" secondAttribute="leading" id="ky7-VP-nSm"/>
-                                            <constraint firstItem="248" firstAttribute="top" secondItem="253" secondAttribute="bottom" id="sRr-Dk-inF"/>
                                         </constraints>
                                     </view>
                                     <view id="161" userLabel="Stories">

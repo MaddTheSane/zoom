@@ -188,6 +188,10 @@ NS_ENUM(NSInteger) {
 	[downloadWindow setFrameOrigin: downloadFrame.origin];
 }
 
+- (void)awakeFromNib {
+	[filterTable1 updateConstraints];
+}
+
 - (void) windowDidLoad {
 	[ifdbView setFrameLoadDelegate: self];
 	[ifdbView setPolicyDelegate: self];
