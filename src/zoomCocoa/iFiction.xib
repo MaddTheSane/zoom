@@ -184,8 +184,9 @@
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Information" identifier="ZoomInfo" id="TCL-bM-r4o">
-                                                        <view key="view" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="203" userLabel="Information" customClass="WhiteView" customModule="Zoom" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="570" height="138"/>
+                                                        <view key="view" id="203" userLabel="Information" customClass="WhiteView" customModule="Zoom" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="570" height="139"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="286">
                                                                     <rect key="frame" x="136" y="0.0" width="434" height="139"/>
@@ -290,26 +291,27 @@ Cg
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Filters" identifier="ZoomFilters" id="SUz-x9-7U4">
-                                                        <view key="view" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="214" userLabel="FilterView">
+                                                        <view key="view" id="214" userLabel="FilterView">
                                                             <rect key="frame" x="0.0" y="0.0" width="570" height="138"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <box horizontalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="267">
-                                                                    <rect key="frame" x="281" y="-1" width="5" height="140"/>
+                                                                    <rect key="frame" x="283" y="-1" width="5" height="140"/>
                                                                 </box>
                                                                 <scrollView borderType="none" horizontalLineScroll="16" horizontalPageScroll="0.0" verticalLineScroll="16" verticalPageScroll="0.0" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="264" userLabel="Author Table">
-                                                                    <rect key="frame" x="284" y="0.0" width="283" height="138"/>
+                                                                    <rect key="frame" x="286" y="0.0" width="284" height="138"/>
                                                                     <clipView key="contentView" id="X6h-ec-nhq">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="283" height="138"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="284" height="138"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="406" id="265">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="283" height="115"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="284" height="115"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                                 <tableColumns>
-                                                                                    <tableColumn identifier="author" editable="NO" width="251.114013671875" minWidth="48.613998413085938" maxWidth="1000" id="266">
+                                                                                    <tableColumn identifier="author" editable="NO" width="252.114013671875" minWidth="48.613998413085938" maxWidth="1000" id="266">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Author">
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -339,28 +341,28 @@ Cg
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                     </scroller>
                                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="407">
-                                                                        <rect key="frame" x="267" y="23" width="16" height="115"/>
+                                                                        <rect key="frame" x="268" y="23" width="16" height="115"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                     </scroller>
                                                                     <tableHeaderView key="headerView" wantsLayer="YES" id="406">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="283" height="23"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="284" height="23"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                     </tableHeaderView>
                                                                 </scrollView>
                                                                 <scrollView borderType="none" horizontalLineScroll="16" horizontalPageScroll="0.0" verticalLineScroll="16" verticalPageScroll="0.0" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="261" userLabel="Group Table">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="283" height="138"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="285" height="138"/>
                                                                     <clipView key="contentView" id="5rr-uN-MMo">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="283" height="138"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="285" height="138"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="403" id="262">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="283" height="115"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="285" height="115"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                                 <tableColumns>
-                                                                                    <tableColumn identifier="group" editable="NO" width="250.95703125" minWidth="44.95703125" maxWidth="1000" id="263">
+                                                                                    <tableColumn identifier="group" editable="NO" width="252.95703125" minWidth="44.95703125" maxWidth="1000" id="263">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Group">
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -386,11 +388,11 @@ Cg
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                     </scroller>
                                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="404">
-                                                                        <rect key="frame" x="267" y="23" width="16" height="115"/>
+                                                                        <rect key="frame" x="269" y="23" width="16" height="115"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                     </scroller>
                                                                     <tableHeaderView key="headerView" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="403">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="283" height="23"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="285" height="23"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                     </tableHeaderView>
                                                                     <connections>

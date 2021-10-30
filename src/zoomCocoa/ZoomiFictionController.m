@@ -191,7 +191,6 @@ NS_ENUM(NSInteger) {
 }
 
 - (void)awakeFromNib {
-	[filterTable1 updateConstraints];
 }
 
 - (void) windowDidLoad {
