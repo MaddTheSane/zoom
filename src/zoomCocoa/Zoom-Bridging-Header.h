@@ -6,6 +6,7 @@
 //#import "ZoomProtocol.h"
 //#import "ZoomClientController.h"
 #import "ZoomStoryOrganiser.h"
+#import "ZoomiFictionController.h"
 
 #import "ZoomAppDelegate.h"
 

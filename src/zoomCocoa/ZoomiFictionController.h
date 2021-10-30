@@ -41,7 +41,7 @@
 	IBOutlet NSView* mainView;
 	IBOutlet NSView* browserView;
 	
-	IBOutlet NSTextField* currentUrl;
+	__weak NSTextField* currentUrl;
 	IBOutlet NSButton* playButton;
 	IBOutlet NSButton* forwardButton;
 	IBOutlet NSButton* backButton;
@@ -52,7 +52,7 @@
 	IBOutlet NSWindow* picturePreview;
 	IBOutlet NSImageView* picturePreviewView;
 	
-	IBOutlet NSProgressIndicator* progressIndicator;
+	__weak NSProgressIndicator* progressIndicator;
 	int indicatorCount;
 	
 	IBOutlet NSTextView* gameDetailView;
@@ -126,6 +126,10 @@
 }
 
 @property (class, readonly, strong) ZoomiFictionController *sharediFictionController NS_SWIFT_NAME(shared);
+
+@property (weak) IBOutlet WKWebView* ifdbNewView;
+@property (weak) IBOutlet NSTextField* currentUrl;
+@property (weak) IBOutlet NSProgressIndicator* progressIndicator;
 
 - (IBAction) addButtonPressed: (id) sender;
 - (IBAction) startNewGame: (id) sender;

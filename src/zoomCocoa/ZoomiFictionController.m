@@ -44,6 +44,8 @@
 @end
 
 @implementation ZoomiFictionController
+@synthesize currentUrl;
+@synthesize progressIndicator;
 
 static ZoomiFictionController* sharedController = nil;
 
@@ -821,7 +823,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		ZoomPlugIn* pluginInstance = pluginClass?[[pluginClass alloc] initWithFilename: filename]:nil;
 		
 		if (pluginInstance) {
-			story = [pluginInstance defaultMetadata];
+			story = [pluginInstance defaultMetadataWithError: NULL];
 		} else {
 			story = [ZoomStory defaultMetadataForFile: filename];
 		}

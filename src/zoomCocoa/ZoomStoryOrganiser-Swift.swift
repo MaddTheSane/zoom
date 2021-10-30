@@ -6,11 +6,9 @@
 //
 
 import Foundation
-import ZoomPlugIns.ZoomStory
-import ZoomPlugIns.ZoomStoryID
+import ZoomPlugIns
 import ZoomPlugIns.ZoomPlugInManager
-import ZoomPlugIns.ZoomPlugIn
-import ZoomView.ZoomBlorbFile
+import ZoomView
 
 extension ZoomStoryOrganiser {
 	@objc(frontispieceForBlorb:)
