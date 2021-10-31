@@ -12,7 +12,6 @@
 #include <tgmath.h>
 
 #import "ZoomiFictionController.h"
-#import "ZoomiFictionController+OldWebKit.h"
 #import "ZoomStoryOrganiser.h"
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>
@@ -46,6 +45,11 @@
 @implementation ZoomiFictionController
 @synthesize currentUrl;
 @synthesize progressIndicator;
+@synthesize ifdbView;
+@synthesize activeDownload;
+@synthesize signpostID = signpostId;
+@synthesize downloadUpdateList;
+@synthesize downloadPlugin;
 
 static ZoomiFictionController* sharedController = nil;
 
@@ -194,9 +198,6 @@ NS_ENUM(NSInteger) {
 }
 
 - (void) windowDidLoad {
-	[ifdbView setFrameLoadDelegate: self];
-	[ifdbView setPolicyDelegate: self];
-
 #ifdef DEVELOPMENT_BUILD
 	[ifdbView setCustomUserAgent: @"Mozilla/5.0 (Macintosh; U; Mac OS X; en-us) AppleWebKit (KHTML like Gecko) uk.org.logicalshift.zoom/1.1.2/development"];
 #else
@@ -205,7 +206,8 @@ NS_ENUM(NSInteger) {
 	
 	NSURL* loadingPage = [[NSBundle mainBundle] URLForResource: @"ifdb-loading"
 												 withExtension: @"html"];
-	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: loadingPage]];
+	[ifdbView loadFileURL: loadingPage
+  allowingReadAccessToURL: loadingPage.URLByDeletingLastPathComponent];
 	
 	NSView* clearView = [[ClearView alloc] init];
 	downloadView = [[DownloadView alloc] initWithFrame: NSMakeRect(0,0,276,78)];
@@ -311,7 +313,7 @@ NS_ENUM(NSInteger) {
 	if (shouldUseSmallFonts != smallBrowser) {
 		smallBrowser = shouldUseSmallFonts;
 		
-		[ifdbView setTextSizeMultiplier: shouldUseSmallFonts?0.7:1.0];
+		ifdbView.magnification = shouldUseSmallFonts ? 0.7 : 1.0;
 	}
 }
 
@@ -1926,7 +1928,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			
 			NSString* searchUrl = [NSString stringWithFormat: @"%@search?searchfor=%@",
 				ifdbUrl, [self queryEncode: [searchField stringValue]]];
-			[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: searchUrl]]];
+			[ifdbView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: searchUrl]]];
 		}
 	}
 }
@@ -2313,6 +2315,24 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	return NO;
 }
+
+- (BOOL) canPlayFileAtURL: (NSURL*) filename {
+	NSArray* fileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", @"signpost"];
+	NSString* extn = [[filename pathExtension] lowercaseString];
+	
+	if ([fileTypes containsObject: extn]) {
+		return YES;
+	} else if ([[ZoomPlugInManager sharedPlugInManager] plugInForURL: filename]) {
+		return YES;
+	}
+	
+	if ([extn isEqualToString: @"xml"] && [[[[filename URLByDeletingPathExtension] pathExtension] lowercaseString] isEqualToString: @"signpost"]) {
+		return YES;
+	}
+	
+	return NO;
+}
+
 
 - (void) addFilesFromDirectory: (NSString*) directory
 					 groupName: (NSString*) groupName {
@@ -2735,14 +2755,12 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	// Reload the main page if the user has strayed off the main ifdb site
 	NSURL* ifdb = [NSURL URLWithString: ifdbUrl];
-	if (findMore || !usedBrowser || [[[[[[ifdbView mainFrame] dataSource] request] URL] host] caseInsensitiveCompare: [ifdb host]] != 0) {
+	if (findMore || !usedBrowser || [[[ifdbView URL] host] caseInsensitiveCompare: [ifdb host]] != NSOrderedSame) {
 		if (!usedBrowser) {
-			// Hacky way of clearing the history
-			[[ifdbView backForwardList] setCapacity: 0];
-			[[ifdbView backForwardList] setCapacity: 256];
+			// TODO: clear the history
 		}
-		if (![[[[[ifdbView mainFrame] dataSource] request] URL] isEqualTo: ifdb]) {
-			[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: ifdb]];			
+		if (![[ifdbView URL] isEqualTo: ifdb]) {
+			[ifdbView loadRequest: [NSURLRequest requestWithURL: ifdb]];
 		}
 	}
 	
@@ -2811,7 +2829,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	if (!ifdbUrl) {
 		ifdbUrl = @"https://ifdb.tads.org/";
 	}
-	[[ifdbView mainFrame] loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: ifdbUrl]]];	
+	[ifdbView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: ifdbUrl]]];
 }
 
 - (IBAction) playIfdbGame: (id) sender {

@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="19455"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -54,10 +56,11 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button toolTip="Adds a new story to the browser" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="46" userLabel="Add">
-                        <rect key="frame" x="8" y="12" width="25.5" height="29.5"/>
-                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="374">
+                        <rect key="frame" x="8" y="11" width="25" height="31"/>
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="374">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
+                            <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="medium"/>
                         </buttonCell>
                         <connections>
                             <action selector="addButtonPressed:" target="-2" id="57"/>
@@ -81,10 +84,11 @@
                         </connections>
                     </searchField>
                     <button toolTip="Starts the selected story from the beginning" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="62" userLabel="Play">
-                        <rect key="frame" x="41" y="12" width="25.5" height="29.5"/>
-                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="376">
+                        <rect key="frame" x="41" y="11" width="25" height="31"/>
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="376">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
+                            <imageReference key="image" image="play.circle.fill" catalog="system" symbolScale="medium"/>
                         </buttonCell>
                         <connections>
                             <action selector="startNewGame:" target="-2" id="87"/>
@@ -92,14 +96,15 @@
                         </connections>
                     </button>
                     <button toolTip="Continues a story from the last autosave point" translatesAutoresizingMaskIntoConstraints="NO" id="64" userLabel="Continue">
-                        <rect key="frame" x="74" y="11" width="25.5" height="31.5"/>
+                        <rect key="frame" x="74" y="11" width="25" height="31"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="1vr-4k-nx8"/>
                             <constraint firstAttribute="height" constant="25" id="6Gb-kn-3NW"/>
                         </constraints>
-                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="arrow.counterclockwise.circle.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="377">
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="377">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
+                            <imageReference key="image" image="arrow.counterclockwise.circle.fill" catalog="system" symbolScale="medium"/>
                         </buttonCell>
                         <connections>
                             <action selector="restoreAutosave:" target="-2" id="88"/>
@@ -115,10 +120,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Z-Decal" id="378"/>
                     </imageView>
                     <button toolTip="Shows the game information window" translatesAutoresizingMaskIntoConstraints="NO" id="89" userLabel="Info">
-                        <rect key="frame" x="502" y="11" width="25.5" height="31.5"/>
-                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="info.circle.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="379">
+                        <rect key="frame" x="502" y="11" width="25" height="31"/>
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="379">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
+                            <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="medium"/>
                         </buttonCell>
                         <connections>
                             <action selector="displayGameInfoWindow:" target="-1" id="93"/>
@@ -192,7 +198,7 @@
                                                                     <rect key="frame" x="136" y="0.0" width="434" height="139"/>
                                                                     <clipView key="contentView" drawsBackground="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UB6-ym-eLH">
                                                                         <rect key="frame" x="0.0" y="0.0" width="434" height="139"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" translatesAutoresizingMaskIntoConstraints="NO" id="287">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="434" height="195"/>
@@ -302,7 +308,7 @@ Cg
                                                                     <rect key="frame" x="286" y="0.0" width="284" height="138"/>
                                                                     <clipView key="contentView" id="X6h-ec-nhq">
                                                                         <rect key="frame" x="0.0" y="0.0" width="284" height="138"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="406" id="265">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="284" height="115"/>
@@ -353,7 +359,7 @@ Cg
                                                                     <rect key="frame" x="0.0" y="0.0" width="285" height="138"/>
                                                                     <clipView key="contentView" id="5rr-uN-MMo">
                                                                         <rect key="frame" x="0.0" y="0.0" width="285" height="138"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="403" id="262">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="285" height="115"/>
@@ -441,7 +447,7 @@ Cg
                                                     <button tag="-1" translatesAutoresizingMaskIntoConstraints="NO" id="lQv-mN-w6W">
                                                         <rect key="frame" x="415" y="2" width="45" height="18"/>
                                                         <buttonCell key="cell" type="inline" title="Saves" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="256">
-                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                             <font key="font" metaFont="smallSystemBold"/>
                                                             <string key="keyEquivalent">s</string>
                                                             <modifierMask key="keyEquivalentModifierMask" option="YES"/>
@@ -453,7 +459,7 @@ Cg
                                                     <button tag="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Euy-xe-sdp">
                                                         <rect key="frame" x="468" y="2" width="45" height="18"/>
                                                         <buttonCell key="cell" type="inline" title="Info" bezelStyle="inline" alignment="center" borderStyle="border" tag="1" inset="2" id="255">
-                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                             <font key="font" metaFont="smallSystemBold"/>
                                                             <string key="keyEquivalent">i</string>
                                                             <modifierMask key="keyEquivalentModifierMask" option="YES"/>
@@ -465,7 +471,7 @@ Cg
                                                     <button tag="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Whl-ab-oOY">
                                                         <rect key="frame" x="521" y="2" width="45" height="18"/>
                                                         <buttonCell key="cell" type="inline" title="Filters" bezelStyle="inline" alignment="center" state="on" borderStyle="border" tag="2" inset="2" id="257">
-                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                             <font key="font" metaFont="smallSystemBold"/>
                                                             <string key="keyEquivalent">f</string>
                                                             <modifierMask key="keyEquivalentModifierMask" option="YES"/>
@@ -853,9 +859,10 @@ Cg
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="nyo-1v-Q2b"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSHomeTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="386">
+                                        <buttonCell key="cell" type="inline" bezelStyle="inline" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="386">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
+                                            <imageReference key="image" image="NSHomeTemplate" symbolScale="small"/>
                                         </buttonCell>
                                         <accessibility description="Home"/>
                                         <connections>
@@ -874,7 +881,7 @@ Cg
                                         </buttonCell>
                                         <accessibility description="Forwards"/>
                                         <connections>
-                                            <action selector="goForward:" target="-2" id="357"/>
+                                            <action selector="goForward:" target="332" id="Ovb-qd-i0s"/>
                                             <outlet property="nextKeyView" destination="347" id="364"/>
                                         </connections>
                                     </button>
@@ -889,7 +896,7 @@ Cg
                                         </buttonCell>
                                         <accessibility description="Backwards"/>
                                         <connections>
-                                            <action selector="goBack:" target="-2" id="358"/>
+                                            <action selector="goBack:" target="332" id="dzS-kG-PGP"/>
                                             <outlet property="nextKeyView" destination="346" id="363"/>
                                         </connections>
                                     </button>
@@ -918,21 +925,26 @@ Cg
                                     <constraint firstItem="345" firstAttribute="bottom" secondItem="346" secondAttribute="bottom" id="aC6-wz-9Mx"/>
                                     <constraint firstItem="345" firstAttribute="centerY" secondItem="326" secondAttribute="centerY" id="cCD-1o-Koe"/>
                                     <constraint firstItem="348" firstAttribute="leading" secondItem="347" secondAttribute="trailing" constant="10" id="ezn-aW-MxT"/>
+                                    <constraint firstItem="327" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="348" secondAttribute="trailing" constant="8" symbolic="YES" id="nG4-XT-xJx"/>
                                     <constraint firstItem="346" firstAttribute="leading" secondItem="345" secondAttribute="trailing" constant="1" id="nJ1-0K-ezY"/>
                                     <constraint firstItem="345" firstAttribute="top" secondItem="326" secondAttribute="top" constant="2" id="pvH-Be-8ar"/>
                                     <constraint firstItem="347" firstAttribute="bottom" secondItem="348" secondAttribute="bottom" id="pzY-0x-yUL"/>
                                     <constraint firstItem="346" firstAttribute="top" secondItem="347" secondAttribute="top" id="sQl-Dk-4cN"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="332" customClass="WebView">
+                            <wkWebView wantsLayer="YES" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="332">
                                 <rect key="frame" x="0.0" y="0.0" width="570" height="353"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="568" id="3mF-XZ-etK"/>
                                 </constraints>
+                                <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences" javaScriptCanOpenWindowsAutomatically="NO"/>
+                                </wkWebViewConfiguration>
                                 <connections>
-                                    <outlet property="nextKeyView" destination="345" id="368"/>
+                                    <outlet property="navigationDelegate" destination="-2" id="Yy9-18-cJu"/>
                                 </connections>
-                            </customView>
+                            </wkWebView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="332" secondAttribute="bottom" id="EsW-qI-tV0"/>
@@ -958,13 +970,14 @@ Cg
     </objects>
     <resources>
         <image name="Blorb" width="128" height="128"/>
-        <image name="NSAddTemplate" width="14" height="13"/>
         <image name="NSGoLeftTemplate" width="10" height="14"/>
         <image name="NSGoRightTemplate" width="10" height="14"/>
-        <image name="NSHomeTemplate" width="19" height="16"/>
+        <image name="NSHomeTemplate" width="16" height="13"/>
         <image name="Z-Decal" width="32" height="32"/>
         <image name="arrow.counterclockwise.circle.fill" catalog="system" width="15" height="15"/>
         <image name="info.circle.fill" catalog="system" width="15" height="15"/>
+        <image name="play.circle.fill" catalog="system" width="15" height="15"/>
         <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="plus.circle.fill" catalog="system" width="15" height="15"/>
     </resources>
 </document>

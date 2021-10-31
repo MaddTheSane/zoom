@@ -127,9 +127,20 @@
 
 @property (class, readonly, strong) ZoomiFictionController *sharediFictionController NS_SWIFT_NAME(shared);
 
-@property (weak) IBOutlet WKWebView* ifdbNewView;
+@property (weak) IBOutlet WKWebView* ifdbView;
 @property (weak) IBOutlet NSTextField* currentUrl;
 @property (weak) IBOutlet NSProgressIndicator* progressIndicator;
+
+/// The currently active download
+@property (strong) ZoomDownload* activeDownload;
+
+/// Story to open after the download has completed
+@property (strong) ZoomStoryID* signpostID;
+
+/// \c YES if we're trying to download an update list
+@property BOOL downloadUpdateList;
+/// \c YES if we're trying to download a .zoomplugin file
+@property BOOL downloadPlugin;
 
 - (IBAction) addButtonPressed: (id) sender;
 - (IBAction) startNewGame: (id) sender;
@@ -167,5 +178,12 @@
 
 - (void) openSignPost: (NSData*) signpostFile
 		forceDownload: (BOOL) download;
+
+#pragma mark - WebKit helper functions
+
+- (BOOL) canPlayFile: (NSString*) filename;
+- (BOOL) canPlayFileAtURL: (NSURL*) filename;
+- (void) updateBackForwardButtons;
+- (void) hideDownloadWindow: (NSTimeInterval) duration;
 
 @end
