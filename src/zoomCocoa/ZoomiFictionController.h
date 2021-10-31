@@ -41,7 +41,6 @@
 	IBOutlet NSView* mainView;
 	IBOutlet NSView* browserView;
 	
-	__weak NSTextField* currentUrl;
 	IBOutlet NSButton* playButton;
 	IBOutlet NSButton* forwardButton;
 	IBOutlet NSButton* backButton;
@@ -52,7 +51,6 @@
 	IBOutlet NSWindow* picturePreview;
 	IBOutlet NSImageView* picturePreviewView;
 	
-	__weak NSProgressIndicator* progressIndicator;
 	int indicatorCount;
 	
 	IBOutlet NSTextView* gameDetailView;
@@ -136,6 +134,9 @@
 
 /// Story to open after the download has completed
 @property (strong) ZoomStoryID* signpostID;
+
+/// The last error to occur
+@property (strong) ZoomJSError* lastError;
 
 /// \c YES if we're trying to download an update list
 @property BOOL downloadUpdateList;

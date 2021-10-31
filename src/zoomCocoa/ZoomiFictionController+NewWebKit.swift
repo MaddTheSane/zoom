@@ -23,10 +23,10 @@ extension ZoomiFictionController: WKNavigationDelegate {
 		
 		progressIndicator.stopAnimation(self)
 		
-//		let lastError = ZoomJSError()
-//		lastError.lastError = error.localizedDescription
-//		
-//		(error as NSError).code
+		if lastError == nil {
+			lastError = ZoomJSError()
+		}
+		lastError.lastError = error.localizedDescription
 		
 		let failedURL = Bundle.main.url(forResource: "ifdb-failed", withExtension: "html")!
 		// Open the error page
@@ -139,6 +139,8 @@ Type "\(navigationResponse.response.mimeType ?? "Unknown")"
 	public func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
 		download.delegate = self
 	}
+	
+	// TODO: Revive ZoomJSError functionality. Maybe use WKUserScript?
 }
 
 @available(macOS 12.0, *)

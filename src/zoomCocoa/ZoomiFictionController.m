@@ -23,7 +23,7 @@
 #import <ZoomPlugIns/ZoomPlugInController.h>
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import "ZoomWindowThatIsKey.h"
-@import ZoomPlugIns.Swift;
+#import <ZoomPlugIns/ZoomPlugIns-Swift.h> 
 #import "ZoomSignPost.h"
 #import "Zoom-Swift.h"
 
@@ -50,6 +50,7 @@
 @synthesize signpostID = signpostId;
 @synthesize downloadUpdateList;
 @synthesize downloadPlugin;
+@synthesize lastError;
 
 static ZoomiFictionController* sharedController = nil;
 
