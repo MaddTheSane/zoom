@@ -69,7 +69,7 @@ public:
 template <class T> void write_to (GeasOutputStream &gos, const vector<T> &v) 
 { 
   gos.put(v.size());
-  for (const auto i: v)
+  for (const auto &i: v)
     write_to (gos, i);
 }
   
