@@ -7,11 +7,10 @@
 
 import Cocoa
 
-private let fade = NSImage(named: "top-shading")!
-
 class FadeView: NSView {
 	
 	override func draw(_ dirtyRect: NSRect) {
-		fade.draw(in: bounds, from: .zero, operation: .sourceOver, fraction: 1)
+		let grad = NSGradient(starting: NSColor.windowBackgroundColor, ending: NSColor.textBackgroundColor)
+		grad?.draw(in: bounds, angle: 270)
 	}
 }
