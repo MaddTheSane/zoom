@@ -33,6 +33,11 @@ final public class AGT: ZoomGlkPlugIn {
 		guard let fileURL = path else {
 			return false
 		}
+		
+		guard !((try? fileURL.checkResourceIsReachable()) ?? false) else {
+			return fileURL.pathExtension.caseInsensitiveCompare("agt") == .orderedSame
+		}
+		
 		return false
 	}
 	
