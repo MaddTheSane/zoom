@@ -37,6 +37,12 @@ final public class Quest: ZoomGlkPlugIn {
 			return false
 		}
 		
+		guard !((try? url.checkResourceIsReachable()) ?? false) else {
+			let extensions = ["cas", "asl"]
+			
+			return extensions.contains(url.pathExtension.lowercased())
+		}
+		
 		guard let hand = try? FileHandle(forReadingFrom: path) else {
 			return false
 		}

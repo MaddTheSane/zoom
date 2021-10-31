@@ -33,6 +33,11 @@ final public class Adrift: ZoomGlkPlugIn {
 		guard let fileURL = path else {
 			return false
 		}
+		
+		guard !((try? fileURL.checkResourceIsReachable()) ?? false) else {
+			return fileURL.pathExtension.caseInsensitiveCompare("taf") == .orderedSame
+		}
+		
 		return isCompatibleAdriftFile(at: fileURL)
 	}
 	
