@@ -6,7 +6,7 @@
   
 */
 
-"ZoomMetadataError Programmer Is A Spoon" = "Programmer Is A Spoon";
+"ZoomMetadataError Programmer Is A Spoon" = "An error that should not have happened, happened";
 "ZoomMetadataError XML" = "XML parsing error";
 "ZoomMetadataError Not XML" = "File is not in XML format";
 "ZoomMetadataError Unknown Version" = "Unknown iFiction version number";

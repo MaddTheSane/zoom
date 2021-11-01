@@ -129,7 +129,6 @@
 		4BB8C15708C2497700D7D334 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBC050F7DE200A8E303 /* stream.c */; };
 		4BB8C15808C2497700D7D334 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FBD050F7DE200A8E303 /* random.c */; };
 		4BB8C15908C2497700D7D334 /* interp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E3FC0050F7DE200A8E303 /* interp.c */; };
-		4BB8C15A08C2497700D7D334 /* ZoomProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */; };
 		4BB8C15B08C2497700D7D334 /* ZoomServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F30050F9E8F00A8E303 /* ZoomServer.m */; };
 		4BB8C15C08C2497700D7D334 /* ZoomZMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F34050FAE5700A8E303 /* ZoomZMachine.m */; };
 		4BB8C15D08C2497700D7D334 /* v6display.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F5E050FBAAF00A8E303 /* v6display.c */; };
@@ -306,6 +305,7 @@
 		55368B83272CAA3600740A0A /* README in Resources */ = {isa = PBXBuildFile; fileRef = 552CEEDA2715110D009D87A5 /* README */; };
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
+		553D13BF272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+NewWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+NewWebKit.swift */; };
@@ -1255,8 +1255,9 @@
 		55368AE9272A045800740A0A /* agil */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agil; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368B00272A046400740A0A /* agt2agx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = agt2agx; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368B33272B562300740A0A /* ZoomStoryOrganiser-Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomStoryOrganiser-Swift.swift"; sourceTree = "<group>"; };
-		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
+		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
 		553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSkeinXMLSwift.swift; sourceTree = "<group>"; };
+		553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = ZoomProtocolLibrary.tbd; sourceTree = "<group>"; };
 		5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinWeb.h; sourceTree = "<group>"; };
 		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1376,6 +1377,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				553D13BF272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd in Frameworks */,
 				4BB8C16208C2497700D7D334 /* Cocoa.framework in Frameworks */,
 				4BB8C16308C2497700D7D334 /* Foundation.framework in Frameworks */,
 			);
@@ -1674,6 +1676,7 @@
 				4B4EF620050FD66E00A8E303 /* ZFiles.m */,
 				4BE447B80510DE5900A8E303 /* ZDisplay.m */,
 				4BE621CF068C20D500369528 /* Z6Display.m */,
+				553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */,
 			);
 			name = ZoomCocoa;
 			path = zoomCocoa;
@@ -3034,7 +3037,6 @@
 				4BB8C15708C2497700D7D334 /* stream.c in Sources */,
 				4BB8C15808C2497700D7D334 /* random.c in Sources */,
 				4BB8C15908C2497700D7D334 /* interp.c in Sources */,
-				4BB8C15A08C2497700D7D334 /* ZoomProtocol.m in Sources */,
 				4BB8C15B08C2497700D7D334 /* ZoomServer.m in Sources */,
 				4BB8C15C08C2497700D7D334 /* ZoomZMachine.m in Sources */,
 				4BB8C15D08C2497700D7D334 /* v6display.c in Sources */,
@@ -3986,6 +3988,14 @@
 					build,
 					"$(inherited)",
 				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../..",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/src/zoomCocoa",
+				);
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 			};
@@ -4006,6 +4016,14 @@
 					ProjectBuilder/etc,
 					build,
 					"$(inherited)",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../..",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/src/zoomCocoa",
 				);
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
