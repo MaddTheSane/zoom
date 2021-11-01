@@ -28,15 +28,9 @@ static NSString*const ZoomGameDirectories = @"ZoomGameDirectories";
 static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 
 // TODO: migrate to CoreData
+// TODO: migrate to URL bookmarks
 
-@implementation ZoomStoryOrganiser {
-	// Preference loading/checking thread
-	NSPort* port1;
-	NSPort* port2;
-	//TODO: Use some other method of multithreading: NSConnection is deprecateed.
-	NSConnection* mainThread;
-	NSConnection* subThread;
-}
+@implementation ZoomStoryOrganiser
 
 #pragma mark - Internal functions
 
@@ -80,17 +74,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 	
 	int counter = 0;
 	
-	// Connect to the main thread
-	[[NSRunLoop currentRunLoop] addPort: port2
-                                forMode: NSDefaultRunLoopMode];
-	subThread = [[NSConnection alloc]
-        initWithReceivePort: port2
-                   sendPort: port1];
-	
 	// Notify the main thread that things are happening
-	ZoomStoryOrganiser* rootProxy = (ZoomStoryOrganiser*)[subThread rootProxy];
-	
-	[(NSDistantObject*)rootProxy setProtocolForProxy: @protocol(ZoomStoryIDFetcherProtocol)];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self startedActing];
 		});
@@ -164,11 +148,15 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 		counter++;
 		if (counter > 40) {
 			counter = 0;
-			[rootProxy organiserChanged];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[self organiserChanged];
+			});
 		}
 	}	
 	
-	[rootProxy organiserChanged];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self organiserChanged];
+		});
 	
 	// If story organisation is on, we need to check for any disappeared stories that have appeared in
 	// the organiser directory, and recreate any story data as required.
@@ -262,16 +250,15 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 		if (orgD) closedir(orgD);
 	}
 
-	[rootProxy organiserChanged];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self organiserChanged];
+		});
 
 	// Tidy up
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self endedActing];
 		});
 
-	subThread = nil;
-	port1 = port2 = nil;
-	
 	// Done
 	CFRelease((__bridge CFTypeRef)(self));
 	}
@@ -286,15 +273,6 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 		@"preferences": prefs,
 		@"extraPreferences": extraPrefs
 	};
-	
-	// Create a connection so the threads can communicate
-	port1 = [NSPort port];
-	port2 = [NSPort port];
-	
-	mainThread = [[NSConnection alloc]
-				  initWithReceivePort: port1
-				  sendPort: port2];
-	[mainThread setRootObject: self];
 	
 	// Run the thread
 	CFRetain((__bridge CFTypeRef)(self)); // Released by the thread when it finishes
@@ -426,10 +404,6 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 		identsToFilenames = [[NSMutableDictionary alloc] init];
 		
 		storyLock = [[NSLock alloc] init];
-		port1 = nil;
-		port2 = nil;
-		mainThread = nil;
-		subThread = nil;
 		
 		// Any time a story changes, we move it
 		[[NSNotificationCenter defaultCenter] addObserver: self
@@ -1290,26 +1264,12 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	}
 }
 
+/// Forces an organisation of all the stories stored in the database.
+///
+/// This is useful if, for example, the 'keep games organised' option is switched on/off
 - (void) organiseAllStories {
-	// Forces an organisation of all the stories stored in the database.
-	// This is useful if, for example, the 'keep games organised' option is switched on/off
-	
-	// Create the ports for the thread
-	NSPort* threadPort1 = [NSPort port];
-	NSPort* threadPort2 = [NSPort port];
-	
-	[[NSRunLoop currentRunLoop] addPort: threadPort1
-								forMode: NSDefaultRunLoopMode];
-	
-	NSConnection* mainThreadConnection = [[NSConnection alloc] initWithReceivePort: threadPort1
-																		  sendPort: threadPort2];
-	[mainThreadConnection setRootObject: self];
-	
 	// Create the information dictionary
 	NSDictionary* threadDictionary = @{
-		@"threadPort1": threadPort1,
-		@"threadPort2": threadPort2,
-		@"mainThread": mainThreadConnection
 	};
 	
 	[storyLock lock];
@@ -1492,15 +1452,6 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 
 #pragma mark - Reorganising story files
 
-- (NSData*) retrieveUtf8PathFrom: (NSString*) path {
-	// We have to have this function, as we can't call NSFileManager from a thread
-	NSFileManager* mgr = [NSFileManager defaultManager];
-	
-	const char* rep = [mgr fileSystemRepresentationWithPath: path];
-	return [NSData dataWithBytes: rep
-						  length: strlen(rep)+1];
-}
-
 - (NSString*) gameStorageDirectory {
 	// We also can't use the user defaults from a thread (legacy: we're using the ZoomPreferences object now)
 	return [[ZoomPreferences globalPreferences] organiserDirectory];
@@ -1523,23 +1474,15 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 - (void) organiserThread: (NSDictionary*) dict {
 	@autoreleasepool {
 		NSFileManager *fm = [[NSFileManager alloc] init];
-	// Retrieve the info from the dictionary
-	NSPort* threadPort1 = [dict objectForKey: @"threadPort1"];
-	NSPort* threadPort2 = [dict objectForKey: @"threadPort2"];
-	
-	// Connect to the main thread
-	[[NSRunLoop currentRunLoop] addPort: threadPort2
-                                forMode: NSDefaultRunLoopMode];
-	NSConnection* subThreadConnection = [[NSConnection alloc] initWithReceivePort: threadPort2
-																		 sendPort: threadPort1];
-	
 	// Start things rolling
-	[[subThreadConnection rootProxy] setProtocolForProxy: @protocol(ZoomStoryIDFetcherProtocol)];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self startedActing];
 		});
 	
-	NSString* gameStorageDirectory = [[(ZoomStoryOrganiser*)[subThreadConnection rootProxy] gameStorageDirectory] copy];
+	__block NSString* gameStorageDirectory;
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			gameStorageDirectory = [[self gameStorageDirectory] copy];
+		});
 	NSArray* storageComponents = [gameStorageDirectory pathComponents];
 	
 	// Get the list of stories we need to update
@@ -1555,7 +1498,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		// Get the file system path
 		
 		[storyLock lock];
-		if (stat([fm fileSystemRepresentationWithPath:filename], &sb) != 0) {
+		if (stat([fm fileSystemRepresentationWithPath: filename], &sb) != 0) {
 			// The story does not exist: remove from the database and keep moving
 			
 			ZoomStoryID* oldID = [filenamesToIdents objectForKey: filename];
@@ -1565,7 +1508,9 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 				[filenamesToIdents removeObjectForKey: filename];
 				[identsToFilenames removeObjectForKey: oldID];
 				
-				[(ZoomStoryOrganiser*)[subThreadConnection rootProxy] organiserChanged];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[self organiserChanged];
+				});
 			}
 			
 			[storyLock unlock];
@@ -1603,7 +1548,10 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		[storyLock unlock];
 		
 		// Get the story information
-		NSDictionary* storyInfo = [(ZoomStoryOrganiser*)[subThreadConnection rootProxy] storyInfoForFilename: filename];
+		__block NSDictionary* storyInfo;
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			storyInfo = [self storyInfoForFilename: filename];
+		});
 		
 		ZoomStoryID* storyID = [storyInfo objectForKey: @"storyID"];
 		ZoomStory* story = [storyInfo objectForKey: @"story"];
@@ -1642,8 +1590,9 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 			// CASE 1 HAS OCCURED. Organise this story
 			NSLog(@"File %@ outside of organisation directory: organising", filename);
 			
-			[(ZoomStoryOrganiser*)[subThreadConnection rootProxy] organiseStory: story
-																	  withIdent: storyID];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[self organiseStory: story withIdent: storyID];
+			});
 			continue;
 		}
 		
@@ -1678,12 +1627,11 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		if (inWrongGroup) {
 			// Create the group directory if required
 			NSString* groupDirectory = [gameStorageDirectory stringByAppendingPathComponent: expectedGroup];
-			NSData* groupUtf8Data = [(ZoomStoryOrganiser*)[subThreadConnection rootProxy] retrieveUtf8PathFrom: groupDirectory];
 			
 			// Create the group directory if it doesn't already exist
 			// Don't organise this file if there's a file already here
 
-			if (stat([groupUtf8Data bytes], &sb) == 0) {
+			if (stat([fm fileSystemRepresentationWithPath: groupDirectory], &sb) == 0) {
 				if ((sb.st_mode&S_IFDIR) == 0) {
 					// Oops, this is a file: can't move anything here
 					NSLog(@"Organiser: Can't create group directory at %@ - there's a file in the way", groupDirectory);
@@ -1691,7 +1639,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 				}
 			} else {
 				NSLog(@"Organiser: Creating group directory at %@", groupDirectory);
-				int err = mkdir([groupUtf8Data bytes], 0755);
+				int err = mkdir([fm fileSystemRepresentationWithPath: groupDirectory], 0755);
 				
 				if (err != 0) {
 					// strerror & co aren't thread-safe so we can't safely retrieve the actual error number
@@ -1768,8 +1716,10 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 			[storyLock unlock];
 			
 			// Update filenamesToIdents and identsToFilenames appropriately
-			[(ZoomStoryOrganiser*)[subThreadConnection rootProxy] renamedIdent: storyID
-																	toFilename: [titleDirectory stringByAppendingPathComponent: [filename lastPathComponent]]];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[self renamedIdent: storyID
+						toFilename: [titleDirectory stringByAppendingPathComponent: [filename lastPathComponent]]];
+			});
 		}
 	}
 	
