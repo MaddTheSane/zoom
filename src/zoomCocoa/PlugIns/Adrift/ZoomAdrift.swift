@@ -29,6 +29,10 @@ final public class Adrift: ZoomGlkPlugIn {
 		return true
 	}
 	
+	public override class var supportedFileTypes: [String]! {
+		return ["public.adrift", "taf"]
+	}
+	
 	public override class func canRun(_ path: URL!) -> Bool {
 		guard let fileURL = path else {
 			return false

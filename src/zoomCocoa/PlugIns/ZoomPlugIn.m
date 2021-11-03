@@ -44,6 +44,10 @@
 	return NO;
 }
 
++ (NSArray<NSString*>*)supportedFileTypes {
+	return @[];
+}
+
 #pragma mark - Designated initialiser
 
 - (id) init {

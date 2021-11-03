@@ -14,12 +14,54 @@
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>taf</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Adrift Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.adrift</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+	</array>
 	<key>CFBundleSignature</key>
 	<string>YZZY</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).Adrift</string>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Adrift Story</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.adrift</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>taf</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>ZoomPlugin</key>
 	<dict>
 		<key>Author</key>

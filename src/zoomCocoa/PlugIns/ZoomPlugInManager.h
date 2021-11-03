@@ -82,6 +82,8 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 /// Performs a general check for updates operation
 - (void) checkForUpdates;
 
+- (NSArray<NSString*>*)pluginSupportedFileTypes;
+
 @end
 
 //!

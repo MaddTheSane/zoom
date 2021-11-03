@@ -314,6 +314,14 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	return NO;
 }
 
+- (NSArray<NSString*>*)pluginSupportedFileTypes {
+	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2];
+	for (Class plugClass in pluginClasses) {
+		[utis addObjectsFromArray: [plugClass supportedFileTypes]];
+	}
+	return utis;
+}
+
 #pragma mark - Getting information about plugins
 
 - (NSDictionary*) plistForBundleAtPath: (NSString*) pluginBundle {

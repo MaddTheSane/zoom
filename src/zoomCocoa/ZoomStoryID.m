@@ -727,6 +727,18 @@ typedef unsigned char IFMDByte;
 	return identString;
 }
 
+- (NSString *)debugDescription {
+	char* stringId = IFMB_IdToString(ident);
+	NSString* identString = [[NSString alloc] initWithBytesNoCopy: stringId length: strlen(stringId) encoding: NSUTF8StringEncoding freeWhenDone: YES];
+	
+	if (identString == nil) {
+		free(stringId);
+		return @"(null)";
+	}
+	
+	return identString;
+}
+
 #pragma mark - Port coding
 
 - (id)replacementObjectForPortCoder:(NSPortCoder *)encoder { 

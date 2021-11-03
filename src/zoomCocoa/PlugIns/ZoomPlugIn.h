@@ -43,6 +43,8 @@
 /// \c YES if the specified file URL is one that the plugin can run
 + (BOOL) canRunURL: (NSURL*) path;
 
+@property (class, readonly, copy) NSArray<NSString*> *supportedFileTypes;
+
 //! Initialises this plugin to play a specific game
 - (id) initWithFilename: (NSString*) gameFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithURL: instead");
 

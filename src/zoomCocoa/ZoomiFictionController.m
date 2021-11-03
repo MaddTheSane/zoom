@@ -585,6 +585,8 @@ static dispatch_block_t onceTypesBlock = ^{
 	// Create an open panel
 	NSOpenPanel* storiesToAdd;
 	NSArray* fileTypes = @[@"public.zcode", @"public.blorb.glulx", @"public.blorb.zcode", @"public.blorb"];
+	NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedFileTypes];
+	fileTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
 	
 	storiesToAdd = [NSOpenPanel openPanel];
 	

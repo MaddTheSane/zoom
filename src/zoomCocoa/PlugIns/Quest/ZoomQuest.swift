@@ -68,6 +68,10 @@ final public class Quest: ZoomGlkPlugIn {
 		return url.pathExtension.lowercased() == "asl"
 	}
 	
+	public override class var supportedFileTypes: [String]! {
+		return ["uk.co.textadventures.asl", "uk.co.textadventures.cas", "asl", "cas"]
+	}
+	
 	public override init!(url gameFile: URL!) {
 		super.init(url: gameFile)
 		clientPath = Bundle(for: Quest.self).path(forAuxiliaryExecutable: "geas")
