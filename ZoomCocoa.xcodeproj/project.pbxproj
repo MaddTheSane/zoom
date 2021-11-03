@@ -306,6 +306,7 @@
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
 		553D13BF272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */; };
+		553D13E5273234A400D1F2B4 /* ZoomSkeinInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
@@ -1258,6 +1259,7 @@
 		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
 		553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSkeinXMLSwift.swift; sourceTree = "<group>"; };
 		553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = ZoomProtocolLibrary.tbd; sourceTree = "<group>"; };
+		553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinInternal.h; sourceTree = "<group>"; };
 		5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinWeb.h; sourceTree = "<group>"; };
 		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1825,6 +1827,7 @@
 		4BA2BCE806949E3E0082C022 /* Skeins */ = {
 			isa = PBXGroup;
 			children = (
+				553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */,
 				4BA2BCEB06949E730082C022 /* ZoomSkein.h */,
 				4BA2BCEC06949E730082C022 /* ZoomSkein.m */,
 				4B14632106A2DD9E00398650 /* ZoomSkeinXML.m */,
@@ -2318,6 +2321,7 @@
 				4B1FEA240ACB159D008B9EFE /* ZoomPreferences.h in Headers */,
 				4BA8B5820B1B053E007CD75E /* ZoomTextToSpeech.h in Headers */,
 				4B95CDA1C5B03AD500FD9F27 /* ZoomSkeinController.h in Headers */,
+				553D13E5273234A400D1F2B4 /* ZoomSkeinInternal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@
 #import "ZoomSkeinLayout.h"
 #import "ZoomSkeinItem+Pasteboard.h"
 #import "ZoomSkeinWeb.h"
+#import "ZoomSkeinInternal.h"
 
 #include <Carbon/Carbon.h>
 
@@ -19,9 +20,6 @@
 static const CGFloat defaultItemWidth = 120.0; // Pixels
 static const CGFloat defaultItemHeight = 96.0;
 static const CGFloat itemButtonBarWidth = 40.0;
-
-// Drawing info
-static NSDictionary* itemTextAttributes;
 
 // Images
 static NSImage* add, *delete, *locked, *unlocked, *annotate, *transcript;
@@ -135,9 +133,6 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		unlocked   = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinUnlocked"];
 		annotate   = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinAnnotate"];
 		transcript = [[NSBundle bundleForClass: [self class]] imageForResource: @"SkeinTranscript"];
-		
-		itemTextAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 10],
-							   NSForegroundColorAttributeName: [NSColor blackColor]};
 	});
 }
 

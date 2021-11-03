@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "ZoomSkeinItem.h"
+#import "ZoomSkeinInternal.h"
 
 // Skein item notifications
 NSString*const ZoomSkeinItemIsBeingReplaced = @"ZoomSkeinItemIsBeingReplaced";
@@ -595,16 +596,7 @@ static int currentScore = 1;
 // Zoom
 //
 
-static NSDictionary* itemTextAttributes = nil;
-static NSDictionary* labelTextAttributes = nil;
-
 - (NSSize) commandSize {
-	if (!itemTextAttributes) {
-		itemTextAttributes = @{
-			NSFontAttributeName: [NSFont systemFontOfSize: 10],
-			NSForegroundColorAttributeName: [NSColor textColor]};
-	}
-	
 	if (commandSizeDidChange) {
 		commandSize = [command sizeWithAttributes: itemTextAttributes];
 	}
@@ -619,14 +611,6 @@ static NSDictionary* labelTextAttributes = nil;
 }
 
 - (NSSize) annotationSize {
-	if (!labelTextAttributes) {
-		labelTextAttributes = @{
-			NSFontAttributeName: [NSFont systemFontOfSize: 13],
-			NSForegroundColorAttributeName: [NSColor textColor]
-			//labelShadow, NSShadowAttributeName,
-		};
-	}
-	
 	if (annotationSizeDidChange) {
 		annotationSize = annotation?[annotation sizeWithAttributes: labelTextAttributes]:NSMakeSize(0,0);
 	}

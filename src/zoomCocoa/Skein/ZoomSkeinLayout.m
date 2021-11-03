@@ -10,6 +10,7 @@
 #import <objc/objc-runtime.h>
 
 #import "ZoomSkeinLayout.h"
+#import "ZoomSkeinInternal.h"
 
 // Define this to use the 'new' skein colouring style
 #define SkeinDrawingStyleNew
@@ -17,8 +18,9 @@
 // Constants
 static const CGFloat itemPadding = 56.0;
 
-static NSDictionary* itemTextAttributes = nil;
-static NSDictionary* labelTextAttributes = nil;
+// Drawing info
+NSDictionary* itemTextAttributes = nil;
+NSDictionary* labelTextAttributes = nil;
 
 // Images
 static NSImage* unplayed, *selected, *active, *unchanged, *changed, *annotation, *commentaryBadge;
@@ -43,7 +45,7 @@ static NSImage* unchangedDark, *activeDark;
 
 #pragma mark - Factory methods
 
-+ (void) initialize {
++ (void) load {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
     NSShadow* labelShadow = [[NSShadow alloc] init];
