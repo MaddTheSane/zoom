@@ -1,3 +1,9 @@
 [submodule "depends/CocoaGlk"]
 	path = depends/CocoaGlk
 	url = https://github.com/MaddTheSane/CocoaGlk.git
+[submodule "depends/-o"]
+	path = depends/XADMaster
+	url = https://github.com/MaddTheSane/XADMaster-2.git
+[submodule "depends/UniversalDetector"]
+	path = depends/UniversalDetector
+	url = https://github.com/MaddTheSane/UniversalDetector.git

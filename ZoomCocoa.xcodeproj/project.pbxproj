@@ -307,6 +307,10 @@
 		553C83952713C41C002782C0 /* ZoomSkeinXMLSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */; };
 		553D13BF272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */; };
 		553D13E5273234A400D1F2B4 /* ZoomSkeinInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */; };
+		553D141E273285FE00D1F2B4 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D13F5273285C100D1F2B4 /* UniversalDetector.framework */; platformFilter = ios; };
+		553D141F273285FE00D1F2B4 /* UniversalDetector.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 553D13F5273285C100D1F2B4 /* UniversalDetector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		553D1420273285FE00D1F2B4 /* XADMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D140B273285D800D1F2B4 /* XADMaster.framework */; };
+		553D1421273285FE00D1F2B4 /* XADMaster.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 553D140B273285D800D1F2B4 /* XADMaster.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
@@ -722,6 +726,118 @@
 			remoteGlobalIDString = 55368A88272A035E00740A0A;
 			remoteInfo = AGT;
 		};
+		553D13F4273285C100D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13EB273285C100D1F2B4 /* UniversalDetector.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = UniversalDetector;
+		};
+		553D13F6273285C100D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13EB273285C100D1F2B4 /* UniversalDetector.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B0DDCAB0A2D0AD10009B697;
+			remoteInfo = DetectorTest;
+		};
+		553D13F8273285C100D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13EB273285C100D1F2B4 /* UniversalDetector.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5518C6D41BDAFDCC00D50302;
+			remoteInfo = UniversalDetectorTests;
+		};
+		553D13FA273285C100D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13EB273285C100D1F2B4 /* UniversalDetector.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55F5908E1EB53613000B4973;
+			remoteInfo = "Static Library";
+		};
+		553D140A273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = XADMaster;
+		};
+		553D140C273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 551BADD11EB032B500EAF64E;
+			remoteInfo = "XADMaster-iOS";
+		};
+		553D140E273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B34A97511C2FD0500396C26;
+			remoteInfo = libXADMaster.a;
+		};
+		553D1410273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B91CD5E11D97E7C0081E40A;
+			remoteInfo = libXADMaster.win.a;
+		};
+		553D1412273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B467B0115CD9A73001AB1DD;
+			remoteInfo = libXADMaster.ios.a;
+		};
+		553D1414273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B23DDC01185EBA300620319;
+			remoteInfo = unar;
+		};
+		553D1416273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B91D18F11E1677B0081E40A;
+			remoteInfo = lsar;
+		};
+		553D1418273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B91CDAC11D981E20081E40A;
+			remoteInfo = unar.exe;
+		};
+		553D141A273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B91D2EE11E694860081E40A;
+			remoteInfo = lsar.exe;
+		};
+		553D141C273285D800D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 73DA3465206B6BF1006ADB42;
+			remoteInfo = XADMasterTests;
+		};
+		553D14222732861D00D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = XADMaster;
+		};
+		553D14242732861D00D1F2B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 553D13EB273285C100D1F2B4 /* UniversalDetector.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = UniversalDetector;
+		};
 		554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
@@ -860,7 +976,9 @@
 			files = (
 				4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */,
 				4B7CB1D00936350E00F3B8F6 /* GlkClient.framework in Copy frameworks */,
+				553D1421273285FE00D1F2B4 /* XADMaster.framework in Copy frameworks */,
 				4B7CB0AA09362A7200F3B8F6 /* ZoomPlugIns.framework in Copy frameworks */,
+				553D141F273285FE00D1F2B4 /* UniversalDetector.framework in Copy frameworks */,
 				4BB8C20208C249F400D7D334 /* ZoomView.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
@@ -1260,6 +1378,8 @@
 		553C83932713B0B4002782C0 /* ZoomSkeinXMLSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSkeinXMLSwift.swift; sourceTree = "<group>"; };
 		553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = ZoomProtocolLibrary.tbd; sourceTree = "<group>"; };
 		553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinInternal.h; sourceTree = "<group>"; };
+		553D13EB273285C100D1F2B4 /* UniversalDetector.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UniversalDetector.xcodeproj; path = depends/UniversalDetector/UniversalDetector.xcodeproj; sourceTree = "<group>"; };
+		553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XADMaster.xcodeproj; path = depends/XADMaster/XADMaster.xcodeproj; sourceTree = "<group>"; };
 		5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinWeb.h; sourceTree = "<group>"; };
 		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1396,7 +1516,9 @@
 				4BB8C1FC08C249F400D7D334 /* ZoomView.framework in Frameworks */,
 				4B7CB0AB09362A7900F3B8F6 /* ZoomPlugIns.framework in Frameworks */,
 				4B9DC7F11502877B003DF057 /* QuartzCore.framework in Frameworks */,
+				553D1420273285FE00D1F2B4 /* XADMaster.framework in Frameworks */,
 				4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */,
+				553D141E273285FE00D1F2B4 /* UniversalDetector.framework in Frameworks */,
 				4B840B100CC2C3B10071F3B3 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1505,6 +1627,8 @@
 		4B1E3F47050F7AD000A8E303 = {
 			isa = PBXGroup;
 			children = (
+				553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */,
+				553D13EB273285C100D1F2B4 /* UniversalDetector.xcodeproj */,
 				4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */,
 				4B3DA126068DAEA800B7090F /* Makefile.am */,
 				4B1E3FD2050F7DFD00A8E303 /* TODO */,
@@ -2163,6 +2287,34 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		553D13EC273285C100D1F2B4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				553D13F5273285C100D1F2B4 /* UniversalDetector.framework */,
+				553D13F7273285C100D1F2B4 /* DetectorTest */,
+				553D13F9273285C100D1F2B4 /* UniversalDetectorTests.xctest */,
+				553D13FB273285C100D1F2B4 /* libUniversalDetector.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		553D13FD273285D800D1F2B4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				553D140B273285D800D1F2B4 /* XADMaster.framework */,
+				553D140D273285D800D1F2B4 /* XADMaster.framework */,
+				553D140F273285D800D1F2B4 /* libXADMaster.a */,
+				553D1411273285D800D1F2B4 /* libXADMaster.win.a */,
+				553D1413273285D800D1F2B4 /* libXADMaster.ios.a */,
+				553D1415273285D800D1F2B4 /* unar */,
+				553D1417273285D800D1F2B4 /* lsar */,
+				553D1419273285D800D1F2B4 /* unar.exe */,
+				553D141B273285D800D1F2B4 /* lsar.exe */,
+				553D141D273285D800D1F2B4 /* XADMasterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		55BA3BD327253B21007F6C82 /* geas */ = {
 			isa = PBXGroup;
 			children = (
@@ -2484,6 +2636,8 @@
 				4B51A95108FAC71400232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
+				553D14232732861D00D1F2B4 /* PBXTargetDependency */,
+				553D14252732861D00D1F2B4 /* PBXTargetDependency */,
 				55368B7D272CA88D00740A0A /* PBXTargetDependency */,
 				552CF03327176D45009D87A5 /* PBXTargetDependency */,
 				55BE4AF327099AB400100A7D /* PBXTargetDependency */,
@@ -2736,6 +2890,14 @@
 					ProductGroup = 4B7CB1BA093634DD00F3B8F6 /* Products */;
 					ProjectRef = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
 				},
+				{
+					ProductGroup = 553D13EC273285C100D1F2B4 /* Products */;
+					ProjectRef = 553D13EB273285C100D1F2B4 /* UniversalDetector.xcodeproj */;
+				},
+				{
+					ProductGroup = 553D13FD273285D800D1F2B4 /* Products */;
+					ProjectRef = 553D13FC273285D800D1F2B4 /* XADMaster.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -2822,6 +2984,104 @@
 			fileType = archive.ar;
 			path = libglkmain.a;
 			remoteRef = 552CEF2127152C5F009D87A5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D13F5273285C100D1F2B4 /* UniversalDetector.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = UniversalDetector.framework;
+			remoteRef = 553D13F4273285C100D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D13F7273285C100D1F2B4 /* DetectorTest */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = DetectorTest;
+			remoteRef = 553D13F6273285C100D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D13F9273285C100D1F2B4 /* UniversalDetectorTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UniversalDetectorTests.xctest;
+			remoteRef = 553D13F8273285C100D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D13FB273285C100D1F2B4 /* libUniversalDetector.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libUniversalDetector.a;
+			remoteRef = 553D13FA273285C100D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D140B273285D800D1F2B4 /* XADMaster.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XADMaster.framework;
+			remoteRef = 553D140A273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D140D273285D800D1F2B4 /* XADMaster.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XADMaster.framework;
+			remoteRef = 553D140C273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D140F273285D800D1F2B4 /* libXADMaster.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libXADMaster.a;
+			remoteRef = 553D140E273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D1411273285D800D1F2B4 /* libXADMaster.win.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libXADMaster.win.a;
+			remoteRef = 553D1410273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D1413273285D800D1F2B4 /* libXADMaster.ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libXADMaster.ios.a;
+			remoteRef = 553D1412273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D1415273285D800D1F2B4 /* unar */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = unar;
+			remoteRef = 553D1414273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D1417273285D800D1F2B4 /* lsar */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = lsar;
+			remoteRef = 553D1416273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D1419273285D800D1F2B4 /* unar.exe */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = unar.exe;
+			remoteRef = 553D1418273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D141B273285D800D1F2B4 /* lsar.exe */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = lsar.exe;
+			remoteRef = 553D141A273285D800D1F2B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		553D141D273285D800D1F2B4 /* XADMasterTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = XADMasterTests.xctest;
+			remoteRef = 553D141C273285D800D1F2B4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		554E440D204E6DD4000A7D6D /* SwiftGlk.app */ = {
@@ -3450,6 +3710,16 @@
 			isa = PBXTargetDependency;
 			target = 55368A88272A035E00740A0A /* AGT */;
 			targetProxy = 55368B7C272CA88D00740A0A /* PBXContainerItemProxy */;
+		};
+		553D14232732861D00D1F2B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XADMaster;
+			targetProxy = 553D14222732861D00D1F2B4 /* PBXContainerItemProxy */;
+		};
+		553D14252732861D00D1F2B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = UniversalDetector;
+			targetProxy = 553D14242732861D00D1F2B4 /* PBXContainerItemProxy */;
 		};
 		55982BEC21C0CE43002B601B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
