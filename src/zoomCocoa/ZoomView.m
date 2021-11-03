@@ -1938,7 +1938,7 @@ static void finalizeViews(void) {
 	}
 	[panel beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse result) {
 		if (result != NSModalResponseOK) {
-			[self->zMachine filePromptCancelled];
+			[self.zMachine filePromptCancelled];
 		} else {
             NSURL *fileURL = [panel URL];
 			NSString* fn = fileURL.path;
@@ -1948,8 +1948,8 @@ static void finalizeViews(void) {
 			
 			[self storePanelPrefs: panel];
 			
-			if (type == ZFileQuetzal && self->delegate && [self->delegate respondsToSelector: @selector(useSavePackage)]) {
-				usePackage = [self->delegate useSavePackage];
+			if (type == ZFileQuetzal && [self.delegate respondsToSelector: @selector(useSavePackage)]) {
+				usePackage = [self.delegate useSavePackage];
 			}
 			
 			if (usePackage) {
@@ -1989,14 +1989,14 @@ static void finalizeViews(void) {
 																	  error: NULL]
 				   forFilename: @"ZoomStatus.dat"];
 					
-					if (self->delegate && [self->delegate respondsToSelector: @selector(prepareSavePackage:)]) {
-						[self->delegate prepareSavePackage: f];
+					if ([self.delegate respondsToSelector: @selector(prepareSavePackage:)]) {
+						[self.delegate prepareSavePackage: f];
 					}
 					
-					[self->zMachine promptedFileIs: f
-                                              size: 0];
+					[self.zMachine promptedFileIs: f
+											 size: 0];
 				} else {
-					[self->zMachine filePromptCancelled];
+					[self.zMachine filePromptCancelled];
 				}
 			} else {
 				OSType creator = self->creatorCode;
@@ -2011,7 +2011,7 @@ static void finalizeViews(void) {
 					NSFileHFSTypeCode: @(self->typeCode),
 					NSFileExtensionHidden: @([panel isExtensionHidden]),
 				}]) {
-					file = [NSFileHandle fileHandleForWritingAtPath: fn];
+					file = [NSFileHandle fileHandleForWritingToURL: fileURL error: NULL];
 				}
 				
 				if (file) {
@@ -2019,10 +2019,10 @@ static void finalizeViews(void) {
 					
 					f = [[ZHandleFile alloc] initWithFileHandle: file];
 					
-					[self->zMachine promptedFileIs: f
-											  size: 0];
+					[self.zMachine promptedFileIs: f
+											 size: 0];
 				} else {
-					[self->zMachine filePromptCancelled];
+					[self.zMachine filePromptCancelled];
 				}
 			}
 		}
@@ -2038,7 +2038,7 @@ static void finalizeViews(void) {
 
 	
 	NSURL* directory = nil;
-	if (delegate && [delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
+	if ([delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
 		NSString *preDir = [delegate defaultSaveDirectory];
 		if (preDir) {
 			directory = [NSURL fileURLWithPath:preDir];
@@ -2055,7 +2055,7 @@ static void finalizeViews(void) {
 	
 	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 		if (returnCode != NSModalResponseOK) {
-			[[self zMachine] filePromptCancelled];
+			[self.zMachine filePromptCancelled];
 		} else {
 			NSURL *fp = [panel URL];
 
@@ -2071,17 +2071,16 @@ static void finalizeViews(void) {
 				if (f) {
 					NSData* skeinData = [f dataForFile: @"Skein.skein"];
 					if (skeinData) {
-						if ([self delegate] &&
-							[[self delegate] respondsToSelector: @selector(loadedSkeinData:error:)]) {
-							//TODO: handle Skein load failure.
-							[[self delegate] loadedSkeinData: skeinData error: NULL];
+						if ([self.delegate respondsToSelector: @selector(loadedSkeinData:error:)]) {
+							//TODO: handle/show Skein load failure.
+							[self.delegate loadedSkeinData: skeinData error: NULL];
 						}
 					}
 					
-					[[self zMachine] promptedFileIs: f
-											   size: (NSInteger)[f fileSize]];
+					[self.zMachine promptedFileIs: f
+											 size: (NSInteger)[f fileSize]];
 				} else {
-					[[self zMachine] filePromptCancelled];
+					[self.zMachine filePromptCancelled];
 				}
 			} else {
 				NSFileHandle *file = [NSFileHandle fileHandleForReadingFromURL: fp error: NULL];
@@ -2094,10 +2093,10 @@ static void finalizeViews(void) {
 				
 					f = [[ZHandleFile alloc] initWithFileHandle: file];
 				
-					[[self zMachine] promptedFileIs: f
-											   size: fileLen];
+					[self.zMachine promptedFileIs: f
+											 size: fileLen];
 				} else {
-					[[self zMachine] filePromptCancelled];
+					[self.zMachine filePromptCancelled];
 				}
 			}
 		}
@@ -2118,9 +2117,7 @@ static void finalizeViews(void) {
 #pragma mark - Warnings/errors
 - (void) displayWarning: (in bycopy NSString*) warning {
 	// FIXME
-	NSString* warningString;
-	
-	warningString = [NSString stringWithFormat: @"[ Warning: %@ ]", warning];
+	NSString* warningString = [NSString stringWithFormat: @"[ Warning: %@ ]", warning];
 	
 	if ([viewPrefs fatalWarnings]) {
 		[self displayFatalError: warningString];
@@ -2361,7 +2358,7 @@ static void finalizeViews(void) {
 
 - (void) restoreAutosaveFromCoder: (NSCoder*) decoder {
 	if (decoder.allowsKeyedCoding) {
-		NSDictionary* restored = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSDictionary class], [NSString class], [NSData class], [NSTextStorage class], [NSArray class], [NSMutableArray class], [ZoomUpperWindow class], [ZoomLowerWindow class], [ZoomPixmapWindow class], nil] forKey:@"SaveDataKey"];
+		NSDictionary* restored = [decoder decodeObjectForKey: @"SaveDataKey"];
 		
 		lastAutosave = [restored objectForKey: @"lastAutosave"];
 		upperWindows = [restored objectForKey: @"upperWindows"];

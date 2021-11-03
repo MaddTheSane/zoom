@@ -33,7 +33,7 @@ ZFile* open_file(const char* filename) {
     NSLog(@"Warning: open_file with filename called");
 
     // Open the file
-    NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: [[NSFileManager defaultManager] stringWithFileSystemRepresentation:filename length:strlen(filename)]];
+    NSFileHandle* handle = [NSFileHandle fileHandleForReadingFromURL: [NSURL fileURLWithFileSystemRepresentation: filename isDirectory: NO relativeToURL: nil] error: NULL];
 
     if (handle == nil) {
         return NULL;
@@ -52,7 +52,7 @@ ZFile* open_file_write(const char* filename) {
     NSLog(@"Warning: open_file_write with filename called");
 
     // Open the file
-    NSFileHandle* handle = [NSFileHandle fileHandleForWritingAtPath: [[NSFileManager defaultManager] stringWithFileSystemRepresentation:filename length:strlen(filename)]];
+    NSFileHandle* handle = [NSFileHandle fileHandleForWritingToURL: [NSURL fileURLWithFileSystemRepresentation: filename isDirectory: NO relativeToURL: nil] error: NULL];
 
     if (handle == nil) {
         return NULL;
