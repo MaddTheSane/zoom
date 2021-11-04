@@ -47,27 +47,34 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		gameIndices = [[NSMutableArray alloc] init];
 
 		NSString* configDir = [self zoomConfigDirectory];
+		NSURL *configURL = [NSURL fileURLWithPath: configDir];
 
 		// Load the metadata
-		NSData* userData = [NSData dataWithContentsOfFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]];
-		NSData* gameData = [NSData dataWithContentsOfFile: [configDir stringByAppendingPathComponent: @"gamedata.iFiction"]];
-		NSURL* infocomURL = [[NSBundle mainBundle] URLForResource: @"infocom" withExtension: @"iFiction"];
-		NSURL* archiveURL = [[NSBundle mainBundle] URLForResource: @"archive" withExtension: @"iFiction"];
-		
-		if (userData) 
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: userData]];
+		NSURL* userDataURL = [configURL URLByAppendingPathComponent: @"metadata.iFiction" isDirectory: NO];
+		NSURL* gameDataURL = [configURL URLByAppendingPathComponent: @"gamedata.iFiction" isDirectory: NO];
+		NSData* infocomData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"infocom" withExtension: @"iFiction"]];
+		NSData* archiveData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"archive" withExtension: @"iFiction"]];
+		if (![userDataURL checkResourceIsReachableAndReturnError: NULL]) {
+			userDataURL = nil;
+		}
+		if (![gameDataURL checkResourceIsReachableAndReturnError: NULL]) {
+			gameDataURL = nil;
+		}
+
+		if (userDataURL)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: userDataURL error: NULL]];
 		else
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 
-		if (gameData) 
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: gameData]];
+		if (gameDataURL)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: gameDataURL error: NULL]];
 		else
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 		
-		if (infocomURL)
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: infocomURL error: NULL]];
-		if (archiveURL)
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: archiveURL error: NULL]];
+		if (infocomData)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: infocomData]];
+		if (archiveData)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: archiveData]];
 	}
 	
 	return self;
@@ -247,7 +254,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	if ([[[filename pathExtension] lowercaseString] isEqualToString: @"ifiction"]) {
 		// Load extra iFiction data (not a 'real' file in that it's displayed in the iFiction window)
-		[[ZoomiFictionController sharediFictionController] mergeiFictionFromFile: filename];
+		[[ZoomiFictionController sharediFictionController] mergeiFictionFromURL: fileURL
+																		  error: NULL];
 		return YES;
 	}
 		

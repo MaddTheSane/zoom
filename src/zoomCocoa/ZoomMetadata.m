@@ -301,7 +301,9 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 
 - (BOOL) writeToFile: (NSString*)path
 		  atomically: (BOOL)flag {
-	return [[self xmlData] writeToFile: path atomically: flag];
+	return [self writeToURL: [NSURL fileURLWithPath: path]
+				 atomically: flag
+					  error: NULL];
 }
 
 - (BOOL)    writeToURL: (NSURL*)path
@@ -313,20 +315,15 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 }
 
 - (BOOL) writeToDefaultFile {
-	// The app delegate may not be the best place for this routine... Maybe a function somewhere
-	// would be better?
-	NSString* configDir = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory];
-	
-	return [self writeToFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]
-				  atomically: YES];
+	return [self writeToDefaultFileWithError: NULL];
 }
 
 - (BOOL) writeToDefaultFileWithError:(NSError *__autoreleasing *)outError {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
 	NSString* configDir = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory];
-	NSURL *configURL = [NSURL fileURLWithPath: configDir];
-	configURL = [configURL URLByAppendingPathComponent:@"metadata.iFiction"];
+	NSURL *configURL = [NSURL fileURLWithPath: configDir isDirectory: YES];
+	configURL = [configURL URLByAppendingPathComponent: @"metadata.iFiction" isDirectory: NO];
 	
 	return [self writeToURL: configURL
 				 atomically: YES

@@ -836,7 +836,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSLog(@"Failed to find story for ID: %@", ident);
 		if (story != nil) {
 			[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
-			[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+			[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 			
 			story = [[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: [story storyID]];
 		}
@@ -2217,6 +2217,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		alert.informativeText = @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?";
 		[alert addButtonWithTitle:@"Use new"];
 		[alert addButtonWithTitle:@"Keep old"];
+		alert.alertStyle = NSAlertStyleInformational;
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode != NSAlertFirstButtonReturn) return;
 			
@@ -2225,7 +2226,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			}
 			
 			// Store and reflect any changes
-			[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+			[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 			
 			[self reloadTableData];
 			[self configureFromMainTableSelection];
@@ -2264,6 +2265,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		}
 		
 		// Save it!
+		// TODO: present error on failure.
 		[newMetadata writeToURL: [panel URL]
 					 atomically: YES
 						  error: NULL];
