@@ -1398,7 +1398,9 @@ static dispatch_block_t onceTypesBlock = ^{
 		if (numSelected == 0) desc = @"No game selected";
 		[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: desc
 																			 attributes:
-											  @{NSFontAttributeName: descFont}]];
+											  @{NSFontAttributeName: descFont,
+												NSForegroundColorAttributeName: NSColor.textColor
+											  }]];
 	}
 	
 	if (![[gameDetailView string] isEqualToString: [gameDetails string]]) {

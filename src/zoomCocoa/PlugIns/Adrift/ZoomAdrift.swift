@@ -100,16 +100,13 @@ private func hashMD5(from handle: FileHandle) -> String {
 	var bytes: [UInt8] = Array(repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
 	handle.seek(toFileOffset: 0)
 	CC_MD5_Init(&md5)
-	var dat = Data()
-	repeat {
-		dat = handle.readData(ofLength: 16384)
-		guard dat.count > 0 else {
-			continue
-		}
+	var dat = handle.readData(ofLength: 16384)
+	while dat.count > 0 {
 		dat.withUnsafeBytes { bufPtr in
 			_=CC_MD5_Update(&md5, bufPtr.baseAddress, CC_LONG(bufPtr.count))
 		}
-	} while dat.count > 0
+		dat = handle.readData(ofLength: 16384)
+	}
 	
 	CC_MD5_Final(&bytes, &md5)
 	let mappedBytes = bytes.map { byte in
