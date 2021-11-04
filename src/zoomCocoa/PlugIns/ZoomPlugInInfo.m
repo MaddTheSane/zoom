@@ -8,6 +8,7 @@
 
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
 #import "ZoomPlugInManager.h"
+#import <ZoomPlugIns/ZoomPlugIns-Swift.h>
 
 
 @implementation ZoomPlugInInfo

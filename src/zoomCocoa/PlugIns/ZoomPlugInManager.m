@@ -8,6 +8,7 @@
 
 #import "ZoomPlugInManager.h"
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
+#import <ZoomPlugIns/ZoomPlugIns-Swift.h>
 
 NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
 
