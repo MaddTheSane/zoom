@@ -25,6 +25,10 @@ final public class AGT: ZoomGlkPlugIn {
 		return #"C.W. "Madd the Sane" Betts"#
 	}
 	
+	public override class var supportedFileTypes: [String]! {
+		return ["public.agt", "agx", "'AGTS'"]
+	}
+	
 	public override class var canLoadSavegames: Bool {
 		return false
 	}
@@ -34,7 +38,7 @@ final public class AGT: ZoomGlkPlugIn {
 			return false
 		}
 		
-		guard !((try? fileURL.checkResourceIsReachable()) ?? false) else {
+		guard ((try? fileURL.checkResourceIsReachable()) ?? false) else {
 			return fileURL.pathExtension.caseInsensitiveCompare("agt") == .orderedSame
 		}
 		

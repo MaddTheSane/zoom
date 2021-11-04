@@ -11,6 +11,8 @@
 			<array>
 				<string>glksave</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>zoom-file</string>
 			<key>CFBundleTypeName</key>
 			<string>Zoom savegame</string>
 			<key>CFBundleTypeRole</key>
@@ -284,6 +286,100 @@
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>CFBundleTypeName</key>
+			<string>AGT Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.agt</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>d$$$$</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>AGT dollar Story</string>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+			<key>LSHandlerRank</key>
+			<string>None</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.ddollardollar</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>taf</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>CFBundleTypeName</key>
+			<string>Adrift Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.adrift</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>cas</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Legacy Quest CAS file</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.co.textadventures.cas</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>asl</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Legacy Quest source file</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.co.textadventures.asl</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -485,7 +581,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="zcode"</string>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -649,6 +745,106 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>qut</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>AGT Story</string>
+			<key>UTTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>public.agt</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>agx</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>AGT Dollar Story</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.ddollardollar</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>d$$$$</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Adrift Story</string>
+			<key>UTTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.adrift</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>taf</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Legacy Quest CAS file</string>
+			<key>UTTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>UTTypeIdentifier</key>
+			<string>uk.co.textadventures.cas</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cas</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Legacy Quest source file</string>
+			<key>UTTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>UTTypeIdentifier</key>
+			<string>uk.co.textadventures.asl</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>asl</string>
 				</array>
 			</dict>
 		</dict>
