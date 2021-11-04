@@ -17,7 +17,10 @@
 BOOL ZoomIsSpotlightIndexing = NO;
 NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.storyid.errors";
 
-@implementation ZoomStoryID
+@implementation ZoomStoryID {
+	IFID ident;
+	BOOL needsFreeing;
+}
 
 + (ZoomStoryID*) idForFile: (NSString*) filename {
 	return [self idForURL: [NSURL fileURLWithPath: filename]];
@@ -508,6 +511,16 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 - (id) initWithData: (NSData*) genericGameData {
 	return [self initWithData: genericGameData
 						 type: @"MD5"];
+}
+
+- (instancetype) initWithUUID: (NSUUID*) uuid {
+	if (self = [super init]) {
+		uuid_t uuidBytes;
+		[uuid getUUIDBytes:uuidBytes];
+		ident = IFMB_UUID(uuidBytes);
+		needsFreeing = YES;
+	}
+	return self;
 }
 
 - (id) initWithIdent: (struct IFID*) idt {
