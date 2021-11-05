@@ -1671,7 +1671,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setTitle: [[ZoomGameInfoController sharedGameInfoController] title]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoHeadlineChanged: (id) sender {
