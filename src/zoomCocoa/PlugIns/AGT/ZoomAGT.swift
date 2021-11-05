@@ -4,6 +4,8 @@
 //
 //  Created by C.W. Betts on 10/12/21.
 //
+//  Some code adapted from Babel.
+//
 
 import Cocoa
 import ZoomPlugIns.ZoomPlugIn
@@ -11,6 +13,22 @@ import ZoomPlugIns.ZoomGlkPlugIn
 import ZoomPlugIns.ZoomGlkWindowController
 import ZoomPlugIns.ZoomGlkDocument
 import CommonCrypto
+
+private let AGX_MAGIC: Data = {
+	let preDat: [UInt8] = [ 0x58, 0xC7, 0xC1, 0x51 ]
+	
+	return Data(preDat)
+}()
+
+/* Helper functions to unencode integers from AGT source */
+private func read_agt_short(_ sf: Data) -> Int32 {
+	return Int32(sf[0]) | Int32(sf[1]) << 8
+}
+
+private func read_agt_int(_ sf: Data) -> Int32 {
+	return (read_agt_short(sf.advanced(by: 2)) << 16) | read_agt_short(sf);
+}
+
 
 final public class AGT: ZoomGlkPlugIn {
 	public override class var pluginVersion: String! {
@@ -42,7 +60,24 @@ final public class AGT: ZoomGlkPlugIn {
 			return fileURL.pathExtension.caseInsensitiveCompare("agt") == .orderedSame
 		}
 		
-		return false
+		do {
+			let file = try FileHandle(forReadingFrom: fileURL)
+			let checkDat: Data
+			if #available(macOS 10.15.4, *) {
+				guard let checkData = try file.read(upToCount: 36) else {
+					return false
+				}
+				checkDat = checkData
+			} else {
+				checkDat = file.readData(ofLength: 36)
+			}
+			guard checkDat.count >= 36 else {
+				return false
+			}
+			return checkDat[0..<4] == AGX_MAGIC
+		} catch {
+			return false
+		}
 	}
 	
 	public override init!(url gameFile: URL!) {
@@ -51,7 +86,26 @@ final public class AGT: ZoomGlkPlugIn {
 	}
 	
 	public override func idForStory() -> ZoomStoryID! {
-		return nil
+		guard let fileURL = gameURL,
+			  let file = try? FileHandle(forReadingFrom: fileURL) else {
+				  return nil
+		}
+		
+		/* Read the position of the game desciption block */
+		file.seek(toFileOffset: 32)
+		var datVar = file.readData(ofLength: 4)
+		let l = read_agt_int(datVar)
+		let extent = file.seekToEndOfFile()
+		guard extent >= l + 6 else {
+			return nil
+		}
+		file.seek(toFileOffset: UInt64(l))
+		datVar = file.readData(ofLength: 6)
+		let gameVersion = read_agt_short(datVar)
+		let game_sig = read_agt_int(datVar.advanced(by: 2))
+		let output = String(format: "AGT-%05d-%08X", gameVersion, game_sig)
+
+		return ZoomStoryID(idString: output)
 	}
 
 	/*

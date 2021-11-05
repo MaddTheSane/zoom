@@ -33,6 +33,8 @@
 #define ZoomSavesTabIdentifier @"ZoomSaves"
 #define ZoomInfoTabIdentifier @"ZoomInfo"
 
+#include "config.h"
+
 @interface ZoomiFictionController()
 
 - (NSString*) queryEncode: (NSString*) string;
@@ -200,9 +202,9 @@ NS_ENUM(NSInteger) {
 
 - (void) windowDidLoad {
 #ifdef DEVELOPMENT_BUILD
-	[ifdbView setCustomUserAgent: @"Mozilla/5.0 (Macintosh; U; Mac OS X; en-us) AppleWebKit (KHTML like Gecko) uk.org.logicalshift.zoom/1.1.2/development"];
+	[ifdbView setCustomUserAgent: @"Mozilla/5.0 (Macintosh; U; Mac OS X; en-us) AppleWebKit (KHTML like Gecko) uk.org.logicalshift.zoom/" VERSION "/development"];
 #else
-	[ifdbView setCustomUserAgent: @"Mozilla/5.0 (Macintosh; U; Mac OS X; en-us) AppleWebKit (KHTML like Gecko) uk.org.logicalshift.zoom/1.1.2/release"];
+	[ifdbView setCustomUserAgent: @"Mozilla/5.0 (Macintosh; U; Mac OS X; en-us) AppleWebKit (KHTML like Gecko) uk.org.logicalshift.zoom/" VERSION "/release"];
 #endif	
 	
 	NSURL* loadingPage = [[NSBundle mainBundle] URLForResource: @"ifdb-loading"

@@ -29,7 +29,7 @@
 		4B1FEA250ACB15B0008B9EFE /* ZoomPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B418ED905961D2C009C44DE /* ZoomPreferences.m */; };
 		4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
 		4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4B36C46A0955EDB600874F9F /* ZoomGlulxe.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B36C4680955EDB600874F9F /* ZoomGlulxe.m */; };
 		4B36C5000955EDD800874F9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCF3F2B050F8E2400A8E303 /* Foundation.framework */; };
 		4B36C5010955EDD800874F9F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
@@ -262,8 +262,8 @@
 		552CEF2327152D0F009D87A5 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
 		552CF02427168668009D87A5 /* ZoomAdrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CF02327168668009D87A5 /* ZoomAdrift.swift */; };
 		552CF02D27176CFC009D87A5 /* scare in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552CEEAE2715109C009D87A5 /* scare */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		55368A862728FE3000740A0A /* ZoomQuest.zoomPlugin in Copy Glulxe plugin */ = {isa = PBXBuildFile; fileRef = 55BE4AE32709988700100A7D /* ZoomQuest.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55368A862728FE3000740A0A /* ZoomQuest.zoomPlugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 55BE4AE32709988700100A7D /* ZoomQuest.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55368AA6272A03F600740A0A /* ZoomAGT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55368AA5272A03C700740A0A /* ZoomAGT.swift */; };
 		55368AE4272A045800740A0A /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
 		55368AE5272A045800740A0A /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
@@ -348,6 +348,7 @@
 		55BF2A1926FE78F900832C53 /* ZoomSavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1826FE78F900832C53 /* ZoomSavePreview.swift */; };
 		55BF2A1B26FE7C9200832C53 /* ZoomSavePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF2A1A26FE7C9200832C53 /* ZoomSavePreviewView.swift */; };
 		55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D14CD727017521006DF31A /* ZoomViewHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55DA686027351FBF0007990A /* AGX.zoomPlugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 55368A9B272A035E00740A0A /* AGX.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -795,17 +796,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4B36C45C0955ED3F00874F9F /* Copy Glulxe plugin */ = {
+		4B36C45C0955ED3F00874F9F /* Copy Glk plugins */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				55368A862728FE3000740A0A /* ZoomQuest.zoomPlugin in Copy Glulxe plugin */,
-				552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glulxe plugin */,
-				4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glulxe plugin */,
+				55DA686027351FBF0007990A /* AGX.zoomPlugin in Copy Glk plugins */,
+				55368A862728FE3000740A0A /* ZoomQuest.zoomPlugin in Copy Glk plugins */,
+				552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glk plugins */,
+				4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glk plugins */,
 			);
-			name = "Copy Glulxe plugin";
+			name = "Copy Glk plugins";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4B39CA0408EEF8C600BA5E90 /* Copy Metadata importer */ = {
@@ -1219,7 +1221,7 @@
 		552CF01727168508009D87A5 /* Adrift.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Adrift.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		552CF022271685A2009D87A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552CF02327168668009D87A5 /* ZoomAdrift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAdrift.swift; sourceTree = "<group>"; };
-		55368A9B272A035E00740A0A /* AGT.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AGT.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		55368A9B272A035E00740A0A /* AGX.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AGX.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368AA4272A03C700740A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55368AA5272A03C700740A0A /* ZoomAGT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAGT.swift; sourceTree = "<group>"; };
 		55368AA8272A044A00740A0A /* agilstub.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = agilstub.c; sourceTree = "<group>"; };
@@ -1553,7 +1555,7 @@
 				552CEEAE2715109C009D87A5 /* scare */,
 				552CF01727168508009D87A5 /* Adrift.zoomPlugin */,
 				55BA3BD227253B21007F6C82 /* geas */,
-				55368A9B272A035E00740A0A /* AGT.zoomPlugin */,
+				55368A9B272A035E00740A0A /* AGX.zoomPlugin */,
 				55368AE9272A045800740A0A /* agil */,
 				55368B00272A046400740A0A /* agt2agx */,
 			);
@@ -2475,7 +2477,7 @@
 				4BB8C1E008C249F400D7D334 /* Sources */,
 				4BB8C1F708C249F400D7D334 /* Frameworks */,
 				4B39CA0408EEF8C600BA5E90 /* Copy Metadata importer */,
-				4B36C45C0955ED3F00874F9F /* Copy Glulxe plugin */,
+				4B36C45C0955ED3F00874F9F /* Copy Glk plugins */,
 				4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */,
 				4BA375E60CD3CC1500C7B1D4 /* Copy QuickLook plugins */,
 			);
@@ -2580,9 +2582,9 @@
 			productReference = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */;
 			productType = "com.apple.product-type.bundle";
 		};
-		55368A88272A035E00740A0A /* AGT */ = {
+		55368A88272A035E00740A0A /* AGX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55368A98272A035E00740A0A /* Build configuration list for PBXNativeTarget "AGT" */;
+			buildConfigurationList = 55368A98272A035E00740A0A /* Build configuration list for PBXNativeTarget "AGX" */;
 			buildPhases = (
 				55368A8F272A035E00740A0A /* Sources */,
 				55368A91272A035E00740A0A /* Frameworks */,
@@ -2597,9 +2599,9 @@
 				55368A89272A035E00740A0A /* PBXTargetDependency */,
 				55368A8B272A035E00740A0A /* PBXTargetDependency */,
 			);
-			name = AGT;
+			name = AGX;
 			productName = Adrift;
-			productReference = 55368A9B272A035E00740A0A /* AGT.zoomPlugin */;
+			productReference = 55368A9B272A035E00740A0A /* AGX.zoomPlugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 		55368AD3272A045800740A0A /* agil */ = {
@@ -2753,7 +2755,7 @@
 				55BA3BD127253B21007F6C82 /* geas */,
 				552CF01627168508009D87A5 /* Adrift */,
 				552CEEAD2715109C009D87A5 /* scare */,
-				55368A88272A035E00740A0A /* AGT */,
+				55368A88272A035E00740A0A /* AGX */,
 				55368AD3272A045800740A0A /* agil */,
 				55368AEA272A046400740A0A /* agt2agx */,
 			);
@@ -3448,7 +3450,7 @@
 		};
 		55368B7D272CA88D00740A0A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 55368A88272A035E00740A0A /* AGT */;
+			target = 55368A88272A035E00740A0A /* AGX */;
 			targetProxy = 55368B7C272CA88D00740A0A /* PBXContainerItemProxy */;
 		};
 		55982BEC21C0CE43002B601B /* PBXTargetDependency */ = {
@@ -4644,7 +4646,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55368A98272A035E00740A0A /* Build configuration list for PBXNativeTarget "AGT" */ = {
+		55368A98272A035E00740A0A /* Build configuration list for PBXNativeTarget "AGX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55368A99272A035E00740A0A /* Debug */,
