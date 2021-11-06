@@ -46,11 +46,11 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 						 toItem: (ZoomSkeinItem*) item2;
 
 // Annotation lists
-@property (nonatomic, readonly, copy) NSArray<NSString*> *annotations;
+@property (nonatomic, readonly, copy, null_unspecified) NSArray<NSString*> *annotations;
 - (NSMenu*)  populateMenuWithAction: (SEL) action
 							 target: (id) target;
 - (void)	 populatePopupButton: (NSPopUpButton*) button;
-- (NSArray<ZoomSkeinItem*>*) itemsWithAnnotation: (NSString*) annotation;
+- (null_unspecified NSArray<ZoomSkeinItem*>*) itemsWithAnnotation: (NSString*) annotation;
 
 // Converting to strings/other file formats
 - (NSString*) transcriptToPoint: (nullable ZoomSkeinItem*) item;

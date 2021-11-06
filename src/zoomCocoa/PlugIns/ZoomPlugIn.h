@@ -11,6 +11,8 @@
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Base class for deriving Zoom plugins for playing new game types.
 ///
@@ -46,11 +48,11 @@
 @property (class, readonly, copy) NSArray<NSString*> *supportedFileTypes;
 
 //! Initialises this plugin to play a specific game
-- (id) initWithFilename: (NSString*) gameFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithURL: instead");
+- (nullable id) initWithFilename: (NSString*) gameFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithURL: instead");
 
 // Designated initialiser
 //! Initialises this plugin to play a specific game
-- (id) initWithURL: (NSURL*) gameFile NS_DESIGNATED_INITIALIZER;
+- (nullable id) initWithURL: (NSURL*) gameFile NS_DESIGNATED_INITIALIZER;
 
 // Getting information about what this plugin should be doing
 //! Gets the game associated with this plugin
@@ -58,7 +60,7 @@
 //! Gets the game associated with this plugin
 @property (readonly, copy) NSURL *gameURL;
 //! Gets the data for the game associated with this plugin
-@property (readonly, copy) NSData *gameData;
+@property (readonly, copy, nullable) NSData *gameData;
 
 // The game document + windows
 //! Retrieves/creates the document associated with this game (should not create window controllers immediately)
@@ -69,13 +71,13 @@
 
 // Dealing with game metadata
 //! Retrieves the unique ID for this story (UUIDs are preferred, or MD5s if the game format does not support that)
-- (ZoomStoryID*) idForStory;
+- (nullable ZoomStoryID*) idForStory;
 //! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
-- (ZoomStory*) defaultMetadata DEPRECATED_MSG_ATTRIBUTE("Use -defaultMetadataWithError: instead") NS_SWIFT_UNAVAILABLE("");
+- (nullable ZoomStory*) defaultMetadata DEPRECATED_MSG_ATTRIBUTE("Use -defaultMetadataWithError: instead") NS_SWIFT_UNAVAILABLE("");
 //! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
-- (ZoomStory*) defaultMetadataWithError:(NSError**)outError;
+- (nullable ZoomStory*) defaultMetadataWithError:(NSError**)outError;
 //! Retrieves the picture to use for the cover image
-- (NSImage*) coverImage;
+@property (readonly, nonatomic, copy, nullable) NSImage *coverImage;
 
 //! Resizes a cover image so that it's suitable for use as a window logo
 - (NSImage*) resizeLogo: (NSImage*) input;
@@ -87,3 +89,5 @@
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
 @end
+
+NS_ASSUME_NONNULL_END

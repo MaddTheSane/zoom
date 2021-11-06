@@ -43,19 +43,19 @@ private func read_agt_int(_ sf: Data) -> Int32 {
 
 
 final public class AGT: ZoomGlkPlugIn {
-	public override class var pluginVersion: String! {
-		return Bundle(for: AGT.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String
+	public override class var pluginVersion: String {
+		return (Bundle(for: AGT.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String)!
 	}
 	
-	public override class var pluginDescription: String! {
+	public override class var pluginDescription: String {
 		return "Plays AGT files"
 	}
 	
-	public override class var pluginAuthor: String! {
+	public override class var pluginAuthor: String {
 		return #"C.W. "Madd the Sane" Betts"#
 	}
 	
-	public override class var supportedFileTypes: [String]! {
+	public override class var supportedFileTypes: [String] {
 		return ["public.agt", "agx", "'AGTS'"]
 	}
 	
@@ -63,11 +63,7 @@ final public class AGT: ZoomGlkPlugIn {
 		return false
 	}
 	
-	public override class func canRun(_ path: URL!) -> Bool {
-		guard let fileURL = path else {
-			return false
-		}
-		
+	public override class func canRun(_ fileURL: URL) -> Bool {
 		guard ((try? fileURL.checkResourceIsReachable()) ?? false) else {
 			return fileURL.pathExtension.caseInsensitiveCompare("agt") == .orderedSame
 		}
@@ -92,14 +88,13 @@ final public class AGT: ZoomGlkPlugIn {
 		}
 	}
 	
-	public override init!(url gameFile: URL!) {
+	public override init?(url gameFile: URL) {
 		super.init(url: gameFile)
 		clientPath = Bundle(for: AGT.self).path(forAuxiliaryExecutable: "agil")
 	}
 	
-	public override func idForStory() -> ZoomStoryID! {
-		guard let fileURL = gameURL,
-			  let file = try? FileHandle(forReadingFrom: fileURL) else {
+	public override func idForStory() -> ZoomStoryID? {
+		guard let file = try? FileHandle(forReadingFrom: gameURL) else {
 				  return nil
 		}
 		
@@ -125,7 +120,7 @@ final public class AGT: ZoomGlkPlugIn {
 		return nil
 	}*/
 	
-	public override func coverImage() -> NSImage! {
+	public override var coverImage: NSImage? {
 		return nil
 	}
 }

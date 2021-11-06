@@ -60,7 +60,7 @@ extension ZoomStoryOrganiser {
 	static func frontispiece(for filename: URL) -> NSImage? {
 		// First see if a plugin can provide the image...
 		if let plugin = ZoomPlugInManager.shared.instance(for: filename),
-			let res = plugin.coverImage() {
+			let res = plugin.coverImage {
 			return res
 		}
 		

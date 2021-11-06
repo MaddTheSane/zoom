@@ -13,15 +13,15 @@ import ZoomPlugIns.ZoomGlkDocument
 import CommonCrypto
 
 final public class Adrift: ZoomGlkPlugIn {
-	public override class var pluginVersion: String! {
-		return Bundle(for: Adrift.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String
+	public override class var pluginVersion: String {
+		return (Bundle(for: Adrift.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String)!
 	}
 	
-	public override class var pluginDescription: String! {
+	public override class var pluginDescription: String {
 		return "Plays Adrift files"
 	}
 	
-	public override class var pluginAuthor: String! {
+	public override class var pluginAuthor: String {
 		return #"C.W. "Madd the Sane" Betts"#
 	}
 	
@@ -29,15 +29,11 @@ final public class Adrift: ZoomGlkPlugIn {
 		return true
 	}
 	
-	public override class var supportedFileTypes: [String]! {
+	public override class var supportedFileTypes: [String] {
 		return ["public.adrift", "taf"]
 	}
 	
-	public override class func canRun(_ path: URL!) -> Bool {
-		guard let fileURL = path else {
-			return false
-		}
-		
+	public override class func canRun(_ fileURL: URL) -> Bool {
 		guard ((try? fileURL.checkResourceIsReachable()) ?? false) else {
 			return fileURL.pathExtension.caseInsensitiveCompare("taf") == .orderedSame
 		}
@@ -45,13 +41,13 @@ final public class Adrift: ZoomGlkPlugIn {
 		return isCompatibleAdriftFile(at: fileURL)
 	}
 	
-	public override init!(url gameFile: URL!) {
+	public override init?(url gameFile: URL) {
 		super.init(url: gameFile)
 		clientPath = Bundle(for: Adrift.self).path(forAuxiliaryExecutable: "scare")
 	}
 	
-	public override func idForStory() -> ZoomStoryID! {
-		guard let gameURL = gameURL, let stringID = stringIDForAdriftFile(at: gameURL) else {
+	public override func idForStory() -> ZoomStoryID? {
+		guard let stringID = stringIDForAdriftFile(at: gameURL) else {
 			return nil
 		}
 		
@@ -63,7 +59,7 @@ final public class Adrift: ZoomGlkPlugIn {
 		return nil
 	}*/
 	
-	public override func coverImage() -> NSImage! {
+	public override var coverImage: NSImage? {
 		return nil
 	}
 }

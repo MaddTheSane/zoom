@@ -354,7 +354,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	[prefLock lock];
 	
 	NSNumber* confirmValue = (NSNumber*)[prefs objectForKey: confirmGameClose];
-	if (confirmValue) result = [confirmValue boolValue];
+	if (confirmValue != nil) result = [confirmValue boolValue];
 	
 	[prefLock unlock];
 	
@@ -382,8 +382,8 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	NSNumber* glulxInterpreterNum = (NSNumber*)[prefs objectForKey: glulxInterpreter];
 	
 	GlulxInterpreter result;
-	if (glulxInterpreterNum)	result = [glulxInterpreterNum integerValue];
-	else						result = GlulxGit;
+	if (glulxInterpreterNum != nil)	result = [glulxInterpreterNum integerValue];
+	else							result = GlulxGit;
 	
 	[prefLock unlock];
 	
@@ -470,7 +470,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	NSNumber* num = [prefs objectForKey: useScreenFonts];
 	BOOL result;
 	
-	if (num)
+	if (num != nil)
 		result = [num boolValue];
 	else
 		result = YES;
@@ -484,7 +484,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	NSNumber* num = [prefs objectForKey: useHyphenation];
 	BOOL result;
 	
-	if (num)
+	if (num != nil)
 		result = [num boolValue];
 	else
 		result = YES;
@@ -498,7 +498,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	NSNumber* num = [prefs objectForKey: useKerning];
 	BOOL result;
 	
-	if (num)
+	if (num != nil)
 		result = [num boolValue];
 	else
 		result = YES;
@@ -512,7 +512,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	NSNumber* num = [prefs objectForKey: useLigatures];
 	BOOL result;
 	
-	if (num)
+	if (num != nil)
 		result = [num boolValue];
 	else
 		result = YES;
@@ -534,7 +534,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	NSNumber* autosave = [prefs objectForKey: autosaveGames];
 	
 	BOOL result = NO;			// Changed from 1.0.2beta1 as this was annoying
-	if (autosave) result = [autosave boolValue];
+	if (autosave != nil) result = [autosave boolValue];
 	[prefLock unlock];
 	
 	return result;
