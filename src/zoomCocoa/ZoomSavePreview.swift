@@ -122,7 +122,7 @@ class SavePreview : NSView {
 			// Delete the game
 			try? FileManager.default.removeItem(at: saveURL)
 			// Force an update of the game window (bit of a hack, being lazy)
-			NotificationCenter.default.post(name: .ZoomStoryOrganiserChanged, object: ZoomStoryOrganiser.shared)
+			NotificationCenter.default.post(name: ZoomStoryOrganiser.changedNotification, object: ZoomStoryOrganiser.shared)
 		}
 	}
 	

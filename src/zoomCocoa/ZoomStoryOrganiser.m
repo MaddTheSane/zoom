@@ -30,6 +30,13 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 // TODO: migrate to CoreData
 // TODO: migrate to URL bookmarks
 
+@interface ZoomStoryOrganiser ()
+
+- (ZoomStoryID*) idForFile: (NSString*) filename;
+- (void) renamedIdent: (ZoomStoryID*) ident toFilename: (NSString*) filename;
+
+@end
+
 @implementation ZoomStoryOrganiser
 
 #pragma mark - Internal functions
@@ -60,7 +67,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 											  forKey:extraDefaultsName];
 }
 
-- (out bycopy ZoomStoryID*) idForFile: (in bycopy NSString*) filename {
+- (ZoomStoryID*) idForFile: (NSString*) filename {
 	ZoomIsSpotlightIndexing = NO;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: filename]) return nil;
 	return [ZoomStoryID idForURL: [NSURL fileURLWithPath: filename]];
@@ -1291,8 +1298,8 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[storyLock unlock];
 }
 
-- (void) renamedIdent: (in bycopy ZoomStoryID*) ident
-		   toFilename: (in bycopy NSString*) filename {
+- (void) renamedIdent: (ZoomStoryID*) ident
+		   toFilename: (NSString*) filename {
 	if (ident == nil) return;
 	
 	filename = [NSString stringWithString: filename];
@@ -1315,7 +1322,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	[self organiserChanged];
 }
 
-- (void) reorganiseStoriesTo: (NSString*) newStoryDirectory {
+- (void) reorganiseStoriesToNewDirectory: (NSString*) newStoryDirectory {
 	// Changes the story organisation directory
 	// Should be called before changing the story directory in the preferences
 	if (![[NSFileManager defaultManager] fileExistsAtPath: newStoryDirectory]) {
@@ -1716,9 +1723,10 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 			[storyLock unlock];
 			
 			// Update filenamesToIdents and identsToFilenames appropriately
+			NSString *tmpString = [titleDirectory stringByAppendingPathComponent: [filename lastPathComponent]];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[self renamedIdent: storyID
-						toFilename: [titleDirectory stringByAppendingPathComponent: [filename lastPathComponent]]];
+						toFilename: tmpString];
 			});
 		}
 	}
