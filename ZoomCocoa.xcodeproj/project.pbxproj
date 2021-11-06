@@ -1107,7 +1107,7 @@
 		4BC3B03606AE8563008FCD35 /* ZoomSkeinLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinLayout.m; sourceTree = "<group>"; };
 		4BC5562006B83F4600F0DD4A /* ZoomResourceDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomResourceDrop.h; sourceTree = "<group>"; };
 		4BC5562106B83F4600F0DD4A /* ZoomResourceDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomResourceDrop.m; sourceTree = "<group>"; };
-		4BCF3F27050F8BB200A8E303 /* ZoomProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomProtocol.h; sourceTree = "<group>"; };
+		4BCF3F27050F8BB200A8E303 /* ZoomProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomProtocol.h; sourceTree = "<group>"; usesTabs = 1; };
 		4BCF3F29050F8E0000A8E303 /* ZoomProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomProtocol.m; sourceTree = "<group>"; };
 		4BCF3F2B050F8E2400A8E303 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4BCF3F2D050F8ECD00A8E303 /* display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = display.h; sourceTree = "<group>"; };

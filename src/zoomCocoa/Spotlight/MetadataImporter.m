@@ -232,13 +232,13 @@ static Boolean GetMetadataForFile(void *thisInterface,
 	// keywords
 	//
 	
-	NSArray * keywords = @[@"Zoom", @"Z-Machine", @"ZMachine", @"Interactive Fiction", @"IF",
-							@"ZCode", @"Z-Code", @"Text Adventure", @"Text Adventures", @"Adventure Game", 
-							@"Adventure Games", @"Text Game", @"Text Games", @"Game", @"Games"];	
-	if( keywords )
-	{
-		[nsAttribs setObject:keywords forKey:(NSString *)kMDItemKeywords];
-	}
+//	NSArray * keywords = @[@"Zoom", @"Z-Machine", @"ZMachine", @"Interactive Fiction", @"IF",
+//							@"ZCode", @"Z-Code", @"Text Adventure", @"Text Adventures", @"Adventure Game", 
+//							@"Adventure Games", @"Text Game", @"Text Games", @"Game", @"Games"];	
+//	if( keywords )
+//	{
+//		[nsAttribs setObject:keywords forKey:(NSString *)kMDItemKeywords];
+//	}
 	
 	// return YES so that the attributes are imported
 	success=YES;

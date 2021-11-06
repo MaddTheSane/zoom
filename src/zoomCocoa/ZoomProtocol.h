@@ -79,8 +79,8 @@ NS_SWIFT_NAME(ZMachineProtocol)
 - (bycopy NSData*) storyFile;
 
 // Debugging
-- (void) loadDebugSymbolsFrom: (NSString*) symbolFile
-			   withSourcePath: (NSString*) sourcePath;
+- (void) loadDebugSymbolsFromFile: (NSString*) symbolFile
+				   withSourcePath: (NSString*) sourcePath;
 
 - (void) continueFromBreakpoint;
 - (void) stepFromBreakpoint;

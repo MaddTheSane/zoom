@@ -169,7 +169,8 @@ class SavePreview : NSView {
 		
 		backgroundImage.draw(in: bounds, from: .zero, operation: .sourceOver, fraction: 1.0)
 		NSBezierPath.defaultLineWidth = 1
-		NSBezierPath.stroke(NSRect(x: ourBounds.origin.x+0.5, y: ourBounds.origin.y+0.5, width: ourBounds.width-1.0, height: ourBounds.height-1.0))
+		NSBezierPath.stroke(NSRect(x: ourBounds.origin.x+0.5, y: ourBounds.origin.y+0.5,
+								   width: ourBounds.width-1.0, height: ourBounds.height-1.0))
 		
 		// Preview lines (from the top)
 		let previewStyle: [NSAttributedString.Key: Any] = [
@@ -202,14 +203,16 @@ class SavePreview : NSView {
 			// Draw this string
 			let stringSize = lineString.size(withAttributes: previewStyle)
 			
-			lineString.draw(in: NSRect(x: 4, y: yPos, width: ourBounds.width - 8, height: stringSize.height),
+			lineString.draw(in: NSRect(x: 4, y: yPos,
+									   width: ourBounds.width - 8,
+									   height: stringSize.height),
 							withAttributes: previewStyle)
-			yPos += stringSize.height;
+			yPos += stringSize.height
 			
 			// Finish up
 			lines += 1
 			if lines > 2 {
-				break;
+				break
 			}
 		}
 		
@@ -244,8 +247,8 @@ class SavePreview : NSView {
 			let dateSize = dateString.size(withAttributes: infoStyle)
 			
 			if dateSize.width <= infoRect.size.width {
-				infoRect.origin.x = (infoRect.origin.x + infoRect.size.width) - dateSize.width;
-				infoRect.size.width = dateSize.width;
+				infoRect.origin.x = (infoRect.origin.x + infoRect.size.width) - dateSize.width
+				infoRect.size.width = dateSize.width
 				
 				dateString.draw(in: infoRect, withAttributes: infoStyle)
 			}

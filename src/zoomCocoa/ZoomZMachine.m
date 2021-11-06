@@ -477,8 +477,8 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return description;
 }
 
-- (void) loadDebugSymbolsFrom: (NSString*) symbolFile
-			   withSourcePath: (NSString*) sourcePath {	
+- (void) loadDebugSymbolsFromFile: (NSString*) symbolFile
+				   withSourcePath: (NSString*) sourcePath {	
 	debug_load_symbols((char*)[symbolFile fileSystemRepresentation], (char*)[sourcePath fileSystemRepresentation]);
 
 	// Setup our debugger callback

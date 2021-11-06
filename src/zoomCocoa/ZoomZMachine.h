@@ -14,6 +14,9 @@ extern void cocoa_debug_handler(ZDWord pc);
 
 extern struct BlorbImage* zoomImageCache;
 extern int zoomImageCacheSize;
+extern int zDisplayCurrentWindow;
+extern ZStyle* zDisplayCurrentStyle;
+extern BOOL zPixmapDisplay;
 
 @interface ZoomZMachine : NSObject<ZMachine> {
     // Remote objects

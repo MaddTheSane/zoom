@@ -6,6 +6,8 @@
 #import "ZoomMetadata.h"
 #import "ZoomBabel.h"
 
+#pragma GCC visibility push(hidden)
+
 /* -----------------------------------------------------------------------------
    Generate a preview for file
 
@@ -378,3 +380,5 @@ void CancelPreviewGeneration(void* thisInterface, QLPreviewRequestRef preview)
 {
     // implement only if supported
 }
+
+#pragma GCC visibility pop

@@ -15,10 +15,6 @@
 #include "display.h"
 #include "v6display.h"
 
-extern int zDisplayCurrentWindow;
-extern ZStyle* zDisplayCurrentStyle;
-extern BOOL zPixmapDisplay;
-
 #undef  MEASURE_REMOTELY		// Set to force measuring of font sizes, etc, on the Zoom process rather than this one. Will be slower
 
 struct BlorbImage* zoomImageCache = NULL;

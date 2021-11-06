@@ -49,7 +49,7 @@ class SavePreviewView: NSView {
 		}
 		// Get our frame size
 		var ourFrame = self.frame
-		ourFrame.size.height = 0;
+		ourFrame.size.height = 0
 		
 		// Load all the zoomSave files from the given directory
 		guard let contents = try? FileManager.default.contentsOfDirectory(atPath: directory) else {
@@ -92,7 +92,7 @@ class SavePreviewView: NSView {
 				let previewURL = URL(fileURLWithPath: directory, isDirectory: true).appendingPathComponent(file, isDirectory: true)
 
 				let propertiesURL = previewURL.appendingPathComponent("Info.plist")
-				guard FileManager.default.fileExists(atPath: propertiesURL.path) else {
+				guard (try? propertiesURL.checkResourceIsReachable()) ?? false else {
 					continue
 				}
 				
@@ -108,7 +108,7 @@ class SavePreviewView: NSView {
 				let storyId = ZoomStoryID(idString: strID)
 				let previewLinesURL = previewURL.appendingPathComponent("Preview.plist")
 				let previewLines: [Any]
-				if FileManager.default.fileExists(atPath: previewLinesURL.path),
+				if (try? previewLinesURL.checkResourceIsReachable()) ?? false,
 				   let dat2 = try? Data(contentsOf: previewLinesURL),
 				   let previewLines2 = try? PropertyListSerialization.propertyList(from: dat2, options: [], format: nil) as? [Any] {
 					previewLines = previewLines2

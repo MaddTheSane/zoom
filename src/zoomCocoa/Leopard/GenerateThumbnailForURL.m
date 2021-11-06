@@ -4,6 +4,8 @@
 
 #import "ZoomBabel.h"
 
+#pragma GCC visibility push(hidden)
+
 /* -----------------------------------------------------------------------------
     Generate a thumbnail for file
 
@@ -45,3 +47,5 @@ void CancelThumbnailGeneration(void* thisInterface, QLThumbnailRequestRef thumbn
 {
     // implement only if supported
 }
+
+#pragma GCC visibility pop
