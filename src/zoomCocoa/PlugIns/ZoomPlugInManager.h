@@ -10,6 +10,8 @@
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ZoomPlugInManagerDelegate;
 
 // Notifications
@@ -26,19 +28,19 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 
 // Setting the delegate
 /// The plug-in delegate
-@property (weak) id<ZoomPlugInManagerDelegate> delegate;
+@property (weak, nullable) id<ZoomPlugInManagerDelegate> delegate;
 
 // Dealing with existing plugins
 /// Causes this class to load all of the plugins
 - (void) loadPlugIns;
 /// Gets the plugin for the specified file
-- (Class) plugInForFile: (NSString*) fileName DEPRECATED_MSG_ATTRIBUTE("Use -plugInForURL: instead");
+- (nullable Class) plugInForFile: (NSString*) fileName DEPRECATED_MSG_ATTRIBUTE("Use -plugInForURL: instead");
 /// Gets the plugin for the specified URL
-- (Class) plugInForURL: (NSURL*) fileName;
+- (nullable Class) plugInForURL: (NSURL*) fileName;
 /// Gets a plug-in instance for the specified file
-- (__kindof ZoomPlugIn*) instanceForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -instanceForURL: instead");
+- (nullable __kindof ZoomPlugIn*) instanceForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -instanceForURL: instead");
 /// Gets a plug-in instance for the specified URL
-- (__kindof ZoomPlugIn*) instanceForURL: (NSURL*) filename;
+- (nullable __kindof ZoomPlugIn*) instanceForURL: (NSURL*) filename;
 
 //// The loaded plugin bundles
 - (NSArray<NSBundle*>*) pluginBundles;
@@ -111,3 +113,5 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 - (void) finishedDownloadingUpdates;
 
 @end
+
+NS_ASSUME_NONNULL_END

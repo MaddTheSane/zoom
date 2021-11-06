@@ -172,7 +172,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	}	
 }
 
-- (void) loadPluginsFrom: (NSString*) pluginPath {
+- (void) loadPluginsFromPath: (NSString*) pluginPath {
 	if (!pluginBundles) pluginBundles = [[NSMutableArray alloc] init];
 	if (!pluginClasses) pluginClasses = [[NSMutableArray alloc] init];
 	if (!pluginsToVersions) pluginsToVersions = [[NSMutableDictionary alloc] init];
@@ -208,14 +208,14 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 		
 		// Load the plugins
 		NSString* pluginPath = [[NSBundle mainBundle] builtInPlugInsPath];
-		[self loadPluginsFrom: pluginPath];
+		[self loadPluginsFromPath: pluginPath];
 		
 		if ([pluginClasses count] == 0) {
 			NSString* pluginPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/PlugIns"];
 #if VERBOSITY >=1
 			NSLog(@"= Trying harder to load plugins");
 #endif
-			[self loadPluginsFrom: pluginPath];
+			[self loadPluginsFromPath: pluginPath];
 		}
 		
 		NSString* morePlugInsPath = [[self class] plugInsPath];
@@ -226,7 +226,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 														   attributes:nil
 																error:NULL];
 			}
-			[self loadPluginsFrom: morePlugInsPath];
+			[self loadPluginsFromPath: morePlugInsPath];
 		}
 	}	
 }
