@@ -35,7 +35,7 @@
 }
 
 - (void) setInputURL: (NSURL*) inputPath {
-	self->inputPath = [inputPath.path copy];
+	inputURL = [inputPath copy];
 	
 	self.fileURL = inputPath;
 }
@@ -44,7 +44,7 @@
 @synthesize logo;
 @synthesize preferredSaveDirectory=preferredSaveDir;
 @synthesize plugIn;
-@synthesize saveGame=savedGamePath;
+@synthesize saveGameURL=savedGamePath;
 
 #pragma mark - Constructing the window controllers
 
@@ -54,9 +54,9 @@
 	
 	// Give it the paths
 	[controller setClientPath: clientPath];
-	[controller setInputFilename: inputPath];
+	[controller setInputFileURL: inputURL];
 	[controller setCanOpenSaveGame: [[plugIn class] canLoadSavegames]];
-	if (savedGamePath) [controller setSaveGame: savedGamePath];
+	if (savedGamePath) [controller setSaveGameURL: savedGamePath];
 	[controller setLogo: logo];
 	
 	// Add it as a controller for this document

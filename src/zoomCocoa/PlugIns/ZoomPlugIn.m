@@ -10,7 +10,13 @@
 #import "ZoomPlugIn.h"
 
 
-@implementation ZoomPlugIn
+@implementation ZoomPlugIn {
+@private
+	/// The game that this plugin will play
+	NSURL* gameFile;
+	/// The game data (loaded on demand)
+	NSData* gameData;
+}
 
 #pragma mark - Informational functions (subclasses should normally override)
 
@@ -100,10 +106,16 @@
 
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
 								saveGame: (NSString*) saveGame {
-	[NSException raise: @"ZoomNoPlugInInterface" 
+	return [self gameDocumentWithMetadata: story
+							  saveGameURL: [NSURL fileURLWithPath: saveGame]];
+}
+
+- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
+							 saveGameURL: (NSURL *)saveGame {
+	[NSException raise: @"ZoomNoPlugInInterface"
 				format: @"An attempt was made to load a game whose plugin does not provide an interface"];
 	
-	return nil;	
+	return nil;
 }
 
 #pragma mark - Dealing with game metadata
@@ -130,6 +142,10 @@
 #pragma mark - More information
 
 - (void) setPreferredSaveDirectory: (NSString*) dir {
+	[self setPreferredSaveDirectoryURL: [NSURL fileURLWithPath: dir]];
+}
+
+- (void) setPreferredSaveDirectoryURL: (NSURL *) dir {
 	// Default implementation does nothing
 }
 

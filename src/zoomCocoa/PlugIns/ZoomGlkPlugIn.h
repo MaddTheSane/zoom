@@ -22,7 +22,7 @@
 	//! Path to the client application
 	NSString* clientPath;
 	//! Place to put save files
-	NSString* preferredSaveDir;
+	NSURL* preferredSaveDir;
 }
 
 // Configuring the client
@@ -33,6 +33,6 @@
 
 @property (copy) NSString *clientPath;
 
-@property (copy) NSString *preferredSaveDirectory;
+@property (copy) NSURL *preferredSaveDirectoryURL;
 
 @end

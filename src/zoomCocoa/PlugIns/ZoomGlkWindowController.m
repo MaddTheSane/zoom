@@ -171,26 +171,26 @@
 
 - (void) maybeStartView {
 	// If we're sufficiently configured to start the application, then do so
-	if (glkView && clientPath && inputPath) {
+	if (glkView && clientPath && inputURL) {
 		tts = [[ZoomTextToSpeech alloc] init];
 		[tts setSkein: skein];
 
 		[glkView setDelegate: self];
 		[glkView addOutputReceiver: [[ZoomGlkSkeinOutputReceiver alloc] initWithSkein: skein]];
 		[glkView setPreferences: [ZoomGlkWindowController glkPreferencesFromZoomPreferences]];
-		[glkView setInputFilename: inputPath];
+		[glkView setInputFileURL: inputURL];
 		
-		if (savedGamePath) {
+		if (savedGameURL) {
 			if (canOpenSaveGames) {
-				NSString* saveSkeinPath = [savedGamePath stringByAppendingPathComponent: @"Skein.skein"];
-				NSString* saveDataPath = [savedGamePath stringByAppendingPathComponent: @"Save.data"];
+				NSURL* saveSkeinPath = [savedGameURL URLByAppendingPathComponent: @"Skein.skein" isDirectory: NO];
+				NSURL* saveDataPath = [savedGameURL URLByAppendingPathComponent: @"Save.data" isDirectory: NO];
 
-				if ([[NSFileManager defaultManager] fileExistsAtPath: saveDataPath]) {
-					[glkView addInputFilename: saveDataPath
-									  withKey: @"savegame"];
+				if ([saveDataPath checkResourceIsReachableAndReturnError: NULL]) {
+					[glkView addInputFileURL: saveDataPath
+									 withKey: @"savegame"];
 					
-					if ([[NSFileManager defaultManager] fileExistsAtPath: saveSkeinPath]) {
-						[skein parseXMLContentsAtURL: [NSURL fileURLWithPath: saveSkeinPath] error: NULL];
+					if ([saveSkeinPath checkResourceIsReachableAndReturnError: NULL]) {
+						[skein parseXMLContentsAtURL: saveSkeinPath error: NULL];
 					}
 				}
 			}
@@ -206,7 +206,7 @@
 - (IBAction)showWindow:(id)sender {
 	[super showWindow: sender];
 	
-	if (savedGamePath && !canOpenSaveGames && !shownSaveGameWarning) {
+	if (savedGameURL && !canOpenSaveGames && !shownSaveGameWarning) {
 		shownSaveGameWarning = YES;
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = @"This interpreter is unable to load saved states";
@@ -260,18 +260,18 @@
 	[self maybeStartView];
 }
 
-- (void) setSaveGame: (NSString*) path {
+- (void) setSaveGameURL: (NSURL*) path {
 	// Set the saved game path
-	savedGamePath = [path copy];
+	savedGameURL = [path copy];
 }
 
 - (void) setCanOpenSaveGame: (BOOL) newCanOpenSaveGame {
 	canOpenSaveGames = newCanOpenSaveGame;
 }
 
-- (void) setInputFilename: (NSString*) newPath {
+- (void) setInputFileURL: (NSURL*) newPath {
 	// Set the input path
-	inputPath = [newPath copy];
+	inputURL = [newPath copy];
 	
 	// Start it if we've got enough information
 	[self maybeStartView];
@@ -283,10 +283,10 @@
 	return logo == nil || ![[ZoomPreferences globalPreferences] showCoverPicture];
 }
 
-- (NSString*) preferredSaveDirectory {
-	if (!canOpenSaveGames && savedGamePath) {
+- (NSURL*) preferredSaveDirectory {
+	if (!canOpenSaveGames && savedGameURL) {
 		// If the user has requested a particular save game and the interpreter doesn't know how to load it, then open the directory containing the game that they wanted
-		return [savedGamePath stringByDeletingLastPathComponent];
+		return [savedGameURL URLByDeletingLastPathComponent];
 	} else {
 		// Otherwise use whatever the document thinks should be used
 		return [[self document] preferredSaveDirectory];
@@ -625,7 +625,7 @@
 - (BOOL) promptForFilesForUsage: (NSString*) usage
 					 forWriting: (BOOL) writing
 						handler: (id<GlkFilePrompt>) handler
-			 preferredDirectory: (NSString*) preferredDirectory {
+			 preferredDirectory: (NSURL*) preferredDirectory {
 	if (![usage isEqualToString: GlkFileUsageSavedGame]) {
 		// We only customise save game generation
 		return NO;
@@ -640,7 +640,7 @@
 		NSSavePanel* panel = [NSSavePanel savePanel];
 		
 		panel.allowedFileTypes = @[@"glksave"];
-		if (preferredDirectory != nil) [panel setDirectoryURL:[NSURL fileURLWithPath:preferredDirectory]];
+		if (preferredDirectory != nil) [panel setDirectoryURL: preferredDirectory];
 		
 		[panel beginSheetModalForWindow: [self window] completionHandler: ^(NSModalResponse result) {
 			[self panelDidEnd:panel returnCode:result];
@@ -655,7 +655,7 @@
 		[allowedFiletypes insertObject: @"glksave"
 							   atIndex: 0];
 		
-		if (preferredDirectory != nil) [panel setDirectoryURL: [NSURL fileURLWithPath:preferredDirectory]];
+		if (preferredDirectory != nil) [panel setDirectoryURL: preferredDirectory];
 		
 		[panel setAllowedFileTypes: allowedFiletypes];
 		

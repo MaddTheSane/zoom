@@ -21,9 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 	/// The Glk executable we'll run to play this game
 	NSString* clientPath;
 	/// The file we'll pass to the executable as the game to run
-	NSString* inputPath;
+	NSURL* inputURL;
 	/// The file that we'll pass as a savegame
-	NSString* savedGamePath;
+	NSURL* savedGamePath;
 	
 	/// Metadata for this story
 	ZoomStory* storyData;
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 	/// The logo for this story
 	NSImage* logo;
 	/// Preferred save directory
-	NSString* preferredSaveDir;
+	NSURL* preferredSaveDir;
 }
 
 // Configuring the client
@@ -48,10 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 //! The plugin that created this document
 @property (strong) ZoomPlugIn *plugIn;
 //! A .glksave file that the game should load on first start up
-@property (copy, nullable) NSString *saveGame;
+@property (copy, nullable) NSURL *saveGameURL;
 
 //! The preferred directory to put savegames into
-@property (copy) NSString *preferredSaveDirectory;
+@property (copy) NSURL *preferredSaveDirectory;
 
 @end
 

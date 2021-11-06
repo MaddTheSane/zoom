@@ -20,13 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// the game. Game metadata might be requested from a seperate thread, notably when Zoom refreshes the
 /// iFiction window on startup.
 ///
-@interface ZoomPlugIn : NSObject {
-@private
-	/// The game that this plugin will play
-	NSURL* gameFile;
-	/// The game data (loaded on demand)
-	NSData* gameData;
-}
+@interface ZoomPlugIn : NSObject
 
 // Informational functions (subclasses should normally override)
 //! The version of this plugin
@@ -67,7 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story;
 //! Retrieves/creates the document associated with this game along with the specified save game file (should not create window controllers immediately)
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
-								saveGame: (NSString*) saveGame;
+								saveGame: (NSString*) saveGame DEPRECATED_MSG_ATTRIBUTE("Use -gameDocumentWithMetadata:saveGameURL: instead");
+
+//! Retrieves/creates the document associated with this game along with the specified save game file (should not create window controllers immediately)
+- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
+							 saveGameURL: (NSURL*) saveGame;
 
 // Dealing with game metadata
 //! Retrieves the unique ID for this story (UUIDs are preferred, or MD5s if the game format does not support that)
@@ -84,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // More information from the main Zoom application
 //! Sets the preferred directory to put savegames into
-- (void) setPreferredSaveDirectory: (NSString*) dir;
+- (void) setPreferredSaveDirectoryURL: (NSURL*) dir;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
