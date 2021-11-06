@@ -307,7 +307,7 @@ Cg
                                                                     <rect key="frame" x="286" y="0.0" width="284" height="138"/>
                                                                     <clipView key="contentView" id="X6h-ec-nhq">
                                                                         <rect key="frame" x="0.0" y="0.0" width="284" height="138"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="406" id="265">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="284" height="115"/>
@@ -358,7 +358,7 @@ Cg
                                                                     <rect key="frame" x="0.0" y="0.0" width="285" height="138"/>
                                                                     <clipView key="contentView" id="5rr-uN-MMo">
                                                                         <rect key="frame" x="0.0" y="0.0" width="285" height="138"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="403" id="262">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="285" height="115"/>
@@ -843,7 +843,7 @@ Cg
                                 <rect key="frame" x="0.0" y="353" width="570" height="22"/>
                                 <subviews>
                                     <button hidden="YES" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="348">
-                                        <rect key="frame" x="70" y="2" width="51" height="18"/>
+                                        <rect key="frame" x="76" y="2" width="51" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Play" bezelStyle="inline" image="play.fill" catalog="system" imagePosition="left" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="387">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -854,10 +854,7 @@ Cg
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="347" userLabel="Home">
-                                        <rect key="frame" x="44" y="2" width="16" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="nyo-1v-Q2b"/>
-                                        </constraints>
+                                        <rect key="frame" x="44" y="2" width="22" height="18"/>
                                         <buttonCell key="cell" type="inline" bezelStyle="inline" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="386">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
