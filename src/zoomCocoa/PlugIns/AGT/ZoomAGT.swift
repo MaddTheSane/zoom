@@ -15,18 +15,30 @@ import ZoomPlugIns.ZoomGlkDocument
 import CommonCrypto
 
 private let AGX_MAGIC: Data = {
-	let preDat: [UInt8] = [ 0x58, 0xC7, 0xC1, 0x51 ]
+	let preDat: [UInt8] = [0x58, 0xC7, 0xC1, 0x51]
 	
 	return Data(preDat)
 }()
 
 /* Helper functions to unencode integers from AGT source */
 private func read_agt_short(_ sf: Data) -> Int32 {
-	return Int32(sf[0]) | Int32(sf[1]) << 8
+	precondition(sf.count >= 2)
+	var finalVal: UInt16 = 0
+	finalVal |= UInt16(sf[0])
+	finalVal |= UInt16(sf[1]) << 8
+	let preRet = Int16(bitPattern: finalVal)
+	return Int32(preRet)
 }
 
 private func read_agt_int(_ sf: Data) -> Int32 {
-	return (read_agt_short(sf.advanced(by: 2)) << 16) | read_agt_short(sf);
+	precondition(sf.count >= 4)
+	var finalVal: UInt32 = 0
+	finalVal |= UInt32(sf[0])
+	finalVal |= UInt32(sf[1]) << 8
+	finalVal |= UInt32(sf[2]) << 16
+	finalVal |= UInt32(sf[3]) << 24
+	let preRet = Int32(bitPattern: finalVal)
+	return preRet
 }
 
 
