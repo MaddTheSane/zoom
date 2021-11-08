@@ -52,12 +52,14 @@ extern NSString* const ZoomSIChild;
 + (instancetype) skeinItemWithCommand: (nullable NSString*) command;
 
 - (instancetype) initWithCommand: (nullable NSString*) command;
+- (instancetype) initWithCommand: (nullable NSString*) command identifier: (NSUUID*) uuid;
 
 // Data accessors
 
 // Skein tree
 @property (readonly, weak) ZoomSkeinItem* parent;
 @property (nonatomic, readonly, copy) NSSet<ZoomSkeinItem*> *children;
+@property (readonly, copy) NSUUID *nodeIdentifier;
 - (nullable ZoomSkeinItem*) childWithCommand: (NSString*) command;
 
 - (ZoomSkeinItem*) addChild: (ZoomSkeinItem*) childItem;

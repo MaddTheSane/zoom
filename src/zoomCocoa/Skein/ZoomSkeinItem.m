@@ -78,7 +78,7 @@ static NSString* convertCommand(NSString* command) {
 	return [[[self class] alloc] initWithCommand: com];
 }
 
-- (id) initWithCommand: (NSString*) com {
+- (instancetype) initWithCommand: (nullable NSString*) com identifier: (NSUUID*) uuid {
 	self = [super init];
 	
 	if (self) {
@@ -86,6 +86,7 @@ static NSString* convertCommand(NSString* command) {
 		result  = nil;
 		
 		parent = nil;
+		_nodeIdentifier = uuid;
 		children = [[NSMutableSet alloc] init];
 		
 		temporary = YES;
@@ -101,8 +102,12 @@ static NSString* convertCommand(NSString* command) {
 	return self;
 }
 
+- (id) initWithCommand: (NSString*) com {
+	return [self initWithCommand: com identifier: [NSUUID UUID]];
+}
+
 - (id) init {
-	return [self initWithCommand: nil];
+	return [self initWithCommand: nil identifier: [NSUUID UUID]];
 }
 
 - (void) dealloc {
@@ -546,6 +551,8 @@ static int currentScore = 1;
 				   forKey: @"result"];
 	[encoder encodeObject: annotation
 				   forKey: @"annotation"];
+	[encoder encodeObject: _nodeIdentifier
+				   forKey: @"nodeUUID"];
 	
 	[encoder encodeBool: played
 				 forKey: @"played"];
@@ -566,6 +573,11 @@ static int currentScore = 1;
 		command = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
 		result = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
 		annotation = [decoder decodeObjectOfClass: [NSString class] forKey: @"annotation"];
+		_nodeIdentifier = [decoder decodeObjectOfClass: [NSUUID class] forKey: @"nodeUUID"];
+		if (!_nodeIdentifier) {
+			// UUID decoder failure means old-style, pointer-derived xml.
+			_nodeIdentifier = [NSUUID UUID];
+		}
 		
 		played = [decoder decodeBoolForKey: @"played"];
 		changed = [decoder decodeBoolForKey: @"changed"];

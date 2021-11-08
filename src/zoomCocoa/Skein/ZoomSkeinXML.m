@@ -168,7 +168,15 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 			continue;
 		}
 		
-		ZoomSkeinItem* newItem = [[ZoomSkeinItem alloc] initWithCommand: @"- PLACEHOLDER -"];
+		NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:itemNodeId];
+		
+		ZoomSkeinItem* newItem;
+		if (uuid) {
+			newItem = [[ZoomSkeinItem alloc] initWithCommand: @"- PLACEHOLDER -" identifier: uuid];
+		} else {
+			// UUID generation failure means old-style, pointer-derived xml.
+			newItem = [[ZoomSkeinItem alloc] initWithCommand: @"- PLACEHOLDER -"];
+		}
 		[itemDictionary setObject: newItem
 						   forKey: itemNodeId];
 	}

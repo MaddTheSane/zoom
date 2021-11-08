@@ -42,9 +42,10 @@ private extension String {
 	}
 }
 
-/// Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node).
+/// Unique ID for this item (was the pointer as the value, as it's guaranteed unique for a unique node.
+/// Now is just the node identifier, a UUID generated on initialization).
 private func idFor(_ item: ZoomSkeinItem) -> String {
-	return String(format: "node-%p", item)
+	return item.nodeIdentifier.uuidString
 }
 
 extension ZoomSkein {
