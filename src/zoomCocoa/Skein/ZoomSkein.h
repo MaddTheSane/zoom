@@ -40,10 +40,10 @@ extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomS
 - (void) removeTemporaryItems: (int) maxTemps;
 
 // Creating a Zoom input receiver
-+ (nullable id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
-						 toItem: (ZoomSkeinItem*) item2;
-- (nullable id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
-						 toItem: (ZoomSkeinItem*) item2;
++ (nullable id<ZoomViewInputSource>) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
+													   toItem: (ZoomSkeinItem*) item2;
+- (nullable id<ZoomViewInputSource>) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
+													   toItem: (ZoomSkeinItem*) item2;
 
 // Annotation lists
 @property (nonatomic, readonly, copy, null_unspecified) NSArray<NSString*> *annotations;

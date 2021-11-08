@@ -48,8 +48,6 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 #pragma mark - Parsing the XML
 
 - (BOOL) parseXmlData: (NSData*) data error: (NSError**) error {
-	@autoreleasepool {
-	
 	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
 		NSError *tmpError = nil;
 	
@@ -73,11 +71,9 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 	}
 	
 		return [self parseXMLInput: inputParser error: error];
-	}
 }
 
 - (BOOL) parseXMLContentsAtURL: (NSURL*) url error: (NSError**) error {
-	@autoreleasepool {
 		ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
 		NSError *tmpError = nil;
 
@@ -102,7 +98,6 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 		}
 		
 		return [self parseXMLInput: inputParser error: error];
-	}
 }
 
 - (BOOL) parseXMLInput:(ZoomSkeinXMLInput*)inputParser error:(NSError**)outError {
@@ -289,7 +284,6 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 			
 			ZoomSkeinItem* newKid = [newItem addChild: kidItem];
 			itemDictionary[kidNodeId] = newKid;
-			kidItem = newKid;
 		}
 	}
 	

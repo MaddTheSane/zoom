@@ -11,7 +11,7 @@
 #import "ZoomSkein.h"
 #import "ZoomSkeinWeb.h"
 
-@interface ZoomSkeinInputSource : NSObject {
+@interface ZoomSkeinInputSource : NSObject <ZoomViewInputSource> {
 	NSMutableArray* commandStack;
 }
 

@@ -51,7 +51,7 @@ static NSImage* blorbImage;
 	
 	// Image and text to draw
 	NSImage* img = nil;
-	NSString* description = @"Er";
+	NSString* description;
 	
 	if (droppedFilename) {
 		img = blorbImage;

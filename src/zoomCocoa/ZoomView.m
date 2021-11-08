@@ -1293,12 +1293,13 @@ static void finalizeViews(void) {
 	foregroundColour = [foregroundColour colorWithAlphaComponent: 1.0];
 	
     // Generate the new attributes
-	NSDictionary* newAttr = @{
-		NSFontAttributeName: fontToUse,
-		NSForegroundColorAttributeName: foregroundColour,
-		NSBackgroundColorAttributeName: backgroundColour,
-		NSLigatureAttributeName: @([viewPrefs useLigatures] ? 1 : 0),
-		ZoomStyleAttributeName: [style copy]};
+	NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+							 fontToUse, NSFontAttributeName,
+		foregroundColour, NSForegroundColorAttributeName,
+		backgroundColour, NSBackgroundColorAttributeName,
+		[NSNumber numberWithBool: [viewPrefs useLigatures]], NSLigatureAttributeName,
+		[style copy], ZoomStyleAttributeName,
+		nil];
 	
 	return newAttr;
 }
