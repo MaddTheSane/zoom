@@ -1276,6 +1276,8 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 #pragma mark - Context menu
 
 - (NSMenu *)menuForEvent:(NSEvent *)event {
+	NSBundle *ourBundle = [NSBundle bundleForClass: [self class]];
+#define LocalizedSkeinString(key1, comment1) NSLocalizedStringFromTableInBundle(key1, @"LocalizedSkein", ourBundle, comment1)
 	// Find which item that the mouse is over
 	NSPoint pointInView = [event locationInWindow];
 	pointInView = [self convertPoint: pointInView fromView: nil];
@@ -1288,7 +1290,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	
 	// Add menu items for the standard actions
 	
-	[contextMenu addItemWithTitle: @"Play to Here"
+	[contextMenu addItemWithTitle: LocalizedSkeinString(@"Play to Here", @"Play to Here")
 						   action: @selector(playToHere:)
 					keyEquivalent: @""];
 	
@@ -1298,22 +1300,29 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	if ([contextItem parent] != nil) {
 		BOOL hasLabel = [[contextItem annotation] length] > 0;
 		needSep = YES;
-		[contextMenu addItemWithTitle: hasLabel?@"Edit Label":@"Add Label"
+		NSString *newTitle;
+		if (hasLabel) {
+			newTitle = LocalizedSkeinString(@"Edit Label", @"Edit Label");
+		} else {
+			newTitle = LocalizedSkeinString(@"Add Label", @"Add Label");
+		}
+		[contextMenu addItemWithTitle: newTitle
 							   action: @selector(addAnnotation:)
 						keyEquivalent: @""];
 	}
 	if ([delegate respondsToSelector: @selector(transcriptToPoint:)]) {
 		needSep = YES;
-		[contextMenu addItemWithTitle: @"Show in Transcript"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Show in Transcript", @"Show in Transcript")
 							   action: @selector(showInTranscript:)
 						keyEquivalent: @""];
 	}
 	if ([contextItem parent] != nil) {
 		needSep = YES;
-		[contextMenu addItemWithTitle: contextItem.temporary?@"Lock":@"Unlock"
+		
+		[contextMenu addItemWithTitle: contextItem.temporary ? LocalizedSkeinString(@"Lock", @"Lock") : LocalizedSkeinString(@"Unlock", @"Unlock")
 							   action: @selector(toggleLock:)
 						keyEquivalent: @""];
-		[contextMenu addItemWithTitle: contextItem.temporary?@"Lock this Thread":@"Unlock this Branch"
+		[contextMenu addItemWithTitle: contextItem.temporary ? LocalizedSkeinString(@"Lock this Thread", @"Lock this Thread") : LocalizedSkeinString(@"Unlock this Branch", @"Unlock this Branch")
 							   action: @selector(toggleLockBranch:)
 						keyEquivalent: @""];
 	}
@@ -1321,43 +1330,44 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	if (needSep) [contextMenu addItem: [NSMenuItem separatorItem]];
 
 	if ([[contextItem children] count] > 0) {
-		[contextMenu addItemWithTitle: @"New Thread"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"New Thread", @"New Thread")
 							   action: @selector(addNewBranch:)
 						keyEquivalent: @""];
 	} else {
-		[contextMenu addItemWithTitle: @"Add New"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Add New", @"Add New")
 							   action: @selector(addNewBranch:)
 						keyEquivalent: @""];
 	}
 
 	if ([contextItem parent] != nil) {
-		[contextMenu addItemWithTitle: @"Insert Knot"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Insert Knot", @"Insert Knot")
 							   action: @selector(insertItem:)
 						keyEquivalent: @""];
 		if ([[contextItem children] count] > 0) {
-			[contextMenu addItemWithTitle: @"Delete"
+			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete", @"Delete")
 								   action: @selector(deleteOneItem:)
 							keyEquivalent: @""];
-			[contextMenu addItemWithTitle: @"Delete all Below"
+			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete all Below", @"Delete all Below")
 								   action: @selector(deleteItem:)
 							keyEquivalent: @""];
 		} else {
-			[contextMenu addItemWithTitle: @"Delete"
+			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete", @"Delete")
 								   action: @selector(deleteItem:)
 							keyEquivalent: @""];
 		}
-		[contextMenu addItemWithTitle: @"Delete all in Thread"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete all in Thread", @"Delete all in Thread")
 							   action: @selector(deleteBranch:)
 						keyEquivalent: @""];
 	}
 	
 	[contextMenu addItem: [NSMenuItem separatorItem]];
-	[contextMenu addItemWithTitle: @"Save Transcript to Here..."
+	[contextMenu addItemWithTitle: LocalizedSkeinString(@"Save Transcript to Here...", @"Save Transcript to Here...")
 						   action: @selector(saveTranscript:)
 					keyEquivalent: @""];
 	
 	// Return the menu
 	return contextMenu;
+#undef LocalizedSkeinString
 }
 
 #pragma mark - Menu actions

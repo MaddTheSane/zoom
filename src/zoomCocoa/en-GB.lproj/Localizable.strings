@@ -10,7 +10,7 @@
 "Preferences: Game" = "Game";
 "Preferences: Display" = "Display";
 "Preferences: Fonts" = "Fonts";
-"Preferences: Colour" = "Color";
+"Preferences: Colour" = "Colour";
 "Preferences: Typography" = "Typography";
 "Color Black" = "Black";
 "Color Red" = "Red";
@@ -23,8 +23,7 @@
 "Color Light grey" = "Light grey";
 "Color Medium grey" = "Medium grey";
 "Color Dark grey" = "Dark grey";
-"Color Unused colour" = "Unused color";
-
+"Color Unused colour" = "Unused colour";
 
 "Go to label..." = "Go to label…";
 "Drag a Blorb resource file here to change the resources for this game" = "Drag a Blorb resource file here to change the resources for this game";
@@ -56,8 +55,8 @@
 "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins." = "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.";
 "No game selected" = "No game selected";
 "Multiple games selected" = "Multiple games selected";
-"Start new game" = "Start New Game";
-"Don't start new game" = "Don’t Start New Game";
+"Start new game" = "Start new game";
+"Don't start new game" = "Don’t start new game";
 "Autosaves Exist Info" = "This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.";
 "An autosave file exists for this game" = "An autosave file exists for this game";
 "Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually." = "Zoom was expecting to find the story file for %1$@ at %2$@, but it is no longer there. You will need to locate the story in the Finder and load it manually.";

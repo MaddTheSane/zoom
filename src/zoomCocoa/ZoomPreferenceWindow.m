@@ -27,7 +27,7 @@ static NSToolbarItemIdentifier const colourSettingsItemName = @"colourSettings";
 static NSToolbarItem* typographicSettingsItem;
 static NSToolbarItemIdentifier const typographicSettingsItemName = @"typographicSettings";
 
-static NSDictionary*  itemDictionary = nil;
+static NSDictionary<NSToolbarItemIdentifier,NSToolbarItem*>*  itemDictionary = nil;
 
 @implementation ZoomPreferenceWindow
 
@@ -50,17 +50,17 @@ static NSDictionary*  itemDictionary = nil;
 		typographicSettingsItemName: typographicSettingsItem};
 	
 	// Set up the items
-	[generalSettingsItem setLabel: @"General"];
+	[generalSettingsItem setLabel: NSLocalizedString(@"Preferences: General", @"General")];
 	[generalSettingsItem setImage: [NSImage imageNamed:@"Settings/general"]];
-	[gameSettingsItem setLabel: @"Game"];
+	[gameSettingsItem setLabel: NSLocalizedString(@"Preferences: Game", @"Game")];
 	[gameSettingsItem setImage: [NSImage imageNamed:@"Settings/game"]];
-	[displaySettingsItem setLabel: @"Display"];
+	[displaySettingsItem setLabel: NSLocalizedString(@"Preferences: Display", @"Display")];
 	[displaySettingsItem setImage: [NSImage imageNamed:@"Settings/display"]];
-	[fontSettingsItem setLabel: @"Fonts"];
+	[fontSettingsItem setLabel: NSLocalizedString(@"Preferences: Fonts", @"Fonts")];
 	[fontSettingsItem setImage: [NSImage imageNamed:@"Settings/font"]];
-	[colourSettingsItem setLabel: @"Colour"];
+	[colourSettingsItem setLabel: NSLocalizedString(@"Preferences: Colour", @"Colour")];
 	[colourSettingsItem setImage: [NSImage imageNamed:NSImageNameColorPanel]];
-	[typographicSettingsItem setLabel: @"Typography"];
+	[typographicSettingsItem setLabel: NSLocalizedString(@"Preferences: Typography", @"Typography")];
 	[typographicSettingsItem setImage: [NSImage imageNamed:@"Settings/typographic"]];
 	
 	// And the actions
@@ -293,19 +293,19 @@ static NSDictionary*  itemDictionary = nil;
 
 - (NSString*) colourNameAtIndex: (NSInteger) index {
 	switch (index) {
-		case 0: return @"Black";
-		case 1: return @"Red";
-		case 2: return @"Green";
-		case 3: return @"Yellow";
-		case 4: return @"Blue";
-		case 5: return @"Magenta";
-		case 6: return @"Cyan";
-		case 7: return @"White";
-		case 8: return @"Light grey";
-		case 9: return @"Medium grey";
-		case 10: return @"Dark grey";
-		default: return @"Unused colour";
-	}	
+		case 0: return NSLocalizedString(@"Color Black", @"Black");
+		case 1: return NSLocalizedString(@"Color Red", @"Red");
+		case 2: return NSLocalizedString(@"Color Green", @"Green");
+		case 3: return NSLocalizedString(@"Color Yellow", @"Yellow");
+		case 4: return NSLocalizedString(@"Color Blue", @"Blue");
+		case 5: return NSLocalizedString(@"Color Magenta", @"Magenta");
+		case 6: return NSLocalizedString(@"Color Cyan", @"Cyan");
+		case 7: return NSLocalizedString(@"Color White", @"White");
+		case 8: return NSLocalizedString(@"Color Light grey", @"Light grey");
+		case 9: return NSLocalizedString(@"Color Medium grey", @"Medium grey");
+		case 10: return NSLocalizedString(@"Color Dark grey", @"Dark grey");
+		default: return NSLocalizedString(@"Color Unused colour", @"Unused colour");
+	}
 }
 
 - (void) selectItemWithTag: (int) tag

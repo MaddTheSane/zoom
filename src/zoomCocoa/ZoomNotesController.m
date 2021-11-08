@@ -83,7 +83,7 @@ static NSMutableDictionary* notesDictionary = nil;
 	if (storyId == nil) {
 		// No notes available
 		[notes setEditable: NO];
-		[notes setString: @"No notes available"];
+		[notes setString: NSLocalizedString(@"No notes available", @"No notes available")];
 	} else {
 		// Should be some notes for this story
 		if (notesDictionary == nil) {

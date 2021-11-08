@@ -481,7 +481,7 @@ char *readln(genfile f, char *buff, int n)
 genfile bfile;
 
 static uchar *buffer=NULL;
-static long buffsize; /* How big the buffer is */
+static long buffsize=0; /* How big the buffer is */
 static long record_size;  /* Size of a record in the file */
 static long buff_frame;  /* The file index corrosponding to buffer[0] */
 static long buff_fcnt;  /* Number of records that can be held in the buffer */ 
@@ -499,7 +499,11 @@ static void buff_setrecsize(long recsize)
   char *errstr;
 
   record_size=recsize;
-  real_buff_fcnt=buff_fcnt=buffsize/record_size;
+  if (record_size == 0) {
+    real_buff_fcnt=buff_fcnt=0;
+  } else {
+    real_buff_fcnt=buff_fcnt=buffsize/record_size;
+  }
   buff_frame=0;
     
   /* Note that real_buff_cnt==buff_fcnt in this case because
@@ -734,7 +738,11 @@ static void bw_setblock(long fofs, long recnum, long rsize)
   buffsize=BUFF_SIZE;
   if (buffsize>block_size) buffsize=block_size;
   if (buffsize<rsize) buffsize=rsize;
+  if (rsize==0) {
+    buff_fcnt=0;
+  } else {
   buff_fcnt=buffsize/rsize;
+  }
   buffsize=buff_fcnt*rsize;
   buffer=rmalloc(buffsize);
 }

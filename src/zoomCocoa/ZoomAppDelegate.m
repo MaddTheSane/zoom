@@ -437,7 +437,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	[openPanel setDelegate: self];
 	[openPanel setCanChooseFiles: YES];
 	[openPanel setResolvesAliases: YES];
-	[openPanel setTitle: @"Open Story"];
+	[openPanel setTitle: NSLocalizedString(@"Open Story", @"Open Story")];
 	[openPanel setDirectoryURL: directory];
 	[openPanel setAllowsMultipleSelection: YES];
 	

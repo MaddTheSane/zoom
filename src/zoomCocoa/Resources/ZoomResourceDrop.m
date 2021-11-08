@@ -55,10 +55,10 @@ static NSImage* blorbImage;
 	
 	if (droppedFilename) {
 		img = blorbImage;
-		description = @"Drag a Blorb resource file here to change the resources for this game";
+		description = NSLocalizedString(@"Drag a Blorb resource file here to change the resources for this game", @"Drag a Blorb resource file here to change the resources for this game");
 	} else {
 		img = needDropImage;
-		description = @"Drag a Blorb resource file here to set it as the graphics/sound resources for this game";
+		description = NSLocalizedString(@"Drag a Blorb resource file here to set it as the graphics/sound resources for this game", @"Drag a Blorb resource file here to set it as the graphics/sound resources for this game");
 	}
 	
 	// Draw the image

@@ -66,15 +66,15 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 @property (readonly) BOOL restartRequired;
 
 /// Retrieves the plist dictionary for the specified plugin bundle
-- (NSDictionary<NSString*,id>*) plistForBundleAtPath: (NSString*) pluginBundle;
+- (nullable NSDictionary<NSString*,id>*) plistForBundleAtPath: (NSString*) pluginBundle;
 /// Retrieves the display name of the specified plugin bundle
-- (NSString*) nameForBundle: (NSString*) pluginBundle;
+- (nullable NSString*) nameForBundle: (NSString*) pluginBundle;
 /// Retrieves the author of the specified plugin
-- (NSString*) authorForBundle: (NSString*) pluginBundle;
+- (nullable NSString*) authorForBundle: (NSString*) pluginBundle;
 /// Retrieves the author of the interpreter of the specified plugin
-- (NSString*) terpAuthorForBundle: (NSString*) pluginBundle;
+- (nullable NSString*) terpAuthorForBundle: (NSString*) pluginBundle;
 /// Retrieves the version number of the specified plugin bundle
-- (NSString*) versionForBundle: (NSString*) pluginBundle;
+- (nullable NSString*) versionForBundle: (NSString*) pluginBundle;
 
 // Getting information about plugins
 /// Array of \c ZoomPlugInInfo objects containing the information about all the plugins known about by this object

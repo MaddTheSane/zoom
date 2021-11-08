@@ -254,26 +254,6 @@ NS_ENUM(NSInteger) {
 	sortColumn = [[[NSUserDefaults standardUserDefaults] objectForKey: sortGroup] copy];
 	[mainTableView setHighlightedTableColumn:[mainTableView tableColumnWithIdentifier:sortColumn]];
 	
-	[mainTableView setAllowsColumnSelection: NO];
-	
-	// Add a 'ratings' column to the main table
-	NSTableColumn* newColumn = [[NSTableColumn alloc] initWithIdentifier: @"rating"];
-	
-	NSLevelIndicatorCell *cell = [[NSLevelIndicatorCell alloc] initWithLevelIndicatorStyle:NSLevelIndicatorStyleRating];
-	cell.maxValue = 10;
-	
-	[newColumn setDataCell: cell];
-	[newColumn setMinWidth: 120];
-	[newColumn setMaxWidth: 120];
-	[newColumn setEditable: YES];
-	[[newColumn headerCell] setStringValue: @"Rating"];
-	
-	[mainTableView addTableColumn: newColumn];
-	
-	// Turn on autosaving
-	[mainTableView setAutosaveName: @"ZoomStoryTable"];
-	[mainTableView setAutosaveTableColumns: YES];
-	
 	// Update the table when the story list changes
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(storyListChanged:)
@@ -623,10 +603,10 @@ static dispatch_block_t onceTypesBlock = ^{
 		if (![[NSFileManager defaultManager] fileExistsAtPath: filename]) {
 			NSLog(@"Couldn't find anything at %@ (looking for IFID: %@)", filename, [self selectedStoryID]);
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = @"Zoom cannot find this story";
-			alert.informativeText = [NSString stringWithFormat:@"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.",
+			alert.messageText = NSLocalizedString(@"Zoom cannot find this story", @"Zoom cannot find this story");
+			alert.informativeText = [NSString localizedStringWithFormat:@"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.",
 									 [[self selectedStory] title], filename];
-			[alert addButtonWithTitle: @"Cancel"];
+			[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 			[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 				// do nothing
 			}];
@@ -661,10 +641,10 @@ static dispatch_block_t onceTypesBlock = ^{
 	if ([[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
 		// Autosave file exists - show alert sheet
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"An autosave file exists for this game";
-		alert.informativeText = @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.";
-		[alert addButtonWithTitle:@"Don't start new game"];
-		NSButton *desButton = [alert addButtonWithTitle:@"Start new game"];
+		alert.messageText = NSLocalizedString(@"An autosave file exists for this game", @"An autosave file exists for this game");
+		alert.informativeText = NSLocalizedString(@"Autosaves Exist Info", @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.");
+		[alert addButtonWithTitle: NSLocalizedString(@"Don't start new game", @"Don't start new game")];
+		NSButton *desButton = [alert addButtonWithTitle: NSLocalizedString(@"Start new game", @"Start new game")];
 		if (@available(macOS 11.0, *)) {
 			desButton.hasDestructiveAction = YES;
 		}
@@ -1396,8 +1376,8 @@ static dispatch_block_t onceTypesBlock = ^{
 		}
 	} else {
 		// Note that there are multiple or no games selected
-		NSString* desc = @"Multiple games selected";
-		if (numSelected == 0) desc = @"No game selected";
+		NSString* desc = NSLocalizedString(@"Multiple games selected", @"Multiple games selected");
+		if (numSelected == 0) desc = NSLocalizedString(@"No game selected", @"No game selected");
 		[gameDetails appendAttributedString: [[NSAttributedString alloc] initWithString: desc
 																			 attributes:
 											  @{NSFontAttributeName: descFont,
@@ -2052,12 +2032,12 @@ static dispatch_block_t onceTypesBlock = ^{
 	// Ask for confirmation
 	if ([mainTableView numberOfSelectedRows] <= 0) return;
 	
-	NSString* request = @"Are you sure you want to destroy the spoons?";
+	NSString* request;
 	
 	if ([mainTableView numberOfSelectedRows] == 1) {
-		request = @"Are you sure you want to delete this game?";
+		request = NSLocalizedString(@"Are you sure you want to delete this game?", @"Are you sure you want to delete this game?");
 	} else {
-		request = @"Are you sure you want to delete these games?";
+		request = NSLocalizedString(@"Are you sure you want to delete these games?", @"Are you sure you want to delete these games?");
 	}
 	
 	// Maybe FIXME: we can display this as a sheet, but we can't display the 'delete save game?'
@@ -2069,13 +2049,13 @@ static dispatch_block_t onceTypesBlock = ^{
 	NSArray *storiesToDelete = [storyList objectsAtIndexes:rowEnum];
 	
 	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = @"Are you sure?";
+	alert.messageText = NSLocalizedString(@"Are you sure?", @"Are you sure?");
 	alert.informativeText = request;
-	NSButton *delButton = [alert addButtonWithTitle:@"Delete"];
+	NSButton *delButton = [alert addButtonWithTitle: NSLocalizedString(@"Delete Game", @"Delete")];
 	if (@available(macOS 11.0, *)) {
 		delButton.hasDestructiveAction = YES;
 	}
-	[alert addButtonWithTitle:@"Keep"].keyEquivalent = @"\1B";
+	[alert addButtonWithTitle:NSLocalizedString(@"Keep Game", @"Keep")].keyEquivalent = @"\1B";
 	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 		if (returnCode != NSAlertFirstButtonReturn) return;
 		
@@ -2143,9 +2123,9 @@ static dispatch_block_t onceTypesBlock = ^{
 	if (newData == nil) {
 		// Doh!
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"Unable to load metadata";
-		alert.informativeText = @"Zoom encountered an error while trying to load an iFiction file.";
-		[alert addButtonWithTitle: @"Cancel"];
+		alert.messageText = NSLocalizedString(@"Unable to load metadata", @"Unable to load metadata");
+		alert.informativeText = NSLocalizedString(@"Zoom encountered an error while trying to load an iFiction file.", @"Zoom encountered an error while trying to load an iFiction file.");
+		[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
 		}];
@@ -2154,10 +2134,10 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	if ([[newData errors] count] > 0) {
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"Unable to load metadata";
+		alert.messageText = NSLocalizedString(@"Unable to load metadata", @"Unable to load metadata");
 		alert.informativeText = [NSString stringWithFormat:@"Zoom encountered an error (%@) while trying to load an iFiction file.",
 								 [[newData errors] objectAtIndex: 0]];
-		[alert addButtonWithTitle: @"Cancel"];
+		[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
 		}];
@@ -2215,10 +2195,10 @@ static dispatch_block_t onceTypesBlock = ^{
 	// If there's anything to query about, ask!
 	if ([replacements count] > 0) {
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"Some story descriptions are already in the database";
-		alert.informativeText = @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?";
-		[alert addButtonWithTitle:@"Use new"];
-		[alert addButtonWithTitle:@"Keep old"];
+		alert.messageText = NSLocalizedString(@"Some story descriptions are already in the database", @"Some story descriptions are already in the database");
+		alert.informativeText = NSLocalizedString(@"Metabase Replacement Info", @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?");
+		[alert addButtonWithTitle: NSLocalizedString(@"Use new", @"Use new")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Keep old", @"Keep old")];
 		alert.alertStyle = NSAlertStyleInformational;
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode != NSAlertFirstButtonReturn) return;
@@ -2400,9 +2380,9 @@ static dispatch_block_t onceTypesBlock = ^{
 		
 		// Oops: couldn't find any games to add
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"The download did not contain any story files";
-		alert.informativeText = @"Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.";
-		[alert addButtonWithTitle: @"Cancel"];
+		alert.messageText = NSLocalizedString(@"The download did not contain any story files", @"The download did not contain any story files");
+		alert.informativeText = NSLocalizedString(@"Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.", @"Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.");
+		[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
 		}];
@@ -2633,9 +2613,9 @@ static dispatch_block_t onceTypesBlock = ^{
 		} else {
 			// Butterfingers
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = @"Could not download the plug-in";
-			alert.informativeText = @"Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed.";
-			[alert addButtonWithTitle: @"Cancel"];
+			alert.messageText = NSLocalizedString(@"Could not download the plug-in", @"Could not download the plug-in");
+			alert.informativeText = NSLocalizedString(@"Zoom update file lost", @"Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed.");
+			[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 			[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 				// do nothing
 			}];
@@ -2667,10 +2647,10 @@ static dispatch_block_t onceTypesBlock = ^{
 	[[downloadView progress] stopAnimation: self];
 
 	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = @"Could not complete the download.";
+	alert.messageText = NSLocalizedString(@"Could not complete the download.", @"Could not complete the download.");
 	alert.informativeText = [NSString stringWithFormat:@"An error was encountered while trying to download the requested file%@%@.",
 							 reason?@".\n\n":@"", reason];
-	[alert addButtonWithTitle: @"Cancel"];
+	[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 	[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 		// do nothing
 	}];
@@ -2863,9 +2843,9 @@ static dispatch_block_t onceTypesBlock = ^{
 	if ([signpost errorMessage]) {
 		// Signpost is OK but just contains an error message
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"IFDB has reported a problem with this game";
+		alert.messageText = NSLocalizedString(@"IFDB has reported a problem with this game", @"IFDB has reported a problem with this game");
 		alert.informativeText = [signpost errorMessage];
-		[alert addButtonWithTitle: @"Cancel"];
+		[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
 		}];
@@ -2904,11 +2884,10 @@ static dispatch_block_t onceTypesBlock = ^{
 			activeSignpost = signpost;
 			
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = @"Zoom needs to download a new plug-in in order play this story";
-			alert.informativeText = @"In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\n"
-			"Plug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins.";
-			[alert addButtonWithTitle: @"Install plugin"];
-			[alert addButtonWithTitle: @"Cancel"];
+			alert.messageText = NSLocalizedString(@"Zoom needs to download a new plug-in in order play this story", @"Zoom needs to download a new plug-in in order play this story");
+			alert.informativeText = NSLocalizedString(@"Need plug-in Download info", @"Tell the user that a plug-in needs to be downloaded to play this game.");
+			[alert addButtonWithTitle: NSLocalizedString(@"Install plugin", @"Install plugin")];
+			[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 			[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 				if (self->activeSignpost && returnCode == NSAlertFirstButtonReturn) {
 					// Get the update URL
@@ -2987,7 +2966,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = @"Could not install the plug-in";
 	alert.informativeText = reason;
-	[alert addButtonWithTitle: @"Cancel"];
+	[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 	[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 		//do nothing
 	}];

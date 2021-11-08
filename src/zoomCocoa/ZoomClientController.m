@@ -94,9 +94,9 @@
 			
 			// Show an alert			
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = @"Problems were encountered while loading this game";
+			alert.messageText = NSLocalizedString(@"Problems were encountered while loading this game", @"Problems were encountered while loading this game");
 			alert.informativeText = errorText;
-			[alert addButtonWithTitle:@"Continue"];
+			[alert addButtonWithTitle:NSLocalizedString(@"Continue", @"Continue")];
 			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			}];
 		}
@@ -315,19 +315,19 @@
 	// Get confirmation if required
 	if (!closeConfirmed && !finished && [[ZoomPreferences globalPreferences] confirmGameClose]) {
 		BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
-		NSString* msg = @"Spoon will be terminated.";
+		NSString* msg;
 		
 		if (autosave) {
-			msg = @"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.";
+			msg = NSLocalizedString(@"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.", @"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.");
 		} else {
-			msg = @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.";
+			msg = NSLocalizedString(@"Finish game question info", @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.");
 		}
 		
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"Finish the game?";
+		alert.messageText = NSLocalizedString(@"Finish the game?", @"Finish the game?");
 		alert.informativeText = msg;
-		[alert addButtonWithTitle:@"Finish"];
-		[alert addButtonWithTitle:@"Continue playing"];
+		[alert addButtonWithTitle: NSLocalizedString(@"Finish", @"Finish")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Continue playing", @"Continue playing")];
 		[alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode == NSAlertFirstButtonReturn) {
 				// Close the window

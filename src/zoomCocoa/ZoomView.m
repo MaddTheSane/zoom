@@ -1720,9 +1720,9 @@ static void finalizeViews(void) {
     [notifyStyle setForegroundColour: 7];
     [notifyStyle setBackgroundColour: 1];
 
-    NSString* finishString = @"[ The game has finished ]";
+    NSString* finishString = NSLocalizedString(@"[ The game has finished ]", @"[ The game has finished ]");
     if ([zoomTask terminationStatus] != 0) {
-        finishString = @"[ The Zoom interpreter has quit unexpectedly ]";
+        finishString = NSLocalizedString(@"[ The Zoom interpreter has quit unexpectedly ]", @"[ The Zoom interpreter has quit unexpectedly ]");
     } else {
 		if (lastAutosave != nil) {
 			lastAutosave = nil;
@@ -2129,7 +2129,7 @@ static void finalizeViews(void) {
 		if ([lowerWindows count] <= 0) {
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.alertStyle = NSAlertStyleInformational;
-			alert.messageText = @"Warning";
+			alert.messageText = NSLocalizedString(@"Warning", @"Warning");
 			alert.informativeText = warning;
 			[alert beginSheetModalForWindow:self.window completionHandler:^(__unused NSModalResponse returnCode) {
 				// do nothing
@@ -2153,9 +2153,9 @@ static void finalizeViews(void) {
 - (void) displayFatalError: (in bycopy NSString*) error {
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.alertStyle = NSAlertStyleCritical;
-	alert.messageText = @"Fatal error";
+	alert.messageText = NSLocalizedString(@"Fatal error", @"Fatal error");
 	alert.informativeText = error;
-	[alert addButtonWithTitle:@"Stop"];
+	[alert addButtonWithTitle: NSLocalizedString(@"Fatal Error Stop", @"Stop")];
 	[alert beginSheetModalForWindow:self.window completionHandler:^(__unused NSModalResponse returnCode) {
 		// do nothing
 	}];

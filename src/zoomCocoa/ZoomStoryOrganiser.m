@@ -760,8 +760,8 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		
 		if (!warned) {
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = @"Game library not found";
-			alert.informativeText = [NSString stringWithFormat:@"Warning: %@ is a file", rootDir];
+			alert.messageText = NSLocalizedString(@"Game library not found", @"Game library not found");
+			alert.informativeText = [NSString stringWithFormat: NSLocalizedString(@"Warning: %@ is a file", @"Warning: %@ is a file"), rootDir];
 			[alert runModal];
 		}
 		warned = YES;
@@ -789,8 +789,8 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		
 		if (!warned) {
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = @"Group directory not found";
-			alert.informativeText = [NSString stringWithFormat: @"Warning: %@ is a file", groupDir];
+			alert.messageText = NSLocalizedString(@"Group directory not found", @"Group directory not found");
+			alert.informativeText = [NSString stringWithFormat: NSLocalizedString(@"Warning: %@ is a file", @"Warning: %@ is a file"), groupDir];
 			[alert runModal];
 		}
 		warned = YES;

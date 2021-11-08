@@ -156,47 +156,52 @@
 	
 	switch ([objectValue status]) {
 		case ZoomPluginUpdateAvailable:								// Update available to download
-			status = @"Update available";
+			status = NSLocalizedStringFromTableInBundle(@"Update available", nil, [NSBundle bundleForClass:[self class]], @"Update available");
 			if ([objectValue updateInfo] != nil) {
 				status = [NSString stringWithFormat: @"Update available to v%@", [[objectValue updateInfo] version]];
 			}
 			break;
 			
-		case ZoomPlugInNew:											// Not yet installed, available to download
-			status = @"New";
+			// Not yet installed, available to download
+		case ZoomPlugInNew:
+			status = NSLocalizedStringFromTableInBundle(@"New Plug-in", nil, [NSBundle bundleForClass:[self class]], @"New Plug-in");
 			break;
 			
-		case ZoomPlugInUpdated:										// Installed plugin, update to be installed
-			status = @"Restart required";
+			// Installed plugin, update to be installed
+		case ZoomPlugInUpdated:
+			status = NSLocalizedStringFromTableInBundle(@"Restart required", nil, [NSBundle bundleForClass:[self class]], @"Restart required");
 			break;
 			
-		case ZoomPlugInDownloaded:									// Downloaded plugin available to install
-			status = @"Ready to install";
+			// Downloaded plugin available to install
+		case ZoomPlugInDownloaded:
+			status = NSLocalizedStringFromTableInBundle(@"Ready to install", nil, [NSBundle bundleForClass:[self class]], @"Ready to install");
 			break;
 			
-		case ZoomPlugInDownloadFailed:								// Could not download the plugin for some reason
-			status = @"Could not download";
+			// Could not download the plugin for some reason
+		case ZoomPlugInDownloadFailed:
+			status = NSLocalizedStringFromTableInBundle(@"Could not download", nil, [NSBundle bundleForClass:[self class]], @"Could not download");
 			break;
 
 		case ZoomPlugInInstallFailed:
-			status = @"Failed to install";
+			status = NSLocalizedStringFromTableInBundle(@"Failed to install", nil, [NSBundle bundleForClass:[self class]], @"Failed to install");
 			break;
 			
 		case ZoomPlugInDownloading:
-			status = @"Downloading update";
+			status = NSLocalizedStringFromTableInBundle(@"Downloading update", nil, [NSBundle bundleForClass:[self class]], @"Downloading update");
 			break;
 			
-		case ZoomPlugInInstalled:									// Installed plugin
-			status = @"Installed";
+			// Installed plugin
+		case ZoomPlugInInstalled:
+			status = NSLocalizedStringFromTableInBundle(@"Installed plug-in", nil, [NSBundle bundleForClass:[self class]], @"Installed plug-in");
 			break;
 			
 		case ZoomPlugInDisabled:
-			status = @"Disabled";
+			status = NSLocalizedStringFromTableInBundle(@"Disabled plug-in", nil, [NSBundle bundleForClass:[self class]], @"Disabled plug-in");
 			break;
 			
 		case ZoomPlugInNotKnown:									// Unknown status
 		default:
-			status = @"Error";
+			status = NSLocalizedStringFromTableInBundle(@"Unknown Plug Status", nil, [NSBundle bundleForClass:[self class]], @"Unknown Plug Status");
 			break;
 	}
 	
@@ -213,22 +218,22 @@
 	
 	switch ([objectValue status]) {
 		case ZoomPlugInDisabled:
-			[result appendString: @" (Disabled)"];
+			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Disabled plug-in", nil, [NSBundle bundleForClass:[self class]], @"Disabled plug-in")];
 			break;
 		case ZoomPluginUpdateAvailable:
-			[result appendString: @" (Update available)"];
+			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Update available", nil, [NSBundle bundleForClass:[self class]], @"Update available")];
 			break;
 		case ZoomPlugInNew:
-			[result appendString: @" (New)"];
+			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"New Plug-in", nil, [NSBundle bundleForClass:[self class]], @"New Plug-in")];
 			break;
 		case ZoomPlugInDownloadFailed:
-			[result appendString: @" (Download failed)"];
+			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Download failed", nil, [NSBundle bundleForClass:[self class]], @"Download failed")];
 			break;
 		case ZoomPlugInInstallFailed:
-			[result appendString: @" (Installation failed)"];
+			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Installation failed", nil, [NSBundle bundleForClass:[self class]], @"Installation failed")];
 			break;
 		case ZoomPlugInDownloaded:
-			[result appendString: @" (Ready to install)"];
+			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Ready to install", nil, [NSBundle bundleForClass:[self class]], @"Ready to install")];
 			break;
 		default:
 			break;
