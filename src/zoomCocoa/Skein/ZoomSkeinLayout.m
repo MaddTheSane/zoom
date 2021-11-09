@@ -85,7 +85,7 @@ static NSImage* unchangedDark, *activeDark;
 	pos.y = floor(pos.y);
 	width = floor(width);
 	
-	// Images must be 90x30
+	// Images must be 30 high
 	if (width <= 0.0) width = 1.0;
 	
 	// use image slicing
@@ -570,9 +570,9 @@ static NSImage* unchangedDark, *activeDark;
 			CGFloat endYPos = ypos - 10.0 + itemHeight;
 			
 #ifdef SkeinDrawingStyleNew
-			NSColor* tempChildLink = [NSColor grayColor];
+			NSColor* tempChildLink = [NSColor systemGrayColor];
 #else
-			NSColor* tempChildLink = [NSColor blueColor];
+			NSColor* tempChildLink = [NSColor systemBlueColor];
 #endif
 			NSColor* permChildLink = [NSColor blackColor];
 			

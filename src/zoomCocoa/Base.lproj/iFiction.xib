@@ -140,12 +140,12 @@
                             <splitView translatesAutoresizingMaskIntoConstraints="NO" id="163" customClass="ZoomCollapsingSplitView">
                                 <rect key="frame" x="0.0" y="0.0" width="570" height="326"/>
                                 <subviews>
-                                    <view misplaced="YES" id="154" userLabel="Slide Superview">
+                                    <view id="154" userLabel="Slide Superview">
                                         <rect key="frame" x="0.0" y="0.0" width="570" height="160"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tabView type="noTabsNoBorder" initialItem="SUz-x9-7U4" translatesAutoresizingMaskIntoConstraints="NO" id="248">
-                                                <rect key="frame" x="0.0" y="0.0" width="570" height="139"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="570" height="138"/>
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="Saves" identifier="ZoomSaves" id="exy-f8-BYG">
@@ -197,7 +197,7 @@
                                                                     <rect key="frame" x="136" y="0.0" width="434" height="139"/>
                                                                     <clipView key="contentView" drawsBackground="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UB6-ym-eLH">
                                                                         <rect key="frame" x="0.0" y="0.0" width="434" height="139"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" translatesAutoresizingMaskIntoConstraints="NO" id="287">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="434" height="195"/>
@@ -431,7 +431,7 @@ Cg
                                                 </connections>
                                             </tabView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="253" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="139" width="570" height="22"/>
+                                                <rect key="frame" x="0.0" y="138" width="570" height="22"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="318">
                                                         <rect key="frame" x="6" y="2" width="65" height="18"/>
@@ -507,18 +507,18 @@ Cg
                                             <constraint firstItem="253" firstAttribute="leading" secondItem="154" secondAttribute="leading" id="ky7-VP-nSm"/>
                                         </constraints>
                                     </view>
-                                    <view misplaced="YES" id="161" userLabel="Stories">
+                                    <view id="161" userLabel="Stories">
                                         <rect key="frame" x="0.0" y="169" width="570" height="157"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <scrollView horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="150">
-                                                <rect key="frame" x="-1" y="-1" width="572" height="158"/>
+                                                <rect key="frame" x="-1" y="-1" width="572" height="159"/>
                                                 <clipView key="contentView" translatesAutoresizingMaskIntoConstraints="NO" id="HW7-b1-y43">
-                                                    <rect key="frame" x="1" y="1" width="570" height="156"/>
+                                                    <rect key="frame" x="1" y="1" width="570" height="157"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView focusRingType="none" verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" autosaveName="ZoomStoryTable" rowHeight="14" usesAutomaticRowHeights="YES" headerView="398" translatesAutoresizingMaskIntoConstraints="NO" id="148" customClass="ZoomStoryTableView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="570" height="133"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="570" height="134"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -618,11 +618,11 @@ Cg
                                                     </subviews>
                                                 </clipView>
                                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="397">
-                                                    <rect key="frame" x="1" y="141" width="570" height="16"/>
+                                                    <rect key="frame" x="1" y="142" width="570" height="16"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="399">
-                                                    <rect key="frame" x="555" y="24" width="16" height="133"/>
+                                                    <rect key="frame" x="555" y="24" width="16" height="134"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <tableHeaderView key="headerView" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="398">

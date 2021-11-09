@@ -314,6 +314,14 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
                         isSymbolic?@"YES":@"NO"];
 }
 
+- (NSString*) debugDescription {
+    return [NSString stringWithFormat: @"Style - bold: %@, underline %@, fixed %@, symbolic %@",
+                        isBold?@"YES":@"NO",
+                        isUnderline?@"YES":@"NO",
+                        isFixed?@"YES":@"NO",
+                        isSymbolic?@"YES":@"NO"];
+}
+
 #define FLAGSCODINGKEY @"flags"
 #define TRUEFORECOLORCODINGKEY @"foregroundTrue"
 #define TRUEBACKCOLORCODINGKEY @"backgroundTrue"

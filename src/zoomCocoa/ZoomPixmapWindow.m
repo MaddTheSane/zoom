@@ -206,9 +206,7 @@
 - (void) setInputPosition: (NSPoint) point
 				withStyle: (in bycopy ZStyle*) style {
 	inputPos = point;
-	if (inputStyle) {
-		inputStyle = style;
-	}
+	inputStyle = style;
 }
 
 @synthesize inputPos;
