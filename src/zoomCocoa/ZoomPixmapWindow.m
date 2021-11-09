@@ -38,7 +38,7 @@
 #pragma mark - Standard window commands
 
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
-	[pixmap lockFocusFlipped:YES];
+	[pixmap lockFocus];
 	
     NSColor* backgroundColour = style.reversed?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
 	[backgroundColour set];
@@ -64,8 +64,8 @@
 }
 
 - (oneway void) writeString: (in bycopy NSString*) string
-		   withStyle: (in bycopy ZStyle*) style {
-	[pixmap lockFocusFlipped:YES];
+				  withStyle: (in bycopy ZStyle*) style {
+	[pixmap lockFocus];
 	
 	NSLog(@"Warning: should not call standard ZWindow writeString on a pixmap window");
 	

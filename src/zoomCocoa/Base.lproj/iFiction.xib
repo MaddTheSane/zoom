@@ -511,21 +511,21 @@ Cg
                                         <rect key="frame" x="0.0" y="169" width="570" height="157"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <scrollView horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="150">
+                                            <scrollView horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="150">
                                                 <rect key="frame" x="-1" y="-1" width="572" height="159"/>
                                                 <clipView key="contentView" translatesAutoresizingMaskIntoConstraints="NO" id="HW7-b1-y43">
                                                     <rect key="frame" x="1" y="1" width="570" height="157"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <tableView focusRingType="none" verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" autosaveName="ZoomStoryTable" rowHeight="14" usesAutomaticRowHeights="YES" headerView="398" translatesAutoresizingMaskIntoConstraints="NO" id="148" customClass="ZoomStoryTableView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="570" height="134"/>
+                                                        <tableView focusRingType="none" verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" autosaveName="ZoomStoryTable" headerView="398" translatesAutoresizingMaskIntoConstraints="NO" id="148" customClass="ZoomStoryTableView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="1124" height="134"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                             <tableColumns>
-                                                                <tableColumn identifier="title" width="68" minWidth="40" maxWidth="1000" id="144">
+                                                                <tableColumn identifier="title" width="160" minWidth="40" maxWidth="1000" id="144">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Story name">
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -537,7 +537,7 @@ Cg
                                                                     </textFieldCell>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 </tableColumn>
-                                                                <tableColumn identifier="genre" width="40" minWidth="39.533000946044922" maxWidth="1000" id="143">
+                                                                <tableColumn identifier="genre" width="90" minWidth="39.533000946044922" maxWidth="1000" id="143">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Genre">
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -549,7 +549,7 @@ Cg
                                                                     </textFieldCell>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 </tableColumn>
-                                                                <tableColumn identifier="headline" width="54" minWidth="10" maxWidth="1000" id="147">
+                                                                <tableColumn identifier="headline" width="400" minWidth="10" maxWidth="1000" id="147">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Headline">
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -561,7 +561,7 @@ Cg
                                                                     </textFieldCell>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 </tableColumn>
-                                                                <tableColumn identifier="author" width="44" minWidth="10" maxWidth="1000" id="149">
+                                                                <tableColumn identifier="author" width="160" minWidth="10" maxWidth="1000" id="149">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Author">
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -573,7 +573,7 @@ Cg
                                                                     </textFieldCell>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 </tableColumn>
-                                                                <tableColumn identifier="group" width="41" minWidth="10" maxWidth="1000" id="146">
+                                                                <tableColumn identifier="group" width="110" minWidth="10" maxWidth="1000" id="146">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Group">
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -585,7 +585,7 @@ Cg
                                                                     </textFieldCell>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 </tableColumn>
-                                                                <tableColumn identifier="year" width="32" minWidth="27.556999206542969" maxWidth="1000" id="145">
+                                                                <tableColumn identifier="year" width="54" minWidth="27.556999206542969" maxWidth="1000" id="145">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Year">
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -602,7 +602,7 @@ Cg
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </tableHeaderCell>
-                                                                    <levelIndicatorCell key="dataCell" controlSize="small" scrollable="YES" lineBreakMode="clipping" editable="YES" state="on" alignment="left" doubleValue="3" maxValue="10" numberOfMajorTickMarks="1" levelIndicatorStyle="rating" id="LOM-cl-9CB">
+                                                                    <levelIndicatorCell key="dataCell" controlSize="small" scrollable="YES" lineBreakMode="clipping" editable="YES" state="on" alignment="left" doubleValue="3" maxValue="10" levelIndicatorStyle="rating" id="LOM-cl-9CB">
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                     </levelIndicatorCell>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
@@ -626,7 +626,7 @@ Cg
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <tableHeaderView key="headerView" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="398">
-                                                    <rect key="frame" x="0.0" y="0.0" width="570" height="23"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1124" height="23"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableHeaderView>
                                                 <connections>

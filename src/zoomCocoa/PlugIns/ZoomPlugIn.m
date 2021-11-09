@@ -107,7 +107,7 @@
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
 								saveGame: (NSString*) saveGame {
 	return [self gameDocumentWithMetadata: story
-							  saveGameURL: [NSURL fileURLWithPath: saveGame]];
+							  saveGameURL: saveGame ? [NSURL fileURLWithPath: saveGame] : nil];
 }
 
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story

@@ -100,8 +100,11 @@
 
 + (void) initialize {
 	// Set up the Glk hub
-	[[GlkHub sharedGlkHub] useProcessHubName];
-	[[GlkHub sharedGlkHub] setRandomHubCookie];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[[GlkHub sharedGlkHub] useProcessHubName];
+		[[GlkHub sharedGlkHub] setRandomHubCookie];
+	});
 }
 
 #pragma mark - Preferences

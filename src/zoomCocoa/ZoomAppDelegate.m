@@ -224,7 +224,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			}
 			
 			// ... we've managed to load this file with the given plug-in, so display it
-			[pluginInstance setPreferredSaveDirectoryURL: [NSURL fileURLWithPath: [self saveDirectoryForStoryId: ident]]];
+			NSString *fileStr = [self saveDirectoryForStoryId: ident];
+			[pluginInstance setPreferredSaveDirectoryURL: fileStr ? [NSURL fileURLWithPath: fileStr] : nil];
 			NSDocument* pluginDocument;
 			
 			if (saveFilename) {
