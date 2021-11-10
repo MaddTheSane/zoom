@@ -152,7 +152,13 @@ static NSString* stringOrEmpty(NSString* str) {
 		}
 		
 		// FIXME: need improved metadata handling to implement this properly
-		[resourceDrop setDroppedFilename: [info objectForKey: @"ResourceFilename"]];
+		NSString *resfilnam = [info objectForKey: @"ResourceFilename"];
+		[resourceDrop setDroppedFilename: resfilnam];
+		if (resfilnam) {
+			resourceFilenameField.stringValue = resfilnam;
+		} else {
+			resourceFilenameField.stringValue = @"";
+		}
 		[resourceDrop setEnabled: YES]; [chooseResourceButton setEnabled: YES];
 	}
 }
@@ -244,6 +250,7 @@ static NSString* stringOrEmpty(NSString* str) {
 - (void) setResourceFile: (NSString*) filename {
 	[resourceDrop setDroppedFilename: filename];
 	[resourceDrop setNeedsDisplay: YES];
+	resourceFilenameField.stringValue = filename;
 	[NSApp sendAction: @selector(infoResourceChanged:)
 				   to: nil
 				 from: self];

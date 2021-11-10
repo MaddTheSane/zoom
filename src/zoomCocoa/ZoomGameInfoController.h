@@ -23,7 +23,7 @@
 	IBOutlet NSButton*      ratingOn;
 	
 	IBOutlet ZoomResourceDrop* resourceDrop;
-	IBOutlet NSTextField*      resourceFilename;
+	IBOutlet NSTextField*      resourceFilenameField;
 	IBOutlet NSButton*         chooseResourceButton;
 	
 	IBOutlet NSTabView*     tabs;

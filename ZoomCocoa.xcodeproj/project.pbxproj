@@ -21,10 +21,8 @@
 		4B12431C0CAE9B2500CA3374 /* ZoomPlugInInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B12431A0CAE9B2500CA3374 /* ZoomPlugInInfo.m */; };
 		4B152CE20B46CBEB008CC1EF /* ZoomGameInfoController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B2EAFAD05B08D1E0021A5E6 /* ZoomGameInfoController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B152CE30B46CBED008CC1EF /* ZoomGameInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2EAFAE05B08D1E0021A5E6 /* ZoomGameInfoController.m */; };
-		4B152CE40B46CC07008CC1EF /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B2EAF9905B056EC0021A5E6 /* GameInfo.xib */; };
 		4B152D2F0B46D2F9008CC1EF /* ZoomNotesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B152D2D0B46D2F9008CC1EF /* ZoomNotesController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B152D300B46D2F9008CC1EF /* ZoomNotesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B152D2E0B46D2F9008CC1EF /* ZoomNotesController.m */; };
-		4B152DBE0B46E929008CC1EF /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B152DBD0B46E929008CC1EF /* NoteWindow.xib */; };
 		4B1FEA240ACB159D008B9EFE /* ZoomPreferences.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B418ED805961D2C009C44DE /* ZoomPreferences.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B1FEA250ACB15B0008B9EFE /* ZoomPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B418ED905961D2C009C44DE /* ZoomPreferences.m */; };
 		4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
@@ -141,7 +139,6 @@
 		4BB8C1BB08C249F400D7D334 /* ZoomClient.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F57050FB49F00A8E303 /* ZoomClient.xib */; };
 		4BB8C1C208C249F400D7D334 /* infocom.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4BACE9FA05B428C700A9B6DC /* infocom.iFiction */; };
 		4BB8C1D008C249F400D7D334 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C13FD05C5A94B00E5796D /* Credits.rtf */; };
-		4BB8C1DB08C249F400D7D334 /* Skein.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B18850B069873F0004D8501 /* Skein.xib */; };
 		4BB8C1DC08C249F400D7D334 /* zcode.ops in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E3FD5050F7E1A00A8E303 /* zcode.ops */; };
 		4BB8C1DF08C249F400D7D334 /* archive.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4B5983DA070F059E0078165F /* archive.iFiction */; };
 		4BB8C1E208C249F400D7D334 /* ZoomClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF3F54050FB47200A8E303 /* ZoomClient.m */; };
@@ -307,6 +304,9 @@
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
+		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
+		55A2EB9E273C86500006340C /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA0273C86500006340C /* NoteWindow.xib */; };
+		55A2EBA5273C86660006340C /* Skein.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA7273C86660006340C /* Skein.xib */; };
 		55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */; };
 		55BA3C1427253B5B007F6C82 /* geas-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BE627253B5A007F6C82 /* geas-util.cc */; };
 		55BA3C1527253B5B007F6C82 /* geas-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BE727253B5A007F6C82 /* geas-state.cc */; };
@@ -934,10 +934,8 @@
 		4B14632106A2DD9E00398650 /* ZoomSkeinXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinXML.m; sourceTree = "<group>"; };
 		4B152D2D0B46D2F9008CC1EF /* ZoomNotesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomNotesController.h; sourceTree = "<group>"; };
 		4B152D2E0B46D2F9008CC1EF /* ZoomNotesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomNotesController.m; sourceTree = "<group>"; };
-		4B152DBD0B46E929008CC1EF /* NoteWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteWindow.xib; sourceTree = "<group>"; };
 		4B1884AF06975647004D8501 /* ZoomSkeinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinView.h; sourceTree = "<group>"; };
 		4B1884B006975647004D8501 /* ZoomSkeinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinView.m; sourceTree = "<group>"; };
-		4B18850B069873F0004D8501 /* Skein.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Skein.xib; sourceTree = "<group>"; };
 		4B18852906987AC6004D8501 /* ZoomSkeinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinController.h; sourceTree = "<group>"; };
 		4B18852A06987AC6004D8501 /* ZoomSkeinController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinController.m; sourceTree = "<group>"; };
 		4B1C13F905C5A94300E5796D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -1002,7 +1000,6 @@
 		4B2D95CA053706CD00A8E303 /* ZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomScrollView.m; sourceTree = "<group>"; };
 		4B2D95CE05372EF900A8E303 /* ZoomUpperWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomUpperWindowView.h; sourceTree = "<group>"; };
 		4B2D95CF05372EF900A8E303 /* ZoomUpperWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomUpperWindowView.m; sourceTree = "<group>"; };
-		4B2EAF9905B056EC0021A5E6 /* GameInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameInfo.xib; sourceTree = "<group>"; };
 		4B2EAFAD05B08D1E0021A5E6 /* ZoomGameInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGameInfoController.h; sourceTree = "<group>"; };
 		4B2EAFAE05B08D1E0021A5E6 /* ZoomGameInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGameInfoController.m; sourceTree = "<group>"; };
 		4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoomGlulxe.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1264,6 +1261,15 @@
 		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomiFictionController+WebKit.swift"; sourceTree = "<group>"; };
+		55A2EB93273C6DCA0006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GameInfo.xib; sourceTree = "<group>"; };
+		55A2EB96273C6DCF0006340C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/GameInfo.strings; sourceTree = "<group>"; };
+		55A2EB98273C6DD90006340C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/GameInfo.strings"; sourceTree = "<group>"; };
+		55A2EB9F273C86500006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NoteWindow.xib; sourceTree = "<group>"; };
+		55A2EBA2273C86520006340C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NoteWindow.strings; sourceTree = "<group>"; };
+		55A2EBA4273C86560006340C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/NoteWindow.strings"; sourceTree = "<group>"; };
+		55A2EBA6273C86660006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Skein.xib; sourceTree = "<group>"; };
+		55A2EBA9273C86680006340C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Skein.strings; sourceTree = "<group>"; };
+		55A2EBAB273C86690006340C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Skein.strings"; sourceTree = "<group>"; };
 		55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDownloadView.swift; sourceTree = "<group>"; };
 		55BA3BD227253B21007F6C82 /* geas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = geas; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BA3BDF27253B5A007F6C82 /* CONTACT.txt */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = CONTACT.txt; sourceTree = "<group>"; };
@@ -2266,10 +2272,10 @@
 				55DA689C2739D19E0007990A /* MainMenu.xib */,
 				4BCF3F57050FB49F00A8E303 /* ZoomClient.xib */,
 				55DA68952739D1850007990A /* Preferences.xib */,
-				4B2EAF9905B056EC0021A5E6 /* GameInfo.xib */,
+				55A2EB94273C6DCA0006340C /* GameInfo.xib */,
 				55DA68892739D0D80007990A /* iFiction.xib */,
-				4B18850B069873F0004D8501 /* Skein.xib */,
-				4B152DBD0B46E929008CC1EF /* NoteWindow.xib */,
+				55A2EBA7273C86660006340C /* Skein.xib */,
+				55A2EBA0273C86500006340C /* NoteWindow.xib */,
 				4B1242CD0CAE8D1800CA3374 /* PluginManager.xib */,
 			);
 			name = xibs;
@@ -2896,8 +2902,8 @@
 				55DA68A82739DBC90007990A /* Localizable.strings in Resources */,
 				553C836E27123862002782C0 /* ZoomErrors.strings in Resources */,
 				4B43DA8409364C7400F03009 /* GlkWindow.xib in Resources */,
-				4B152CE40B46CC07008CC1EF /* GameInfo.xib in Resources */,
-				4B152DBE0B46E929008CC1EF /* NoteWindow.xib in Resources */,
+				55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */,
+				55A2EB9E273C86500006340C /* NoteWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2913,7 +2919,7 @@
 				55DA68932739D1850007990A /* Preferences.xib in Resources */,
 				55DA68872739D0D80007990A /* iFiction.xib in Resources */,
 				4BB8C1D008C249F400D7D334 /* Credits.rtf in Resources */,
-				4BB8C1DB08C249F400D7D334 /* Skein.xib in Resources */,
+				55A2EBA5273C86660006340C /* Skein.xib in Resources */,
 				4BB8C1DC08C249F400D7D334 /* zcode.ops in Resources */,
 				4BB8C1C208C249F400D7D334 /* infocom.iFiction in Resources */,
 				4BB8C1DF08C249F400D7D334 /* archive.iFiction in Resources */,
@@ -3601,6 +3607,36 @@
 				55DA68862739C96E0007990A /* en-GB */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		55A2EB94273C6DCA0006340C /* GameInfo.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A2EB93273C6DCA0006340C /* Base */,
+				55A2EB96273C6DCF0006340C /* en */,
+				55A2EB98273C6DD90006340C /* en-GB */,
+			);
+			name = GameInfo.xib;
+			sourceTree = "<group>";
+		};
+		55A2EBA0273C86500006340C /* NoteWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A2EB9F273C86500006340C /* Base */,
+				55A2EBA2273C86520006340C /* en */,
+				55A2EBA4273C86560006340C /* en-GB */,
+			);
+			name = NoteWindow.xib;
+			sourceTree = "<group>";
+		};
+		55A2EBA7273C86660006340C /* Skein.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A2EBA6273C86660006340C /* Base */,
+				55A2EBA9273C86680006340C /* en */,
+				55A2EBAB273C86690006340C /* en-GB */,
+			);
+			name = Skein.xib;
 			sourceTree = "<group>";
 		};
 		55BD080F21B7638800A8DD5F /* schema.strings */ = {
