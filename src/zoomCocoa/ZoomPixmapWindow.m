@@ -20,7 +20,7 @@
 	if (self) {
 		pixmap = [[NSImage alloc] initWithSize: NSMakeSize(640, 400)];
 		zView = view;
-		[zView.window setContentSize:NSMakeSize(640, 400)];
+		[zView.window setContentSize: NSMakeSize(640, 400)];
 		
 		inputStyle = nil;
 	}
@@ -209,7 +209,7 @@
 - (void) setInputPosition: (NSPoint) point
 				withStyle: (in bycopy ZStyle*) style {
 	inputPos = point;
-	inputStyle = style;
+	inputStyle = [style copy];
 }
 
 @synthesize inputPos;

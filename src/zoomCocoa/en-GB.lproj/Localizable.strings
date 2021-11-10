@@ -73,6 +73,7 @@
 "Zoom needs to download a new plug-in in order play this story" = "Zoom needs to download a new plug-in in order play this story";
 "Install plugin" = "Install plugin";
 "Need plug-in Download info" = "In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\nPlug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins.";
+"%@ (finished)" = "%@ (finished)";
 
 // Found in ZoomView
 "[ The game has finished ]" = "[ The game has finished ]";

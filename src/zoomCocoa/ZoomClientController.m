@@ -722,8 +722,9 @@
 
 - (void) playToPoint: (ZoomSkeinItem*) point
 		   fromPoint: (ZoomSkeinItem*) fromPoint {
-	 id inputSource = [ZoomSkein inputSourceFromSkeinItem: fromPoint
-												   toItem: point];
+	 id<ZoomViewInputSource> inputSource = [ZoomSkein
+											inputSourceFromSkeinItem: fromPoint
+											toItem: point];
 	 
 	 
 	 [[self zoomView] setInputSource: inputSource];
@@ -733,7 +734,7 @@
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
 	if (finished) {
-		return [displayName stringByAppendingString: @" (finished)"];
+		return [NSString stringWithFormat: NSLocalizedString(@"%@ (finished)", @"Game finished window title formatter"), displayName];
 	}
 	
 	return displayName;
