@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 
 // Getting preferences
 + (NSString*) defaultOrganiserDirectory;
-@property (class, readonly, retain) NSString* defaultOrganiserDirectory;
+@property (class, readonly, copy) NSString* defaultOrganiserDirectory;
 
 // Warnings and game text prefs
 @property (nonatomic) BOOL displayWarnings;
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 @property (nonatomic) BOOL useLigatures;
 
 // Organiser preferences
-@property (nonatomic, retain) NSString *organiserDirectory;
+@property (nonatomic, copy) NSString *organiserDirectory;
 @property (nonatomic) BOOL keepGamesOrganised;
 @property (nonatomic) BOOL autosaveGames;
 

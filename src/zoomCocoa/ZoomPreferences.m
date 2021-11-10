@@ -59,15 +59,18 @@ static NSLock*          globalLock = nil;
 }
 
 + (void)initialize {
-	@autoreleasepool {
-    NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
-	ZoomPreferences* defaultPrefs = [[[self class] alloc] initWithDefaultPreferences];
-	NSDictionary *appDefaults = @{@"ZoomGlobalPreferences": [defaultPrefs dictionary]};
-	
-    [defaults registerDefaults: appDefaults];
-	
-	globalLock = [[NSLock alloc] init];
-	}
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		@autoreleasepool {
+			NSUserDefaults *defaults  = [NSUserDefaults standardUserDefaults];
+			ZoomPreferences* defaultPrefs = [[[self class] alloc] initWithDefaultPreferences];
+			NSDictionary *appDefaults = @{@"ZoomGlobalPreferences": [defaultPrefs dictionary]};
+			
+			[defaults registerDefaults: appDefaults];
+			
+			globalLock = [[NSLock alloc] init];
+		}
+	});
 }
 
 + (ZoomPreferences*) globalPreferences {
@@ -609,7 +612,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 
 - (void) setOrganiserDirectory: (NSString*) directory {
 	if (directory != nil) {
-		[prefs setObject: directory
+		[prefs setObject: [directory copy]
 				  forKey: organiserDirectory];
 	} else {
 		[prefs removeObjectForKey: organiserDirectory];

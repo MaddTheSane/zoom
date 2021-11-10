@@ -546,7 +546,7 @@ static const int cacheUpperLimit = 64;
 			NSMutableDictionary<NSString*,id>* entry = cache[key];
 			unsigned int thisUsage = [entry[@"usageNumber"] unsignedIntValue];
 			
-			int x;
+			NSInteger x;
 			for (x=0; x<[oldestEntries count]; x++) {
 				NSDictionary* thisEntry = oldestEntries[x];
 				unsigned int usage = [thisEntry[@"usageNumber"] unsignedIntValue];
