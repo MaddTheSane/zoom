@@ -4,6 +4,10 @@
 #define maxBufferCount 1024
 NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification";
 
+/// Helper function to work around bugs of \c NSDistantObject and \c NSColorspace
+/// TODO: migrate away from NSDistantObject
+static NSColor *safeColorCopy(NSColor *inColor);
+
 #pragma mark Implementation of the various standard classes
 @implementation ZHandleFile
 - (id) init {
@@ -357,6 +361,9 @@ NSColor *safeColorCopy(NSColor *inColor) {
         return inColor;
     }
     NSColorSpace *colrSpace = inColor.colorSpace;
+    if (![colrSpace isProxy]) {
+        return inColor;
+    }
     // Hack to get around NSDistantObject problems.
     CGColorSpaceRef colrRef = CGColorSpaceCreateWithICCData((__bridge CFTypeRef _Nullable)(colrSpace.ICCProfileData));
     colrSpace = [[NSColorSpace alloc] initWithCGColorSpace:colrRef];
