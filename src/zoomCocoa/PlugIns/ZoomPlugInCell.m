@@ -158,7 +158,7 @@
 		case ZoomPluginUpdateAvailable:								// Update available to download
 			status = NSLocalizedStringFromTableInBundle(@"Update available", nil, [NSBundle bundleForClass:[self class]], @"Update available");
 			if ([objectValue updateInfo] != nil) {
-				status = [NSString stringWithFormat: @"Update available to v%@", [[objectValue updateInfo] version]];
+				status = [NSString stringWithFormat: NSLocalizedStringFromTableInBundle(@"Update available to v%@", nil, [NSBundle bundleForClass:[self class]], @"Update available to version value"), [[objectValue updateInfo] version]];
 			}
 			break;
 			
@@ -214,29 +214,33 @@
 }
 
 - (NSString*) stringValue {
-	NSMutableString* result = [[objectValue name] mutableCopy];
+	NSString* result = [objectValue name];
+	NSString *statusText = nil;
 	
 	switch ([objectValue status]) {
 		case ZoomPlugInDisabled:
-			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Disabled plug-in", nil, [NSBundle bundleForClass:[self class]], @"Disabled plug-in")];
+			statusText = NSLocalizedStringFromTableInBundle(@"Disabled plug-in", nil, [NSBundle bundleForClass:[self class]], @"Disabled plug-in");
 			break;
 		case ZoomPluginUpdateAvailable:
-			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Update available", nil, [NSBundle bundleForClass:[self class]], @"Update available")];
+			statusText = NSLocalizedStringFromTableInBundle(@"Update available", nil, [NSBundle bundleForClass:[self class]], @"Update available");
 			break;
 		case ZoomPlugInNew:
-			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"New Plug-in", nil, [NSBundle bundleForClass:[self class]], @"New Plug-in")];
+			statusText = NSLocalizedStringFromTableInBundle(@"New Plug-in", nil, [NSBundle bundleForClass:[self class]], @"New Plug-in");
 			break;
 		case ZoomPlugInDownloadFailed:
-			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Download failed", nil, [NSBundle bundleForClass:[self class]], @"Download failed")];
+			statusText = NSLocalizedStringFromTableInBundle(@"Download failed", nil, [NSBundle bundleForClass:[self class]], @"Download failed");
 			break;
 		case ZoomPlugInInstallFailed:
-			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Installation failed", nil, [NSBundle bundleForClass:[self class]], @"Installation failed")];
+			statusText = NSLocalizedStringFromTableInBundle(@"Installation failed", nil, [NSBundle bundleForClass:[self class]], @"Installation failed");
 			break;
 		case ZoomPlugInDownloaded:
-			[result appendFormat: NSLocalizedString(@"Plug-in Paren (%@)", @"Parantheses around status"), NSLocalizedStringFromTableInBundle(@"Ready to install", nil, [NSBundle bundleForClass:[self class]], @"Ready to install")];
+			statusText = NSLocalizedStringFromTableInBundle(@"Ready to install", nil, [NSBundle bundleForClass:[self class]], @"Ready to install");
 			break;
 		default:
 			break;
+	}
+	if (statusText) {
+		result = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"Plug-in Paren (%@, %@)", nil, [NSBundle bundleForClass:[self class]], @"%1$@ (%2$@)", @"Parantheses around status (#2) with name (#1)"), result, statusText];
 	}
 	
 	return result;

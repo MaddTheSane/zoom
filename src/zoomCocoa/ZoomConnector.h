@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <ZoomView/ZoomView.h>
 #import <ZoomView/ZoomProtocol.h>
+#import <ZoomView/ZoomView.h>
 
 /// Class used to connect the server to the view
 @interface ZoomConnector : NSObject<ZClient>

@@ -36,5 +36,8 @@
 /* Update available */
 "Update available" = "Update available";
 
-/* Parantheses around status */
-"Plug-in Paren (%@)" = " (%@)";
+/* Parantheses around status (#2) with name (#1) */
+"Plug-in Paren (%@, %@)" = "%1$@ (%2$@)";
+
+/* Update available to version value */
+"Update available to v%@" = "Update available to v%@";
