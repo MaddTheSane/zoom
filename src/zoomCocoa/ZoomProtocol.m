@@ -608,7 +608,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 }
 
 // Unbuffering
-- (BOOL) empty {
+- (BOOL) isEmpty {
     if ([buffer count] < 1)
         return YES;
     else

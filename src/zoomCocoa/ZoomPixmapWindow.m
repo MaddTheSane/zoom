@@ -18,8 +18,9 @@
 	self = [super init];
 	
 	if (self) {
-		pixmap = [[NSImage alloc] initWithSize: NSMakeSize(640, 480)];
+		pixmap = [[NSImage alloc] initWithSize: NSMakeSize(640, 400)];
 		zView = view;
+		[zView.window setContentSize:NSMakeSize(640, 400)];
 		
 		inputStyle = nil;
 	}

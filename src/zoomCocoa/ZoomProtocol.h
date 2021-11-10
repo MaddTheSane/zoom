@@ -155,6 +155,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 
 //! Setting the style that text should be input in
 - (oneway void) setInputStyle: (in bycopy ZStyle*) inputStyle;
+
 - (bycopy ZStyle*) inputStyle;
 /// The style that text should be input in
 @property (nonatomic, copy) ZStyle *inputStyle;
@@ -419,8 +420,8 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 		  inWindow: (id<ZPixmapWindow>) win;
 
 // Unbuffering
-//! YES if the buffer has no data
-@property (readonly) BOOL empty;
+//! \c YES if the buffer has no data
+@property (readonly, getter=isEmpty) BOOL empty;
 //! Like blitting, only messier
 - (void) blat;
 

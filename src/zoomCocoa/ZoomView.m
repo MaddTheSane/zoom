@@ -28,6 +28,9 @@
 @implementation ZoomView
 
 static NSHashTable<ZoomView*>* allocatedViews = nil;
+/// Helper function to work around bugs of \c NSDistantObject and \c NSColorspace
+/// TODO: migrate away from NSDistantObject
+static NSColor *safeColorCopy(NSColor *inColor);
 
 NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
@@ -1256,6 +1259,24 @@ static void finalizeViews(void) {
 
 #pragma mark - Formatting, fonts, colours, etc
 
+NSColor *safeColorCopy(NSColor *inColor) {
+	if (!inColor) {
+		return nil;
+	}
+	if (inColor.type != NSColorTypeComponentBased) {
+		//TODO: implement?
+		return inColor;
+	}
+	NSColorSpace *colrSpace = inColor.colorSpace;
+	// Hack to get around NSDistantObject problems.
+		colrSpace = [[NSColorSpace alloc] initWithICCProfileData:colrSpace.ICCProfileData];
+	NSInteger compCount = inColor.numberOfComponents;
+	CGFloat comps[compCount];
+	[inColor getComponents:comps];
+	
+	return [NSColor colorWithColorSpace:colrSpace components:comps count:compCount];
+}
+
 - (NSDictionary*) attributesForStyle: (ZStyle*) style {
     // Strings come from Zoom's server formatted with ZStyles rather than
     // actual styles (so that the interface can choose it's own formatting).
@@ -1272,8 +1293,8 @@ static void finalizeViews(void) {
     fontToUse = [self fontFromStyle: fontnum];
 	
     // Colour
-    NSColor* foregroundColour = [style foregroundTrue];
-    NSColor* backgroundColour = [style backgroundTrue];
+    NSColor* foregroundColour = safeColorCopy([style foregroundTrue]);
+    NSColor* backgroundColour = safeColorCopy([style backgroundTrue]);
 	
     if (foregroundColour == nil) {
         foregroundColour = [colours objectAtIndex: [style foregroundColour]];
@@ -1347,6 +1368,7 @@ static void finalizeViews(void) {
     } else {
         res = style.foregroundTrue;
     }
+	res = safeColorCopy(res);
 
     if (res == nil) {
         if (style.reversed) {
@@ -1370,6 +1392,7 @@ static void finalizeViews(void) {
     } else {
         res = style.foregroundTrue;
     }
+	res = safeColorCopy(res);
 
     if (res == nil) {
         if (!style.reversed) {
