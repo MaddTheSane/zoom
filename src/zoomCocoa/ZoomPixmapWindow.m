@@ -145,7 +145,9 @@
 	[copiedImage drawInRect: NSMakeRect(where.x, where.y, region.size.width, region.size.height)
 				   fromRect: NSMakeRect(0,0, region.size.width, region.size.height)
 				  operation: NSCompositingOperationSourceOver
-				   fraction: 1.0];
+				   fraction: 1.0
+			 respectFlipped:YES
+					  hints:nil];
 	
 	
 	// Uh, docs say we should use NSNullObject here, but it's not defined. Making a guess at its value (sigh)
