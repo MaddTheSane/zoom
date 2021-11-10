@@ -6,9 +6,9 @@
 //  Copyright 2004 Andrew Hunter. All rights reserved.
 //
 
-#import <Carbon/Carbon.h>
-
 #import "ZoomTextToSpeech.h"
+
+#include <ApplicationServices/ApplicationServices.h>
 
 #undef UseCocoaSpeech
 
