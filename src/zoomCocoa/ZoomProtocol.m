@@ -348,6 +348,27 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 	}
 }
 
+NSColor *safeColorCopy(NSColor *inColor) {
+    if (!inColor) {
+        return nil;
+    }
+    if (inColor.type != NSColorTypeComponentBased) {
+        //TODO: implement?
+        return inColor;
+    }
+    NSColorSpace *colrSpace = inColor.colorSpace;
+    // Hack to get around NSDistantObject problems.
+    CGColorSpaceRef colrRef = CGColorSpaceCreateWithICCData((__bridge CFTypeRef _Nullable)(colrSpace.ICCProfileData));
+    colrSpace = [[NSColorSpace alloc] initWithCGColorSpace:colrRef];
+    CGColorSpaceRelease(colrRef);
+
+    NSInteger compCount = inColor.numberOfComponents;
+    CGFloat comps[compCount];
+    [inColor getComponents:comps];
+    
+    return [NSColor colorWithColorSpace:colrSpace components:comps count:compCount];
+}
+
 - (id) initWithCoder: (NSCoder*) coder {
     self = [super init];
     if (self) {
@@ -357,7 +378,9 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 			
 			foregroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEFORECOLORCODINGKEY];
 			backgroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEBACKCOLORCODINGKEY];
-			
+            foregroundTrue = safeColorCopy(foregroundTrue);
+            backgroundTrue = safeColorCopy(backgroundTrue);
+
 			foregroundColour = [coder decodeIntForKey: FOREGROUNDCOLORCODINGKEY];
 			backgroundColour = [coder decodeIntForKey: BACKGROUNDCOLORCODINGKEY];
 		} else {
