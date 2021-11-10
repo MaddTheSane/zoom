@@ -50,7 +50,7 @@ static int lastDownloadId = 0;
 	}
 }
 
-- (id) initWithUrl: (NSURL*) newUrl {
+- (id) initWithURL: (NSURL*) newUrl {
 	self = [super init];
 	
 	if (self) {

@@ -888,7 +888,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 		url = [[nextUpdate updateInfo] location];
 	}
 	
-	currentDownload = [[ZoomDownload alloc] initWithUrl: url];
+	currentDownload = [[ZoomDownload alloc] initWithURL: url];
 	if (currentDownload == nil) {
 		// Couldn't create a download for whatever reason
 		[nextUpdate setStatus: ZoomPlugInDownloadFailed];

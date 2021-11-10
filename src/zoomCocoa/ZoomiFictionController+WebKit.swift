@@ -106,15 +106,9 @@ extension ZoomiFictionController: WKNavigationDelegate {
 			decisionHandler(.cancel)
 
 			let alert = NSAlert()
-			alert.messageText = "Zoom cannot download this type of file"
-			alert.informativeText = """
-You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.
-
-You can check for new plugins by using the 'Check for Updates' option in the Zoom menu.
-
-Type "\(navigationResponse.response.mimeType ?? "Unknown")"
-"""
-			alert.addButton(withTitle: "Cancel")
+			alert.messageText = NSLocalizedString("Zoom cannot download this type of file", comment: "Zoom cannot download this type of file")
+			alert.informativeText = String(format: NSLocalizedString("Zoom cannot download this type of file Info: %@", comment: "Zoom cannot download this type of file Info, param is mime type or unknown"), navigationResponse.response.mimeType ?? "Unknown")
+			alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel"))
 			alert.beginSheetModal(for: window!) { response in
 				// Do nothing
 			}
@@ -147,5 +141,13 @@ Type "\(navigationResponse.response.mimeType ?? "Unknown")"
 extension ZoomiFictionController: WKDownloadDelegate {
 	public func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String) async -> URL? {
 		return nil
+	}
+	
+	public func downloadDidFinish(_ download: WKDownload) {
+		
+	}
+	
+	public func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
+		
 	}
 }

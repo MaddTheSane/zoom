@@ -2913,7 +2913,7 @@ static dispatch_block_t onceTypesBlock = ^{
 					self->downloadUpdateList = YES;
 					self->downloadPlugin = NO;
 					
-					self->activeDownload = [[ZoomDownload alloc] initWithUrl: updateUrl];
+					self->activeDownload = [[ZoomDownload alloc] initWithURL: updateUrl];
 					[self->activeDownload setDelegate: self];
 					[self->activeDownload startDownload];
 				}
@@ -2956,7 +2956,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			url = components.URL;
 		}
 		
-		activeDownload = [[ZoomDownload alloc] initWithUrl: url];
+		activeDownload = [[ZoomDownload alloc] initWithURL: url];
 		[activeDownload setDelegate: self];
 		[activeDownload startDownload];		
 	}
@@ -3055,7 +3055,7 @@ static unsigned int ValueForHexChar(int hex) {
 	downloadUpdateList = NO;
 	downloadPlugin = YES;
 	
-	activeDownload = [[ZoomDownload alloc] initWithUrl: [NSURL URLWithString: urlString]];
+	activeDownload = [[ZoomDownload alloc] initWithURL: [NSURL URLWithString: urlString]];
 	[activeDownload setDelegate: self];
 	[activeDownload setExpectedMD5: md5];
 	[activeDownload startDownload];

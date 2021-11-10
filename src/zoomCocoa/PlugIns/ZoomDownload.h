@@ -42,7 +42,7 @@
 
 // Initialisation
 //! Prepares to download the specified URL
-- (id) initWithUrl: (NSURL*) url;
+- (id) initWithURL: (NSURL*) url;
 //! The download delegate
 @property (weak) id<ZoomDownloadDelegate> delegate;
 //! Removes the temporary directory used for downloads (ie, when terminating)

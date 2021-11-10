@@ -75,6 +75,8 @@
 "Install plugin" = "Install plugin";
 "Need plug-in Download info" = "In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\nPlug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins.";
 "%@ (finished)" = "%@ (finished)";
+"Zoom cannot download this type of file" = "Zoom cannot download this type of file";
+"Zoom cannot download this type of file Info: %@" = "You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType %@";
 
 // Found in ZoomView
 "[ The game has finished ]" = "[ The game has finished ]";

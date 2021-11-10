@@ -34,7 +34,7 @@ final public class Adrift: ZoomGlkPlugIn {
 	}
 	
 	public override class func canRun(_ fileURL: URL) -> Bool {
-		guard ((try? fileURL.checkResourceIsReachable()) ?? false) else {
+		guard (try? fileURL.checkResourceIsReachable()) ?? false else {
 			return fileURL.pathExtension.caseInsensitiveCompare("taf") == .orderedSame
 		}
 		
