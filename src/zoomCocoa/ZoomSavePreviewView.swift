@@ -52,16 +52,15 @@ class SavePreviewView: NSView {
 		ourFrame.size.height = 0
 		
 		// Load all the zoomSave files from the given directory
-		guard let contents = try? FileManager.default.contentsOfDirectory(atPath: directory) else {
+		let url = URL(fileURLWithPath: directory)
+		guard let contents = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]) else {
 			return
 		}
 
 		for file in contents {
-			switch (file as NSString).pathExtension.lowercased() {
+			switch file.pathExtension.lowercased() {
 			case "zoomsave":
-				var previewURL = URL(fileURLWithPath: directory, isDirectory: true)
-				previewURL.appendPathComponent(file, isDirectory: true)
-				previewURL.appendPathComponent("ZoomPreview.dat")
+				let previewURL = file.appendingPathComponent("ZoomPreview.dat")
 				
 				var isDir: ObjCBool = false
 				guard urlIsAvailable(previewURL, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil), !isDir.boolValue else {
@@ -89,9 +88,7 @@ class SavePreviewView: NSView {
 				saveGamesAvailable = true
 				
 			case "glksave":
-				let previewURL = URL(fileURLWithPath: directory, isDirectory: true).appendingPathComponent(file, isDirectory: true)
-
-				let propertiesURL = previewURL.appendingPathComponent("Info.plist")
+				let propertiesURL = file.appendingPathComponent("Info.plist")
 				guard (try? propertiesURL.checkResourceIsReachable()) ?? false else {
 					continue
 				}
@@ -106,7 +103,7 @@ class SavePreviewView: NSView {
 				}
 				
 				let storyId = ZoomStoryID(idString: strID)
-				let previewLinesURL = previewURL.appendingPathComponent("Preview.plist")
+				let previewLinesURL = file.appendingPathComponent("Preview.plist")
 				let previewLines: [Any]
 				if (try? previewLinesURL.checkResourceIsReachable()) ?? false,
 				   let dat2 = try? Data(contentsOf: previewLinesURL),

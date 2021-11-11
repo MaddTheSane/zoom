@@ -59,13 +59,13 @@ class SavePreview : NSView {
 	@IBAction func deleteSavegame(_ sender: Any?) {
 		// Display a confirmation dialog
 		let alert = NSAlert()
-		alert.messageText = "Are you sure?"
-		alert.informativeText = "Are you sure you want to delete this saved game?"
-		let desButton = alert.addButton(withTitle: "Delete")
+		alert.messageText = NSLocalizedString("Are you sure?", comment: "Are you sure?")
+		alert.informativeText = NSLocalizedString("Are you sure you want to delete this saved game?", comment: "Are you sure you want to delete this saved game?")
+		let desButton = alert.addButton(withTitle: NSLocalizedString("Delete Game", value: "Delete", comment: "Delete"))
 		if #available(macOS 11.0, *) {
 			desButton.hasDestructiveAction = true
 		}
-		alert.addButton(withTitle: "Keep")
+		alert.addButton(withTitle: NSLocalizedString("Keep Game", value: "Keep", comment: "Keep"))
 		alert.beginSheetModal(for: window!) { returnCode in
 			guard returnCode == .alertFirstButtonReturn else {
 				return
@@ -78,16 +78,16 @@ class SavePreview : NSView {
 
 			if saveURL.pathExtension.lowercased() != "zoomsave" && saveURL.pathExtension.lowercased() != "glksave" {
 				genuine = false
-				reason = "File has the wrong extension (\(saveURL.pathExtension))"
+				reason = String(format: NSLocalizedString("File has the wrong extension (%@)", comment: "File has the wrong extension (%@)"), saveURL.pathExtension)
 			}
 			var isDir: ObjCBool = false
 			if !urlIsAvailable(saveURL, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) {
 				genuine = false
-				reason = reason ?? "File does not exist"
+				reason = reason ?? NSLocalizedString("File does not exist", comment: "File does not exist")
 			}
 			if !isDir.boolValue {
 				genuine = false
-				reason = reason ?? "File is not a directory"
+				reason = reason ?? NSLocalizedString("File is not a directory", comment: "File is not a directory")
 			}
 			
 			let saveQut = saveURL.appendingPathComponent("save.qut")
@@ -96,24 +96,24 @@ class SavePreview : NSView {
 			
 			if !urlIsAvailable(saveQut, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) || isDir.boolValue {
 				genuine = false
-				reason = reason ?? "Contents do not look like a saved game"
+				reason = reason ?? NSLocalizedString("Contents do not look like a saved game", comment: "Contents do not look like a saved game")
 			}
 			
 			if !urlIsAvailable(zPreview, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) || isDir.boolValue {
 				genuine = false
-				reason = reason ?? "Contents do not look like a saved game"
+				reason = reason ?? NSLocalizedString("Contents do not look like a saved game", comment: "Contents do not look like a saved game")
 			}
 			
 			if !urlIsAvailable(status, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) || isDir.boolValue {
 				genuine = false
-				reason = reason ?? "Contents do not look like a saved game"
+				reason = reason ?? NSLocalizedString("Contents do not look like a saved game", comment: "Contents do not look like a saved game")
 			}
 			
 			guard genuine else {
 				let alert = NSAlert()
-				alert.messageText = "Invalid save game"
-				alert.informativeText = "This does not look like a valid Zoom save game - it's possible it has moved, or you've saved something that looks like a save game but isn't. \(reason!)."
-				alert.addButton(withTitle: "Cancel")
+				alert.messageText = NSLocalizedString("Invalid save game", comment: "Invalid save game")
+				alert.informativeText = String(format: NSLocalizedString("Invalid save game Info %@", comment: "Tell user that it couldn't load save game. %@ is the localized reason why."), reason!)
+				alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Cancel"))
 				alert.runModal()
 
 				return

@@ -25,6 +25,11 @@
 "Color Dark grey" = "Dark grey";
 "Color Unused colour" = "Unused color";
 
+"Contents do not look like a saved game" = "Contents do not look like a saved game";
+"File does not exist" = "File does not exist";
+"File is not a directory" = "File is not a directory";
+"File has the wrong extension (%@)" = "File has the wrong extension (%@)";
+
 
 "Go to label..." = "Go to label…";
 "Drag a Blorb resource file here to change the resources for this game" = "Drag a Blorb resource file here to change the resources for this game";
@@ -40,11 +45,14 @@
 "Are you sure?" = "Are you sure?";
 "Are you sure you want to delete this game?" = "Are you sure you want to delete this game?";
 "Are you sure you want to delete these games?" = "Are you sure you want to delete these games?";
+"Are you sure you want to delete this saved game?" = "Are you sure you want to delete this saved game?";
 "Delete Game" = "Delete";
 "Keep Game" = "Keep";
 "Cancel" = "Cancel";
 "Unable to load metadata" = "Unable to load metadata";
+"Invalid save game" = "Invalid save game";
 "Zoom encountered an error while trying to load an iFiction file." = "Zoom encountered an error while trying to load an iFiction file.";
+"Invalid save game Info %@" = "This does not look like a valid Zoom save game - it's possible it has moved, or you've saved something that looks like a save game but isn't. %@.";
 "Use new" = "Use New";
 "Keep old" = "Keep Old";
 "Some story descriptions are already in the database" = "Some story descriptions are already in the database";
