@@ -77,7 +77,8 @@ static NSImage* blorbImage;
 	[description drawInRect: remainingRect
 			 withAttributes: @{
 		NSFontAttributeName:[NSFont systemFontOfSize: 11],
-		NSParagraphStyleAttributeName: paraStyle
+		NSParagraphStyleAttributeName: paraStyle,
+		NSForegroundColorAttributeName: NSColor.textColor
 	}];
 }
 

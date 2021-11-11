@@ -19,12 +19,12 @@ extension ZoomStoryOrganiser {
 		guard let front = decodedFile.dataForChunk(withType: "Fspc"), front.count >= 4 else {
 			return nil
 		}
-		coverPictureNumber = {
+		do {
 			let fpc = front[0 ..< 4].map({$0})
 
 			let val = UInt32(fpc[0]) << 24 | UInt32(fpc[1]) << 16 | UInt32(fpc[2]) << 8 | UInt32(fpc[3])
-			return Int32(bitPattern: val)
-		}()
+			coverPictureNumber = Int32(bitPattern: val)
+		}
 		
 		if coverPictureNumber >= 0 {
 			// Attempt to retrieve the cover picture image
@@ -40,7 +40,8 @@ extension ZoomStoryOrganiser {
 			let coverRep = coverPicture.representations.first!
 			let pixSize = NSSize(width: coverRep.pixelsWide, height: coverRep.pixelsHigh)
 			
-			if pixSize != coverPicture.size {
+			if pixSize != .zero, // just in case it's a vector format. Not likely, but still possible.
+			   pixSize != coverPicture.size {
 				coverPicture.size = pixSize
 			}
 			

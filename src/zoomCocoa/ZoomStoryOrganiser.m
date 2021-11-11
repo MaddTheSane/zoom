@@ -107,11 +107,8 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 			// Check for a pre-existing entry
 			[storyLock lock];
 			
-			NSString* oldFilename;
-			ZoomStoryID* oldIdent;
-			
-			oldFilename = [identsToFilenames objectForKey: fileID];
-			oldIdent = [filenamesToIdents objectForKey: filename];
+			NSString* oldFilename = [identsToFilenames objectForKey: fileID];
+			ZoomStoryID* oldIdent = [filenamesToIdents objectForKey: filename];
 			
 			if (oldFilename && oldIdent && [oldFilename isEqualToString: filename] && [oldIdent isEqualTo: fileID]) {
 				[storyLock unlock];
@@ -259,10 +256,8 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self organiserChanged];
-		});
-
-	// Tidy up
-		dispatch_async(dispatch_get_main_queue(), ^{
+			
+			// Tidy up
 			[self endedActing];
 		});
 
@@ -479,19 +474,14 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 			  organise: (BOOL) organise
 				 error: (NSError**)error {
 	if (ident == nil) {
+		if (error) {
+			*error = [NSError errorWithDomain: NSOSStatusErrorDomain
+										 code: paramErr
+									 userInfo: nil];
+		}
 		return NO;
 	}
 
-	[self addStory: filename.path withIdent: ident organise: organise];
-	
-	return YES;
-}
-
-- (void) addStory: (NSString*) filename
-		withIdent: (ZoomStoryID*) ident
-		 organise: (BOOL) organise {
-	if (ident == nil) return;
-	
 	[storyLock lock];
 	
 	NSString* oldFilename = [[identsToFilenames objectForKey: ident] stringByStandardizingPath];
@@ -510,22 +500,30 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	// If there's no story registered, then we need to create one
 	if (theStory == nil) {
 		// theStory = [[[NSApp delegate] userMetadata] findOrCreateStory: ident];
-		Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename];
-		ZoomPlugIn* pluginInstance = pluginClass?[[pluginClass alloc] initWithFilename: filename]:nil;
+		Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForURL: filename];
+		ZoomPlugIn* pluginInstance = pluginClass?[[pluginClass alloc] initWithURL: filename]:nil;
 		
 		if (pluginInstance) {
-			theStory = [pluginInstance defaultMetadataWithError: NULL];
+			theStory = [pluginInstance defaultMetadataWithError: error];
 		} else {
-			theStory = [ZoomStory defaultMetadataForFile: filename];
+			theStory = [ZoomStory defaultMetadataForURL: filename error: error];
+		}
+		if (theStory == nil) {
+			[storyLock unlock];
+			// Story somehow failed.
+			return NO;
 		}
 		
 		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: theStory];
-		[theStory setTitle: [[filename lastPathComponent] stringByDeletingPathExtension]];
+		if (theStory.title == nil) {
+			theStory.title = filename.lastPathComponent.stringByDeletingPathExtension;
+		}
 		
 		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	}
 		
-	if (oldFilename && oldIdent && [oldFilename isEqualToString: filename] && [oldIdent isEqualTo: ident]) {
+	NSString *standardizedFile = filename.path.stringByStandardizingPath;
+	if (oldFilename && oldIdent && [oldFilename isEqualToString: standardizedFile] && [oldIdent isEqualTo: ident]) {
 		// Nothing to do
 		[storyLock unlock];
 #if DEVELOPMENT_BUILD
@@ -536,7 +534,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 			[self organiseStory: theStory
 					  withIdent: ident] ;
 		}
-		return;
+		return YES;
 	}
 	
 	if (oldFilename) {
@@ -545,26 +543,26 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 		
 		NSInteger index = [storyFilenames indexOfObject: oldFilename];
 		if (index != NSNotFound) {
-			[storyFilenames removeObjectAtIndex: index];			
+			[storyFilenames removeObjectAtIndex: index];
 			[storyIdents removeObjectAtIndex: index];
 		}
 	}
 
 	if (oldIdent) {
-		[filenamesToIdents removeObjectForKey: filename];
+		[filenamesToIdents removeObjectForKey: standardizedFile];
 		[identsToFilenames removeObjectForKey: oldIdent];
 	
 		NSInteger index = [storyIdents indexOfObject: oldIdent];
 		if (index != NSNotFound) {
-			[storyFilenames removeObjectAtIndex: index];			
+			[storyFilenames removeObjectAtIndex: index];
 			[storyIdents removeObjectAtIndex: index];
 		}
 	}
 	
-	[filenamesToIdents removeObjectForKey: filename];
+	[filenamesToIdents removeObjectForKey: standardizedFile];
 	[identsToFilenames removeObjectForKey: ident];
 	
-	NSString* newFilename = [filename copy];
+	NSString* newFilename = [standardizedFile copy];
 	ZoomStoryID* newIdent = [ident copy];
 		
 	[storyFilenames addObject: newFilename];
@@ -585,6 +583,17 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	}
 	
 	[self organiserChanged];
+
+	return YES;
+}
+
+- (void) addStory: (NSString*) filename
+		withIdent: (ZoomStoryID*) ident
+		 organise: (BOOL) organise {
+	[self addStoryAtURL: [NSURL fileURLWithPath: filename]
+		   withIdentity: ident
+			   organise: organise
+				  error: NULL];
 }
 
 #pragma mark - Progress
