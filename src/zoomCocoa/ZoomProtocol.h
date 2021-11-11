@@ -366,8 +366,8 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 @property int foregroundColour;
 @property int backgroundColour;
-@property (retain) NSColor *foregroundTrue;
-@property (retain) NSColor *backgroundTrue;
+@property (copy) NSColor *foregroundTrue;
+@property (copy) NSColor *backgroundTrue;
 @property (getter=isReversed) BOOL reversed;
 @property (nonatomic, getter=isFixed) BOOL fixed;
 @property (getter=isForceFixed) BOOL forceFixed;

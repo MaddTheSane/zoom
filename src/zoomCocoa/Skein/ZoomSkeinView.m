@@ -367,9 +367,9 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	skeinNeedsLayout = NO;
 	
 	// Re-layout this skein
-	[layout setItemWidth: itemWidth];
-	[layout setItemHeight: itemHeight];
-	[layout setRootItem: [skein rootItem]];
+	layout.itemWidth = itemWidth;
+	layout.itemHeight = itemHeight;
+	layout.rootItem = skein.rootItem;
 	[layout layoutSkein];
 	
 	// Resize this view
@@ -1036,32 +1036,32 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	
 	fieldStorage = [[NSTextStorage alloc] initWithString: itemText
 											  attributes: itemTextAttributes];	
-	[[fieldEditor textStorage] setAttributedString: fieldStorage];
+	[fieldEditor.textStorage setAttributedString: fieldStorage];
 	[fieldEditor setSelectedRange: NSMakeRange(0,0)];
 	
-	[fieldEditor setDelegate: self];
-	[fieldScroller setFrame: itemFrame];
-	[fieldEditor setFrame: NSInsetRect(itemFrame, 2.0, 2.0)];
+	fieldEditor.delegate = self;
+	fieldScroller.frame = itemFrame;
+	fieldEditor.frame = NSInsetRect(itemFrame, 2.0, 2.0);
 	
-	[fieldEditor setAlignment: NSTextAlignmentCenter];
-	[fieldEditor setFont: [itemTextAttributes objectForKey: NSFontAttributeName]];
+	fieldEditor.alignment = NSTextAlignmentCenter;
+	fieldEditor.font = itemTextAttributes[NSFontAttributeName];
 	
-	[fieldEditor setRichText:NO];
-	[fieldEditor setAllowsDocumentBackgroundColorChange:NO];
-	[fieldEditor setBackgroundColor:[NSColor whiteColor]];
+	fieldEditor.richText = NO;
+	fieldEditor.allowsDocumentBackgroundColorChange = NO;
+	fieldEditor.backgroundColor = NSColor.textBackgroundColor;
 	
-	[[fieldEditor textContainer] setContainerSize: NSMakeSize(NSInsetRect(itemFrame, 2.0, 2.0).size.width, 1e6)];
-	[[fieldEditor textContainer] setWidthTracksTextView:NO];
-	[[fieldEditor textContainer] setHeightTracksTextView:NO];
-	[fieldEditor setHorizontallyResizable:NO];
-	[fieldEditor setVerticallyResizable:YES];
-	[fieldEditor setDrawsBackground: YES];
-	[fieldEditor setEditable: YES];
+	fieldEditor.textContainer.size = NSMakeSize(NSInsetRect(itemFrame, 2.0, 2.0).size.width, 1e6);
+	fieldEditor.textContainer.widthTracksTextView = NO;
+	fieldEditor.textContainer.heightTracksTextView = NO;
+	fieldEditor.horizontallyResizable = NO;
+	fieldEditor.verticallyResizable = YES;
+	fieldEditor.drawsBackground = YES;
+	fieldEditor.editable = YES;
 	
 	// Activate it
-	[fieldScroller setDocumentView: fieldEditor];
+	fieldScroller.documentView = fieldEditor;
 	[self addSubview: fieldScroller];
-	[[self window] makeFirstResponder: fieldEditor];
+	[self.window makeFirstResponder: fieldEditor];
 	// [[self window] makeKeyWindow];
 }
 
