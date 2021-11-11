@@ -42,12 +42,6 @@ private extension String {
 	}
 }
 
-/// Unique ID for this item (was the pointer as the value, as it's guaranteed unique for a unique node.
-/// Now is just the node identifier, a UUID generated on initialization).
-private func idFor(_ item: ZoomSkeinItem) -> String {
-	return item.nodeIdentifier.uuidString
-}
-
 extension ZoomSkein {
 	/// Creates an XML representation of the Skein.
 	@objc public func xmlData() -> String {
@@ -77,9 +71,9 @@ extension ZoomSkein {
 
 		var result =
 #"""
-<Skein rootNode="\#(idFor(rootItem))" xmlns="http://www.logicalshift.org.uk/IF/Skein">
+<Skein rootNode="\#(rootItem.nodeIdentifier.uuidString)" xmlns="http://www.logicalshift.org.uk/IF/Skein">
    <generator>Zoom</generator>
-   <activeNode nodeId="\#(idFor(activeItem))"/>
+   <activeNode nodeId="\#(activeItem.nodeIdentifier.uuidString)"/>
 """#
 		
 		var itemStack = [rootItem]
@@ -92,7 +86,7 @@ extension ZoomSkein {
 			itemStack.append(contentsOf: node.children)
 			
 			// Generate the XML for this node
-			result += #"  <item nodeId="\#(idFor(node))">\n"#
+			result += #"  <item nodeId="\#(node.nodeIdentifier.uuidString)">\n"#
 
 			if let command = node.command?.byEscapingXMLCharacters() {
 				result += #"    <command xml:space="preserve">\#(command)</command>\n"#
@@ -115,7 +109,7 @@ extension ZoomSkein {
 				result.append("    <children>\n")
 				
 				for childNode in node.children {
-					result += #"      <child nodeId="\#(idFor(childNode))"/>\n"#
+					result += #"      <child nodeId="\#(childNode.nodeIdentifier.uuidString)"/>\n"#
 				}
 				
 				result.append("    </children>\n")
