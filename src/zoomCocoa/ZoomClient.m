@@ -183,7 +183,8 @@
 	NSString* resourceFilename = [story objectForKey: @"ResourceFilename"];
 	if (resourceFilename != nil && [[NSFileManager defaultManager] fileExistsAtPath: resourceFilename]) {
 		// Try to load the resources set for this game
-		ZoomBlorbFile* newResources = [[ZoomBlorbFile alloc] initWithContentsOfFile: resourceFilename];
+		NSError *err;
+		ZoomBlorbFile* newResources = [[ZoomBlorbFile alloc] initWithContentsOfURL: [NSURL fileURLWithPath: resourceFilename] error: &err];
 		
 		if (newResources) {
 			// Resources loaded OK: discard any resources we may have loaded earlier in findResourcesForFile
@@ -191,6 +192,7 @@
 		} else {
 			// Failed to load the resources that were set
 			[self addLoadingError: @"Failed to load resources: the resource file set for the story was found but is not a valid Blorb resource file"];
+			[self addLoadingError: err.localizedDescription];
 			[story setObject: nil
 					  forKey: @"ResourceFilename"];
 		}

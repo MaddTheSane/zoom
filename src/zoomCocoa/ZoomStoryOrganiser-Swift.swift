@@ -20,7 +20,7 @@ extension ZoomStoryOrganiser {
 			return nil
 		}
 		do {
-			let fpc = front[0 ..< 4].map({$0})
+			let fpc = front[0 ..< 4]
 
 			let val = UInt32(fpc[0]) << 24 | UInt32(fpc[1]) << 16 | UInt32(fpc[2]) << 8 | UInt32(fpc[3])
 			coverPictureNumber = Int32(bitPattern: val)
@@ -28,13 +28,10 @@ extension ZoomStoryOrganiser {
 		
 		if coverPictureNumber >= 0 {
 			// Attempt to retrieve the cover picture image
-			guard let coverPictureData = decodedFile.imageData(withNumber: coverPictureNumber) else {
-				return nil
-			}
-			
-			guard let coverPicture = NSImage(data: coverPictureData) else {
-				return nil
-			}
+			guard let coverPictureData = decodedFile.imageData(withNumber: coverPictureNumber),
+				  let coverPicture = NSImage(data: coverPictureData) else {
+					  return nil
+				  }
 			
 			// Sometimes the image size and pixel size do not match up
 			let coverRep = coverPicture.representations.first!
