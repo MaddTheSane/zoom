@@ -805,13 +805,14 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 	
 	if (story == nil) {
-		Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename];
-		ZoomPlugIn* pluginInstance = pluginClass?[[pluginClass alloc] initWithFilename: filename]:nil;
+		NSURL *fileURL = [NSURL fileURLWithPath: filename];
+		Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForURL: fileURL];
+		ZoomPlugIn* pluginInstance = pluginClass?[(ZoomPlugIn*)[pluginClass alloc] initWithURL:fileURL]:nil;
 		
 		if (pluginInstance) {
 			story = [pluginInstance defaultMetadataWithError: NULL];
 		} else {
-			story = [ZoomStory defaultMetadataForFile: filename];
+			story = [ZoomStory defaultMetadataForURL: fileURL error: NULL];
 		}
 		
 		// Store this in the user metadata for later
@@ -2135,8 +2136,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	if ([[newData errors] count] > 0) {
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = NSLocalizedString(@"Unable to load metadata", @"Unable to load metadata");
-		alert.informativeText = [NSString stringWithFormat:@"Zoom encountered an error (%@) while trying to load an iFiction file.",
-								 [[newData errors] objectAtIndex: 0]];
+		alert.informativeText = [NSString stringWithFormat: NSLocalizedString(@"Zoom encountered an error (%@) while trying to load an iFiction file.", @"Zoom encountered an error (%@) while trying to load an iFiction file."), [[newData errors] objectAtIndex: 0]];
 		[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 		[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {
 			// do nothing
@@ -2346,7 +2346,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		if (isDir) continue;
 		
 		// Must be playable
-		if (![self canPlayFile: path.path]) continue;
+		if (![self canPlayFileAtURL: path]) continue;
 		
 		// Could be a signpost
 		if ([[[path pathExtension] lowercaseString] isEqualToString: @"signpost"]) {
@@ -2964,7 +2964,7 @@ static dispatch_block_t onceTypesBlock = ^{
 
 - (void) failedToInstallPlugin: (NSString*) reason {
 	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = @"Could not install the plug-in";
+	alert.messageText = NSLocalizedString(@"Could not install the plug-in", @"Could not install the plug-in");
 	alert.informativeText = reason;
 	[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 	[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {

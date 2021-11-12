@@ -390,20 +390,10 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 
 @implementation ZoomSkeinInputSource
 
-- (instancetype)initWithCommandStack: (NSArray<NSString*>*) stack {
+- (instancetype) initWithCommandStack: (NSArray<NSString*>*) stack {
 	if (self = [super init]) {
 		commandStack = [stack mutableCopy];
 	}
-	return self;
-}
-
-- (id) init {
-	self = [super init];
-	
-	if (self) {
-		commandStack = nil;
-	}
-	
 	return self;
 }
 

@@ -52,6 +52,7 @@
 "Unable to load metadata" = "Unable to load metadata";
 "Invalid save game" = "Invalid save game";
 "Zoom encountered an error while trying to load an iFiction file." = "Zoom encountered an error while trying to load an iFiction file.";
+"Zoom encountered an error (%@) while trying to load an iFiction file." = "Zoom encountered an error (%@) while trying to load an iFiction file.";
 "Invalid save game Info %@" = "This does not look like a valid Zoom save game - it's possible it has moved, or you've saved something that looks like a save game but isn't. %@.";
 "Use new" = "Use New";
 "Keep old" = "Keep Old";
@@ -85,6 +86,7 @@
 "%@ (finished)" = "%@ (finished)";
 "Zoom cannot download this type of file" = "Zoom cannot download this type of file";
 "Zoom cannot download this type of file Info: %@" = "You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType %@";
+"Could not install the plug-in" = "Could not install the plug-in";
 
 // Found in ZoomView
 "[ The game has finished ]" = "[ The game has finished ]";

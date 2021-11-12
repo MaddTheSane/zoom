@@ -31,6 +31,7 @@ private extension String {
 				
 			case "\0" ..< " ":
 				// Ignore (expat can't parse these)
+				// TODO: But can NSXMLParser/libxml2?
 				return nil
 				
 			default:
