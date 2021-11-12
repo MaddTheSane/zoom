@@ -1256,11 +1256,10 @@ static void finalizeViews(void) {
 
 #pragma mark - Formatting, fonts, colours, etc
 
+/// Strings come from Zoom's server formatted with ZStyles rather than
+/// actual styles (so that the interface can choose it's own formatting).
+/// So we need this to translate those styles into 'real' ones.
 - (NSDictionary*) attributesForStyle: (ZStyle*) style {
-    // Strings come from Zoom's server formatted with ZStyles rather than
-    // actual styles (so that the interface can choose it's own formatting).
-    // So we need this to translate those styles into 'real' ones.
-	
     // Font
     NSFont* fontToUse = nil;
 	ZFontStyle fontnum =

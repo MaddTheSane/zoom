@@ -74,7 +74,8 @@ static NSImage* unchangedDark, *activeDark;
 		labelTextAttributes = @{
 			NSFontAttributeName: [NSFont systemFontOfSize: 13],
 			NSForegroundColorAttributeName: [NSColor textColor],
-			NSShadowAttributeName: labelShadow};
+			NSShadowAttributeName: labelShadow
+		};
 	});
 }
 

@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 // ZoomView input/output receivers
 //! ZoomView output receiver
 @protocol ZoomViewOutputReceiver <NSObject>
@@ -28,9 +30,11 @@
 @optional
 
 //! Retrieve the next command
-- (NSString*) nextCommand;
+- (nullable NSString*) nextCommand;
 
-//! Return \c YES if you want to turn off more prompts
+//! Return \c YES if you want to turn off \b More... prompts
 @property (nonatomic, readonly) BOOL disableMorePrompt;
 
 @end
+
+NS_ASSUME_NONNULL_END
