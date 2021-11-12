@@ -74,6 +74,7 @@ extension ZoomSkein {
 <Skein rootNode="\#(rootItem.nodeIdentifier.uuidString)" xmlns="http://www.logicalshift.org.uk/IF/Skein">
    <generator>Zoom</generator>
    <activeNode nodeId="\#(activeItem.nodeIdentifier.uuidString)"/>
+
 """#
 		
 		var itemStack = [rootItem]
