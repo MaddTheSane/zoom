@@ -87,7 +87,7 @@
 		4B926A200CD1480B00CE0ADB /* ZoomJSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B926A1E0CD1480B00CE0ADB /* ZoomJSError.m */; };
 		4B94B0D60CD4FCF4003C75A6 /* babel in Copy babel */ = {isa = PBXBuildFile; fileRef = 4BD79A8F0BA2C9AA002C82B2 /* babel */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4B94B1000CD5063A003C75A6 /* zoom-game.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F46050FB21C00A8E303 /* zoom-game.icns */; };
-		4B94B1600CD537B8003C75A6 /* ZoomSignPost.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B94B15E0CD537B8003C75A6 /* ZoomSignPost.h */; };
+		4B94B1600CD537B8003C75A6 /* ZoomSignPost.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B94B15E0CD537B8003C75A6 /* ZoomSignPost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B94B1610CD537B8003C75A6 /* ZoomSignPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B94B15F0CD537B8003C75A6 /* ZoomSignPost.m */; };
 		4B95CDA1C5B03AD500FD9F27 /* ZoomSkeinController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B18852906987AC6004D8501 /* ZoomSkeinController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B95CDA2C5B03AD500FD9F27 /* ZoomSkeinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B18852A06987AC6004D8501 /* ZoomSkeinController.m */; };
@@ -2317,11 +2317,11 @@
 				4B123ECA0C9C636200CA3374 /* ZoomPlugInManager.h in Headers */,
 				552A03812049E90900A4ECAA /* treaty.h in Headers */,
 				4B1242D80CAE93D600CA3374 /* ZoomPlugInController.h in Headers */,
-				4B1243050CAE964400CA3374 /* ZoomPlugInCell.h in Headers */,
 				4B12431B0CAE9B2500CA3374 /* ZoomPlugInInfo.h in Headers */,
+				4B94B1600CD537B8003C75A6 /* ZoomSignPost.h in Headers */,
 				4B84FDDD0CAFC9970071F3B3 /* ZoomDownload.h in Headers */,
 				4B7520090CC6A08200F36ECF /* tads.h in Headers */,
-				4B94B1600CD537B8003C75A6 /* ZoomSignPost.h in Headers */,
+				4B1243050CAE964400CA3374 /* ZoomPlugInCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4363,6 +4363,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -4392,6 +4393,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Adrift/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -4417,6 +4419,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -4449,6 +4452,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				INFOPLIST_FILE = src/zoomCocoa/PlugIns/AGT/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -4597,6 +4601,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -4625,6 +4630,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Quest/Info.plist;
 				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Quest";

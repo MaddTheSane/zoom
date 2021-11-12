@@ -6,9 +6,9 @@
 //
 
 import Cocoa
-import ZoomPlugIns.ZoomGlkPlugIn
-import ZoomPlugIns.ZoomGlkWindowController
-import ZoomPlugIns.ZoomGlkDocument
+import ZoomPlugIns.ZoomPlugIn.Glk
+import ZoomPlugIns.ZoomPlugIn.Glk.WindowController
+import ZoomPlugIns.ZoomPlugIn.Glk.Document
 
 private var casHeader: Data = {
 	let strData = "QCGF002"

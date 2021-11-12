@@ -20,108 +20,8 @@
 @class DownloadView;
 #import <ZoomPlugIns/ZoomDownload.h>
 #import "ZoomJSError.h"
-#import "ZoomSignPost.h"
 
 @interface ZoomiFictionController : NSWindowController <NSTextStorageDelegate, ZoomDownloadDelegate, NSTableViewDataSource, NSOpenSavePanelDelegate, NSControlTextEditingDelegate, NSMenuItemValidation, NSTabViewDelegate>
-{
-	IBOutlet NSButton* addButton;
-	IBOutlet NSButton* newgameButton;
-	IBOutlet NSButton* continueButton;
-	IBOutlet NSButton* infoButton;
-	
-	//IBOutlet CollapsableView* collapseView;
-	
-	IBOutlet ZoomFlipView* flipView;
-	IBOutlet NSTabView* topPanelView;
-	IBOutlet NSButton *savesFlipButton;
-	IBOutlet NSButton *infoFlipButton;
-	IBOutlet NSButton *filtersFlipButton;
-	IBOutlet FadeView *fadeView;
-	
-	IBOutlet NSView* mainView;
-	IBOutlet NSView* browserView;
-	
-	IBOutlet NSButton* playButton;
-	IBOutlet NSButton* forwardButton;
-	IBOutlet NSButton* backButton;
-	IBOutlet NSButton* homeButton;
-	NSWindow* downloadWindow;
-	DownloadView* downloadView;
-	
-	IBOutlet NSWindow* picturePreview;
-	IBOutlet NSImageView* picturePreviewView;
-	
-	int indicatorCount;
-	
-	IBOutlet NSTextView* gameDetailView;
-	IBOutlet NSImageView* gameImageView;
-	
-	IBOutlet ZoomCollapsingSplitView* splitView;
-	
-	CGFloat splitViewPercentage;
-	BOOL splitViewCollapsed;
-	
-	IBOutlet ZoomStoryTableView* mainTableView;
-	IBOutlet NSTableView* filterTable1;
-	IBOutlet NSTableView* filterTable2;
-	
-	IBOutlet NSTextField* searchField;
-	
-	IBOutlet NSMenu* storyMenu;
-	IBOutlet NSMenu* saveMenu;
-	
-	BOOL showDrawer;
-	
-	BOOL needsUpdating;
-	
-	BOOL queuedUpdate;
-	BOOL isFiltered;
-	BOOL saveGamesAvailable;
-	
-	// Save game previews
-	IBOutlet SavePreviewView* previewView;
-	
-	// Resource drop zone
-	ZoomResourceDrop* resourceDrop;
-	
-	// Data source information
-	NSMutableArray* filterSet1;
-	NSMutableArray* filterSet2;
-	
-	NSMutableArray<ZoomStoryID*>* storyList;
-	NSString*       sortColumn;
-	
-	// The browser
-	/// \c YES if the browser has been used
-	BOOL usedBrowser;
-	/// \c YES if the browser is being displayed
-	BOOL browserOn;
-	/// \c YES if we've turned on small fonts in the browser
-	BOOL smallBrowser;
-	
-	/// The currently active download
-	ZoomDownload* activeDownload;
-	/// The fade in/out timer for the download window
-	NSTimer* downloadFadeTimer;
-	/// The time the current fade operation started
-	NSDate* downloadFadeStart;
-	/// The opacity when the last fade operation started
-	double initialDownloadOpacity;
-	
-	/// Story to open after the download has completed
-	ZoomStoryID* signpostId;
-	/// The name of the plugin to install
-	NSString* installPlugin;
-	/// The active signpost file
-	ZoomSignPost* activeSignpost;
-	/// \c YES if we're trying to download an update list
-	BOOL downloadUpdateList;
-	/// \c YES if we're trying to download a .zoomplugin file
-	BOOL downloadPlugin;
-	
-	/// The last error to occur
-	ZoomJSError* lastError;
-}
 
 @property (class, readonly, strong) ZoomiFictionController *sharediFictionController NS_SWIFT_NAME(shared);
 
@@ -182,7 +82,6 @@
 
 #pragma mark - WebKit helper functions
 
-- (BOOL) canPlayFile: (NSString*) filename;
 - (BOOL) canPlayFileAtURL: (NSURL*) filename;
 - (void) updateBackForwardButtons;
 - (void) hideDownloadWindow: (NSTimeInterval) duration;

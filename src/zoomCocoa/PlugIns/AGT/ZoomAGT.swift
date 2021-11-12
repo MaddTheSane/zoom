@@ -9,7 +9,7 @@
 
 import Cocoa
 import ZoomPlugIns.ZoomPlugIn
-import ZoomPlugIns.ZoomGlkPlugIn
+import ZoomPlugIns.ZoomPlugIn.Glk
 
 private let AGX_MAGIC: Data = {
 	let preDat: [UInt8] = [0x58, 0xC7, 0xC1, 0x51]

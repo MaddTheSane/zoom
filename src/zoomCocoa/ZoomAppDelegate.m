@@ -230,7 +230,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			
 			if (saveFilename) {
 				pluginDocument = [pluginInstance gameDocumentWithMetadata: story
-																 saveGame: saveFilename];
+															  saveGameURL: [NSURL fileURLWithPath: saveFilename]];
 				[pluginDocument setFileURL: fileURL];
 			} else {
 				pluginDocument = [pluginInstance gameDocumentWithMetadata: story];

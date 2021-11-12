@@ -7,9 +7,9 @@
 
 import Cocoa
 import ZoomPlugIns.ZoomPlugIn
-import ZoomPlugIns.ZoomGlkPlugIn
-import ZoomPlugIns.ZoomGlkWindowController
-import ZoomPlugIns.ZoomGlkDocument
+import ZoomPlugIns.ZoomPlugIn.Glk
+import ZoomPlugIns.ZoomPlugIn.Glk.WindowController
+import ZoomPlugIns.ZoomPlugIn.Glk.Document
 import CommonCrypto
 
 final public class Adrift: ZoomGlkPlugIn {
