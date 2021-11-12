@@ -86,30 +86,30 @@ extension ZoomSkein {
 			itemStack.append(contentsOf: node.children)
 			
 			// Generate the XML for this node
-			result += #"  <item nodeId="\#(node.nodeIdentifier.uuidString)">\n"#
+			result += #"  <item nodeId="\#(node.nodeIdentifier.uuidString)">\#n"#
 
 			if let command = node.command?.byEscapingXMLCharacters() {
-				result += #"    <command xml:space="preserve">\#(command)</command>\n"#
+				result += #"    <command xml:space="preserve">\#(command)</command>\#n"#
 			}
 			if let result2 = node.result?.byEscapingXMLCharacters() {
-				result += #"    <result xml:space="preserve">\#(result2)</result>\n"#
+				result += #"    <result xml:space="preserve">\#(result2)</result>\#n"#
 			}
 			if let annotation = node.annotation?.byEscapingXMLCharacters() {
-				result += #"    <annotation xml:space="preserve">\#(annotation)</annotation>\n"#
+				result += #"    <annotation xml:space="preserve">\#(annotation)</annotation>\#n"#
 			}
 			if let commentary = node.commentary?.byEscapingXMLCharacters() {
-				result += #"    <commentary xml:space="preserve">\#(commentary)</commentary>\n"#
+				result += #"    <commentary xml:space="preserve">\#(commentary)</commentary>\#n"#
 			}
 
 			result += "    <played>\(node.played ? "YES" : "NO")</played>\n"
 			result += "    <changed>\(node.changed ? "YES" : "NO")</changed>\n"
-			result += #"    <temporary score="\#(node.temporaryScore)">\#(node.isTemporary ? "YES" : "NO")</temporary>\n"#
+			result += #"    <temporary score="\#(node.temporaryScore)">\#(node.isTemporary ? "YES" : "NO")</temporary>\#n"#
 			
 			if node.children.count > 0 {
 				result.append("    <children>\n")
 				
 				for childNode in node.children {
-					result += #"      <child nodeId="\#(childNode.nodeIdentifier.uuidString)"/>\n"#
+					result += #"      <child nodeId="\#(childNode.nodeIdentifier.uuidString)"/>\#n"#
 				}
 				
 				result.append("    </children>\n")
