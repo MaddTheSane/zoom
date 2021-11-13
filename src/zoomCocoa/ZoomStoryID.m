@@ -523,7 +523,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 	return self;
 }
 
-- (id) initWithIdent: (struct IFID*) idt {
+- (id) initWithIdent: (IFID) idt {
 	self = [super init];
 	
 	if (idt == nil) {
@@ -561,7 +561,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 
 #pragma mark - NSCopying
 - (id) copyWithZone: (NSZone*) zone {
-	ZoomStoryID* newID = [[ZoomStoryID allocWithZone: zone] init];
+	ZoomStoryID* newID = [[ZoomStoryID alloc] init];
 	
 	newID->ident = IFMB_CopyId(ident);
 	newID->needsFreeing = YES;

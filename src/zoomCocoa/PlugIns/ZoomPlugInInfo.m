@@ -153,7 +153,7 @@ static unsigned int ValueForHexChar(int hex) {
 #pragma mark - Copying
 
 - (id) copyWithZone: (NSZone*) zone {
-	ZoomPlugInInfo* newInfo = [[ZoomPlugInInfo allocWithZone: zone] init];
+	ZoomPlugInInfo* newInfo = [[ZoomPlugInInfo alloc] init];
 	
 	newInfo->name 				= [name copy];
 	newInfo->author 			= [author copy];

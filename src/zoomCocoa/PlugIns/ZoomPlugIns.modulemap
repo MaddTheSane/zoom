@@ -62,17 +62,17 @@ framework module ZoomPlugIns {
 		explicit module Glk {
 			header "ZoomGlkPlugIn.h"
 			
-			explicit module Document {
+			module Document {
 				header "ZoomGlkDocument.h"
 				export *
 			}
 			
-			explicit module SaveRef {
+			module SaveRef {
 				header "ZoomGlkSaveRef.h"
 				export *
 			}
 			
-			explicit module WindowController {
+			module WindowController {
 				header "ZoomGlkWindowController.h"
 				export *
 			}
