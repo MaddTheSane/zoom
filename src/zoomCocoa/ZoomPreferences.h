@@ -8,6 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSNotificationName const ZoomPreferencesHaveChangedNotification;
 
 typedef NS_ENUM(NSInteger, GlulxInterpreter) {
@@ -22,7 +24,7 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 
 // init is the designated initialiser for this class
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithCoder: (NSCoder*) coder NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype) initWithCoder: (NSCoder*) coder NS_DESIGNATED_INITIALIZER;
 
 + (ZoomPreferences*) globalPreferences;
 @property (class, readonly, retain) ZoomPreferences* globalPreferences;
@@ -39,7 +41,8 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 @property (nonatomic) BOOL fatalWarnings;
 @property (nonatomic) BOOL speakGameText;
 @property (nonatomic) BOOL confirmGameClose;
-@property (nonatomic) CGFloat scrollbackLength;	//!< 0-100
+/// 0-100
+@property (nonatomic) CGFloat scrollbackLength;
 
 // Interpreter preferences
 @property (nonatomic, copy) NSString *gameTitle;
@@ -48,8 +51,10 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 @property (nonatomic) unsigned char revision;
 
 // Typographical preferences
-@property (nonatomic, copy) NSArray<NSFont*> *fonts;   //!< 16 fonts
-@property (nonatomic, copy) NSArray<NSColor*> *colours; //!< 13 colours
+/// 16 fonts
+@property (nonatomic, copy) NSArray<NSFont*> *fonts;
+/// 13 colours
+@property (nonatomic, copy) NSArray<NSColor*> *colours;
 
 @property (nonatomic, copy) NSString *proportionalFontFamily;
 @property (nonatomic, copy) NSString *fixedFontFamily;
@@ -64,7 +69,7 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 @property (nonatomic) BOOL useLigatures;
 
 // Organiser preferences
-@property (nonatomic, copy) NSString *organiserDirectory;
+@property (nonatomic, copy, null_resettable) NSString *organiserDirectory;
 @property (nonatomic) BOOL keepGamesOrganised;
 @property (nonatomic) BOOL autosaveGames;
 
@@ -82,3 +87,5 @@ typedef NS_ENUM(NSInteger, GlulxInterpreter) {
 - (void) preferencesHaveChanged;
 
 @end
+
+NS_ASSUME_NONNULL_END

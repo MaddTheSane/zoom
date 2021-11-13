@@ -12,7 +12,7 @@
 
 @implementation ZoomPreferences
 
-// == Preference keys ==
+#pragma mark - Preference keys
 
 NSString* const ZoomPreferencesHaveChangedNotification = @"ZoomPreferencesHaveChangedNotification";
 
@@ -45,7 +45,7 @@ static NSString* const showBorders			= @"ShowBorders";
 static NSString* const showGlkBorders		= @"ShowGlkBorders";
 static NSString* const showCoverPicture		= @"ShowCoverPicture";
 
-// == Global preferences ==
+#pragma mark - Global preferences
 
 static ZoomPreferences* globalPreferences = nil;
 static NSLock*          globalLock = nil;
@@ -96,7 +96,7 @@ static NSLock*          globalLock = nil;
 	return globalPreferences;
 }
 
-// == Initialisation ==
+#pragma mark - Initialisation
 
 - (id) init {
 	self = [super init];
@@ -219,7 +219,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 				  forKey: gameTitle];
 		[prefs setObject: @3
 				  forKey: interpreter];
-		[prefs setObject: [NSNumber numberWithInt: 'Z']
+		[prefs setObject: [NSNumber numberWithUnsignedChar: 'Z']
 				  forKey: revision];
 		[prefs setObject: @(GlulxGit)
 				  forKey: glulxInterpreter];
@@ -312,7 +312,8 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	return newDict;
 }
 
-// Getting preferences
+#pragma mark - Getting preferences
+
 - (BOOL) displayWarnings {
 	[prefLock lock];
 	BOOL result = [[prefs objectForKey: displayWarnings] boolValue];
@@ -543,7 +544,8 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 	return result;
 }
 
-// Setting preferences
+#pragma mark - Setting preferences
+
 - (void) setDisplayWarnings: (BOOL) flag {
 	[prefs setObject: @(flag)
 			  forKey: displayWarnings];
@@ -815,6 +817,7 @@ static BOOL compareValuesUsingKey(NSDictionary<NSString*, id> *a, NSDictionary<N
 }
 
 #pragma mark - NSCoding
+
 - (id) initWithCoder: (NSCoder*) coder {
 	self = [super init];
 	

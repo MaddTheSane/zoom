@@ -144,11 +144,11 @@
 	NSImage*			copiedImage	= [[NSImage alloc] init];
 	[copiedImage addRepresentation: copiedBits];
 	[copiedImage drawInRect: NSMakeRect(where.x, where.y, region.size.width, region.size.height)
-				   fromRect: NSMakeRect(0,0, region.size.width, region.size.height)
+				   fromRect: NSZeroRect
 				  operation: NSCompositingOperationSourceOver
 				   fraction: 1.0
-			 respectFlipped:YES
-					  hints:nil];
+			 respectFlipped: YES
+					  hints: nil];
 	
 	
 	// Uh, docs say we should use NSNullObject here, but it's not defined. Making a guess at its value (sigh)
