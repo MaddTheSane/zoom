@@ -477,7 +477,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
     ZBuffer* buf;
     buf = [[[self class] alloc] init];
 
-    buf->buffer = [buffer mutableCopyWithZone: zone];
+    buf->buffer = [buffer mutableCopy];
 
     return buf;
 }
