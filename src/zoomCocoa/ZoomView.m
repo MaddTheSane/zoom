@@ -2613,7 +2613,7 @@ static void finalizeViews(void) {
 }
 
 #pragma mark - Debugging
-- (void) hitBreakpointAt: (int) pc {
+- (void) hitBreakpointAtCounter: (int) pc {
 	if (delegate && [delegate respondsToSelector: @selector(hitBreakpoint:)]) {
 		[delegate hitBreakpoint: pc];
 	} else {

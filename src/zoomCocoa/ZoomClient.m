@@ -155,6 +155,11 @@
 	if (storyId == nil) {
 		// Can't ID this story
 		gameData = nil;
+		if (outError) {
+			*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain
+											code: ZoomStoryIDErrorNoIdentGenerated
+										userInfo: nil];
+		}
 		return NO;
 	}
 	
@@ -223,7 +228,7 @@
 - (NSString*) displayName {
 	if (story && [story title]) {
 		if (wasRestored) {
-			return [NSString stringWithFormat: @"%@ (restored from %@)", [story title], [super displayName]];
+			return [NSString stringWithFormat: NSLocalizedString(@"%@ (restored from %@)", @"%@ (restored from %@)"), [story title], [super displayName]];
 		} else {
 			return [story title];
 		}
@@ -341,8 +346,8 @@
 		// Not a valid zoomSave file
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
-				NSLocalizedDescriptionKey: @"Not a valid Zoom savegame package",
-				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]]
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Not a valid Zoom savegame package", @"Not a valid Zoom savegame package"),
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]]
 			}];
 		}
 		return NO;
@@ -378,11 +383,11 @@
 		NSString *info;
 		// Not a valid zoomSave file
 		if (!isSingleFile) {
-			msg = @"Not a valid Zoom savegame package";
-			info = [NSString stringWithFormat:@"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]];
+			msg = NSLocalizedString(@"Not a valid Zoom savegame package", @"Not a valid Zoom savegame package");
+			info = [NSString stringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]];
 		} else {
-			msg = @"Not a valid Quetzal file";
-			info = [NSString stringWithFormat:@"%@ is not a valid Quetzal file", [[wrapper filename] lastPathComponent]];
+			msg = NSLocalizedString(@"Not a valid Quetzal file", @"Not a valid Quetzal file");
+			info = [NSString stringWithFormat: NSLocalizedString(@"%@ is not a valid Quetzal file", @"%@ is not a valid Quetzal file"), [[wrapper filename] lastPathComponent]];
 		}
 		
 		if (outError) {

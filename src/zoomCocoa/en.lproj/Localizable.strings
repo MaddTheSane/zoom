@@ -87,6 +87,11 @@
 "Zoom cannot download this type of file" = "Zoom cannot download this type of file";
 "Zoom cannot download this type of file Info: %@" = "You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType %@";
 "Could not install the plug-in" = "Could not install the plug-in";
+"Not a valid Zoom savegame package" = "Not a valid Zoom savegame package";
+"Not a valid Quetzal file" = "Not a valid Quetzal file";
+"%@ does not contain a valid 'save.qut' file" = "%@ does not contain a valid ‘save.qut’ file";
+"%@ is not a valid Quetzal file" = "%@ is not a valid Quetzal file";
+"%@ (restored from %@)" = "%1$@ (restored from %2$@)";
 
 // Found in ZoomView
 "[ The game has finished ]" = "[ The game has finished ]";

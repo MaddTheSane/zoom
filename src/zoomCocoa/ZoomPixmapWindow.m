@@ -132,6 +132,7 @@
 	
 	[pixmap unlockFocus];
 	[zView setNeedsDisplay: YES];
+//	[zView orOutputText: text];
 }
 
 - (void) scrollRegion: (in NSRect) region

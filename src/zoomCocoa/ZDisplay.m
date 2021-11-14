@@ -738,8 +738,8 @@ void display_set_cursor(int x, int y) {
 #endif
 
     if (zDisplayCurrentWindow > 0) {
-        [[mainMachine buffer] moveTo: NSMakePoint(x,y)
-                            inWindow: (id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]];
+        [[mainMachine buffer] moveCursorToPoint: NSMakePoint(x,y)
+                                       inWindow: (id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]];
     }
 }
 

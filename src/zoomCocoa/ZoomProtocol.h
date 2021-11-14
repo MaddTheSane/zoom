@@ -105,7 +105,7 @@ NS_SWIFT_NAME(ZMachineProtocol)
 
 - (ZValueTypeMasks)		 typeMasksForValue: (unsigned) value;
 - (int)					 zRegion: (int) addr;
-- (bycopy NSString*) descriptionForValue: (ZValueTypeMasks) value;
+- (bycopy NSString*)	 descriptionForValue: (ZValueTypeMasks) value;
 
 - (void) setWindowTitle: (in bycopy NSString*) text;
 
@@ -118,9 +118,9 @@ NS_SWIFT_NAME(ZMachineProtocol)
 // == Client-side objects ==
 NS_SWIFT_NAME(ZFileProtocol)
 @protocol ZFile <NSObject>
-- (unsigned char)	   readByte;
-- (unsigned short)	   readWord;
-- (unsigned int)	   readDWord;
+- (unsigned char)  readByte;
+- (unsigned short) readWord;
+- (unsigned int)   readDWord;
 - (bycopy NSData*) readBlock: (NSInteger) length;
 
 - (oneway void)		   seekTo: (off_t) pos;
@@ -132,6 +132,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 
 @property (readonly) BOOL sufferedError;
 - (bycopy NSString*)    errorMessage;
+@property (readonly, copy) NSString *errorMessage;
 
 @property (readonly) off_t fileSize;
 @property (readonly) BOOL endOfFile;
@@ -281,7 +282,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 - (void) displayWarning:    (in bycopy NSString*) warning;
 
 //! Debugging
-- (void) hitBreakpointAt: (int) programCounter;
+- (void) hitBreakpointAtCounter: (int) programCounter;
 
 // Resources
 - (BOOL)   containsImageWithNumber: (int) number;
@@ -290,7 +291,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 //! Sound (such as Zoom's support is at the moment)
 - (void)  beep;
 
-- (void)setWindowTitle:(in bycopy NSString *)text;
+- (void)  setWindowTitle:(in bycopy NSString *)text;
 @end
 
 // Some useful standard classes
@@ -329,10 +330,6 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 }
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
-
-- (instancetype) initWithPath: (NSString*) path
-				  defaultFile: (NSString*) filename
-				   forWriting: (BOOL) write;
 
 - (instancetype) initWithURL: (NSURL*) url
 				 defaultFile: (NSString*) filename
@@ -396,8 +393,8 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
            withStyle: (ZStyle*) style;
 
 //! Upper window routines
-- (void) moveTo: (NSPoint) newCursorPos
-       inWindow: (id<ZUpperWindow>) window;
+- (void) moveCursorToPoint: (NSPoint) newCursorPos
+				  inWindow: (id<ZUpperWindow>) window;
 - (void) eraseLineInWindow: (id<ZUpperWindow>) window
                  withStyle: (ZStyle*) style;
 - (void) setWindow: (id<ZUpperWindow>) window

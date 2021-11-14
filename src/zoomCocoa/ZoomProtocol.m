@@ -352,30 +352,6 @@ static NSColor *safeColorCopy(NSColor *inColor);
 	}
 }
 
-NSColor *safeColorCopy(NSColor *inColor) {
-    if (!inColor) {
-        return nil;
-    }
-    if (inColor.type != NSColorTypeComponentBased) {
-        //TODO: implement?
-        return inColor;
-    }
-    NSColorSpace *colrSpace = inColor.colorSpace;
-    if (![colrSpace isProxy]) {
-        return inColor;
-    }
-    // Hack to get around NSDistantObject problems.
-    CGColorSpaceRef colrRef = CGColorSpaceCreateWithICCData((__bridge CFTypeRef _Nullable)(colrSpace.ICCProfileData));
-    colrSpace = [[NSColorSpace alloc] initWithCGColorSpace:colrRef];
-    CGColorSpaceRelease(colrRef);
-
-    NSInteger compCount = inColor.numberOfComponents;
-    CGFloat comps[compCount];
-    [inColor getComponents:comps];
-    
-    return [NSColor colorWithColorSpace:colrSpace components:comps count:compCount];
-}
-
 - (id) initWithCoder: (NSCoder*) coder {
     self = [super init];
     if (self) {
@@ -563,8 +539,8 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 }
 
 // Upper window routines
-- (void) moveTo: (NSPoint) newCursorPos
-       inWindow: (id<ZUpperWindow>) window {
+- (void) moveCursorToPoint: (NSPoint) newCursorPos
+                  inWindow: (id<ZUpperWindow>) window {
     [buffer addObject:
         @[ZBufferMoveTo,
           @(newCursorPos),
@@ -1016,3 +992,27 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 }
 
 @end
+
+NSColor *safeColorCopy(NSColor *inColor) {
+    if (!inColor) {
+        return nil;
+    }
+    if (inColor.type != NSColorTypeComponentBased) {
+        //TODO: implement?
+        return inColor;
+    }
+    NSColorSpace *colrSpace = inColor.colorSpace;
+    if (![colrSpace isProxy]) {
+        return inColor;
+    }
+    // Hack to get around NSDistantObject problems.
+    CGColorSpaceRef colrRef = CGColorSpaceCreateWithICCData((__bridge CFTypeRef _Nullable)(colrSpace.ICCProfileData));
+    colrSpace = [[NSColorSpace alloc] initWithCGColorSpace:colrRef];
+    CGColorSpaceRelease(colrRef);
+
+    NSInteger compCount = inColor.numberOfComponents;
+    CGFloat comps[compCount];
+    [inColor getComponents:comps];
+    
+    return [NSColor colorWithColorSpace:colrSpace components:comps count:compCount];
+}

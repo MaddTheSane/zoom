@@ -252,7 +252,7 @@ void cocoa_debug_handler(ZDWord pc) {
 		// Notify the display of the breakpoint
 		waitingForBreakpoint = YES;
 		[self flushBuffers];
-		[display hitBreakpointAt: pc];
+		[display hitBreakpointAtCounter: pc];
 		
 		// Wait for the display to request resumption
         while (waitingForBreakpoint && (mainMachine != nil)) @autoreleasepool {
