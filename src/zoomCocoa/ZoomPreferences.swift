@@ -97,7 +97,7 @@ private let DefaultColours = [
 	NSColor(srgbRed: 0.26, green: 0.26, blue: 0.26, alpha: 1)
 ]
 
-let firstRun: () = {
+private let firstRun: () = {
 	let defaultPrefs = ZoomPreferences(defaultPreferences: ())
 	let appDefaults: [String: Any] = ["ZoomGlobalPreferences": defaultPrefs.dictionary]
 	
@@ -120,7 +120,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	// init is the designated initialiser for this class
 	public override init() {
-		
+		super.init()
 	}
  
 	@objc(globalPreferences)
@@ -363,62 +363,60 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			if !compareValues(prefs, object.prefs, usingKey: displayWarningsKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: fatalWarningsKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: speakGameTextKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: gameTitleKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: interpreterKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: revisionKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: glulxInterpreterKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: displayWarningsKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: fontsKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: coloursKey) {
 				return false
 			}
-
-
+			
+			
 			if !compareValues(prefs, object.prefs, usingKey: foregroundColourKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: backgroundColourKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: showBordersKey) {
 				return false
 			}
-
+			
 			if !compareValues(prefs, object.prefs, usingKey: showGlkBordersKey) {
 				return false
 			}
-
-
-
+			
 			return true
 		}
 		return false
@@ -460,7 +458,6 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
-	
 	open var proportionalFontFamily: String? {
 		get {
 			// Font 0 forms the prototype for this
@@ -487,7 +484,6 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 				setFontRange(4..<8, toFamily: newValue)
 			}
 		}
-
 	}
 	
 	open var symbolicFontFamily: String? {
