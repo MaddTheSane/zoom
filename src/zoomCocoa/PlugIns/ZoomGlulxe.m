@@ -9,6 +9,7 @@
 #import "ZoomGlulxe.h"
 #import <ZoomView/ZoomBlorbFile.h>
 #import <ZoomView/ZoomPreferences.h>
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomGlulxe
 

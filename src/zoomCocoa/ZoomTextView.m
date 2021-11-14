@@ -10,6 +10,7 @@
 #import "ZoomTextView.h"
 #import "ZoomView.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomTextView
 

@@ -17,6 +17,7 @@
 
 #import "ZoomScrollView.h"
 #import "ZoomConnector.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 /// Sets variables to force extreme memory checking in the Zoom task; this provides a fairly huge performance
 /// decrease, but provides 'earliest possible' warning of heap corruption.

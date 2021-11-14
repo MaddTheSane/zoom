@@ -8,6 +8,7 @@
 
 #import "ZoomResourceDrop.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 #import "ZoomBlorbFile.h"
 
 static NSImage* needDropImage;

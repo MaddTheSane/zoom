@@ -304,6 +304,7 @@
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
+		559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */; };
 		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
 		55A2EB9E273C86500006340C /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA0273C86500006340C /* NoteWindow.xib */; };
 		55A2EBA5273C86660006340C /* Skein.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA7273C86660006340C /* Skein.xib */; };
@@ -1261,6 +1262,7 @@
 		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomiFictionController+WebKit.swift"; sourceTree = "<group>"; };
+		559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPreferences.swift; sourceTree = "<group>"; };
 		55A2EB93273C6DCA0006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GameInfo.xib; sourceTree = "<group>"; };
 		55A2EB96273C6DCF0006340C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/GameInfo.strings; sourceTree = "<group>"; };
 		55A2EB98273C6DD90006340C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/GameInfo.strings"; sourceTree = "<group>"; };
@@ -2039,6 +2041,7 @@
 				4BDFA4AD0535C42C00A8E303 /* ZoomMoreView.m */,
 				4BE62208068C273400369528 /* ZoomPixmapWindow.h */,
 				4BE62209068C273400369528 /* ZoomPixmapWindow.m */,
+				559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */,
 				4B418ED805961D2C009C44DE /* ZoomPreferences.h */,
 				4B418ED905961D2C009C44DE /* ZoomPreferences.m */,
 				4B2D95C9053706CD00A8E303 /* ZoomScrollView.h */,
@@ -3135,6 +3138,7 @@
 				4BD274AB08701E6700C1AE15 /* ZoomCursor.m in Sources */,
 				4BD274AC08701E6700C1AE15 /* ZoomInputLine.m in Sources */,
 				4BD274AD08701E6700C1AE15 /* ZoomSkein.m in Sources */,
+				559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */,
 				4BD274AE08701E6700C1AE15 /* ZoomSkeinItem.m in Sources */,
 				4BD274AF08701E6700C1AE15 /* ZoomSkeinView.m in Sources */,
 				4BD274B008701E6700C1AE15 /* ZoomSkeinXML.m in Sources */,

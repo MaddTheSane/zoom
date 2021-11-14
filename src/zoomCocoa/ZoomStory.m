@@ -12,6 +12,7 @@
 #import "ZoomMetadata.h"
 #import "ZoomBlorbFile.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 #import "ZoomAppDelegate.h"
 

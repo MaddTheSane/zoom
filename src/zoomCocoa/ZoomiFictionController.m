@@ -26,6 +26,7 @@
 #import <ZoomPlugIns/ZoomPlugIns-Swift.h> 
 #import <ZoomPlugIns/ZoomSignPost.h>
 #import "Zoom-Swift.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 #import <ZoomPlugIns/ifmetabase.h>
 

@@ -8,6 +8,7 @@
 
 #import "ZoomGlkWindowController.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 #import "ZoomTextToSpeech.h"
 #import "ZoomSkeinController.h"
 #import "ZoomSkein.h"

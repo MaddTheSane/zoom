@@ -10,6 +10,7 @@
 #import <ZoomView/ZoomProtocol.h>
 #import "ZoomClientController.h"
 #import "ZoomStoryOrganiser.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 #import "ZoomAppDelegate.h"
 

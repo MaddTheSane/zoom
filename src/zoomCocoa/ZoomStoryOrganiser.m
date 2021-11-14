@@ -15,6 +15,7 @@
 #import "ZoomStoryOrganiser.h"
 #import "ZoomAppDelegate.h"
 #import <ZoomView/ZoomPreferences.h>
+#import <ZoomView/ZoomView-Swift.h>
 #import <ZoomPlugIns/ZoomPlugInManager.h>
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import "Zoom-Swift.h"
