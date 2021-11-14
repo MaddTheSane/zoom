@@ -23,7 +23,8 @@
 	NSTimer* flasher;
 }
 
-// Drawing
+#pragma mark Drawing
+
 - (void) draw;
 @property (readonly, getter=isVisible) BOOL visible;
 @property (readonly) BOOL activeStyle;
@@ -37,7 +38,8 @@
 
 @property (readonly) NSRect cursorRect;
 
-// Display status
+#pragma mark Display status
+
 /// Cursor blinks on/off
 @property (nonatomic, getter=isBlinking) BOOL blinking;
 /// Cursor shown/hidden
@@ -47,7 +49,7 @@
 /// Whether or not the cursor's view is the first responder
 @property (nonatomic, getter=isFirst) BOOL first;
 
-//! Delegate
+/// Delegate
 @property (weak) id<ZoomCursorDelegate> delegate;
 
 @end

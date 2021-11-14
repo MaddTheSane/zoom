@@ -1781,7 +1781,7 @@
 				553C83662712382B002782C0 /* Resources */,
 				55368AA3272A03B600740A0A /* AGT */,
 				552CF02127168593009D87A5 /* Adrift */,
-				55BE4AE7270998B100100A7D /* Quest */,
+				55BE4AE7270998B100100A7D /* Quest4 */,
 				4B36C44F0955ECDD00874F9F /* Glulxe */,
 				552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */,
 				4B7CB0740936278500F3B8F6 /* README */,
@@ -2284,13 +2284,13 @@
 			name = xibs;
 			sourceTree = "<group>";
 		};
-		55BE4AE7270998B100100A7D /* Quest */ = {
+		55BE4AE7270998B100100A7D /* Quest4 */ = {
 			isa = PBXGroup;
 			children = (
 				55BE4AF0270999B400100A7D /* Info.plist */,
 				55BE4AE8270998F600100A7D /* ZoomQuest.swift */,
 			);
-			path = Quest;
+			path = Quest4;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4611,7 +4611,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Quest/Info.plist;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Quest4/Info.plist;
 				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Quest";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4620,7 +4620,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.zoom.Quest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.zoom.Quest4;
 				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4636,7 +4636,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
-				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Quest/Info.plist;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Quest4/Info.plist;
 				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Quest";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4645,7 +4645,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.zoom.Quest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.zoom.Quest4;
 				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

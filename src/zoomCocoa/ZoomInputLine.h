@@ -14,13 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ZoomInputLineDelegate;
 
-@interface ZoomInputLine : NSObject {
-	ZoomCursor* cursor;
-	
-	NSMutableString* lineString;
-	NSMutableDictionary<NSAttributedStringKey, id>* attributes;
-	NSInteger		 insertionPos;
-}
+@interface ZoomInputLine : NSObject
 
 - (id) initWithCursor: (ZoomCursor*) cursor
 		   attributes: (NSDictionary<NSAttributedStringKey, id>*) attr;

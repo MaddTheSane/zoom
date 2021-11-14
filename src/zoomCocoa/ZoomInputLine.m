@@ -9,7 +9,13 @@
 #import "ZoomInputLine.h"
 
 
-@implementation ZoomInputLine
+@implementation ZoomInputLine {
+	ZoomCursor* cursor;
+	
+	NSMutableString* lineString;
+	NSMutableDictionary<NSAttributedStringKey, id>* attributes;
+	NSInteger		 insertionPos;
+}
 
 // Initialisation
 - (id) initWithCursor: (ZoomCursor*) csr
@@ -50,7 +56,7 @@
 	return r;
 }
 
-// Keys, editing
+#pragma mark Keys, editing
 - (void) updateCursor {
 	[cursor positionInString: lineString
 			  withAttributes: attributes

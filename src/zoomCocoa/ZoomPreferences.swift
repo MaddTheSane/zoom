@@ -8,7 +8,7 @@
 import Cocoa
 
 
-// MARK: - Preference keys
+// MARK: Preference keys
 
 private let displayWarningsKey = "DisplayWarnings"
 private let fatalWarningsKey = "FatalWarnings"
@@ -358,6 +358,8 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
+	// MARK: -
+	
 	public override func isEqual(_ object: Any?) -> Bool {
 		if let object = object as? ZoomPreferences {
 			if !compareValues(prefs, object.prefs, usingKey: displayWarningsKey) {
@@ -625,8 +627,8 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
+	// MARK: - Organiser preferences
 	
-	// Organiser preferences
 	open var organiserDirectory: String! {
 		get {
 			prefLock.lock()
