@@ -89,7 +89,7 @@
 "Could not install the plug-in" = "Could not install the plug-in";
 "Not a valid Zoom savegame package" = "Not a valid Zoom savegame package";
 "Not a valid Quetzal file" = "Not a valid Quetzal file";
-"%@ does not contain a valid 'save.qut' file" = "%@ does not contain a valid 'save.qut' file";
+"%@ does not contain a valid 'save.qut' file" = "%@ does not contain a valid ‘save.qut’ file";
 "%@ is not a valid Quetzal file" = "%@ is not a valid Quetzal file";
 "%@ (restored from %@)" = "%1$@ (restored from %2$@)";
 

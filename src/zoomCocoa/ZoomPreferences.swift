@@ -218,9 +218,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		
 		return res
 	}
-
- 
+	
 	// MARK: - Warnings and game text prefs
+	
 	open var displayWarnings: Bool {
 		get {
 			prefLock.lock()
@@ -437,6 +437,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 		set {
 			prefs[fontsKey] = newValue
+			preferencesHaveChanged()
 		}
 	}
 	
@@ -455,6 +456,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			} else {
 				prefs.removeValue(forKey: coloursKey)
 			}
+			preferencesHaveChanged()
 		}
 	}
 	
@@ -526,7 +528,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 
 			// Get a suitable font
 			var newFont = mgr.font(withFamily: newFamilyName, traits: traits, weight: 5, size: size)
-			if newFont == nil || newFont!.familyName?.caseInsensitiveCompare(newFamilyName) == .orderedSame {
+			if newFont == nil || newFont!.familyName?.caseInsensitiveCompare(newFamilyName) != .orderedSame {
 				// Retry with simpler conditions if we fail to get a font for some reason
 				newFont = mgr.font(withFamily: newFamilyName, traits: (x & 4) != 0 ? .fixedPitchFontMask : [], weight: 5, size: size)
 			}
@@ -781,6 +783,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	}
 	
 	// MARK: - NSCoding
+	
 	required public init?(coder: NSCoder) {
 		if coder.allowsKeyedCoding {
 			if let newPrefs = coder.decodeObject(of: [NSDictionary.self, NSString.self, NSColor.self, NSFont.self, NSArray.self, NSNumber.self], forKey: "prefs") as? [String: Any] {
@@ -806,6 +809,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	}
 
 	// MARK: - NSCopying
+	
 	open func copy(with zone: NSZone? = nil) -> Any {
 		let ourDict = dictionary
 		return ZoomPreferences(dictionary: ourDict)
