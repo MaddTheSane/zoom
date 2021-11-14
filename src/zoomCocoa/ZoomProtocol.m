@@ -4,10 +4,6 @@
 #define maxBufferCount 1024
 NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification";
 
-/// Helper function to work around bugs of \c NSDistantObject and \c NSColorspace
-/// TODO: migrate away from NSDistantObject
-static NSColor *safeColorCopy(NSColor *inColor);
-
 #pragma mark Implementation of the various standard classes
 @implementation ZHandleFile
 - (id) init {
@@ -361,8 +357,6 @@ static NSColor *safeColorCopy(NSColor *inColor);
 			
 			foregroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEFORECOLORCODINGKEY];
 			backgroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEBACKCOLORCODINGKEY];
-            foregroundTrue = safeColorCopy(foregroundTrue);
-            backgroundTrue = safeColorCopy(backgroundTrue);
 
 			foregroundColour = [coder decodeIntForKey: FOREGROUNDCOLORCODINGKEY];
 			backgroundColour = [coder decodeIntForKey: BACKGROUNDCOLORCODINGKEY];
@@ -993,26 +987,13 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 @end
 
-NSColor *safeColorCopy(NSColor *inColor) {
-    if (!inColor) {
-        return nil;
-    }
-    if (inColor.type != NSColorTypeComponentBased) {
-        //TODO: implement?
-        return inColor;
-    }
-    NSColorSpace *colrSpace = inColor.colorSpace;
-    if (![colrSpace isProxy]) {
-        return inColor;
-    }
-    // Hack to get around NSDistantObject problems.
-    CGColorSpaceRef colrRef = CGColorSpaceCreateWithICCData((__bridge CFTypeRef _Nullable)(colrSpace.ICCProfileData));
-    colrSpace = [[NSColorSpace alloc] initWithCGColorSpace:colrRef];
-    CGColorSpaceRelease(colrRef);
+@interface NSColorSpace (PortCoderCompat)
+@end
 
-    NSInteger compCount = inColor.numberOfComponents;
-    CGFloat comps[compCount];
-    [inColor getComponents:comps];
-    
-    return [NSColor colorWithColorSpace:colrSpace components:comps count:compCount];
+@implementation NSColorSpace (PortCoderCompat)
+
+- (id)replacementObjectForPortCoder:(NSPortCoder *)encoder {
+    return [encoder isByref] ? [super replacementObjectForPortCoder:encoder] : self;
 }
+
+@end
