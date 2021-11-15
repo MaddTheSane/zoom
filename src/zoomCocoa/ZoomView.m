@@ -247,7 +247,7 @@ static void finalizeViews(void) {
 		
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(preferencesHaveChanged:)
-													 name: ZoomPreferencesHaveChangedNotification
+													 name: ZoomPreferences.preferencesHaveChangedNotification
 												   object: viewPrefs];
 		
 		// Command history
@@ -2245,17 +2245,17 @@ static void finalizeViews(void) {
 - (void) setPreferences: (ZoomPreferences*) prefs {
 	if (viewPrefs) {
 		[[NSNotificationCenter defaultCenter] removeObserver: self
-														name: ZoomPreferencesHaveChangedNotification
+														name: ZoomPreferences.preferencesHaveChangedNotification
 													  object: viewPrefs];
 	}
 	
 	viewPrefs = prefs;
 	
-	[self preferencesHaveChanged: [NSNotification notificationWithName: ZoomPreferencesHaveChangedNotification
+	[self preferencesHaveChanged: [NSNotification notificationWithName: ZoomPreferences.preferencesHaveChangedNotification
 																object: viewPrefs]];
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(preferencesHaveChanged:)
-												 name: ZoomPreferencesHaveChangedNotification
+												 name: ZoomPreferences.preferencesHaveChangedNotification
 											   object: viewPrefs];
 }
 @synthesize preferences=viewPrefs;

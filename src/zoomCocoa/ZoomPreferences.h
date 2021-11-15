@@ -10,13 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSNotificationName const ZoomPreferencesHaveChangedNotification;
-
-typedef NS_ENUM(NSInteger, GlulxInterpreter) {
-	GlulxGit		= 0,
-	GlulxGlulxe		= 1
-};
-
+// Class has moved to Swift: import ZoomView/ZoomView-Swift.h to get the implementation.
 @class ZoomPreferences;
 
 NS_ASSUME_NONNULL_END

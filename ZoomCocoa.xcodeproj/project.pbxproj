@@ -24,7 +24,6 @@
 		4B152D2F0B46D2F9008CC1EF /* ZoomNotesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B152D2D0B46D2F9008CC1EF /* ZoomNotesController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B152D300B46D2F9008CC1EF /* ZoomNotesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B152D2E0B46D2F9008CC1EF /* ZoomNotesController.m */; };
 		4B1FEA240ACB159D008B9EFE /* ZoomPreferences.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B418ED805961D2C009C44DE /* ZoomPreferences.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B1FEA250ACB15B0008B9EFE /* ZoomPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B418ED905961D2C009C44DE /* ZoomPreferences.m */; };
 		4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; };
 		4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C5093634DD00F3B8F6 /* GlkView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B36C45F0955ED5400874F9F /* ZoomGlulxe.plugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 4B36C4540955ED1700874F9F /* ZoomGlulxe.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -1022,7 +1021,6 @@
 		4B418DC30594FB97009C44DE /* ZoomPreferenceWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomPreferenceWindow.h; sourceTree = "<group>"; };
 		4B418DC40594FB97009C44DE /* ZoomPreferenceWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomPreferenceWindow.m; sourceTree = "<group>"; };
 		4B418ED805961D2C009C44DE /* ZoomPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomPreferences.h; sourceTree = "<group>"; };
-		4B418ED905961D2C009C44DE /* ZoomPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomPreferences.m; sourceTree = "<group>"; };
 		4B43DAAD09364CD100F03009 /* ZoomGlkWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlkWindowController.h; sourceTree = "<group>"; };
 		4B43DAAE09364CD100F03009 /* ZoomGlkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkWindowController.m; sourceTree = "<group>"; };
 		4B4D512006E3894F007FAD2B /* ZoomConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomConnector.h; sourceTree = "<group>"; };
@@ -2041,9 +2039,8 @@
 				4BDFA4AD0535C42C00A8E303 /* ZoomMoreView.m */,
 				4BE62208068C273400369528 /* ZoomPixmapWindow.h */,
 				4BE62209068C273400369528 /* ZoomPixmapWindow.m */,
-				559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */,
 				4B418ED805961D2C009C44DE /* ZoomPreferences.h */,
-				4B418ED905961D2C009C44DE /* ZoomPreferences.m */,
+				559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */,
 				4B2D95C9053706CD00A8E303 /* ZoomScrollView.h */,
 				4B2D95CA053706CD00A8E303 /* ZoomScrollView.m */,
 				4BE5F510075121A400C25A70 /* ZoomTextToSpeech.h */,
@@ -3148,7 +3145,6 @@
 				4BD274B408701E6700C1AE15 /* ZoomBlorbFile.m in Sources */,
 				4BD274B508701E6700C1AE15 /* ZoomConnector.m in Sources */,
 				4BD274B708701E6700C1AE15 /* ZoomSkeinLayoutItem.m in Sources */,
-				4B1FEA250ACB15B0008B9EFE /* ZoomPreferences.m in Sources */,
 				4BA8B5830B1B053E007CD75E /* ZoomTextToSpeech.m in Sources */,
 				4B95CDA2C5B03AD500FD9F27 /* ZoomSkeinController.m in Sources */,
 			);
