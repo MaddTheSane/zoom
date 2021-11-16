@@ -101,7 +101,7 @@
 	if (!self.visible) return;
 
 	// Cursor colour
-	[[NSColor controlAccentColor] set];
+	[[[NSColor controlAccentColor] colorWithAlphaComponent:0.6] set];
 	
 	// Draw the cursor
 	if ([self activeStyle]) {

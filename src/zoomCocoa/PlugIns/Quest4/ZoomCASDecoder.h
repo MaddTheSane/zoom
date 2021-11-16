@@ -12,7 +12,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma GCC visibility push(hidden)
+
 extern NSArray<NSString*> *CASDecompile(NSData *dat);
+
+#pragma GCC visibility pop
 
 NS_ASSUME_NONNULL_END
 
