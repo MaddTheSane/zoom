@@ -91,7 +91,7 @@ final public class Quest: ZoomGlkPlugIn {
 			fileString = lines.joined(separator: "\n")
 			
 		default:
-			return try super.defaultMetadata()
+			throw NSError(domain: NSOSStatusErrorDomain, code: paramErr, userInfo: [NSURLErrorKey: gameURL])
 		}
 		guard let meta = ZoomMetadata(),
 			  let story = meta.findOrCreateStory(id) else {
