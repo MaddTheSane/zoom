@@ -9,6 +9,7 @@ import Cocoa
 import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomPlugIn.Glk.WindowController
 import ZoomPlugIns.ZoomPlugIn.Glk.Document
+import ZoomPlugIns
 
 private var casHeader: Data = {
 	let strData = "QCGF002"
@@ -73,11 +74,44 @@ final public class Quest: ZoomGlkPlugIn {
 		clientPath = Bundle(for: Quest.self).path(forAuxiliaryExecutable: "geas")
 	}
 	
-	/*
-	
-	public override func defaultMetadata() -> ZoomStory! {
-		return nil
-	}*/
+	public override func defaultMetadata() throws -> ZoomStory {
+		let fileData = try Data(contentsOf: gameURL)
+		let id = ZoomStoryID(for: gameURL) ?? ZoomStoryID(data: fileData)!
+		let fileString: String
+		
+		switch gameURL.pathExtension.lowercased() {
+		case "asl":
+			guard let fstr2 = String(data: fileData, encoding: .utf8) else {
+				return try super.defaultMetadata()
+			}
+			fileString = fstr2
+			
+		case "cas":
+			let lines = CASDecompile(fileData)
+			fileString = lines.joined(separator: "\n")
+			
+		default:
+			return try super.defaultMetadata()
+		}
+		guard let meta = ZoomMetadata(),
+			  let story = meta.findOrCreateStory(id) else {
+				  return try super.defaultMetadata()
+			  }
+		
+		let gameRegex = try! NSRegularExpression(pattern: #"define game <([^<>\n]+)>"#, options: [])
+		guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
+			return try super.defaultMetadata()
+		}
+		let firstString = fileString[Range(firstMatch.range(at: 1), in: fileString)!]
+		story.title = String(firstString)
+		let autorRegex = try! NSRegularExpression(pattern: #"game author <([^<>\n]+)>"#, options: [])
+		if let authorMatch = autorRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) {
+			let authorSubstring = fileString[Range(authorMatch.range(at: 1), in: fileString)!]
+			let authorString = String(authorSubstring)
+			story.author = authorString
+		}
+		return story
+	}
 	
 	public override var coverImage: NSImage? {
 		return nil

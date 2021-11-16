@@ -304,6 +304,7 @@
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
 		559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */; };
+		559E68F42743253E0030C3DB /* ZoomCASDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E68F32743253E0030C3DB /* ZoomCASDecoder.m */; };
 		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
 		55A2EB9E273C86500006340C /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA0273C86500006340C /* NoteWindow.xib */; };
 		55A2EBA5273C86660006340C /* Skein.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA7273C86660006340C /* Skein.xib */; };
@@ -1261,6 +1262,9 @@
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomiFictionController+WebKit.swift"; sourceTree = "<group>"; };
 		559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPreferences.swift; sourceTree = "<group>"; };
+		559E68F22743253D0030C3DB /* Quest4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Quest4-Bridging-Header.h"; sourceTree = "<group>"; };
+		559E68F32743253E0030C3DB /* ZoomCASDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomCASDecoder.m; sourceTree = "<group>"; };
+		559E68F52743254F0030C3DB /* ZoomCASDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomCASDecoder.h; sourceTree = "<group>"; };
 		55A2EB93273C6DCA0006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GameInfo.xib; sourceTree = "<group>"; };
 		55A2EB96273C6DCF0006340C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/GameInfo.strings; sourceTree = "<group>"; };
 		55A2EB98273C6DD90006340C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/GameInfo.strings"; sourceTree = "<group>"; };
@@ -2286,6 +2290,9 @@
 			children = (
 				55BE4AF0270999B400100A7D /* Info.plist */,
 				55BE4AE8270998F600100A7D /* ZoomQuest.swift */,
+				559E68F52743254F0030C3DB /* ZoomCASDecoder.h */,
+				559E68F32743253E0030C3DB /* ZoomCASDecoder.m */,
+				559E68F22743253D0030C3DB /* Quest4-Bridging-Header.h */,
 			);
 			path = Quest4;
 			sourceTree = "<group>";
@@ -2744,7 +2751,7 @@
 					};
 					55BE4AE22709988700100A7D = {
 						CreatedOnToolsVersion = 13.0;
-						LastSwiftMigration = 1300;
+						LastSwiftMigration = 1310;
 					};
 				};
 			};
@@ -3287,6 +3294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BE4AE9270998F600100A7D /* ZoomQuest.swift in Sources */,
+				559E68F42743253E0030C3DB /* ZoomCASDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4599,6 +4607,7 @@
 		55BE4AE52709988800100A7D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4620,6 +4629,9 @@
 				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "src/zoomCocoa/PlugIns/Quest4/Quest4-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = zoomPlugin;
 			};
 			name = Debug;
@@ -4627,6 +4639,7 @@
 		55BE4AE62709988800100A7D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -4645,6 +4658,8 @@
 				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "src/zoomCocoa/PlugIns/Quest4/Quest4-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = zoomPlugin;
 			};
 			name = Release;
