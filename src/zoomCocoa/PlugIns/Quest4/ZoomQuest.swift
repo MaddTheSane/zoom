@@ -16,6 +16,8 @@ private var casHeader: Data = {
 	return strData.data(using: .ascii)!
 }()
 
+private let extensions = ["cas", "asl"]
+
 final public class Quest: ZoomGlkPlugIn {
 	public override class var pluginVersion: String {
 		return (Bundle(for: Quest.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String)!
@@ -34,10 +36,11 @@ final public class Quest: ZoomGlkPlugIn {
 	}
 	
 	public override class func canRun(_ url: URL) -> Bool {
-		guard ((try? url.checkResourceIsReachable()) ?? false) else {
-			let extensions = ["cas", "asl"]
-			
-			return extensions.contains(url.pathExtension.lowercased())
+		guard extensions.contains(url.pathExtension.lowercased()) else {
+			return false
+		}
+		guard (try? url.checkResourceIsReachable()) ?? false else {
+			return true
 		}
 		
 		guard let hand = try? FileHandle(forReadingFrom: url) else {
