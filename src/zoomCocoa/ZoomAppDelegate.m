@@ -72,9 +72,9 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 		
 		if (infocomData)
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: infocomData]];
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: infocomData error: NULL]];
 		if (archiveData)
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: archiveData]];
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: archiveData error: NULL]];
 	}
 	
 	return self;

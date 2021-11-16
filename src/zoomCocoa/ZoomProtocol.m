@@ -993,7 +993,8 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 @implementation NSColorSpace (PortCoderCompat)
 
 - (id)replacementObjectForPortCoder:(NSPortCoder *)encoder {
-    return [encoder isByref] ? [super replacementObjectForPortCoder:encoder] : self;
+    // Always copy!
+    return self;
 }
 
 @end

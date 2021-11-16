@@ -11,6 +11,8 @@
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 // Notifications
 //! A story with a particular ID will be destroyed
 extern NSNotificationName const ZoomMetadataWillDestroyStory;
@@ -31,29 +33,26 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 };
 
 //! Cocoa interface to the C ifmetadata class
-@interface ZoomMetadata : NSObject {
-	NSURL* filename;
-	IFMetabase metadata;
-	
-	NSLock* dataLock;
-}
+@interface ZoomMetadata : NSObject
 
 // Initialisation
 //! Blank metadata
-- (id) init;
+- (id) init NS_DESIGNATED_INITIALIZER;
 //! Calls initWithData
-- (id) initWithContentsOfFile: (NSString*) filename;
+- (nullable id) initWithContentsOfFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -initWithContentsOfURL:error: instead");
 //! Calls initWithData
-- (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
+- (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
+
+- (nullable id) initWithData: (NSData*) xmlData NS_SWIFT_UNAVAILABLE("");
 //! Designated initialiser
-- (id) initWithData: (NSData*) xmlData;
+- (nullable id) initWithData: (NSData*) xmlData error: (NSError**) outError;
 
 // Thread safety [called by ZoomStory]
 - (void) lock;
 - (void) unlock;
 	
 // Information about the parse
-- (NSArray*) errors;
+@property (readonly, copy) NSArray<NSString*> *errors;
 
 // Retrieving information
 - (BOOL) containsStoryWithIdent: (ZoomStoryID*) ident;
@@ -74,6 +73,8 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 			atomically: (BOOL)flag
 				 error: (NSError**)error;
 - (BOOL) writeToDefaultFileWithError: (NSError**) outError;
-- (BOOL) writeToDefaultFile;
+- (BOOL) writeToDefaultFile NS_SWIFT_UNAVAILABLE("");
 
 @end
+
+NS_ASSUME_NONNULL_END

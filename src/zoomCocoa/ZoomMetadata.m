@@ -22,7 +22,20 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 #define ZoomLocalizedStringWithDefaultValue(key, val, comment) \
 	NSLocalizedStringWithDefaultValue(key, @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], val, comment)
 
-@implementation ZoomMetadata
+@interface ZoomMetadata ()
+
+- (instancetype) initWithData: (NSData*) xmlData
+					  fileURL: (NSURL*) fname
+						error: (NSError**) error NS_DESIGNATED_INITIALIZER;
+
+@end
+
+@implementation ZoomMetadata {
+	NSURL* filename;
+	IFMetabase metadata;
+	
+	NSLock* dataLock;
+}
 
 #pragma mark - Initialisation, etc
 
@@ -184,6 +197,13 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 	}
 	return [self initWithData: data
 					  fileURL: filename
+						error: outError];
+}
+
+- (id) initWithData: (NSData*) xmlData
+			  error: (NSError**) outError {
+	return [self initWithData: xmlData
+					  fileURL: nil
 						error: outError];
 }
 

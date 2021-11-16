@@ -207,7 +207,7 @@ static NSMutableDictionary* babelCache = nil;
 	
 	// If non-nil, then extract the first ifiction record
 	if (storyData != nil) {
-		ZoomMetadata* storyMetadata = [[ZoomMetadata alloc] initWithData: storyData];
+		ZoomMetadata* storyMetadata = [[ZoomMetadata alloc] initWithData: storyData error: NULL];
 		if (storyMetadata != nil) {
 			NSArray* stories = [storyMetadata stories];
 			if ([stories count] >= 1) {

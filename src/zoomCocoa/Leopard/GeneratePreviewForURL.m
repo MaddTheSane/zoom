@@ -74,7 +74,7 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	// Try to load Zoom's built-in metadata if we can
 	ZoomMetadata* metadata = nil;
 	NSData* userData = [NSData dataWithContentsOfFile: [zoomConfigDirectory() stringByAppendingPathComponent: @"metadata.iFiction"]];
-	if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData];
+	if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData error: NULL];
 	
 	if (metadata) {
 		story = [metadata containsStoryWithIdent: storyID]?[metadata findOrCreateStory: storyID]:story;

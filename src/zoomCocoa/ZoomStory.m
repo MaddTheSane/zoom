@@ -152,7 +152,7 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 		NSData* ifMD = [blorb dataForChunkWithType: @"IFmd"];
 		
 		if (ifMD != nil) {
-			fileMetadata = [[ZoomMetadata alloc] initWithData: ifMD];
+			fileMetadata = [[ZoomMetadata alloc] initWithData: ifMD error: NULL];
 		} else {
 			NSLog(@"Warning: found a game with an IFmd chunk, but was not able to parse it");
 		}
