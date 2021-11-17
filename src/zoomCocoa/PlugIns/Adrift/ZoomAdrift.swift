@@ -8,8 +8,7 @@
 import Cocoa
 import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.ZoomPlugIn.Glk
-import ZoomPlugIns.ZoomPlugIn.Glk.WindowController
-import ZoomPlugIns.ZoomPlugIn.Glk.Document
+import ZoomPlugIns.ZoomBabel
 import CommonCrypto
 
 final public class Adrift: ZoomGlkPlugIn {
@@ -54,13 +53,19 @@ final public class Adrift: ZoomGlkPlugIn {
 		return ZoomStoryID(idString: stringID)
 	}
 
-	/*
-	public override func defaultMetadata() -> ZoomStory! {
-		return nil
-	}*/
+	public override func defaultMetadata() throws -> ZoomStory {
+		guard let babel = ZoomBabel(filename: gameURL.path), let meta = babel.metadata() else {
+			return try super.defaultMetadata()
+		}
+		
+		return meta
+	}
 	
 	public override var coverImage: NSImage? {
-		return nil
+		guard let babel = ZoomBabel(filename: gameURL.path) else {
+			return nil
+		}
+		return babel.coverImage()
 	}
 }
 
