@@ -54,7 +54,8 @@ final public class Adrift: ZoomGlkPlugIn {
 	}
 
 	public override func defaultMetadata() throws -> ZoomStory {
-		guard let babel = ZoomBabel(filename: gameURL.path), let meta = babel.metadata() else {
+		let babel = ZoomBabel(url: gameURL)
+		guard let meta = babel.metadata() else {
 			return try super.defaultMetadata()
 		}
 		
@@ -62,9 +63,7 @@ final public class Adrift: ZoomGlkPlugIn {
 	}
 	
 	public override var coverImage: NSImage? {
-		guard let babel = ZoomBabel(filename: gameURL.path) else {
-			return nil
-		}
+		let babel = ZoomBabel(url: gameURL)
 		return babel.coverImage()
 	}
 }

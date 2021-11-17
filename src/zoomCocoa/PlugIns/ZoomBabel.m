@@ -58,9 +58,8 @@ static NSMutableDictionary* babelCache = nil;
 
 #pragma mark - Initialisation
 
-- (id) init {
-	self = [super init];
-	return nil;
+- (instancetype) initWithURL: (NSURL*) storyURL {
+	return [self initWithFilename: storyURL.path];
 }
 
 - (id) initWithFilename: (NSString*) story {
@@ -209,10 +208,7 @@ static NSMutableDictionary* babelCache = nil;
 	if (storyData != nil) {
 		ZoomMetadata* storyMetadata = [[ZoomMetadata alloc] initWithData: storyData error: NULL];
 		if (storyMetadata != nil) {
-			NSArray* stories = [storyMetadata stories];
-			if ([stories count] >= 1) {
-				return [stories objectAtIndex: 0];
-			}
+			return storyMetadata.stories.firstObject;
 		}
 	}
 	

@@ -11,6 +11,7 @@ import Cocoa
 import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomBabel
+import ZoomPlugIns
 
 private let AGX_MAGIC: Data = {
 	let preDat: [UInt8] = [0x58, 0xC7, 0xC1, 0x51]
@@ -114,7 +115,8 @@ final public class AGT: ZoomGlkPlugIn {
 	}
 
 	public override func defaultMetadata() throws -> ZoomStory {
-		guard let babel = ZoomBabel(filename: gameURL.path), let meta = babel.metadata() else {
+		let babel = ZoomBabel(url: gameURL)
+		guard let meta = babel.metadata() else {
 			return try super.defaultMetadata()
 		}
 		
@@ -122,9 +124,7 @@ final public class AGT: ZoomGlkPlugIn {
 	}
 	
 	public override var coverImage: NSImage? {
-		guard let babel = ZoomBabel(filename: gameURL.path) else {
-			return nil
-		}
+		let babel = ZoomBabel(url: gameURL)
 		return babel.coverImage()
 	}
 }
