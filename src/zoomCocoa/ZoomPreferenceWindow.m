@@ -543,7 +543,7 @@ static void appendStyle(NSMutableString* styleName,
 	}
 	
 	NSColor* selected_colour = [[NSColorPanel sharedColorPanel] color];
-	NSColor* colour = [[selected_colour colorUsingColorSpace: [NSColorSpace genericRGBColorSpace]] colorWithAlphaComponent:(([transparencySlider floatValue] / 100.0))];
+	NSColor* colour = [[selected_colour colorUsingColorSpace: [NSColorSpace sRGBColorSpace]] colorWithAlphaComponent:(([transparencySlider floatValue] / 100.0))];
 	
 	NSMutableArray* cols = [[prefs colours] mutableCopy];
 	
@@ -565,7 +565,7 @@ static void appendStyle(NSMutableString* styleName,
 	{
 		NSColor * color = [cols objectAtIndex: i];
 	
-		NSColor*  transparent_color = [[color colorUsingColorSpace: [NSColorSpace genericRGBColorSpace]] colorWithAlphaComponent:([transparencySlider floatValue] / 100.0)];
+		NSColor*  transparent_color = [[color colorUsingColorSpace: [NSColorSpace sRGBColorSpace]] colorWithAlphaComponent:([transparencySlider floatValue] / 100.0)];
 		
 		[cols replaceObjectAtIndex: i
 						withObject: transparent_color];
