@@ -508,7 +508,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return debug_eval_result;
 }
 
-- (void) setBreakpointAt: (int) address {
+- (void) setBreakpointAtAddress: (int) address {
 	debug_set_breakpoint(address, 0, 0);
 }
 
@@ -516,14 +516,14 @@ static NSString* zscii_to_string(ZByte* buf) {
 	int address = [self addressForName: name];
 	
 	if (address >= 0) {
-		[self setBreakpointAt: address];
+		[self setBreakpointAtAddress: address];
 		return YES;
 	} else {
 		return NO;
 	}
 }
 
-- (void) removeBreakpointAt: (int) address {
+- (void) removeBreakpointAtAddress: (int) address {
 	debug_clear_breakpoint(debug_get_breakpoint(address));
 }
 
@@ -531,7 +531,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	int address = [self addressForName: name];
 	
 	if (address >= 0) {
-		[self removeBreakpointAt: address];
+		[self removeBreakpointAtAddress: address];
 	}
 }
 

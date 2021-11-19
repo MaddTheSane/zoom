@@ -342,8 +342,10 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	open var glulxInterpreter: GlulxInterpreter {
 		get {
 			prefLock.lock()
+			defer {
+				prefLock.unlock()
+			}
 			let result = prefs[glulxInterpreterKey] as? Int
-			prefLock.unlock()
 			
 			if let result = result, let result2 = GlulxInterpreter(rawValue: result) {
 				return result2
@@ -795,6 +797,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	// MARK: - NSCoding
 	
 	required public init?(coder: NSCoder) {
+		super.init()
 		if coder.allowsKeyedCoding {
 			if let newPrefs = coder.decodeObject(of: [NSDictionary.self, NSString.self, NSColor.self, NSFont.self, NSArray.self, NSNumber.self], forKey: "prefs") as? [String: Any] {
 				prefs = newPrefs

@@ -47,7 +47,8 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 	ZValueAction  = 32,
 };
 
-// == Server-side objects ==
+#pragma mark - Server-side objects
+
 /// Protocol for an application to talk to/from Zoom
 NS_SWIFT_NAME(ZMachineProtocol)
 @protocol ZMachine <NSObject>
@@ -89,9 +90,9 @@ NS_SWIFT_NAME(ZMachineProtocol)
 
 - (bycopy NSData*) staticMemory;
 - (int)    evaluateExpression: (NSString*) expression;
-- (void)   setBreakpointAt: (int) address;
+- (void)   setBreakpointAtAddress: (int) address;
 - (BOOL)   setBreakpointAtName: (NSString*) name;
-- (void)   removeBreakpointAt: (int) address;
+- (void)   removeBreakpointAtAddress: (int) address;
 - (void)   removeBreakpointAtName: (NSString*) name;
 - (void)   removeAllBreakpoints;
 
@@ -115,7 +116,6 @@ NS_SWIFT_NAME(ZMachineProtocol)
 
 #pragma mark - Client-side objects
 
-// == Client-side objects ==
 NS_SWIFT_NAME(ZFileProtocol)
 @protocol ZFile <NSObject>
 - (unsigned char)  readByte;
@@ -229,6 +229,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 @end
 
 //! Overall display functions
+NS_SWIFT_NAME(ZDisplayProtocol)
 @protocol ZDisplay <NSObject>
 
 - (void) zMachineHasRestarted;
