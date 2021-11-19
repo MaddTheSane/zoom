@@ -982,7 +982,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		return nil;
 	}
 	
-	return [[[wrapper fileWrappers] objectForKey: filename] regularFileContents];
+	return [[wrapper fileWrappers][filename] regularFileContents];
 }
 
 @end
