@@ -27,6 +27,6 @@
 
 #pragma mark Input information
 @property (readonly) NSPoint inputPos;
-- (ZStyle*) inputStyle;
+- (bycopy ZStyle*) inputStyle;
 
 @end
