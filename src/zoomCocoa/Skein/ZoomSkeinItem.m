@@ -573,9 +573,10 @@ static int currentScore = 1;
 		command = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
 		result = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
 		annotation = [decoder decodeObjectOfClass: [NSString class] forKey: @"annotation"];
-		_nodeIdentifier = [decoder decodeObjectOfClass: [NSUUID class] forKey: @"nodeUUID"];
-		if (!_nodeIdentifier) {
-			// UUID decoder failure means old-style, pointer-derived xml.
+		if ([decoder containsValueForKey: @"nodeUUID"]) {
+			_nodeIdentifier = [decoder decodeObjectOfClass: [NSUUID class] forKey: @"nodeUUID"];
+		} else {
+			// Missing UUID key means old-style object.
 			_nodeIdentifier = [NSUUID UUID];
 		}
 		
