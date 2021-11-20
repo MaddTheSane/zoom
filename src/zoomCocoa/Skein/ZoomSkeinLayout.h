@@ -38,7 +38,7 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 // Getting layout data
 @property (readonly) NSInteger levels;
 - (NSArray<ZoomSkeinItem*>*) itemsOnLevel: (NSInteger) level;
-- (NSArray*) dataForLevel: (NSInteger) level;
+- (NSArray<ZoomSkeinLayoutItem*>*) dataForLevel: (NSInteger) level;
 
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item;
 
