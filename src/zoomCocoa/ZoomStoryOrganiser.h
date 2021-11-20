@@ -58,6 +58,7 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification NS_SWIFT_
 
 // Retrieving story information
 - (NSString*) filenameForIdent: (ZoomStoryID*) ident;
+- (NSURL*) URLForIdent: (ZoomStoryID*) ident;
 - (ZoomStoryID*) identForFilename: (NSString*) filename;
 
 @property (nonatomic, readonly, copy) NSArray<NSString*> *storyFilenames;

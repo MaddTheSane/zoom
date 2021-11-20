@@ -623,6 +623,20 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	return res;
 }
 
+- (NSURL*) URLForIdent: (ZoomStoryID*) ident {
+	NSURL* res = nil;
+	NSString *preRes;
+	
+	[storyLock lock];
+	preRes = [identsToFilenames objectForKey: ident];
+	if (preRes) {
+		res = [NSURL fileURLWithPath: preRes];
+	}
+	[storyLock unlock];
+	
+	return res;
+}
+
 - (ZoomStoryID*) identForFilename: (NSString*) filename {
 	ZoomStoryID* res;
 		

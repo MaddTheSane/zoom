@@ -1146,10 +1146,15 @@ static dispatch_block_t onceTypesBlock = ^{
 		if (isFiltered) {
 			filterColour = [NSColor systemRedColor];
 		} else {
-			filterColour = nil;
+			filterColour = [NSColor textColor];
 		}
 		
-		[filtersFlipButton setContentTintColor:filterColour];
+		NSMutableAttributedString* filterButtonTitle = [[filtersFlipButton attributedTitle] mutableCopy];
+		[filterButtonTitle addAttribute: NSForegroundColorAttributeName
+								  value: filterColour
+								  range: NSMakeRange(0, [filterButtonTitle length])];
+		
+		[filtersFlipButton setAttributedTitle: filterButtonTitle];
 	}
 	
 	// Tidy up (prevents a dumb infinite loop possibility)
@@ -1310,10 +1315,15 @@ static dispatch_block_t onceTypesBlock = ^{
 			if (saveGamesAvailable) {
 				filterColour = [NSColor systemBlueColor];
 			} else {
-				filterColour = nil;
+				filterColour = [NSColor textColor];
 			}
 			
-			savesFlipButton.contentTintColor = filterColour;
+			NSMutableAttributedString* filterButtonTitle = [[savesFlipButton attributedTitle] mutableCopy];
+			[filterButtonTitle addAttribute: NSForegroundColorAttributeName
+									  value: filterColour
+									  range: NSMakeRange(0, [filterButtonTitle length])];
+			
+			[savesFlipButton setAttributedTitle: filterButtonTitle];
 		}
 		
 		// Set up the extra blorb resources display
@@ -1321,13 +1331,13 @@ static dispatch_block_t onceTypesBlock = ^{
 		[resourceDrop setEnabled: YES];
 		
 		// Set up the cover picture
-		NSString* filename = [org filenameForIdent: ident];
-		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForFile: filename];
+		NSURL* filename = [org URLForIdent: ident];
+		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForURL: filename];
 		if (plugin == nil) {
 			// If there's no plugin, try loading the file as a blorb
 			int coverPictureNumber = [story coverPicture];
 			
-			ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: filename];
+			ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: filename error: NULL];
 			
 			// Try to retrieve the frontispiece tag (overrides metadata if present)
 			NSData* front = [decodedFile dataForChunkWithType: @"Fspc"];
