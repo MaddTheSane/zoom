@@ -8,7 +8,7 @@ framework module ZoomView {
 		module Item {
 			header "ZoomSkeinItem.h"
 			
-			explicit module Pasteboard {
+			module Pasteboard {
 				header "ZoomSkeinItem+Pasteboard.h"
 				export *
 			}
@@ -48,13 +48,13 @@ framework module ZoomView {
 		export *
 	}
 	
+	module Protocols {
+		header "ZoomViewProtocols.h"
+		export *
+	}
+	
 	module ZoomView {
 		header "ZoomView.h"
-		
-		module Protocols {
-			header "ZoomViewProtocols.h"
-			export *
-		}
 		
 		module More {
 			header "ZoomMoreView.h"

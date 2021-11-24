@@ -7,40 +7,37 @@
 
 import Foundation
 
-private extension String {
-	func byEscapingXMLCharacters() -> String {
-		let charArray = self.compactMap { theChar -> String? in
-			switch theChar {
-			case "\n":
-				return "\n"
-				
-			case "&":
-				return "&amp;"
-				
-			case "<":
-				return "&lt;"
-				
-			case ">":
-				return "&gt;"
-				
-			case "\"":
-				return "&quot;"
-				
-			case "'":
-				return "&apos;"
-				
-			case "\0" ..< " ":
-				// Ignore (expat can't parse these)
-				// TODO: But can NSXMLParser/libxml2?
-				return nil
-				
-			default:
-				return String(theChar)
-			}
-		}
-		
-		return charArray.joined()
+@discardableResult
+private func addAttribute(_ element: XMLElement, name attributeName: String, value: String) -> XMLNode {
+	let attributeNode = XMLNode(kind: .attribute, options: .nodePrettyPrint)
+	attributeNode.name = attributeName
+	attributeNode.stringValue = value
+	element.addAttribute(attributeNode)
+	
+	return attributeNode
+}
+
+private func elementWithName(_ elementName: String, attributeName: String, attributeValue: String) -> XMLElement {
+	let root = XMLElement(kind: .element, options: .nodePrettyPrint)
+	root.name = elementName
+	addAttribute(root, name: attributeName, value: attributeValue)
+	
+	return root
+}
+
+private func elementWithName(_ elementName: String, value: String, preserveWhitespace: Bool) -> XMLElement {
+	var options: XMLNode.Options = .nodePrettyPrint
+	if preserveWhitespace {
+		options.formUnion(.nodePreserveWhitespace)
 	}
+	let root = XMLElement(kind: .element, options: options)
+	if preserveWhitespace {
+		addAttribute(root, name: "xml:space", value: "preserve")
+	}
+	root.name = elementName
+	root.stringValue = value
+	
+	return root
 }
 
 extension ZoomSkein {
@@ -70,14 +67,21 @@ extension ZoomSkein {
 		// All item fields are optional.
 		// Root item usually has the command '- start -'
 
-		var result =
-#"""
-<Skein rootNode="\#(rootItem.nodeIdentifier.uuidString)" xmlns="http://www.logicalshift.org.uk/IF/Skein">
-   <generator>Zoom</generator>
-   <activeNode nodeId="\#(activeItem.nodeIdentifier.uuidString)"/>
-
-"""#
+		let root = elementWithName("Skein", attributeName: "rootNode", attributeValue: rootItem.nodeIdentifier.uuidString)
+		do {
+			let nameNode = XMLNode(kind: .namespace, options: .nodePrettyPrint)
+			nameNode.name = ""
+			nameNode.stringValue = "http://www.logicalshift.org.uk/IF/Skein"
+			root.addNamespace(nameNode)
+		}
+		let xmlDoc = XMLDocument(kind: .document, options: [.documentTidyXML, .nodePrettyPrint])
+		xmlDoc.version = "1.0"
+		xmlDoc.characterEncoding = "UTF-8"
+		xmlDoc.setRootElement(root)
 		
+		root.addChild(elementWithName("generator", value: "Zoom", preserveWhitespace: false))
+		
+		// Write items
 		var itemStack = [rootItem]
 		
 		while itemStack.count > 0 {
@@ -88,40 +92,41 @@ extension ZoomSkein {
 			itemStack.append(contentsOf: node.children)
 			
 			// Generate the XML for this node
-			result += #"  <item nodeId="\#(node.nodeIdentifier.uuidString)">\#n"#
-
-			if let command = node.command?.byEscapingXMLCharacters() {
-				result += #"    <command xml:space="preserve">\#(command)</command>\#n"#
+			let item = elementWithName("item", attributeName: "nodeId", attributeValue: node.nodeIdentifier.uuidString)
+			
+			if let command = node.command {
+				item.addChild(elementWithName("command", value: command, preserveWhitespace: true))
 			}
-			if let result2 = node.result?.byEscapingXMLCharacters() {
-				result += #"    <result xml:space="preserve">\#(result2)</result>\#n"#
+			if let result2 = node.result {
+				item.addChild(elementWithName("result", value: result2, preserveWhitespace: true))
 			}
-			if let annotation = node.annotation?.byEscapingXMLCharacters() {
-				result += #"    <annotation xml:space="preserve">\#(annotation)</annotation>\#n"#
+			if let annotation = node.annotation {
+				item.addChild(elementWithName("annotation", value: annotation, preserveWhitespace: true))
 			}
-			if let commentary = node.commentary?.byEscapingXMLCharacters() {
-				result += #"    <commentary xml:space="preserve">\#(commentary)</commentary>\#n"#
+			if let commentary = node.commentary {
+				item.addChild(elementWithName("commentary", value: commentary, preserveWhitespace: true))
 			}
-
-			result += "    <played>\(node.played ? "YES" : "NO")</played>\n"
-			result += "    <changed>\(node.changed ? "YES" : "NO")</changed>\n"
-			result += #"    <temporary score="\#(node.temporaryScore)">\#(node.isTemporary ? "YES" : "NO")</temporary>\#n"#
+			item.addChild(elementWithName("played", value: node.played ? "YES" : "NO", preserveWhitespace: false))
+			item.addChild(elementWithName("changed", value: node.changed ? "YES" : "NO", preserveWhitespace: false))
+			
+			do {
+				let score = elementWithName("temporary", value: node.isTemporary ? "YES" : "NO", preserveWhitespace: false)
+				addAttribute(score, name: "score", value: String(node.temporaryScore))
+				item.addChild(score)
+			}
+			
+			root.addChild(item)
 			
 			if node.children.count > 0 {
-				result.append("    <children>\n")
-				
+				let children = elementWithName("children", value: "", preserveWhitespace: false)
+				item.addChild(children)
+
 				for childNode in node.children {
-					result += #"      <child nodeId="\#(childNode.nodeIdentifier.uuidString)"/>\#n"#
+					children.addChild(elementWithName("child", attributeName: "nodeId", attributeValue: childNode.nodeIdentifier.uuidString))
 				}
-				
-				result.append("    </children>\n")
 			}
-			
-			result.append("  </item>\n")
 		}
-		// Write footer
-		result.append("</Skein>\n")
 		
-		return result
+		return xmlDoc.xmlString(options: .nodePrettyPrint)
 	}
 }

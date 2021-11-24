@@ -115,7 +115,7 @@ private func hashMD5(from handle: FileHandle) -> String {
 	return mappedBytes.joined()
 }
 
-func stringIDForAdriftFile(at url: URL) -> String? {
+private func stringIDForAdriftFile(at url: URL) -> String? {
 	var vbr = VisualBasicRNG()
 	guard let fh = try? FileHandle(forReadingFrom: url) else {
 		return nil
@@ -155,7 +155,7 @@ private let versionData: Data = {
 ///
 /// It seems fairly unlikely that the obfuscated form of that
 /// word would occur in the wild
-func isCompatibleAdriftFile(at url: URL) -> Bool {
+private func isCompatibleAdriftFile(at url: URL) -> Bool {
 	var rng = VisualBasicRNG()
 	guard let fh = try? FileHandle(forReadingFrom: url) else {
 		return false
