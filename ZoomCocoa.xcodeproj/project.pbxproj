@@ -4093,6 +4093,7 @@
 					ProjectBuilder/etc,
 					build,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = Builder;
 			};
 			name = Debug;
@@ -4106,6 +4107,7 @@
 					ProjectBuilder/etc,
 					build,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = Builder;
 			};
 			name = Release;
@@ -4134,6 +4136,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/src/zoomCocoa",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 			};
@@ -4163,6 +4166,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/src/zoomCocoa",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -4246,6 +4250,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_LDFLAGS = (
@@ -4284,6 +4289,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_LDFLAGS = (
