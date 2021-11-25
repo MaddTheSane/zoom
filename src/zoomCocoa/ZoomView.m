@@ -112,24 +112,16 @@ static NSHashTable<ZoomView*>* allocatedViews = nil;
 
 NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
-static void finalizeViews(void);
-
 + (void) initialize {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		atexit(finalizeViews);
 		allocatedViews = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:1];
+		atexit_b(^{
+			for (ZoomView *view in allocatedViews) {
+				[view killTask];
+			}
+		});
 	});
-}
-
-+ (void) selfDestruct {
-    for (ZoomView *view in allocatedViews) {
-        [view killTask];
-    }
-}
-
-static void finalizeViews(void) {
-    [ZoomView selfDestruct];
 }
 
 - (id)initWithFrame:(NSRect)frame {
