@@ -127,6 +127,6 @@ extension ZoomSkein {
 			}
 		}
 		
-		return xmlDoc.xmlString(options: .nodePrettyPrint)
+		return xmlDoc.xmlString(options: [.nodePrettyPrint, .nodeCompactEmptyElement])
 	}
 }
