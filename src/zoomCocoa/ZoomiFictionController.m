@@ -2496,7 +2496,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		
 		if (filename) {
 			[[NSApp delegate] application: NSApp
-								 openFile: filename];			
+								 openFile: filename];
 		}
 		
 		// Select the story in the main table
@@ -2552,7 +2552,7 @@ static dispatch_block_t onceTypesBlock = ^{
 			NSString* storyFilename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: signpostId];
 			if (storyFilename) {
 				[[NSApp delegate] application: NSApp
-									 openFile: storyFilename];			
+									 openFile: storyFilename];
 			}
 		}
 		

@@ -219,7 +219,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 				
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
 														  withIdent: ident
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];					
+														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
 				filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
 			}
 			
@@ -245,22 +245,20 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		}
 	}
 
-	// See if there's a built-in document handler for this file type (basically, this means z-code files)
-	// TODO: we should probably do this with a plug-in now
-	if ([[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: fileURL
-																			   display: YES
-																				 error: NULL]) {
-		return YES;
-	}
-	
 	if ([[[filename pathExtension] lowercaseString] isEqualToString: @"ifiction"]) {
 		// Load extra iFiction data (not a 'real' file in that it's displayed in the iFiction window)
 		[[ZoomiFictionController sharediFictionController] mergeiFictionFromURL: fileURL
 																		  error: NULL];
 		return YES;
 	}
-		
-	return NO;
+
+	// See if there's a built-in document handler for this file type (basically, this means z-code files)
+	// TODO: we should probably do this with a plug-in now
+	[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: fileURL display: YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+		// TODO: display errors?
+	}];
+	
+	return YES;
 }
 
 - (void) applicationWillTerminate: (NSNotification*) not {
