@@ -8,7 +8,7 @@
 import Foundation
 
 @discardableResult
-private func addAttribute(_ element: XMLElement, name attributeName: String, value: String) -> XMLNode {
+private func addAttribute(to element: XMLElement, name attributeName: String, value: String) -> XMLNode {
 	let attributeNode = XMLNode(kind: .attribute, options: .nodePrettyPrint)
 	attributeNode.name = attributeName
 	attributeNode.stringValue = value
@@ -20,7 +20,7 @@ private func addAttribute(_ element: XMLElement, name attributeName: String, val
 private func elementWithName(_ elementName: String, attributeName: String, attributeValue: String) -> XMLElement {
 	let root = XMLElement(kind: .element, options: .nodePrettyPrint)
 	root.name = elementName
-	addAttribute(root, name: attributeName, value: attributeValue)
+	addAttribute(to: root, name: attributeName, value: attributeValue)
 	
 	return root
 }
@@ -32,7 +32,7 @@ private func elementWithName(_ elementName: String, value: String, preserveWhite
 	}
 	let root = XMLElement(kind: .element, options: options)
 	if preserveWhitespace {
-		addAttribute(root, name: "xml:space", value: "preserve")
+		addAttribute(to: root, name: "xml:space", value: "preserve")
 	}
 	root.name = elementName
 	root.stringValue = value
@@ -111,7 +111,7 @@ extension ZoomSkein {
 			
 			do {
 				let score = elementWithName("temporary", value: node.isTemporary ? "YES" : "NO", preserveWhitespace: false)
-				addAttribute(score, name: "score", value: String(node.temporaryScore))
+				addAttribute(to: score, name: "score", value: String(node.temporaryScore))
 				item.addChild(score)
 			}
 			
