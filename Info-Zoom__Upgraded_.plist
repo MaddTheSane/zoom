@@ -490,6 +490,7 @@
 				<key>com.apple.ostype</key>
 				<array>
 					<string>IFRS</string>
+					<string>ZCOD</string>
 				</array>
 				<key>public.filename-extension</key>
 				<array>

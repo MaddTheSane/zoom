@@ -441,6 +441,16 @@ NS_ENUM(NSInteger) {
 	return nil;
 }
 
+- (NSURL*) selectedFileURL {
+	ZoomStoryID* ident = [self selectedStoryID];
+	
+	if (ident != nil) {
+		return [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: ident];
+	}
+	
+	return nil;
+}
+
 - (ZoomStory*) createStoryCopy: (ZoomStory*) theStory {
 	if (theStory == nil) {
 		return nil;

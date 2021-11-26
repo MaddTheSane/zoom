@@ -492,7 +492,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	ZoomStory* theStory = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
 	
 #if DEVELOPMENT_BUILD
-	NSLog(@"Adding %@ (IFID %@)", filename, ident);
+	NSLog(@"Adding %@ (IFID %@)", filename.path, ident);
 	if (oldFilename) {
 		NSLog(@"... previously %@ (%@)", oldFilename, oldIdent);
 	}
