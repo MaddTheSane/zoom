@@ -23,8 +23,11 @@ static NSMutableDictionary* babelCache = nil;
 @implementation ZoomBabel
 
 + (void) initialize {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
 	babelLock = [[NSLock alloc] init];
 	babelCache = [[NSMutableDictionary alloc] init];
+	});
 }
 
 + (NSString*) babelFolder {
@@ -69,7 +72,7 @@ static NSMutableDictionary* babelCache = nil;
 	[babelLock lock];
 	
 	// Try to find this story in the cache
-	ZoomBabel* cachedVersion = [babelCache objectForKey: story];
+	ZoomBabel* cachedVersion = babelCache[story];
 	if (cachedVersion != nil) {
 		// Use the cached version instead if possible
 		[babelLock unlock];
@@ -82,8 +85,7 @@ static NSMutableDictionary* babelCache = nil;
 	}
 	
 	// Store this object in the cache
-	[babelCache setObject: self
-				   forKey: story];
+	babelCache[story] = self;
 	
 	[babelLock unlock];
 
