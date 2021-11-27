@@ -269,7 +269,7 @@ static NSString* convertCommand(NSString* command) {
 	if ([newCommand isEqualToString: command]) return;			// Nothing to do
 	
 	command = nil;
-	if (![newCommand isEqualToString: command]) commandSizeDidChange = YES;
+	commandSizeDidChange = YES;
 	if (newCommand) command = [convertCommand(newCommand) copy];
 	
 	[self itemHasChanged];

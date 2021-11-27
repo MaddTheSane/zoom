@@ -150,7 +150,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 			if ((y+8) > maxlen)
 			{
 				maxlen += 1024;
-				buf = realloc(buf, sizeof(int)*maxlen);
+				buf = realloc(buf, sizeof(unsigned int)*maxlen);
 			}
 			
 			switch (abet)
@@ -264,7 +264,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 						  while ((zlen+2) > maxlen)
 						  {
 							  maxlen += 1024;
-							  buf = realloc(buf, sizeof(int)*(maxlen));
+							  buf = realloc(buf, sizeof(unsigned int)*(maxlen));
 						  }
 						  
 						  for (z=0; abbrev[z] != 0; z++)
@@ -289,7 +289,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 						while ((zlen+2) > maxlen)
 						{
 							maxlen+=1024;
-							buf = realloc(buf, sizeof(int)*(maxlen));
+							buf = realloc(buf, sizeof(unsigned int)*(maxlen));
 						}
 						
 						for (z=0; abbrev[z] != 0; z++)
@@ -348,7 +348,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 												if ((y+1) > maxlen)
 												{
 													maxlen += 1024;
-													buf = realloc(buf, sizeof(int)*maxlen);
+													buf = realloc(buf, sizeof(unsigned int)*maxlen);
 												}
 												
 												buf[y++] = (~((((unsigned)string[x])<<8)|((unsigned)string[x+1])))&0xffff;
@@ -429,7 +429,7 @@ void pack_zscii(unsigned int* string, int strlen, ZByte* packed, int packlen)
 	int  zpos, byte;
 	int  strpos;
 	int  wordlen;
-	char zchr[40];
+	char zchr[40] = {0};
 	
 	strpos = 0;
 	
@@ -566,7 +566,7 @@ void zscii_install_alphabet(void)
 			static unsigned int** conv = NULL;
 			static unsigned char* zsc = NULL;
 			ZByte* alpha;
-			int x, y;
+			int x;
 			int alphabet, character;
 			
 			alpha = Address(table);
@@ -575,13 +575,11 @@ void zscii_install_alphabet(void)
 			{
 			  conv = malloc(sizeof(unsigned int*)*3);
 			  for (x=0; x<3; x++) {
-				conv[x] = malloc(sizeof(int)*32);
-				
-				for (y=0; y<32; y++) conv[x][y] = 0;
+				conv[x] = calloc(32, sizeof(unsigned int));
 			  }
 			}
 			
-			zsc = realloc(zsc, sizeof(char)*256);
+			zsc = realloc(zsc, sizeof(unsigned char)*256);
 			for (x=0; x<256; x++)
 				zsc[x] = 0x0;
 			

@@ -1043,7 +1043,7 @@ static void zcode_op_aread_5678(ZDWord* pc,
   }
   
   bufLen = mem[0];
-  buf = malloc(sizeof(int)*(bufLen+1));
+  buf = malloc(sizeof(unsigned int)*(bufLen+1));
 
   if (args->arg[7] != 0)
     {
