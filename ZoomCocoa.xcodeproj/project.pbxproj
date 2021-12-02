@@ -354,6 +354,8 @@
 		55DA68A82739DBC90007990A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55DA68AA2739DBC90007990A /* Localizable.strings */; };
 		55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
+		55FF56862758C481000B0D21 /* GlkSound.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -863,6 +865,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				55FF56862758C481000B0D21 /* GlkSound.framework in Copy frameworks */,
 				4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */,
 				4B7CB1D00936350E00F3B8F6 /* GlkClient.framework in Copy frameworks */,
 				4B7CB0AA09362A7200F3B8F6 /* ZoomPlugIns.framework in Copy frameworks */,
@@ -1429,6 +1432,7 @@
 				4BB8C1F908C249F400D7D334 /* Foundation.framework in Frameworks */,
 				4BB8C1FB08C249F400D7D334 /* Carbon.framework in Frameworks */,
 				4BB8C1FC08C249F400D7D334 /* ZoomView.framework in Frameworks */,
+				55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */,
 				4B7CB0AB09362A7900F3B8F6 /* ZoomPlugIns.framework in Frameworks */,
 				4B9DC7F11502877B003DF057 /* QuartzCore.framework in Frameworks */,
 				4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */,
