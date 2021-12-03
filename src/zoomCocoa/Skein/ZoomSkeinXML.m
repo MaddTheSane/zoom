@@ -45,6 +45,139 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 
 @implementation ZoomSkein(ZoomSkeinXML)
 
+#pragma mark - XML data
+
+static NSXMLNode *addAttributeToElement(NSXMLElement *element, NSString *attributeName, NSString *value) {
+	NSXMLNode *attributeNode = [[NSXMLNode alloc] initWithKind: NSXMLAttributeKind options: NSXMLNodePrettyPrint];
+	attributeNode.name = attributeName;
+	attributeNode.stringValue = value;
+	[element addAttribute: attributeNode];
+	
+	return attributeNode;
+}
+
+static NSXMLElement *elementWithNameAndAttribute(NSString *elementName, NSString *attributeName, NSString *attributeValue) {
+	NSXMLElement *root = [[NSXMLElement alloc] initWithKind: NSXMLElementKind options: NSXMLNodePrettyPrint];
+	root.name = elementName;
+	addAttributeToElement(root, attributeName, attributeValue);
+	
+	return root;
+}
+
+static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *value, BOOL preserveWhitespace) {
+	NSXMLNodeOptions options = NSXMLNodePrettyPrint;
+	if (preserveWhitespace) {
+		options |= NSXMLNodePreserveWhitespace;
+	}
+	NSXMLElement *root = [[NSXMLElement alloc] initWithKind: NSXMLElementKind options: options];
+	if (preserveWhitespace) {
+		addAttributeToElement(root, @"xml:space", @"preserve");
+	}
+	root.name = elementName;
+	root.stringValue = value;
+	
+	return root;
+}
+
+#pragma mark Creating XML
+
+/// Creates an XML representation of the Skein.
+- (NSString*) xmlData {
+	// Structure summary (note to me: write this up properly later)
+	
+	// <Skein rootNode="<nodeID>" xmlns="http://www.logicalshift.org.uk/IF/Skein">
+	//   <generator>Zoom</generator>
+	//   <activeItem nodeId="<nodeID" />
+	//   <item nodeId="<nodeID>">
+	//     <command/>
+	//     <result/>
+	//     <annotation/>
+	//	   <commentary/>
+	//     <played>YES/NO</played>
+	//     <changed>YES/NO</changed>
+	//     <temporary score="score">YES/NO</temporary>
+	//     <children>
+	//       <child nodeId="<nodeID>"/>
+	//     </children>
+	//   </item>
+	// </Skein>
+	//
+	// nodeIDs are string uniquely identifying a node: any format
+	// A node must not be a child of more than one item
+	// All item fields are optional.
+	// Root item usually has the command '- start -'
+	
+	NSXMLElement *root = elementWithNameAndAttribute(@"Skein", @"rootNode", rootItem.nodeIdentifier.UUIDString);
+	{
+		NSXMLNode *nameNode = [[NSXMLNode alloc] initWithKind: NSXMLNamespaceKind options: NSXMLNodePrettyPrint];
+		nameNode.name = @"";
+		nameNode.stringValue = @"http://www.logicalshift.org.uk/IF/Skein";
+		[root addNamespace:nameNode];
+	}
+	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithKind: NSXMLDocumentKind options: NSXMLDocumentTidyXML | NSXMLNodePrettyPrint];
+	xmlDoc.version = @"1.0";
+	xmlDoc.characterEncoding = @"UTF-8";
+	[xmlDoc setRootElement: root];
+	
+	[root addChild: elementWithNameAndValue(@"generator", @"Zoom", NO)];
+	
+	// Write items
+	NSMutableArray<ZoomSkeinItem*> *itemStack = [NSMutableArray arrayWithObject: rootItem];
+	
+	while (itemStack.count > 0) {
+		// Pop from the stack
+		ZoomSkeinItem* node = [itemStack lastObject];
+		[itemStack removeLastObject];
+		
+		// Push any children of this node
+		[itemStack addObjectsFromArray: node.children.allObjects];
+		
+		// Generate the XML for this node
+		NSXMLElement *item = elementWithNameAndAttribute(@"item", @"nodeId", node.nodeIdentifier.UUIDString);
+		NSString *testString;
+		
+		testString = node.command;
+		if (testString) {
+			[item addChild: elementWithNameAndValue(@"command", testString, YES)];
+		}
+		
+		testString = node.result;
+		if (testString) {
+			[item addChild: elementWithNameAndValue(@"result", testString, YES)];
+		}
+		
+		testString = node.annotation;
+		if (testString) {
+			[item addChild: elementWithNameAndValue(@"annotation", testString, YES)];
+		}
+		
+		testString = node.commentary;
+		if (testString) {
+			[item addChild: elementWithNameAndValue(@"commentary", testString, YES)];
+		}
+		
+		[item addChild: elementWithNameAndValue(@"played", node.played ? @"YES" : @"NO", NO)];
+		[item addChild: elementWithNameAndValue(@"changed", node.changed ? @"YES" : @"NO", NO)];
+		
+		{
+			NSXMLElement *score = elementWithNameAndValue(@"temporary", node.temporary ? @"YES" : @"NO", NO);
+			addAttributeToElement(score, @"score", [@(node.temporaryScore) stringValue]);
+			[item addChild: score];
+		}
+		
+		if (node.children.count > 0) {
+			NSXMLElement *children = elementWithNameAndValue(@"children", @"", NO);
+			[item addChild: children];
+			
+			for (ZoomSkeinItem *childItem in node.children) {
+				[children addChild: elementWithNameAndAttribute(@"child", @"nodeId", childItem.nodeIdentifier.UUIDString)];
+			}
+		}
+	}
+	
+	return [xmlDoc XMLStringWithOptions: NSXMLNodePrettyPrint | NSXMLNodeCompactEmptyElement];
+}
+
 #pragma mark - Parsing the XML
 
 - (BOOL) parseXmlData: (NSData*) data error: (NSError**) error {
