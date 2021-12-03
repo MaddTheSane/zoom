@@ -7,7 +7,7 @@
 //
 
 #import "ZoomSkein.h"
-#import <ZoomView/ZoomView-Swift.h>
+#import "ZoomSkeinInternal.h"
 
 NSErrorDomain const ZoomSkeinXMLParserErrorDomain = @"uk.org.logicalshift.zoomview.skein.xmlerrors";
 

@@ -15,42 +15,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomSkein.changedNotification);
 
-@interface ZoomSkein : NSObject <ZoomViewOutputReceiver> {
-	ZoomSkeinItem* rootItem;
-	
-	/// Web data
-	NSMutableData* webData;
-}
+@interface ZoomSkein : NSObject <ZoomViewOutputReceiver>
 
-// Retrieving the root skein item
+/// Retrieving the root skein item
 @property (readonly, strong) ZoomSkeinItem *rootItem;
+
 @property (strong) ZoomSkeinItem *activeItem;
 
-// Acting as a Zoom output receiver
+#pragma mark Acting as a Zoom output receiver
 - (void) inputCommand:   (NSString*) command;
 - (void) inputCharacter: (NSString*) character;
 - (void) outputText:     (NSString*) outputText;
 - (void) zoomWaitingForInput;
 - (void) zoomInterpreterRestart;
 
-// Notifying of changed
+/// Notifying of changed
 - (void) zoomSkeinChanged;
 
-// Removing temporary items
+/// Removing temporary items
 - (void) removeTemporaryItems: (int) maxTemps;
 
-// Creating a Zoom input receiver
+/// Creating a Zoom input receiver
 + (nullable id<ZoomViewInputSource>) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
 													   toItem: (ZoomSkeinItem*) item2;
 
-// Annotation lists
+#pragma mark Annotation lists
 @property (nonatomic, readonly, copy, null_unspecified) NSArray<NSString*> *annotations;
 - (NSMenu*)  populateMenuWithAction: (SEL) action
 							 target: (id) target;
 - (void)	 populatePopupButton: (NSPopUpButton*) button;
 - (null_unspecified NSArray<ZoomSkeinItem*>*) itemsWithAnnotation: (NSString*) annotation;
 
-// Converting to strings/other file formats
+#pragma mark Converting to strings/other file formats
 - (NSString*) transcriptToPoint: (nullable ZoomSkeinItem*) item;
 - (NSString*) recordingToPoint: (nullable ZoomSkeinItem*) item;
 
