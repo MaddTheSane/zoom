@@ -356,6 +356,10 @@
 		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
 		55FF56862758C481000B0D21 /* GlkSound.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55FF5B42275A263C000B0D21 /* Ogg.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B32275A262C000B0D21 /* Ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55FF5B43275A263D000B0D21 /* Vorbis.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B3B275A262C000B0D21 /* Vorbis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55FF5B44275A263D000B0D21 /* SFBAudioEngine.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B35275A262C000B0D21 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55FF5B47275A29E5000B0D21 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -798,6 +802,62 @@
 			remoteGlobalIDString = 55BE4AE22709988700100A7D;
 			remoteInfo = Quest;
 		};
+		55FF5B2E275A262C000B0D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55FF5B17275A262C000B0D21 /* dumb.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C3B854F826E7B136001059B8;
+			remoteInfo = dumb;
+		};
+		55FF5B31275A262C000B0D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D9548E267A3491B86A2CB0C;
+			remoteInfo = ogg;
+		};
+		55FF5B34275A262C000B0D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3210AB9017B9C05A00743639;
+			remoteInfo = SFBAudioEngine;
+		};
+		55FF5B3A275A262C000B0D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 730F23F1091827B100AB638C;
+			remoteInfo = Vorbis;
+		};
+		55FF5B3C275A262C000B0D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 738835E40B18F870005C7A69;
+			remoteInfo = "libvorbis (static)";
+		};
+		55FF5B3E275A262C000B0D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 738836130B190488005C7A69;
+			remoteInfo = "libvorbisenc (static)";
+		};
+		55FF5B40275A262C000B0D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 738836220B1905E5005C7A69;
+			remoteInfo = "libvorbisfile (static)";
+		};
+		55FF5B45275A265F000B0D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BF085290E166E8300DB5C6B;
+			remoteInfo = GlkSound;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -865,6 +925,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				55FF5B42275A263C000B0D21 /* Ogg.framework in Copy frameworks */,
+				55FF5B43275A263D000B0D21 /* Vorbis.framework in Copy frameworks */,
+				55FF5B44275A263D000B0D21 /* SFBAudioEngine.framework in Copy frameworks */,
 				55FF56862758C481000B0D21 /* GlkSound.framework in Copy frameworks */,
 				4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */,
 				4B7CB1D00936350E00F3B8F6 /* GlkClient.framework in Copy frameworks */,
@@ -1350,6 +1413,10 @@
 		55DA68A92739DBC90007990A /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55DA68AC273A108E0007990A /* en-GB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		55DA68AD273A10980007990A /* en-GB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LocalizedSkein.strings"; sourceTree = "<group>"; };
+		55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = /Users/cwbetts/makestuff/Inform/zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<absolute>"; };
+		55FF5B17275A262C000B0D21 /* dumb.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = dumb.xcodeproj; path = /Users/cwbetts/makestuff/Inform/zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/dumb/dumb.xcodeproj; sourceTree = "<absolute>"; };
+		55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = /Users/cwbetts/makestuff/Inform/zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<absolute>"; };
+		55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = /Users/cwbetts/makestuff/Inform/zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/vorbis/macosx/Vorbis.xcodeproj; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1427,12 +1494,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55FF5B47275A29E5000B0D21 /* GlkClient.framework in Frameworks */,
+				55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */,
 				55BE4B47270BE58900100A7D /* Sparkle in Frameworks */,
 				4BB8C1F808C249F400D7D334 /* Cocoa.framework in Frameworks */,
 				4BB8C1F908C249F400D7D334 /* Foundation.framework in Frameworks */,
 				4BB8C1FB08C249F400D7D334 /* Carbon.framework in Frameworks */,
 				4BB8C1FC08C249F400D7D334 /* ZoomView.framework in Frameworks */,
-				55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */,
 				4B7CB0AB09362A7900F3B8F6 /* ZoomPlugIns.framework in Frameworks */,
 				4B9DC7F11502877B003DF057 /* QuartzCore.framework in Frameworks */,
 				4B36C4100955E7EB00874F9F /* GlkView.framework in Frameworks */,
@@ -1566,6 +1634,10 @@
 				4BB8C20708C249F400D7D334 /* Info-Zoom__Upgraded_.plist */,
 				4B7CB08209362A3B00F3B8F6 /* ZoomPlugIns-Info.plist */,
 				4B7286E70CD3CAFF0079D89B /* ZoomSaveQuickLook-Info.plist */,
+				55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */,
+				55FF5B17275A262C000B0D21 /* dumb.xcodeproj */,
+				55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */,
+				55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -2301,6 +2373,41 @@
 			path = Quest4;
 			sourceTree = "<group>";
 		};
+		55FF5B15275A262C000B0D21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55FF5B35275A262C000B0D21 /* SFBAudioEngine.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		55FF5B18275A262C000B0D21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55FF5B2F275A262C000B0D21 /* libdumb.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		55FF5B1B275A262C000B0D21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55FF5B32275A262C000B0D21 /* Ogg.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		55FF5B1E275A262C000B0D21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55FF5B3B275A262C000B0D21 /* Vorbis.framework */,
+				55FF5B3D275A262C000B0D21 /* libvorbis.a */,
+				55FF5B3F275A262C000B0D21 /* libvorbisenc.a */,
+				55FF5B41275A262C000B0D21 /* libvorbisfile.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2528,6 +2635,7 @@
 				4B51A95108FAC71400232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
+				55FF5B46275A265F000B0D21 /* PBXTargetDependency */,
 				55368B7D272CA88D00740A0A /* PBXTargetDependency */,
 				552CF03327176D45009D87A5 /* PBXTargetDependency */,
 				55BE4AF327099AB400100A7D /* PBXTargetDependency */,
@@ -2782,6 +2890,22 @@
 					ProductGroup = 4B7CB1BA093634DD00F3B8F6 /* Products */;
 					ProjectRef = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
 				},
+				{
+					ProductGroup = 55FF5B18275A262C000B0D21 /* Products */;
+					ProjectRef = 55FF5B17275A262C000B0D21 /* dumb.xcodeproj */;
+				},
+				{
+					ProductGroup = 55FF5B1B275A262C000B0D21 /* Products */;
+					ProjectRef = 55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */;
+				},
+				{
+					ProductGroup = 55FF5B15275A262C000B0D21 /* Products */;
+					ProjectRef = 55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */;
+				},
+				{
+					ProductGroup = 55FF5B1E275A262C000B0D21 /* Products */;
+					ProjectRef = 55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -2875,6 +2999,55 @@
 			fileType = wrapper.application;
 			path = SwiftGlk.app;
 			remoteRef = 554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55FF5B2F275A262C000B0D21 /* libdumb.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libdumb.a;
+			remoteRef = 55FF5B2E275A262C000B0D21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55FF5B32275A262C000B0D21 /* Ogg.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Ogg.framework;
+			remoteRef = 55FF5B31275A262C000B0D21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55FF5B35275A262C000B0D21 /* SFBAudioEngine.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SFBAudioEngine.framework;
+			remoteRef = 55FF5B34275A262C000B0D21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55FF5B3B275A262C000B0D21 /* Vorbis.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Vorbis.framework;
+			remoteRef = 55FF5B3A275A262C000B0D21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55FF5B3D275A262C000B0D21 /* libvorbis.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libvorbis.a;
+			remoteRef = 55FF5B3C275A262C000B0D21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55FF5B3F275A262C000B0D21 /* libvorbisenc.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libvorbisenc.a;
+			remoteRef = 55FF5B3E275A262C000B0D21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55FF5B41275A262C000B0D21 /* libvorbisfile.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libvorbisfile.a;
+			remoteRef = 55FF5B40275A262C000B0D21 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -3544,6 +3717,11 @@
 			isa = PBXTargetDependency;
 			target = 55BE4AE22709988700100A7D /* Quest4 */;
 			targetProxy = 55BE4AF227099AB400100A7D /* PBXContainerItemProxy */;
+		};
+		55FF5B46275A265F000B0D21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GlkSound;
+			targetProxy = 55FF5B45275A265F000B0D21 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
