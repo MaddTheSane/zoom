@@ -173,6 +173,7 @@
 
 - (void) awakeFromNib {
 	glkView.soundHandler = soundHandler;
+	soundHandler.glkctl = glkView;
 }
 
 - (void) dealloc {
