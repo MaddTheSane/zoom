@@ -29,6 +29,10 @@
 #include "general.hh"
 //#include "Token.hh"
 
+extern "C" {
+#include <GlkClient/cocoaglk.h>
+}
+
 //using namespace std;
 
 typedef std::vector<std::string> vstring;
@@ -111,7 +115,7 @@ protected:
 public:
   virtual std::string absolute_name (const std::string &rel_name, const std::string &parent) const = 0;
   virtual std::string get_file (const std::string &filename) const = 0;
-  virtual void debug_print (const std::string &s) { std::cerr << s << std::endl; }
+  virtual void debug_print (const std::string &s) { cocoaglk_warning(s.c_str()); }
   virtual GeasResult wait_keypress (const std::string &) { return r_not_supported; }
   virtual GeasResult pause (int msec) { return r_not_supported; }
   virtual GeasResult clear_screen () { return r_not_supported; }

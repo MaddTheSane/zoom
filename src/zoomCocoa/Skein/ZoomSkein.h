@@ -65,7 +65,9 @@ typedef NS_ERROR_ENUM(ZoomSkeinXMLParserErrorDomain, ZoomSkeinXMLError) {
 
 @interface ZoomSkein(ZoomSkeinXML)
 
+/// Creates an XML representation of the Skein.
 - (NSString*) xmlData;
+
 - (BOOL) parseXmlData: (NSData*) data error: (NSError**) error;
 - (BOOL) parseXMLContentsAtURL: (NSURL*) url error: (NSError**) error;
 
