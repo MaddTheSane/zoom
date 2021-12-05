@@ -345,10 +345,10 @@
 			<array>
 				<string>cas</string>
 			</array>
-			<key>CFBundleTypeName</key>
-			<string>Legacy Quest CAS file</string>
 			<key>CFBundleTypeIconFile</key>
 			<string>zoom-game</string>
+			<key>CFBundleTypeName</key>
+			<string>Legacy Quest CAS file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
@@ -365,10 +365,10 @@
 			<array>
 				<string>asl</string>
 			</array>
-			<key>CFBundleTypeName</key>
-			<string>Legacy Quest source file</string>
 			<key>CFBundleTypeIconFile</key>
 			<string>zoom-game</string>
+			<key>CFBundleTypeName</key>
+			<string>Legacy Quest source file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
@@ -576,7 +576,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+					<string>application/x-blorb;profile="zcode"</string>
 				</array>
 			</dict>
 		</dict>

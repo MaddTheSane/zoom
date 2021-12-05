@@ -24,6 +24,7 @@
 #import <GlkView/GlkView.h>
 #import <GlkView/GlkSessionProtocol.h>
 #import <GlkView/GlkFileRef.h>
+#import <GlkSound/GlkSound.h>
 
 ///
 /// Class to interface to Zoom's skein system
@@ -97,7 +98,9 @@
 
 @end
 
-@implementation ZoomGlkWindowController
+@implementation ZoomGlkWindowController {
+	GlkSoundHandler *soundHandler;
+}
 
 + (void) initialize {
 	// Set up the Glk hub
@@ -162,9 +165,14 @@
 												  object: nil];
 		
 		skein = [[ZoomSkein alloc] init];
+		soundHandler = [[GlkSoundHandler alloc] init];
 	}
 	
 	return self;
+}
+
+- (void) awakeFromNib {
+	glkView.soundHandler = soundHandler;
 }
 
 - (void) dealloc {
