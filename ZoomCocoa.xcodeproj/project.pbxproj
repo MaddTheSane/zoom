@@ -134,7 +134,7 @@
 		4BB8C16008C2497700D7D334 /* Z6Display.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE621CF068C20D500369528 /* Z6Display.m */; };
 		4BB8C16208C2497700D7D334 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 		4BB8C16308C2497700D7D334 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCF3F2B050F8E2400A8E303 /* Foundation.framework */; };
-		4BB8C17608C249B100D7D334 /* ZoomServer in Resources */ = {isa = PBXBuildFile; fileRef = 4BB8C16A08C2497700D7D334 /* ZoomServer */; };
+		4BB8C17608C249B100D7D334 /* ZoomServer in Copy ZoomServer */ = {isa = PBXBuildFile; fileRef = 4BB8C16A08C2497700D7D334 /* ZoomServer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4BB8C1BB08C249F400D7D334 /* ZoomClient.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F57050FB49F00A8E303 /* ZoomClient.xib */; };
 		4BB8C1C208C249F400D7D334 /* infocom.iFiction in Resources */ = {isa = PBXBuildFile; fileRef = 4BACE9FA05B428C700A9B6DC /* infocom.iFiction */; };
 		4BB8C1D008C249F400D7D334 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1C13FD05C5A94B00E5796D /* Credits.rtf */; };
@@ -945,6 +945,17 @@
 			files = (
 				552CF02D27176CFC009D87A5 /* scare in CopyFiles */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5533C71D2760BAEF004BD884 /* Copy ZoomServer */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				4BB8C17608C249B100D7D334 /* ZoomServer in Copy ZoomServer */,
+			);
+			name = "Copy ZoomServer";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		55368A96272A035E00740A0A /* CopyFiles */ = {
@@ -2654,6 +2665,7 @@
 				4BD2749008701E6700C1AE15 /* Resources */,
 				4BD274A008701E6700C1AE15 /* Sources */,
 				4BD274B808701E6700C1AE15 /* Frameworks */,
+				5533C71D2760BAEF004BD884 /* Copy ZoomServer */,
 			);
 			buildRules = (
 			);
@@ -3099,7 +3111,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */,
-				4BB8C17608C249B100D7D334 /* ZoomServer in Resources */,
 				4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */,
 				55DA68A32739D4B50007990A /* LocalizedSkein.strings in Resources */,
 			);
