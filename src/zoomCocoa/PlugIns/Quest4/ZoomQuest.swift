@@ -35,6 +35,10 @@ final public class Quest: ZoomGlkPlugIn {
 		return false
 	}
 	
+	public override class var needsPathPassedToTask: Bool {
+		return true
+	}
+	
 	public override class func canRun(_ url: URL) -> Bool {
 		guard extensions.contains(url.pathExtension.lowercased()) else {
 			return false

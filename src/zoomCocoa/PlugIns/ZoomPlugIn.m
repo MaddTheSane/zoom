@@ -42,6 +42,10 @@
 	return NO;
 }
 
++ (BOOL)needsPathPassedToTask {
+	return NO;
+}
+
 + (BOOL) canRunPath: (NSString*) path {
 	return [self canRunURL: [NSURL fileURLWithPath: path]];
 }

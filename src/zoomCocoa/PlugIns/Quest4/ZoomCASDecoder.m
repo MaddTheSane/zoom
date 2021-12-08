@@ -64,7 +64,7 @@ NSArray<NSString*> *CASDecompile (NSData *dat)
 	const unsigned char *s = dat.bytes;
 	
 	
-	for (uint i = 8; i < dat.length; i ++) {
+	for (NSInteger i = 8; i < dat.length; i ++) {
 		ch = s[i];
 		if (obfus == 1 && ch == 0) {
 			[cur_line appendString:@"> "];

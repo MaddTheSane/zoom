@@ -62,6 +62,10 @@ final public class AGT: ZoomGlkPlugIn {
 		return false
 	}
 	
+	public override class var needsPathPassedToTask: Bool {
+		return true
+	}
+	
 	public override class func canRun(_ fileURL: URL) -> Bool {
 		guard ((try? fileURL.checkResourceIsReachable()) ?? false) else {
 			return fileURL.pathExtension.caseInsensitiveCompare("agt") == .orderedSame

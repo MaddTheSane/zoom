@@ -58,6 +58,7 @@
 	[controller setCanOpenSaveGame: [[plugIn class] canLoadSavegames]];
 	if (savedGamePath) [controller setSaveGameURL: savedGamePath];
 	[controller setLogo: logo];
+	[controller setNeedsPathPassedToTask: [[plugIn class] needsPathPassedToTask]];
 	
 	// Add it as a controller for this document
 	[self addWindowController: controller];

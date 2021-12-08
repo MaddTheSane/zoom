@@ -185,6 +185,10 @@
 - (void) maybeStartView {
 	// If we're sufficiently configured to start the application, then do so
 	if (glkView && clientPath && inputURL) {
+		NSArray *args = @[];
+		if (needsPathPassedToTask) {
+			args = @[inputURL.path];
+		}
 		tts = [[ZoomTextToSpeech alloc] init];
 		[tts setSkein: skein];
 
@@ -210,7 +214,7 @@
 		}
 		
 		[glkView launchClientApplication: clientPath
-						   withArguments: [NSArray array]];
+						   withArguments: args];
 		
 		[self prefsChanged: nil];
 	}
@@ -280,6 +284,10 @@
 
 - (void) setCanOpenSaveGame: (BOOL) newCanOpenSaveGame {
 	canOpenSaveGames = newCanOpenSaveGame;
+}
+
+- (void)setNeedsPathPassedToTask:(BOOL)needsPath {
+	needsPathPassedToTask = needsPath;
 }
 
 - (void) setInputFileURL: (NSURL*) newPath {

@@ -48,6 +48,8 @@
 	//! \c YES if the user has OKed closing the game while it's still running
 	BOOL closeConfirmed;
 	
+	BOOL needsPathPassedToTask;
+	
 	//! The skein/transcript for this window
 	ZoomSkein* skein;
 	
@@ -77,6 +79,8 @@
 - (void) setSaveGameURL: (NSURL*) path;
 //! Set to \c YES if the plugin knows how to open save games
 - (void) setCanOpenSaveGame: (BOOL) canOpenSaveGame;
+//! Set to \c YES if the plugin \b needs the path of the game file passed at launch
+- (void) setNeedsPathPassedToTask: (BOOL) needsPath;
 
 @property (copy) NSImage *logo;
 

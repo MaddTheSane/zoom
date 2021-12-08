@@ -32,6 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// \c YES if this plugin can load savegames as well as game files
 @property (class, readonly) BOOL canLoadSavegames;
+/// \c YES if the plug-in requires the path of the file to be passed as an argument.
+///
+/// This might be needed if, for example, the client hasn't been ported to use CocoaGlk, or
+/// it is non-trivial to do so. Default is \c NO .
+@property (class, readonly) BOOL needsPathPassedToTask;
 
 /// \c YES if the specified file is one that the plugin can run
 + (BOOL) canRunPath: (NSString*) path DEPRECATED_MSG_ATTRIBUTE("Use +canRunURL: instead");
