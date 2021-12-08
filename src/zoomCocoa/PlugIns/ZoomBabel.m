@@ -101,14 +101,14 @@ static NSMutableDictionary* babelCache = nil;
 		// Start the babel task
 		NSString* babelTaskFolder = [ZoomBabel babelFolder];
 		if (babelTaskFolder != nil) {
-			NSString* babelPath = [[NSBundle bundleForClass: [self class]] pathForResource: @"babel"
-																					ofType: nil]; 
+			NSURL* babelPath = [[NSBundle bundleForClass: [self class]] URLForResource: @"babel"
+																		 withExtension: nil]; 
 			
 			babelTask = [[NSTask alloc] init];
 			babelStdOut = [[NSPipe alloc] init];
 			
 			[babelTask setCurrentDirectoryPath: babelTaskFolder];
-			[babelTask setLaunchPath: babelPath];
+			[babelTask setExecutableURL: babelPath];
 			[babelTask setStandardOutput: [babelStdOut fileHandleForWriting]];
 			
 			[babelTask setArguments: @[@"-fish", filename]];
