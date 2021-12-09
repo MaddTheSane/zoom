@@ -70,7 +70,7 @@ NSArray<NSString*> *CASDecompile (NSData *dat)
 			[cur_line appendString:@"> "];
 			obfus = 0;
 		} else if (obfus == 1) {
-			[cur_line appendFormat:@"%C", (unichar)(char)(255 - ch)];
+			[cur_line appendFormat:@"%C", (unichar)(255 - ch)];
 		} else if (obfus == 2 && ch == 254) {
 			obfus = 0;
 			[cur_line appendString:@" "];
@@ -85,7 +85,7 @@ NSArray<NSString*> *CASDecompile (NSData *dat)
 				[rv addObject:[cur_line copy]];
 				[cur_line setString:@""];
 			} else {
-				[cur_line appendFormat:@"%C", (unichar)(char)(255 - ch)];
+				[cur_line appendFormat:@"%C", (unichar)(255 - ch)];
 			}
 		} else if (obfus == 0 && ch == 10) {
 			[cur_line appendString: @"<"];
