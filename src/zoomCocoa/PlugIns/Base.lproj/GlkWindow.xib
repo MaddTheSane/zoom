@@ -40,12 +40,13 @@
             </connections>
             <point key="canvasLocation" x="14" y="404"/>
         </window>
-        <window title="Log messages from Glk" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="r65-cc-M67" userLabel="GlkLogPanel" customClass="NSPanel">
+        <window title="Log messages from Glk" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="r65-cc-M67" userLabel="Glk Log Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" utility="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="139" y="152" width="537" height="378"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <view key="contentView" id="16" userLabel="Drawer View">
+            <view key="contentView" id="16">
                 <rect key="frame" x="0.0" y="0.0" width="537" height="378"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>

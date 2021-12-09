@@ -244,6 +244,7 @@
                                         <constraint firstItem="XJt-ve-CJn" firstAttribute="trailing" secondItem="61" secondAttribute="trailing" id="wqE-RN-eIp"/>
                                         <constraint firstItem="57" firstAttribute="top" secondItem="58" secondAttribute="bottom" constant="8" symbolic="YES" id="xY7-pe-3Lj"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="53" secondAttribute="trailing" constant="19" id="xp4-np-ZGW"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="62" secondAttribute="bottom" constant="15" id="yMc-TO-Qn7"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="55" secondAttribute="trailing" constant="19" id="zNt-bL-lk9"/>
                                     </constraints>
                                 </view>
