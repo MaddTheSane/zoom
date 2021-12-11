@@ -156,7 +156,7 @@ static void gagt_exit (void);
 /*  Glk port utility functions                                         */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * gagt_fatal()
  *
  * Fatal error handler.  The function returns, expecting the caller to
@@ -195,7 +195,7 @@ gagt_fatal (const char *string)
 }
 
 
-/*
+/**
  * gagt_malloc()
  * gagt_realloc()
  *
@@ -233,7 +233,7 @@ gagt_realloc (void *ptr, size_t size)
 }
 
 
-/*
+/**
  * gagt_strncasecmp()
  * gagt_strcasecmp()
  *
@@ -274,7 +274,7 @@ gagt_strcasecmp (const char *s1, const char *s2)
 }
 
 
-/*
+/**
  * gagt_debug()
  *
  * Handler for module debug output.  If no debug, it ignores the call,
@@ -305,7 +305,7 @@ gagt_debug (const char *function, const char *format, ...)
 /*  Functions not ported - functionally unchanged from os_none.c       */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * agt_tone()
  *
  * Produce a hz-Hertz sound for ms milliseconds.
@@ -317,7 +317,7 @@ agt_tone (int hz, int ms)
 }
 
 
-/*
+/**
  * agt_rand()
  *
  * Return random number from a to b inclusive.  The random number generator
@@ -349,14 +349,14 @@ agt_rand (int a, int b)
 /*  Workrounds for bugs in core AGiliTy.                               */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * gagt_workround_menus()
  *
  * Somewhere in AGiliTy's menu handling stuff is a condition that sets up
- * an eventual NULL dereference in rstrncpy(), called from num_name_func().
+ * an eventual \c NULL dereference in rstrncpy(), called from num_name_func().
  * For some reason, perhaps memory overruns, perhaps something else, it
  * happens after a few turns have been made through agt_menu().  Replacing
- * agt_menu() won't avoid it.
+ * \c agt_menu() won't avoid it.
  *
  * However, the menu stuff isn't too useful, or attractive, in a game, so one
  * solution is to simply disable it.  While not possible to do this directly,
@@ -377,7 +377,7 @@ gagt_workround_menus (void)
 }
 
 
-/*
+/**
  * gagt_workround_fileexist()
  *
  * This function verifies that the game file can be opened, in effect second-
@@ -417,7 +417,7 @@ enum {
 };
 
 
-/*
+/**
  * start_interface()
  * close_interface()
  *
@@ -463,7 +463,7 @@ close_interface (void)
 /*  Code page 437 to ISO 8859 Latin-1 translations                     */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * AGiliTy uses IBM code page 437 characters, and Glk works in ISO 8859
  * Latin-1.  There's some good news, in that a number of the characters,
  * especially international ones, in these two sets are the same.  The bad
@@ -663,7 +663,7 @@ static gagt_char_t GAGT_CHAR_TABLE[] = {
 };
 
 
-/*
+/**
  * gagt_cp_to_iso()
  *
  * Convert a string from code page 437 into ISO 8859 Latin-1.  The input and
@@ -718,7 +718,7 @@ gagt_cp_to_iso (const unsigned char *from_string, unsigned char *to_string)
 }
 
 
-/*
+/**
  * gagt_iso_to_cp()
  *
  * Convert a string from ISO 8859 Latin-1 to code page 437.  The input and
@@ -782,7 +782,7 @@ gagt_iso_to_cp (const unsigned char *from_string, unsigned char *to_string)
 /*  Glk port status line functions                                     */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Buffered copy of the latest status line passed in by the interpreter.
  * Buffering it means it's readily available to print for Glk libraries
  * that don't support separate windows.  We also need a copy of the last
@@ -791,7 +791,7 @@ gagt_iso_to_cp (const unsigned char *from_string, unsigned char *to_string)
 static char *gagt_status_buffer = NULL,
             *gagt_status_buffer_printed = NULL;
 
-/*
+/**
  * Indication that we are in mid-delay.  The delay is silent, and can look
  * kind of confusing, so to try to make it less so, we'll have the status
  * window show something about it.
@@ -799,7 +799,7 @@ static char *gagt_status_buffer = NULL,
 static int gagt_inside_delay = FALSE;
 
 
-/*
+/**
  * agt_statline()
  *
  * This function is called from our call to print_statline().  Here we'll
@@ -818,7 +818,7 @@ agt_statline (const char *cp_string)
 }
 
 
-/*
+/**
  * gagt_status_update_extended()
  *
  * Helper for gagt_status_update() and gagt_status_in_delay().  This function
@@ -871,7 +871,7 @@ gagt_status_update_extended (void)
 }
 
 
-/*
+/**
  * gagt_status_update()
  *
  *
@@ -933,7 +933,7 @@ gagt_status_update (void)
 }
 
 
-/*
+/**
  * gagt_status_print()
  *
  * Print the current contents of the completed status line buffer out in the
@@ -978,7 +978,7 @@ gagt_status_print (void)
 }
 
 
-/*
+/**
  * gagt_status_notify()
  *
  * Front end function for updating status.  Either updates the status window
@@ -1000,7 +1000,7 @@ gagt_status_notify (void)
 }
 
 
-/*
+/**
  * gagt_status_redraw()
  *
  * Redraw the contents of any status window with the buffered status string.
@@ -1049,7 +1049,7 @@ gagt_status_redraw (void)
 }
 
 
-/*
+/**
  * gagt_status_in_delay()
  *
  * Tells status line functions whether the game is delaying, or not.  This
@@ -1073,7 +1073,7 @@ gagt_status_in_delay (int inside_delay)
 }
 
 
-/*
+/**
  * gagt_status_cleanup()
  *
  * Free memory resources allocated by status line functions.  Called on game
@@ -1115,33 +1115,33 @@ enum {
   AGT_DE_EMPHASIS = -2
 };
 
-/*
+/**
  * AGiliTy colors and text attributes seem a bit confused.  Let's see if we
  * can sort them out.  Sadly, once we have, it's often not possible to
  * render the full range in all Glk's anyway.  Nevertheless...
  */
 typedef struct {
-  int color;     /* Text color. */
-  int blink;     /* Text blinking flag. */
-  int fixed;     /* Text fixed font flag. */
-  int emphasis;  /* Text emphasized flag. */
+  int color;     /*!< Text color. */
+  int blink;     /*!< Text blinking flag. */
+  int fixed;     /*!< Text fixed font flag. */
+  int emphasis;  /*!< Text emphasized flag. */
 } gagt_attrset_t;
 
-/*
+/**
  * Attributes as currently set by AGiliTy.  The default values set up here
  * correspond to AGT_NORMAL.
  */
 static gagt_attrset_t gagt_current_attribute_set = { AGT_WHITE, FALSE,
                                                      FALSE, FALSE };
 
-/*
+/**
  * An extra flag to indicate if we have coerced fixed font override.  On
  * some occasions, we need to ensure that we get fixed font no matter what
  * the game says.
  */
 static int gagt_coerced_fixed = FALSE;
 
-/*
+/**
  * Bit masks for packing colors and attributes.  Normally, I don't like
  * bit-twiddling all that much, but for packing all of the above into a
  * single byte, that's what we need.  Stuff color into the low four bits,
@@ -1157,7 +1157,7 @@ static const unsigned char GAGT_COLOR_MASK = 0x0f,
 static void gagt_standout_string (const char *message);
 
 
-/*
+/**
  * agt_textcolor()
  *
  * The AGiliTy porting guide defines the use of this function as:
@@ -1238,7 +1238,7 @@ agt_textcolor (int color)
 }
 
 
-/*
+/**
  * gagt_coerce_fixed_font()
  *
  * This coerces, or relaxes, a fixed font setting.  Used by box drawing, to
@@ -1253,7 +1253,7 @@ gagt_coerce_fixed_font (int coerce)
 }
 
 
-/*
+/**
  * gagt_pack_attributes()
  *
  * Pack a set of color and text rendering attributes into a single byte,
@@ -1283,7 +1283,7 @@ gagt_pack_attributes (const gagt_attrset_t * attribute_set, int coerced)
 }
 
 
-/*
+/**
  * gagt_unpack_attributes()
  *
  * Unpack a set of packed current color and text rendering attributes from a
@@ -1302,7 +1302,7 @@ gagt_unpack_attributes (unsigned char packed, gagt_attrset_t * attribute_set)
 }
 
 
-/*
+/**
  * gagt_pack_current_attributes()
  *
  * Pack the current color and text rendering attributes into a single byte,
@@ -1315,7 +1315,7 @@ gagt_pack_current_attributes (void)
 }
 
 
-/*
+/**
  * gagt_init_user_styles()
  *
  * Attempt to set up two defined styles, User1 and User2, to represent
@@ -1348,7 +1348,7 @@ gagt_init_user_styles (void)
 }
 
 
-/*
+/**
  * gagt_confirm_appearance()
  *
  * Attempt to find out if a Glk style's on screen appearance matches a given
@@ -1379,7 +1379,7 @@ gagt_confirm_appearance (glui32 style, glui32 stylehint, glui32 expected)
 }
 
 
-/*
+/**
  * gagt_is_style_fixed()
  * gagt_is_style_bold()
  * gagt_is_style_oblique()
@@ -1407,7 +1407,7 @@ gagt_is_style_oblique (glui32 style)
 }
 
 
-/*
+/**
  * gagt_select_style()
  *
  * Given a set of AGT text attributes, this function returns a Glk style that
@@ -1555,7 +1555,7 @@ gagt_select_style (gagt_attrset_t * attribute_set)
  * at the point where we need to display the buffer.
  */
 
-/*
+/**
  * Definition of font hints values.  Font hints may be:
  *   o none, for lines not in a definite paragraph;
  *   o proportional, for lines that can probably be safely rendered in a
@@ -1579,16 +1579,16 @@ typedef enum {
 /* Magic number used to ensure a pointer points to a page buffer line. */
 static const unsigned int GAGT_LINE_MAGIC = 0x5bc14482;
 
-/*
+/**
  * Definition of a single line buffer.  This is a growable string and a
  * parallel growable attributes array.  The string is buffered without any
  * null terminator -- not needed since we retain length.
  */
 typedef struct {
-  unsigned char *data;        /* Buffered character data. */
-  unsigned char *attributes;  /* Parallel character attributes, packed. */
-  int allocation;             /* Bytes allocated to each of the above. */
-  int length;                 /* Amount of data actually buffered. */
+  unsigned char *data;        /*!< Buffered character data. */
+  unsigned char *attributes;  /*!< Parallel character attributes, packed. */
+  int allocation;             /*!< Bytes allocated to each of the above. */
+  int length;                 /*!< Amount of data actually buffered. */
 } gagt_string_t;
 typedef gagt_string_t * gagt_stringref_t;
 
@@ -1603,37 +1603,37 @@ typedef struct gagt_paragraph_s *gagt_paragraphref_t;
 
 struct gagt_line_s
 {
-  unsigned int magic;             /* Assertion check dog-tag. */
+  unsigned int magic;             /*!< Assertion check dog-tag. */
 
-  gagt_string_t buffer;           /* Buffered line string data. */
+  gagt_string_t buffer;           /*!< Buffered line string data. */
 
-  int indent;                     /* Line indentation. */
-  int outdent;                    /* Trailing line whitespace. */
-  int real_length;                /* Real line length. */
-  int is_blank;                   /* Line blank flag. */
-  int is_hyphenated;              /* Line hyphenated flag. */
+  int indent;                     /*!< Line indentation. */
+  int outdent;                    /*!< Trailing line whitespace. */
+  int real_length;                /*!< Real line length. */
+  int is_blank;                   /*!< Line blank flag. */
+  int is_hyphenated;              /*!< Line hyphenated flag. */
 
-  gagt_paragraphref_t paragraph;  /* Paragraph containing the line. */
-  gagt_font_hint_t font_hint;     /* Line's font hint. */
+  gagt_paragraphref_t paragraph;  /*!< Paragraph containing the line. */
+  gagt_font_hint_t font_hint;     /*!< Line's font hint. */
 
-  gagt_lineref_t next;            /* List next element. */
-  gagt_lineref_t prior;           /* List prior element. */
+  gagt_lineref_t next;            /*!< List next element. */
+  gagt_lineref_t prior;           /*!< List prior element. */
 };
 
-/*
+/**
  * Definition of the actual page buffer.  This is a doubly-linked list of
  * lines, with a tail pointer to facilitate adding entries at the end.
  */
 static gagt_lineref_t gagt_page_head = NULL,
                       gagt_page_tail = NULL;
 
-/*
+/**
  * Definition of the current output line; this one is appended to on
  * agt_puts(), and transferred into the page buffer on agt_newline().
  */
 static gagt_string_t gagt_current_buffer = { NULL, NULL, 0, 0 };
 
-/*
+/**
  * gagt_string_append()
  * gagt_string_transfer()
  * gagt_string_free()
@@ -1687,7 +1687,7 @@ gagt_string_free (gagt_stringref_t buffer)
 }
 
 
-/*
+/**
  * gagt_get_string_indent()
  * gagt_get_string_outdent()
  * gagt_get_string_real_length()
@@ -1766,7 +1766,7 @@ gagt_is_string_hyphenated (const gagt_stringref_t buffer)
 }
 
 
-/*
+/**
  * gagt_output_delete()
  *
  * Delete all buffered page and line text.  Free all malloc'ed buffer memory,
@@ -1794,7 +1794,7 @@ gagt_output_delete (void)
 }
 
 
-/*
+/**
  * agt_puts()
  *
  * Buffer the string passed in into our current single line buffer.  The
@@ -1834,7 +1834,7 @@ agt_puts (const char *cp_string)
 }
 
 
-/*
+/**
  * agt_newline()
  *
  * Accept a newline to the main window.  Our job here is to append the
@@ -1887,14 +1887,14 @@ agt_newline (void)
 }
 
 
-/*
+/**
  * gagt_get_first_page_line()
  * gagt_get_next_page_line()
  * gagt_get_prior_page_line()
  *
  * Iterator functions for the page buffer.  These functions return the first
  * line from the page buffer, the next line, or the previous line, given a
- * line, respectively.  They return NULL if no lines, or no more lines, are
+ * line, respectively.  They return \c NULL if no lines, or no more lines, are
  * available.
  */
 static gagt_lineref_t
@@ -1934,38 +1934,38 @@ gagt_get_prior_page_line (const gagt_lineref_t line)
 /*  Glk port paragraphing functions and data                           */
 /*---------------------------------------------------------------------*/
 
-/* Magic number used to ensure a pointer points to a paragraph. */
+/** Magic number used to ensure a pointer points to a paragraph. */
 static const unsigned int GAGT_PARAGRAPH_MAGIC = 0xb9a2297b;
 
 /* Forward definition of special paragraph reference. */
 typedef const struct gagt_special_s *gagt_specialref_t;
 
-/*
+/**
  * Definition of a paragraph entry.  This is a structure that holds a
  * pointer to the first line buffer in the paragraph.
  */
 struct gagt_paragraph_s
 {
-  unsigned int magic;             /* Assertion check dog-tag. */
+  unsigned int magic;             /*!< Assertion check dog-tag. */
 
-  gagt_lineref_t first_line;      /* First line in the paragraph. */
-  gagt_specialref_t special;      /* Special paragraph entry. */
+  gagt_lineref_t first_line;      /*!< First line in the paragraph. */
+  gagt_specialref_t special;      /*!< Special paragraph entry. */
 
-  int line_count;                 /* Number of lines in the paragraph. */
-  int id;                         /* Paragraph id, sequence, for debug only. */
+  int line_count;                 /*!< Number of lines in the paragraph. */
+  int id;                         /*!< Paragraph id, sequence, for debug only. */
 
-  gagt_paragraphref_t next;       /* List next element. */
-  gagt_paragraphref_t prior;      /* List prior element. */
+  gagt_paragraphref_t next;       /*!< List next element. */
+  gagt_paragraphref_t prior;      /*!< List prior element. */
 };
 
-/*
+/**
  * A doubly-linked list of paragraphs, with a tail pointer to facilitate
  * adding entries at the end.
  */
 static gagt_paragraphref_t gagt_paragraphs_head = NULL,
                            gagt_paragraphs_tail = NULL;
 
-/*
+/**
  * gagt_paragraphs_delete()
  *
  * Delete paragraphs held in the list.  This function doesn't delete the
@@ -1989,7 +1989,7 @@ gagt_paragraphs_delete (void)
 }
 
 
-/*
+/**
  * gagt_find_paragraph_start()
  *
  * Find and return the next non-blank line in the page buffer, given a start
@@ -2018,7 +2018,7 @@ gagt_find_paragraph_start (const gagt_lineref_t begin)
 }
 
 
-/*
+/**
  * gagt_find_block_end()
  * gagt_find_blank_line_block_end()
  *
@@ -2064,7 +2064,7 @@ gagt_find_blank_line_block_end (const gagt_lineref_t begin)
 }
 
 
-/*
+/**
  * gagt_find_paragraph_end()
  *
  * Find and return the apparent end of a paragraph from the page buffer,
@@ -2184,7 +2184,7 @@ gagt_find_paragraph_end (const gagt_lineref_t first_line)
 }
 
 
-/*
+/**
  * gagt_paragraph_page()
  *
  * This function breaks the page buffer into what appear to be paragraphs,
@@ -2249,7 +2249,7 @@ gagt_paragraph_page (void)
 }
 
 
-/*
+/**
  * gagt_get_first_paragraph()
  * gagt_get_next_paragraph()
  *
@@ -2277,7 +2277,7 @@ gagt_get_next_paragraph (const gagt_paragraphref_t paragraph)
 }
 
 
-/*
+/**
  * gagt_get_first_paragraph_line()
  * gagt_get_next_paragraph_line()
  * gagt_get_prior_paragraph_line()
@@ -2327,7 +2327,7 @@ gagt_get_prior_paragraph_line (const gagt_lineref_t line)
 }
 
 
-/*
+/**
  * gagt_get_paragraph_line_count()
  *
  * Return the count of lines contained in the paragraph.
@@ -2345,7 +2345,7 @@ gagt_get_paragraph_line_count (const gagt_paragraphref_t paragraph)
 /*  Glk port page buffer analysis functions                            */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Threshold for consecutive punctuation/spaces before we decide that a line
  * is in fact part of a table, and a small selection of characters to apply
  * a somewhat larger threshold to when looking for punctuation (typically,
@@ -2356,7 +2356,7 @@ static const int GAGT_THRESHOLD = 4,
 static const char * const GAGT_COMMON_PUNCTUATION = ".!?";
 
 
-/*
+/**
  * gagt_line_is_standout()
  *
  * Return TRUE if a page buffer line appears to contain "standout" text.
@@ -2410,7 +2410,7 @@ gagt_line_is_standout (const gagt_lineref_t line)
 }
 
 
-/*
+/**
  * gagt_set_font_hint_proportional()
  * gagt_set_font_hint_proportional_newline()
  * gagt_set_font_hint_fixed_width()
@@ -2458,7 +2458,7 @@ gagt_set_font_hint_fixed_width (gagt_lineref_t line)
 }
 
 
-/*
+/**
  * gagt_assign_paragraph_font_hints()
  *
  * For a given paragraph in the page buffer, this function looks at the text
@@ -2830,7 +2830,7 @@ gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
 }
 
 
-/*
+/**
  * gagt_assign_font_hints()
  *
  * 
@@ -2873,7 +2873,7 @@ typedef const struct gagt_special_s
   const char * const replace;
 } gagt_special_t;
 
-/*
+/**
  * Table of special AGiliTy interpreter strings and paragraphs -- where one
  * appears in game output, we'll print out its replacement instead.  Be
  * warned; these strings are VERY specific to AGiliTy 1.1.1, and are extre-
@@ -2983,13 +2983,13 @@ static gagt_special_t GAGT_SPECIALS[] = {
 };
 
 
-/*
+/**
  * gagt_compare_special_line()
  * gagt_compare_special_paragraph()
  *
  * Helpers for gagt_find_equivalent_special().  Compare line data case-
  * insensitively, taking care to use lengths rather than relying on line
- * buffer data being NUL terminated (which it's not); and iterate a complete
+ * buffer data being \c NUL terminated (which it's not); and iterate a complete
  * special paragraph comparison.
  */
 static int
@@ -3035,7 +3035,7 @@ gagt_compare_special_paragraph (const gagt_specialref_t special,
 }
 
 
-/*
+/**
  * gagt_find_equivalent_special()
  *
  * Given a paragraph, see if it matches any of the special ones set up in
@@ -3061,7 +3061,7 @@ gagt_find_equivalent_special (gagt_paragraphref_t paragraph)
 }
 
 
-/*
+/**
  * gagt_mark_specials()
  *
  * Search for and mark any lines that match special paragraphs.
@@ -3113,7 +3113,7 @@ gagt_mark_specials (void)
 }
 
 
-/*
+/**
  * gagt_display_special()
  *
  * Display the replacement text for the specified special table entry.  The
@@ -3192,14 +3192,14 @@ gagt_display_special (const gagt_specialref_t special, glui32 current_style)
 /*  Glk port output functions                                          */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Flag for if the user entered "help" as their last input, or if hints have
  * been silenced as a result of already using a Glk command.
  */
 static int gagt_help_requested = FALSE,
            gagt_help_hints_silenced = FALSE;
 
-/*
+/**
  * gagt_display_register_help_request()
  * gagt_display_silence_help_hints()
  * gagt_display_provide_help_hint()
@@ -3236,7 +3236,7 @@ gagt_display_provide_help_hint (glui32 current_style)
 }
 
 
-/*
+/**
  * gagt_display_text_element()
  *
  * Display an element of a buffer string using matching packed attributes.
@@ -3298,7 +3298,7 @@ gagt_display_text_element (const char *string, const unsigned char *attributes,
 }
 
 
-/*
+/**
  * gagt_display_line()
  *
  * Display a page buffer line, starting in the current Glk style, and
@@ -3345,7 +3345,7 @@ gagt_display_line (const gagt_lineref_t line, glui32 current_style,
 }
 
 
-/*
+/**
  * gagt_display_hinted_line()
  *
  * Display a page buffer line, starting in the current Glk style, and
@@ -3416,7 +3416,7 @@ gagt_display_hinted_line (const gagt_lineref_t line, glui32 current_style,
 }
 
 
-/*
+/**
  * gagt_display_auto()
  *
  * Display buffered output text to the Glk main window using a bunch of
@@ -3492,7 +3492,7 @@ gagt_display_auto (void)
 }
 
 
-/*
+/**
  * gagt_display_manual()
  *
  * Display buffered output text in the Glk main window, with either a fixed
@@ -3542,7 +3542,7 @@ gagt_display_manual (int fixed_width)
 }
 
 
-/*
+/**
  * gagt_display_debug()
  *
  * Display the analyzed page buffer in a form that shows all of its gory
@@ -3597,7 +3597,7 @@ gagt_display_debug (void)
 }
 
 
-/*
+/**
  * gagt_output_flush()
  *
  * Flush any buffered output text to the Glk main window, and clear the
@@ -3650,7 +3650,7 @@ gagt_output_flush (void)
 }
 
 
-/*
+/**
  * agt_clrscr()
  *
  * Clear the main playing area window.  Although there may be little point
@@ -3678,7 +3678,7 @@ agt_clrscr (void)
 }
 
 
-/*
+/**
  * gagt_styled_string()
  * gagt_styled_char()
  * gagt_standout_string()
@@ -3745,20 +3745,20 @@ gagt_header_string (const char *message)
 /*  Glk port delay functions                                           */
 /*---------------------------------------------------------------------*/
 
-/* Number of milliseconds in a second (traditionally, 1000). */
+/** Number of milliseconds in a second (traditionally, 1000). */
 static const int GAGT_MS_PER_SEC = 1000;
 
-/*
+/**
  * Number of milliseconds to timeout.  Because of jitter in the way Glk
  * generates timeouts, it's worthwhile implementing a delay using a number
  * of shorter timeouts.  This minimizes inaccuracies in the actual delay.
  */
 static const glui32 GAGT_DELAY_TIMEOUT = 50;
 
-/* The character key that can be pressed to cancel, and suspend, delays. */
+/** The character key that can be pressed to cancel, and suspend, delays. */
 static const char GAGT_DELAY_SUSPEND = ' ';
 
-/*
+/**
  * Flag to temporarily turn off all delays.  This is set when the user
  * cancels a delay with a keypress, and remains set until the next time
  * that AGiliTy requests user input.  This way, games that call agt_delay()
@@ -3768,7 +3768,7 @@ static const char GAGT_DELAY_SUSPEND = ' ';
 static int gagt_delays_suspended = FALSE;
 
 
-/*
+/**
  * agt_delay()
  *
  * Delay for the specified number of seconds.  The delay can be canceled
@@ -3848,11 +3848,11 @@ agt_delay (int seconds)
 }
 
 
-/*
+/**
  * gagt_delay_resume()
  *
- * Unsuspend delays.  This function should be called by agt_input() and
- * agt_getkey(), to re-enable delays when the interpreter next requests
+ * Unsuspend delays.  This function should be called by \c agt_input() and
+ * \c agt_getkey() , to re-enable delays when the interpreter next requests
  * user input.
  */
 static void
@@ -3866,7 +3866,7 @@ gagt_delay_resume (void)
 /*  Glk port box drawing functions                                     */
 /*---------------------------------------------------------------------*/
 
-/* Saved details of any current box dimensions and flags. */
+/** Saved details of any current box dimensions and flags. */
 static unsigned long gagt_box_flags = 0;
 static int gagt_box_busy = FALSE,
            gagt_box_width = 0,
@@ -3874,7 +3874,7 @@ static int gagt_box_busy = FALSE,
            gagt_box_startx = 0;
 
 
-/*
+/**
  * gagt_box_rule()
  * gagt_box_position()
  *
@@ -3912,7 +3912,7 @@ gagt_box_position (int indent)
 }
 
 
-/*
+/**
  * agt_makebox()
  * agt_qnewline()
  * agt_endbox()
@@ -4028,7 +4028,7 @@ agt_endbox (void)
 /*  Glk command escape functions                                       */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * gagt_command_script()
  *
  * Turn game output scripting (logging) on and off.
@@ -4105,7 +4105,7 @@ gagt_command_script (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_inputlog()
  *
  * Turn game input logging on and off.
@@ -4178,7 +4178,7 @@ gagt_command_inputlog (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_readlog()
  *
  * Set the game input log, to read input from a file.
@@ -4257,7 +4257,7 @@ gagt_command_readlog (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_abbreviations()
  *
  * Turn abbreviation expansions on and off.
@@ -4309,7 +4309,7 @@ gagt_command_abbreviations (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_fonts()
  *
  * Set the value for gagt_font_mode depending on the argument from the
@@ -4415,7 +4415,7 @@ gagt_command_fonts (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_delays()
  *
  * Set a value for gagt_delay_mode depending on the argument from
@@ -4508,7 +4508,7 @@ gagt_command_delays (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_width()
  *
  * Print out the (approximate) display width, from status_width.  It's
@@ -4542,7 +4542,7 @@ gagt_command_width (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_replacements()
  *
  * Turn Glk special paragraph replacement on and off.
@@ -4594,7 +4594,7 @@ gagt_command_replacements (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_statusline()
  *
  * Turn the extended status line on and off.
@@ -4662,7 +4662,7 @@ gagt_command_statusline (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_print_version_number()
  * gagt_command_version()
  *
@@ -4695,7 +4695,7 @@ gagt_command_version (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_commands()
  *
  * Turn command escapes off.  Once off, there's no way to turn them back on.
@@ -4735,7 +4735,7 @@ gagt_command_commands (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_license()
  *
  * Print licensing terms.
@@ -4771,12 +4771,12 @@ gagt_command_license (const char *argument)
 }
 
 
-/* Glk subcommands and handler functions. */
+/** Glk subcommands and handler functions. */
 typedef const struct
 {
-  const char * const command;                     /* Glk subcommand. */
-  void (* const handler) (const char *argument);  /* Subcommand handler. */
-  const int takes_argument;                       /* Argument flag. */
+  const char * const command;                     /*!< Glk subcommand. */
+  void (* const handler) (const char *argument);  /*!< Subcommand handler. */
+  const int takes_argument;                       /*!< Argument flag. */
 } gagt_command_t;
 typedef gagt_command_t *gagt_commandref_t;
 
@@ -4802,7 +4802,7 @@ static gagt_command_t GAGT_COMMAND_TABLE[] = {
 };
 
 
-/*
+/**
  * gagt_command_summary()
  *
  * Report all current Glk settings.
@@ -4829,7 +4829,7 @@ gagt_command_summary (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_help()
  *
  * Document the available Glk commands.
@@ -5037,7 +5037,7 @@ gagt_command_help (const char *command)
 }
 
 
-/*
+/**
  * gagt_command_escape()
  *
  * This function is handed each input line.  If the line contains a specific
@@ -5151,11 +5151,11 @@ gagt_command_escape (const char *string)
 /* Longest line we're going to buffer for input. */
 enum { GAGT_INPUTBUFFER_LENGTH = 256 };
 
-/* Table of single-character command abbreviations. */
+/** Table of single-character command abbreviations. */
 typedef const struct
 {
-  const char abbreviation;       /* Abbreviation character. */
-  const char * const expansion;  /* Expansion string. */
+  const char abbreviation;       /*!< Abbreviation character. */
+  const char * const expansion;  /*!< Expansion string. */
 } gagt_abbreviation_t;
 typedef gagt_abbreviation_t *gagt_abbreviationref_t;
 
@@ -5168,7 +5168,7 @@ static gagt_abbreviation_t GAGT_ABBREVIATIONS[] = {
 };
 
 
-/*
+/**
  * gagt_expand_abbreviations()
  *
  * Expand a few common one-character abbreviations commonly found in other
@@ -5221,7 +5221,7 @@ gagt_expand_abbreviations (char *buffer, int size)
 }
 
 
-/*
+/**
  * agt_input()
  *
  * Read a line from the keyboard, allocating space for it using malloc.
@@ -5377,7 +5377,7 @@ agt_input (int in_type)
 }
 
 
-/*
+/**
  * agt_getkey()
  *
  * Read a single character and return it.  AGiliTy defines the echo_char
@@ -5502,7 +5502,7 @@ agt_getkey (rbool echo_char)
 /*  Glk port event functions                                           */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * We have some clever atexit() finalizer handling for exit() calls that
  * come from the core interpreter.  However, an exit() call could also come
  * from Glk; Xkill for example.  To tell the difference, we'll have the
@@ -5510,7 +5510,7 @@ agt_getkey (rbool echo_char)
  */
 static int gagt_in_glk_select = FALSE;
 
-/*
+/**
  * gagt_event_wait_2()
  * gagt_event_wait()
  *
@@ -5547,7 +5547,7 @@ gagt_event_wait (glui32 wait_type, event_t * event)
 }
 
 
-/*
+/**
  * gagt_event_in_glk_select()
  *
  * Return TRUE if we're currently awaiting an event in glk_select().  Used
@@ -5564,7 +5564,7 @@ gagt_event_in_glk_select (void)
 /*  Miscellaneous Glk port startup and options functions               */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Default screen height and width, and also a default status width for
  * use with Glk libraries that don't support separate windows.
  */
@@ -5573,7 +5573,7 @@ static const int GAGT_DEFAULT_SCREEN_WIDTH = 80,
                  GAGT_DEFAULT_STATUS_WIDTH = 76;
 
 
-/*
+/**
  * agt_option()
  *
  * Platform-specific setup and options handling.  AGiliTy defines the
@@ -5594,7 +5594,7 @@ agt_option (int optnum, char *optstr[], rbool setflag)
 }
 
 
-/*
+/**
  * agt_globalfile()
  *
  * Global options file handle handling.  For now, this is a stub, since
@@ -5608,7 +5608,7 @@ agt_globalfile (int fid)
 }
 
 
-/*
+/**
  * init_interface()
  *
  * General initialization for the module; sets some variables, and creates
@@ -5721,7 +5721,7 @@ enum { GAGT_MAX_PATH = 1024 };
 
 
 #ifdef GLK_ANSI_ONLY
-/*
+/**
  * gagt_confirm()
  *
  * Print a confirmation prompt, and read a single input character, taking
@@ -5765,7 +5765,7 @@ gagt_confirm (const char *prompt)
 #endif
 
 
-/*
+/**
  * gagt_get_user_file()
  *
  * Alternative versions of functions to get a file name from the user, and
@@ -5970,7 +5970,7 @@ gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
 #endif
 
 
-/*
+/**
  * get_user_file()
  *
  * Get a file name from the user, and return the file stream structure.
@@ -6032,7 +6032,7 @@ get_user_file (int type)
 }
 
 
-/*
+/**
  * set_default_filenames()
  *
  * Set defaults for last save, log, and script filenames.
@@ -6052,7 +6052,7 @@ set_default_filenames (fc_type fc)
 /*  Functions intercepted by link-time wrappers                        */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * __wrap_toupper()
  * __wrap_tolower()
  *
@@ -6092,7 +6092,7 @@ __wrap_tolower (int ch)
 /* External declaration of interface.c's set default options function. */
 extern void set_default_options (void);
 
-/*
+/**
  * The following values need to be passed between the startup_code and main
  * functions.
  */
@@ -6101,7 +6101,7 @@ static char **gagt_saved_argv = NULL,   /* Recorded argv. */
             *gagt_gamefile = NULL,      /* Name of game file. */
             *gagt_game_message = NULL;  /* Error message. */
 
-/*
+/**
  * Flag to set if we want to test for a clean exit.  Without this it's a
  * touch tricky sometimes to corner AGiliTy into calling exit() for us; it
  * tends to require a broken game file.
@@ -6109,7 +6109,7 @@ static char **gagt_saved_argv = NULL,   /* Recorded argv. */
 static int gagt_clean_exit_test = FALSE;
 
 
-/*
+/**
  * gagt_parse_option()
  *
  * Glk-ified version of AGiliTy's parse_options() function.  In practice,
@@ -6224,7 +6224,7 @@ gagt_parse_option (const char *option)
 }
 
 
-/*
+/**
  * gagt_startup_code()
  * gagt_main()
  *
@@ -6397,23 +6397,23 @@ gagt_main (void)
 /*  Linkage between Glk entry/exit calls and the AGiliTy interpreter   */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Safety flags, to ensure we always get startup before main, and that
  * we only get a call to main once.
  */
 static int gagt_startup_called = FALSE,
            gagt_main_called = FALSE;
 
-/*
+/**
  * We try to catch calls to exit() from the interpreter, and redirect them
- * to glk_exit().  To help tell these calls from a call to exit() from
- * glk_exit() itself, we need to monitor when interpreter code is running,
+ * to \c glk_exit() .  To help tell these calls from a call to exit() from
+ * \c glk_exit() itself, we need to monitor when interpreter code is running,
  * and when not.
  */
 static int gagt_agility_running = FALSE;
 
 
-/*
+/**
  * gagt_finalizer()
  *
  * ANSI atexit() handler.  This is the first part of trying to catch and re-
@@ -6507,7 +6507,7 @@ gagt_finalizer (void)
 }
 
 
-/*
+/**
  * gagt_exit()
  *
  * Glk_exit() local wrapper.  This is the second part of trying to catch
@@ -6529,10 +6529,10 @@ gagt_exit (void)
 }
 
 
-/*
+/**
  * __wrap_exit()
  *
- * Exit() wrapper where a linker does --wrap.  This is the third part of
+ * \c Exit() wrapper where a linker does --wrap.  This is the third part of
  * trying to catch and redirect calls to exit().
  *
  * This function is for use only with IFP, and avoids a nasty attempt at
@@ -6576,7 +6576,7 @@ __wrap_exit (int status)
 }
 
 
-/*
+/**
  * glk_main()
  *
  * Main entry point for Glk.  Here, all startup is done, and we call our
@@ -6690,7 +6690,7 @@ glkunix_argumentlist_t glkunix_arguments[] = {
 };
 
 
-/*
+/**
  * glkunix_startup_code()
  *
  * Startup entry point for UNIX versions of Glk AGiliTy.  Glk will call
