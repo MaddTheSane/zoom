@@ -912,7 +912,7 @@ static int agx_decode_version(int vercode)
    file reading code */
 
 #define p(t)  ((t*)(rec_desc->ptr))
-#define fixu16(n1,n2)  ( ((long)(n1))|( ((long)(n2))<<8 ))
+#define fixu16(n1,n2)  ( ((int)(n1))|( ((int)(n2))<<8 ))
 
 /* This is as large as the largest data structure we could run into */
 static const uchar zero_block[81]={0,0,0,0,0,0,0,0,

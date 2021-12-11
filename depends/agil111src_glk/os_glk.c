@@ -839,6 +839,7 @@ gagt_status_update_extended (void)
       /* Clear the second status line only. */
       glk_window_move_cursor (gagt_status_window, 0, 1);
       glk_set_window (gagt_status_window);
+      glk_set_style (style_User1);
       for (index = 0; index < width; index++)
         glk_put_char (' ');
 
@@ -892,6 +893,11 @@ gagt_status_update (void)
       glk_window_clear (gagt_status_window);
       glk_window_move_cursor (gagt_status_window, 0, 0);
       glk_set_window (gagt_status_window);
+      
+      glk_set_style (style_User1);
+       for (int index = 0; index < width; index++)
+         glk_put_char (' ');
+       glk_window_move_cursor (gagt_status_window, 0, 0);
 
       /* Call print_statline() to refresh status line buffer contents. */
       print_statline ();
@@ -5667,6 +5673,7 @@ init_interface (int argc, char *argv[])
    * options or flags.  We can live without a status window if we have to.
    */
   status_height = gagt_extended_status_enabled ? 2 : 1;
+  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
   gagt_status_window = glk_window_open (gagt_main_window,
                                         winmethod_Above | winmethod_Fixed,
                                         status_height, wintype_TextGrid, 0);
