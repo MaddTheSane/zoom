@@ -13,10 +13,11 @@
 
 #include "agility.h"
 #include "interp.h"
+#include <GlkClient/cocoaglk.h>
 
 static char *gamefile_name = "uh...";
 
-//#define DEBUG_BELLS_AND_WHISTLES
+#define DEBUG_BELLS_AND_WHISTLES
 
 /* Warning for fontcmd, pictcmd, musiccmd:
   These all extract filenames from fontlist, pictlist, pixlist, songlist.
@@ -26,12 +27,17 @@ static char *gamefile_name = "uh...";
 #ifdef DEBUG_BELLS_AND_WHISTLES
 void bnw_report(char *cmdstr,filename *list,int index)
 {
-  writeln("");
-  writestr(">** ");writestr(cmdstr);writestr(" ");
+  char logStr[1024];
+  strcpy(logStr, "");
+  strncat(logStr, ">** ", sizeof(logStr)-1);
+  strncat(logStr, cmdstr, sizeof(logStr)-1);
+  strncat(logStr, " ", sizeof(logStr)-1);
   if (list!=NULL) {
-    writestr(list[index]);
-    writestr(" ");}
-  writeln("**<");
+    strncat(logStr, list[index], sizeof(logStr)-1);
+    strncat(logStr, " ", sizeof(logStr)-1);
+  }
+  strncat(logStr, "**<", sizeof(logStr)-1);
+  cocoaglk_log_ex(logStr, 0);
 }
 #endif /* DEBUG_BELLS_AND_WHISTLES */
 
