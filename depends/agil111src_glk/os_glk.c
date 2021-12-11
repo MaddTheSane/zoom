@@ -49,6 +49,9 @@
 #include <ctype.h>
 #include <limits.h>
 #include <stddef.h>
+#ifdef HAVE_LIBICONV
+#include <iconv.h>
+#endif
 
 #ifndef GLK_ANSI_ONLY
 # if !defined (__USE_POSIX)
@@ -143,6 +146,14 @@ static void gagt_event_wait (glui32 wait_type, event_t * event);
 static void gagt_event_wait_2 (glui32 wait_type_1,
                                glui32 wait_type_2,
                                event_t * event);
+
+#ifdef GLK_MODULE_UNICODE
+/* Forward declaration of unicode functions. */
+static void gagt_cp_to_utf (const unsigned char *from_string,
+                            glui32 *to_string);
+static void gagt_unicode_to_cp (const glui32 *from_string,
+                                unsigned char *to_string);
+#endif
 
 /*
  * Forward declaration of the glk_exit() wrapper.  Normal functions in this
@@ -333,7 +344,7 @@ agt_rand (int a, int b)
 
   if (!is_initialized)
     {
-      srand (stable_random ? 6 : time (0));
+      srand (stable_random ? 6 : (time (0) & 0xffffffff));
 
       is_initialized = TRUE;
       gagt_debug ("agt_rand", "[initialized]");
@@ -481,7 +492,7 @@ close_interface (void)
  * The first entry of table comments below is the character's UNICODE value,
  * just in case it's useful at some future date.
  */
-typedef const struct
+typedef const struct gagt_char_t
 {
   const unsigned char cp437;      /* Code page 437 character. */
   const unsigned char iso8859_1;  /* ISO 8859 Latin-1 character. */
@@ -6784,3 +6795,294 @@ macglk_startup_code (macglk_startup_t * data)
   return TRUE;
 }
 #endif /* TARGET_OS_MAC */
+
+#ifdef GLK_MODULE_UNICODE
+
+typedef const struct gagt_char_u_t {
+  /*! Code page 437 character. */
+  const unsigned char cp437;
+  /*! Unicode character. */
+  const glui32 unicode;
+} gagt_char_u_t;
+typedef gagt_char_u_t *gagt_charref_u_t;
+
+static gagt_char_u_t GAGT_CHAR_U_TABLE[] = {
+  /*
+   * Low characters -- those below 0x20.   These are the really odd code
+   * page 437 characters, rarely used by AGT games.  Low characters are
+   * omitted from the reverse lookup, and participate only in the forwards
+   * lookup from code page 437 to ISO 8859 Latin-1.
+   */
+  {0x01, 0x263a},     /* 263a White smiling face */
+  {0x02, 0x263b},     /* 263b Black smiling face */
+  {0x03, 0x2665},     /* 2665 Black heart suit */
+  {0x04, 0x2666},     /* 2666 Black diamond suit */
+  {0x05, 0x2663},     /* 2663 Black club suit */
+  {0x06, 0x2660},     /* 2660 Black spade suit */
+  {0x07, 0x2022},     /* 2022 Bullet */
+  {0x08, 0x25d8},     /* 25d8 Inverse bullet */
+  {0x09, 0x25e6},     /* 25e6 White bullet */
+  {0x0a, 0x25d9},     /* 25d9 Inverse white circle */
+  {0x0b, 0x2642},     /* 2642 Male sign */
+  {0x0c, 0x2640},     /* 2640 Female sign */
+  {0x0d, 0x266a},     /* 266a Eighth note */
+  {0x0e, 0x266b},     /* 266b Beamed eighth notes */
+  {0x0f, 0x263c},     /* 263c White sun with rays */
+  {0x10, 0x25b6},     /* 25b6 Black right-pointing triangle */
+  {0x11, 0x25c0},     /* 25c0 Black left-pointing triangle */
+  {0x12, 0x2195},     /* 2195 Up down arrow */
+  {0x13, 0x203c},     /* 203c Double exclamation mark */
+  {0x14, 0x00b6},     /* 00b6 Pilcrow sign */
+  {0x15, 0x00a7},     /* 00a7 Section sign */
+  {0x16, 0x25ac},     /* 25ac Black rectangle */
+  {0x17, 0x21a8},     /* 21a8 Up down arrow with base */
+  {0x18, 0x2191},     /* 2191 Upwards arrow */
+  {0x19, 0x2193},     /* 2193 Downwards arrow */
+  {0x1a, 0x2192},     /* 2192 Rightwards arrow */
+  {0x1b, 0x2190},     /* 2190 Leftwards arrow */
+  {0x1c, 0x2310},     /* 2310 Reversed not sign */
+  {0x1d, 0x2194},     /* 2194 Left right arrow */
+  {0x1e, 0x25b2},     /* 25b2 Black up-pointing triangle */
+  {0x1f, 0x25bc},     /* 25bc Black down-pointing triangle */
+
+  /*
+   * High characters -- those above 0x7f.  These are more often used by AGT
+   * games, particularly for box drawing.
+   */
+  {0x80, 0xc7},     /* 00c7 Latin capital letter c with cedilla */
+  {0x81, 0xfc},     /* 00fc Latin small letter u with diaeresis */
+  {0x82, 0xe9},     /* 00e9 Latin small letter e with acute */
+  {0x83, 0xe2},     /* 00e2 Latin small letter a with circumflex */
+  {0x84, 0xe4},     /* 00e4 Latin small letter a with diaeresis */
+  {0x85, 0xe0},     /* 00e0 Latin small letter a with grave */
+  {0x86, 0xe5},     /* 00e5 Latin small letter a with ring above */
+  {0x87, 0xe7},     /* 00e7 Latin small letter c with cedilla */
+  {0x88, 0xea},     /* 00ea Latin small letter e with circumflex */
+  {0x89, 0xeb},     /* 00eb Latin small letter e with diaeresis */
+  {0x8a, 0xe8},     /* 00e8 Latin small letter e with grave */
+  {0x8b, 0xef},     /* 00ef Latin small letter i with diaeresis */
+  {0x8c, 0xee},     /* 00ee Latin small letter i with circumflex */
+  {0x8d, 0xec},     /* 00ec Latin small letter i with grave */
+  {0x8e, 0xc4},     /* 00c4 Latin capital letter a with diaeresis */
+  {0x8f, 0xc5},     /* 00c5 Latin capital letter a with ring above */
+  {0x90, 0xc9},     /* 00c9 Latin capital letter e with acute */
+  {0x91, 0xe6},     /* 00e6 Latin small ligature ae */
+  {0x92, 0xc6},     /* 00c6 Latin capital ligature ae */
+  {0x93, 0xf4},     /* 00f4 Latin small letter o with circumflex */
+  {0x94, 0xf6},     /* 00f6 Latin small letter o with diaeresis */
+  {0x95, 0xf2},     /* 00f2 Latin small letter o with grave */
+  {0x96, 0xfb},     /* 00fb Latin small letter u with circumflex */
+  {0x97, 0xf9},     /* 00f9 Latin small letter u with grave */
+  {0x98, 0xff},     /* 00ff Latin small letter y with diaeresis */
+  {0x99, 0xd6},     /* 00d6 Latin capital letter o with diaeresis */
+  {0x9a, 0xdc},     /* 00dc Latin capital letter u with diaeresis */
+  {0x9b, 0xa2},     /* 00a2 Cent sign */
+  {0x9c, 0xa3},     /* 00a3 Pound sign */
+  {0x9d, 0xa5},     /* 00a5 Yen sign */
+  {0x9e, 0x20a7},   /* 20a7 Peseta sign */
+  {0x9f, 0x0192},   /* 0192 Latin small letter f with hook */
+  {0xa0, 0xe1},     /* 00e1 Latin small letter a with acute */
+  {0xa1, 0xed},     /* 00ed Latin small letter i with acute */
+  {0xa2, 0xf3},     /* 00f3 Latin small letter o with acute */
+  {0xa3, 0xfa},     /* 00fa Latin small letter u with acute */
+  {0xa4, 0xf1},     /* 00f1 Latin small letter n with tilde */
+  {0xa5, 0xd1},     /* 00d1 Latin capital letter n with tilde */
+  {0xa6, 0xaa},     /* 00aa Feminine ordinal indicator */
+  {0xa7, 0xba},     /* 00ba Masculine ordinal indicator */
+  {0xa8, 0xbf},     /* 00bf Inverted question mark */
+  {0xa9, 0x2310},   /* 2310 Reversed not sign */
+  {0xaa, 0xac},     /* 00ac Not sign */
+  {0xab, 0xbd},     /* 00bd Vulgar fraction one half */
+  {0xac, 0xbc},     /* 00bc Vulgar fraction one quarter */
+  {0xad, 0xa1},     /* 00a1 Inverted exclamation mark */
+  {0xae, 0xab},     /* 00ab Left-pointing double angle quotation mark */
+  {0xaf, 0xbb},     /* 00bb Right-pointing double angle quotation mark */
+  {0xb0, 0x2591},   /* 2591 Light shade */
+  {0xb1, 0x2592},   /* 2592 Medium shade */
+  {0xb2, 0x2593},   /* 2593 Dark shade */
+  {0xb3, 0x2502},   /* 2502 Box light vertical */
+  {0xb4, 0x2524},   /* 2524 Box light vertical and left */
+  {0xb5, 0x2561},   /* 2561 Box vertical single and left double */
+  {0xb6, 0x2562},   /* 2562 Box vertical double and left single */
+  {0xb7, 0x2556},   /* 2556 Box down double and left single */
+  {0xb8, 0x2555},   /* 2555 Box down single and left double */
+  {0xb9, 0x2563},   /* 2563 Box double vertical and left */
+  {0xba, 0x2551},   /* 2551 Box double vertical */
+  {0xbb, 0x2557},   /* 2557 Box double down and left */
+  {0xbc, 0x255d},   /* 255d Box double up and left */
+  {0xbd, 0x255c},   /* 255c Box up double and left single */
+  {0xbe, 0x255b},   /* 255b Box up single and left double */
+  {0xbf, 0x2510},   /* 2510 Box light down and left */
+  {0xc0, 0x2514},   /* 2514 Box light up and right */
+  {0xc1, 0x2534},   /* 2534 Box light up and horizontal */
+  {0xc2, 0x252c},   /* 252c Box light down and horizontal */
+  {0xc3, 0x251c},   /* 251c Box light vertical and right */
+  {0xc4, 0x2500},   /* 2500 Box light horizontal */
+  {0xc5, 0x253c},   /* 253c Box light vertical and horizontal */
+  {0xc6, 0x255e},   /* 255e Box vertical single and right double */
+  {0xc7, 0x255f},   /* 255f Box vertical double and right single */
+  {0xc8, 0x255a},   /* 255a Box double up and right */
+  {0xc9, 0x2554},   /* 2554 Box double down and right */
+  {0xca, 0x2569},   /* 2569 Box double up and horizontal */
+  {0xcb, 0x2566},   /* 2566 Box double down and horizontal */
+  {0xcc, 0x2560},   /* 2560 Box double vertical and right */
+  {0xcd, 0x2550},   /* 2550 Box double horizontal */
+  {0xce, 0x256c},   /* 256c Box double vertical and horizontal */
+  {0xcf, 0x2567},   /* 2567 Box up single and horizontal double */
+  {0xd0, 0x2568},   /* 2568 Box up double and horizontal single */
+  {0xd1, 0x2564},   /* 2564 Box down single and horizontal double */
+  {0xd2, 0x2565},   /* 2565 Box down double and horizontal single */
+  {0xd3, 0x2559},   /* 2559 Box up double and right single */
+  {0xd4, 0x2558},   /* 2558 Box up single and right double */
+  {0xd5, 0x2552},   /* 2552 Box down single and right double */
+  {0xd6, 0x2553},   /* 2553 Box down double and right single */
+  {0xd7, 0x256b},   /* 256b Box vertical double and horizontal single */
+  {0xd8, 0x256a},   /* 256a Box vertical single and horizontal double */
+  {0xd9, 0x2518},   /* 2518 Box light up and left */
+  {0xda, 0x250c},   /* 250c Box light down and right */
+  {0xdb, 0x2588},   /* 2588 Full block */
+  {0xdc, 0x2584},   /* 2584 Lower half block */
+  {0xdd, 0x258c},   /* 258c Left half block */
+  {0xde, 0x2590},   /* 2590 Right half block */
+  {0xdf, 0x2580},   /* 2580 Upper half block */
+  {0xe0, 0x03b1},   /* 03b1 Greek small letter alpha */
+  {0xe1, 0xdf},     /* 00df Latin small letter sharp s */
+  {0xe2, 0x0393},   /* 0393 Greek capital letter gamma */
+  {0xe3, 0x03c0},   /* 03c0 Greek small letter pi */
+  {0xe4, 0x03a3},   /* 03a3 Greek capital letter sigma */
+  {0xe5, 0x03c3},   /* 03c3 Greek small letter sigma */
+  {0xe6, 0xb5},     /* 00b5 Micro sign */
+  {0xe7, 0x03c4},   /* 03c4 Greek small letter tau */
+  {0xe8, 0x03a6},   /* 03a6 Greek capital letter phi */
+  {0xe9, 0x0398},   /* 0398 Greek capital letter theta */
+  {0xea, 0x03a9},   /* 03a9 Greek capital letter omega */
+  {0xeb, 0x03b4},   /* 03b4 Greek small letter delta */
+  {0xec, 0x221e},   /* 221e Infinity */
+  {0xed, 0x03c6},   /* 03c6 Greek small letter phi */
+  {0xee, 0x03b5},   /* 03b5 Greek small letter epsilon */
+  {0xef, 0x2229},   /* 2229 Intersection */
+  {0xf0, 0x2261},   /* 2261 Identical to */
+  {0xf1, 0xb1},     /* 00b1 Plus-minus sign */
+  {0xf2, 0x2265},   /* 2265 Greater-than or equal to */
+  {0xf3, 0x2264},   /* 2264 Less-than or equal to */
+  {0xf4, 0x2320},   /* 2320 Top half integral */
+  {0xf5, 0x2321},   /* 2321 Bottom half integral */
+  {0xf6, 0xf7},     /* 00f7 Division sign */
+  {0xf7, 0x2248},   /* 2248 Almost equal to */
+  {0xf8, 0xb0},     /* 00b0 Degree sign */
+  {0xf9, 0x2219},   /* 2219 Bullet operator */
+  {0xfa, 0xb7},     /* 00b7 Middle dot */
+  {0xfb, 0x221a},   /* 221a Square root */
+  {0xfc, 0x207f},   /* 207f Superscript latin small letter n */
+  {0xfd, 0xb2},     /* 00b2 Superscript two */
+  {0xfe, 0x25a0},   /* 25a0 Black square */
+  {0xff, 0xa0},     /* 00a0 No-break space */
+  {0, 0}            /* 0000 [END OF TABLE] */
+};
+
+/**
+ * Convert a string from code page 437 into UTF-32.  The input and
+ * output buffers may \b not be one and the same.
+ */
+static void
+gagt_cp_to_utf (const unsigned char *from_string, glui32 *to_string)
+{
+  static int is_initialized = FALSE;
+  static glui32 table[UCHAR_MAX + 1];
+
+  int index;
+  unsigned char cp437;
+  glui32 utf32;
+  assert (from_string && to_string);
+
+  if (!is_initialized)
+    {
+      gagt_charref_u_t entry;
+
+      /*
+       * Create a lookup entry for each code in the main table.  Fill in gaps
+       * for 7-bit characters with their ASCII equivalent values.  Any
+       * remaining codes not represented in the main table will map to zeroes
+       * in the lookup table, as static variables are initialized to zero.
+       */
+      for (entry = GAGT_CHAR_U_TABLE; entry->cp437; entry++)
+        {
+          cp437 = entry->cp437;
+          utf32 = entry->unicode;
+
+          assert (cp437 < 0x20 || (cp437 > SCHAR_MAX && cp437 <= UCHAR_MAX));
+          table[cp437] = utf32;
+        }
+      for (index = 0; index <= SCHAR_MAX; index++)
+        {
+          if (table[index] == 0)
+            table[index] = index;
+        }
+
+      is_initialized = TRUE;
+    }
+
+  for (index = 0; from_string[index] != '\0'; index++)
+    {
+      cp437 = from_string[index];
+      utf32 = table[cp437];
+
+      to_string[index] = utf32 ? utf32 : cp437;
+    }
+
+  to_string[index] = '\0';
+}
+
+/**
+ * Convert a string from Unicode to code page 437.  The input and
+ * output buffers may \b not be one and the same.
+ */
+static void
+gagt_unicode_to_cp (const glui32 *from_string, unsigned char *to_string)
+{
+#ifdef GLK_MODULE_UNICODE_NORM
+  int from_len;
+  for (from_len=0; from_string[from_len] != 0; from_len++);
+  glui32 *normStr = malloc((from_len + 8) * sizeof(glui32));
+  memcpy(normStr, from_string, from_len * sizeof(glui32));
+  normStr[from_len] = 0;
+  // Normalize the string first.
+  glk_buffer_canon_normalize_uni(normStr, from_len + 8, from_len + 1);
+#else
+  glui32 *normStr = from_string;
+#endif
+  
+  int index;
+  glui32 unicode;
+  assert (from_string && to_string);
+  
+#ifdef HAVE_LIBICONV
+#error TODO: Write!
+#else
+  for (index = 0; from_string[index] != '\0'; index++)
+  {
+    unicode = from_string[index];
+    gagt_charref_u_t entry;
+    for (entry = GAGT_CHAR_U_TABLE; entry->unicode; entry++) {
+      if (entry->unicode == unicode) {
+        to_string[index] = entry->cp437;
+      }
+    }
+    if (entry->unicode != 0) {
+      continue;
+    }
+    if (unicode > 127) {
+      to_string[index] = '?';
+    } else {
+      to_string[index] = unicode;
+    }
+  }
+  
+  to_string[index] = '\0';
+#endif
+#ifdef GLK_MODULE_UNICODE_NORM
+  free(normStr);
+#endif
+}
+
+#endif
