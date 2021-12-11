@@ -336,7 +336,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 		ZoomStory* newStory = [ZoomStory defaultMetadataForFile: gameFile];
 		
 		[data copyStory: newStory];
-		[data writeToDefaultFile];
+		[data writeToDefaultFileWithError: NULL];
 		oldStory = newStory;
 	} else {
 		NSLog(@"Found metadata for story '%@'", gameName);
@@ -356,7 +356,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 						 forKey: @"ResourceFilename"];
 
 			[data copyStory: oldStory];
-			[data writeToDefaultFile];
+			[data writeToDefaultFileWithError: NULL];
 		} else {
 			possibleResource = [[[gameFile stringByDeletingLastPathComponent] stringByAppendingPathComponent: gameFile.stringByDeletingPathExtension.lastPathComponent] stringByAppendingPathExtension:@"blb"];
 			isDir = NO;
@@ -370,7 +370,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 							 forKey: @"ResourceFilename"];
 
 				[data copyStory: oldStory];
-				[data writeToDefaultFile];
+				[data writeToDefaultFileWithError: NULL];
 			}
 		}
 	}
@@ -463,7 +463,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 	
 	if (delete) {
 		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] removeStoryWithIdent: ident];
-		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 	}
 	
 	[storyLock unlock];
@@ -520,7 +520,7 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 			theStory.title = filename.lastPathComponent.stringByDeletingPathExtension;
 		}
 		
-		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 	}
 		
 	NSString *standardizedFile = filename.path.stringByStandardizingPath;

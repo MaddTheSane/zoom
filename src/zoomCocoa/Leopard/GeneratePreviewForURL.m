@@ -352,7 +352,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 			ZoomMetadata* metadata = nil;
 			ZoomStory* story = nil;
 			NSData* userData = [NSData dataWithContentsOfFile: [zoomConfigDirectory() stringByAppendingPathComponent: @"metadata.iFiction"]];
-			if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData];
+			if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData error: NULL];
 			
 			if (metadata) {
 				story = [metadata containsStoryWithIdent: storyID]?[metadata findOrCreateStory: storyID]:nil;

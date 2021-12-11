@@ -1592,7 +1592,7 @@ static dispatch_block_t onceTypesBlock = ^{
 				  forKey: [aTableColumn identifier]];
 	}
 
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 -(id<NSPasteboardWriting>)tableView:(NSTableView *)tv pasteboardWriterForRow:(NSInteger)row
@@ -1781,7 +1781,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setHeadline: [[ZoomGameInfoController sharedGameInfoController] headline]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoAuthorChanged: (id) sender {
@@ -1790,7 +1790,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setAuthor: [[ZoomGameInfoController sharedGameInfoController] author]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoGenreChanged: (id) sender {
@@ -1799,7 +1799,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setGenre: [[ZoomGameInfoController sharedGameInfoController] genre]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoYearChanged: (id) sender {
@@ -1808,7 +1808,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setYear: [[ZoomGameInfoController sharedGameInfoController] year]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoGroupChanged: (id) sender {
@@ -1817,7 +1817,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setGroup: [[ZoomGameInfoController sharedGameInfoController] group]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoCommentsChanged: (id) sender {
@@ -1826,7 +1826,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setComment: [[ZoomGameInfoController sharedGameInfoController] comments]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoTeaserChanged: (id) sender {
@@ -1835,7 +1835,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setTeaser: [[ZoomGameInfoController sharedGameInfoController] teaser]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoResourceChanged: (id) sender {
@@ -1845,7 +1845,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	// Update the resource path
 	[story setObject: [[ZoomGameInfoController sharedGameInfoController] resourceFilename]
 				 forKey: @"ResourceFilename"];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 	
 	// Perform organisation
 	if ([[ZoomPreferences globalPreferences] keepGamesOrganised]) {
@@ -1859,7 +1859,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setZarfian: [[ZoomGameInfoController sharedGameInfoController] zarfRating]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 - (IBAction) infoMyRatingChanged: (id) sender {
@@ -1868,7 +1868,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	ZoomStory* story = [self createStoryCopy: [self selectedStory]];
 	[story setRating: [[ZoomGameInfoController sharedGameInfoController] rating]];
 	[self reloadTableData]; [mainTableView reloadData];
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 }
 
 #pragma mark - NSText delegate
@@ -2047,7 +2047,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	if (textView == (NSControl*)gameDetailView) {
 		// Update each of the stories in the game detail view
 		[self updateStoriesFromDetailView];
-		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 	} else if (textView == searchField) {
 		[self controlTextDidEndEditing: aNotification];
 	} else {
@@ -2286,7 +2286,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 	
 	// Store and reflect any changes
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 	
 	[self reloadTableData];
 	[self configureFromMainTableSelection];
@@ -2561,7 +2561,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 
 	// Write any new metadata
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 	
 	signpostId = nil;
 }

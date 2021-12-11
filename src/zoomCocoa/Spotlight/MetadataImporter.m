@@ -293,7 +293,7 @@ NSArray * GetGameIndices( void )
 		
 		if( userData ) 
 		{
-			[game_indices addObject:[[ZoomMetadata alloc] initWithData:userData]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData:userData error: NULL]];
 		}
 		else
 		{
@@ -302,12 +302,12 @@ NSArray * GetGameIndices( void )
 		
 		if( infocomData ) 
 		{
-			[game_indices addObject:[[ZoomMetadata alloc] initWithData: infocomData]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData: infocomData error: NULL]];
 		}
 		
 		if( archiveData ) 
 		{
-			[game_indices addObject:[[ZoomMetadata alloc] initWithData: archiveData]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData: archiveData error: NULL]];
 		}
 	}
 	

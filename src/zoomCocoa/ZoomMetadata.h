@@ -43,7 +43,6 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 //! Calls initWithData
 - (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 
-- (nullable id) initWithData: (NSData*) xmlData NS_SWIFT_UNAVAILABLE("");
 //! Designated initialiser
 - (nullable id) initWithData: (NSData*) xmlData error: (NSError**) outError;
 
@@ -73,7 +72,6 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 			atomically: (BOOL)flag
 				 error: (NSError**)error;
 - (BOOL) writeToDefaultFileWithError: (NSError**) outError;
-- (BOOL) writeToDefaultFile NS_SWIFT_UNAVAILABLE("");
 
 @end
 
