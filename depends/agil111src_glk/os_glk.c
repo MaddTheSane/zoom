@@ -163,6 +163,10 @@ static void gagt_unicode_to_cp (const glui32 *from_string,
 static void gagt_exit (void);
 
 
+#ifdef GLK_MODULE_UNICODE
+static rbool supports_unicode;
+#endif
+
 /*---------------------------------------------------------------------*/
 /*  Glk port utility functions                                         */
 /*---------------------------------------------------------------------*/
@@ -1595,8 +1599,11 @@ static const unsigned int GAGT_LINE_MAGIC = 0x5bc14482;
  * parallel growable attributes array.  The string is buffered without any
  * null terminator -- not needed since we retain length.
  */
-typedef struct {
+typedef struct gagt_string_s {
   unsigned char *data;        /*!< Buffered character data. */
+#ifdef GLK_MODULE_UNICODE
+  unsigned char *unicode;     /*!< Buffered Unicode data. */
+#endif
   unsigned char *attributes;  /*!< Parallel character attributes, packed. */
   int allocation;             /*!< Bytes allocated to each of the above. */
   int length;                 /*!< Amount of data actually buffered. */
@@ -1685,6 +1692,9 @@ gagt_string_transfer (gagt_stringref_t from, gagt_stringref_t to)
 {
   *to = *from;
   from->data = from->attributes = NULL;
+#ifdef GLK_MODULE_UNICODE
+  from->unicode = NULL;
+#endif
   from->allocation = from->length = 0;
 }
 
@@ -1692,6 +1702,9 @@ static void
 gagt_string_free (gagt_stringref_t buffer)
 {
   free (buffer->data);
+#ifdef GLK_MODULE_UNICODE
+  free (buffer->unicode);
+#endif
   free (buffer->attributes);
   buffer->data = buffer->attributes = NULL;
   buffer->allocation = buffer->length = 0;
@@ -4693,6 +4706,12 @@ static void
 gagt_command_version (const char *argument)
 {
   glui32 version;
+#ifdef GLK_MODULE_UNICODE
+  glui32 unicode;
+#ifdef GLK_MODULE_UNICODE_NORM
+  glui32 uniNorm;
+#endif
+#endif
   assert (argument);
 
   gagt_normal_string ("This is version ");
@@ -4703,6 +4722,22 @@ gagt_command_version (const char *argument)
   gagt_normal_string ("The Glk library version is ");
   gagt_command_print_version_number (version);
   gagt_normal_string (".\n");
+
+#ifdef GLK_MODULE_UNICODE
+  unicode = glk_gestalt (gestalt_Unicode, 0);
+  gagt_normal_string ("Glk Unicode support is ");
+  gagt_normal_string (unicode ? "available" : "not available");
+#ifdef GLK_MODULE_UNICODE_NORM
+  uniNorm = glk_gestalt (gestalt_UnicodeNorm, 0);
+  gagt_normal_string (", nomalization is ");
+  gagt_normal_string (uniNorm ? "available" : "not available");
+#else
+  gagt_normal_string (", nomalization is not supported");
+#endif
+  gagt_normal_string (".\n");
+#else
+  gagt_normal_string ("Glk Unicode support is not supported.\n");
+#endif
 }
 
 
@@ -5874,9 +5909,9 @@ gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
   retfile = fopen (filepath, fdtype);
   return retfile ? retfile : badfile (fSAV);
 }
-#endif
 
-#ifndef GLK_ANSI_ONLY
+#else
+
 static genfile
 gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
 {
@@ -6598,6 +6633,9 @@ glk_main (void)
 {
   assert (gagt_startup_called && !gagt_main_called);
   gagt_main_called = TRUE;
+#ifdef GLK_MODULE_UNICODE
+  supports_unicode = glk_gestalt(gestalt_Unicode, 0);
+#endif
 
   /*
    * Register gagt_finalizer() with atexit() to cleanup on exit.  Note that
