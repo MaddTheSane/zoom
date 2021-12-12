@@ -47,6 +47,7 @@ typedef NS_ERROR_ENUM(ZoomBlorbErrorDomain, ZoomBlorbError) {
 // The resource index
 - (BOOL) parseResourceIndex;
 - (BOOL) containsImageWithNumber: (int) num;
+- (BOOL) containsSoundWithNumber: (int) num;
 
 // Typed data
 - (nullable NSData*) imageDataWithNumber: (int) num;

@@ -388,6 +388,18 @@ static unsigned int Int4(const unsigned char* bytes) {
 				@(num)]] != nil;
 }
 
+- (BOOL) containsSoundWithNumber: (int) num {
+	if (!resourceIndex) {
+		if (![self parseResourceIndex]) return NO;
+	}
+	if (!resourceIndex) return NO;
+	
+	return
+		[locationsToBlocks objectForKey:
+			[[resourceIndex objectForKey: @"snd "] objectForKey:
+				@(num)]] != nil;
+}
+
 #pragma mark - Typed data
 
 - (NSData*) gameHeader {

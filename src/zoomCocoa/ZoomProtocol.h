@@ -287,6 +287,7 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 
 // Resources
 - (BOOL)   containsImageWithNumber: (int) number;
+- (BOOL)   containsSoundWithNumber: (int) num;
 - (NSSize) sizeOfImageWithNumber: (int) number;
 
 //! Sound (such as Zoom's support is at the moment)

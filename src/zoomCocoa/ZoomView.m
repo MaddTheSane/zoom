@@ -3022,6 +3022,12 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	return [resources containsImageWithNumber: number];
 }
 
+- (BOOL) containsSoundWithNumber: (int) number {
+	if (resources == nil) return NO;
+		
+	return [resources containsSoundWithNumber: number];
+}
+
 - (NSSize) sizeOfImageWithNumber: (int) number {
 	return [resources sizeForImageWithNumber: number
 							   forPixmapSize: [pixmapWindow size]];
