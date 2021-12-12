@@ -413,6 +413,12 @@ BlorbImage* blorb_findimage(BlorbFile* blorb, int num) {
 }
 
 BlorbSound* blorb_findsound(BlorbFile* blorb, int num) {
+    // Get information on this sound from the remote system
+    id<ZDisplay> disp = [mainMachine display];
+    if (![disp containsSoundWithNumber: num]) {
+        return NULL;
+    }
+    
 	return NULL;
 }
 
