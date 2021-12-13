@@ -9,7 +9,6 @@
 // Incorporates changes contributed by Collin Pieper
 
 #import "ZoomClientController.h"
-#import "ZoomPreferenceWindow.h"
 #import <ZoomPlugIns/ZoomGameInfoController.h>
 #import <ZoomPlugIns/ZoomNotesController.h>
 #import "ZoomStoryOrganiser.h"

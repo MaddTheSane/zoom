@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="ZoomPreferenceWindow">
+        <customObject id="-2" userLabel="File's Owner" customClass="ZoomPreferenceWindow" customModule="Zoom" customModuleProvider="target">
             <connections>
                 <outlet property="autosaveGames" destination="83" id="95"/>
                 <outlet property="backgroundColour" destination="247" id="307"/>
@@ -240,7 +240,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <popUpButton verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="400">
-                    <rect key="frame" x="192" y="202" width="182" height="27"/>
+                    <rect key="frame" x="192" y="204" width="182" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="Git (fastest)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="403" id="460">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -257,7 +257,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="398">
-                    <rect key="frame" x="18" y="209" width="107" height="16"/>
+                    <rect key="frame" x="18" y="211" width="107" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Glulx Interpreter:" id="459">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -290,10 +290,10 @@
                     </connections>
                 </button>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="89">
-                    <rect key="frame" x="268" y="44" width="102" height="70"/>
+                    <rect key="frame" x="268" y="44" width="102" height="74"/>
                     <subviews>
                         <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="90">
-                            <rect key="frame" x="-6" y="42" width="114" height="32"/>
+                            <rect key="frame" x="-6" y="46" width="114" height="32"/>
                             <string key="toolTip">Use this to change the directory that games and their data are kept in. You will need to have 'Keep games organised' turned on to make use of this.</string>
                             <buttonCell key="cell" type="push" title="Change..." bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="456">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -312,23 +312,23 @@
                     </constraints>
                 </customView>
                 <box title="Keep games organised in" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                    <rect key="frame" x="17" y="40" width="246" height="88"/>
+                    <rect key="frame" x="17" y="40" width="246" height="92"/>
                     <view key="contentView" id="q6C-Zl-VeP">
-                        <rect key="frame" x="3" y="3" width="240" height="70"/>
+                        <rect key="frame" x="3" y="3" width="240" height="74"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87">
-                                <rect key="frame" x="8" y="8" width="222" height="54"/>
+                                <rect key="frame" x="8" y="8" width="222" height="58"/>
                                 <clipView key="contentView" drawsBackground="NO" id="a5X-Mo-Yyd">
-                                    <rect key="frame" x="0.0" y="0.0" width="222" height="54"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="222" height="58"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="88">
-                                            <rect key="frame" x="0.0" y="0.0" width="225" height="54"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="225" height="58"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.88686131999999995" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="222" height="54"/>
+                                            <size key="minSize" width="222" height="58"/>
                                             <size key="maxSize" width="345" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="/Users/somone/Documents/Interactive Fiction">
@@ -362,7 +362,7 @@
                     </view>
                 </box>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="77">
-                    <rect key="frame" x="18" y="147" width="59" height="17"/>
+                    <rect key="frame" x="18" y="151" width="59" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Revision:" id="455">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -370,7 +370,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="177" width="123" height="16"/>
+                    <rect key="frame" x="18" y="181" width="123" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Z-Code Interpreter:" id="454">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -378,7 +378,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48">
-                    <rect key="frame" x="192" y="170" width="182" height="27"/>
+                    <rect key="frame" x="192" y="174" width="182" height="25"/>
                     <string key="toolTip">Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of many Infocom games</string>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="175" id="UpY-h3-9mK"/>
@@ -408,7 +408,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="25">
-                    <rect key="frame" x="195" y="145" width="175" height="21"/>
+                    <rect key="frame" x="195" y="149" width="175" height="21"/>
                     <string key="toolTip">Set this to change the interpreter revision reported to games. Most games just report this at the start and make no further use of it.</string>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="452">
                         <font key="font" metaFont="system"/>
@@ -429,12 +429,11 @@
                 <constraint firstItem="89" firstAttribute="trailing" secondItem="107" secondAttribute="trailing" id="CN1-VX-xiO"/>
                 <constraint firstItem="116" firstAttribute="leading" secondItem="106" secondAttribute="trailing" constant="8" symbolic="YES" id="CTw-Ju-Lc0"/>
                 <constraint firstItem="107" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="116" secondAttribute="trailing" constant="8" symbolic="YES" id="Cmb-PY-c6d"/>
-                <constraint firstItem="25" firstAttribute="baseline" secondItem="77" secondAttribute="firstBaseline" id="F7P-OD-fNA"/>
+                <constraint firstItem="25" firstAttribute="firstBaseline" secondItem="77" secondAttribute="firstBaseline" id="F7P-OD-fNA"/>
                 <constraint firstItem="400" firstAttribute="trailing" secondItem="48" secondAttribute="trailing" id="I5J-Qv-2i5"/>
                 <constraint firstItem="25" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="77" secondAttribute="trailing" constant="8" symbolic="YES" id="IBD-9T-QIz"/>
                 <constraint firstItem="89" firstAttribute="leading" secondItem="15" secondAttribute="leading" constant="268" id="ItM-ak-bLk"/>
                 <constraint firstItem="48" firstAttribute="leading" secondItem="25" secondAttribute="leading" id="JGI-bP-TrT"/>
-                <constraint firstItem="76" firstAttribute="centerY" secondItem="48" secondAttribute="centerY" id="L4t-rC-Kce"/>
                 <constraint firstItem="85" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="19" id="M0K-al-nGF"/>
                 <constraint firstItem="116" firstAttribute="bottom" secondItem="107" secondAttribute="bottom" id="Mxw-aS-spC"/>
                 <constraint firstItem="85" firstAttribute="bottom" secondItem="89" secondAttribute="bottom" id="N5F-iv-wdW"/>
@@ -446,13 +445,12 @@
                 <constraint firstItem="85" firstAttribute="top" secondItem="25" secondAttribute="bottom" constant="17" id="WbP-XL-gFu"/>
                 <constraint firstItem="48" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="8" symbolic="YES" id="XGq-4L-16O"/>
                 <constraint firstItem="89" firstAttribute="leading" secondItem="85" secondAttribute="trailing" constant="8" symbolic="YES" id="cvY-kj-bWV"/>
-                <constraint firstItem="400" firstAttribute="baseline" secondItem="398" secondAttribute="firstBaseline" id="dAR-7p-89g"/>
+                <constraint firstItem="400" firstAttribute="firstBaseline" secondItem="398" secondAttribute="firstBaseline" id="dAR-7p-89g"/>
                 <constraint firstItem="400" firstAttribute="leading" secondItem="48" secondAttribute="leading" id="fwH-er-E75"/>
-                <constraint firstItem="398" firstAttribute="centerY" secondItem="400" secondAttribute="centerY" id="gOL-jt-Npn"/>
                 <constraint firstItem="106" firstAttribute="baseline" secondItem="116" secondAttribute="baseline" id="kjq-yk-2rA"/>
                 <constraint firstItem="48" firstAttribute="top" secondItem="400" secondAttribute="bottom" constant="10" symbolic="YES" id="maw-64-Faf"/>
                 <constraint firstItem="106" firstAttribute="top" secondItem="85" secondAttribute="bottom" constant="8" symbolic="YES" id="oQe-cu-T1z"/>
-                <constraint firstItem="48" firstAttribute="baseline" secondItem="76" secondAttribute="firstBaseline" id="oSc-uJ-cyV"/>
+                <constraint firstItem="48" firstAttribute="firstBaseline" secondItem="76" secondAttribute="firstBaseline" id="oSc-uJ-cyV"/>
                 <constraint firstItem="400" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="398" secondAttribute="trailing" constant="8" symbolic="YES" id="ptr-6x-ZUK"/>
                 <constraint firstAttribute="trailing" secondItem="25" secondAttribute="trailing" constant="20" symbolic="YES" id="qSC-nw-89q"/>
                 <constraint firstItem="400" firstAttribute="top" secondItem="15" secondAttribute="top" constant="19" id="u3L-La-v7T"/>
@@ -611,7 +609,7 @@
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="166">
                                         <rect key="frame" x="12" y="116" width="329" height="5"/>
                                     </box>
-                                    <textField toolTip="This displays a preview of your settings." verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                                    <textField toolTip="This displays a preview of your settings." verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="168">
                                         <rect key="frame" x="20" y="68" width="313" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="AMQ-qt-F5c"/>
@@ -619,7 +617,7 @@
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="You are in a maze of twisty passages, all alike" drawsBackground="YES" id="473">
                                             <font key="font" size="12" name="GillSans"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
                                             <action selector="simpleFontsChanged:" target="-2" id="179"/>
@@ -658,6 +656,7 @@
                                     <constraint firstItem="127" firstAttribute="leading" secondItem="133" secondAttribute="leading" id="eS4-0M-9hL"/>
                                     <constraint firstItem="124" firstAttribute="leading" secondItem="125" secondAttribute="leading" id="hp4-Kh-MoD"/>
                                     <constraint firstItem="126" firstAttribute="top" secondItem="133" secondAttribute="bottom" constant="8" symbolic="YES" id="hq7-lk-OKd"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="143" secondAttribute="bottom" constant="20" id="m7O-Dv-bUu"/>
                                     <constraint firstItem="133" firstAttribute="leading" secondItem="138" secondAttribute="leading" id="mYi-03-cbP"/>
                                     <constraint firstItem="165" firstAttribute="baseline" secondItem="163" secondAttribute="baseline" id="pQb-NE-4gU"/>
                                     <constraint firstItem="144" firstAttribute="top" secondItem="138" secondAttribute="bottom" constant="20" id="qd7-Lz-MBh"/>
@@ -686,7 +685,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="342"/>
                                         <clipView key="contentView" id="FJN-wJ-7kj">
                                             <rect key="frame" x="1" y="1" width="351" height="340"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" headerView="497" id="34">
                                                     <rect key="frame" x="0.0" y="0.0" width="351" height="317"/>
