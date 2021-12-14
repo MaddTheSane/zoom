@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <ZoomView/ZoomSkein.h>
+#import <ZoomView/ZoomSkeinItem.h>
 #import <ZoomView/ZoomSkeinLayoutItem.h>
 
 typedef NS_ENUM(int, IFSkeinPackingStyle) {

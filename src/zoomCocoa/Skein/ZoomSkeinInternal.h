@@ -23,8 +23,8 @@
 
 #pragma GCC visibility push(hidden)
 
-extern NSDictionary* itemTextAttributes;
-extern NSDictionary* labelTextAttributes;
+extern NSDictionary<NSAttributedStringKey,id>* itemTextAttributes;
+extern NSDictionary<NSAttributedStringKey,id>* labelTextAttributes;
 
 #pragma GCC visibility pop
 
