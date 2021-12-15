@@ -304,6 +304,7 @@
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
 		559122EC276497B0001C4C95 /* os_zoom.c in Sources */ = {isa = PBXBuildFile; fileRef = 559122EB276497B0001C4C95 /* os_zoom.c */; };
 		559122FA2766AF73001C4C95 /* ZoomPreferenceWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559122F92766AF73001C4C95 /* ZoomPreferenceWindow.swift */; };
+		559122FB27689C2A001C4C95 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B35275A262C000B0D21 /* SFBAudioEngine.framework */; };
 		559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */; };
 		559E68F42743253E0030C3DB /* ZoomCASDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E68F32743253E0030C3DB /* ZoomCASDecoder.m */; };
 		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
@@ -1523,6 +1524,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				559122FB27689C2A001C4C95 /* SFBAudioEngine.framework in Frameworks */,
 				55BB924F2048AC4100AB4B5B /* libexpat.tbd in Frameworks */,
 				4BD274B908701E6700C1AE15 /* Cocoa.framework in Frameworks */,
 				4BD274BA08701E6700C1AE15 /* Foundation.framework in Frameworks */,
