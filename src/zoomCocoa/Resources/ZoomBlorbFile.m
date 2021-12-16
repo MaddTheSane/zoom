@@ -152,7 +152,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		if (formLength + 8 > (unsigned)[file fileSize]) {
 			if (outError) {
 				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
-												code: ZoomBlorbErrorTooSmall
+												code: ZoomBlorbErrorUnexpectedEOF
 											userInfo: nil];
 			}
 			return nil;
@@ -172,7 +172,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 			if (blockHeader == nil || [blockHeader length] != 8) {
 				if (outError) {
 					*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
-													code: ZoomBlorbErrorTooSmall
+													code: ZoomBlorbErrorUnexpectedEOF
 												userInfo: nil];
 				}
 				return nil;

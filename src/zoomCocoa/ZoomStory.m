@@ -641,17 +641,9 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	if (value != nil) {
 		metaValue = malloc(sizeof(IFChar)*([value length]+1));
 		
-		unichar* characters = malloc(sizeof(unichar)*[value length]);
-		NSInteger x;
+		[value getCharacters: metaValue];
 		
-		[value getCharacters: characters];
-		
-		for (x=0; x<[value length]; x++) {
-			metaValue[x] = characters[x];
-		}
-		metaValue[x] = 0;
-		
-		free(characters);
+		metaValue[[value length]] = 0;
 	}
 	
 	IFMB_SetValue(story, [[self newKeyForOld: key] UTF8String], metaValue);
@@ -668,7 +660,7 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	if (story == NULL) return NO;
 
 	// List of strings to check against
-	NSArray* stringsToCheck = [[NSArray alloc] initWithObjects: 
+	NSArray* stringsToCheck = [[NSArray alloc] initWithObjects:
 		[self title], [self headline], [self author], [self genre], [self group], nil];
 	
 	// List of words to match against (we take off a word for each match)
@@ -679,9 +671,7 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	NSString* string;
 	
 	while ([words count] > 0 && (string = [searchEnum nextObject])) {
-		NSInteger num;
-		
-		for (num=0; num<[words count]; num++) {
+		for (NSInteger num=0; num<[words count]; num++) {
 			if ([[words objectAtIndex: num] length] == 0 ||
 				[string rangeOfString: [words objectAtIndex: num]
 							  options: NSCaseInsensitiveSearch].location != NSNotFound) {

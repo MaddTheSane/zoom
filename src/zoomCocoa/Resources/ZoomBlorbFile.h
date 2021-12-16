@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSErrorDomain const ZoomBlorbErrorDomain;
 typedef NS_ERROR_ENUM(ZoomBlorbErrorDomain, ZoomBlorbError) {
 	ZoomBlorbErrorTooSmall,
-	ZoomBlorbErrorNoFORMBlock
+	ZoomBlorbErrorNoFORMBlock,
+	ZoomBlorbErrorUnexpectedEOF
 };
 
 @interface ZoomBlorbFile : NSObject

@@ -93,6 +93,9 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 		
 		if ([gameData length] < 64) {
 			// Too little data for this to be a Z-Code file
+			if (outError) {
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
+			}
 			return nil;
 		}
 
@@ -110,11 +113,17 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			// See if we can get the ZCOD chunk
 			NSData* data = [blorbFile dataForChunkWithType: @"ZCOD"];
 			if (data == nil) {
+				if (outError) {
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoZCodeChunk userInfo: nil];
+				}
 				return nil;
 			}
 			
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
+				if (outError) {
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
+				}
 				return nil;
 			}
 			
@@ -179,6 +188,9 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			}
 		}
 		if (ident == nil) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoIdentGenerated userInfo: nil];
+			}
 			return nil;
 		}
 	}
