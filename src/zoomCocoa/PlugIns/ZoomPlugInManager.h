@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
+#import <ZoomPlugIns/ZoomDownload.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -7,6 +7,7 @@
 
 import Cocoa
 import WebKit
+import ZoomPlugIns.Swift
 
 extension ZoomiFictionController: WKNavigationDelegate {
 	
@@ -129,7 +130,7 @@ extension ZoomiFictionController: WKNavigationDelegate {
 		}
 	}
 	
-	@available(macOS 12.0, *)
+	@available(macOS 11.3, *)
 	public func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
 		download.delegate = self
 	}

@@ -8,6 +8,7 @@
 
 #import "ZoomPlugInManager.h"
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
+#import <ZoomPlugIns/ZoomPlugIns-Swift.h>
 
 NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
 
@@ -791,7 +792,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 			[info setUpdateInfo: nil];
 			
 			// Check the download directory for an appropriate bundle
-			NSString* downloadDir = [download downloadDirectory];
+			NSString* downloadDir = [download downloadDirectory].path;
 			
 			if (downloadDir != nil) {
 				NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: downloadDir error: NULL] objectEnumerator];

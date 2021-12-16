@@ -2704,10 +2704,10 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSString* xmlFile=nil;
 		NSString* extension = [[activeDownload suggestedFilename] pathExtension];
 		
-		NSEnumerator* dirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [activeDownload downloadDirectory] error: NULL] objectEnumerator];
+		NSEnumerator* dirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [activeDownload downloadDirectory].path error: NULL] objectEnumerator];
 		for (NSString* path in dirEnum) {
 			if ([[path pathExtension] isEqualToString: extension]) {
-				xmlFile = [[activeDownload downloadDirectory] stringByAppendingPathComponent: path];
+				xmlFile = [[activeDownload downloadDirectory].path stringByAppendingPathComponent: path];
 			}
 		}
 		
@@ -2728,7 +2728,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		[self installPluginFromDownload: activeDownload];
 	} else {
 		// Default: add story files
-		[self addFilesFromDirectory: [download downloadDirectory]
+		[self addFilesFromDirectory: [download downloadDirectory].path
 						  groupName: [[[download suggestedFilename] lastPathComponent] stringByDeletingPathExtension]];		
 	}
 	
@@ -3165,7 +3165,7 @@ static unsigned int ValueForHexChar(int hex) {
 }
 
 - (void) installPluginFromDownload: (ZoomDownload*) downloadedPlugin {
-	NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [downloadedPlugin downloadDirectory] error: NULL] objectEnumerator];
+	NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: [downloadedPlugin downloadDirectory].path error: NULL] objectEnumerator];
 	NSString* path;
 	BOOL installed = NO;
 	
@@ -3180,7 +3180,7 @@ static unsigned int ValueForHexChar(int hex) {
 		// We only install one plugin
 		installed = YES;
 		
-		if (![[ZoomPlugInManager sharedPlugInManager] installPlugIn: [[downloadedPlugin downloadDirectory] stringByAppendingPathComponent: path]]) {
+		if (![[ZoomPlugInManager sharedPlugInManager] installPlugIn: [[downloadedPlugin downloadDirectory].path stringByAppendingPathComponent: path]]) {
 			[self failedToInstallPlugin: @"The plugin was successfully downloaded, but did not install correctly. This usually occurs because you do not have permission to modify the Zoom application."];
 			return;
 		}
