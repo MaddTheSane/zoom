@@ -10,6 +10,7 @@
 
 #import "ZoomSkeinItem.h"
 #import "ZoomSkeinInternal.h"
+#import "ZoomSkeinView.h"
 
 // Skein item notifications
 NSString*const ZoomSkeinItemIsBeingReplaced = @"ZoomSkeinItemIsBeingReplaced";
@@ -637,6 +638,28 @@ static int currentScore = 1;
 		[annotation drawAtPoint: position
 				 withAttributes: labelTextAttributes];
 	}
+}
+
+@end
+
+#pragma mark - Pasteboard Writing
+
+@implementation ZoomSkeinItem (Pasteboard)
+
+- (nullable id)pasteboardPropertyListForType:(nonnull NSPasteboardType)type {
+	if ([type isEqualToString:ZoomSkeinItemPboardType]) {
+		return [NSKeyedArchiver archivedDataWithRootObject: self
+									 requiringSecureCoding: YES
+													 error: NULL];
+	}
+	return nil;
+}
+
+- (nonnull NSArray<NSPasteboardType> *)writableTypesForPasteboard:(nonnull NSPasteboard *)pasteboard {
+	if ([[pasteboard name] isEqualToString:NSPasteboardNameDrag]) {
+		return @[ZoomSkeinItemPboardType];
+	}
+	return @[];
 }
 
 @end

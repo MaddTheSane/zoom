@@ -12,12 +12,6 @@ framework module ZoomView {
 		
 		module Item {
 			header "ZoomSkeinItem.h"
-			
-			module Pasteboard {
-				header "ZoomSkeinItem+Pasteboard.h"
-				export *
-			}
-			
 			export *
 		}
 		

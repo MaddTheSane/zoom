@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AppKit/NSPasteboard.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -114,6 +115,12 @@ extern NSString* const ZoomSIChild;
 - (void) drawCommandAtPosition: (NSPoint) position;
 @property (readonly) NSSize annotationSize;
 - (void) drawAnnotationAtPosition: (NSPoint) position;
+
+@end
+
+#pragma mark Pasteboard writing
+
+@interface ZoomSkeinItem (Pasteboard) <NSPasteboardWriting>
 
 @end
 

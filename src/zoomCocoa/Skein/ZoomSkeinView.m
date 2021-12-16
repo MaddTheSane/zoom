@@ -10,7 +10,6 @@
 
 #import "ZoomSkeinView.h"
 #import "ZoomSkeinLayout.h"
-#import "ZoomSkeinItem+Pasteboard.h"
 #import "ZoomSkeinWeb.h"
 #import "ZoomSkeinInternal.h"
 

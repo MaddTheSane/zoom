@@ -331,8 +331,6 @@
 		55BD080D21B7638800A8DD5F /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BD080F21B7638800A8DD5F /* schema.strings */; };
 		55BD081721B85E8600A8DD5F /* ZoomViewProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BD081821B8C16800A8DD5F /* Skein.xcassets */; };
-		55BE4AC62706E28400100A7D /* ZoomSkeinItem+Pasteboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BE4AC42706E28400100A7D /* ZoomSkeinItem+Pasteboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55BE4AC72706E28400100A7D /* ZoomSkeinItem+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AC52706E28400100A7D /* ZoomSkeinItem+Pasteboard.m */; };
 		55BE4AC92707082700100A7D /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AC82707082700100A7D /* twine.c */; };
 		55BE4AD42707B32200100A7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BE4AD62707B32200100A7D /* InfoPlist.strings */; };
 		55BE4AD827082DED00100A7D /* ClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AD727082DED00100A7D /* ClearView.swift */; };
@@ -1384,8 +1382,6 @@
 		55BD080E21B7638800A8DD5F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
 		55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomViewProtocols.h; sourceTree = "<group>"; };
 		55BD081821B8C16800A8DD5F /* Skein.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Skein.xcassets; sourceTree = "<group>"; };
-		55BE4AC42706E28400100A7D /* ZoomSkeinItem+Pasteboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZoomSkeinItem+Pasteboard.h"; sourceTree = "<group>"; };
-		55BE4AC52706E28400100A7D /* ZoomSkeinItem+Pasteboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ZoomSkeinItem+Pasteboard.m"; sourceTree = "<group>"; };
 		55BE4AC82707082700100A7D /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = twine.c; sourceTree = "<group>"; };
 		55BE4AD52707B32200100A7D /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55BE4AD727082DED00100A7D /* ClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearView.swift; sourceTree = "<group>"; };
@@ -1956,8 +1952,6 @@
 				4B14632106A2DD9E00398650 /* ZoomSkeinXML.m */,
 				4BA2BCF20694A0830082C022 /* ZoomSkeinItem.h */,
 				4BA2BCF30694A0830082C022 /* ZoomSkeinItem.m */,
-				55BE4AC42706E28400100A7D /* ZoomSkeinItem+Pasteboard.h */,
-				55BE4AC52706E28400100A7D /* ZoomSkeinItem+Pasteboard.m */,
 				5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */,
 				4B0A32B506A596DB00BB8878 /* ZoomSkeinWeb.m */,
 				4B1884AF06975647004D8501 /* ZoomSkeinView.h */,
@@ -2456,7 +2450,6 @@
 				4BD2747F08701E6700C1AE15 /* ZoomMoreView.h in Headers */,
 				4BD2748008701E6700C1AE15 /* ZoomTextView.h in Headers */,
 				4BD2748108701E6700C1AE15 /* ZoomProtocol.h in Headers */,
-				55BE4AC62706E28400100A7D /* ZoomSkeinItem+Pasteboard.h in Headers */,
 				4BD2748208701E6700C1AE15 /* ZoomScrollView.h in Headers */,
 				4BD2748308701E6700C1AE15 /* ZoomUpperWindowView.h in Headers */,
 				4BD2748508701E6700C1AE15 /* ZoomPixmapWindow.h in Headers */,
@@ -3305,7 +3298,6 @@
 				4BD274A508701E6700C1AE15 /* ZoomTextView.m in Sources */,
 				4BD274A608701E6700C1AE15 /* ZoomProtocol.m in Sources */,
 				4BD274A708701E6700C1AE15 /* ZoomScrollView.m in Sources */,
-				55BE4AC72706E28400100A7D /* ZoomSkeinItem+Pasteboard.m in Sources */,
 				4BD274A808701E6700C1AE15 /* ZoomUpperWindowView.m in Sources */,
 				4BD274AA08701E6700C1AE15 /* ZoomPixmapWindow.m in Sources */,
 				4BD274AB08701E6700C1AE15 /* ZoomCursor.m in Sources */,
