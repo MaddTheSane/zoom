@@ -241,7 +241,7 @@
 		// do nothing?
 	}];
     [NSApp runModalForWindow: [gamePrefs window]];
-    [NSApp endSheet: [gamePrefs window]];
+    [self.window endSheet: [gamePrefs window]];
 	
 	[[gamePrefs window] orderOut: self];
 }
