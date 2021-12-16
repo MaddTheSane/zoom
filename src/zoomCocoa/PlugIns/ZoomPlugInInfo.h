@@ -11,25 +11,25 @@
 
 typedef NS_ENUM(int, ZoomPlugInStatus) {
 	/// Installed plugin
-	ZoomPlugInInstalled,
+	ZoomPlugInInstalled NS_SWIFT_NAME(installed),
 	/// Installed plugin that has been disabled
-	ZoomPlugInDisabled,
+	ZoomPlugInDisabled NS_SWIFT_NAME(disabled),
 	/// Installed plugin, update to be installed
-	ZoomPlugInUpdated,
+	ZoomPlugInUpdated NS_SWIFT_NAME(updated),
 	/// Downloaded plugin available to install
-	ZoomPlugInDownloaded,
+	ZoomPlugInDownloaded NS_SWIFT_NAME(downloaded),
 	/// Update available to download
-	ZoomPluginUpdateAvailable,
+	ZoomPluginUpdateAvailable NS_SWIFT_NAME(updateAvailable),
 	/// Not yet installed, available to download
-	ZoomPlugInNew,
+	ZoomPlugInNew NS_SWIFT_NAME(new),
 	/// Marked as having an update, but it failed to download
-	ZoomPlugInDownloadFailed,
+	ZoomPlugInDownloadFailed NS_SWIFT_NAME(downloadFailed),
 	/// Downloaded, but the installation failed for some reason
-	ZoomPlugInInstallFailed,
+	ZoomPlugInInstallFailed NS_SWIFT_NAME(installFailed),
 	/// Currently downloading
-	ZoomPlugInDownloading,
+	ZoomPlugInDownloading NS_SWIFT_NAME(downloading),
 	/// Unknown status
-	ZoomPlugInNotKnown,
+	ZoomPlugInNotKnown NS_SWIFT_NAME(notKnown),
 };
 
 ///

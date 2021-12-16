@@ -21,19 +21,19 @@
 #pragma mark - Informational functions (subclasses should normally override)
 
 + (NSString*) pluginVersion {
-	NSLog(@"Warning: loaded a plugin which does not provide pluginVersion");
+	NSLog(@"Warning: loaded a plugin (%@) which does not provide pluginVersion", NSStringFromClass(self));
 	
 	return @"Unknown";
 }
 
 + (NSString*) pluginDescription {
-	NSLog(@"Warning: loaded a plugin which does not provide pluginDescription");
+	NSLog(@"Warning: loaded a plugin (%@) which does not provide pluginDescription", NSStringFromClass(self));
 	
 	return @"Unknown plugin";
 }
 
 + (NSString*) pluginAuthor {
-	NSLog(@"Warning: loaded a plugin which does not provide pluginAuthor");
+	NSLog(@"Warning: loaded a plugin (%@) which does not provide pluginAuthor", NSStringFromClass(self));
 	
 	return @"Joe Anonymous";
 }
@@ -103,7 +103,7 @@
 
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story {
 	[NSException raise: @"ZoomNoPlugInInterface" 
-				format: @"An attempt was made to load a game whose plugin does not provide an interface"];
+				format: @"An attempt was made to load a game whose plugin (%@) does not provide an interface", NSStringFromClass(self.class)];
 	
 	return nil;
 }
@@ -117,7 +117,7 @@
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
 							 saveGameURL: (NSURL *)saveGame {
 	[NSException raise: @"ZoomNoPlugInInterface"
-				format: @"An attempt was made to load a game whose plugin does not provide an interface"];
+				format: @"An attempt was made to load a game whose plugin (%@) does not provide an interface", NSStringFromClass(self.class)];
 	
 	return nil;
 }

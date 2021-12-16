@@ -37,6 +37,10 @@
 	return [super canRunURL: path];
 }
 
++ (NSArray<NSString*>*)supportedFileTypes {
+	return @[@"ulx", @"blb", @"glb", @"gblorb", @"zblorb"];
+}
+
 + (NSString*) pluginVersion {
 	return [[NSBundle bundleForClass: [self class]] objectForInfoDictionaryKey: @"CFBundleVersion"];
 }

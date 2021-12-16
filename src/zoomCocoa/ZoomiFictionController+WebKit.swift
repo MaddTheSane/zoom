@@ -130,25 +130,6 @@ extension ZoomiFictionController: WKNavigationDelegate {
 		}
 	}
 	
-	@available(macOS 11.3, *)
-	public func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
-		download.delegate = self
-	}
-	
 	// TODO: Revive ZoomJSError functionality. Maybe use WKUserScript?
 }
 
-@available(macOS 12.0, *)
-extension ZoomiFictionController: WKDownloadDelegate {
-	public func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String) async -> URL? {
-		return nil
-	}
-	
-	public func downloadDidFinish(_ download: WKDownload) {
-		
-	}
-	
-	public func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
-		
-	}
-}
