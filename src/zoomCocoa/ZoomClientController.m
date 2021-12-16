@@ -237,11 +237,9 @@
 	
 	gamePrefs = [[ZoomPreferenceWindow alloc] init];
 	
-	[NSApp beginSheet: [gamePrefs window]
-	   modalForWindow: [self window]
-		modalDelegate: nil
-	   didEndSelector: nil
-		  contextInfo: nil];
+	[self.window beginSheet:gamePrefs.window completionHandler:^(NSModalResponse returnCode) {
+		// do nothing?
+	}];
     [NSApp runModalForWindow: [gamePrefs window]];
     [NSApp endSheet: [gamePrefs window]];
 	

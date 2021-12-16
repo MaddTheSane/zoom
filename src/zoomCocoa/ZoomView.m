@@ -180,8 +180,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
         // Now the content view
         textView = [[ZoomTextView alloc] initWithFrame:
-					NSMakeRect(0,0,contentSize.width,contentSize.height)
-										 textContainer: nil];
+					NSMakeRect(0,0,contentSize.width,contentSize.height)];
 
         [textView setMinSize:NSMakeSize(0.0, contentSize.height)];
         [textView setMaxSize:NSMakeSize(1e8, contentSize.height)];

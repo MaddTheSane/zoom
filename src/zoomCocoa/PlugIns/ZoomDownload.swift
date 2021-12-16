@@ -72,6 +72,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 		session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
 	}
 	
+	/// Removes the temporary directory used for downloads (ie, when terminating)
 	public class func removeTemporaryDirectory() {
 		do {
 			guard try localDownloadDirectory.checkResourceIsReachable() else {
@@ -506,6 +507,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 	}
 	
 	// MARK: - NSTask delegate
+	
 	@objc private func taskDidTerminate(_ noti: Notification) {
 		// Do nothing if no task is running
 		guard let task = task else {
@@ -542,5 +544,4 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 			self.succeeded()
 		}
 	}
-	
 }
