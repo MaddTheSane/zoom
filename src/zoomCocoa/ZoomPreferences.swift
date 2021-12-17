@@ -646,7 +646,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	open var organiserDirectory: String! {
 		get {
 			prefLock.lock()
-			var result = prefs[useScreenFontsKey] as? String
+			var result = prefs[organiserDirectoryKey] as? String
 			if result == nil {
 				result = ZoomPreferences.defaultOrganiserDirectory
 			}
@@ -656,9 +656,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 		set {
 			if let newValue = newValue {
-				prefs[useScreenFontsKey] = newValue
+				prefs[organiserDirectoryKey] = newValue
 			} else {
-				prefs.removeValue(forKey: useScreenFontsKey)
+				prefs.removeValue(forKey: organiserDirectoryKey)
 			}
 			preferencesHaveChanged()
 		}
