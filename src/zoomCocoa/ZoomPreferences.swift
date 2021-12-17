@@ -49,7 +49,7 @@ private let showCoverPictureKey = "ShowCoverPicture"
 
 private let DefaultFonts: [NSFont] = {
 	let defaultFontName = "Gill Sans"
-	let fixedFontName = "Courier"
+	let fixedFontName = "Courier New"
 	let mgr = NSFontManager.shared
 	
 	var defaultFonts = [NSFont]()
