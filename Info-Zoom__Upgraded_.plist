@@ -619,6 +619,14 @@
 				<array>
 					<string>ulx</string>
 				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-glulx</string>
+				</array>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>UlxG</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
