@@ -320,18 +320,18 @@ NSArray * GetGameIndices( void )
 
 NSString * GetZoomConfigDirectory( void )
 {
-	NSArray * library_directories = NSSearchPathForDirectoriesInDomains( NSLibraryDirectory, NSUserDomainMask, YES );
+	NSArray* library_directories = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
 
-	for ( NSString * directory in library_directories )
+	for ( NSURL * directory in library_directories )
 	{
 		BOOL is_directory;
 		
-		NSString * zoom_library = [[directory stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
-		if( [[NSFileManager defaultManager] fileExistsAtPath:zoom_library isDirectory:&is_directory] ) 
+		NSURL * zoom_library = [directory URLByAppendingPathComponent: @"Zoom"];
+		if( [[NSFileManager defaultManager] fileExistsAtPath:zoom_library.path isDirectory:&is_directory] )
 		{
 			if( is_directory ) 
 			{
-				return zoom_library;
+				return zoom_library.path;
 			}
 		}
 	}

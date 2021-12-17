@@ -70,20 +70,20 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	BOOL isDir;
 	
 	// Start with the library directory
-	NSArray* libDirs = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSArray* libDirs = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
 	if ([libDirs count] == 0) {
 		NSLog(@"Could not locate library directory!");
 		return nil;
 	}
 	
 	// Use a Zoom directory inside for the rest of the contents
-	NSString *supportDir = [[libDirs objectAtIndex: 0] stringByAppendingPathComponent: @"Zoom"];
-	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir isDirectory: &isDir]) {
+	NSURL *supportDir = [[libDirs objectAtIndex: 0] URLByAppendingPathComponent: @"Zoom"];
+	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir.path isDirectory: &isDir]) {
 		isDir = YES;
-		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir withIntermediateDirectories:NO attributes:nil error:NULL];
+		[[NSFileManager defaultManager] createDirectoryAtURL: supportDir withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
 	
-	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir]) {
+	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir.path]) {
 		NSLog(@"Could not locate Zoom's app support directory");
 		return nil;
 	}
@@ -94,7 +94,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	}
 	
 	// Got the result
-	return supportDir;
+	return supportDir.path;
 }
 
 + (NSString*) plugInsPath {

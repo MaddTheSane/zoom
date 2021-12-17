@@ -401,26 +401,26 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 - (NSString*) zoomConfigDirectory {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
-	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSArray* libraryDirs = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
 
-	for (NSString* libDir in libraryDirs) {
+	for (NSURL* libDir in libraryDirs) {
 		BOOL isDir;
 		
-		NSString* zoomLib = [libDir stringByAppendingPathComponent: @"Zoom"];
-		if ([[NSFileManager defaultManager] fileExistsAtPath: zoomLib isDirectory: &isDir]) {
+		NSURL* zoomLib = [libDir URLByAppendingPathComponent: @"Zoom"];
+		if ([[NSFileManager defaultManager] fileExistsAtPath: zoomLib.path isDirectory: &isDir]) {
 			if (isDir) {
-				return zoomLib;
+				return zoomLib.path;
 			}
 		}
 	}
 	
-	for (NSString* libDir in libraryDirs) {
-		NSString* zoomLib = [libDir stringByAppendingPathComponent: @"Zoom"];
-		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
-									  withIntermediateDirectories: NO
-													   attributes: nil
-															error: NULL]) {
-			return zoomLib;
+	for (NSURL* libDir in libraryDirs) {
+		NSURL* zoomLib = [libDir URLByAppendingPathComponent: @"Zoom"];
+		if ([[NSFileManager defaultManager] createDirectoryAtURL: zoomLib
+									 withIntermediateDirectories: NO
+													  attributes: nil
+														   error: NULL]) {
+			return zoomLib.path;
 		}
 	}
 	

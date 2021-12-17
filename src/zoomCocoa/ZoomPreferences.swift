@@ -57,10 +57,10 @@ private let DefaultFonts: [NSFont] = {
 	var variableFont = mgr.font(withFamily: defaultFontName, traits: .unboldFontMask, weight: 5, size: 12)
 	var fixedFont = mgr.font(withFamily: fixedFontName, traits: .unboldFontMask, weight: 5, size: 12)
 	
-	if (variableFont == nil) {
+	if variableFont == nil {
 		variableFont = NSFont.systemFont(ofSize: 12)
 	}
-	if (fixedFont == nil) {
+	if fixedFont == nil {
 		fixedFont = NSFont.userFixedPitchFont(ofSize: 12)
 	}
 	
@@ -224,9 +224,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
  
 	open class var defaultOrganiserDirectory: String {
 		_=firstRun
-		let docDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true);
-		
-		let res = (docDir.first! as NSString).appendingPathComponent("Interactive Fiction")
+		let docURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+		let resURL = docURLs.first!.appendingPathComponent("Interactive Fiction", isDirectory: true)
+		let res = resURL.path
 		
 		return res
 	}
