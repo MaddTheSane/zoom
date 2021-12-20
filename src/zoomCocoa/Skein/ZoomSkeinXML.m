@@ -166,7 +166,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 		}
 		
 		if (node.children.count > 0) {
-			NSXMLElement *children = elementWithNameAndValue(@"children", @"", NO);
+			NSXMLElement *children = elementWithNameAndValue(@"children", nil, NO);
 			[item addChild: children];
 			
 			for (ZoomSkeinItem *childItem in node.children) {
