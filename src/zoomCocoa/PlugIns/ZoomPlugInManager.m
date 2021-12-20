@@ -451,7 +451,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 #pragma mark - Getting information about plugins
 
 - (void) pluginInformationChanged {
-	if (delegate && [delegate respondsToSelector: @selector(pluginInformationChanged)]) {
+	if ([delegate respondsToSelector: @selector(pluginInformationChanged)]) {
 		[delegate pluginInformationChanged];
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomPlugInInformationChangedNotification
@@ -569,7 +569,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 
     // Plug-in updates are disabled for now
     [checkUrls removeAllObjects];
-    if (delegate && [delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
+    if ([delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
         [delegate finishedCheckingForUpdates];
     }
     return;
@@ -585,7 +585,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	if (nextUrl == nil) {
 		checkUrls = nil;
 		
-		if (delegate && [delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
+		if ([delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
 			[delegate finishedCheckingForUpdates];
 		}
 		return;
@@ -608,7 +608,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	checkUrls = [[uniqueUrls allObjects] mutableCopy];
 	
 	// Notify the delegate that we're starting to check for updates
-	if (delegate && [delegate respondsToSelector: @selector(checkingForUpdates)]) {
+	if ([delegate respondsToSelector: @selector(checkingForUpdates)]) {
 		[delegate checkingForUpdates];
 	}
 	
@@ -751,7 +751,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 			
 			if (updated) {
 				// Notify the delegate of the change
-				if (delegate && [delegate respondsToSelector: @selector(pluginInformationChanged)]) {
+				if ([delegate respondsToSelector: @selector(pluginInformationChanged)]) {
 					[delegate pluginInformationChanged];
 				}
 			}
@@ -834,7 +834,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	
 	// If a restart is required, inform the delegate
 	if (restartRequired) {
-		if (delegate && [delegate respondsToSelector: @selector(needsRestart)]) {
+		if ([delegate respondsToSelector: @selector(needsRestart)]) {
 			[delegate needsRestart];
 		}
 	}
@@ -867,7 +867,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 		currentDownload = nil;
 		downloading = NO;
 		
-		if (delegate && [delegate respondsToSelector: @selector(finishedDownloadingUpdates)]) {
+		if ([delegate respondsToSelector: @selector(finishedDownloadingUpdates)]) {
 			[delegate finishedDownloadingUpdates];
 		}
 		return;
@@ -876,7 +876,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	// If there's no current download, then notify the delegate that the downloads are starting
 	if (!downloading) {
 		downloading = YES;
-		if (delegate && [delegate respondsToSelector: @selector(downloadingUpdates)]) {
+		if ([delegate respondsToSelector: @selector(downloadingUpdates)]) {
 			[delegate downloadingUpdates];
 		}
 	}
@@ -1314,14 +1314,14 @@ static int RankForStatus(ZoomPlugInStatus status) {
 }
 
 - (void) downloadConnecting: (ZoomDownload*) download {
-	if (delegate && [delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
 		[delegate downloadProgress: @"Connecting..."
 						percentage: -1];		
 	}
 }
 
 - (void) downloading: (ZoomDownload*) download {
-	if (delegate && [delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
 		[delegate downloadProgress: @"Downloading..."
 						percentage: -1];		
 	}	
@@ -1329,14 +1329,14 @@ static int RankForStatus(ZoomPlugInStatus status) {
 
 - (void) download: (ZoomDownload*) download
 		completed: (float) complete {
-	if (delegate && [delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
 		[delegate downloadProgress: @"Downloading..."
 						percentage: complete*100.0];		
 	}
 }
 
 - (void) downloadUnarchiving: (ZoomDownload*) download {
-	if (delegate && [delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
 		[delegate downloadProgress: @"Decompressing..."
 						percentage: -1];		
 	}	

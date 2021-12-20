@@ -209,7 +209,7 @@
 	}
 	
 	// Inform the delegate we're about to start reading
-	if (delegate && [delegate respondsToSelector: @selector(readingFromSaveFile:)]) {
+	if ([delegate respondsToSelector: @selector(readingFromSaveFile:)]) {
 		[delegate readingFromSaveFile: self];
 	}
 	

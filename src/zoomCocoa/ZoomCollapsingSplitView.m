@@ -18,7 +18,7 @@
     if( [event clickCount] == 2 ) 
 	{
         id delegate = [self delegate];
-        if( delegate && [delegate respondsToSelector:@selector(splitViewDoubleClickedOnDivider:)] )
+        if([delegate respondsToSelector:@selector(splitViewDoubleClickedOnDivider:)] )
 		{
             [delegate splitViewDoubleClickedOnDivider:self];
 		}
@@ -27,7 +27,7 @@
     [super mouseDown:event];
 	
 	id delegate = [self delegate];
-	if( delegate && [delegate respondsToSelector:@selector(splitViewMouseDownProcessed:)] )
+	if([delegate respondsToSelector:@selector(splitViewMouseDownProcessed:)] )
 	{
 		[delegate splitViewMouseDownProcessed:self];
 	}

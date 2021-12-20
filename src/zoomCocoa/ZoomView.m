@@ -366,7 +366,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
 - (void) setZMachine: (id<ZMachine>) machine {
     zMachine = machine;
-	if (delegate && [delegate respondsToSelector: @selector(zMachineStarted:)]) {
+	if ([delegate respondsToSelector: @selector(zMachineStarted:)]) {
 		[delegate zMachineStarted: self];
 	}
     [zMachine startRunningInDisplay: self];
@@ -386,7 +386,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
 - (void) beep {
 	// All the sound we support at the moment
-	if (delegate && [delegate respondsToSelector: @selector(beep)]) {
+	if ([delegate respondsToSelector: @selector(beep)]) {
 		[delegate beep];
 	} else {
 		NSBeep();
@@ -585,7 +585,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 		
 		if (nextInput == nil) {
 			// End of input
-			if (delegate && [delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
+			if ([delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
 				[delegate inputSourceHasFinished: inputSource];
 			}
 			
@@ -701,7 +701,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 		
 		if (nextInput == nil) {
 			// End of input
-			if (delegate && [delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
+			if ([delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
 				[delegate inputSourceHasFinished: inputSource];
 			}
 			
@@ -1831,7 +1831,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
     }
     
     // Notify the delegate
-    if (delegate && [delegate respondsToSelector: @selector(zMachineFinished:)]) {
+    if ([delegate respondsToSelector: @selector(zMachineFinished:)]) {
         [delegate zMachineFinished: self];
     }
 	
@@ -1942,7 +1942,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	
 	BOOL usePackage = NO;
 	
-	if (type == ZFileQuetzal && delegate && [delegate respondsToSelector: @selector(useSavePackage)]) {
+	if (type == ZFileQuetzal && [delegate respondsToSelector: @selector(useSavePackage)]) {
 		usePackage = [delegate useSavePackage];
 	}
 		
@@ -1995,7 +1995,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	
 	NSURL* directory = nil;
 	
-	if (delegate && [delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
+	if ([delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
 		NSString *preDir = [delegate defaultSaveDirectory];
 		if (preDir) {
 			directory = [NSURL fileURLWithPath:preDir];
@@ -2690,7 +2690,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
 #pragma mark - Debugging
 - (void) hitBreakpointAtCounter: (int) pc {
-	if (delegate && [delegate respondsToSelector: @selector(hitBreakpoint:)]) {
+	if ([delegate respondsToSelector: @selector(hitBreakpoint:)]) {
 		[delegate hitBreakpoint: pc];
 	} else {
 		NSLog(@"Breakpoint without handler");
@@ -2918,7 +2918,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 - (void) orWaitingForInput {
 	if (!outputReceivers) return;
 	
-	if (delegate && [delegate respondsToSelector: @selector(zoomWaitingForInput)]) {
+	if ([delegate respondsToSelector: @selector(zoomWaitingForInput)]) {
 		[delegate zoomWaitingForInput];
 	}
 	
@@ -2956,7 +2956,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 		
 		if (nextInput == nil) {
 			// End of input
-			if (delegate && [delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
+			if ([delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
 				[delegate inputSourceHasFinished: inputSource];
 			}
 			
@@ -2976,7 +2976,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 		
 		if (nextInput == nil) {
 			// End of input
-			if (delegate && [delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
+			if ([delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
 				[delegate inputSourceHasFinished: inputSource];
 			}
 			

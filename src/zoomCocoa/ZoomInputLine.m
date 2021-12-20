@@ -64,7 +64,7 @@
 }
 
 - (void) stringHasUpdated {
-	if (delegate && [delegate respondsToSelector: @selector(inputLineHasChanged:)]) {
+	if ([delegate respondsToSelector: @selector(inputLineHasChanged:)]) {
 		[delegate inputLineHasChanged: self];
 	}
 }
@@ -187,7 +187,7 @@
 	
 	// Deal with end of line
 	if (endOfLine) {
-		if (delegate && [delegate respondsToSelector: @selector(endOfLineReached:)]) {
+		if ([delegate respondsToSelector: @selector(endOfLineReached:)]) {
 			[delegate endOfLineReached: self];
 		}
 	}
@@ -197,7 +197,7 @@
 @synthesize delegate;
 
 - (NSString*) lastHistoryItem {
-	if (delegate && [delegate respondsToSelector: @selector(lastHistoryItem)]) {
+	if ([delegate respondsToSelector: @selector(lastHistoryItem)]) {
 		return [delegate lastHistoryItem];
 	} else {
 		return nil;
@@ -205,7 +205,7 @@
 }
 
 - (NSString*) nextHistoryItem {
-	if (delegate && [delegate respondsToSelector: @selector(nextHistoryItem)]) {
+	if ([delegate respondsToSelector: @selector(nextHistoryItem)]) {
 		return [delegate nextHistoryItem];
 	} else {
 		return nil;
