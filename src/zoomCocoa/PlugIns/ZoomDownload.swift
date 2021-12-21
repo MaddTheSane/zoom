@@ -458,7 +458,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 					readBytes.withUnsafeBytes { bufPtr in
 						_=CC_MD5_Update(&state, bufPtr.baseAddress, CC_LONG(bufPtr.count))
 					}
-					readBytes = readDownload.readData(ofLength: 16384)
+					readBytes = readDownload.readData(ofLength: 65536)
 				}
 			}
 			

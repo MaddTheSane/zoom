@@ -308,27 +308,27 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	
 	// MARK: - Toolbar actions
 	
-	@IBAction func generalSettings(_ val: Any?) {
+	@objc fileprivate func generalSettings(_ val: Any?) {
 		switchToPane(generalSettingsView)
 	}
 	
-	@IBAction func gameSettings(_ val: Any?) {
+	@objc fileprivate func gameSettings(_ val: Any?) {
 		switchToPane(gameSettingsView)
 	}
 	
-	@IBAction func displaySettings(_ val: Any?) {
+	@objc fileprivate func displaySettings(_ val: Any?) {
 		switchToPane(displaySettingsView)
 	}
 	
-	@IBAction func fontSettings(_ val: Any?) {
+	@objc fileprivate func fontSettings(_ val: Any?) {
 		switchToPane(fontSettingsView)
 	}
 	
-	@IBAction func colourSettings(_ val: Any?) {
+	@objc fileprivate func colourSettings(_ val: Any?) {
 		switchToPane(colourSettingsView)
 	}
 	
-	@IBAction func typographicSettings(_ val: Any?) {
+	@objc fileprivate func typographicSettings(_ val: Any?) {
 		switchToPane(typographicalSettingsView)
 	}
 	
