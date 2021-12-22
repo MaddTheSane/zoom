@@ -1065,6 +1065,10 @@ static ZoomStoryOrganiser* sharedOrganiser = nil;
 #ifdef DEVELOPMENT_BUILD
 					NSLog(@"Have moved to %@", newGameFile);
 #endif
+					if (!oldGameFile || !newGameFile) {
+						NSLog(@"Story ID %@ doesn't seem to exist...", ident);
+						continue;
+					}
 					
 					if (![oldGameFile isEqualToString: newGameFile]) {
 						[filenamesToIdents removeObjectForKey: oldGameFile];
