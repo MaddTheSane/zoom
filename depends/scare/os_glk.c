@@ -3433,6 +3433,7 @@ glkunix_startup_code (glkunix_startup_t * data)
 #endif
     }
 
+#ifndef COCOAGLK
   /* On invalid usage, set a complaint message and return. */
   if (argv_index != argc - 1)
     {
@@ -3444,6 +3445,7 @@ glkunix_startup_code (glkunix_startup_t * data)
         gsc_game_message = "No game file was given on the command line.";
       return TRUE;
     }
+#endif
 
   /* Open a stream to the TAF file, complain if this fails. */
 #ifdef COCOAGLK
