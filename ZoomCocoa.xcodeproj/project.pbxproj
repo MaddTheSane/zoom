@@ -250,11 +250,12 @@
 		552CEF002715110D009D87A5 /* scprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEDF2715110D009D87A5 /* scprintf.c */; };
 		552CEF012715110D009D87A5 /* sctafpar.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEE02715110D009D87A5 /* sctafpar.c */; };
 		552CEF05271512E5009D87A5 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
-		552CEF1A27152C5F009D87A5 /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBC2715110B009D87A5 /* os_glk.c */; };
 		552CEF2327152D0F009D87A5 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
 		552CF02427168668009D87A5 /* ZoomAdrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CF02327168668009D87A5 /* ZoomAdrift.swift */; };
 		552CF02D27176CFC009D87A5 /* scare in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552CEEAE2715109C009D87A5 /* scare */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5530B2D72773D35C00DFECFF /* os_cocoaglk.m in Sources */ = {isa = PBXBuildFile; fileRef = 5530B2C92773D35300DFECFF /* os_cocoaglk.m */; };
+		5530B2DA2773D53800DFECFF /* ScareResourceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5530B2D92773D53800DFECFF /* ScareResourceHandler.m */; };
 		55368A862728FE3000740A0A /* Quest4.zoomPlugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 55BE4AE32709988700100A7D /* Quest4.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55368AA6272A03F600740A0A /* ZoomAGT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55368AA5272A03C700740A0A /* ZoomAGT.swift */; };
 		55368AE4272A045800740A0A /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
@@ -661,6 +662,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 552CF01627168508009D87A5;
 			remoteInfo = Adrift;
+		};
+		5530B2CF2773D35300DFECFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5530B2AD276F20C000DFECFF;
+			remoteInfo = multiWinSwift;
 		};
 		55368A8A272A035E00740A0A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1290,6 +1298,9 @@
 		552CF01727168508009D87A5 /* Adrift.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Adrift.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		552CF022271685A2009D87A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552CF02327168668009D87A5 /* ZoomAdrift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAdrift.swift; sourceTree = "<group>"; };
+		5530B2C92773D35300DFECFF /* os_cocoaglk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = os_cocoaglk.m; sourceTree = "<group>"; };
+		5530B2D82773D53800DFECFF /* ScareResourceHandler.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ScareResourceHandler.h; sourceTree = "<group>"; usesTabs = 1; };
+		5530B2D92773D53800DFECFF /* ScareResourceHandler.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ScareResourceHandler.m; sourceTree = "<group>"; usesTabs = 1; };
 		55368A9B272A035E00740A0A /* AGX.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AGX.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368AA4272A03C700740A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55368AA5272A03C700740A0A /* ZoomAGT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAGT.swift; sourceTree = "<group>"; };
@@ -1912,6 +1923,7 @@
 				4BD093970FACAEEE001F7EF0 /* git-client */,
 				554E440D204E6DD4000A7D6D /* SwiftGlk.app */,
 				552CEF2227152C5F009D87A5 /* libglkmain.a */,
+				5530B2D02773D35300DFECFF /* multiWinSwift */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2168,6 +2180,7 @@
 				552CEEC82715110C009D87A5 /* Makefile */,
 				552CEEDD2715110D009D87A5 /* os_ansi.c */,
 				552CEEBC2715110B009D87A5 /* os_glk.c */,
+				5530B2C92773D35300DFECFF /* os_cocoaglk.m */,
 				552CEEDA2715110D009D87A5 /* README */,
 				552CEEBF2715110B009D87A5 /* scare.h */,
 				552CEED62715110C009D87A5 /* scare.hdr */,
@@ -2195,6 +2208,8 @@
 				552CEED52715110C009D87A5 /* sctasks.c */,
 				552CEED32715110C009D87A5 /* scutils.c */,
 				552CEED92715110C009D87A5 /* scvars.c */,
+				5530B2D82773D53800DFECFF /* ScareResourceHandler.h */,
+				5530B2D92773D53800DFECFF /* ScareResourceHandler.m */,
 			);
 			indentWidth = 2;
 			path = scare;
@@ -2988,6 +3003,13 @@
 			remoteRef = 552CEF2127152C5F009D87A5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		5530B2D02773D35300DFECFF /* multiWinSwift */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = multiWinSwift;
+			remoteRef = 5530B2CF2773D35300DFECFF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		554E440D204E6DD4000A7D6D /* SwiftGlk.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -3353,7 +3375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				552CEF1A27152C5F009D87A5 /* os_glk.c in Sources */,
+				5530B2D72773D35C00DFECFF /* os_cocoaglk.m in Sources */,
 				552CEF012715110D009D87A5 /* sctafpar.c in Sources */,
 				552CEEF42715110D009D87A5 /* scserial.c in Sources */,
 				552CEEF22715110D009D87A5 /* sctaffil.c in Sources */,
@@ -3366,6 +3388,7 @@
 				552CEEF92715110D009D87A5 /* scmemos.c in Sources */,
 				552CEEEC2715110D009D87A5 /* sclocale.c in Sources */,
 				552CEEFD2715110D009D87A5 /* scresour.c in Sources */,
+				5530B2DA2773D53800DFECFF /* ScareResourceHandler.m in Sources */,
 				552CEEE22715110D009D87A5 /* scobjcts.c in Sources */,
 				552CEEF02715110D009D87A5 /* scdebug.c in Sources */,
 				552CEEEE2715110D009D87A5 /* scnpcs.c in Sources */,

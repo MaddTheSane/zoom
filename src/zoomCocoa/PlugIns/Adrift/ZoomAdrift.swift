@@ -28,6 +28,10 @@ final public class Adrift: ZoomGlkPlugIn {
 		return true
 	}
 	
+	public override class var needsPathPassedToTask: Bool {
+		return true
+	}
+	
 	public override class var supportedFileTypes: [String] {
 		return ["public.adrift", "taf"]
 	}
