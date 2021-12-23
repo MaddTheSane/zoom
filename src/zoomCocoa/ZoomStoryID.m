@@ -573,10 +573,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 
 #pragma mark - NSCopying
 - (id) copyWithZone: (NSZone*) zone {
-	ZoomStoryID* newID = [[ZoomStoryID alloc] init];
-	
-	newID->ident = IFMB_CopyId(ident);
-	newID->needsFreeing = YES;
+	ZoomStoryID* newID = [[ZoomStoryID alloc] initWithIdent: ident];
 	
 	return newID;
 }

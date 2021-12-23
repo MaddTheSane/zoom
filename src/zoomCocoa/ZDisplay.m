@@ -319,12 +319,19 @@ void display_printc(int chr) {
 		return;
 	}
 
-    unichar bufU[1];
+    NSString* str = nil;
+    if (chr > UINT16_MAX) {
+        str = [[NSString alloc] initWithBytes: &chr
+                                       length: 4
+                                     encoding: NSUTF32LittleEndianStringEncoding];
+    } else {
+        unichar bufU[1];
 
-    bufU[0] = chr;
+        bufU[0] = chr;
 
-    NSString* str = [NSString stringWithCharacters: bufU
+        str = [[NSString alloc] initWithCharacters: bufU
                                             length: 1];
+    }
     [[mainMachine buffer] writeString: str
                             withStyle: zDisplayCurrentStyle
                              toWindow: [mainMachine windowNumber: zDisplayCurrentWindow]];
