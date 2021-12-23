@@ -7,6 +7,7 @@
 //
 
 #import "ZoomInputLine.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 
 @implementation ZoomInputLine {

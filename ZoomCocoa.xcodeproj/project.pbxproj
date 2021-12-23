@@ -179,7 +179,6 @@
 		4BD274A708701E6700C1AE15 /* ZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D95CA053706CD00A8E303 /* ZoomScrollView.m */; };
 		4BD274A808701E6700C1AE15 /* ZoomUpperWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D95CF05372EF900A8E303 /* ZoomUpperWindowView.m */; };
 		4BD274AA08701E6700C1AE15 /* ZoomPixmapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE62209068C273400369528 /* ZoomPixmapWindow.m */; };
-		4BD274AB08701E6700C1AE15 /* ZoomCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6236C068CB86300369528 /* ZoomCursor.m */; };
 		4BD274AC08701E6700C1AE15 /* ZoomInputLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3DA130068DAF9E00B7090F /* ZoomInputLine.m */; };
 		4BD274AD08701E6700C1AE15 /* ZoomSkein.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2BCEC06949E730082C022 /* ZoomSkein.m */; };
 		4BD274AE08701E6700C1AE15 /* ZoomSkeinItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2BCF30694A0830082C022 /* ZoomSkeinItem.m */; };
@@ -255,6 +254,7 @@
 		552CF02427168668009D87A5 /* ZoomAdrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CF02327168668009D87A5 /* ZoomAdrift.swift */; };
 		552CF02D27176CFC009D87A5 /* scare in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552CEEAE2715109C009D87A5 /* scare */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 552CF01727168508009D87A5 /* Adrift.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5530B2E02774597600DFECFF /* ZoomCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5530B2DF2774597600DFECFF /* ZoomCursor.swift */; };
 		55368A862728FE3000740A0A /* Quest4.zoomPlugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 55BE4AE32709988700100A7D /* Quest4.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55368AA6272A03F600740A0A /* ZoomAGT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55368AA5272A03C700740A0A /* ZoomAGT.swift */; };
 		55368AE4272A045800740A0A /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
@@ -661,6 +661,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 552CF01627168508009D87A5;
 			remoteInfo = Adrift;
+		};
+		5530B2E62774597600DFECFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5530B2AD276F20C000DFECFF;
+			remoteInfo = multiWinSwift;
 		};
 		55368A8A272A035E00740A0A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1245,7 +1252,6 @@
 		4BE62208068C273400369528 /* ZoomPixmapWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomPixmapWindow.h; sourceTree = "<group>"; };
 		4BE62209068C273400369528 /* ZoomPixmapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomPixmapWindow.m; sourceTree = "<group>"; };
 		4BE6236B068CB86300369528 /* ZoomCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomCursor.h; sourceTree = "<group>"; };
-		4BE6236C068CB86300369528 /* ZoomCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomCursor.m; sourceTree = "<group>"; };
 		4BECA80005B19BE1006840BA /* ifmetadata.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = ifmetadata.c; sourceTree = "<group>"; tabWidth = 4; };
 		4BECA81B05B19CFB006840BA /* ifmetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifmetadata.h; sourceTree = "<group>"; };
 		4BF02D1E0C4A8141006FC32E /* ZoomGlkSaveRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlkSaveRef.h; sourceTree = "<group>"; };
@@ -1290,6 +1296,7 @@
 		552CF01727168508009D87A5 /* Adrift.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Adrift.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		552CF022271685A2009D87A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552CF02327168668009D87A5 /* ZoomAdrift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAdrift.swift; sourceTree = "<group>"; };
+		5530B2DF2774597600DFECFF /* ZoomCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomCursor.swift; sourceTree = "<group>"; };
 		55368A9B272A035E00740A0A /* AGX.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AGX.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368AA4272A03C700740A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55368AA5272A03C700740A0A /* ZoomAGT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAGT.swift; sourceTree = "<group>"; };
@@ -1912,6 +1919,7 @@
 				4BD093970FACAEEE001F7EF0 /* git-client */,
 				554E440D204E6DD4000A7D6D /* SwiftGlk.app */,
 				552CEF2227152C5F009D87A5 /* libglkmain.a */,
+				5530B2E72774597600DFECFF /* multiWinSwift */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2114,7 +2122,7 @@
 				4B4D512006E3894F007FAD2B /* ZoomConnector.h */,
 				4B4D512106E3894F007FAD2B /* ZoomConnector.m */,
 				4BE6236B068CB86300369528 /* ZoomCursor.h */,
-				4BE6236C068CB86300369528 /* ZoomCursor.m */,
+				5530B2DF2774597600DFECFF /* ZoomCursor.swift */,
 				4B3DA12F068DAF9E00B7090F /* ZoomInputLine.h */,
 				4B3DA130068DAF9E00B7090F /* ZoomInputLine.m */,
 				4B7D1DAD0534999E00A8E303 /* ZoomLowerWindow.h */,
@@ -2988,6 +2996,13 @@
 			remoteRef = 552CEF2127152C5F009D87A5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		5530B2E72774597600DFECFF /* multiWinSwift */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = multiWinSwift;
+			remoteRef = 5530B2E62774597600DFECFF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		554E440D204E6DD4000A7D6D /* SwiftGlk.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -3300,7 +3315,6 @@
 				4BD274A708701E6700C1AE15 /* ZoomScrollView.m in Sources */,
 				4BD274A808701E6700C1AE15 /* ZoomUpperWindowView.m in Sources */,
 				4BD274AA08701E6700C1AE15 /* ZoomPixmapWindow.m in Sources */,
-				4BD274AB08701E6700C1AE15 /* ZoomCursor.m in Sources */,
 				4BD274AC08701E6700C1AE15 /* ZoomInputLine.m in Sources */,
 				4BD274AD08701E6700C1AE15 /* ZoomSkein.m in Sources */,
 				559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */,
@@ -3309,6 +3323,7 @@
 				4BD274B008701E6700C1AE15 /* ZoomSkeinXML.m in Sources */,
 				4BD274B108701E6700C1AE15 /* ZoomSkeinWeb.m in Sources */,
 				4BD274B208701E6700C1AE15 /* ZoomSkeinViewWeb.m in Sources */,
+				5530B2E02774597600DFECFF /* ZoomCursor.swift in Sources */,
 				4BD274B308701E6700C1AE15 /* ZoomSkeinLayout.m in Sources */,
 				4BD274B408701E6700C1AE15 /* ZoomBlorbFile.m in Sources */,
 				4BD274B508701E6700C1AE15 /* ZoomConnector.m in Sources */,
