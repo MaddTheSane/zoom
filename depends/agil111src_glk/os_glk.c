@@ -49,6 +49,9 @@
 #include <ctype.h>
 #include <limits.h>
 #include <stddef.h>
+#ifdef HAVE_LIBICONV
+#include <iconv.h>
+#endif
 
 #ifndef GLK_ANSI_ONLY
 # if !defined (__USE_POSIX)
@@ -144,6 +147,14 @@ static void gagt_event_wait_2 (glui32 wait_type_1,
                                glui32 wait_type_2,
                                event_t * event);
 
+#ifdef GLK_MODULE_UNICODE
+/* Forward declaration of unicode functions. */
+static void gagt_cp_to_utf (const unsigned char *from_string,
+                            glui32 *to_string);
+static void gagt_unicode_to_cp (const glui32 *from_string,
+                                unsigned char *to_string);
+#endif
+
 /*
  * Forward declaration of the glk_exit() wrapper.  Normal functions in this
  * module should not to call glk_exit() directly; they should always call it
@@ -152,11 +163,15 @@ static void gagt_event_wait_2 (glui32 wait_type_1,
 static void gagt_exit (void);
 
 
+#ifdef GLK_MODULE_UNICODE
+static rbool supports_unicode;
+#endif
+
 /*---------------------------------------------------------------------*/
 /*  Glk port utility functions                                         */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * gagt_fatal()
  *
  * Fatal error handler.  The function returns, expecting the caller to
@@ -195,7 +210,7 @@ gagt_fatal (const char *string)
 }
 
 
-/*
+/**
  * gagt_malloc()
  * gagt_realloc()
  *
@@ -233,7 +248,7 @@ gagt_realloc (void *ptr, size_t size)
 }
 
 
-/*
+/**
  * gagt_strncasecmp()
  * gagt_strcasecmp()
  *
@@ -274,7 +289,7 @@ gagt_strcasecmp (const char *s1, const char *s2)
 }
 
 
-/*
+/**
  * gagt_debug()
  *
  * Handler for module debug output.  If no debug, it ignores the call,
@@ -305,7 +320,7 @@ gagt_debug (const char *function, const char *format, ...)
 /*  Functions not ported - functionally unchanged from os_none.c       */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * agt_tone()
  *
  * Produce a hz-Hertz sound for ms milliseconds.
@@ -317,7 +332,7 @@ agt_tone (int hz, int ms)
 }
 
 
-/*
+/**
  * agt_rand()
  *
  * Return random number from a to b inclusive.  The random number generator
@@ -333,7 +348,7 @@ agt_rand (int a, int b)
 
   if (!is_initialized)
     {
-      srand (stable_random ? 6 : time (0));
+      srand (stable_random ? 6 : (time (0) & 0xffffffff));
 
       is_initialized = TRUE;
       gagt_debug ("agt_rand", "[initialized]");
@@ -349,14 +364,14 @@ agt_rand (int a, int b)
 /*  Workrounds for bugs in core AGiliTy.                               */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * gagt_workround_menus()
  *
  * Somewhere in AGiliTy's menu handling stuff is a condition that sets up
- * an eventual NULL dereference in rstrncpy(), called from num_name_func().
+ * an eventual \c NULL dereference in rstrncpy(), called from num_name_func().
  * For some reason, perhaps memory overruns, perhaps something else, it
  * happens after a few turns have been made through agt_menu().  Replacing
- * agt_menu() won't avoid it.
+ * \c agt_menu() won't avoid it.
  *
  * However, the menu stuff isn't too useful, or attractive, in a game, so one
  * solution is to simply disable it.  While not possible to do this directly,
@@ -377,7 +392,7 @@ gagt_workround_menus (void)
 }
 
 
-/*
+/**
  * gagt_workround_fileexist()
  *
  * This function verifies that the game file can be opened, in effect second-
@@ -417,7 +432,7 @@ enum {
 };
 
 
-/*
+/**
  * start_interface()
  * close_interface()
  *
@@ -463,7 +478,7 @@ close_interface (void)
 /*  Code page 437 to ISO 8859 Latin-1 translations                     */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * AGiliTy uses IBM code page 437 characters, and Glk works in ISO 8859
  * Latin-1.  There's some good news, in that a number of the characters,
  * especially international ones, in these two sets are the same.  The bad
@@ -481,7 +496,7 @@ close_interface (void)
  * The first entry of table comments below is the character's UNICODE value,
  * just in case it's useful at some future date.
  */
-typedef const struct
+typedef const struct gagt_char_t
 {
   const unsigned char cp437;      /* Code page 437 character. */
   const unsigned char iso8859_1;  /* ISO 8859 Latin-1 character. */
@@ -663,7 +678,7 @@ static gagt_char_t GAGT_CHAR_TABLE[] = {
 };
 
 
-/*
+/**
  * gagt_cp_to_iso()
  *
  * Convert a string from code page 437 into ISO 8859 Latin-1.  The input and
@@ -718,7 +733,7 @@ gagt_cp_to_iso (const unsigned char *from_string, unsigned char *to_string)
 }
 
 
-/*
+/**
  * gagt_iso_to_cp()
  *
  * Convert a string from ISO 8859 Latin-1 to code page 437.  The input and
@@ -782,7 +797,7 @@ gagt_iso_to_cp (const unsigned char *from_string, unsigned char *to_string)
 /*  Glk port status line functions                                     */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Buffered copy of the latest status line passed in by the interpreter.
  * Buffering it means it's readily available to print for Glk libraries
  * that don't support separate windows.  We also need a copy of the last
@@ -791,7 +806,7 @@ gagt_iso_to_cp (const unsigned char *from_string, unsigned char *to_string)
 static char *gagt_status_buffer = NULL,
             *gagt_status_buffer_printed = NULL;
 
-/*
+/**
  * Indication that we are in mid-delay.  The delay is silent, and can look
  * kind of confusing, so to try to make it less so, we'll have the status
  * window show something about it.
@@ -799,7 +814,7 @@ static char *gagt_status_buffer = NULL,
 static int gagt_inside_delay = FALSE;
 
 
-/*
+/**
  * agt_statline()
  *
  * This function is called from our call to print_statline().  Here we'll
@@ -818,7 +833,7 @@ agt_statline (const char *cp_string)
 }
 
 
-/*
+/**
  * gagt_status_update_extended()
  *
  * Helper for gagt_status_update() and gagt_status_in_delay().  This function
@@ -839,6 +854,7 @@ gagt_status_update_extended (void)
       /* Clear the second status line only. */
       glk_window_move_cursor (gagt_status_window, 0, 1);
       glk_set_window (gagt_status_window);
+      glk_set_style (style_User1);
       for (index = 0; index < width; index++)
         glk_put_char (' ');
 
@@ -870,7 +886,7 @@ gagt_status_update_extended (void)
 }
 
 
-/*
+/**
  * gagt_status_update()
  *
  *
@@ -892,6 +908,11 @@ gagt_status_update (void)
       glk_window_clear (gagt_status_window);
       glk_window_move_cursor (gagt_status_window, 0, 0);
       glk_set_window (gagt_status_window);
+      
+      glk_set_style (style_User1);
+       for (int index = 0; index < width; index++)
+         glk_put_char (' ');
+       glk_window_move_cursor (gagt_status_window, 0, 0);
 
       /* Call print_statline() to refresh status line buffer contents. */
       print_statline ();
@@ -927,7 +948,7 @@ gagt_status_update (void)
 }
 
 
-/*
+/**
  * gagt_status_print()
  *
  * Print the current contents of the completed status line buffer out in the
@@ -972,7 +993,7 @@ gagt_status_print (void)
 }
 
 
-/*
+/**
  * gagt_status_notify()
  *
  * Front end function for updating status.  Either updates the status window
@@ -994,7 +1015,7 @@ gagt_status_notify (void)
 }
 
 
-/*
+/**
  * gagt_status_redraw()
  *
  * Redraw the contents of any status window with the buffered status string.
@@ -1043,7 +1064,7 @@ gagt_status_redraw (void)
 }
 
 
-/*
+/**
  * gagt_status_in_delay()
  *
  * Tells status line functions whether the game is delaying, or not.  This
@@ -1067,7 +1088,7 @@ gagt_status_in_delay (int inside_delay)
 }
 
 
-/*
+/**
  * gagt_status_cleanup()
  *
  * Free memory resources allocated by status line functions.  Called on game
@@ -1109,33 +1130,33 @@ enum {
   AGT_DE_EMPHASIS = -2
 };
 
-/*
+/**
  * AGiliTy colors and text attributes seem a bit confused.  Let's see if we
  * can sort them out.  Sadly, once we have, it's often not possible to
  * render the full range in all Glk's anyway.  Nevertheless...
  */
 typedef struct {
-  int color;     /* Text color. */
-  int blink;     /* Text blinking flag. */
-  int fixed;     /* Text fixed font flag. */
-  int emphasis;  /* Text emphasized flag. */
+  int color;     /*!< Text color. */
+  int blink;     /*!< Text blinking flag. */
+  int fixed;     /*!< Text fixed font flag. */
+  int emphasis;  /*!< Text emphasized flag. */
 } gagt_attrset_t;
 
-/*
+/**
  * Attributes as currently set by AGiliTy.  The default values set up here
  * correspond to AGT_NORMAL.
  */
 static gagt_attrset_t gagt_current_attribute_set = { AGT_WHITE, FALSE,
                                                      FALSE, FALSE };
 
-/*
+/**
  * An extra flag to indicate if we have coerced fixed font override.  On
  * some occasions, we need to ensure that we get fixed font no matter what
  * the game says.
  */
 static int gagt_coerced_fixed = FALSE;
 
-/*
+/**
  * Bit masks for packing colors and attributes.  Normally, I don't like
  * bit-twiddling all that much, but for packing all of the above into a
  * single byte, that's what we need.  Stuff color into the low four bits,
@@ -1151,7 +1172,7 @@ static const unsigned char GAGT_COLOR_MASK = 0x0f,
 static void gagt_standout_string (const char *message);
 
 
-/*
+/**
  * agt_textcolor()
  *
  * The AGiliTy porting guide defines the use of this function as:
@@ -1232,7 +1253,7 @@ agt_textcolor (int color)
 }
 
 
-/*
+/**
  * gagt_coerce_fixed_font()
  *
  * This coerces, or relaxes, a fixed font setting.  Used by box drawing, to
@@ -1247,7 +1268,7 @@ gagt_coerce_fixed_font (int coerce)
 }
 
 
-/*
+/**
  * gagt_pack_attributes()
  *
  * Pack a set of color and text rendering attributes into a single byte,
@@ -1277,7 +1298,7 @@ gagt_pack_attributes (const gagt_attrset_t * attribute_set, int coerced)
 }
 
 
-/*
+/**
  * gagt_unpack_attributes()
  *
  * Unpack a set of packed current color and text rendering attributes from a
@@ -1296,7 +1317,7 @@ gagt_unpack_attributes (unsigned char packed, gagt_attrset_t * attribute_set)
 }
 
 
-/*
+/**
  * gagt_pack_current_attributes()
  *
  * Pack the current color and text rendering attributes into a single byte,
@@ -1309,7 +1330,7 @@ gagt_pack_current_attributes (void)
 }
 
 
-/*
+/**
  * gagt_init_user_styles()
  *
  * Attempt to set up two defined styles, User1 and User2, to represent
@@ -1342,7 +1363,7 @@ gagt_init_user_styles (void)
 }
 
 
-/*
+/**
  * gagt_confirm_appearance()
  *
  * Attempt to find out if a Glk style's on screen appearance matches a given
@@ -1373,7 +1394,7 @@ gagt_confirm_appearance (glui32 style, glui32 stylehint, glui32 expected)
 }
 
 
-/*
+/**
  * gagt_is_style_fixed()
  * gagt_is_style_bold()
  * gagt_is_style_oblique()
@@ -1401,7 +1422,7 @@ gagt_is_style_oblique (glui32 style)
 }
 
 
-/*
+/**
  * gagt_select_style()
  *
  * Given a set of AGT text attributes, this function returns a Glk style that
@@ -1549,7 +1570,7 @@ gagt_select_style (gagt_attrset_t * attribute_set)
  * at the point where we need to display the buffer.
  */
 
-/*
+/**
  * Definition of font hints values.  Font hints may be:
  *   o none, for lines not in a definite paragraph;
  *   o proportional, for lines that can probably be safely rendered in a
@@ -1573,16 +1594,19 @@ typedef enum {
 /* Magic number used to ensure a pointer points to a page buffer line. */
 static const unsigned int GAGT_LINE_MAGIC = 0x5bc14482;
 
-/*
+/**
  * Definition of a single line buffer.  This is a growable string and a
  * parallel growable attributes array.  The string is buffered without any
  * null terminator -- not needed since we retain length.
  */
-typedef struct {
-  unsigned char *data;        /* Buffered character data. */
-  unsigned char *attributes;  /* Parallel character attributes, packed. */
-  int allocation;             /* Bytes allocated to each of the above. */
-  int length;                 /* Amount of data actually buffered. */
+typedef struct gagt_string_s {
+  unsigned char *data;        /*!< Buffered character data. */
+#ifdef GLK_MODULE_UNICODE
+  unsigned char *unicode;     /*!< Buffered Unicode data. */
+#endif
+  unsigned char *attributes;  /*!< Parallel character attributes, packed. */
+  int allocation;             /*!< Bytes allocated to each of the above. */
+  int length;                 /*!< Amount of data actually buffered. */
 } gagt_string_t;
 typedef gagt_string_t * gagt_stringref_t;
 
@@ -1597,37 +1621,37 @@ typedef struct gagt_paragraph_s *gagt_paragraphref_t;
 
 struct gagt_line_s
 {
-  unsigned int magic;             /* Assertion check dog-tag. */
+  unsigned int magic;             /*!< Assertion check dog-tag. */
 
-  gagt_string_t buffer;           /* Buffered line string data. */
+  gagt_string_t buffer;           /*!< Buffered line string data. */
 
-  int indent;                     /* Line indentation. */
-  int outdent;                    /* Trailing line whitespace. */
-  int real_length;                /* Real line length. */
-  int is_blank;                   /* Line blank flag. */
-  int is_hyphenated;              /* Line hyphenated flag. */
+  int indent;                     /*!< Line indentation. */
+  int outdent;                    /*!< Trailing line whitespace. */
+  int real_length;                /*!< Real line length. */
+  int is_blank;                   /*!< Line blank flag. */
+  int is_hyphenated;              /*!< Line hyphenated flag. */
 
-  gagt_paragraphref_t paragraph;  /* Paragraph containing the line. */
-  gagt_font_hint_t font_hint;     /* Line's font hint. */
+  gagt_paragraphref_t paragraph;  /*!< Paragraph containing the line. */
+  gagt_font_hint_t font_hint;     /*!< Line's font hint. */
 
-  gagt_lineref_t next;            /* List next element. */
-  gagt_lineref_t prior;           /* List prior element. */
+  gagt_lineref_t next;            /*!< List next element. */
+  gagt_lineref_t prior;           /*!< List prior element. */
 };
 
-/*
+/**
  * Definition of the actual page buffer.  This is a doubly-linked list of
  * lines, with a tail pointer to facilitate adding entries at the end.
  */
 static gagt_lineref_t gagt_page_head = NULL,
                       gagt_page_tail = NULL;
 
-/*
+/**
  * Definition of the current output line; this one is appended to on
  * agt_puts(), and transferred into the page buffer on agt_newline().
  */
 static gagt_string_t gagt_current_buffer = { NULL, NULL, 0, 0 };
 
-/*
+/**
  * gagt_string_append()
  * gagt_string_transfer()
  * gagt_string_free()
@@ -1668,6 +1692,9 @@ gagt_string_transfer (gagt_stringref_t from, gagt_stringref_t to)
 {
   *to = *from;
   from->data = from->attributes = NULL;
+#ifdef GLK_MODULE_UNICODE
+  from->unicode = NULL;
+#endif
   from->allocation = from->length = 0;
 }
 
@@ -1675,13 +1702,16 @@ static void
 gagt_string_free (gagt_stringref_t buffer)
 {
   free (buffer->data);
+#ifdef GLK_MODULE_UNICODE
+  free (buffer->unicode);
+#endif
   free (buffer->attributes);
   buffer->data = buffer->attributes = NULL;
   buffer->allocation = buffer->length = 0;
 }
 
 
-/*
+/**
  * gagt_get_string_indent()
  * gagt_get_string_outdent()
  * gagt_get_string_real_length()
@@ -1760,7 +1790,7 @@ gagt_is_string_hyphenated (const gagt_stringref_t buffer)
 }
 
 
-/*
+/**
  * gagt_output_delete()
  *
  * Delete all buffered page and line text.  Free all malloc'ed buffer memory,
@@ -1788,7 +1818,7 @@ gagt_output_delete (void)
 }
 
 
-/*
+/**
  * agt_puts()
  *
  * Buffer the string passed in into our current single line buffer.  The
@@ -1828,7 +1858,7 @@ agt_puts (const char *cp_string)
 }
 
 
-/*
+/**
  * agt_newline()
  *
  * Accept a newline to the main window.  Our job here is to append the
@@ -1881,14 +1911,14 @@ agt_newline (void)
 }
 
 
-/*
+/**
  * gagt_get_first_page_line()
  * gagt_get_next_page_line()
  * gagt_get_prior_page_line()
  *
  * Iterator functions for the page buffer.  These functions return the first
  * line from the page buffer, the next line, or the previous line, given a
- * line, respectively.  They return NULL if no lines, or no more lines, are
+ * line, respectively.  They return \c NULL if no lines, or no more lines, are
  * available.
  */
 static gagt_lineref_t
@@ -1928,38 +1958,38 @@ gagt_get_prior_page_line (const gagt_lineref_t line)
 /*  Glk port paragraphing functions and data                           */
 /*---------------------------------------------------------------------*/
 
-/* Magic number used to ensure a pointer points to a paragraph. */
+/** Magic number used to ensure a pointer points to a paragraph. */
 static const unsigned int GAGT_PARAGRAPH_MAGIC = 0xb9a2297b;
 
 /* Forward definition of special paragraph reference. */
 typedef const struct gagt_special_s *gagt_specialref_t;
 
-/*
+/**
  * Definition of a paragraph entry.  This is a structure that holds a
  * pointer to the first line buffer in the paragraph.
  */
 struct gagt_paragraph_s
 {
-  unsigned int magic;             /* Assertion check dog-tag. */
+  unsigned int magic;             /*!< Assertion check dog-tag. */
 
-  gagt_lineref_t first_line;      /* First line in the paragraph. */
-  gagt_specialref_t special;      /* Special paragraph entry. */
+  gagt_lineref_t first_line;      /*!< First line in the paragraph. */
+  gagt_specialref_t special;      /*!< Special paragraph entry. */
 
-  int line_count;                 /* Number of lines in the paragraph. */
-  int id;                         /* Paragraph id, sequence, for debug only. */
+  int line_count;                 /*!< Number of lines in the paragraph. */
+  int id;                         /*!< Paragraph id, sequence, for debug only. */
 
-  gagt_paragraphref_t next;       /* List next element. */
-  gagt_paragraphref_t prior;      /* List prior element. */
+  gagt_paragraphref_t next;       /*!< List next element. */
+  gagt_paragraphref_t prior;      /*!< List prior element. */
 };
 
-/*
+/**
  * A doubly-linked list of paragraphs, with a tail pointer to facilitate
  * adding entries at the end.
  */
 static gagt_paragraphref_t gagt_paragraphs_head = NULL,
                            gagt_paragraphs_tail = NULL;
 
-/*
+/**
  * gagt_paragraphs_delete()
  *
  * Delete paragraphs held in the list.  This function doesn't delete the
@@ -1983,7 +2013,7 @@ gagt_paragraphs_delete (void)
 }
 
 
-/*
+/**
  * gagt_find_paragraph_start()
  *
  * Find and return the next non-blank line in the page buffer, given a start
@@ -2012,7 +2042,7 @@ gagt_find_paragraph_start (const gagt_lineref_t begin)
 }
 
 
-/*
+/**
  * gagt_find_block_end()
  * gagt_find_blank_line_block_end()
  *
@@ -2058,7 +2088,7 @@ gagt_find_blank_line_block_end (const gagt_lineref_t begin)
 }
 
 
-/*
+/**
  * gagt_find_paragraph_end()
  *
  * Find and return the apparent end of a paragraph from the page buffer,
@@ -2178,7 +2208,7 @@ gagt_find_paragraph_end (const gagt_lineref_t first_line)
 }
 
 
-/*
+/**
  * gagt_paragraph_page()
  *
  * This function breaks the page buffer into what appear to be paragraphs,
@@ -2243,7 +2273,7 @@ gagt_paragraph_page (void)
 }
 
 
-/*
+/**
  * gagt_get_first_paragraph()
  * gagt_get_next_paragraph()
  *
@@ -2271,7 +2301,7 @@ gagt_get_next_paragraph (const gagt_paragraphref_t paragraph)
 }
 
 
-/*
+/**
  * gagt_get_first_paragraph_line()
  * gagt_get_next_paragraph_line()
  * gagt_get_prior_paragraph_line()
@@ -2321,7 +2351,7 @@ gagt_get_prior_paragraph_line (const gagt_lineref_t line)
 }
 
 
-/*
+/**
  * gagt_get_paragraph_line_count()
  *
  * Return the count of lines contained in the paragraph.
@@ -2339,7 +2369,7 @@ gagt_get_paragraph_line_count (const gagt_paragraphref_t paragraph)
 /*  Glk port page buffer analysis functions                            */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Threshold for consecutive punctuation/spaces before we decide that a line
  * is in fact part of a table, and a small selection of characters to apply
  * a somewhat larger threshold to when looking for punctuation (typically,
@@ -2350,7 +2380,7 @@ static const int GAGT_THRESHOLD = 4,
 static const char * const GAGT_COMMON_PUNCTUATION = ".!?";
 
 
-/*
+/**
  * gagt_line_is_standout()
  *
  * Return TRUE if a page buffer line appears to contain "standout" text.
@@ -2404,7 +2434,7 @@ gagt_line_is_standout (const gagt_lineref_t line)
 }
 
 
-/*
+/**
  * gagt_set_font_hint_proportional()
  * gagt_set_font_hint_proportional_newline()
  * gagt_set_font_hint_fixed_width()
@@ -2452,7 +2482,7 @@ gagt_set_font_hint_fixed_width (gagt_lineref_t line)
 }
 
 
-/*
+/**
  * gagt_assign_paragraph_font_hints()
  *
  * For a given paragraph in the page buffer, this function looks at the text
@@ -2824,7 +2854,7 @@ gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
 }
 
 
-/*
+/**
  * gagt_assign_font_hints()
  *
  * 
@@ -2867,7 +2897,7 @@ typedef const struct gagt_special_s
   const char * const replace;
 } gagt_special_t;
 
-/*
+/**
  * Table of special AGiliTy interpreter strings and paragraphs -- where one
  * appears in game output, we'll print out its replacement instead.  Be
  * warned; these strings are VERY specific to AGiliTy 1.1.1, and are extre-
@@ -2977,13 +3007,13 @@ static gagt_special_t GAGT_SPECIALS[] = {
 };
 
 
-/*
+/**
  * gagt_compare_special_line()
  * gagt_compare_special_paragraph()
  *
  * Helpers for gagt_find_equivalent_special().  Compare line data case-
  * insensitively, taking care to use lengths rather than relying on line
- * buffer data being NUL terminated (which it's not); and iterate a complete
+ * buffer data being \c NUL terminated (which it's not); and iterate a complete
  * special paragraph comparison.
  */
 static int
@@ -3029,7 +3059,7 @@ gagt_compare_special_paragraph (const gagt_specialref_t special,
 }
 
 
-/*
+/**
  * gagt_find_equivalent_special()
  *
  * Given a paragraph, see if it matches any of the special ones set up in
@@ -3055,7 +3085,7 @@ gagt_find_equivalent_special (gagt_paragraphref_t paragraph)
 }
 
 
-/*
+/**
  * gagt_mark_specials()
  *
  * Search for and mark any lines that match special paragraphs.
@@ -3107,7 +3137,7 @@ gagt_mark_specials (void)
 }
 
 
-/*
+/**
  * gagt_display_special()
  *
  * Display the replacement text for the specified special table entry.  The
@@ -3186,14 +3216,14 @@ gagt_display_special (const gagt_specialref_t special, glui32 current_style)
 /*  Glk port output functions                                          */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Flag for if the user entered "help" as their last input, or if hints have
  * been silenced as a result of already using a Glk command.
  */
 static int gagt_help_requested = FALSE,
            gagt_help_hints_silenced = FALSE;
 
-/*
+/**
  * gagt_display_register_help_request()
  * gagt_display_silence_help_hints()
  * gagt_display_provide_help_hint()
@@ -3230,7 +3260,7 @@ gagt_display_provide_help_hint (glui32 current_style)
 }
 
 
-/*
+/**
  * gagt_display_text_element()
  *
  * Display an element of a buffer string using matching packed attributes.
@@ -3292,7 +3322,7 @@ gagt_display_text_element (const char *string, const unsigned char *attributes,
 }
 
 
-/*
+/**
  * gagt_display_line()
  *
  * Display a page buffer line, starting in the current Glk style, and
@@ -3339,7 +3369,7 @@ gagt_display_line (const gagt_lineref_t line, glui32 current_style,
 }
 
 
-/*
+/**
  * gagt_display_hinted_line()
  *
  * Display a page buffer line, starting in the current Glk style, and
@@ -3410,7 +3440,7 @@ gagt_display_hinted_line (const gagt_lineref_t line, glui32 current_style,
 }
 
 
-/*
+/**
  * gagt_display_auto()
  *
  * Display buffered output text to the Glk main window using a bunch of
@@ -3486,7 +3516,7 @@ gagt_display_auto (void)
 }
 
 
-/*
+/**
  * gagt_display_manual()
  *
  * Display buffered output text in the Glk main window, with either a fixed
@@ -3536,7 +3566,7 @@ gagt_display_manual (int fixed_width)
 }
 
 
-/*
+/**
  * gagt_display_debug()
  *
  * Display the analyzed page buffer in a form that shows all of its gory
@@ -3591,7 +3621,7 @@ gagt_display_debug (void)
 }
 
 
-/*
+/**
  * gagt_output_flush()
  *
  * Flush any buffered output text to the Glk main window, and clear the
@@ -3644,7 +3674,7 @@ gagt_output_flush (void)
 }
 
 
-/*
+/**
  * agt_clrscr()
  *
  * Clear the main playing area window.  Although there may be little point
@@ -3672,7 +3702,7 @@ agt_clrscr (void)
 }
 
 
-/*
+/**
  * gagt_styled_string()
  * gagt_styled_char()
  * gagt_standout_string()
@@ -3739,20 +3769,20 @@ gagt_header_string (const char *message)
 /*  Glk port delay functions                                           */
 /*---------------------------------------------------------------------*/
 
-/* Number of milliseconds in a second (traditionally, 1000). */
+/** Number of milliseconds in a second (traditionally, 1000). */
 static const int GAGT_MS_PER_SEC = 1000;
 
-/*
+/**
  * Number of milliseconds to timeout.  Because of jitter in the way Glk
  * generates timeouts, it's worthwhile implementing a delay using a number
  * of shorter timeouts.  This minimizes inaccuracies in the actual delay.
  */
 static const glui32 GAGT_DELAY_TIMEOUT = 50;
 
-/* The character key that can be pressed to cancel, and suspend, delays. */
+/** The character key that can be pressed to cancel, and suspend, delays. */
 static const char GAGT_DELAY_SUSPEND = ' ';
 
-/*
+/**
  * Flag to temporarily turn off all delays.  This is set when the user
  * cancels a delay with a keypress, and remains set until the next time
  * that AGiliTy requests user input.  This way, games that call agt_delay()
@@ -3762,7 +3792,7 @@ static const char GAGT_DELAY_SUSPEND = ' ';
 static int gagt_delays_suspended = FALSE;
 
 
-/*
+/**
  * agt_delay()
  *
  * Delay for the specified number of seconds.  The delay can be canceled
@@ -3842,11 +3872,11 @@ agt_delay (int seconds)
 }
 
 
-/*
+/**
  * gagt_delay_resume()
  *
- * Unsuspend delays.  This function should be called by agt_input() and
- * agt_getkey(), to re-enable delays when the interpreter next requests
+ * Unsuspend delays.  This function should be called by \c agt_input() and
+ * \c agt_getkey() , to re-enable delays when the interpreter next requests
  * user input.
  */
 static void
@@ -3860,7 +3890,7 @@ gagt_delay_resume (void)
 /*  Glk port box drawing functions                                     */
 /*---------------------------------------------------------------------*/
 
-/* Saved details of any current box dimensions and flags. */
+/** Saved details of any current box dimensions and flags. */
 static unsigned long gagt_box_flags = 0;
 static int gagt_box_busy = FALSE,
            gagt_box_width = 0,
@@ -3868,7 +3898,7 @@ static int gagt_box_busy = FALSE,
            gagt_box_startx = 0;
 
 
-/*
+/**
  * gagt_box_rule()
  * gagt_box_position()
  *
@@ -3906,7 +3936,7 @@ gagt_box_position (int indent)
 }
 
 
-/*
+/**
  * agt_makebox()
  * agt_qnewline()
  * agt_endbox()
@@ -4022,7 +4052,7 @@ agt_endbox (void)
 /*  Glk command escape functions                                       */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * gagt_command_script()
  *
  * Turn game output scripting (logging) on and off.
@@ -4099,7 +4129,7 @@ gagt_command_script (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_inputlog()
  *
  * Turn game input logging on and off.
@@ -4172,7 +4202,7 @@ gagt_command_inputlog (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_readlog()
  *
  * Set the game input log, to read input from a file.
@@ -4251,7 +4281,7 @@ gagt_command_readlog (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_abbreviations()
  *
  * Turn abbreviation expansions on and off.
@@ -4303,7 +4333,7 @@ gagt_command_abbreviations (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_fonts()
  *
  * Set the value for gagt_font_mode depending on the argument from the
@@ -4409,7 +4439,7 @@ gagt_command_fonts (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_delays()
  *
  * Set a value for gagt_delay_mode depending on the argument from
@@ -4502,7 +4532,7 @@ gagt_command_delays (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_width()
  *
  * Print out the (approximate) display width, from status_width.  It's
@@ -4536,7 +4566,7 @@ gagt_command_width (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_replacements()
  *
  * Turn Glk special paragraph replacement on and off.
@@ -4588,7 +4618,7 @@ gagt_command_replacements (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_statusline()
  *
  * Turn the extended status line on and off.
@@ -4656,7 +4686,7 @@ gagt_command_statusline (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_print_version_number()
  * gagt_command_version()
  *
@@ -4676,6 +4706,12 @@ static void
 gagt_command_version (const char *argument)
 {
   glui32 version;
+#ifdef GLK_MODULE_UNICODE
+  glui32 unicode;
+#ifdef GLK_MODULE_UNICODE_NORM
+  glui32 uniNorm;
+#endif
+#endif
   assert (argument);
 
   gagt_normal_string ("This is version ");
@@ -4686,10 +4722,26 @@ gagt_command_version (const char *argument)
   gagt_normal_string ("The Glk library version is ");
   gagt_command_print_version_number (version);
   gagt_normal_string (".\n");
+
+#ifdef GLK_MODULE_UNICODE
+  unicode = glk_gestalt (gestalt_Unicode, 0);
+  gagt_normal_string ("Glk Unicode support is ");
+  gagt_normal_string (unicode ? "available" : "not available");
+#ifdef GLK_MODULE_UNICODE_NORM
+  uniNorm = glk_gestalt (gestalt_UnicodeNorm, 0);
+  gagt_normal_string (", nomalization is ");
+  gagt_normal_string (uniNorm ? "available" : "not available");
+#else
+  gagt_normal_string (", nomalization is not supported");
+#endif
+  gagt_normal_string (".\n");
+#else
+  gagt_normal_string ("Glk Unicode support is not supported.\n");
+#endif
 }
 
 
-/*
+/**
  * gagt_command_commands()
  *
  * Turn command escapes off.  Once off, there's no way to turn them back on.
@@ -4729,7 +4781,7 @@ gagt_command_commands (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_license()
  *
  * Print licensing terms.
@@ -4765,12 +4817,12 @@ gagt_command_license (const char *argument)
 }
 
 
-/* Glk subcommands and handler functions. */
+/** Glk subcommands and handler functions. */
 typedef const struct
 {
-  const char * const command;                     /* Glk subcommand. */
-  void (* const handler) (const char *argument);  /* Subcommand handler. */
-  const int takes_argument;                       /* Argument flag. */
+  const char * const command;                     /*!< Glk subcommand. */
+  void (* const handler) (const char *argument);  /*!< Subcommand handler. */
+  const int takes_argument;                       /*!< Argument flag. */
 } gagt_command_t;
 typedef gagt_command_t *gagt_commandref_t;
 
@@ -4796,7 +4848,7 @@ static gagt_command_t GAGT_COMMAND_TABLE[] = {
 };
 
 
-/*
+/**
  * gagt_command_summary()
  *
  * Report all current Glk settings.
@@ -4823,7 +4875,7 @@ gagt_command_summary (const char *argument)
 }
 
 
-/*
+/**
  * gagt_command_help()
  *
  * Document the available Glk commands.
@@ -5031,7 +5083,7 @@ gagt_command_help (const char *command)
 }
 
 
-/*
+/**
  * gagt_command_escape()
  *
  * This function is handed each input line.  If the line contains a specific
@@ -5145,11 +5197,11 @@ gagt_command_escape (const char *string)
 /* Longest line we're going to buffer for input. */
 enum { GAGT_INPUTBUFFER_LENGTH = 256 };
 
-/* Table of single-character command abbreviations. */
+/** Table of single-character command abbreviations. */
 typedef const struct
 {
-  const char abbreviation;       /* Abbreviation character. */
-  const char * const expansion;  /* Expansion string. */
+  const char abbreviation;       /*!< Abbreviation character. */
+  const char * const expansion;  /*!< Expansion string. */
 } gagt_abbreviation_t;
 typedef gagt_abbreviation_t *gagt_abbreviationref_t;
 
@@ -5162,7 +5214,7 @@ static gagt_abbreviation_t GAGT_ABBREVIATIONS[] = {
 };
 
 
-/*
+/**
  * gagt_expand_abbreviations()
  *
  * Expand a few common one-character abbreviations commonly found in other
@@ -5215,7 +5267,7 @@ gagt_expand_abbreviations (char *buffer, int size)
 }
 
 
-/*
+/**
  * agt_input()
  *
  * Read a line from the keyboard, allocating space for it using malloc.
@@ -5371,7 +5423,7 @@ agt_input (int in_type)
 }
 
 
-/*
+/**
  * agt_getkey()
  *
  * Read a single character and return it.  AGiliTy defines the echo_char
@@ -5496,7 +5548,7 @@ agt_getkey (rbool echo_char)
 /*  Glk port event functions                                           */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * We have some clever atexit() finalizer handling for exit() calls that
  * come from the core interpreter.  However, an exit() call could also come
  * from Glk; Xkill for example.  To tell the difference, we'll have the
@@ -5504,7 +5556,7 @@ agt_getkey (rbool echo_char)
  */
 static int gagt_in_glk_select = FALSE;
 
-/*
+/**
  * gagt_event_wait_2()
  * gagt_event_wait()
  *
@@ -5541,7 +5593,7 @@ gagt_event_wait (glui32 wait_type, event_t * event)
 }
 
 
-/*
+/**
  * gagt_event_in_glk_select()
  *
  * Return TRUE if we're currently awaiting an event in glk_select().  Used
@@ -5558,7 +5610,7 @@ gagt_event_in_glk_select (void)
 /*  Miscellaneous Glk port startup and options functions               */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Default screen height and width, and also a default status width for
  * use with Glk libraries that don't support separate windows.
  */
@@ -5567,7 +5619,7 @@ static const int GAGT_DEFAULT_SCREEN_WIDTH = 80,
                  GAGT_DEFAULT_STATUS_WIDTH = 76;
 
 
-/*
+/**
  * agt_option()
  *
  * Platform-specific setup and options handling.  AGiliTy defines the
@@ -5588,7 +5640,7 @@ agt_option (int optnum, char *optstr[], rbool setflag)
 }
 
 
-/*
+/**
  * agt_globalfile()
  *
  * Global options file handle handling.  For now, this is a stub, since
@@ -5602,7 +5654,7 @@ agt_globalfile (int fid)
 }
 
 
-/*
+/**
  * init_interface()
  *
  * General initialization for the module; sets some variables, and creates
@@ -5667,6 +5719,7 @@ init_interface (int argc, char *argv[])
    * options or flags.  We can live without a status window if we have to.
    */
   status_height = gagt_extended_status_enabled ? 2 : 1;
+  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
   gagt_status_window = glk_window_open (gagt_main_window,
                                         winmethod_Above | winmethod_Fixed,
                                         status_height, wintype_TextGrid, 0);
@@ -5714,7 +5767,7 @@ enum { GAGT_MAX_PATH = 1024 };
 
 
 #ifdef GLK_ANSI_ONLY
-/*
+/**
  * gagt_confirm()
  *
  * Print a confirmation prompt, and read a single input character, taking
@@ -5758,7 +5811,7 @@ gagt_confirm (const char *prompt)
 #endif
 
 
-/*
+/**
  * gagt_get_user_file()
  *
  * Alternative versions of functions to get a file name from the user, and
@@ -5856,9 +5909,9 @@ gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
   retfile = fopen (filepath, fdtype);
   return retfile ? retfile : badfile (fSAV);
 }
-#endif
 
-#ifndef GLK_ANSI_ONLY
+#else
+
 static genfile
 gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
 {
@@ -5963,7 +6016,7 @@ gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
 #endif
 
 
-/*
+/**
  * get_user_file()
  *
  * Get a file name from the user, and return the file stream structure.
@@ -6025,7 +6078,7 @@ get_user_file (int type)
 }
 
 
-/*
+/**
  * set_default_filenames()
  *
  * Set defaults for last save, log, and script filenames.
@@ -6045,7 +6098,7 @@ set_default_filenames (fc_type fc)
 /*  Functions intercepted by link-time wrappers                        */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * __wrap_toupper()
  * __wrap_tolower()
  *
@@ -6085,7 +6138,7 @@ __wrap_tolower (int ch)
 /* External declaration of interface.c's set default options function. */
 extern void set_default_options (void);
 
-/*
+/**
  * The following values need to be passed between the startup_code and main
  * functions.
  */
@@ -6094,7 +6147,7 @@ static char **gagt_saved_argv = NULL,   /* Recorded argv. */
             *gagt_gamefile = NULL,      /* Name of game file. */
             *gagt_game_message = NULL;  /* Error message. */
 
-/*
+/**
  * Flag to set if we want to test for a clean exit.  Without this it's a
  * touch tricky sometimes to corner AGiliTy into calling exit() for us; it
  * tends to require a broken game file.
@@ -6102,7 +6155,7 @@ static char **gagt_saved_argv = NULL,   /* Recorded argv. */
 static int gagt_clean_exit_test = FALSE;
 
 
-/*
+/**
  * gagt_parse_option()
  *
  * Glk-ified version of AGiliTy's parse_options() function.  In practice,
@@ -6217,7 +6270,7 @@ gagt_parse_option (const char *option)
 }
 
 
-/*
+/**
  * gagt_startup_code()
  * gagt_main()
  *
@@ -6390,23 +6443,23 @@ gagt_main (void)
 /*  Linkage between Glk entry/exit calls and the AGiliTy interpreter   */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Safety flags, to ensure we always get startup before main, and that
  * we only get a call to main once.
  */
 static int gagt_startup_called = FALSE,
            gagt_main_called = FALSE;
 
-/*
+/**
  * We try to catch calls to exit() from the interpreter, and redirect them
- * to glk_exit().  To help tell these calls from a call to exit() from
- * glk_exit() itself, we need to monitor when interpreter code is running,
+ * to \c glk_exit() .  To help tell these calls from a call to exit() from
+ * \c glk_exit() itself, we need to monitor when interpreter code is running,
  * and when not.
  */
 static int gagt_agility_running = FALSE;
 
 
-/*
+/**
  * gagt_finalizer()
  *
  * ANSI atexit() handler.  This is the first part of trying to catch and re-
@@ -6500,7 +6553,7 @@ gagt_finalizer (void)
 }
 
 
-/*
+/**
  * gagt_exit()
  *
  * Glk_exit() local wrapper.  This is the second part of trying to catch
@@ -6522,10 +6575,10 @@ gagt_exit (void)
 }
 
 
-/*
+/**
  * __wrap_exit()
  *
- * Exit() wrapper where a linker does --wrap.  This is the third part of
+ * \c Exit() wrapper where a linker does --wrap.  This is the third part of
  * trying to catch and redirect calls to exit().
  *
  * This function is for use only with IFP, and avoids a nasty attempt at
@@ -6569,7 +6622,7 @@ __wrap_exit (int status)
 }
 
 
-/*
+/**
  * glk_main()
  *
  * Main entry point for Glk.  Here, all startup is done, and we call our
@@ -6580,6 +6633,9 @@ glk_main (void)
 {
   assert (gagt_startup_called && !gagt_main_called);
   gagt_main_called = TRUE;
+#ifdef GLK_MODULE_UNICODE
+  supports_unicode = glk_gestalt(gestalt_Unicode, 0);
+#endif
 
   /*
    * Register gagt_finalizer() with atexit() to cleanup on exit.  Note that
@@ -6683,7 +6739,7 @@ glkunix_argumentlist_t glkunix_arguments[] = {
 };
 
 
-/*
+/**
  * glkunix_startup_code()
  *
  * Startup entry point for UNIX versions of Glk AGiliTy.  Glk will call
@@ -6777,3 +6833,294 @@ macglk_startup_code (macglk_startup_t * data)
   return TRUE;
 }
 #endif /* TARGET_OS_MAC */
+
+#ifdef GLK_MODULE_UNICODE
+
+typedef const struct gagt_char_u_t {
+  /*! Code page 437 character. */
+  const unsigned char cp437;
+  /*! Unicode character. */
+  const glui32 unicode;
+} gagt_char_u_t;
+typedef gagt_char_u_t *gagt_charref_u_t;
+
+static gagt_char_u_t GAGT_CHAR_U_TABLE[] = {
+  /*
+   * Low characters -- those below 0x20.   These are the really odd code
+   * page 437 characters, rarely used by AGT games.  Low characters are
+   * omitted from the reverse lookup, and participate only in the forwards
+   * lookup from code page 437 to ISO 8859 Latin-1.
+   */
+  {0x01, 0x263a},     /* 263a White smiling face */
+  {0x02, 0x263b},     /* 263b Black smiling face */
+  {0x03, 0x2665},     /* 2665 Black heart suit */
+  {0x04, 0x2666},     /* 2666 Black diamond suit */
+  {0x05, 0x2663},     /* 2663 Black club suit */
+  {0x06, 0x2660},     /* 2660 Black spade suit */
+  {0x07, 0x2022},     /* 2022 Bullet */
+  {0x08, 0x25d8},     /* 25d8 Inverse bullet */
+  {0x09, 0x25e6},     /* 25e6 White bullet */
+  {0x0a, 0x25d9},     /* 25d9 Inverse white circle */
+  {0x0b, 0x2642},     /* 2642 Male sign */
+  {0x0c, 0x2640},     /* 2640 Female sign */
+  {0x0d, 0x266a},     /* 266a Eighth note */
+  {0x0e, 0x266b},     /* 266b Beamed eighth notes */
+  {0x0f, 0x263c},     /* 263c White sun with rays */
+  {0x10, 0x25b6},     /* 25b6 Black right-pointing triangle */
+  {0x11, 0x25c0},     /* 25c0 Black left-pointing triangle */
+  {0x12, 0x2195},     /* 2195 Up down arrow */
+  {0x13, 0x203c},     /* 203c Double exclamation mark */
+  {0x14, 0x00b6},     /* 00b6 Pilcrow sign */
+  {0x15, 0x00a7},     /* 00a7 Section sign */
+  {0x16, 0x25ac},     /* 25ac Black rectangle */
+  {0x17, 0x21a8},     /* 21a8 Up down arrow with base */
+  {0x18, 0x2191},     /* 2191 Upwards arrow */
+  {0x19, 0x2193},     /* 2193 Downwards arrow */
+  {0x1a, 0x2192},     /* 2192 Rightwards arrow */
+  {0x1b, 0x2190},     /* 2190 Leftwards arrow */
+  {0x1c, 0x2310},     /* 2310 Reversed not sign */
+  {0x1d, 0x2194},     /* 2194 Left right arrow */
+  {0x1e, 0x25b2},     /* 25b2 Black up-pointing triangle */
+  {0x1f, 0x25bc},     /* 25bc Black down-pointing triangle */
+
+  /*
+   * High characters -- those above 0x7f.  These are more often used by AGT
+   * games, particularly for box drawing.
+   */
+  {0x80, 0xc7},     /* 00c7 Latin capital letter c with cedilla */
+  {0x81, 0xfc},     /* 00fc Latin small letter u with diaeresis */
+  {0x82, 0xe9},     /* 00e9 Latin small letter e with acute */
+  {0x83, 0xe2},     /* 00e2 Latin small letter a with circumflex */
+  {0x84, 0xe4},     /* 00e4 Latin small letter a with diaeresis */
+  {0x85, 0xe0},     /* 00e0 Latin small letter a with grave */
+  {0x86, 0xe5},     /* 00e5 Latin small letter a with ring above */
+  {0x87, 0xe7},     /* 00e7 Latin small letter c with cedilla */
+  {0x88, 0xea},     /* 00ea Latin small letter e with circumflex */
+  {0x89, 0xeb},     /* 00eb Latin small letter e with diaeresis */
+  {0x8a, 0xe8},     /* 00e8 Latin small letter e with grave */
+  {0x8b, 0xef},     /* 00ef Latin small letter i with diaeresis */
+  {0x8c, 0xee},     /* 00ee Latin small letter i with circumflex */
+  {0x8d, 0xec},     /* 00ec Latin small letter i with grave */
+  {0x8e, 0xc4},     /* 00c4 Latin capital letter a with diaeresis */
+  {0x8f, 0xc5},     /* 00c5 Latin capital letter a with ring above */
+  {0x90, 0xc9},     /* 00c9 Latin capital letter e with acute */
+  {0x91, 0xe6},     /* 00e6 Latin small ligature ae */
+  {0x92, 0xc6},     /* 00c6 Latin capital ligature ae */
+  {0x93, 0xf4},     /* 00f4 Latin small letter o with circumflex */
+  {0x94, 0xf6},     /* 00f6 Latin small letter o with diaeresis */
+  {0x95, 0xf2},     /* 00f2 Latin small letter o with grave */
+  {0x96, 0xfb},     /* 00fb Latin small letter u with circumflex */
+  {0x97, 0xf9},     /* 00f9 Latin small letter u with grave */
+  {0x98, 0xff},     /* 00ff Latin small letter y with diaeresis */
+  {0x99, 0xd6},     /* 00d6 Latin capital letter o with diaeresis */
+  {0x9a, 0xdc},     /* 00dc Latin capital letter u with diaeresis */
+  {0x9b, 0xa2},     /* 00a2 Cent sign */
+  {0x9c, 0xa3},     /* 00a3 Pound sign */
+  {0x9d, 0xa5},     /* 00a5 Yen sign */
+  {0x9e, 0x20a7},   /* 20a7 Peseta sign */
+  {0x9f, 0x0192},   /* 0192 Latin small letter f with hook */
+  {0xa0, 0xe1},     /* 00e1 Latin small letter a with acute */
+  {0xa1, 0xed},     /* 00ed Latin small letter i with acute */
+  {0xa2, 0xf3},     /* 00f3 Latin small letter o with acute */
+  {0xa3, 0xfa},     /* 00fa Latin small letter u with acute */
+  {0xa4, 0xf1},     /* 00f1 Latin small letter n with tilde */
+  {0xa5, 0xd1},     /* 00d1 Latin capital letter n with tilde */
+  {0xa6, 0xaa},     /* 00aa Feminine ordinal indicator */
+  {0xa7, 0xba},     /* 00ba Masculine ordinal indicator */
+  {0xa8, 0xbf},     /* 00bf Inverted question mark */
+  {0xa9, 0x2310},   /* 2310 Reversed not sign */
+  {0xaa, 0xac},     /* 00ac Not sign */
+  {0xab, 0xbd},     /* 00bd Vulgar fraction one half */
+  {0xac, 0xbc},     /* 00bc Vulgar fraction one quarter */
+  {0xad, 0xa1},     /* 00a1 Inverted exclamation mark */
+  {0xae, 0xab},     /* 00ab Left-pointing double angle quotation mark */
+  {0xaf, 0xbb},     /* 00bb Right-pointing double angle quotation mark */
+  {0xb0, 0x2591},   /* 2591 Light shade */
+  {0xb1, 0x2592},   /* 2592 Medium shade */
+  {0xb2, 0x2593},   /* 2593 Dark shade */
+  {0xb3, 0x2502},   /* 2502 Box light vertical */
+  {0xb4, 0x2524},   /* 2524 Box light vertical and left */
+  {0xb5, 0x2561},   /* 2561 Box vertical single and left double */
+  {0xb6, 0x2562},   /* 2562 Box vertical double and left single */
+  {0xb7, 0x2556},   /* 2556 Box down double and left single */
+  {0xb8, 0x2555},   /* 2555 Box down single and left double */
+  {0xb9, 0x2563},   /* 2563 Box double vertical and left */
+  {0xba, 0x2551},   /* 2551 Box double vertical */
+  {0xbb, 0x2557},   /* 2557 Box double down and left */
+  {0xbc, 0x255d},   /* 255d Box double up and left */
+  {0xbd, 0x255c},   /* 255c Box up double and left single */
+  {0xbe, 0x255b},   /* 255b Box up single and left double */
+  {0xbf, 0x2510},   /* 2510 Box light down and left */
+  {0xc0, 0x2514},   /* 2514 Box light up and right */
+  {0xc1, 0x2534},   /* 2534 Box light up and horizontal */
+  {0xc2, 0x252c},   /* 252c Box light down and horizontal */
+  {0xc3, 0x251c},   /* 251c Box light vertical and right */
+  {0xc4, 0x2500},   /* 2500 Box light horizontal */
+  {0xc5, 0x253c},   /* 253c Box light vertical and horizontal */
+  {0xc6, 0x255e},   /* 255e Box vertical single and right double */
+  {0xc7, 0x255f},   /* 255f Box vertical double and right single */
+  {0xc8, 0x255a},   /* 255a Box double up and right */
+  {0xc9, 0x2554},   /* 2554 Box double down and right */
+  {0xca, 0x2569},   /* 2569 Box double up and horizontal */
+  {0xcb, 0x2566},   /* 2566 Box double down and horizontal */
+  {0xcc, 0x2560},   /* 2560 Box double vertical and right */
+  {0xcd, 0x2550},   /* 2550 Box double horizontal */
+  {0xce, 0x256c},   /* 256c Box double vertical and horizontal */
+  {0xcf, 0x2567},   /* 2567 Box up single and horizontal double */
+  {0xd0, 0x2568},   /* 2568 Box up double and horizontal single */
+  {0xd1, 0x2564},   /* 2564 Box down single and horizontal double */
+  {0xd2, 0x2565},   /* 2565 Box down double and horizontal single */
+  {0xd3, 0x2559},   /* 2559 Box up double and right single */
+  {0xd4, 0x2558},   /* 2558 Box up single and right double */
+  {0xd5, 0x2552},   /* 2552 Box down single and right double */
+  {0xd6, 0x2553},   /* 2553 Box down double and right single */
+  {0xd7, 0x256b},   /* 256b Box vertical double and horizontal single */
+  {0xd8, 0x256a},   /* 256a Box vertical single and horizontal double */
+  {0xd9, 0x2518},   /* 2518 Box light up and left */
+  {0xda, 0x250c},   /* 250c Box light down and right */
+  {0xdb, 0x2588},   /* 2588 Full block */
+  {0xdc, 0x2584},   /* 2584 Lower half block */
+  {0xdd, 0x258c},   /* 258c Left half block */
+  {0xde, 0x2590},   /* 2590 Right half block */
+  {0xdf, 0x2580},   /* 2580 Upper half block */
+  {0xe0, 0x03b1},   /* 03b1 Greek small letter alpha */
+  {0xe1, 0xdf},     /* 00df Latin small letter sharp s */
+  {0xe2, 0x0393},   /* 0393 Greek capital letter gamma */
+  {0xe3, 0x03c0},   /* 03c0 Greek small letter pi */
+  {0xe4, 0x03a3},   /* 03a3 Greek capital letter sigma */
+  {0xe5, 0x03c3},   /* 03c3 Greek small letter sigma */
+  {0xe6, 0xb5},     /* 00b5 Micro sign */
+  {0xe7, 0x03c4},   /* 03c4 Greek small letter tau */
+  {0xe8, 0x03a6},   /* 03a6 Greek capital letter phi */
+  {0xe9, 0x0398},   /* 0398 Greek capital letter theta */
+  {0xea, 0x03a9},   /* 03a9 Greek capital letter omega */
+  {0xeb, 0x03b4},   /* 03b4 Greek small letter delta */
+  {0xec, 0x221e},   /* 221e Infinity */
+  {0xed, 0x03c6},   /* 03c6 Greek small letter phi */
+  {0xee, 0x03b5},   /* 03b5 Greek small letter epsilon */
+  {0xef, 0x2229},   /* 2229 Intersection */
+  {0xf0, 0x2261},   /* 2261 Identical to */
+  {0xf1, 0xb1},     /* 00b1 Plus-minus sign */
+  {0xf2, 0x2265},   /* 2265 Greater-than or equal to */
+  {0xf3, 0x2264},   /* 2264 Less-than or equal to */
+  {0xf4, 0x2320},   /* 2320 Top half integral */
+  {0xf5, 0x2321},   /* 2321 Bottom half integral */
+  {0xf6, 0xf7},     /* 00f7 Division sign */
+  {0xf7, 0x2248},   /* 2248 Almost equal to */
+  {0xf8, 0xb0},     /* 00b0 Degree sign */
+  {0xf9, 0x2219},   /* 2219 Bullet operator */
+  {0xfa, 0xb7},     /* 00b7 Middle dot */
+  {0xfb, 0x221a},   /* 221a Square root */
+  {0xfc, 0x207f},   /* 207f Superscript latin small letter n */
+  {0xfd, 0xb2},     /* 00b2 Superscript two */
+  {0xfe, 0x25a0},   /* 25a0 Black square */
+  {0xff, 0xa0},     /* 00a0 No-break space */
+  {0, 0}            /* 0000 [END OF TABLE] */
+};
+
+/**
+ * Convert a string from code page 437 into UTF-32.  The input and
+ * output buffers may \b not be one and the same.
+ */
+static void
+gagt_cp_to_utf (const unsigned char *from_string, glui32 *to_string)
+{
+  static int is_initialized = FALSE;
+  static glui32 table[UCHAR_MAX + 1];
+
+  int index;
+  unsigned char cp437;
+  glui32 utf32;
+  assert (from_string && to_string);
+
+  if (!is_initialized)
+    {
+      gagt_charref_u_t entry;
+
+      /*
+       * Create a lookup entry for each code in the main table.  Fill in gaps
+       * for 7-bit characters with their ASCII equivalent values.  Any
+       * remaining codes not represented in the main table will map to zeroes
+       * in the lookup table, as static variables are initialized to zero.
+       */
+      for (entry = GAGT_CHAR_U_TABLE; entry->cp437; entry++)
+        {
+          cp437 = entry->cp437;
+          utf32 = entry->unicode;
+
+          assert (cp437 < 0x20 || (cp437 > SCHAR_MAX && cp437 <= UCHAR_MAX));
+          table[cp437] = utf32;
+        }
+      for (index = 0; index <= SCHAR_MAX; index++)
+        {
+          if (table[index] == 0)
+            table[index] = index;
+        }
+
+      is_initialized = TRUE;
+    }
+
+  for (index = 0; from_string[index] != '\0'; index++)
+    {
+      cp437 = from_string[index];
+      utf32 = table[cp437];
+
+      to_string[index] = utf32 ? utf32 : cp437;
+    }
+
+  to_string[index] = '\0';
+}
+
+/**
+ * Convert a string from Unicode to code page 437.  The input and
+ * output buffers may \b not be one and the same.
+ */
+static void
+gagt_unicode_to_cp (const glui32 *from_string, unsigned char *to_string)
+{
+#ifdef GLK_MODULE_UNICODE_NORM
+  int from_len;
+  for (from_len=0; from_string[from_len] != 0; from_len++);
+  glui32 *normStr = malloc((from_len + 8) * sizeof(glui32));
+  memcpy(normStr, from_string, from_len * sizeof(glui32));
+  normStr[from_len] = 0;
+  // Normalize the string first.
+  glk_buffer_canon_normalize_uni(normStr, from_len + 8, from_len + 1);
+#else
+  glui32 *normStr = from_string;
+#endif
+  
+  int index;
+  glui32 unicode;
+  assert (from_string && to_string);
+  
+#ifdef HAVE_LIBICONV
+#error TODO: Write!
+#else
+  for (index = 0; from_string[index] != '\0'; index++)
+  {
+    unicode = from_string[index];
+    gagt_charref_u_t entry;
+    for (entry = GAGT_CHAR_U_TABLE; entry->unicode; entry++) {
+      if (entry->unicode == unicode) {
+        to_string[index] = entry->cp437;
+      }
+    }
+    if (entry->unicode != 0) {
+      continue;
+    }
+    if (unicode > 127) {
+      to_string[index] = '?';
+    } else {
+      to_string[index] = unicode;
+    }
+  }
+  
+  to_string[index] = '\0';
+#endif
+#ifdef GLK_MODULE_UNICODE_NORM
+  free(normStr);
+#endif
+}
+
+#endif

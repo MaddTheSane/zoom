@@ -11,6 +11,8 @@
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Base class for deriving Zoom plugins for playing new game types.
 ///
@@ -18,13 +20,7 @@
 /// the game. Game metadata might be requested from a seperate thread, notably when Zoom refreshes the
 /// iFiction window on startup.
 ///
-@interface ZoomPlugIn : NSObject {
-@private
-	/// The game that this plugin will play
-	NSURL* gameFile;
-	/// The game data (loaded on demand)
-	NSData* gameData;
-}
+@interface ZoomPlugIn : NSObject
 
 // Informational functions (subclasses should normally override)
 //! The version of this plugin
@@ -36,6 +32,11 @@
 
 /// \c YES if this plugin can load savegames as well as game files
 @property (class, readonly) BOOL canLoadSavegames;
+/// \c YES if the plug-in requires the path of the file to be passed as an argument.
+///
+/// This might be needed if, for example, the client hasn't been ported to use CocoaGlk, or
+/// it is non-trivial to do so. Default is \c NO .
+@property (class, readonly) BOOL needsPathPassedToTask;
 
 /// \c YES if the specified file is one that the plugin can run
 + (BOOL) canRunPath: (NSString*) path DEPRECATED_MSG_ATTRIBUTE("Use +canRunURL: instead");
@@ -46,11 +47,11 @@
 @property (class, readonly, copy) NSArray<NSString*> *supportedFileTypes;
 
 //! Initialises this plugin to play a specific game
-- (id) initWithFilename: (NSString*) gameFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithURL: instead");
+- (nullable id) initWithFilename: (NSString*) gameFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithURL: instead");
 
 // Designated initialiser
 //! Initialises this plugin to play a specific game
-- (id) initWithURL: (NSURL*) gameFile NS_DESIGNATED_INITIALIZER;
+- (nullable id) initWithURL: (NSURL*) gameFile NS_DESIGNATED_INITIALIZER;
 
 // Getting information about what this plugin should be doing
 //! Gets the game associated with this plugin
@@ -58,32 +59,38 @@
 //! Gets the game associated with this plugin
 @property (readonly, copy) NSURL *gameURL;
 //! Gets the data for the game associated with this plugin
-@property (readonly, copy) NSData *gameData;
+@property (readonly, copy, nullable) NSData *gameData;
 
 // The game document + windows
 //! Retrieves/creates the document associated with this game (should not create window controllers immediately)
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story;
 //! Retrieves/creates the document associated with this game along with the specified save game file (should not create window controllers immediately)
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
-								saveGame: (NSString*) saveGame;
+								saveGame: (NSString*) saveGame DEPRECATED_MSG_ATTRIBUTE("Use -gameDocumentWithMetadata:saveGameURL: instead");
+
+//! Retrieves/creates the document associated with this game along with the specified save game file (should not create window controllers immediately)
+- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
+							 saveGameURL: (NSURL*) saveGame;
 
 // Dealing with game metadata
 //! Retrieves the unique ID for this story (UUIDs are preferred, or MD5s if the game format does not support that)
-- (ZoomStoryID*) idForStory;
+- (nullable ZoomStoryID*) idForStory;
 //! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
-- (ZoomStory*) defaultMetadata DEPRECATED_MSG_ATTRIBUTE("Use -defaultMetadataWithError: instead") NS_SWIFT_UNAVAILABLE("");
+- (nullable ZoomStory*) defaultMetadata DEPRECATED_MSG_ATTRIBUTE("Use -defaultMetadataWithError: instead") NS_SWIFT_UNAVAILABLE("");
 //! Retrieves the default metadata for this story (used iff no metadata pre-exists for this story)
-- (ZoomStory*) defaultMetadataWithError:(NSError**)outError;
+- (nullable ZoomStory*) defaultMetadataWithError:(NSError**)outError;
 //! Retrieves the picture to use for the cover image
-- (NSImage*) coverImage;
+@property (readonly, nonatomic, copy, nullable) NSImage *coverImage;
 
 //! Resizes a cover image so that it's suitable for use as a window logo
 - (NSImage*) resizeLogo: (NSImage*) input;
 
 // More information from the main Zoom application
 //! Sets the preferred directory to put savegames into
-- (void) setPreferredSaveDirectory: (NSString*) dir;
+- (void) setPreferredSaveDirectoryURL: (NSURL*) dir;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
 @end
+
+NS_ASSUME_NONNULL_END

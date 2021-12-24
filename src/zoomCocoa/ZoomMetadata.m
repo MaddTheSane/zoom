@@ -22,7 +22,20 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 #define ZoomLocalizedStringWithDefaultValue(key, val, comment) \
 	NSLocalizedStringWithDefaultValue(key, @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], val, comment)
 
-@implementation ZoomMetadata
+@interface ZoomMetadata ()
+
+- (instancetype) initWithData: (NSData*) xmlData
+					  fileURL: (NSURL*) fname
+						error: (NSError**) error NS_DESIGNATED_INITIALIZER;
+
+@end
+
+@implementation ZoomMetadata {
+	NSURL* filename;
+	IFMetabase metadata;
+	
+	NSLock* dataLock;
+}
 
 #pragma mark - Initialisation, etc
 
@@ -187,6 +200,13 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 						error: outError];
 }
 
+- (id) initWithData: (NSData*) xmlData
+			  error: (NSError**) outError {
+	return [self initWithData: xmlData
+					  fileURL: nil
+						error: outError];
+}
+
 - (id) initWithData: (NSData*) xmlData {
 	return [self initWithData: xmlData
 					  fileURL: nil
@@ -301,7 +321,9 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 
 - (BOOL) writeToFile: (NSString*)path
 		  atomically: (BOOL)flag {
-	return [[self xmlData] writeToFile: path atomically: flag];
+	return [self writeToURL: [NSURL fileURLWithPath: path]
+				 atomically: flag
+					  error: NULL];
 }
 
 - (BOOL)    writeToURL: (NSURL*)path
@@ -313,20 +335,15 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 }
 
 - (BOOL) writeToDefaultFile {
-	// The app delegate may not be the best place for this routine... Maybe a function somewhere
-	// would be better?
-	NSString* configDir = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory];
-	
-	return [self writeToFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]
-				  atomically: YES];
+	return [self writeToDefaultFileWithError: NULL];
 }
 
 - (BOOL) writeToDefaultFileWithError:(NSError *__autoreleasing *)outError {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
 	NSString* configDir = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory];
-	NSURL *configURL = [NSURL fileURLWithPath: configDir];
-	configURL = [configURL URLByAppendingPathComponent:@"metadata.iFiction"];
+	NSURL *configURL = [NSURL fileURLWithPath: configDir isDirectory: YES];
+	configURL = [configURL URLByAppendingPathComponent: @"metadata.iFiction" isDirectory: NO];
 	
 	return [self writeToURL: configURL
 				 atomically: YES

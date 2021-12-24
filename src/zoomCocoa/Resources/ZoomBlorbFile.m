@@ -152,7 +152,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		if (formLength + 8 > (unsigned)[file fileSize]) {
 			if (outError) {
 				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
-												code: ZoomBlorbErrorTooSmall
+												code: ZoomBlorbErrorUnexpectedEOF
 											userInfo: nil];
 			}
 			return nil;
@@ -172,7 +172,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 			if (blockHeader == nil || [blockHeader length] != 8) {
 				if (outError) {
 					*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
-													code: ZoomBlorbErrorTooSmall
+													code: ZoomBlorbErrorUnexpectedEOF
 												userInfo: nil];
 				}
 				return nil;
@@ -388,6 +388,18 @@ static unsigned int Int4(const unsigned char* bytes) {
 				@(num)]] != nil;
 }
 
+- (BOOL) containsSoundWithNumber: (int) num {
+	if (!resourceIndex) {
+		if (![self parseResourceIndex]) return NO;
+	}
+	if (!resourceIndex) return NO;
+	
+	return
+		[locationsToBlocks objectForKey:
+			[[resourceIndex objectForKey: @"snd "] objectForKey:
+				@(num)]] != nil;
+}
+
 #pragma mark - Typed data
 
 - (NSData*) gameHeader {
@@ -546,7 +558,7 @@ static const int cacheUpperLimit = 64;
 			NSMutableDictionary<NSString*,id>* entry = cache[key];
 			unsigned int thisUsage = [entry[@"usageNumber"] unsignedIntValue];
 			
-			int x;
+			NSInteger x;
 			for (x=0; x<[oldestEntries count]; x++) {
 				NSDictionary* thisEntry = oldestEntries[x];
 				unsigned int usage = [thisEntry[@"usageNumber"] unsignedIntValue];

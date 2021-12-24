@@ -520,19 +520,27 @@ GeasFile read_geas_file (GeasInterface *gi, const string &filename)
   vector<string> data;
   bool success;
 
-  cerr << "Header is '" << file_contents.substr (0, 7) << "'.\n";
+  stringstream stingStr;
+  stingStr << "Header is '" << file_contents.substr (0, 7) << "'.\n";
+  cocoaglk_log_ex(stingStr.str().c_str(), 0);
   if (file_contents.size() > 8 && file_contents.substr (0, 7) == "QCGF002")
     {
-      cerr << "Decompiling\n";
+      cocoaglk_log_ex("Decompiling\n", 1);
       success = decompile (file_contents, data);
     }
   else
     {
-      cerr << "Preprocessing\n";
+      cocoaglk_log_ex("Preprocessing\n", 1);
       success = preprocess (split_lines (file_contents), filename, data, gi);
     }
 
-  cerr << "File load was " << (success ? "success" : "failure") << endl;
+  stingStr.clear();
+  stingStr << "File load was " << (success ? "success" : "failure") << endl;
+  if (success) {
+    cocoaglk_log_ex(stingStr.str().c_str(), 0);
+  } else {
+    cocoaglk_warning(stingStr.str().c_str());
+  }
 
   if (success)
     {
@@ -726,7 +734,9 @@ bool decompile (const string &s, vector<string> &rv)
 
   for (size_t i = 0; i < rv.size(); i ++)
   {
-    cerr << "rv[" << i << "]: " << rv[i] << "\n";
+    stringstream ss;
+    ss << "rv[" << i << "]: " << rv[i] << "\n";
+    cocoaglk_log_ex(ss.str().c_str(), 0);
   }
 
   return true;
@@ -773,8 +783,10 @@ string string_int (size_t i)
 
 void report_error (const string &s)
 {
-  //cerr << s << endl; 
-  cerr << s << endl; 
+  //cerr << s << endl;
+  stringstream ss;
+  ss << s << endl;
+  cocoaglk_warning(ss.str().c_str());
   throw s;
 }
 

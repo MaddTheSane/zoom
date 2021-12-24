@@ -192,12 +192,12 @@
 	
 	// Set up the animations depending on the requested style
 	initialAnim.keyPath		= @"bounds";
-	initialAnim.fromValue	= [NSValue valueWithRect: bounds];
-	initialAnim.toValue		= [NSValue valueWithRect: NSMakeRect(bounds.origin.x + bounds.size.width, bounds.origin.y, bounds.size.width, bounds.size.height)];
+	initialAnim.fromValue	= @(bounds);
+	initialAnim.toValue		= @(NSMakeRect(bounds.origin.x + bounds.size.width, bounds.origin.y, bounds.size.width, bounds.size.height));
 	
 	finalAnim.keyPath		= @"bounds";
-	finalAnim.fromValue		= [NSValue valueWithRect: NSMakeRect(bounds.origin.x - bounds.size.width, bounds.origin.y, bounds.size.width, bounds.size.height)];
-	finalAnim.toValue		= [NSValue valueWithRect: bounds];
+	finalAnim.fromValue		= @(NSMakeRect(bounds.origin.x - bounds.size.width, bounds.origin.y, bounds.size.width, bounds.size.height));
+	finalAnim.toValue		= @(bounds);
 	
 	// Set the common values
 	initialAnim.timingFunction  = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];

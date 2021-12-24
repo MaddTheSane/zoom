@@ -45,6 +45,10 @@
 
 #include "GeasRunner.hh"
 
+extern "C" {
+#include <GlkClient/cocoaglk.h>
+}
+
 class GeasGlkInterface : public GeasInterface
 {
 protected:
@@ -101,7 +105,7 @@ void glk_main(void)
     if (!storyfilename) {
 	sprintf(err_buf,"No game name or more than one game name given.\n"
 			"Try -h for help.\n");
-	glk_put_string(err_buf);
+	cocoaglk_error(err_buf);
         return;
     }
 
@@ -126,7 +130,7 @@ void glk_main(void)
 	sprintf(err_buf,"\nNote -- The underlying Glk library does not support"
                         " timers.  If this game tries to use timers, then some"
                         " functionality may not work correctly.\n\n");
-	glk_put_string(err_buf);
+	cocoaglk_warning(err_buf);
     }
 
     GeasRunner *gr = GeasRunner::get_runner(new GeasGlkInterface());

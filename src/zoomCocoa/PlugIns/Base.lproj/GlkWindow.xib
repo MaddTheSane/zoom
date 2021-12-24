@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,19 +25,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="684" height="508"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="25" customClass="GlkView">
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="25" customClass="GlkView">
                         <rect key="frame" x="0.0" y="0.0" width="684" height="508"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
                             <outlet property="delegate" destination="-2" id="26"/>
                         </connections>
                     </customView>
                 </subviews>
-                <constraints>
-                    <constraint firstAttribute="bottom" secondItem="25" secondAttribute="bottom" id="A7g-4F-wk6"/>
-                    <constraint firstItem="25" firstAttribute="top" secondItem="24" secondAttribute="top" id="JqH-Pq-67t"/>
-                    <constraint firstItem="25" firstAttribute="leading" secondItem="24" secondAttribute="leading" id="tox-Fz-Dea"/>
-                    <constraint firstAttribute="trailing" secondItem="25" secondAttribute="trailing" id="yl6-Ms-BPm"/>
-                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="30"/>
@@ -45,12 +40,13 @@
             </connections>
             <point key="canvasLocation" x="14" y="404"/>
         </window>
-        <window title="Log messages from Glk" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="r65-cc-M67" userLabel="GlkLogPanel" customClass="NSPanel">
+        <window title="Log messages from Glk" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="r65-cc-M67" userLabel="Glk Log Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" utility="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="139" y="152" width="537" height="378"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <view key="contentView" id="16" userLabel="Drawer View">
+            <view key="contentView" id="16">
                 <rect key="frame" x="0.0" y="0.0" width="537" height="378"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>

@@ -14,6 +14,7 @@
 #import "ZoomSkein.h"
 #import "ZoomSkeinWeb.h"
 #import <ZoomView/ZoomView-Swift.h>
+#import "ZoomSkeinInternal.h"
 
 @implementation ZoomSkein(ZoomSkeinWebDocRepresentation)
 

@@ -10,7 +10,6 @@
 
 #import "ZoomSkeinView.h"
 #import "ZoomSkeinLayout.h"
-#import "ZoomSkeinItem+Pasteboard.h"
 #import "ZoomSkeinWeb.h"
 #import "ZoomSkeinInternal.h"
 
@@ -367,9 +366,9 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	skeinNeedsLayout = NO;
 	
 	// Re-layout this skein
-	[layout setItemWidth: itemWidth];
-	[layout setItemHeight: itemHeight];
-	[layout setRootItem: [skein rootItem]];
+	layout.itemWidth = itemWidth;
+	layout.itemHeight = itemHeight;
+	layout.rootItem = skein.rootItem;
 	[layout layoutSkein];
 	
 	// Resize this view
@@ -1036,32 +1035,32 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	
 	fieldStorage = [[NSTextStorage alloc] initWithString: itemText
 											  attributes: itemTextAttributes];	
-	[[fieldEditor textStorage] setAttributedString: fieldStorage];
+	[fieldEditor.textStorage setAttributedString: fieldStorage];
 	[fieldEditor setSelectedRange: NSMakeRange(0,0)];
 	
-	[fieldEditor setDelegate: self];
-	[fieldScroller setFrame: itemFrame];
-	[fieldEditor setFrame: NSInsetRect(itemFrame, 2.0, 2.0)];
+	fieldEditor.delegate = self;
+	fieldScroller.frame = itemFrame;
+	fieldEditor.frame = NSInsetRect(itemFrame, 2.0, 2.0);
 	
-	[fieldEditor setAlignment: NSTextAlignmentCenter];
-	[fieldEditor setFont: [itemTextAttributes objectForKey: NSFontAttributeName]];
+	fieldEditor.alignment = NSTextAlignmentCenter;
+	fieldEditor.font = itemTextAttributes[NSFontAttributeName];
 	
-	[fieldEditor setRichText:NO];
-	[fieldEditor setAllowsDocumentBackgroundColorChange:NO];
-	[fieldEditor setBackgroundColor:[NSColor whiteColor]];
+	fieldEditor.richText = NO;
+	fieldEditor.allowsDocumentBackgroundColorChange = NO;
+	fieldEditor.backgroundColor = NSColor.textBackgroundColor;
 	
-	[[fieldEditor textContainer] setContainerSize: NSMakeSize(NSInsetRect(itemFrame, 2.0, 2.0).size.width, 1e6)];
-	[[fieldEditor textContainer] setWidthTracksTextView:NO];
-	[[fieldEditor textContainer] setHeightTracksTextView:NO];
-	[fieldEditor setHorizontallyResizable:NO];
-	[fieldEditor setVerticallyResizable:YES];
-	[fieldEditor setDrawsBackground: YES];
-	[fieldEditor setEditable: YES];
+	fieldEditor.textContainer.size = NSMakeSize(NSInsetRect(itemFrame, 2.0, 2.0).size.width, 1e6);
+	fieldEditor.textContainer.widthTracksTextView = NO;
+	fieldEditor.textContainer.heightTracksTextView = NO;
+	fieldEditor.horizontallyResizable = NO;
+	fieldEditor.verticallyResizable = YES;
+	fieldEditor.drawsBackground = YES;
+	fieldEditor.editable = YES;
 	
 	// Activate it
-	[fieldScroller setDocumentView: fieldEditor];
+	fieldScroller.documentView = fieldEditor;
 	[self addSubview: fieldScroller];
-	[[self window] makeFirstResponder: fieldEditor];
+	[self.window makeFirstResponder: fieldEditor];
 	// [[self window] makeKeyWindow];
 }
 
@@ -1276,6 +1275,8 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 #pragma mark - Context menu
 
 - (NSMenu *)menuForEvent:(NSEvent *)event {
+	NSBundle *ourBundle = [NSBundle bundleForClass: [self class]];
+#define LocalizedSkeinString(key1, comment1) NSLocalizedStringFromTableInBundle(key1, @"LocalizedSkein", ourBundle, comment1)
 	// Find which item that the mouse is over
 	NSPoint pointInView = [event locationInWindow];
 	pointInView = [self convertPoint: pointInView fromView: nil];
@@ -1288,7 +1289,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	
 	// Add menu items for the standard actions
 	
-	[contextMenu addItemWithTitle: @"Play to Here"
+	[contextMenu addItemWithTitle: LocalizedSkeinString(@"Play to Here", @"Play to Here")
 						   action: @selector(playToHere:)
 					keyEquivalent: @""];
 	
@@ -1298,22 +1299,29 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	if ([contextItem parent] != nil) {
 		BOOL hasLabel = [[contextItem annotation] length] > 0;
 		needSep = YES;
-		[contextMenu addItemWithTitle: hasLabel?@"Edit Label":@"Add Label"
+		NSString *newTitle;
+		if (hasLabel) {
+			newTitle = LocalizedSkeinString(@"Edit Label", @"Edit Label");
+		} else {
+			newTitle = LocalizedSkeinString(@"Add Label", @"Add Label");
+		}
+		[contextMenu addItemWithTitle: newTitle
 							   action: @selector(addAnnotation:)
 						keyEquivalent: @""];
 	}
 	if ([delegate respondsToSelector: @selector(transcriptToPoint:)]) {
 		needSep = YES;
-		[contextMenu addItemWithTitle: @"Show in Transcript"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Show in Transcript", @"Show in Transcript")
 							   action: @selector(showInTranscript:)
 						keyEquivalent: @""];
 	}
 	if ([contextItem parent] != nil) {
 		needSep = YES;
-		[contextMenu addItemWithTitle: contextItem.temporary?@"Lock":@"Unlock"
+		
+		[contextMenu addItemWithTitle: contextItem.temporary ? LocalizedSkeinString(@"Lock", @"Lock") : LocalizedSkeinString(@"Unlock", @"Unlock")
 							   action: @selector(toggleLock:)
 						keyEquivalent: @""];
-		[contextMenu addItemWithTitle: contextItem.temporary?@"Lock this Thread":@"Unlock this Branch"
+		[contextMenu addItemWithTitle: contextItem.temporary ? LocalizedSkeinString(@"Lock this Thread", @"Lock this Thread") : LocalizedSkeinString(@"Unlock this Branch", @"Unlock this Branch")
 							   action: @selector(toggleLockBranch:)
 						keyEquivalent: @""];
 	}
@@ -1321,43 +1329,44 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	if (needSep) [contextMenu addItem: [NSMenuItem separatorItem]];
 
 	if ([[contextItem children] count] > 0) {
-		[contextMenu addItemWithTitle: @"New Thread"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"New Thread", @"New Thread")
 							   action: @selector(addNewBranch:)
 						keyEquivalent: @""];
 	} else {
-		[contextMenu addItemWithTitle: @"Add New"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Add New", @"Add New")
 							   action: @selector(addNewBranch:)
 						keyEquivalent: @""];
 	}
 
 	if ([contextItem parent] != nil) {
-		[contextMenu addItemWithTitle: @"Insert Knot"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Insert Knot", @"Insert Knot")
 							   action: @selector(insertItem:)
 						keyEquivalent: @""];
 		if ([[contextItem children] count] > 0) {
-			[contextMenu addItemWithTitle: @"Delete"
+			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete", @"Delete")
 								   action: @selector(deleteOneItem:)
 							keyEquivalent: @""];
-			[contextMenu addItemWithTitle: @"Delete all Below"
+			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete all Below", @"Delete all Below")
 								   action: @selector(deleteItem:)
 							keyEquivalent: @""];
 		} else {
-			[contextMenu addItemWithTitle: @"Delete"
+			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete", @"Delete")
 								   action: @selector(deleteItem:)
 							keyEquivalent: @""];
 		}
-		[contextMenu addItemWithTitle: @"Delete all in Thread"
+		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete all in Thread", @"Delete all in Thread")
 							   action: @selector(deleteBranch:)
 						keyEquivalent: @""];
 	}
 	
 	[contextMenu addItem: [NSMenuItem separatorItem]];
-	[contextMenu addItemWithTitle: @"Save Transcript to Here..."
+	[contextMenu addItemWithTitle: LocalizedSkeinString(@"Save Transcript to Here...", @"Save Transcript to Here...")
 						   action: @selector(saveTranscript:)
 					keyEquivalent: @""];
 	
 	// Return the menu
 	return contextMenu;
+#undef LocalizedSkeinString
 }
 
 #pragma mark - Menu actions

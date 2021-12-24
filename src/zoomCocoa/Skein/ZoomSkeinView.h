@@ -24,7 +24,7 @@ extern NSString * const ZoomSkeinTranscriptURLDefaultsKey;
 /// Setting/getting the source
 @property (nonatomic, strong) ZoomSkein* skein;
 
-// Laying things out
+#pragma mark Laying things out
 - (void) skeinNeedsLayout;
 
 @property (nonatomic) CGFloat itemWidth;
@@ -33,7 +33,7 @@ extern NSString * const ZoomSkeinTranscriptURLDefaultsKey;
 /// The delegate
 @property (weak) id<ZoomSkeinViewDelegate> delegate;
 
-// Affecting the display
+#pragma mark Affecting the display
 - (void) scrollToItem: (ZoomSkeinItem*) item;
 
 - (void) editItem: (ZoomSkeinItem*) skeinItem;
@@ -50,18 +50,19 @@ extern NSString * const ZoomSkeinTranscriptURLDefaultsKey;
 
 
 #pragma mark - Delegate
+
 @protocol ZoomSkeinViewDelegate <NSObject>
 @optional
 
-// Playing the game
+#pragma mark Playing the game
 - (void) restartGame;
 - (void) playToPoint: (ZoomSkeinItem*) point
 		   fromPoint: (ZoomSkeinItem*) currentPoint;
 
-// The transcript
+#pragma mark The transcript
 - (void) transcriptToPoint: (ZoomSkeinItem*) point;
 
-// Various types of possible error
+#pragma mark Various types of possible error
 /// User attempted to delete an item on the active skein branch (which can't be done)
 - (void) cantDeleteActiveBranch;
 /// User attemptted to edit the root skein item

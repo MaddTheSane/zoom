@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 #import <ZoomView/ZoomProtocol.h>
-#import "ZoomPreferenceWindow.h"
 #import <ZoomPlugIns/ZoomMetadata.h>
 #import <ZoomPlugIns/ZoomStory.h>
 #import "ZoomiFictionController.h"
@@ -19,6 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class SUUpdater;
+@class ZoomPreferenceWindow;
 @interface ZoomAppDelegate : NSObject <NSApplicationDelegate, NSOpenSavePanelDelegate, NSMenuItemValidation> {
 	ZoomPreferenceWindow* preferencePanel;
 	IBOutlet SUUpdater* updater;

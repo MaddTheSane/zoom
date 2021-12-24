@@ -252,7 +252,7 @@ void cocoa_debug_handler(ZDWord pc) {
 		// Notify the display of the breakpoint
 		waitingForBreakpoint = YES;
 		[self flushBuffers];
-		[display hitBreakpointAt: pc];
+		[display hitBreakpointAtCounter: pc];
 		
 		// Wait for the display to request resumption
         while (waitingForBreakpoint && (mainMachine != nil)) @autoreleasepool {
@@ -477,8 +477,8 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return description;
 }
 
-- (void) loadDebugSymbolsFrom: (NSString*) symbolFile
-			   withSourcePath: (NSString*) sourcePath {	
+- (void) loadDebugSymbolsFromFile: (NSString*) symbolFile
+				   withSourcePath: (NSString*) sourcePath {	
 	debug_load_symbols((char*)[symbolFile fileSystemRepresentation], (char*)[sourcePath fileSystemRepresentation]);
 
 	// Setup our debugger callback
@@ -508,7 +508,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return debug_eval_result;
 }
 
-- (void) setBreakpointAt: (int) address {
+- (void) setBreakpointAtAddress: (int) address {
 	debug_set_breakpoint(address, 0, 0);
 }
 
@@ -516,14 +516,14 @@ static NSString* zscii_to_string(ZByte* buf) {
 	int address = [self addressForName: name];
 	
 	if (address >= 0) {
-		[self setBreakpointAt: address];
+		[self setBreakpointAtAddress: address];
 		return YES;
 	} else {
 		return NO;
 	}
 }
 
-- (void) removeBreakpointAt: (int) address {
+- (void) removeBreakpointAtAddress: (int) address {
 	debug_clear_breakpoint(debug_get_breakpoint(address));
 }
 
@@ -531,7 +531,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	int address = [self addressForName: name];
 	
 	if (address >= 0) {
-		[self removeBreakpointAt: address];
+		[self removeBreakpointAtAddress: address];
 	}
 }
 

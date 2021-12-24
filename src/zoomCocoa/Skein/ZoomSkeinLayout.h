@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <ZoomView/ZoomSkein.h>
+#import <ZoomView/ZoomSkeinItem.h>
 #import <ZoomView/ZoomSkeinLayoutItem.h>
 
 typedef NS_ENUM(int, IFSkeinPackingStyle) {
@@ -17,10 +18,10 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 
 @interface ZoomSkeinLayout : NSObject
 
-// Initialisation
+#pragma mark Initialisation
 - (id) initWithRootItem: (ZoomSkeinItem*) item;
 
-// Setting skein data
+#pragma mark Setting skein data
 @property (nonatomic) CGFloat itemWidth;
 @property CGFloat itemHeight;
 @property IFSkeinPackingStyle packingStyle;
@@ -30,25 +31,25 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 @property (retain) ZoomSkeinItem *selectedItem;
 - (void) highlightSkeinLine: (ZoomSkeinItem*) itemOnLine;
 
-// Performing the layout
+#pragma mark Performing the layout
 - (void) layoutSkein;
 - (void) layoutSkeinLoose;
 - (void) layoutSkeinTight;
 
-// Getting layout data
+#pragma mark Getting layout data
 @property (readonly) NSInteger levels;
 - (NSArray<ZoomSkeinItem*>*) itemsOnLevel: (NSInteger) level;
-- (NSArray*) dataForLevel: (NSInteger) level;
+- (NSArray<ZoomSkeinLayoutItem*>*) dataForLevel: (NSInteger) level;
 
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item;
 
-// General item data
+#pragma mark General item data
 - (CGFloat)  xposForItem:      (ZoomSkeinItem*) item;
 - (int)      levelForItem:     (ZoomSkeinItem*) item;
 - (CGFloat)  widthForItem:     (ZoomSkeinItem*) item;
 - (CGFloat)  fullWidthForItem: (ZoomSkeinItem*) item;
 
-// Item positioning data
+#pragma mark Item positioning data
 @property (readonly) NSSize size;
 
 - (NSRect) activeAreaForItem: (ZoomSkeinItem*) itemData;
@@ -57,7 +58,7 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 - (NSRect) textAreaForData: (ZoomSkeinLayoutItem*) itemData;
 - (ZoomSkeinItem*) itemAtPoint: (NSPoint) point;
 
-// Drawing
+#pragma mark Drawing
 - (void) drawInRect: (NSRect) rect;
 - (void) drawItem: (ZoomSkeinItem*) item
 		  atPoint: (NSPoint) point;

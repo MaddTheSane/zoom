@@ -1,6 +1,6 @@
 framework module ZoomPlugIns {
 	
-	explicit module ifmetabase {
+	module ifmetabase {
 		header "ifmetabase.h"
 		export *
 	}
@@ -10,7 +10,7 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
-	explicit module ifmetaxml {
+	module ifmetaxml {
 		header "ifmetaxml.h"
 		export *
 	}
@@ -25,99 +25,103 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
-	explicit module ZoomBabel {
+	module ZoomBabel {
 		requires objc
 		header "ZoomBabel.h"
 		export *
 	}
 	
-	explicit module ZoomDownload {
+	module ZoomDownload {
 		requires objc
 		header "ZoomDownload.h"
 		export *
 	}
 	
-	explicit module ZoomGameInfoController {
+	module ZoomGameInfoController {
 		requires objc
 		header "ZoomGameInfoController.h"
 		export *
 	}
 	
-	explicit module ZoomGlkDocument {
-		requires objc
-		header "ZoomGlkDocument.h"
-		export *
-	}
-	
-	explicit module ZoomGlkPlugIn {
-		requires objc
-		header "ZoomGlkPlugIn.h"
-		export *
-	}
-	
-	explicit module ZoomGlkSaveRef {
-		requires objc
-		header "ZoomGlkSaveRef.h"
-		export *
-	}
-	
-	explicit module ZoomGlkWindowController {
-		requires objc
-		header "ZoomGlkWindowController.h"
-		export *
-	}
-	
-	explicit module ZoomMetadata {
+	module ZoomMetadata {
 		requires objc
 		header "ZoomMetadata.h"
 		export *
 	}
 	
-	explicit module ZoomNotesController {
+	module ZoomNotesController {
 		requires objc
 		header "ZoomNotesController.h"
 		export *
 	}
 	
-	explicit module ZoomPlugIn {
+	module ZoomPlugIn {
 		requires objc
 		header "ZoomPlugIn.h"
+				
+		module Glk {
+			header "ZoomGlkPlugIn.h"
+			
+			module Document {
+				header "ZoomGlkDocument.h"
+				export *
+			}
+			
+			module SaveRef {
+				header "ZoomGlkSaveRef.h"
+				export *
+			}
+			
+			module WindowController {
+				header "ZoomGlkWindowController.h"
+				export *
+			}
+
+			export *
+		}
+		
 		export *
 	}
 	
-	explicit module ZoomPlugInController {
+	module ZoomPlugInController {
 		requires objc
 		header "ZoomPlugInController.h"
 		export *
 	}
 	
-	explicit module ZoomPlugInInfo {
+	module ZoomPlugInInfo {
 		requires objc
 		header "ZoomPlugInInfo.h"
 		export *
 	}
 	
-	explicit module ZoomPlugInManager {
+	module ZoomPlugInManager {
 		requires objc
 		header "ZoomPlugInManager.h"
 		export *
 	}
 	
-	explicit module ZoomResourceDrop {
+	module ZoomResourceDrop {
 		requires objc
 		header "ZoomResourceDrop.h"
 		export *
 	}
 	
-	explicit module ZoomStory {
+	module ZoomStory {
 		requires objc
 		header "ZoomStory.h"
 		export *
 	}
 	
-	explicit module ZoomStoryID {
+	module ZoomStoryID {
 		requires objc
 		header "ZoomStoryID.h"
+		export *
+	}
+	
+	explicit module ZoomSignPost {
+		requires objc
+		header "ZoomSignPost.h"
 		export *
 	}
 	

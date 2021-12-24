@@ -47,7 +47,7 @@
 }
 
 - (void) restartGame {
-	id controller  = [[NSApp mainWindow] windowController];
+	id<ZoomSkeinViewDelegate> controller  = [[NSApp mainWindow] windowController];
 	if ([controller respondsToSelector: @selector(restartGame)]) {
 		[controller restartGame];
 	}
@@ -55,7 +55,7 @@
 
 - (void) playToPoint: (ZoomSkeinItem*) point
 		   fromPoint: (ZoomSkeinItem*) fromPoint {
-	id controller  = [[NSApp mainWindow] windowController];
+	id<ZoomSkeinViewDelegate> controller  = [[NSApp mainWindow] windowController];
 	if ([controller respondsToSelector: @selector(playToPoint:fromPoint:)]) {
 		[controller playToPoint: point
 					  fromPoint: fromPoint];

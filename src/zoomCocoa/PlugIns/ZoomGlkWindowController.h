@@ -30,9 +30,9 @@
 	//! The Glk executable we'll run to play this game
 	NSString* clientPath;
 	//! The file we'll pass to the executable as the game to run
-	NSString* inputPath;
+	NSURL* inputURL;
 	//! The .glksave folder to load
-	NSString* savedGamePath;
+	NSURL* savedGameURL;
 	//! YES if the plugin will actually load the save game
 	BOOL canOpenSaveGames;
 	//! YES if the sheet to warn about the fact that this plugin can't load games has been shown
@@ -47,6 +47,8 @@
 	BOOL running;
 	//! \c YES if the user has OKed closing the game while it's still running
 	BOOL closeConfirmed;
+	
+	BOOL needsPathPassedToTask;
 	
 	//! The skein/transcript for this window
 	ZoomSkein* skein;
@@ -70,13 +72,15 @@
 //! Selects which GlkClient executable to run
 - (void) setClientPath: (NSString*) clientPath;
 //! The file that should be passed to the client as the file to run
-- (void) setInputFilename: (NSString*) inputPath;
+- (void) setInputFileURL: (NSURL*) inputPath;
 //! The logo to display instead of the 'CocoaGlk' logo
 - (void) setLogo: (NSImage*) logo;
-//! The .glksave saved game file that this controller should load on startup
-- (void) setSaveGame: (NSString*) path;
+//! The .glksave saved game file URL that this controller should load on startup
+- (void) setSaveGameURL: (NSURL*) path;
 //! Set to \c YES if the plugin knows how to open save games
 - (void) setCanOpenSaveGame: (BOOL) canOpenSaveGame;
+//! Set to \c YES if the plugin \b needs the path of the game file passed at launch
+- (void) setNeedsPathPassedToTask: (BOOL) needsPath;
 
 @property (copy) NSImage *logo;
 

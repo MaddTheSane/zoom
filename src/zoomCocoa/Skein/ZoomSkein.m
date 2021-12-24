@@ -10,13 +10,13 @@
 
 #import "ZoomSkein.h"
 #import "ZoomSkeinWeb.h"
+#import "ZoomSkeinInternal.h"
 
-@interface ZoomSkeinInputSource : NSObject {
-	NSMutableArray* commandStack;
+@interface ZoomSkeinInputSource : NSObject <ZoomViewInputSource> {
+	NSMutableArray<NSString*>* commandStack;
 }
 
-- (void) setCommandStack: (NSMutableArray*) stack;
-- (NSString*) nextCommand;
+- (instancetype)initWithCommandStack: (NSArray<NSString*>*) stack;
 
 @end
 
@@ -160,7 +160,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	// item1 is not executed
 	if (item1 == nil || item2 == nil) return nil;
 	
-	NSMutableArray* commandsToExecute = [NSMutableArray array];
+	NSMutableArray<NSString*>* commandsToExecute = [NSMutableArray array];
 	ZoomSkeinItem* parent = item2;
 	
 	while (parent != item1) {
@@ -173,9 +173,8 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	}
 	
 	// commandsToExecute contains the list of commands we need to execute
-	ZoomSkeinInputSource* source = [[ZoomSkeinInputSource alloc] init];
+	ZoomSkeinInputSource* source = [[ZoomSkeinInputSource alloc] initWithCommandStack: commandsToExecute];
 	
-	[source setCommandStack: commandsToExecute];
 	return source;
 }
 
@@ -392,18 +391,11 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 
 @implementation ZoomSkeinInputSource
 
-- (id) init {
-	self = [super init];
-	
-	if (self) {
-		commandStack = nil;
+- (instancetype) initWithCommandStack: (NSArray<NSString*>*) stack {
+	if (self = [super init]) {
+		commandStack = [stack mutableCopy];
 	}
-	
 	return self;
-}
-
-- (void) setCommandStack: (NSMutableArray*) stack {
-	commandStack = stack;
 }
 
 - (NSString*) nextCommand {

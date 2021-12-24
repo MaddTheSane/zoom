@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <ZoomView/ZoomSkein.h>
 #import <ZoomView/ZoomViewProtocols.h>
+#import <ZoomView/ZoomSkein.h>
 #import <GlkView/GlkAutomation.h>
 
 //!

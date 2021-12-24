@@ -6,6 +6,8 @@
 #import "ZoomMetadata.h"
 #import "ZoomBabel.h"
 
+#pragma GCC visibility push(hidden)
+
 /* -----------------------------------------------------------------------------
    Generate a preview for file
 
@@ -13,26 +15,26 @@
    ----------------------------------------------------------------------------- */
 
 static NSString* zoomConfigDirectory() {
-	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+	NSArray* libraryDirs = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
 	
-	for (NSString* libDir in libraryDirs) {
+	for (NSURL* libDir in libraryDirs) {
 		BOOL isDir;
 		
-		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
-		if ([[NSFileManager defaultManager] fileExistsAtPath: zoomLib isDirectory: &isDir]) {
+		NSURL* zoomLib = [libDir URLByAppendingPathComponent: @"Zoom"];
+		if ([[NSFileManager defaultManager] fileExistsAtPath: zoomLib.path isDirectory: &isDir]) {
 			if (isDir) {
-				return zoomLib;
+				return zoomLib.path;
 			}
 		}
 	}
 	
-	for (NSString* libDir in libraryDirs) {
-		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
-		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
-									  withIntermediateDirectories: NO
-													   attributes: nil
-															error: NULL]) {
-			return zoomLib;
+	for (NSURL* libDir in libraryDirs) {
+		NSURL* zoomLib = [libDir URLByAppendingPathComponent: @"Zoom"];
+		if ([[NSFileManager defaultManager] createDirectoryAtURL: zoomLib
+									 withIntermediateDirectories: NO
+													  attributes: nil
+														   error: NULL]) {
+			return zoomLib.path;
 		}
 	}
 	
@@ -72,7 +74,7 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	// Try to load Zoom's built-in metadata if we can
 	ZoomMetadata* metadata = nil;
 	NSData* userData = [NSData dataWithContentsOfFile: [zoomConfigDirectory() stringByAppendingPathComponent: @"metadata.iFiction"]];
-	if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData];
+	if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData error: NULL];
 	
 	if (metadata) {
 		story = [metadata containsStoryWithIdent: storyID]?[metadata findOrCreateStory: storyID]:story;
@@ -350,7 +352,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 			ZoomMetadata* metadata = nil;
 			ZoomStory* story = nil;
 			NSData* userData = [NSData dataWithContentsOfFile: [zoomConfigDirectory() stringByAppendingPathComponent: @"metadata.iFiction"]];
-			if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData];
+			if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData error: NULL];
 			
 			if (metadata) {
 				story = [metadata containsStoryWithIdent: storyID]?[metadata findOrCreateStory: storyID]:nil;
@@ -378,3 +380,5 @@ void CancelPreviewGeneration(void* thisInterface, QLPreviewRequestRef preview)
 {
     // implement only if supported
 }
+
+#pragma GCC visibility pop

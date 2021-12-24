@@ -12,24 +12,16 @@
 #import <ZoomView/ZoomBlorbFile.h>
 
 
-@protocol ZoomStoryIDFetcherProtocol <NSObject>
-
-- (out bycopy ZoomStoryID*) idForFile: (in bycopy NSString*) filename;
-- (void) renamedIdent: (in bycopy ZoomStoryID*) ident
-		   toFilename: (in bycopy NSString*) filename;
-
-@end
-
 // The story organiser is used to store story locations and identifications
 // (Mainly to build up the iFiction window)
 
 // Notifications
-extern NSNotificationName const ZoomStoryOrganiserChangedNotification;
-extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
+extern NSNotificationName const ZoomStoryOrganiserChangedNotification NS_SWIFT_NAME(ZoomStoryOrganiser.changedNotification);
+extern NSNotificationName const ZoomStoryOrganiserProgressNotification NS_SWIFT_NAME(ZoomStoryOrganiser.progressNotification);
 
 /// The story organiser is used to store story locations and identifications
 /// (Mainly to build up the iFiction window)
-@interface ZoomStoryOrganiser : NSObject<ZoomStoryIDFetcherProtocol> {
+@interface ZoomStoryOrganiser : NSObject {
 	// Arrays of the stories and their idents
 	NSMutableArray<NSString*>* storyFilenames;
 	NSMutableArray<ZoomStoryID*>* storyIdents;
@@ -66,6 +58,7 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 
 // Retrieving story information
 - (NSString*) filenameForIdent: (ZoomStoryID*) ident;
+- (NSURL*) URLForIdent: (ZoomStoryID*) ident;
 - (ZoomStoryID*) identForFilename: (NSString*) filename;
 
 @property (nonatomic, readonly, copy) NSArray<NSString*> *storyFilenames;
@@ -84,6 +77,6 @@ extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
 - (void)      organiseStory: (ZoomStory*) story
 				  withIdent: (ZoomStoryID*) ident;
 - (void)      organiseAllStories;
-- (void)      reorganiseStoriesTo: (NSString*) newStoryDirectory;
+- (void)      reorganiseStoriesToNewDirectory: (NSString*) newStoryDirectory;
 
 @end

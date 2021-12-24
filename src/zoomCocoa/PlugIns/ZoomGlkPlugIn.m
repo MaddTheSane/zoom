@@ -47,7 +47,7 @@
 }
 
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
-								saveGame: (NSString*) saveGame {
+							 saveGameURL: (NSURL *)saveGame {
 	if (!document) {
 		// Set up the document for this game
 		document = [[ZoomGlkDocument alloc] init];
@@ -58,7 +58,7 @@
 		[document setInputURL: self.gameURL];
 		document.logo = self.logo;
 		document.preferredSaveDirectory = preferredSaveDir;
-		document.saveGame = saveGame;
+		document.saveGameURL = saveGame;
 		document.plugIn = self;
 	}
 	
@@ -74,6 +74,6 @@
 	return nil;
 }
 
-@synthesize preferredSaveDirectory = preferredSaveDir;
+@synthesize preferredSaveDirectoryURL = preferredSaveDir;
 
 @end

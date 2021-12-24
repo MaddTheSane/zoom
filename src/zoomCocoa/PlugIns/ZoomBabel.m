@@ -23,8 +23,11 @@ static NSMutableDictionary* babelCache = nil;
 @implementation ZoomBabel
 
 + (void) initialize {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
 	babelLock = [[NSLock alloc] init];
 	babelCache = [[NSMutableDictionary alloc] init];
+	});
 }
 
 + (NSString*) babelFolder {
@@ -58,9 +61,8 @@ static NSMutableDictionary* babelCache = nil;
 
 #pragma mark - Initialisation
 
-- (id) init {
-	self = [super init];
-	return nil;
+- (instancetype) initWithURL: (NSURL*) storyURL {
+	return [self initWithFilename: storyURL.path];
 }
 
 - (id) initWithFilename: (NSString*) story {
@@ -70,7 +72,7 @@ static NSMutableDictionary* babelCache = nil;
 	[babelLock lock];
 	
 	// Try to find this story in the cache
-	ZoomBabel* cachedVersion = [babelCache objectForKey: story];
+	ZoomBabel* cachedVersion = babelCache[story];
 	if (cachedVersion != nil) {
 		// Use the cached version instead if possible
 		[babelLock unlock];
@@ -83,8 +85,7 @@ static NSMutableDictionary* babelCache = nil;
 	}
 	
 	// Store this object in the cache
-	[babelCache setObject: self
-				   forKey: story];
+	babelCache[story] = self;
 	
 	[babelLock unlock];
 
@@ -100,14 +101,14 @@ static NSMutableDictionary* babelCache = nil;
 		// Start the babel task
 		NSString* babelTaskFolder = [ZoomBabel babelFolder];
 		if (babelTaskFolder != nil) {
-			NSString* babelPath = [[NSBundle bundleForClass: [self class]] pathForResource: @"babel"
-																					ofType: nil]; 
+			NSURL* babelPath = [[NSBundle bundleForClass: [self class]] URLForResource: @"babel"
+																		 withExtension: nil]; 
 			
 			babelTask = [[NSTask alloc] init];
 			babelStdOut = [[NSPipe alloc] init];
 			
 			[babelTask setCurrentDirectoryPath: babelTaskFolder];
-			[babelTask setLaunchPath: babelPath];
+			[babelTask setExecutableURL: babelPath];
 			[babelTask setStandardOutput: [babelStdOut fileHandleForWriting]];
 			
 			[babelTask setArguments: @[@"-fish", filename]];
@@ -207,12 +208,9 @@ static NSMutableDictionary* babelCache = nil;
 	
 	// If non-nil, then extract the first ifiction record
 	if (storyData != nil) {
-		ZoomMetadata* storyMetadata = [[ZoomMetadata alloc] initWithData: storyData];
+		ZoomMetadata* storyMetadata = [[ZoomMetadata alloc] initWithData: storyData error: NULL];
 		if (storyMetadata != nil) {
-			NSArray* stories = [storyMetadata stories];
-			if ([stories count] >= 1) {
-				return [stories objectAtIndex: 0];
-			}
+			return storyMetadata.stories.firstObject;
 		}
 	}
 	

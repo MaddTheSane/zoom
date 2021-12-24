@@ -11,6 +11,8 @@
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 //!
 //! Objective-C interface to the babel command line tool
 //!
@@ -43,8 +45,12 @@
 
 #pragma mark - Initialisation
 
+- (instancetype)init UNAVAILABLE_ATTRIBUTE;
+
 //! Initialise this object with the specified story (metadata and image extraction will start immediately)
-- (id) initWithFilename: (NSString*) story;
+- (id) initWithFilename: (NSString*) story NS_DESIGNATED_INITIALIZER;
+
+- (instancetype) initWithURL: (NSURL*) storyURL;
 
 #pragma mark - Raw reading
 
@@ -53,17 +59,19 @@
 - (void) setTaskTimeout: (NSTimeInterval) seconds;
 
 //! Retrieves a raw XML metadata record (or nil)
-- (NSData*) rawMetadata;
+- (nullable NSData*) rawMetadata;
 //! Retrieves the raw cover image data (or nil)
-- (NSData*) rawCoverImage;
+- (nullable NSData*) rawCoverImage;
 
 #pragma mark - Interpreted reading
 
 //! Requests the IFID for the story file
-- (ZoomStoryID*) storyID;
+- (nullable ZoomStoryID*) storyID;
 //! Retrieves the metadata for this file
-- (ZoomStory*) metadata;
+- (nullable ZoomStory*) metadata;
 //! Retrieves the cover image for this file
-- (NSImage*) coverImage;
+- (nullable NSImage*) coverImage;
 
 @end
+
+NS_ASSUME_NONNULL_END

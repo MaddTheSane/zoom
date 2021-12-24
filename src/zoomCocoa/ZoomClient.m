@@ -10,6 +10,7 @@
 #import <ZoomView/ZoomProtocol.h>
 #import "ZoomClientController.h"
 #import "ZoomStoryOrganiser.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 #import "ZoomAppDelegate.h"
 
@@ -154,6 +155,11 @@
 	if (storyId == nil) {
 		// Can't ID this story
 		gameData = nil;
+		if (outError) {
+			*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain
+											code: ZoomStoryIDErrorNoIdentGenerated
+										userInfo: nil];
+		}
 		return NO;
 	}
 	
@@ -183,7 +189,8 @@
 	NSString* resourceFilename = [story objectForKey: @"ResourceFilename"];
 	if (resourceFilename != nil && [[NSFileManager defaultManager] fileExistsAtPath: resourceFilename]) {
 		// Try to load the resources set for this game
-		ZoomBlorbFile* newResources = [[ZoomBlorbFile alloc] initWithContentsOfFile: resourceFilename];
+		NSError *err;
+		ZoomBlorbFile* newResources = [[ZoomBlorbFile alloc] initWithContentsOfURL: [NSURL fileURLWithPath: resourceFilename] error: &err];
 		
 		if (newResources) {
 			// Resources loaded OK: discard any resources we may have loaded earlier in findResourcesForFile
@@ -191,6 +198,7 @@
 		} else {
 			// Failed to load the resources that were set
 			[self addLoadingError: @"Failed to load resources: the resource file set for the story was found but is not a valid Blorb resource file"];
+			[self addLoadingError: err.localizedDescription];
 			[story setObject: nil
 					  forKey: @"ResourceFilename"];
 		}
@@ -220,7 +228,7 @@
 - (NSString*) displayName {
 	if (story && [story title]) {
 		if (wasRestored) {
-			return [NSString stringWithFormat: @"%@ (restored from %@)", [story title], [super displayName]];
+			return [NSString stringWithFormat: NSLocalizedString(@"%@ (restored from %@)", @"%@ (restored from %@)"), [story title], [super displayName]];
 		} else {
 			return [story title];
 		}
@@ -338,8 +346,8 @@
 		// Not a valid zoomSave file
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
-				NSLocalizedDescriptionKey: @"Not a valid Zoom savegame package",
-				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]]
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Not a valid Zoom savegame package", @"Not a valid Zoom savegame package"),
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]]
 			}];
 		}
 		return NO;
@@ -375,11 +383,11 @@
 		NSString *info;
 		// Not a valid zoomSave file
 		if (!isSingleFile) {
-			msg = @"Not a valid Zoom savegame package";
-			info = [NSString stringWithFormat:@"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]];
+			msg = NSLocalizedString(@"Not a valid Zoom savegame package", @"Not a valid Zoom savegame package");
+			info = [NSString stringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]];
 		} else {
-			msg = @"Not a valid Quetzal file";
-			info = [NSString stringWithFormat:@"%@ is not a valid Quetzal file", [[wrapper filename] lastPathComponent]];
+			msg = NSLocalizedString(@"Not a valid Quetzal file", @"Not a valid Quetzal file");
+			info = [NSString stringWithFormat: NSLocalizedString(@"%@ is not a valid Quetzal file", @"%@ is not a valid Quetzal file"), [[wrapper filename] lastPathComponent]];
 		}
 		
 		if (outError) {
@@ -417,8 +425,8 @@
 		// Couldn't find a story for this savegame
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
-				NSLocalizedDescriptionKey: @"Unable to find story file",
-				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Zoom does not know where a valid story file for '%@' is and so is unable to load it", [[wrapper filename] lastPathComponent]]
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to find story file", @"Unable to find story file"),
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"Zoom does not know where a valid story file for '%@' is and so is unable to load it", @"Zoom does not know where a valid story file for '%@' is and so is unable to load it"), [[wrapper filename] lastPathComponent]]
 			}];
 		}
 		return NO;
@@ -430,8 +438,8 @@
 		// Couldn't find the story data for this savegame
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
-				NSLocalizedDescriptionKey: @"Unable to find story file",
-				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent], gameFile],
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to find story file", @"Unable to find story file"),
+				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat: NSLocalizedString(@"Zoom is unable to load a valid story file for '%@' (tried '%@')", @"Zoom is unable to load a valid story file for '%@' (tried '%@')"), [[wrapper filename] lastPathComponent], gameFile],
 				NSUnderlyingErrorKey: underlying
 			}];
 		}
@@ -466,8 +474,8 @@
 	if (savedView == nil || ![savedView isKindOfClass: [ZoomView class]]) {
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
-				NSLocalizedDescriptionKey: @"Unable to load saved screen state",
-				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", [[wrapper filename] lastPathComponent]]
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to load saved screen state", @"Unable to load saved screen state"),
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", @"Zoom was unable to find the saved screen state for '%@', and so is unable to start it"), [[wrapper filename] lastPathComponent]]
 			}];
 		}
 		return NO;

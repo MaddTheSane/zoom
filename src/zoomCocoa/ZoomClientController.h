@@ -8,10 +8,11 @@
 
 #import <AppKit/AppKit.h>
 #import <ZoomView/ZoomView.h>
+#import <ZoomView/ZoomSkeinView.h>
 #import "ZoomClient.h"
 
 
-@interface ZoomClientController : NSWindowController <NSWindowDelegate, ZoomViewDelegate> {
+@interface ZoomClientController : NSWindowController <NSWindowDelegate, ZoomViewDelegate, ZoomSkeinViewDelegate> {
 	BOOL isFullscreen;
 	BOOL finished;
 	BOOL closeConfirmed;

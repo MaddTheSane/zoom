@@ -2,17 +2,16 @@ framework module ZoomView {
 	requires objc
 	umbrella header "ZoomViewHeaders.h"
 	
+	module Protocols {
+		header "ZoomViewProtocols.h"
+		export *
+	}
+	
 	module ZoomSkein {
 		header "ZoomSkein.h"
 		
 		module Item {
 			header "ZoomSkeinItem.h"
-			
-			explicit module Pasteboard {
-				header "ZoomSkeinItem+Pasteboard.h"
-				export *
-			}
-			
 			export *
 		}
 		
@@ -21,17 +20,17 @@ framework module ZoomView {
 			export *
 		}
 		
-		explicit module Layout {
+		module Layout {
 			header "ZoomSkeinLayout.h"
 			
-			explicit module Item {
+			module Item {
 				header "ZoomSkeinLayoutItem.h"
 				export *
 			}
 			export *
 		}
 		
-		explicit module View {
+		module View {
 			header "ZoomSkeinView.h"
 			export *
 		}
@@ -51,11 +50,6 @@ framework module ZoomView {
 	module ZoomView {
 		header "ZoomView.h"
 		
-		module Protocols {
-			header "ZoomViewProtocols.h"
-			export *
-		}
-		
 		module More {
 			header "ZoomMoreView.h"
 			export *
@@ -71,11 +65,6 @@ framework module ZoomView {
 			export *
 		}
 		
-		export *
-	}
-	
-	explicit module ZoomConnector {
-		header "ZoomConnector.h"
 		export *
 	}
 	

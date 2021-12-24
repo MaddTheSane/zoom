@@ -10,11 +10,12 @@
 #import "ZoomTextView.h"
 #import "ZoomView.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomTextView
 
-- (id) initWithFrame: (NSRect) frame {
-    self = [super initWithFrame: frame];
+- (id) initWithFrame: (NSRect) frame textContainer:(NSTextContainer *)container {
+    self = [super initWithFrame: frame textContainer:container];
     if (self) {
         pastedLines = [[NSMutableArray alloc] init];
 		pastedScaleFactor = 1.0;

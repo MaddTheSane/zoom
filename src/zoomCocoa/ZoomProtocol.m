@@ -314,6 +314,14 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
                         isSymbolic?@"YES":@"NO"];
 }
 
+- (NSString*) debugDescription {
+    return [NSString stringWithFormat: @"Style - bold: %@, underline %@, fixed %@, symbolic %@",
+                        isBold?@"YES":@"NO",
+                        isUnderline?@"YES":@"NO",
+                        isFixed?@"YES":@"NO",
+                        isSymbolic?@"YES":@"NO"];
+}
+
 #define FLAGSCODINGKEY @"flags"
 #define TRUEFORECOLORCODINGKEY @"foregroundTrue"
 #define TRUEBACKCOLORCODINGKEY @"backgroundTrue"
@@ -349,7 +357,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 			
 			foregroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEFORECOLORCODINGKEY];
 			backgroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEBACKCOLORCODINGKEY];
-			
+
 			foregroundColour = [coder decodeIntForKey: FOREGROUNDCOLORCODINGKEY];
 			backgroundColour = [coder decodeIntForKey: BACKGROUNDCOLORCODINGKEY];
 		} else {
@@ -437,9 +445,9 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 - (id) copyWithZone: (NSZone*) zone {
     ZBuffer* buf;
-    buf = [[[self class] allocWithZone: zone] init];
+    buf = [[[self class] alloc] init];
 
-    buf->buffer = [buffer mutableCopyWithZone: zone];
+    buf->buffer = [buffer mutableCopy];
 
     return buf;
 }
@@ -525,8 +533,8 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 }
 
 // Upper window routines
-- (void) moveTo: (NSPoint) newCursorPos
-       inWindow: (id<ZUpperWindow>) window {
+- (void) moveCursorToPoint: (NSPoint) newCursorPos
+                  inWindow: (id<ZUpperWindow>) window {
     [buffer addObject:
         @[ZBufferMoveTo,
           @(newCursorPos),
@@ -600,7 +608,7 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 }
 
 // Unbuffering
-- (BOOL) empty {
+- (BOOL) isEmpty {
     if ([buffer count] < 1)
         return YES;
     else
@@ -974,7 +982,19 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 		return nil;
 	}
 	
-	return [[[wrapper fileWrappers] objectForKey: filename] regularFileContents];
+	return [[wrapper fileWrappers][filename] regularFileContents];
+}
+
+@end
+
+@interface NSColorSpace (PortCoderCompat)
+@end
+
+@implementation NSColorSpace (PortCoderCompat)
+
+- (id)replacementObjectForPortCoder:(NSPortCoder *)encoder {
+    // Always copy!
+    return self;
 }
 
 @end

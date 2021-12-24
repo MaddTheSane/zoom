@@ -8,6 +8,7 @@
 
 #import "ZoomUpperWindowView.h"
 #import "ZoomUpperWindow.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomUpperWindowView
 

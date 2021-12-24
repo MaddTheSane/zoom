@@ -36,7 +36,7 @@
 }
 
 - (void)drawRect:(__unused NSRect)rect {
-    NSString* more = @"[More…]";
+    NSString* more = NSLocalizedString(@"[More...]", @"[More…]");
     NSDictionary* moreAttributes =@{
         NSFontAttributeName: [NSFont systemFontOfSize: 12],
         NSBackgroundColorAttributeName: [NSColor controlAccentColor],

@@ -7,21 +7,20 @@
 
 import Cocoa
 import ZoomPlugIns.ZoomPlugIn
-import ZoomPlugIns.ZoomGlkPlugIn
-import ZoomPlugIns.ZoomGlkWindowController
-import ZoomPlugIns.ZoomGlkDocument
+import ZoomPlugIns.ZoomPlugIn.Glk
+import ZoomPlugIns.ZoomBabel
 import CommonCrypto
 
 final public class Adrift: ZoomGlkPlugIn {
-	public override class var pluginVersion: String! {
-		return Bundle(for: Adrift.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String
+	public override class var pluginVersion: String {
+		return (Bundle(for: Adrift.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String)!
 	}
 	
-	public override class var pluginDescription: String! {
+	public override class var pluginDescription: String {
 		return "Plays Adrift files"
 	}
 	
-	public override class var pluginAuthor: String! {
+	public override class var pluginAuthor: String {
 		return #"C.W. "Madd the Sane" Betts"#
 	}
 	
@@ -29,42 +28,43 @@ final public class Adrift: ZoomGlkPlugIn {
 		return true
 	}
 	
-	public override class var supportedFileTypes: [String]! {
+	public override class var supportedFileTypes: [String] {
 		return ["public.adrift", "taf"]
 	}
 	
-	public override class func canRun(_ path: URL!) -> Bool {
-		guard let fileURL = path else {
-			return false
-		}
-		
-		guard ((try? fileURL.checkResourceIsReachable()) ?? false) else {
+	public override class func canRun(_ fileURL: URL) -> Bool {
+		guard (try? fileURL.checkResourceIsReachable()) ?? false else {
 			return fileURL.pathExtension.caseInsensitiveCompare("taf") == .orderedSame
 		}
 		
 		return isCompatibleAdriftFile(at: fileURL)
 	}
 	
-	public override init!(url gameFile: URL!) {
+	public override init?(url gameFile: URL) {
 		super.init(url: gameFile)
 		clientPath = Bundle(for: Adrift.self).path(forAuxiliaryExecutable: "scare")
 	}
 	
-	public override func idForStory() -> ZoomStoryID! {
-		guard let gameURL = gameURL, let stringID = stringIDForAdriftFile(at: gameURL) else {
+	public override func idForStory() -> ZoomStoryID? {
+		guard let stringID = stringIDForAdriftFile(at: gameURL) else {
 			return nil
 		}
 		
 		return ZoomStoryID(idString: stringID)
 	}
 
-	/*
-	public override func defaultMetadata() -> ZoomStory! {
-		return nil
-	}*/
+	public override func defaultMetadata() throws -> ZoomStory {
+		let babel = ZoomBabel(url: gameURL)
+		guard let meta = babel.metadata() else {
+			return try super.defaultMetadata()
+		}
+		
+		return meta
+	}
 	
-	public override func coverImage() -> NSImage! {
-		return nil
+	public override var coverImage: NSImage? {
+		let babel = ZoomBabel(url: gameURL)
+		return babel.coverImage()
 	}
 }
 
@@ -100,16 +100,13 @@ private func hashMD5(from handle: FileHandle) -> String {
 	var bytes: [UInt8] = Array(repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
 	handle.seek(toFileOffset: 0)
 	CC_MD5_Init(&md5)
-	var dat = Data()
-	repeat {
-		dat = handle.readData(ofLength: 16384)
-		guard dat.count > 0 else {
-			continue
-		}
+	var dat = handle.readData(ofLength: 16384)
+	while dat.count > 0 {
 		dat.withUnsafeBytes { bufPtr in
 			_=CC_MD5_Update(&md5, bufPtr.baseAddress, CC_LONG(bufPtr.count))
 		}
-	} while dat.count > 0
+		dat = handle.readData(ofLength: 16384)
+	}
 	
 	CC_MD5_Final(&bytes, &md5)
 	let mappedBytes = bytes.map { byte in
@@ -118,7 +115,7 @@ private func hashMD5(from handle: FileHandle) -> String {
 	return mappedBytes.joined()
 }
 
-func stringIDForAdriftFile(at url: URL) -> String? {
+private func stringIDForAdriftFile(at url: URL) -> String? {
 	var vbr = VisualBasicRNG()
 	guard let fh = try? FileHandle(forReadingFrom: url) else {
 		return nil
@@ -158,7 +155,7 @@ private let versionData: Data = {
 ///
 /// It seems fairly unlikely that the obfuscated form of that
 /// word would occur in the wild
-func isCompatibleAdriftFile(at url: URL) -> Bool {
+private func isCompatibleAdriftFile(at url: URL) -> Bool {
 	var rng = VisualBasicRNG()
 	guard let fh = try? FileHandle(forReadingFrom: url) else {
 		return false

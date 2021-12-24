@@ -18,8 +18,9 @@
 	self = [super init];
 	
 	if (self) {
-		pixmap = [[NSImage alloc] initWithSize: NSMakeSize(640, 480)];
+		pixmap = [[NSImage alloc] initWithSize: NSMakeSize(640, 400)];
 		zView = view;
+		[zView.window setContentSize: NSMakeSize(640, 400)];
 		
 		inputStyle = nil;
 	}
@@ -38,7 +39,7 @@
 #pragma mark - Standard window commands
 
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
-	[pixmap lockFocusFlipped:YES];
+	[pixmap lockFocus];
 	
     NSColor* backgroundColour = style.reversed?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
 	[backgroundColour set];
@@ -64,8 +65,8 @@
 }
 
 - (oneway void) writeString: (in bycopy NSString*) string
-		   withStyle: (in bycopy ZStyle*) style {
-	[pixmap lockFocusFlipped:YES];
+				  withStyle: (in bycopy ZStyle*) style {
+	[pixmap lockFocus];
 	
 	NSLog(@"Warning: should not call standard ZWindow writeString on a pixmap window");
 	
@@ -131,6 +132,7 @@
 	
 	[pixmap unlockFocus];
 	[zView setNeedsDisplay: YES];
+	[zView orOutputText: text];
 }
 
 - (void) scrollRegion: (in NSRect) region
@@ -143,9 +145,11 @@
 	NSImage*			copiedImage	= [[NSImage alloc] init];
 	[copiedImage addRepresentation: copiedBits];
 	[copiedImage drawInRect: NSMakeRect(where.x, where.y, region.size.width, region.size.height)
-				   fromRect: NSMakeRect(0,0, region.size.width, region.size.height)
+				   fromRect: NSZeroRect
 				  operation: NSCompositingOperationSourceOver
-				   fraction: 1.0];
+				   fraction: 1.0
+			 respectFlipped: YES
+					  hints: nil];
 	
 	
 	// Uh, docs say we should use NSNullObject here, but it's not defined. Making a guess at its value (sigh)
@@ -206,9 +210,7 @@
 - (void) setInputPosition: (NSPoint) point
 				withStyle: (in bycopy ZStyle*) style {
 	inputPos = point;
-	if (inputStyle) {
-		inputStyle = style;
-	}
+	inputStyle = [style copy];
 }
 
 @synthesize inputPos;

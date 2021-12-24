@@ -7,6 +7,7 @@
 //
 
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
+#import <ZoomPlugIns/ZoomDownload.h>
 #import "ZoomPlugInManager.h"
 #import <ZoomPlugIns/ZoomPlugIns-Swift.h>
 
@@ -154,7 +155,7 @@ static unsigned int ValueForHexChar(int hex) {
 #pragma mark - Copying
 
 - (id) copyWithZone: (NSZone*) zone {
-	ZoomPlugInInfo* newInfo = [[ZoomPlugInInfo allocWithZone: zone] init];
+	ZoomPlugInInfo* newInfo = [[ZoomPlugInInfo alloc] init];
 	
 	newInfo->name 				= [name copy];
 	newInfo->author 			= [author copy];

@@ -8,6 +8,7 @@
 
 #import "ZoomResourceDrop.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 #import "ZoomBlorbFile.h"
 
 static NSImage* needDropImage;
@@ -51,14 +52,14 @@ static NSImage* blorbImage;
 	
 	// Image and text to draw
 	NSImage* img = nil;
-	NSString* description = @"Er";
+	NSString* description;
 	
 	if (droppedFilename) {
 		img = blorbImage;
-		description = @"Drag a Blorb resource file here to change the resources for this game";
+		description = NSLocalizedString(@"Drag a Blorb resource file here to change the resources for this game", @"Drag a Blorb resource file here to change the resources for this game");
 	} else {
 		img = needDropImage;
-		description = @"Drag a Blorb resource file here to set it as the graphics/sound resources for this game";
+		description = NSLocalizedString(@"Drag a Blorb resource file here to set it as the graphics/sound resources for this game", @"Drag a Blorb resource file here to set it as the graphics/sound resources for this game");
 	}
 	
 	// Draw the image
@@ -77,7 +78,8 @@ static NSImage* blorbImage;
 	[description drawInRect: remainingRect
 			 withAttributes: @{
 		NSFontAttributeName:[NSFont systemFontOfSize: 11],
-		NSParagraphStyleAttributeName: paraStyle
+		NSParagraphStyleAttributeName: paraStyle,
+		NSForegroundColorAttributeName: NSColor.textColor
 	}];
 }
 
@@ -204,10 +206,11 @@ notAFilename:
 	}
 	
 	NSLog(@"Resource drop filename changed... Checking:");
+	NSError *err;
 	ZoomBlorbFile* file = [[ZoomBlorbFile alloc] initWithContentsOfURL: [NSURL fileURLWithPath: droppedFilename]
-																 error: NULL];
+																 error: &err];
 	if (file == nil) {
-		NSLog(@"Failed to load file");
+		NSLog(@"Failed to load file: %@", err.localizedDescription);
 		return;
 	}
 	

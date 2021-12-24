@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 					fullWidth: (CGFloat) fullWidth
 						level: (int) level NS_DESIGNATED_INITIALIZER;
 
-// Setting/getting properties
+#pragma mark Setting/getting properties
 
 @property (strong, nullable) ZoomSkeinItem *item;
 @property CGFloat width;

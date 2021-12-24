@@ -9,7 +9,6 @@
 // Incorporates changes contributed by Collin Pieper
 
 #import "ZoomClientController.h"
-#import "ZoomPreferenceWindow.h"
 #import <ZoomPlugIns/ZoomGameInfoController.h>
 #import <ZoomPlugIns/ZoomNotesController.h>
 #import "ZoomStoryOrganiser.h"
@@ -94,9 +93,9 @@
 			
 			// Show an alert			
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = @"Problems were encountered while loading this game";
+			alert.messageText = NSLocalizedString(@"Problems were encountered while loading this game", @"Problems were encountered while loading this game");
 			alert.informativeText = errorText;
-			[alert addButtonWithTitle:@"Continue"];
+			[alert addButtonWithTitle:NSLocalizedString(@"Continue", @"Continue")];
 			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			}];
 		}
@@ -181,10 +180,7 @@
 }
 
 - (void) prepareSavePackage: (ZPackageFile*) file {
-	NSMutableString* skeinXML = [[[[self document] skein] xmlData] mutableCopy];
-	
-	[skeinXML insertString: @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-				   atIndex: 0];
+	NSString* skeinXML = [[[self document] skein] xmlData];
 	
 	[file addData: [skeinXML dataUsingEncoding: NSUTF8StringEncoding]
 	  forFilename: @"Skein.skein"];
@@ -241,13 +237,11 @@
 	
 	gamePrefs = [[ZoomPreferenceWindow alloc] init];
 	
-	[NSApp beginSheet: [gamePrefs window]
-	   modalForWindow: [self window]
-		modalDelegate: nil
-	   didEndSelector: nil
-		  contextInfo: nil];
+	[self.window beginSheet:gamePrefs.window completionHandler:^(NSModalResponse returnCode) {
+		// do nothing?
+	}];
     [NSApp runModalForWindow: [gamePrefs window]];
-    [NSApp endSheet: [gamePrefs window]];
+    [self.window endSheet: [gamePrefs window]];
 	
 	[[gamePrefs window] orderOut: self];
 }
@@ -279,7 +273,7 @@
 		[storyInfo setZarfian: [[sgIValues objectForKey: @"zarfRating"] unsignedIntValue]];
 		[storyInfo setRating: [[sgIValues objectForKey: @"rating"] floatValue]];
 		
-		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 	}
 }
 
@@ -315,19 +309,19 @@
 	// Get confirmation if required
 	if (!closeConfirmed && !finished && [[ZoomPreferences globalPreferences] confirmGameClose]) {
 		BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
-		NSString* msg = @"Spoon will be terminated.";
+		NSString* msg;
 		
 		if (autosave) {
-			msg = @"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.";
+			msg = NSLocalizedString(@"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.", @"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.");
 		} else {
-			msg = @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.";
+			msg = NSLocalizedString(@"Finish game question info", @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.");
 		}
 		
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"Finish the game?";
+		alert.messageText = NSLocalizedString(@"Finish the game?", @"Finish the game?");
 		alert.informativeText = msg;
-		[alert addButtonWithTitle:@"Finish"];
-		[alert addButtonWithTitle:@"Continue playing"];
+		[alert addButtonWithTitle: NSLocalizedString(@"Finish", @"Finish")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Continue playing", @"Continue playing")];
 		[alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode == NSAlertFirstButtonReturn) {
 				// Close the window
@@ -722,8 +716,9 @@
 
 - (void) playToPoint: (ZoomSkeinItem*) point
 		   fromPoint: (ZoomSkeinItem*) fromPoint {
-	 id inputSource = [ZoomSkein inputSourceFromSkeinItem: fromPoint
-												   toItem: point];
+	 id<ZoomViewInputSource> inputSource = [ZoomSkein
+											inputSourceFromSkeinItem: fromPoint
+											toItem: point];
 	 
 	 
 	 [[self zoomView] setInputSource: inputSource];
@@ -733,7 +728,7 @@
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
 	if (finished) {
-		return [displayName stringByAppendingString: @" (finished)"];
+		return [NSString stringWithFormat: NSLocalizedString(@"%@ (finished)", @"Game finished window title formatter"), displayName];
 	}
 	
 	return displayName;

@@ -17,16 +17,16 @@
 	ZStyle* inputStyle;
 }
 
-// Initialisation
+#pragma mark Initialisation
 - (instancetype) initWithZoomView: (ZoomView*) view;
 @property (weak) ZoomView* zoomView;
 
-// Getting the pixmap
+#pragma mark Getting the pixmap
 @property (readonly) NSSize size;
 @property (readonly, strong) NSImage *pixmap;
 
-// Input information
+#pragma mark Input information
 @property (readonly) NSPoint inputPos;
-- (ZStyle*) inputStyle;
+- (bycopy ZStyle*) inputStyle;
 
 @end

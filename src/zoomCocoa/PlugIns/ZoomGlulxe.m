@@ -9,6 +9,7 @@
 #import "ZoomGlulxe.h"
 #import <ZoomView/ZoomBlorbFile.h>
 #import <ZoomView/ZoomPreferences.h>
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomGlulxe
 
@@ -34,6 +35,10 @@
 	}
 	
 	return [super canRunURL: path];
+}
+
++ (NSArray<NSString*>*)supportedFileTypes {
+	return @[@"ulx", @"blb", @"glb", @"gblorb", @"zblorb"];
 }
 
 + (NSString*) pluginVersion {
@@ -77,9 +82,9 @@
 												 error: NULL];
 }
 
-- (ZoomStory*) defaultMetadata {
+- (ZoomStory*) defaultMetadataWithError:(NSError *__autoreleasing *)outError {
 	// Just use the default metadata-establishing routine
-	return [ZoomStory defaultMetadataForURL: [self gameURL] error: NULL];
+	return [ZoomStory defaultMetadataForURL: [self gameURL] error: outError];
 }
 
 - (NSImage*) coverImage {

@@ -70,20 +70,20 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	BOOL isDir;
 	
 	// Start with the library directory
-	NSArray* libDirs = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSArray* libDirs = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
 	if ([libDirs count] == 0) {
 		NSLog(@"Could not locate library directory!");
 		return nil;
 	}
 	
 	// Use a Zoom directory inside for the rest of the contents
-	NSString *supportDir = [[libDirs objectAtIndex: 0] stringByAppendingPathComponent: @"Zoom"];
-	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir isDirectory: &isDir]) {
+	NSURL *supportDir = [[libDirs objectAtIndex: 0] URLByAppendingPathComponent: @"Zoom"];
+	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir.path isDirectory: &isDir]) {
 		isDir = YES;
-		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir withIntermediateDirectories:NO attributes:nil error:NULL];
+		[[NSFileManager defaultManager] createDirectoryAtURL: supportDir withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
 	
-	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir]) {
+	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir.path]) {
 		NSLog(@"Could not locate Zoom's app support directory");
 		return nil;
 	}
@@ -94,7 +94,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	}
 	
 	// Got the result
-	return supportDir;
+	return supportDir.path;
 }
 
 + (NSString*) plugInsPath {
@@ -173,7 +173,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	}	
 }
 
-- (void) loadPluginsFrom: (NSString*) pluginPath {
+- (void) loadPluginsFromPath: (NSString*) pluginPath {
 	if (!pluginBundles) pluginBundles = [[NSMutableArray alloc] init];
 	if (!pluginClasses) pluginClasses = [[NSMutableArray alloc] init];
 	if (!pluginsToVersions) pluginsToVersions = [[NSMutableDictionary alloc] init];
@@ -209,14 +209,14 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 		
 		// Load the plugins
 		NSString* pluginPath = [[NSBundle mainBundle] builtInPlugInsPath];
-		[self loadPluginsFrom: pluginPath];
+		[self loadPluginsFromPath: pluginPath];
 		
 		if ([pluginClasses count] == 0) {
 			NSString* pluginPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/PlugIns"];
 #if VERBOSITY >=1
 			NSLog(@"= Trying harder to load plugins");
 #endif
-			[self loadPluginsFrom: pluginPath];
+			[self loadPluginsFromPath: pluginPath];
 		}
 		
 		NSString* morePlugInsPath = [[self class] plugInsPath];
@@ -227,7 +227,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 														   attributes:nil
 																error:NULL];
 			}
-			[self loadPluginsFrom: morePlugInsPath];
+			[self loadPluginsFromPath: morePlugInsPath];
 		}
 	}	
 }
@@ -451,7 +451,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 #pragma mark - Getting information about plugins
 
 - (void) pluginInformationChanged {
-	if (delegate && [delegate respondsToSelector: @selector(pluginInformationChanged)]) {
+	if ([delegate respondsToSelector: @selector(pluginInformationChanged)]) {
 		[delegate pluginInformationChanged];
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomPlugInInformationChangedNotification
@@ -569,7 +569,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 
     // Plug-in updates are disabled for now
     [checkUrls removeAllObjects];
-    if (delegate && [delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
+    if ([delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
         [delegate finishedCheckingForUpdates];
     }
     return;
@@ -585,7 +585,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	if (nextUrl == nil) {
 		checkUrls = nil;
 		
-		if (delegate && [delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
+		if ([delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
 			[delegate finishedCheckingForUpdates];
 		}
 		return;
@@ -608,7 +608,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	checkUrls = [[uniqueUrls allObjects] mutableCopy];
 	
 	// Notify the delegate that we're starting to check for updates
-	if (delegate && [delegate respondsToSelector: @selector(checkingForUpdates)]) {
+	if ([delegate respondsToSelector: @selector(checkingForUpdates)]) {
 		[delegate checkingForUpdates];
 	}
 	
@@ -751,7 +751,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 			
 			if (updated) {
 				// Notify the delegate of the change
-				if (delegate && [delegate respondsToSelector: @selector(pluginInformationChanged)]) {
+				if ([delegate respondsToSelector: @selector(pluginInformationChanged)]) {
 					[delegate pluginInformationChanged];
 				}
 			}
@@ -792,7 +792,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 			[info setUpdateInfo: nil];
 			
 			// Check the download directory for an appropriate bundle
-			NSString* downloadDir = [download downloadDirectory];
+			NSString* downloadDir = [download downloadDirectory].path;
 			
 			if (downloadDir != nil) {
 				NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: downloadDir error: NULL] objectEnumerator];
@@ -834,7 +834,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	
 	// If a restart is required, inform the delegate
 	if (restartRequired) {
-		if (delegate && [delegate respondsToSelector: @selector(needsRestart)]) {
+		if ([delegate respondsToSelector: @selector(needsRestart)]) {
 			[delegate needsRestart];
 		}
 	}
@@ -867,7 +867,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 		currentDownload = nil;
 		downloading = NO;
 		
-		if (delegate && [delegate respondsToSelector: @selector(finishedDownloadingUpdates)]) {
+		if ([delegate respondsToSelector: @selector(finishedDownloadingUpdates)]) {
 			[delegate finishedDownloadingUpdates];
 		}
 		return;
@@ -876,7 +876,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	// If there's no current download, then notify the delegate that the downloads are starting
 	if (!downloading) {
 		downloading = YES;
-		if (delegate && [delegate respondsToSelector: @selector(downloadingUpdates)]) {
+		if ([delegate respondsToSelector: @selector(downloadingUpdates)]) {
 			[delegate downloadingUpdates];
 		}
 	}
@@ -889,7 +889,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 		url = [[nextUpdate updateInfo] location];
 	}
 	
-	currentDownload = [[ZoomDownload alloc] initWithUrl: url];
+	currentDownload = [[ZoomDownload alloc] initWithURL: url];
 	if (currentDownload == nil) {
 		// Couldn't create a download for whatever reason
 		[nextUpdate setStatus: ZoomPlugInDownloadFailed];
@@ -1314,14 +1314,14 @@ static int RankForStatus(ZoomPlugInStatus status) {
 }
 
 - (void) downloadConnecting: (ZoomDownload*) download {
-	if (delegate && [delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
 		[delegate downloadProgress: @"Connecting..."
 						percentage: -1];		
 	}
 }
 
 - (void) downloading: (ZoomDownload*) download {
-	if (delegate && [delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
 		[delegate downloadProgress: @"Downloading..."
 						percentage: -1];		
 	}	
@@ -1329,14 +1329,14 @@ static int RankForStatus(ZoomPlugInStatus status) {
 
 - (void) download: (ZoomDownload*) download
 		completed: (float) complete {
-	if (delegate && [delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
 		[delegate downloadProgress: @"Downloading..."
 						percentage: complete*100.0];		
 	}
 }
 
 - (void) downloadUnarchiving: (ZoomDownload*) download {
-	if (delegate && [delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(downloadProgress:percentage:)]) {
 		[delegate downloadProgress: @"Decompressing..."
 						percentage: -1];		
 	}	

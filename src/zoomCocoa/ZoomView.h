@@ -34,87 +34,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 @class ZoomPixmapWindow;
 @class ZoomLowerWindow;
 @class ZoomUpperWindow;
-@interface ZoomView : NSView <ZDisplay, NSSecureCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate, ZoomCursorDelegate, ZoomInputLineDelegate> {
-    // Subviews
-	BOOL editingTextView;
-	BOOL willScrollToEnd;
-	BOOL willDisplayMore;
-    ZoomTextView* textView;
-	/// Things hidden under the upper window
-    NSTextContainer* upperWindowBuffer;
-    ZoomScrollView* textScroller;
-
-    NSInteger inputPos;
-    BOOL receiving;
-    BOOL receivingCharacters;
-
-    double morePoint;
-    double moreReferencePoint;
-    BOOL moreOn;
-
-    ZoomMoreView* moreView;
-
-	/// 16 entries
-    NSArray<NSFont*>* fonts;
-	/// As for fonts, used to cache the 'original' font definitions when scaling is in effect
-	NSArray<NSFont*>* originalFonts;
-	/// 11 entries
-    NSArray<NSColor*>* colours;
-
-    NSMutableArray<ZoomUpperWindow*>* upperWindows;
-	/// Not that more than one makes any sort of sense
-    NSMutableArray<ZoomLowerWindow*>* lowerWindows;
-	
-    int lastUpperWindowSize;
-    int lastTileSize;
-    BOOL upperWindowNeedsRedrawing;
-
-    BOOL exclusiveMode;
-
-    /// The task, if we're running it
-    NSTask* zoomTask;
-    NSPipe* zoomTaskStdout;
-    NSMutableString* zoomTaskData;
-
-    /// Details about the file we're currently saving
-    OSType creatorCode; // 'YZZY' for Zoom
-    OSType typeCode;
-	
-	/// Preferences
-	ZoomPreferences* viewPrefs;
-	
-	CGFloat scaleFactor;
-	
-	/// Command history
-	NSMutableArray<NSString*>* commandHistory;
-	NSInteger		historyPos;
-	
-	/// Terminating characters
-	NSSet<NSNumber*>* terminatingChars;
-	
-	// Pixmap view
-	ZoomCursor*       pixmapCursor;
-	ZoomPixmapWindow* pixmapWindow;
-	
-	// Manual input
-	ZoomInputLine*    inputLine;
-	NSPoint			  inputLinePos;
-	
-	// Autosave
-	NSData* lastAutosave;
-	NSInteger	upperWindowsToRestore;
-	BOOL	restoring;
-	
-	// Output receivers
-	NSMutableArray<id<ZoomViewOutputReceiver>>* outputReceivers;
-	ZoomTextToSpeech* textToSpeechReceiver;
-	
-	//! Input source
-	id<ZoomViewInputSource> inputSource;
-	
-	//! Resources
-	ZoomBlorbFile* resources;
-}
+@interface ZoomView : NSView <ZDisplay, NSSecureCoding, NSTextStorageDelegate, NSTextViewDelegate, NSOpenSavePanelDelegate, ZoomCursorDelegate, ZoomInputLineDelegate>
 
 - (instancetype)initWithFrame:(NSRect)frame NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)decoder;
@@ -228,6 +148,8 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 
 //! Terminating characters
 @property (copy) NSSet<NSNumber*> *terminatingCharacters;
+
+- (oneway void) setTerminatingCharacters: (in bycopy NSSet<NSNumber*>*) characters;
 
 
 - (void) endOfLineReached: (ZoomInputLine*) sender;

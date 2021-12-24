@@ -17,6 +17,7 @@
 
 #import "ZoomScrollView.h"
 #import "ZoomConnector.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 /// Sets variables to force extreme memory checking in the Zoom task; this provides a fairly huge performance
 /// decrease, but provides 'earliest possible' warning of heap corruption.
@@ -25,30 +26,102 @@
 /// Turn on tracing of text editing events
 #undef  ZoomTraceTextEditing
 
-@implementation ZoomView
+@implementation ZoomView {
+	// Subviews
+	BOOL editingTextView;
+	BOOL willScrollToEnd;
+	BOOL willDisplayMore;
+	ZoomTextView* textView;
+	/// Things hidden under the upper window
+	NSTextContainer* upperWindowBuffer;
+	ZoomScrollView* textScroller;
+	
+	NSInteger inputPos;
+	BOOL receiving;
+	BOOL receivingCharacters;
+	
+	double morePoint;
+	double moreReferencePoint;
+	BOOL moreOn;
+	
+	ZoomMoreView* moreView;
+	
+	/// 16 entries
+	NSArray<NSFont*>* fonts;
+	/// As for fonts, used to cache the 'original' font definitions when scaling is in effect
+	NSArray<NSFont*>* originalFonts;
+	/// 11 entries
+	NSArray<NSColor*>* colours;
+	
+	NSMutableArray<ZoomUpperWindow*>* upperWindows;
+	/// Not that more than one makes any sort of sense
+	NSMutableArray<ZoomLowerWindow*>* lowerWindows;
+	
+	int lastUpperWindowSize;
+	int lastTileSize;
+	BOOL upperWindowNeedsRedrawing;
+	
+	BOOL exclusiveMode;
+	
+	/// The task, if we're running it
+	NSTask* zoomTask;
+	NSPipe* zoomTaskStdout;
+	NSMutableString* zoomTaskData;
+	
+	/// Details about the file we're currently saving
+	OSType creatorCode; // 'YZZY' for Zoom
+	OSType typeCode;
+	
+	/// Preferences
+	ZoomPreferences* viewPrefs;
+	
+	CGFloat scaleFactor;
+	
+	/// Command history
+	NSMutableArray<NSString*>* commandHistory;
+	NSInteger		historyPos;
+	
+	/// Terminating characters
+	NSSet<NSNumber*>* terminatingChars;
+	
+	// Pixmap view
+	ZoomCursor*       pixmapCursor;
+	ZoomPixmapWindow* pixmapWindow;
+	
+	// Manual input
+	ZoomInputLine*    inputLine;
+	NSPoint			  inputLinePos;
+	
+	// Autosave
+	NSData* lastAutosave;
+	NSInteger	upperWindowsToRestore;
+	BOOL	restoring;
+	
+	// Output receivers
+	NSMutableArray<id<ZoomViewOutputReceiver>>* outputReceivers;
+	ZoomTextToSpeech* textToSpeechReceiver;
+	
+	//! Input source
+	id<ZoomViewInputSource> inputSource;
+	
+	//! Resources
+	ZoomBlorbFile* resources;
+}
 
 static NSHashTable<ZoomView*>* allocatedViews = nil;
 
 NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
-static void finalizeViews(void);
-
 + (void) initialize {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		atexit(finalizeViews);
 		allocatedViews = [[NSHashTable alloc] initWithOptions:NSHashTableWeakMemory capacity:1];
+		atexit_b(^{
+			for (ZoomView *view in allocatedViews) {
+				[view killTask];
+			}
+		});
 	});
-}
-
-+ (void) selfDestruct {
-    for (ZoomView *view in allocatedViews) {
-        [view killTask];
-    }
-}
-
-static void finalizeViews(void) {
-    [ZoomView selfDestruct];
 }
 
 - (id)initWithFrame:(NSRect)frame {
@@ -166,7 +239,7 @@ static void finalizeViews(void) {
 		
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(preferencesHaveChanged:)
-													 name: ZoomPreferencesHaveChangedNotification
+													 name: ZoomPreferences.preferencesHaveChangedNotification
 												   object: viewPrefs];
 		
 		// Command history
@@ -293,7 +366,7 @@ static void finalizeViews(void) {
 
 - (void) setZMachine: (id<ZMachine>) machine {
     zMachine = machine;
-	if (delegate && [delegate respondsToSelector: @selector(zMachineStarted:)]) {
+	if ([delegate respondsToSelector: @selector(zMachineStarted:)]) {
 		[delegate zMachineStarted: self];
 	}
     [zMachine startRunningInDisplay: self];
@@ -313,7 +386,7 @@ static void finalizeViews(void) {
 
 - (void) beep {
 	// All the sound we support at the moment
-	if (delegate && [delegate respondsToSelector: @selector(beep)]) {
+	if ([delegate respondsToSelector: @selector(beep)]) {
 		[delegate beep];
 	} else {
 		NSBeep();
@@ -512,7 +585,7 @@ static void finalizeViews(void) {
 		
 		if (nextInput == nil) {
 			// End of input
-			if (delegate && [delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
+			if ([delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
 				[delegate inputSourceHasFinished: inputSource];
 			}
 			
@@ -628,7 +701,7 @@ static void finalizeViews(void) {
 		
 		if (nextInput == nil) {
 			// End of input
-			if (delegate && [delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
+			if ([delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
 				[delegate inputSourceHasFinished: inputSource];
 			}
 			
@@ -1256,11 +1329,10 @@ static void finalizeViews(void) {
 
 #pragma mark - Formatting, fonts, colours, etc
 
+/// Strings come from Zoom's server formatted with ZStyles rather than
+/// actual styles (so that the interface can choose it's own formatting).
+/// So we need this to translate those styles into 'real' ones.
 - (NSDictionary*) attributesForStyle: (ZStyle*) style {
-    // Strings come from Zoom's server formatted with ZStyles rather than
-    // actual styles (so that the interface can choose it's own formatting).
-    // So we need this to translate those styles into 'real' ones.
-	
     // Font
     NSFont* fontToUse = nil;
 	ZFontStyle fontnum =
@@ -1293,12 +1365,13 @@ static void finalizeViews(void) {
 	foregroundColour = [foregroundColour colorWithAlphaComponent: 1.0];
 	
     // Generate the new attributes
-	NSDictionary* newAttr = @{
-		NSFontAttributeName: fontToUse,
-		NSForegroundColorAttributeName: foregroundColour,
-		NSBackgroundColorAttributeName: backgroundColour,
-		NSLigatureAttributeName: @([viewPrefs useLigatures] ? 1 : 0),
-		ZoomStyleAttributeName: [style copy]};
+	NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+							 fontToUse, NSFontAttributeName,
+		foregroundColour, NSForegroundColorAttributeName,
+		backgroundColour, NSBackgroundColorAttributeName,
+		[NSNumber numberWithBool: [viewPrefs useLigatures]], NSLigatureAttributeName,
+		[style copy], ZoomStyleAttributeName,
+		nil];
 	
 	return newAttr;
 }
@@ -1719,9 +1792,9 @@ static void finalizeViews(void) {
     [notifyStyle setForegroundColour: 7];
     [notifyStyle setBackgroundColour: 1];
 
-    NSString* finishString = @"[ The game has finished ]";
+    NSString* finishString = NSLocalizedString(@"[ The game has finished ]", @"[ The game has finished ]");
     if ([zoomTask terminationStatus] != 0) {
-        finishString = @"[ The Zoom interpreter has quit unexpectedly ]";
+        finishString = NSLocalizedString(@"[ The Zoom interpreter has quit unexpectedly ]", @"[ The Zoom interpreter has quit unexpectedly ]");
     } else {
 		if (lastAutosave != nil) {
 			lastAutosave = nil;
@@ -1758,7 +1831,7 @@ static void finalizeViews(void) {
     }
     
     // Notify the delegate
-    if (delegate && [delegate respondsToSelector: @selector(zMachineFinished:)]) {
+    if ([delegate respondsToSelector: @selector(zMachineFinished:)]) {
         [delegate zMachineFinished: self];
     }
 	
@@ -1869,7 +1942,7 @@ static void finalizeViews(void) {
 	
 	BOOL usePackage = NO;
 	
-	if (type == ZFileQuetzal && delegate && [delegate respondsToSelector: @selector(useSavePackage)]) {
+	if (type == ZFileQuetzal && [delegate respondsToSelector: @selector(useSavePackage)]) {
 		usePackage = [delegate useSavePackage];
 	}
 		
@@ -1922,7 +1995,7 @@ static void finalizeViews(void) {
 	
 	NSURL* directory = nil;
 	
-	if (delegate && [delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
+	if ([delegate respondsToSelector: @selector(defaultSaveDirectory)]) {
 		NSString *preDir = [delegate defaultSaveDirectory];
 		if (preDir) {
 			directory = [NSURL fileURLWithPath:preDir];
@@ -2128,7 +2201,7 @@ static void finalizeViews(void) {
 		if ([lowerWindows count] <= 0) {
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.alertStyle = NSAlertStyleInformational;
-			alert.messageText = @"Warning";
+			alert.messageText = NSLocalizedString(@"Warning", @"Warning");
 			alert.informativeText = warning;
 			[alert beginSheetModalForWindow:self.window completionHandler:^(__unused NSModalResponse returnCode) {
 				// do nothing
@@ -2152,9 +2225,9 @@ static void finalizeViews(void) {
 - (void) displayFatalError: (in bycopy NSString*) error {
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.alertStyle = NSAlertStyleCritical;
-	alert.messageText = @"Fatal error";
+	alert.messageText = NSLocalizedString(@"Fatal error", @"Fatal error");
 	alert.informativeText = error;
-	[alert addButtonWithTitle:@"Stop"];
+	[alert addButtonWithTitle: NSLocalizedString(@"Fatal Error Stop", @"Stop")];
 	[alert beginSheetModalForWindow:self.window completionHandler:^(__unused NSModalResponse returnCode) {
 		// do nothing
 	}];
@@ -2164,17 +2237,17 @@ static void finalizeViews(void) {
 - (void) setPreferences: (ZoomPreferences*) prefs {
 	if (viewPrefs) {
 		[[NSNotificationCenter defaultCenter] removeObserver: self
-														name: ZoomPreferencesHaveChangedNotification
+														name: ZoomPreferences.preferencesHaveChangedNotification
 													  object: viewPrefs];
 	}
 	
 	viewPrefs = prefs;
 	
-	[self preferencesHaveChanged: [NSNotification notificationWithName: ZoomPreferencesHaveChangedNotification
+	[self preferencesHaveChanged: [NSNotification notificationWithName: ZoomPreferences.preferencesHaveChangedNotification
 																object: viewPrefs]];
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(preferencesHaveChanged:)
-												 name: ZoomPreferencesHaveChangedNotification
+												 name: ZoomPreferences.preferencesHaveChangedNotification
 											   object: viewPrefs];
 }
 @synthesize preferences=viewPrefs;
@@ -2198,7 +2271,11 @@ static void finalizeViews(void) {
 	[textToSpeechReceiver setImmediate: [viewPrefs speakGameText]];
 	
 	[textView setTextContainerInset: NSMakeSize([viewPrefs textMargin], [viewPrefs textMargin])]; 
-	[[textView layoutManager] setUsesDefaultHyphenation: [viewPrefs useHyphenation]];
+	if (@available(macOS 10.15, *)) {
+		[[textView layoutManager] setUsesDefaultHyphenation: [viewPrefs useHyphenation]];
+	} else {
+		[[textView layoutManager] setHyphenationFactor: [viewPrefs useHyphenation]?1:0];
+	}
 	[[textView layoutManager] setUsesScreenFonts: [viewPrefs useScreenFonts]];
 	
 	if ([viewPrefs useKerning]) {
@@ -2612,8 +2689,8 @@ static void finalizeViews(void) {
 }
 
 #pragma mark - Debugging
-- (void) hitBreakpointAt: (int) pc {
-	if (delegate && [delegate respondsToSelector: @selector(hitBreakpoint:)]) {
+- (void) hitBreakpointAtCounter: (int) pc {
+	if ([delegate respondsToSelector: @selector(hitBreakpoint:)]) {
 		[delegate hitBreakpoint: pc];
 	} else {
 		NSLog(@"Breakpoint without handler");
@@ -2841,7 +2918,7 @@ static void finalizeViews(void) {
 - (void) orWaitingForInput {
 	if (!outputReceivers) return;
 	
-	if (delegate && [delegate respondsToSelector: @selector(zoomWaitingForInput)]) {
+	if ([delegate respondsToSelector: @selector(zoomWaitingForInput)]) {
 		[delegate zoomWaitingForInput];
 	}
 	
@@ -2879,7 +2956,7 @@ static void finalizeViews(void) {
 		
 		if (nextInput == nil) {
 			// End of input
-			if (delegate && [delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
+			if ([delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
 				[delegate inputSourceHasFinished: inputSource];
 			}
 			
@@ -2899,7 +2976,7 @@ static void finalizeViews(void) {
 		
 		if (nextInput == nil) {
 			// End of input
-			if (delegate && [delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
+			if ([delegate respondsToSelector: @selector(inputSourceHasFinished:)]) {
 				[delegate inputSourceHasFinished: inputSource];
 			}
 			
@@ -2943,6 +3020,12 @@ static void finalizeViews(void) {
 	if (resources == nil) return NO;
 		
 	return [resources containsImageWithNumber: number];
+}
+
+- (BOOL) containsSoundWithNumber: (int) number {
+	if (resources == nil) return NO;
+		
+	return [resources containsSoundWithNumber: number];
 }
 
 - (NSSize) sizeOfImageWithNumber: (int) number {

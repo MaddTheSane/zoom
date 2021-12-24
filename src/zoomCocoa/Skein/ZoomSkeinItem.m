@@ -10,6 +10,7 @@
 
 #import "ZoomSkeinItem.h"
 #import "ZoomSkeinInternal.h"
+#import "ZoomSkeinView.h"
 
 // Skein item notifications
 NSString*const ZoomSkeinItemIsBeingReplaced = @"ZoomSkeinItemIsBeingReplaced";
@@ -78,7 +79,7 @@ static NSString* convertCommand(NSString* command) {
 	return [[[self class] alloc] initWithCommand: com];
 }
 
-- (id) initWithCommand: (NSString*) com {
+- (instancetype) initWithCommand: (nullable NSString*) com identifier: (NSUUID*) uuid {
 	self = [super init];
 	
 	if (self) {
@@ -86,6 +87,7 @@ static NSString* convertCommand(NSString* command) {
 		result  = nil;
 		
 		parent = nil;
+		_nodeIdentifier = uuid;
 		children = [[NSMutableSet alloc] init];
 		
 		temporary = YES;
@@ -101,8 +103,12 @@ static NSString* convertCommand(NSString* command) {
 	return self;
 }
 
+- (id) initWithCommand: (NSString*) com {
+	return [self initWithCommand: com identifier: [NSUUID UUID]];
+}
+
 - (id) init {
-	return [self initWithCommand: nil];
+	return [self initWithCommand: nil identifier: [NSUUID UUID]];
 }
 
 - (void) dealloc {
@@ -264,7 +270,7 @@ static NSString* convertCommand(NSString* command) {
 	if ([newCommand isEqualToString: command]) return;			// Nothing to do
 	
 	command = nil;
-	if (![newCommand isEqualToString: command]) commandSizeDidChange = YES;
+	commandSizeDidChange = YES;
 	if (newCommand) command = [convertCommand(newCommand) copy];
 	
 	[self itemHasChanged];
@@ -546,6 +552,8 @@ static int currentScore = 1;
 				   forKey: @"result"];
 	[encoder encodeObject: annotation
 				   forKey: @"annotation"];
+	[encoder encodeObject: _nodeIdentifier
+				   forKey: @"nodeUUID"];
 	
 	[encoder encodeBool: played
 				 forKey: @"played"];
@@ -566,6 +574,12 @@ static int currentScore = 1;
 		command = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
 		result = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
 		annotation = [decoder decodeObjectOfClass: [NSString class] forKey: @"annotation"];
+		if ([decoder containsValueForKey: @"nodeUUID"]) {
+			_nodeIdentifier = [decoder decodeObjectOfClass: [NSUUID class] forKey: @"nodeUUID"];
+		} else {
+			// Missing UUID key means old-style object.
+			_nodeIdentifier = [NSUUID UUID];
+		}
 		
 		played = [decoder decodeBoolForKey: @"played"];
 		changed = [decoder decodeBoolForKey: @"changed"];
@@ -624,6 +638,28 @@ static int currentScore = 1;
 		[annotation drawAtPoint: position
 				 withAttributes: labelTextAttributes];
 	}
+}
+
+@end
+
+#pragma mark - Pasteboard Writing
+
+@implementation ZoomSkeinItem (Pasteboard)
+
+- (nullable id)pasteboardPropertyListForType:(nonnull NSPasteboardType)type {
+	if ([type isEqualToString:ZoomSkeinItemPboardType]) {
+		return [NSKeyedArchiver archivedDataWithRootObject: self
+									 requiringSecureCoding: YES
+													 error: NULL];
+	}
+	return nil;
+}
+
+- (nonnull NSArray<NSPasteboardType> *)writableTypesForPasteboard:(nonnull NSPasteboard *)pasteboard {
+	if ([[pasteboard name] isEqualToString:NSPasteboardNameDrag]) {
+		return @[ZoomSkeinItemPboardType];
+	}
+	return @[];
 }
 
 @end

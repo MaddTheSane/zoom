@@ -47,7 +47,8 @@ typedef NS_OPTIONS(unsigned int, ZValueTypeMasks) {
 	ZValueAction  = 32,
 };
 
-// == Server-side objects ==
+#pragma mark - Server-side objects
+
 /// Protocol for an application to talk to/from Zoom
 NS_SWIFT_NAME(ZMachineProtocol)
 @protocol ZMachine <NSObject>
@@ -79,8 +80,8 @@ NS_SWIFT_NAME(ZMachineProtocol)
 - (bycopy NSData*) storyFile;
 
 // Debugging
-- (void) loadDebugSymbolsFrom: (NSString*) symbolFile
-			   withSourcePath: (NSString*) sourcePath;
+- (void) loadDebugSymbolsFromFile: (NSString*) symbolFile
+				   withSourcePath: (NSString*) sourcePath;
 
 - (void) continueFromBreakpoint;
 - (void) stepFromBreakpoint;
@@ -89,9 +90,9 @@ NS_SWIFT_NAME(ZMachineProtocol)
 
 - (bycopy NSData*) staticMemory;
 - (int)    evaluateExpression: (NSString*) expression;
-- (void)   setBreakpointAt: (int) address;
+- (void)   setBreakpointAtAddress: (int) address;
 - (BOOL)   setBreakpointAtName: (NSString*) name;
-- (void)   removeBreakpointAt: (int) address;
+- (void)   removeBreakpointAtAddress: (int) address;
 - (void)   removeBreakpointAtName: (NSString*) name;
 - (void)   removeAllBreakpoints;
 
@@ -105,7 +106,7 @@ NS_SWIFT_NAME(ZMachineProtocol)
 
 - (ZValueTypeMasks)		 typeMasksForValue: (unsigned) value;
 - (int)					 zRegion: (int) addr;
-- (bycopy NSString*) descriptionForValue: (ZValueTypeMasks) value;
+- (bycopy NSString*)	 descriptionForValue: (ZValueTypeMasks) value;
 
 - (void) setWindowTitle: (in bycopy NSString*) text;
 
@@ -115,12 +116,11 @@ NS_SWIFT_NAME(ZMachineProtocol)
 
 #pragma mark - Client-side objects
 
-// == Client-side objects ==
 NS_SWIFT_NAME(ZFileProtocol)
 @protocol ZFile <NSObject>
-- (unsigned char)	   readByte;
-- (unsigned short)	   readWord;
-- (unsigned int)	   readDWord;
+- (unsigned char)  readByte;
+- (unsigned short) readWord;
+- (unsigned int)   readDWord;
 - (bycopy NSData*) readBlock: (NSInteger) length;
 
 - (oneway void)		   seekTo: (off_t) pos;
@@ -132,6 +132,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 
 @property (readonly) BOOL sufferedError;
 - (bycopy NSString*)    errorMessage;
+@property (readonly, copy) NSString *errorMessage;
 
 @property (readonly) off_t fileSize;
 @property (readonly) BOOL endOfFile;
@@ -155,6 +156,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 
 //! Setting the style that text should be input in
 - (oneway void) setInputStyle: (in bycopy ZStyle*) inputStyle;
+
 - (bycopy ZStyle*) inputStyle;
 /// The style that text should be input in
 @property (nonatomic, copy) ZStyle *inputStyle;
@@ -227,6 +229,7 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 @end
 
 //! Overall display functions
+NS_SWIFT_NAME(ZDisplayProtocol)
 @protocol ZDisplay <NSObject>
 
 - (void) zMachineHasRestarted;
@@ -280,16 +283,17 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 - (void) displayWarning:    (in bycopy NSString*) warning;
 
 //! Debugging
-- (void) hitBreakpointAt: (int) programCounter;
+- (void) hitBreakpointAtCounter: (int) programCounter;
 
 // Resources
 - (BOOL)   containsImageWithNumber: (int) number;
+- (BOOL)   containsSoundWithNumber: (int) num;
 - (NSSize) sizeOfImageWithNumber: (int) number;
 
 //! Sound (such as Zoom's support is at the moment)
 - (void)  beep;
 
-- (void)setWindowTitle:(in bycopy NSString *)text;
+- (void)  setWindowTitle:(in bycopy NSString *)text;
 @end
 
 // Some useful standard classes
@@ -329,10 +333,6 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
-- (instancetype) initWithPath: (NSString*) path
-				  defaultFile: (NSString*) filename
-				   forWriting: (BOOL) write;
-
 - (instancetype) initWithURL: (NSURL*) url
 				 defaultFile: (NSString*) filename
 				  forWriting: (BOOL) write NS_DESIGNATED_INITIALIZER;
@@ -365,8 +365,8 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 
 @property int foregroundColour;
 @property int backgroundColour;
-@property (retain) NSColor *foregroundTrue;
-@property (retain) NSColor *backgroundTrue;
+@property (copy) NSColor *foregroundTrue;
+@property (copy) NSColor *backgroundTrue;
 @property (getter=isReversed) BOOL reversed;
 @property (nonatomic, getter=isFixed) BOOL fixed;
 @property (getter=isForceFixed) BOOL forceFixed;
@@ -395,8 +395,8 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
            withStyle: (ZStyle*) style;
 
 //! Upper window routines
-- (void) moveTo: (NSPoint) newCursorPos
-       inWindow: (id<ZUpperWindow>) window;
+- (void) moveCursorToPoint: (NSPoint) newCursorPos
+				  inWindow: (id<ZUpperWindow>) window;
 - (void) eraseLineInWindow: (id<ZUpperWindow>) window
                  withStyle: (ZStyle*) style;
 - (void) setWindow: (id<ZUpperWindow>) window
@@ -419,8 +419,8 @@ NS_SWIFT_NAME(setCursorPosition(x:y:));
 		  inWindow: (id<ZPixmapWindow>) win;
 
 // Unbuffering
-//! YES if the buffer has no data
-@property (readonly) BOOL empty;
+//! \c YES if the buffer has no data
+@property (readonly, getter=isEmpty) BOOL empty;
 //! Like blitting, only messier
 - (void) blat;
 

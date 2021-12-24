@@ -48,7 +48,7 @@
 	
 	// Build the property list wrapper
 	NSDictionary* saveProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-		[plugin gameFilename], @"ZoomGlkGameFileName",
+		[plugin gameURL].path, @"ZoomGlkGameFileName",
 		[[plugin idForStory] description], @"ZoomGlkGameId",
 		[[plugin class] pluginDescription], @"ZoomGlkPluginDescription",
 		[[plugin class] pluginAuthor], @"ZoomGlkPluginAuthor",
@@ -209,7 +209,7 @@
 	}
 	
 	// Inform the delegate we're about to start reading
-	if (delegate && [delegate respondsToSelector: @selector(readingFromSaveFile:)]) {
+	if ([delegate respondsToSelector: @selector(readingFromSaveFile:)]) {
 		[delegate readingFromSaveFile: self];
 	}
 	

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AppKit/NSPasteboard.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +26,7 @@ typedef NS_ENUM(NSInteger, ZoomSkeinComparison) {
 	ZoomSkeinNotCompared
 };
 
-// Skein item notifications
+#pragma mark Skein item notifications
 /// One skein item is being replaced by another
 extern NSNotificationName const ZoomSkeinItemIsBeingReplaced;
 /// A skein item is being removed from the tree (may be associated with the previous)
@@ -35,7 +36,7 @@ extern NSNotificationName const ZoomSkeinItemHasChanged;
 /// A skein item has gained a new child item
 extern NSNotificationName const ZoomSkeinItemHasNewChild;
 
-// Skein item notification dictionary keys
+#pragma mark Skein item notification dictionary keys
 /// Item the operation applies to
 extern NSString* const ZoomSIItem;
 /// Previous item, if there is one
@@ -48,16 +49,18 @@ extern NSString* const ZoomSIChild;
 /// Represents a single 'knot' in the skein
 @interface ZoomSkeinItem : NSObject<NSSecureCoding>
 
-// Initialisation
+#pragma mark Initialisation
 + (instancetype) skeinItemWithCommand: (nullable NSString*) command;
 
 - (instancetype) initWithCommand: (nullable NSString*) command;
+- (instancetype) initWithCommand: (nullable NSString*) command identifier: (NSUUID*) uuid;
 
 // Data accessors
 
-// Skein tree
+#pragma mark Skein tree
 @property (readonly, weak) ZoomSkeinItem* parent;
 @property (nonatomic, readonly, copy) NSSet<ZoomSkeinItem*> *children;
+@property (readonly, copy) NSUUID *nodeIdentifier;
 - (nullable ZoomSkeinItem*) childWithCommand: (NSString*) command;
 
 - (ZoomSkeinItem*) addChild: (ZoomSkeinItem*) childItem;
@@ -69,13 +72,13 @@ extern NSString* const ZoomSIChild;
 /// Not recursive
 - (BOOL)           hasChildWithCommand: (NSString*) command;
 
-// Item data
+#pragma mark Item data
 /// Command input
 @property (nonatomic, copy, nullable) NSString *command;
 /// Command result
 @property (nonatomic, copy, nullable) NSString *result;
 
-// Item state
+#pragma mark Item state
 /// Whether or not this item has been made permanent by saving
 @property (nonatomic, getter=isTemporary) BOOL temporary;
 /// Lower values are more likely to be removed
@@ -89,14 +92,14 @@ extern NSString* const ZoomSIChild;
 - (void) setBranchTemporary: (BOOL) isTemporary;
 - (void) increaseTemporaryScore;
 
-// Annotation
+#pragma mark Annotation
 
 /// Allows the player to designate certain areas of the skein as having specific annotations and colours
 /// (So, for example an area can be called 'solution to the maximum mouse melee puzzle')
 /// Each 'annotation' colours a new area of the skein.
 @property (nonatomic, copy, nullable) NSString *annotation;
 
-// Commentary
+#pragma mark Commentary
 
 /// Could be used by an IDE to store commentary or perhaps the 'ideal' text the game should be
 /// producing for this item.
@@ -106,11 +109,18 @@ extern NSString* const ZoomSIChild;
 /// Finds the first item following this one that has a difference.
 - (nullable ZoomSkeinItem*) nextDiff;
 
-// Drawing/sizing
+#pragma mark Drawing/sizing
+
 @property (readonly) NSSize commandSize;
 - (void) drawCommandAtPosition: (NSPoint) position;
 @property (readonly) NSSize annotationSize;
 - (void) drawAnnotationAtPosition: (NSPoint) position;
+
+@end
+
+#pragma mark Pasteboard writing
+
+@interface ZoomSkeinItem (Pasteboard) <NSPasteboardWriting>
 
 @end
 

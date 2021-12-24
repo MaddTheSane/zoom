@@ -15,10 +15,6 @@
 #include "display.h"
 #include "v6display.h"
 
-extern int zDisplayCurrentWindow;
-extern ZStyle* zDisplayCurrentStyle;
-extern BOOL zPixmapDisplay;
-
 #undef  MEASURE_REMOTELY		// Set to force measuring of font sizes, etc, on the Zoom process rather than this one. Will be slower
 
 struct BlorbImage* zoomImageCache = NULL;
@@ -417,6 +413,12 @@ BlorbImage* blorb_findimage(BlorbFile* blorb, int num) {
 }
 
 BlorbSound* blorb_findsound(BlorbFile* blorb, int num) {
+    // Get information on this sound from the remote system
+    id<ZDisplay> disp = [mainMachine display];
+    if (![disp containsSoundWithNumber: num]) {
+        return NULL;
+    }
+    
 	return NULL;
 }
 

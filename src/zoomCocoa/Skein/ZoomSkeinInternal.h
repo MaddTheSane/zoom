@@ -9,11 +9,22 @@
 #define ZoomViewInternal_h
 
 #import <Foundation/Foundation.h>
+#import "ZoomSkein.h"
+
+@interface ZoomSkein() {
+	@private
+	ZoomSkeinItem* rootItem;
+	
+	/// Web data
+	NSMutableData* webData;
+}
+
+@end
 
 #pragma GCC visibility push(hidden)
 
-extern NSDictionary* itemTextAttributes;
-extern NSDictionary* labelTextAttributes;
+extern NSDictionary<NSAttributedStringKey,id>* itemTextAttributes;
+extern NSDictionary<NSAttributedStringKey,id>* labelTextAttributes;
 
 #pragma GCC visibility pop
 

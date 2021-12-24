@@ -20,8 +20,11 @@
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <ZoomPlugIns/ZoomPlugInManager.h>
 #import <ZoomPlugIns/ZoomPlugInController.h>
+#import <ZoomPlugIns/ZoomDownload.h>
+#import <ZoomPlugIns/ZoomPlugIns-Swift.h>
 #import "ZoomStoryOrganiser.h"
 #import <ZoomView/ZoomView-Swift.h>
+#import "Zoom-Swift.h"
 
 #import <Sparkle/Sparkle.h>
 
@@ -47,27 +50,34 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		gameIndices = [[NSMutableArray alloc] init];
 
 		NSString* configDir = [self zoomConfigDirectory];
+		NSURL *configURL = [NSURL fileURLWithPath: configDir];
 
 		// Load the metadata
-		NSData* userData = [NSData dataWithContentsOfFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]];
-		NSData* gameData = [NSData dataWithContentsOfFile: [configDir stringByAppendingPathComponent: @"gamedata.iFiction"]];
-		NSURL* infocomURL = [[NSBundle mainBundle] URLForResource: @"infocom" withExtension: @"iFiction"];
-		NSURL* archiveURL = [[NSBundle mainBundle] URLForResource: @"archive" withExtension: @"iFiction"];
-		
-		if (userData) 
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: userData]];
+		NSURL* userDataURL = [configURL URLByAppendingPathComponent: @"metadata.iFiction" isDirectory: NO];
+		NSURL* gameDataURL = [configURL URLByAppendingPathComponent: @"gamedata.iFiction" isDirectory: NO];
+		NSData* infocomData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"infocom" withExtension: @"iFiction"]];
+		NSData* archiveData = [NSData dataWithContentsOfURL: [[NSBundle mainBundle] URLForResource: @"archive" withExtension: @"iFiction"]];
+		if (![userDataURL checkResourceIsReachableAndReturnError: NULL]) {
+			userDataURL = nil;
+		}
+		if (![gameDataURL checkResourceIsReachableAndReturnError: NULL]) {
+			gameDataURL = nil;
+		}
+
+		if (userDataURL)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: userDataURL error: NULL]];
 		else
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 
-		if (gameData) 
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: gameData]];
+		if (gameDataURL)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: gameDataURL error: NULL]];
 		else
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
 		
-		if (infocomURL)
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: infocomURL error: NULL]];
-		if (archiveURL)
-			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: archiveURL error: NULL]];
+		if (infocomData)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: infocomData error: NULL]];
+		if (archiveData)
+			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: archiveData error: NULL]];
 	}
 	
 	return self;
@@ -212,17 +222,18 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 				
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
 														  withIdent: ident
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];					
+														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
 				filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
 			}
 			
 			// ... we've managed to load this file with the given plug-in, so display it
-			[pluginInstance setPreferredSaveDirectory: [self saveDirectoryForStoryId: ident]];
+			NSString *fileStr = [self saveDirectoryForStoryId: ident];
+			[pluginInstance setPreferredSaveDirectoryURL: fileStr ? [NSURL fileURLWithPath: fileStr] : nil];
 			NSDocument* pluginDocument;
 			
 			if (saveFilename) {
 				pluginDocument = [pluginInstance gameDocumentWithMetadata: story
-																 saveGame: saveFilename];
+															  saveGameURL: [NSURL fileURLWithPath: saveFilename]];
 				[pluginDocument setFileURL: fileURL];
 			} else {
 				pluginDocument = [pluginInstance gameDocumentWithMetadata: story];
@@ -237,21 +248,20 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		}
 	}
 
-	// See if there's a built-in document handler for this file type (basically, this means z-code files)
-	// TODO: we should probably do this with a plug-in now
-	if ([[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: fileURL
-																			   display: YES
-																				 error: NULL]) {
-		return YES;
-	}
-	
 	if ([[[filename pathExtension] lowercaseString] isEqualToString: @"ifiction"]) {
 		// Load extra iFiction data (not a 'real' file in that it's displayed in the iFiction window)
-		[[ZoomiFictionController sharediFictionController] mergeiFictionFromFile: filename];
+		[[ZoomiFictionController sharediFictionController] mergeiFictionFromURL: fileURL
+																		  error: NULL];
 		return YES;
 	}
-		
-	return NO;
+
+	// See if there's a built-in document handler for this file type (basically, this means z-code files)
+	// TODO: we should probably do this with a plug-in now
+	[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: fileURL display: YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+		// TODO: display errors?
+	}];
+	
+	return YES;
 }
 
 - (void) applicationWillTerminate: (NSNotification*) not {
@@ -261,6 +271,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	// init the story organizer.
+	[ZoomStoryOrganiser sharedStoryOrganiser];
 	// See if there's a startup signpost file
 	NSString* startupSignpost = [[(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory] stringByAppendingPathComponent: @"launch.signpost"];
 	BOOL isDir;
@@ -287,11 +299,11 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 #ifdef DEVELOPMENTBUILD
 	// Tell launch services to re-register the application (ensures that all the icons are always up to date)
 	NSLog(@"Re-registering");
-	LSRegisterURL((CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
+	LSRegisterURL((__bridge CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
 #else
 	/*
 	NSLog(@"Re-registering");
-	LSRegisterURL((CFURLRef)[NSURL fileURLWithPath: [[NSBundle mainBundle] bundlePath]], 1);
+	LSRegisterURL((__bridge CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
 	 */
 #endif
 	
@@ -389,26 +401,26 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 - (NSString*) zoomConfigDirectory {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
-	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSArray* libraryDirs = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
 
-	for (NSString* libDir in libraryDirs) {
+	for (NSURL* libDir in libraryDirs) {
 		BOOL isDir;
 		
-		NSString* zoomLib = [libDir stringByAppendingPathComponent: @"Zoom"];
-		if ([[NSFileManager defaultManager] fileExistsAtPath: zoomLib isDirectory: &isDir]) {
+		NSURL* zoomLib = [libDir URLByAppendingPathComponent: @"Zoom"];
+		if ([[NSFileManager defaultManager] fileExistsAtPath: zoomLib.path isDirectory: &isDir]) {
 			if (isDir) {
-				return zoomLib;
+				return zoomLib.path;
 			}
 		}
 	}
 	
-	for (NSString* libDir in libraryDirs) {
-		NSString* zoomLib = [libDir stringByAppendingPathComponent: @"Zoom"];
-		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
-									  withIntermediateDirectories: NO
-													   attributes: nil
-															error: NULL]) {
-			return zoomLib;
+	for (NSURL* libDir in libraryDirs) {
+		NSURL* zoomLib = [libDir URLByAppendingPathComponent: @"Zoom"];
+		if ([[NSFileManager defaultManager] createDirectoryAtURL: zoomLib
+									 withIntermediateDirectories: NO
+													  attributes: nil
+														   error: NULL]) {
+			return zoomLib.path;
 		}
 	}
 	
@@ -429,7 +441,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	[openPanel setDelegate: self];
 	[openPanel setCanChooseFiles: YES];
 	[openPanel setResolvesAliases: YES];
-	[openPanel setTitle: @"Open Story"];
+	[openPanel setTitle: NSLocalizedString(@"Open Story", @"Open Story")];
 	[openPanel setDirectoryURL: directory];
 	[openPanel setAllowsMultipleSelection: YES];
 	

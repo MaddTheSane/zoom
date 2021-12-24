@@ -20,22 +20,20 @@ typedef NS_ERROR_ENUM(ZoomStoryIDErrorDomain, ZoomStoryIDError) {
 	ZoomStoryIDErrorNoIdentGenerated
 };
 
-@interface ZoomStoryID : NSObject<NSCopying, NSSecureCoding> {
-	IFID ident;
-	BOOL needsFreeing;
-}
+@interface ZoomStoryID : NSObject<NSCopying, NSSecureCoding>
 
 + (nullable ZoomStoryID*) idForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -idForURL: instead");
 + (nullable ZoomStoryID*) idForURL: (NSURL*) filename;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
-- (nullable instancetype) initWithZCodeStory: (NSData*) gameData DEPRECATED_MSG_ATTRIBUTE("Use -initWithZCodeStory:error: instead");
+- (nullable instancetype) initWithZCodeStory: (NSData*) gameData DEPRECATED_MSG_ATTRIBUTE("Use -initWithZCodeStory:error: instead") NS_SWIFT_UNAVAILABLE("");
 - (nullable instancetype) initWithZCodeFile: (NSString*) zcodeFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithZCodeFileAtURL:error: instead");
 - (nullable instancetype) initWithGlulxFile: (NSString*) glulxFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithGlulxFileAtURL:error: instead");
 - (nullable instancetype) initWithData: (NSData*) genericGameData;
 - (nullable instancetype) initWithData: (NSData*) genericGameData
 								  type: (NSString*) type;
 - (instancetype) initWithIdent: (IFID) ident;
+- (instancetype) initWithUUID: (NSUUID*) uuid;
 - (instancetype) initWithIdString: (NSString*) idString;
 - (instancetype) initWithZcodeRelease: (int) release
 							   serial: (const unsigned char*) serial

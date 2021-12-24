@@ -8,6 +8,7 @@
 
 #import "ZoomGlkWindowController.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 #import "ZoomTextToSpeech.h"
 #import "ZoomSkeinController.h"
 #import "ZoomSkein.h"
@@ -23,6 +24,7 @@
 #import <GlkView/GlkView.h>
 #import <GlkView/GlkSessionProtocol.h>
 #import <GlkView/GlkFileRef.h>
+#import <GlkSound/GlkSound.h>
 
 ///
 /// Class to interface to Zoom's skein system
@@ -96,12 +98,17 @@
 
 @end
 
-@implementation ZoomGlkWindowController
+@implementation ZoomGlkWindowController {
+	GlkSoundHandler *soundHandler;
+}
 
 + (void) initialize {
 	// Set up the Glk hub
-	[[GlkHub sharedGlkHub] useProcessHubName];
-	[[GlkHub sharedGlkHub] setRandomHubCookie];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[[GlkHub sharedGlkHub] useProcessHubName];
+		[[GlkHub sharedGlkHub] setRandomHubCookie];
+	});
 }
 
 #pragma mark - Preferences
@@ -154,13 +161,19 @@
 	if (self) {
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												selector: @selector(prefsChanged:)
-													name: ZoomPreferencesHaveChangedNotification
+													 name: ZoomPreferences.preferencesHaveChangedNotification
 												  object: nil];
 		
 		skein = [[ZoomSkein alloc] init];
+		soundHandler = [[GlkSoundHandler alloc] init];
 	}
 	
 	return self;
+}
+
+- (void) awakeFromNib {
+	glkView.soundHandler = soundHandler;
+	soundHandler.glkctl = glkView;
 }
 
 - (void) dealloc {
@@ -171,33 +184,37 @@
 
 - (void) maybeStartView {
 	// If we're sufficiently configured to start the application, then do so
-	if (glkView && clientPath && inputPath) {
+	if (glkView && clientPath && inputURL) {
+		NSArray *args = @[];
+		if (needsPathPassedToTask) {
+			args = @[inputURL.path];
+		}
 		tts = [[ZoomTextToSpeech alloc] init];
 		[tts setSkein: skein];
 
 		[glkView setDelegate: self];
 		[glkView addOutputReceiver: [[ZoomGlkSkeinOutputReceiver alloc] initWithSkein: skein]];
 		[glkView setPreferences: [ZoomGlkWindowController glkPreferencesFromZoomPreferences]];
-		[glkView setInputFilename: inputPath];
+		[glkView setInputFileURL: inputURL];
 		
-		if (savedGamePath) {
+		if (savedGameURL) {
 			if (canOpenSaveGames) {
-				NSString* saveSkeinPath = [savedGamePath stringByAppendingPathComponent: @"Skein.skein"];
-				NSString* saveDataPath = [savedGamePath stringByAppendingPathComponent: @"Save.data"];
+				NSURL* saveSkeinPath = [savedGameURL URLByAppendingPathComponent: @"Skein.skein" isDirectory: NO];
+				NSURL* saveDataPath = [savedGameURL URLByAppendingPathComponent: @"Save.data" isDirectory: NO];
 
-				if ([[NSFileManager defaultManager] fileExistsAtPath: saveDataPath]) {
-					[glkView addInputFilename: saveDataPath
-									  withKey: @"savegame"];
+				if ([saveDataPath checkResourceIsReachableAndReturnError: NULL]) {
+					[glkView addInputFileURL: saveDataPath
+									 withKey: @"savegame"];
 					
-					if ([[NSFileManager defaultManager] fileExistsAtPath: saveSkeinPath]) {
-						[skein parseXMLContentsAtURL: [NSURL fileURLWithPath: saveSkeinPath] error: NULL];
+					if ([saveSkeinPath checkResourceIsReachableAndReturnError: NULL]) {
+						[skein parseXMLContentsAtURL: saveSkeinPath error: NULL];
 					}
 				}
 			}
 		}
 		
 		[glkView launchClientApplication: clientPath
-						   withArguments: [NSArray array]];
+						   withArguments: args];
 		
 		[self prefsChanged: nil];
 	}
@@ -206,12 +223,12 @@
 - (IBAction)showWindow:(id)sender {
 	[super showWindow: sender];
 	
-	if (savedGamePath && !canOpenSaveGames && !shownSaveGameWarning) {
+	if (savedGameURL && !canOpenSaveGames && !shownSaveGameWarning) {
 		shownSaveGameWarning = YES;
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"This interpreter is unable to load saved states";
-		alert.informativeText = @"Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.";
-		[alert addButtonWithTitle:@"Continue"];
+		alert.messageText = NSLocalizedString(@"This interpreter is unable to load saved states", @"This interpreter is unable to load saved states");
+		alert.informativeText = NSLocalizedString(@"Interpreter can't load save games info", @"Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.");
+		[alert addButtonWithTitle: NSLocalizedString(@"Continue", @"Continue")];
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			//Do nothing
 		}];
@@ -260,18 +277,22 @@
 	[self maybeStartView];
 }
 
-- (void) setSaveGame: (NSString*) path {
+- (void) setSaveGameURL: (NSURL*) path {
 	// Set the saved game path
-	savedGamePath = [path copy];
+	savedGameURL = [path copy];
 }
 
 - (void) setCanOpenSaveGame: (BOOL) newCanOpenSaveGame {
 	canOpenSaveGames = newCanOpenSaveGame;
 }
 
-- (void) setInputFilename: (NSString*) newPath {
+- (void)setNeedsPathPassedToTask:(BOOL)needsPath {
+	needsPathPassedToTask = needsPath;
+}
+
+- (void) setInputFileURL: (NSURL*) newPath {
 	// Set the input path
-	inputPath = [newPath copy];
+	inputURL = [newPath copy];
 	
 	// Start it if we've got enough information
 	[self maybeStartView];
@@ -283,10 +304,10 @@
 	return logo == nil || ![[ZoomPreferences globalPreferences] showCoverPicture];
 }
 
-- (NSString*) preferredSaveDirectory {
-	if (!canOpenSaveGames && savedGamePath) {
+- (NSURL*) preferredSaveDirectory {
+	if (!canOpenSaveGames && savedGameURL) {
 		// If the user has requested a particular save game and the interpreter doesn't know how to load it, then open the directory containing the game that they wanted
-		return [savedGamePath stringByDeletingLastPathComponent];
+		return [savedGameURL URLByDeletingLastPathComponent];
 	} else {
 		// Otherwise use whatever the document thinks should be used
 		return [[self document] preferredSaveDirectory];
@@ -388,7 +409,7 @@
 		[storyInfo setZarfian: [[sgIValues objectForKey: @"zarfRating"] unsignedIntValue]];
 		[storyInfo setRating: [[sgIValues objectForKey: @"rating"] floatValue]];
 		
-		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
 	}
 }
 
@@ -436,12 +457,12 @@
 		//BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
 		NSString* msg;
 		
-		msg = @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.";
+		msg = NSLocalizedString(@"Finish game question info", @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.");
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = @"Finish the game?";
+		alert.messageText = NSLocalizedString(@"Finish the game?", @"Finish the game?");
 		alert.informativeText = msg;
-		[alert addButtonWithTitle:@"Finish"];
-		[alert addButtonWithTitle:@"Continue playing"];
+		[alert addButtonWithTitle: NSLocalizedString(@"Finish", @"Finish")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Continue playing", @"Continue playing")];
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode == NSAlertFirstButtonReturn) {
 				// Close the window
@@ -625,7 +646,7 @@
 - (BOOL) promptForFilesForUsage: (NSString*) usage
 					 forWriting: (BOOL) writing
 						handler: (id<GlkFilePrompt>) handler
-			 preferredDirectory: (NSString*) preferredDirectory {
+			 preferredDirectory: (NSURL*) preferredDirectory {
 	if (![usage isEqualToString: GlkFileUsageSavedGame]) {
 		// We only customise save game generation
 		return NO;
@@ -640,7 +661,7 @@
 		NSSavePanel* panel = [NSSavePanel savePanel];
 		
 		panel.allowedFileTypes = @[@"glksave"];
-		if (preferredDirectory != nil) [panel setDirectoryURL:[NSURL fileURLWithPath:preferredDirectory]];
+		if (preferredDirectory != nil) [panel setDirectoryURL: preferredDirectory];
 		
 		[panel beginSheetModalForWindow: [self window] completionHandler: ^(NSModalResponse result) {
 			[self panelDidEnd:panel returnCode:result];
@@ -655,7 +676,7 @@
 		[allowedFiletypes insertObject: @"glksave"
 							   atIndex: 0];
 		
-		if (preferredDirectory != nil) [panel setDirectoryURL: [NSURL fileURLWithPath:preferredDirectory]];
+		if (preferredDirectory != nil) [panel setDirectoryURL: preferredDirectory];
 		
 		[panel setAllowedFileTypes: allowedFiletypes];
 		
