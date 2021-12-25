@@ -319,7 +319,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 			//TODO: spin off to a seperate thread
 		} catch {
 			// Oops: couldn't create the task
-			failed("Could not decompress the downloaded file.", error: error)
+			failed(reason: "Could not decompress the downloaded file.")
 			return
 		}
 		
