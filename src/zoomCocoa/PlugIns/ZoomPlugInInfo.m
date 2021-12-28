@@ -193,3 +193,17 @@ static unsigned int ValueForHexChar(int hex) {
 @synthesize image;
 
 @end
+
+BOOL XADOutputToHandleBytesLengthError(XADHandle *handle, const void *bytes, int length, NSError **error)
+{
+	// TODO: combine the exception parsing for input and output
+	@try {
+		[handle writeBytes:length fromBuffer:bytes];
+	} @catch(id e) {
+		if (error) {
+			*error = [XADException parseExceptionReturningNSError:e];
+		}
+		return NO;
+	}
+	return YES;
+}

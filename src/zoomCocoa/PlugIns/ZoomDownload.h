@@ -36,4 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@class XADHandle;
+extern BOOL XADOutputToHandleBytesLengthError(XADHandle *handle, const void *bytes, int length, NSError **error) /*NS_SWIFT_NAME(XADOutputTo(_:bytes:length:)) __attribute__((swift_error(nonnull_error)))*/ NS_REFINED_FOR_SWIFT;
+
 NS_ASSUME_NONNULL_END
