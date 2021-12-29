@@ -239,7 +239,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 		
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(preferencesHaveChanged:)
-													 name: ZoomPreferences.preferencesHaveChangedNotification
+													 name: ZoomPreferencesHaveChangedNotification
 												   object: viewPrefs];
 		
 		// Command history
@@ -2237,17 +2237,17 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 - (void) setPreferences: (ZoomPreferences*) prefs {
 	if (viewPrefs) {
 		[[NSNotificationCenter defaultCenter] removeObserver: self
-														name: ZoomPreferences.preferencesHaveChangedNotification
+														name: ZoomPreferencesHaveChangedNotification
 													  object: viewPrefs];
 	}
 	
 	viewPrefs = prefs;
 	
-	[self preferencesHaveChanged: [NSNotification notificationWithName: ZoomPreferences.preferencesHaveChangedNotification
+	[self preferencesHaveChanged: [NSNotification notificationWithName: ZoomPreferencesHaveChangedNotification
 																object: viewPrefs]];
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(preferencesHaveChanged:)
-												 name: ZoomPreferences.preferencesHaveChangedNotification
+												 name: ZoomPreferencesHaveChangedNotification
 											   object: viewPrefs];
 }
 @synthesize preferences=viewPrefs;

@@ -161,7 +161,7 @@
 	if (self) {
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												selector: @selector(prefsChanged:)
-													 name: ZoomPreferences.preferencesHaveChangedNotification
+													 name: ZoomPreferencesHaveChangedNotification
 												  object: nil];
 		
 		skein = [[ZoomSkein alloc] init];

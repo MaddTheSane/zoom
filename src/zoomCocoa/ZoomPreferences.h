@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSNotificationName const ZoomPreferencesHaveChangedNotification;
+
 // Class has moved to Swift: import ZoomView/ZoomView-Swift.h to get the implementation.
 @class ZoomPreferences;
 

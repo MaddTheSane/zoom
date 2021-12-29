@@ -12,10 +12,6 @@ import Cocoa
 	@objc(GlulxGlulxe) case glulxe = 1
 }
 
-extension NSNotification.Name {
-	public static let ZoomPreferencesHaveChanged: NSNotification.Name = NSNotification.Name(rawValue: "ZoomPreferencesHaveChangedNotification")
-}
-
 // MARK: Preference keys
 
 private let displayWarningsKey = "DisplayWarnings"
@@ -123,10 +119,6 @@ private func compareValues(_ a: [String: Any], _ b: [String: Any], usingKey key:
 
 @objcMembers
 public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
-	public static var preferencesHaveChangedNotification: NSNotification.Name {
-		return .ZoomPreferencesHaveChanged
-	}
-	
 	private var prefs = [String: Any]()
 	private let prefLock = NSLock()
 	
