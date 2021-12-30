@@ -8,7 +8,182 @@
 import Foundation
 import ZoomPlugIns
 import ZoomPlugIns.ZoomPlugInManager
+import ZoomPlugIns.ZoomPlugIn
+import ZoomView.ZoomPreferences
+import ZoomView.Swift
 import ZoomView
+
+/// The story organiser is used to store story locations and identifications
+/// (Mainly to build up the iFiction window)
+@objcMembers class ZoomStoryOrganiser2: NSObject {
+	private(set) var stories = [Object]()
+	struct Object: Hashable, Codable {
+		enum CodingKeys: String, CodingKey {
+			case ifmbStringID = "ifmb_string_id"
+			case url
+			case bookmarkData = "bookmark_data"
+		}
+
+		var url: URL
+		var bookmarkData: Data? = nil
+		var fileID: ZoomStoryID
+		
+		func encode(to encoder: Encoder) throws {
+			var container = encoder.container(keyedBy: CodingKeys.self)
+
+			try container.encode(url, forKey: .url)
+			try container.encode(fileID.description, forKey: .ifmbStringID)
+			try container.encodeIfPresent(bookmarkData, forKey: .bookmarkData)
+		}
+		
+		init(from decoder: Decoder) throws {
+			let values = try decoder.container(keyedBy: CodingKeys.self)
+			
+			url = try values.decode(URL.self, forKey: .url)
+			let ifmbString = try values.decode(String.self, forKey: .ifmbStringID)
+			fileID = ZoomStoryID(idString: ifmbString)
+			bookmarkData = try values.decodeIfPresent(Data.self, forKey: .bookmarkData)
+		}
+		
+		init(url: URL, bookmarkData: Data? = nil, fileID: ZoomStoryID) {
+			self.url = url
+			self.bookmarkData = bookmarkData
+			self.fileID = fileID
+		}
+		
+		mutating func update() throws {
+			guard let bookmarkData = bookmarkData else {
+				return
+			}
+			var stale = false
+			url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &stale)
+			if stale {
+				self.bookmarkData = try url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
+			}
+		}
+	}
+	
+	func updateFromOldDefaults() {
+		guard let oldDict = UserDefaults.standard.dictionary(forKey: "ZoomStoryOrganiser") as? [String: Data] else {
+			return
+		}
+		
+		let unarchiveDict = oldDict.compactMapValues { dat -> ZoomStoryID? in
+			var storyId: ZoomStoryID? = nil
+			do {
+				storyId = try NSKeyedUnarchiver.unarchivedObject(ofClass: ZoomStoryID.self, from: dat)
+			} catch { }
+			if storyId == nil {
+				if let newID = NSUnarchiver.unarchiveObject(with: dat) as? ZoomStoryID {
+					return newID
+				}
+			}
+			
+			return storyId
+		}
+		
+		for (path, storyID) in unarchiveDict {
+			let pathurl = URL(fileURLWithPath: path)
+			try? addStory(at: pathurl, withIdentity: storyID)
+		}
+	}
+	
+	@objc(addStoryAtURL:withIdentity:organise:error:)
+	func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false) throws {
+		guard try filename.checkResourceIsReachable() else {
+			throw CocoaError(.fileNoSuchFile, userInfo: [NSURLErrorKey: filename])
+		}
+		
+		let newIdentifier = try filename.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier!
+		// check for duplicates
+		let dupURLIdx = stories.firstIndex(where: { obj in
+			guard let identifier = try? obj.url.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
+				return false
+			}
+			return identifier.isEqual(newIdentifier)
+		})
+		let dupIDIdx = stories.firstIndex { obj in
+			return obj.fileID == ident
+		}
+		let oldURL: URL? = {
+			if let dupIdx = dupIDIdx {
+				return stories[dupIdx].url
+			}
+			return nil
+		}()
+		let oldURLID: (NSCopying & NSSecureCoding & NSObjectProtocol)? = {
+			if let oldURL = oldURL, let resVals = try? oldURL.resourceValues(forKeys: [.fileResourceIdentifierKey]), let theID = resVals.fileResourceIdentifier {
+				return theID
+			}
+			return nil
+		}()
+		let oldIdent: ZoomStoryID? = {
+			if let dupIdx = dupURLIdx {
+				return stories[dupIdx].fileID
+			}
+			return nil
+		}()
+		
+		// Get the story from the metadata database
+		var theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
+		// If there's no story registered, then we need to create one
+		if theStory == nil {
+			let pluginClass = ZoomPlugInManager.shared.plugIn(for: filename) as? ZoomPlugIn.Type
+			let pluginInstance = pluginClass?.init(url: filename)
+			
+			if let pluginInstance = pluginInstance {
+				theStory = try pluginInstance.defaultMetadata()
+			} else {
+				theStory = try ZoomStory.defaultMetadata(for: filename)
+			}
+			(NSApp.delegate as! ZoomAppDelegate).userMetadata().copyStory(theStory!)
+			if theStory!.title == nil {
+				theStory!.title = filename.deletingPathExtension().lastPathComponent
+			}
+			try? (NSApp.delegate as! ZoomAppDelegate).userMetadata().writeToDefaultFile()
+		}
+		
+		if let oldURLID = oldURLID, let oldIdent = oldIdent, oldIdent == ident, oldURLID.isEqual(newIdentifier) {
+			// Nothing to do
+			if organise {
+				organizeStory(theStory!, with: ident)
+			}
+			return
+		}
+		
+		var toRemove = IndexSet()
+		if let dupIDIdx = dupIDIdx {
+			toRemove.insert(dupIDIdx)
+		}
+		if let dupURLIdx = dupURLIdx {
+			toRemove.insert(dupURLIdx)
+		}
+		
+		if !toRemove.isEmpty {
+			stories.remove(indexes: toRemove)
+		}
+		
+		var bookData: Data? = nil
+		do {
+			bookData = try filename.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
+		} catch { }
+
+		stories.append(Object(url: filename, bookmarkData: bookData, fileID: ident))
+		
+		if organise {
+			organizeStory(theStory!, with: ident)
+		}
+		
+	}
+	
+	func organizeStory(_ story: ZoomStory, with ident: ZoomStoryID) {
+		
+	}
+
+	var storyIdents: [ZoomStoryID] {
+		return stories.map({$0.fileID})
+	}
+}
 
 extension ZoomStoryOrganiser {
 	@objc(frontispieceForBlorb:)
@@ -69,4 +244,28 @@ extension ZoomStoryOrganiser {
 		
 		return nil
 	 }
+}
+
+
+extension Array {
+	// Code taken from https://stackoverflow.com/a/50835467/1975001
+	/// Removes objects at indexes that are in the specified `IndexSet`.
+	/// - parameter indexes: the index set containing the indexes of objects that will be removed
+	@inlinable mutating func remove(indexes: IndexSet) {
+		guard var i = indexes.first, i < count else {
+			return
+		}
+		var j = index(after: i)
+		var k = indexes.integerGreaterThan(i) ?? endIndex
+		while j != endIndex {
+			if k != j {
+				swapAt(i, j)
+				formIndex(after: &i)
+			} else {
+				k = indexes.integerGreaterThan(k) ?? endIndex
+			}
+			formIndex(after: &j)
+		}
+		removeSubrange(i...)
+	}
 }

@@ -43,7 +43,7 @@ static NSString*const ZoomIdentityFilename = @".zoomIdentity";
 #pragma mark - Internal functions
 
 - (NSDictionary*) dictionary {
-	NSMutableDictionary* defaultDictionary = [NSMutableDictionary dictionary];
+	NSMutableDictionary* defaultDictionary = [NSMutableDictionary dictionaryWithCapacity: filenamesToIdents.count];
 	
 	NSEnumerator<NSString*>* filenameEnum = [filenamesToIdents keyEnumerator];
 	
