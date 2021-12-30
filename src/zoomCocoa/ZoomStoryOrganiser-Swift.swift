@@ -15,12 +15,12 @@ import ZoomView.Swift
 import ZoomView
 
 /// The story organiser is used to store story locations and identifications
-/// (Mainly to build up the iFiction window)
+/// (mainly to build up the iFiction window).
 @objcMembers class ZoomStoryOrganiser2: NSObject {
 	private(set) var stories = [Object]()
 	struct Object: Hashable, Codable {
 		enum CodingKeys: String, CodingKey {
-			case ifmbStringID = "ifmb_string_id"
+			case ifdbStringID = "ifdb_string_id"
 			case url
 			case bookmarkData = "bookmark_data"
 		}
@@ -33,7 +33,7 @@ import ZoomView
 			var container = encoder.container(keyedBy: CodingKeys.self)
 
 			try container.encode(url, forKey: .url)
-			try container.encode(fileID.description, forKey: .ifmbStringID)
+			try container.encode(fileID.description, forKey: .ifdbStringID)
 			try container.encodeIfPresent(bookmarkData, forKey: .bookmarkData)
 		}
 		
@@ -41,7 +41,7 @@ import ZoomView
 			let values = try decoder.container(keyedBy: CodingKeys.self)
 			
 			url = try values.decode(URL.self, forKey: .url)
-			let ifmbString = try values.decode(String.self, forKey: .ifmbStringID)
+			let ifmbString = try values.decode(String.self, forKey: .ifdbStringID)
 			fileID = ZoomStoryID(idString: ifmbString)
 			bookmarkData = try values.decodeIfPresent(Data.self, forKey: .bookmarkData)
 		}
@@ -73,21 +73,25 @@ import ZoomView
 	
 	override init() {
 		super.init()
+		weak var weakSelf = self
 		dataChangedNotificationObject = NotificationCenter.default.addObserver(forName: .ZoomStoryDataHasChanged, object: nil, queue: nil, using: { noti in
 			guard let story = noti.object as? ZoomStory else {
 				NSLog("someStoryHasChanged: called with a non-story object (too many spoons?)")
 				return // Unlikely but possible. If I'm a spoon, that is.
 			}
+			guard let strongSelf = weakSelf else {
+				return
+			}
 			
 			// De and requeue this to be done next time through the run loop
 			// (stops this from being performed multiple times when many story parameters are updated together)
-			RunLoop.current.cancelPerform(#selector(self.finishChanging(_:)), target: self, argument: story)
-			RunLoop.current.perform(#selector(self.finishChanging(_:)), target: self, argument: story, order: 128, modes: [.default, .modalPanel])
+			RunLoop.current.cancelPerform(#selector(self.finishChanging(_:)), target: strongSelf, argument: story)
+			RunLoop.current.perform(#selector(self.finishChanging(_:)), target: strongSelf, argument: story, order: 128, modes: [.default, .modalPanel])
 		})
 	}
 	
 	deinit {
-		NotificationCenter.default.removeObserver(self, name: .ZoomStoryDataHasChanged, object: nil)
+		NotificationCenter.default.removeObserver(dataChangedNotificationObject!)
 	}
 	
 	@objc private
@@ -139,6 +143,7 @@ import ZoomView
 			let pathurl = URL(fileURLWithPath: path)
 			try? addStory(at: pathurl, withIdentity: storyID)
 		}
+//		UserDefaults.standard.removeObject(forKey: "ZoomStoryOrganiser")
 		try? save()
 	}
 	
@@ -245,7 +250,7 @@ import ZoomView
 		return urlFor(ident)?.path
 	}
 	
-	func organizeStory(_ story: ZoomStory) {
+	func organiseStory(_ story: ZoomStory) {
 		var organized = false
 		
 		if let ids = story.storyIDs {
