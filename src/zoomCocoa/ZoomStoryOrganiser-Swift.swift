@@ -7,6 +7,7 @@
 
 import Foundation
 import ZoomPlugIns
+import ZoomPlugIns.ZoomStoryID
 import ZoomPlugIns.ZoomPlugInManager
 import ZoomPlugIns.ZoomPlugIn
 import ZoomView.ZoomPreferences
@@ -63,6 +64,58 @@ import ZoomView
 		}
 	}
 	
+	@objc(sharedStoryOraniser)
+	static let shared: ZoomStoryOrganiser2 = {
+		let toRet = ZoomStoryOrganiser2()
+		try? toRet.load()
+		return toRet
+	}()
+	
+	override init() {
+		super.init()
+		dataChangedNotificationObject = NotificationCenter.default.addObserver(forName: .ZoomStoryDataHasChanged, object: nil, queue: nil, using: { noti in
+			guard let story = noti.object as? ZoomStory else {
+				NSLog("someStoryHasChanged: called with a non-story object (too many spoons?)")
+				return // Unlikely but possible. If I'm a spoon, that is.
+			}
+			
+			// De and requeue this to be done next time through the run loop
+			// (stops this from being performed multiple times when many story parameters are updated together)
+			RunLoop.current.cancelPerform(#selector(self.finishChanging(_:)), target: self, argument: story)
+			RunLoop.current.perform(#selector(self.finishChanging(_:)), target: self, argument: story, order: 128, modes: [.default, .modalPanel])
+		})
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self, name: .ZoomStoryDataHasChanged, object: nil)
+	}
+	
+	@objc private
+	func finishChanging(_ story: ZoomStory) {
+		
+	}
+	
+	func load() throws {
+		let dir = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectory!
+		var saveURL = URL(fileURLWithPath: dir, isDirectory: true)
+		saveURL.appendPathComponent("Library.json")
+		let dat = try Data(contentsOf: saveURL)
+		let decoder = JSONDecoder()
+		stories = try decoder.decode(Array<Object>.self, from: dat)
+	}
+	
+	func save() throws {
+		let dir = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectory!
+		var saveURL = URL(fileURLWithPath: dir, isDirectory: true)
+		saveURL.appendPathComponent("Library.json")
+		let encoder = JSONEncoder()
+		let dat = try encoder.encode(stories)
+		try dat.write(to: saveURL)
+	}
+	
+	private var storyLock = NSLock()
+	private var dataChangedNotificationObject: NSObjectProtocol? = nil
+	
 	func updateFromOldDefaults() {
 		guard let oldDict = UserDefaults.standard.dictionary(forKey: "ZoomStoryOrganiser") as? [String: Data] else {
 			return
@@ -86,6 +139,7 @@ import ZoomView
 			let pathurl = URL(fileURLWithPath: path)
 			try? addStory(at: pathurl, withIdentity: storyID)
 		}
+		try? save()
 	}
 	
 	@objc(addStoryAtURL:withIdentity:organise:error:)
@@ -146,7 +200,7 @@ import ZoomView
 		if let oldURLID = oldURLID, let oldIdent = oldIdent, oldIdent == ident, oldURLID.isEqual(newIdentifier) {
 			// Nothing to do
 			if organise {
-				organizeStory(theStory!, with: ident)
+				organiseStory(theStory!, with: ident)
 			}
 			return
 		}
@@ -171,12 +225,47 @@ import ZoomView
 		stories.append(Object(url: filename, bookmarkData: bookData, fileID: ident))
 		
 		if organise {
-			organizeStory(theStory!, with: ident)
+			organiseStory(theStory!, with: ident)
 		}
 		
 	}
 	
-	func organizeStory(_ story: ZoomStory, with ident: ZoomStoryID) {
+	@objc(URLForIdent:)
+	func urlFor(_ ident: ZoomStoryID) -> URL? {
+		storyLock.lock()
+		defer {
+			storyLock.unlock()
+		}
+		return stories.first(where: {$0.fileID == ident})?.url
+	}
+	
+	@available(*, deprecated, message: "Use urlFor(_:) or -URLForIdent: instead")
+	@objc(filenameForIdent:)
+	func filename(for ident: ZoomStoryID) -> String? {
+		return urlFor(ident)?.path
+	}
+	
+	func organizeStory(_ story: ZoomStory) {
+		var organized = false
+		
+		if let ids = story.storyIDs {
+			for thisID in ids {
+				let filename = urlFor(thisID)
+				
+				if filename != nil {
+					organiseStory(story, with: thisID)
+					organized = true
+				}
+			}
+		}
+		
+		if !organized {
+			NSLog("WARNING: attempted to organise story with no IDs")
+		}
+	}
+	
+	@objc(organiseStory:withIdent:)
+	func organiseStory(_ story: ZoomStory, with ident: ZoomStoryID) {
 		
 	}
 
