@@ -10,14 +10,19 @@ import ZoomPlugIns
 import ZoomPlugIns.ZoomStoryID
 import ZoomPlugIns.ZoomPlugInManager
 import ZoomPlugIns.ZoomPlugIn
+import ZoomPlugIns.Swift
 import ZoomView.ZoomPreferences
 import ZoomView.Swift
 import ZoomView
+
+private let ZoomIdentityFilename = ".zoomIdentity"
+
 
 /// The story organiser is used to store story locations and identifications
 /// (mainly to build up the iFiction window).
 @objcMembers class ZoomStoryOrganiser2: NSObject {
 	private(set) var stories = [Object]()
+	private var gameDirectories = [String: URL]()
 	struct Object: Hashable, Codable {
 		enum CodingKeys: String, CodingKey {
 			case ifdbStringID = "ifdb_string_id"
@@ -44,6 +49,9 @@ import ZoomView
 			let ifmbString = try values.decode(String.self, forKey: .ifdbStringID)
 			fileID = ZoomStoryID(idString: ifmbString)
 			bookmarkData = try values.decodeIfPresent(Data.self, forKey: .bookmarkData)
+			do {
+				try update()
+			} catch { }
 		}
 		
 		init(url: URL, bookmarkData: Data? = nil, fileID: ZoomStoryID) {
@@ -64,6 +72,16 @@ import ZoomView
 		}
 	}
 	
+	struct SaveWrapper: Codable {
+		var stories: [Object]
+		var gameDirectories: [String: URL]
+		enum CodingKeys: String, CodingKey {
+			case stories
+			case gameDirectories = "game_directories"
+		}
+	}
+	
+	/// The shared organiser
 	@objc(sharedStoryOraniser)
 	static let shared: ZoomStoryOrganiser2 = {
 		let toRet = ZoomStoryOrganiser2()
@@ -73,20 +91,19 @@ import ZoomView
 	
 	override init() {
 		super.init()
-		weak var weakSelf = self
-		dataChangedNotificationObject = NotificationCenter.default.addObserver(forName: .ZoomStoryDataHasChanged, object: nil, queue: nil, using: { noti in
+		dataChangedNotificationObject = NotificationCenter.default.addObserver(forName: .ZoomStoryDataHasChanged, object: nil, queue: nil, using: { [weak self] noti in
 			guard let story = noti.object as? ZoomStory else {
 				NSLog("someStoryHasChanged: called with a non-story object (too many spoons?)")
 				return // Unlikely but possible. If I'm a spoon, that is.
 			}
-			guard let strongSelf = weakSelf else {
+			guard let strongSelf = self else {
 				return
 			}
 			
 			// De and requeue this to be done next time through the run loop
 			// (stops this from being performed multiple times when many story parameters are updated together)
-			RunLoop.current.cancelPerform(#selector(self.finishChanging(_:)), target: strongSelf, argument: story)
-			RunLoop.current.perform(#selector(self.finishChanging(_:)), target: strongSelf, argument: story, order: 128, modes: [.default, .modalPanel])
+			RunLoop.current.cancelPerform(#selector(ZoomStoryOrganiser2.finishChanging(_:)), target: strongSelf, argument: story)
+			RunLoop.current.perform(#selector(ZoomStoryOrganiser2.finishChanging(_:)), target: strongSelf, argument: story, order: 128, modes: [.default, .modalPanel])
 		})
 	}
 	
@@ -94,9 +111,22 @@ import ZoomView
 		NotificationCenter.default.removeObserver(dataChangedNotificationObject!)
 	}
 	
-	@objc private
-	func finishChanging(_ story: ZoomStory) {
+	//MARK: - Progress
+
+	private func startedActing() {
+		NotificationCenter.default.post(name: ZoomStoryOrganiser.progressNotification, object: self, userInfo: ["ActionStarting": true])
+	}
+	
+	private func endedActing() {
+		NotificationCenter.default.post(name: ZoomStoryOrganiser.progressNotification, object: self, userInfo: ["ActionStarting": false])
+	}
+
+	//MARK: -
+	
+	func organiserChanged() {
+		try? save()
 		
+		NotificationCenter.default.post(name: ZoomStoryOrganiser.changedNotification, object: self)
 	}
 	
 	func load() throws {
@@ -105,7 +135,9 @@ import ZoomView
 		saveURL.appendPathComponent("Library.json")
 		let dat = try Data(contentsOf: saveURL)
 		let decoder = JSONDecoder()
-		stories = try decoder.decode(Array<Object>.self, from: dat)
+		let wrapper = try decoder.decode(SaveWrapper.self, from: dat)
+		stories = wrapper.stories
+		gameDirectories = wrapper.gameDirectories
 	}
 	
 	func save() throws {
@@ -113,7 +145,8 @@ import ZoomView
 		var saveURL = URL(fileURLWithPath: dir, isDirectory: true)
 		saveURL.appendPathComponent("Library.json")
 		let encoder = JSONEncoder()
-		let dat = try encoder.encode(stories)
+		let wrapper = SaveWrapper(stories: stories, gameDirectories: gameDirectories)
+		let dat = try encoder.encode(wrapper)
 		try dat.write(to: saveURL)
 	}
 	
@@ -123,6 +156,10 @@ import ZoomView
 	func updateFromOldDefaults() {
 		guard let oldDict = UserDefaults.standard.dictionary(forKey: "ZoomStoryOrganiser") as? [String: Data] else {
 			return
+		}
+		startedActing()
+		defer {
+			endedActing()
 		}
 		
 		let unarchiveDict = oldDict.compactMapValues { dat -> ZoomStoryID? in
@@ -143,9 +180,19 @@ import ZoomView
 			let pathurl = URL(fileURLWithPath: path)
 			try? addStory(at: pathurl, withIdentity: storyID)
 		}
+		if let oldDict2 = UserDefaults.standard.dictionary(forKey: "ZoomGameDirectories") as? [String: String] {
+			let mappedDict = oldDict2.mapValues { val in
+				return URL(fileURLWithPath: val)
+			}
+			gameDirectories = mappedDict
+		}
+		
 //		UserDefaults.standard.removeObject(forKey: "ZoomStoryOrganiser")
+//		UserDefaults.standard.removeObject(forKey: "ZoomGameDirectories")
 		try? save()
 	}
+	
+	// MARK: - Storing stories
 	
 	@objc(addStoryAtURL:withIdentity:organise:error:)
 	func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false) throws {
@@ -233,8 +280,199 @@ import ZoomView
 			organiseStory(theStory!, with: ident)
 		}
 		
+		organiserChanged()
 	}
 	
+	@objc(removeStoryWithIdent:deleteFromMetadata:)
+	func removeStory(with ident: ZoomStoryID, deleteFromMetadata delete: Bool) {
+		storyLock.lock()
+		
+		let idx = stories.firstIndex { obj in
+			return obj.fileID == ident
+		}
+		if let idx = idx {
+			stories.remove(at: idx)
+		}
+		
+		if delete {
+			let usrMeta = (NSApp.delegate as! ZoomAppDelegate).userMetadata()
+			usrMeta.removeStory(withIdent: ident)
+			try? usrMeta.writeToDefaultFile()
+		}
+		
+		storyLock.unlock()
+		organiserChanged()
+	}
+	
+	// MARK: - Story-specific data
+	
+	/// Gets rid of certain illegal characters from the name, returning a valid directory name
+	/// (Most illegal characters are replaced by `'?'`, but `'/'` is replaced by `':'` - look in the Finder
+	/// to see why)
+	///
+	/// Techincally, only `'/'` and `NUL` are invalid characters under UNIX. We invalidate a few more so as to
+	/// avoid the possibility of slightly dumb-looking filenames.
+	private func sanitiseDirectoryName(_ name: String?) -> String? {
+		guard let name = name else {
+			return nil
+		}
+
+		let mappedChars = name.map { aChar -> Character in
+			switch aChar {
+			case "/": // Makes some twisted kind of sense
+				return ":"
+			case ":":
+				return "?"
+			case "\0" ..< " ":
+				return "?"
+			default:
+				return aChar
+			}
+		}
+		return String(mappedChars)
+	}
+	
+	/// The preferred directory is defined by the story group and title
+	/// (Ungrouped/untitled if there is no story group/title)
+	private func preferredDirectory(for ident: ZoomStoryID) -> URL? {
+		let confDir = ZoomPreferences.global.organiserDirectory!
+		var confURL: URL = URL(fileURLWithPath: confDir, isDirectory: true)
+		let theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
+		
+		confURL.appendPathComponent(sanitiseDirectoryName(theStory?.group) ?? "Ungrouped", isDirectory: true)
+		confURL.appendPathComponent(sanitiseDirectoryName(theStory?.title) ?? "untitled", isDirectory: true)
+
+		return confURL
+	}
+	
+	/// If the preferences get corrupted or something similarily silly happens,
+	/// we want to avoid having games point to the wrong directories. This
+	/// routine checks that a directory belongs to a particular game.
+	func directory(_ dir: URL, isFor ident: ZoomStoryID) -> Bool {
+		var isDir: ObjCBool = false
+		guard urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) else {
+			// Corner case
+			return true
+		}
+		
+		guard isDir.boolValue else {
+			// Files belong to no game
+			return false
+		}
+		
+		let idFile = dir.appendingPathComponent(ZoomIdentityFilename)
+		guard urlIsAvailable(idFile, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) else {
+			// Directory has no identification
+			return false
+		}
+		
+		guard !isDir.boolValue else {
+			// Identification must be a file
+			return false
+		}
+		
+		guard let fileData = try? Data(contentsOf: idFile) else {
+			// we need data, of course
+			return false
+		}
+		var owner: Any? = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ZoomStoryID.self, from: fileData)
+		if owner == nil {
+			owner = NSUnarchiver.unarchiveObject(with: fileData)
+		}
+		
+		if let owner = owner as? ZoomStoryID, owner == ident {
+			return true
+		}
+		
+		// Directory belongs to some other game
+		return false
+	}
+	
+	/// Assuming a story doesn't already have a directory, find (and possibly create)
+	/// a directory for it.
+	private func findDirectory(for ident: ZoomStoryID, createGameDir createGame: Bool, createGroupDir createGroup: Bool) -> URL? {
+		
+		return nil
+	}
+
+	
+	@objc(directoryForIdent:create:)
+	func directory(for ident: ZoomStoryID, create: Bool) -> URL? {
+		var confDir: URL? = nil
+		
+		// If there is a directory in the preferences, then that's the directory to use
+		confDir = gameDirectories[ident.description]
+		
+		var isDir: ObjCBool = false
+		if let confDir2 = confDir, !urlIsAvailable(confDir2, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) {
+			confDir = nil
+		}
+		
+		if !isDir.boolValue {
+			confDir = nil
+		}
+		
+		if let confDir = confDir, directory(confDir, isFor: ident) {
+			return confDir
+		}
+		
+		confDir = nil
+
+		guard let gameDir = findDirectory(for: ident, createGameDir: create, createGroupDir: create) else {
+			return nil
+		}
+		
+		// Store this directory as the dir for this game
+		gameDirectories[ident.description] = gameDir
+		try? save()
+		
+		return gameDir
+	}
+	
+	func moveStoryToPreferredDirectory(with ident: ZoomStoryID) -> Bool {
+		guard let currentDir = directory(for: ident, create: false)?.standardizedFileURL else {
+			return false
+		}
+		return false
+	}
+	
+	@objc private
+	func finishChanging(_ story: ZoomStory) {
+		// For our pre-arranged stories, several IDs are possible, but more usually one
+		guard let storyIDs = story.storyIDs else {
+			return
+		}
+		var changed = false
+		
+		for ident in storyIDs {
+			guard let identID = stories.firstIndex(where: { obj in
+				return obj.fileID == ident
+			}) else {
+				continue
+			}
+			// Get the old location of the game
+			let realID = stories[identID].fileID
+			var oldGameFile = directory(for: ident, create: false)
+			let oldGameLoc = stories[identID].url
+			oldGameFile?.appendPathComponent(oldGameLoc.lastPathComponent)
+			
+			// Actually perform the move
+			if moveStoryToPreferredDirectory(with: stories[identID].fileID) {
+				changed = true
+			}
+		}
+		
+		if changed {
+			organiserChanged()
+		}
+	}
+
+	// MARK: - Retrieving story information
+	
+	var storyIdents: [ZoomStoryID] {
+		return stories.map({$0.fileID})
+	}
+
 	@objc(URLForIdent:)
 	func urlFor(_ ident: ZoomStoryID) -> URL? {
 		storyLock.lock()
@@ -250,6 +488,9 @@ import ZoomView
 		return urlFor(ident)?.path
 	}
 	
+	// MARK: - Reorganising stories
+	
+	@objc(organiseStory:)
 	func organiseStory(_ story: ZoomStory) {
 		var organized = false
 		
@@ -271,11 +512,6 @@ import ZoomView
 	
 	@objc(organiseStory:withIdent:)
 	func organiseStory(_ story: ZoomStory, with ident: ZoomStoryID) {
-		
-	}
-
-	var storyIdents: [ZoomStoryID] {
-		return stories.map({$0.fileID})
 	}
 }
 
