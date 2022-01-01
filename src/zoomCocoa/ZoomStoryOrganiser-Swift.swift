@@ -182,7 +182,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		if let oldDict2 = UserDefaults.standard.dictionary(forKey: "ZoomGameDirectories") as? [String: String] {
 			let mappedDict = oldDict2.mapValues { val in
-				return URL(fileURLWithPath: val)
+				return URL(fileURLWithPath: val, isDirectory: true)
 			}
 			gameDirectories = mappedDict
 		}
@@ -232,6 +232,12 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		// Get the story from the metadata database
 		var theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
+#if DEVELOPMENT_BUILD
+		NSLog("Adding %@ (IFID %@)", filename.path, ident);
+		if let oldFilename = oldURL {
+			NSLog("... previously %@ (%@)", oldFilename, oldIdent);
+		}
+#endif
 		// If there's no story registered, then we need to create one
 		if theStory == nil {
 			let pluginClass = ZoomPlugInManager.shared.plugIn(for: filename) as? ZoomPlugIn.Type
@@ -340,7 +346,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		let theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
 		
 		confURL.appendPathComponent(sanitiseDirectoryName(theStory?.group) ?? "Ungrouped", isDirectory: true)
-		confURL.appendPathComponent(sanitiseDirectoryName(theStory?.title) ?? "untitled", isDirectory: true)
+		confURL.appendPathComponent(sanitiseDirectoryName(theStory?.title) ?? "Untitled", isDirectory: true)
 
 		return confURL
 	}
@@ -391,7 +397,22 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	/// Assuming a story doesn't already have a directory, find (and possibly create)
 	/// a directory for it.
 	private func findDirectory(for ident: ZoomStoryID, createGameDir createGame: Bool, createGroupDir createGroup: Bool) -> URL? {
+		var isDir: ObjCBool = false
 		
+		let theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
+		var group = sanitiseDirectoryName(theStory?.group)
+		var title = sanitiseDirectoryName(theStory?.title)
+		
+		if group == nil || group == "" {
+			group = "Ungrouped"
+		}
+		if title == nil || title == "" {
+			group = "Untitled"
+		}
+
+		let rootDir = ZoomPreferences.global.organiserDirectory!
+		let rootURL: URL = URL(fileURLWithPath: rootDir)
+
 		return nil
 	}
 
@@ -433,7 +454,55 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		guard let currentDir = directory(for: ident, create: false)?.standardizedFileURL else {
 			return false
 		}
-		return false
+		
+#if DEVELOPMENT_BUILD
+		NSLog("Moving %@ to its preferred path (currently at %@)", ident, currentDir);
+#endif
+
+		// Get the 'ideal' directory
+		let idealDir = findDirectory(for: ident, createGameDir: false, createGroupDir: true)?.standardizedFileURL
+
+		// See if they already match
+		if idealDir == currentDir {
+			return true;
+		}
+		
+#if DEVELOPMENT_BUILD
+		NSLog("Ideal location is %@", idealDir);
+#endif
+
+		
+		// If they don't match, then idealDir should be new (or something weird has just occured)
+		// Hmph. HFS+ is case-insensitve, and stringByStandardizingPath does not take account of this. This could
+		// cause some major problems with organiseStory:withIdent:, as that deletes/copies files...
+		// We're dealing with this by calling lowercaseString, but there's no guarantee that this matches the algorithm
+		// used for comparing filenames internally to HFS+.
+		//
+		// Don't even think about UFS or HFSX. There's no way to tell which we're using
+		if ((try? idealDir?.checkResourceIsReachable() ?? false) != nil) {
+			// Doh!
+			NSLog("Wanted to move game from '%@' to '%@', but '%@' already exists", currentDir.path, idealDir?.path ?? "Nil", idealDir?.path ?? "Nil");
+			return false
+		}
+		
+		// Move the old directory to the new directory
+		
+		// Vague possibilities of this failing: in particular, currentDir may be not write-accessible or
+		// something might appear there between our check and actually moving the directory
+		do {
+			try FileManager.default.moveItem(at: currentDir, to: idealDir!)
+		} catch {
+			NSLog("Failed to move '%@' to '%@'", currentDir.path, idealDir!.path)
+			return false
+		}
+		
+		// Success: store the new directory in the defaults
+		if ident != nil && ident.description != nil {
+			gameDirectories[ident.description] = idealDir
+			try? save()
+		}
+		
+		return true
 	}
 	
 	@objc private
@@ -444,6 +513,10 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		var changed = false
 		
+#if DEVELOPMENT_BUILD
+		NSLog("Finishing changing %@", story.title ?? "(nil)");
+#endif
+
 		for ident in storyIDs {
 			guard let identID = stories.firstIndex(where: { obj in
 				return obj.fileID == ident
@@ -453,8 +526,13 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			// Get the old location of the game
 			let realID = stories[identID].fileID
 			var oldGameFile = directory(for: ident, create: false)
-			let oldGameLoc = stories[identID].url
+			let oldGameLoc = stories[identID].url.standardizedFileURL
 			oldGameFile?.appendPathComponent(oldGameLoc.lastPathComponent)
+			
+#if DEVELOPMENT_BUILD
+			NSLog("ID %@ (%@) is located at %@ (%@)", ident, realID, oldGameFile, oldGameLoc);
+#endif
+
 			
 			// Actually perform the move
 			if moveStoryToPreferredDirectory(with: stories[identID].fileID) {
@@ -512,6 +590,38 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	@objc(organiseStory:withIdent:)
 	func organiseStory(_ story: ZoomStory, with ident: ZoomStoryID) {
+		guard var filename = urlFor(ident) else {
+			NSLog("WARNING: Attempted to organise a story with no filename");
+			return
+		}
+		
+#if DEVELOPMENT_BUILD
+		NSLog("Organising %@ (%@)", story.title, ident);
+#endif
+		
+		storyLock.lock()
+		defer {
+			storyLock.unlock()
+		}
+		
+		let oldFilename = filename
+
+#if DEVELOPMENT_BUILD
+	NSLog("... currently at %@", oldFilename);
+#endif
+
+		// Copy to a standard directory, change the filename we're using
+		filename = filename.standardizedFileURL
+			
+		let fileDir = directory(for: ident, create: true)
+		var destFile = fileDir?.appendingPathComponent(oldFilename.lastPathComponent)
+		destFile = destFile?.standardizedFileURL
+		
+	#if DEVELOPMENT_BUILD
+		NSLog("... best directory %@ (file will be %@)", fileDir, destFile);
+	#endif
+
+	
 	}
 }
 
