@@ -31,8 +31,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		return .ZoomStoryOrganiserProgress
 	}
 	
-	private(set) var stories = [Object]()
-	private var gameDirectories = [String: URL]()
+	@MainActor private(set) var stories = [Object]()
+	@MainActor private var gameDirectories = [String: URL]()
 	struct Object: Hashable, Codable {
 		enum CodingKeys: String, CodingKey {
 			case ifdbStringID = "ifdb_string_id"
@@ -93,7 +93,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	/// The shared organiser
 	@objc(sharedStoryOrganiser)
-	static let shared: ZoomStoryOrganiser = {
+	@MainActor static let shared: ZoomStoryOrganiser = {
 		let toRet = ZoomStoryOrganiser()
 		try? toRet.load()
 		return toRet
@@ -123,23 +123,23 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	//MARK: - Progress
 
-	private func startedActing() {
+	@MainActor private func startedActing() {
 		NotificationCenter.default.post(name: ZoomStoryOrganiser.progressNotification, object: self, userInfo: ["ActionStarting": true])
 	}
 	
-	private func endedActing() {
+	@MainActor private func endedActing() {
 		NotificationCenter.default.post(name: ZoomStoryOrganiser.progressNotification, object: self, userInfo: ["ActionStarting": false])
 	}
 
 	//MARK: -
 	
-	func organiserChanged() {
+	@MainActor func organiserChanged() {
 		try? save()
 		
 		NotificationCenter.default.post(name: ZoomStoryOrganiser.changedNotification, object: self)
 	}
 	
-	func load() throws {
+	@MainActor func load() throws {
 		let dir = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectory!
 		var saveURL = URL(fileURLWithPath: dir, isDirectory: true)
 		saveURL.appendPathComponent("Library.json")
@@ -150,7 +150,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		gameDirectories = wrapper.gameDirectories
 	}
 	
-	func save() throws {
+	@MainActor func save() throws {
 		let dir = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectory!
 		var saveURL = URL(fileURLWithPath: dir, isDirectory: true)
 		saveURL.appendPathComponent("Library.json")
@@ -164,7 +164,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	private var dataChangedNotificationObject: NSObjectProtocol? = nil
 	private var alreadyOrganising = false
 	
-	func updateFromOldDefaults() {
+	@MainActor func updateFromOldDefaults() {
 		guard let oldDict = UserDefaults.standard.dictionary(forKey: "ZoomStoryOrganiser") as? [String: Data] else {
 			return
 		}
@@ -206,11 +206,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	// MARK: - Storing stories
 	
 	@objc(addStoryAtURL:withIdentity:organise:error:)
-	func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false) throws {
+	@MainActor func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false) throws {
 		try addStory(at: filename, withIdentity: ident, organise: organise, skipSave: false)
 	}
 	
-	private func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
+	@MainActor private func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
 		guard try filename.checkResourceIsReachable() else {
 			throw CocoaError(.fileNoSuchFile, userInfo: [NSURLErrorKey: filename])
 		}
@@ -307,7 +307,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	@objc(removeStoryWithIdent:deleteFromMetadata:)
-	func removeStory(with ident: ZoomStoryID, deleteFromMetadata delete: Bool) {
+	@MainActor func removeStory(with ident: ZoomStoryID, deleteFromMetadata delete: Bool) {
 		storyLock.lock()
 		
 		let idx = stories.firstIndex { obj in
@@ -357,7 +357,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	/// The preferred directory is defined by the story group and title
 	/// (Ungrouped/untitled if there is no story group/title)
-	private func preferredDirectory(for ident: ZoomStoryID) -> URL? {
+	@MainActor private func preferredDirectory(for ident: ZoomStoryID) -> URL? {
 		let confDir = ZoomPreferences.global.organiserDirectory!
 		var confURL: URL = URL(fileURLWithPath: confDir, isDirectory: true)
 		let theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
@@ -371,7 +371,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	/// If the preferences get corrupted or something similarily silly happens,
 	/// we want to avoid having games point to the wrong directories. This
 	/// routine checks that a directory belongs to a particular game.
-	func directory(_ dir: URL, isFor ident: ZoomStoryID) -> Bool {
+	@MainActor func directory(_ dir: URL, isFor ident: ZoomStoryID) -> Bool {
 		var isDir: ObjCBool = false
 		guard urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) else {
 			// Corner case
@@ -413,7 +413,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	/// Assuming a story doesn't already have a directory, find (and possibly create)
 	/// a directory for it.
-	private func findDirectory(for ident: ZoomStoryID, createGameDir createGame: Bool, createGroupDir createGroup: Bool) -> URL? {
+	@MainActor private func findDirectory(for ident: ZoomStoryID, createGameDir createGame: Bool, createGroupDir createGroup: Bool) -> URL? {
 		var isDir: ObjCBool = false
 		
 		let theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
@@ -502,7 +502,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 	
 	@objc(directoryForIdent:create:)
-	func directory(for ident: ZoomStoryID, create: Bool) -> URL? {
+	@MainActor func directory(for ident: ZoomStoryID, create: Bool) -> URL? {
 		var confDir: URL? = nil
 		
 		// If there is a directory in the preferences, then that's the directory to use
@@ -534,7 +534,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		return gameDir
 	}
 	
-	func moveStoryToPreferredDirectory(with ident: ZoomStoryID) -> Bool {
+	@MainActor func moveStoryToPreferredDirectory(with ident: ZoomStoryID) -> Bool {
 		guard let currentDir = directory(for: ident, create: false)?.standardizedFileURL else {
 			return false
 		}
@@ -595,7 +595,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		return true
 	}
 	
-	@objc private
+	@MainActor @objc private
 	func finishChanging(_ story: ZoomStory) {
 		// For our pre-arranged stories, several IDs are possible, but more usually one
 		guard let storyIDs = story.storyIDs else {
@@ -655,12 +655,12 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 	// MARK: - Retrieving story information
 	
-	var storyIdents: [ZoomStoryID] {
+	@MainActor var storyIdents: [ZoomStoryID] {
 		return stories.map({$0.fileID})
 	}
 
 	@objc(URLForIdent:)
-	func urlFor(_ ident: ZoomStoryID) -> URL? {
+	@MainActor func urlFor(_ ident: ZoomStoryID) -> URL? {
 		storyLock.lock()
 		defer {
 			storyLock.unlock()
@@ -670,14 +670,14 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	@available(*, deprecated, message: "Use urlFor(_:) or -URLForIdent: instead")
 	@objc(filenameForIdent:)
-	func filename(for ident: ZoomStoryID) -> String? {
+	@MainActor func filename(for ident: ZoomStoryID) -> String? {
 		return urlFor(ident)?.path
 	}
 	
 	// MARK: - Reorganising stories
 	
 	@objc(organiseStory:)
-	func organiseStory(_ story: ZoomStory) {
+	@MainActor func organiseStory(_ story: ZoomStory) {
 		var organized = false
 		
 		if let ids = story.storyIDs {
@@ -697,7 +697,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	@objc(organiseStory:withIdent:)
-	func organiseStory(_ story: ZoomStory, with ident: ZoomStoryID) {
+	@MainActor func organiseStory(_ story: ZoomStory, with ident: ZoomStoryID) {
 		guard var filename = urlFor(ident) else {
 			NSLog("WARNING: Attempted to organise a story with no filename");
 			return
@@ -847,23 +847,22 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	func organiseAllStories() {
-		// TODO: implement
-//		storyLock.lock()
-//		defer {
-//			storyLock.unlock()
-//		}
-//
-//		guard !alreadyOrganising else {
-//			NSLog("ZoomStoryOrganiser: organiseAllStories called while Zoom was already in the process of organising");
-//			return
-//		}
-//
-//		alreadyOrganising = true
-//
-//		// Run a separate thread to do (some of) the work
-//		let organizerThread = Thread(target: self, selector: #selector(ZoomStoryOrganiser.organiserThread(_:)), object: nil)
-//		organizerThread.name = "Zoom Organiser Thread"
-//		organizerThread.start()
+		storyLock.lock()
+		defer {
+			storyLock.unlock()
+		}
+
+		guard !alreadyOrganising else {
+			NSLog("ZoomStoryOrganiser: organiseAllStories called while Zoom was already in the process of organising");
+			return
+		}
+
+		alreadyOrganising = true
+		
+		
+		Task {
+			await organiserThread()
+		}
 	}
 	
 	@objc(reorganiseStoriesToNewDirectoryURL:)
@@ -877,25 +876,142 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		reorganiseStories(to: URL(fileURLWithPath: newStoryDirectory, isDirectory: true))
 	}
 	
-	@objc private func organiserThread(_ dict: Any?) {
-		autoreleasepool {
-//			let fm = FileManager()
-//			// Start things rolling
-//			DispatchQueue.main.async {
-//				self.startedActing()
-//			}
-//			
-//			var gameStorageDirectory: String = ""
-//			DispatchQueue.main.sync {
-//				gameStorageDirectory = ZoomPreferences.global.organiserDirectory
-//			}
-//			
-//			// Get the list of stories we need to update
-//			// It is assumed any new stories at this point will be organised correctly
-//			storyLock.lock()
-//			let filenames = stories.map({$0.url})
-//			storyLock.unlock()
+	@MainActor func storyFrom(id storyID: ZoomStoryID) -> ZoomStory? {
+		storyLock.lock()
+		defer {
+			storyLock.unlock()
 		}
+		return (NSApp.delegate as! ZoomAppDelegate).findStory(storyID)
+	}
+	
+	private func organiserThread() async {
+		await startedActing()
+		
+		let gameStorageDirectory = await MainActor.run { () -> URL in
+			let org = ZoomPreferences.global.organiserDirectory!
+			return URL(fileURLWithPath: org, isDirectory: true)
+		}
+		let storageComponents = gameStorageDirectory.pathComponents
+		
+		// Get the list of stories we need to update
+		// It is assumed any new stories at this point will be organised correctly
+		storyLock.lock()
+		let ourStories = await stories
+		storyLock.unlock()
+		
+		for story in ourStories {
+			let filename = story.url
+			
+			if (try? filename.checkResourceIsReachable()) ?? false {
+				// The story does not exist: remove from the database and keep moving
+				
+				await MainActor.run(body: {
+					if let idx = stories.firstIndex(of: story) {
+						_=stories.remove(at: idx)
+					}
+					organiserChanged()
+				})
+				
+				continue
+			}
+			
+			// OK, the story still exists with that filename. Pass this off to the main thread
+			// for organisation
+			// [(ZoomStoryOrganiser*)[subThreadConnection rootProxy] reorganiseStoryWithFilename: filename];
+			// ---  FAILS, creates duplicates sometimes
+			
+			// There are a few possibilities:
+			//
+			//		1. The story is outside the organisation directory
+			//		2. The story is in the organisation directory, but in the wrong group
+			//		3. The story is in the organisation directory, but in the wrong directory
+			//		4. There are multiple copies of the story in the directory
+			//
+			// 2 and 3 here are not exclusive. There may be a story in the organisation directory with the
+			// same title, so the 'ideal' location might turn out to be unavailable.
+			//
+			// In case 1, act as if the story has been newly added, except move the old story to the trash. Finished.
+			// In case 2, move the story directory to the new group. Rename if it already exists there (pick
+			//		something generic, I guess). Fall through to check case 3.
+			// In case 3, pick the 'best' possible name, and rename it
+			// In case 4, merge the story directories. (We'll leave this out for the moment)
+			//
+			// Also a faint chance that the file/directory will disappear while we're operating on it.
+			
+			let storyID = story.fileID
+			guard let zStory = await storyFrom(id: storyID) else {
+				// No info (file has gone away?)
+				NSLog("Organiser: failed to reorganise file '%@' - couldn't find any information for this file", filename.path)
+				continue
+			}
+			
+			// CHECK FOR CASE 1 - does filename begin with gameStorageDirectory?
+			let filenameComponents = filename.pathComponents
+			var outsideOrganisation = true
+			
+			if filenameComponents.count == storageComponents.count + 3 {
+				// filenameComponents should have 3 components extra over the storage directory: group/title/game.ext
+				
+				// Compare the components
+				outsideOrganisation = false
+				for (c1, c2) in zip(filenameComponents, storageComponents) {
+					// Note, there's no way to see if we're using a case-sensitive file system or not. We assume
+					// we are, as that's the default. People running with HFSX or UFS can just put up with the
+					// odd weirdness occuring due to this.
+					if c1.compare(c2, options: [.caseInsensitive]) != .orderedSame {
+						outsideOrganisation = true
+						break
+					}
+				}
+			}
+			
+			if outsideOrganisation {
+				// CASE 1 HAS OCCURED. Organise this story
+				NSLog("File %@ outside of organisation directory: organising", filename.path)
+				
+				await organiseStory(zStory, with: storyID)
+				
+				continue
+			}
+			
+			// CHECK FOR CASE 2: story is in the wrong group
+			var inWrongGroup = false
+			
+			storyLock.lock()
+			var expectedGroup = sanitiseDirectoryName(zStory.group) ?? "Ungrouped"
+			let actualGroup = filenameComponents[filenameComponents.count-3]
+			if expectedGroup == "" {
+				expectedGroup = "Ungrouped"
+			}
+			storyLock.unlock()
+
+			if actualGroup.lowercased() != expectedGroup.lowercased() {
+				NSLog("Organiser: File %@ not in the expected group (%@ vs %@)", filename.path, actualGroup, expectedGroup)
+				inWrongGroup = true
+			}
+
+			// CHECK FOR CASE 3: story is in the wrong directory
+			var inWrongDirectory = false
+			
+			storyLock.lock()
+			let expectedDir = sanitiseDirectoryName(zStory.title)!
+			let actualDir = filenameComponents[filenameComponents.count - 2]
+			storyLock.unlock()
+
+			if actualDir.lowercased() != expectedDir.lowercased() {
+				NSLog("Organiser: File %@ not in the expected directory (%@ vs %@)", filename.path, actualDir, expectedDir);
+				inWrongDirectory = true
+			}
+			
+		}
+		
+		// Not organising any more
+		storyLock.lock()
+		alreadyOrganising = false
+		storyLock.unlock()
+		
+		// Tidy up
+		await endedActing()
 	}
 }
 
