@@ -178,7 +178,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		for (path, storyID) in unarchiveDict {
 			let pathurl = URL(fileURLWithPath: path)
-			try? addStory(at: pathurl, withIdentity: storyID)
+			try? addStory(at: pathurl, withIdentity: storyID, skipSave: true)
 		}
 		if let oldDict2 = UserDefaults.standard.dictionary(forKey: "ZoomGameDirectories") as? [String: String] {
 			let mappedDict = oldDict2.mapValues { val in
@@ -189,13 +189,17 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 //		UserDefaults.standard.removeObject(forKey: "ZoomStoryOrganiser")
 //		UserDefaults.standard.removeObject(forKey: "ZoomGameDirectories")
-		try? save()
+		organiserChanged()
 	}
 	
 	// MARK: - Storing stories
 	
 	@objc(addStoryAtURL:withIdentity:organise:error:)
 	func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false) throws {
+		try addStory(at: filename, withIdentity: ident, organise: organise, skipSave: false)
+	}
+	
+	private func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
 		guard try filename.checkResourceIsReachable() else {
 			throw CocoaError(.fileNoSuchFile, userInfo: [NSURLErrorKey: filename])
 		}
@@ -233,9 +237,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		// Get the story from the metadata database
 		var theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
 #if DEVELOPMENT_BUILD
-		NSLog("Adding %@ (IFID %@)", filename.path, ident);
+		NSLog("Adding %@ (IFID %@)", filename.path, ident)
 		if let oldFilename = oldURL {
-			NSLog("... previously %@ (%@)", oldFilename, oldIdent);
+			NSLog("... previously %@ (%@)", oldFilename.path, (oldIdent!))
 		}
 #endif
 		// If there's no story registered, then we need to create one
@@ -286,7 +290,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			organiseStory(theStory!, with: ident)
 		}
 		
-		organiserChanged()
+		if !skipSave {
+			organiserChanged()
+		}
 	}
 	
 	@objc(removeStoryWithIdent:deleteFromMetadata:)
@@ -400,20 +406,87 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		var isDir: ObjCBool = false
 		
 		let theStory = (NSApp.delegate as! ZoomAppDelegate).findStory(ident)
-		var group = sanitiseDirectoryName(theStory?.group)
-		var title = sanitiseDirectoryName(theStory?.title)
+		var group: String? = sanitiseDirectoryName(theStory?.group)
+		var title: String? = sanitiseDirectoryName(theStory?.title)
 		
 		if group == nil || group == "" {
 			group = "Ungrouped"
 		}
 		if title == nil || title == "" {
-			group = "Untitled"
+			title = "Untitled"
 		}
 
-		let rootDir = ZoomPreferences.global.organiserDirectory!
-		let rootURL: URL = URL(fileURLWithPath: rootDir)
-
-		return nil
+		let rootDir: String = ZoomPreferences.global.organiserDirectory!
+		let rootURL = URL(fileURLWithPath: rootDir, isDirectory: true)
+		
+		if !urlIsAvailable(rootURL, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) {
+			if createGroup {
+				try? FileManager.default.createDirectory(at: rootURL, withIntermediateDirectories: false, attributes: nil)
+				isDir = true
+			} else {
+				return nil
+			}
+		}
+		
+		guard isDir.boolValue else {
+			return nil
+		}
+		// Find the group directory
+		let groupDir = rootURL.appendingPathComponent(group!)
+		
+		if !urlIsAvailable(groupDir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) {
+			if createGroup {
+				try? FileManager.default.createDirectory(at: groupDir, withIntermediateDirectories: false, attributes: nil)
+				isDir = true
+			} else {
+				return nil
+			}
+		}
+		
+		guard isDir.boolValue else {
+			
+			return nil
+		}
+		
+		// Now the game directory
+		var gameDir = groupDir.appendingPathComponent(title!)
+		var number = 0
+		let maxNumber = 20
+		
+		while !directory(gameDir, isFor: ident) && number < maxNumber {
+			number += 1
+			gameDir = groupDir.appendingPathComponent("\(title!) \(number)")
+		}
+		
+		guard number < maxNumber else {
+			return nil
+		}
+		
+		// Create the directory if necessary
+		if !urlIsAvailable(gameDir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) {
+			if createGame {
+				try? FileManager.default.createDirectory(at: gameDir, withIntermediateDirectories: false, attributes: nil)
+				isDir = true
+			} else {
+				if createGroup {
+					// Special case, really. Sometimes we need to know where we're going to move the game to
+					return gameDir
+				} else {
+					return nil
+				}
+			}
+		}
+		if !urlIsAvailable(gameDir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) || !isDir.boolValue {
+			// Chances of reaching here should have been eliminated previously
+			return nil
+		}
+		
+		// Create the identifier file
+		let identityFile = gameDir.appendingPathComponent(ZoomIdentityFilename)
+		let dat = try! NSKeyedArchiver.archivedData(withRootObject: ident, requiringSecureCoding: true)
+		try! dat.write(to: identityFile)
+		
+		return gameDir
 	}
 
 	
@@ -456,7 +529,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 #if DEVELOPMENT_BUILD
-		NSLog("Moving %@ to its preferred path (currently at %@)", ident, currentDir);
+		NSLog("Moving %@ to its preferred path (currently at %@)", ident, currentDir.path)
 #endif
 
 		// Get the 'ideal' directory
@@ -468,7 +541,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 #if DEVELOPMENT_BUILD
-		NSLog("Ideal location is %@", idealDir);
+		NSLog("Ideal location is %@", idealDir!.path);
 #endif
 
 		
@@ -530,7 +603,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			oldGameFile?.appendPathComponent(oldGameLoc.lastPathComponent)
 			
 #if DEVELOPMENT_BUILD
-			NSLog("ID %@ (%@) is located at %@ (%@)", ident, realID, oldGameFile, oldGameLoc);
+			NSLog("ID %@ (%@) is located at %@ (%@)", ident, realID, oldGameFile!.path, oldGameLoc.path)
 #endif
 
 			
@@ -596,7 +669,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 #if DEVELOPMENT_BUILD
-		NSLog("Organising %@ (%@)", story.title, ident);
+		NSLog("Organising %@ (%@)", story.title!, ident)
 #endif
 		
 		storyLock.lock()
@@ -607,7 +680,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		let oldFilename = filename
 
 #if DEVELOPMENT_BUILD
-	NSLog("... currently at %@", oldFilename);
+		NSLog("... currently at %@", oldFilename.path)
 #endif
 
 		// Copy to a standard directory, change the filename we're using
@@ -618,7 +691,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		destFile = destFile?.standardizedFileURL
 		
 	#if DEVELOPMENT_BUILD
-		NSLog("... best directory %@ (file will be %@)", fileDir, destFile);
+		NSLog("... best directory %@ (file will be %@)", fileDir!.path, destFile!.path)
 	#endif
 
 	
