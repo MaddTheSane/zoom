@@ -71,7 +71,6 @@
 - (BOOL) mergeiFictionFromURL: (NSURL*) filename error: (NSError**) outError;
 - (NSArray<ZoomStory*>*) mergeiFictionFromMetabase: (ZoomMetadata*) newData;
 
-- (void) addFiles: (NSArray<NSString*> *)filenames DEPRECATED_MSG_ATTRIBUTE("use -addURLs: instead");
 - (void) addURLs: (NSArray<NSURL*> *)filenames;
 
 - (void) setupSplitView;

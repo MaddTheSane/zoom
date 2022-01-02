@@ -541,69 +541,6 @@ static dispatch_block_t onceTypesBlock = ^{
 	}
 }
 
-- (void) addFiles: (NSArray *)filenames {
-#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
-	dispatch_once(&onceTypesToken, onceTypesBlock);
-#endif
-
-	// Add all the files we can
-	NSMutableArray* selectedFiles = [filenames mutableCopy];
-	
-	while( [selectedFiles count] > 0 ) 
-	@autoreleasepool {
-		BOOL isDir;
-		
-		NSString *filename = [selectedFiles objectAtIndex:0];
-
-		isDir = NO;
-		[[NSFileManager defaultManager] fileExistsAtPath: filename
-											 isDirectory: &isDir];
-		
-		NSString* fileType = [[filename pathExtension] lowercaseString];
-		Class plugin;
-		
-		if (isDir) {
-			NSArray* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: filename error:NULL];
-			
-			for (NSString* dirComponent in dirContents)
-			{
-				[selectedFiles addObject: [filename stringByAppendingPathComponent: dirComponent]];
-			}
-		} else if ([ZComFileTypes containsObject: fileType]) {
-			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithZCodeFile: filename];
-			
-			if (fileID != nil) 
-			{
-				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
-														  withIdent: fileID
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
-				
-			}
-		} else if ([blorbFileTypes containsObject: fileType]) {
-			ZoomStoryID* fileID = [[ZoomStoryID alloc] initWithGlulxFile: filename];
-			
-			if (fileID != nil)
-			{
-				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
-														  withIdent: fileID
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
-				
-			}
-		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] plugInForFile: filename])) {
-			ZoomPlugIn* instance = [[plugin alloc] initWithFilename: filename];
-			ZoomStoryID* fileID = [instance idForStory];
-			
-			if (fileID != nil) {
-				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
-														  withIdent: fileID
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];				
-			}
-		}
-
-		[selectedFiles removeObjectAtIndex:0];
-	}
-}
-
 #pragma mark - IB actions
 
 - (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
@@ -744,9 +681,9 @@ static dispatch_block_t onceTypesBlock = ^{
 		return;
 		
 	// If an autosave file exists, query the user
-	NSString* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
-																				  create: NO];
-	NSString* autosaveFile = [autosaveDir stringByAppendingPathComponent: @"autosave.zoomauto"];
+	NSURL* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
+																			   create: NO];
+	NSString* autosaveFile = [autosaveDir URLByAppendingPathComponent: @"autosave.zoomauto"].path;
 	
 	if ([[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
 		// Autosave file exists - show alert sheet
@@ -1266,9 +1203,9 @@ static dispatch_block_t onceTypesBlock = ^{
 			} else {
 				[newgameButton setEnabled: YES];
 				
-				NSString* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
-																							  create: NO];
-				NSString* autosaveFile = [autosaveDir stringByAppendingPathComponent: @"autosave.zoomauto"];
+				NSURL* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
+																						   create: NO];
+				NSString* autosaveFile = [autosaveDir URLByAppendingPathComponent: @"autosave.zoomauto"].path;
 				
 				if ([[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
 					// Can restore an autosave
@@ -1311,9 +1248,9 @@ static dispatch_block_t onceTypesBlock = ^{
 		description = [story description];
 		
 		// Set up the save preview view
-		NSString* dir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident 
-																			  create: NO];
-		[previewView setDirectoryToUse: [dir stringByAppendingPathComponent: @"Saves"]];
+		NSURL* dir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
+																		   create: NO];
+		[previewView setDirectoryToUse: [dir URLByAppendingPathComponent: @"Saves"].path];
 		
 		if ([previewView saveGamesAvailable] != saveGamesAvailable) {
 			// Set the 'saves' tab to dark blue if save games are available
@@ -1606,13 +1543,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	[mainTableView cancelEditTimer];
 
 	ZoomStoryID* ident = [storyList objectAtIndex:row];
-	NSString* gamedir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident create: NO];
-	if( gamedir != NULL )
-	{
-		return [NSURL fileURLWithPath: gamedir];
-	}
-
-	return nil;
+	return [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident create: NO];
 }
 
 - (NSDragOperation)tableView:(NSTableView *)tv
@@ -2193,10 +2124,10 @@ static dispatch_block_t onceTypesBlock = ^{
 			NSMutableArray *delURLs = [[NSMutableArray alloc] initWithCapacity: storiesToDelete.count];
 			
 			for (ZoomStoryID* ident in rowEnum) {
-				NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
-																						   create: NO];
+				NSURL* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: ident
+																						create: NO];
 				if (filename != nil) {
-					[delURLs addObject:[NSURL fileURLWithPath:filename]];
+					[delURLs addObject:filename];
 					
 					// (make sure it's gone from the organiser)
 					[[ZoomStoryOrganiser sharedStoryOrganiser] removeStoryWithIdent: ident

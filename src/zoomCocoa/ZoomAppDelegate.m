@@ -102,9 +102,9 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	
 	if ([prefs keepGamesOrganised]) {
 		// Get the directory for this game
-		NSString* gameDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: storyId
-																				  create: YES];
-		NSString* saveDir = [gameDir stringByAppendingPathComponent: @"Saves"];
+		NSURL* gameDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: storyId
+																			   create: YES];
+		NSString* saveDir = [gameDir URLByAppendingPathComponent: @"Saves"].path;
 		
 		BOOL isDir = NO;
 		
@@ -220,9 +220,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 					}
 				}
 				
-				[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: filename
-														  withIdent: ident
-														   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: [NSURL fileURLWithPath:filename]
+															withIdentity: ident
+																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+																   error: NULL];
 				filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
 			}
 			
@@ -272,7 +273,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// init the story organizer.
-	[ZoomStoryOrganiser sharedStoryOrganiser];
+	[[ZoomStoryOrganiser sharedStoryOrganiser] updateFromOldDefaults];
 	// See if there's a startup signpost file
 	NSString* startupSignpost = [[(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory] stringByAppendingPathComponent: @"launch.signpost"];
 	BOOL isDir;

@@ -202,9 +202,9 @@
 	
 	if ([prefs keepGamesOrganised]) {
 		// Get the directory for this game
-		NSString* gameDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: [[self document] storyId]
-																				  create: YES];
-		NSString* saveDir = [gameDir stringByAppendingPathComponent: @"Saves"];
+		NSURL* gameDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: [[self document] storyId]
+																			   create: YES];
+		NSString* saveDir = [gameDir URLByAppendingPathComponent: @"Saves"].path;
 		
 		BOOL isDir = NO;
 		
@@ -343,9 +343,9 @@
 	// Record autosave data
 	BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
 	
-	NSString* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: [[self document] storyId]
-																				  create: autosave];
-	NSString* autosaveFile = [autosaveDir stringByAppendingPathComponent: @"autosave.zoomauto"];
+	NSURL* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: [[self document] storyId]
+																			   create: autosave];
+	NSString* autosaveFile = [autosaveDir URLByAppendingPathComponent: @"autosave.zoomauto"].path;
 	
 	if (autosave) {
 		NSKeyedArchiver* theCoder = [[NSKeyedArchiver alloc] initRequiringSecureCoding: YES];

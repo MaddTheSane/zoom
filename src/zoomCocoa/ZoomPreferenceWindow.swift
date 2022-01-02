@@ -675,7 +675,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 				return
 			}
 			
-			ZoomStoryOrganiser.shared.reorganiseStories(toNewDirectory: dirChooser.url!.path)
+			ZoomStoryOrganiser.shared.reorganiseStories(to: dirChooser.url!)
 			preferences.organiserDirectory = dirChooser.url!.path
 			organiseDir.string = preferences.organiserDirectory
 		}

@@ -11,6 +11,7 @@
 #import "ZoomClientController.h"
 #import "ZoomStoryOrganiser.h"
 #import <ZoomView/ZoomView-Swift.h>
+#import "Zoom-Swift.h"
 
 #import "ZoomAppDelegate.h"
 
@@ -244,9 +245,9 @@
 - (void) loadDefaultAutosave {
 	if (autosaveData) autosaveData = nil;
 	
-	NSString* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: storyId
+	NSURL* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: storyId
 																				  create: NO];
-	NSString* autosaveFile = [autosaveDir stringByAppendingPathComponent: @"autosave.zoomauto"];
+	NSString* autosaveFile = [autosaveDir URLByAppendingPathComponent: @"autosave.zoomauto"].path;
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
 		autosaveData = nil;

@@ -20,7 +20,17 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 /// The story organiser is used to store story locations and identifications
 /// (mainly to build up the iFiction window).
-@objcMembers class ZoomStoryOrganiser2: NSObject {
+@objcMembers class ZoomStoryOrganiser: NSObject {
+	// TODO: migrate to CoreData
+
+	@nonobjc public class var changedNotification: NSNotification.Name {
+		return .ZoomStoryOrganiserChanged
+	}
+
+	@nonobjc public class var progressNotification: NSNotification.Name {
+		return .ZoomStoryOrganiserProgress
+	}
+	
 	private(set) var stories = [Object]()
 	private var gameDirectories = [String: URL]()
 	struct Object: Hashable, Codable {
@@ -82,9 +92,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	/// The shared organiser
-	@objc(sharedStoryOraniser)
-	static let shared: ZoomStoryOrganiser2 = {
-		let toRet = ZoomStoryOrganiser2()
+	@objc(sharedStoryOrganiser)
+	static let shared: ZoomStoryOrganiser = {
+		let toRet = ZoomStoryOrganiser()
 		try? toRet.load()
 		return toRet
 	}()
@@ -102,8 +112,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			
 			// De and requeue this to be done next time through the run loop
 			// (stops this from being performed multiple times when many story parameters are updated together)
-			RunLoop.current.cancelPerform(#selector(ZoomStoryOrganiser2.finishChanging(_:)), target: strongSelf, argument: story)
-			RunLoop.current.perform(#selector(ZoomStoryOrganiser2.finishChanging(_:)), target: strongSelf, argument: story, order: 128, modes: [.default, .modalPanel])
+			RunLoop.current.cancelPerform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: strongSelf, argument: story)
+			RunLoop.current.perform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: strongSelf, argument: story, order: 128, modes: [.default, .modalPanel])
 		})
 	}
 	
@@ -152,6 +162,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	private var storyLock = NSLock()
 	private var dataChangedNotificationObject: NSObjectProtocol? = nil
+	private var alreadyOrganising = false
 	
 	func updateFromOldDefaults() {
 		guard let oldDict = UserDefaults.standard.dictionary(forKey: "ZoomStoryOrganiser") as? [String: Data] else {
@@ -187,8 +198,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			gameDirectories = mappedDict
 		}
 		
-//		UserDefaults.standard.removeObject(forKey: "ZoomStoryOrganiser")
-//		UserDefaults.standard.removeObject(forKey: "ZoomGameDirectories")
+		UserDefaults.standard.removeObject(forKey: "ZoomStoryOrganiser")
+		UserDefaults.standard.removeObject(forKey: "ZoomGameDirectories")
 		organiserChanged()
 	}
 	
@@ -832,6 +843,58 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			}
 		} else {
 			story.setObject(nil, forKey: "ResourceFilename")
+		}
+	}
+	
+	func organiseAllStories() {
+		// TODO: implement
+//		storyLock.lock()
+//		defer {
+//			storyLock.unlock()
+//		}
+//
+//		guard !alreadyOrganising else {
+//			NSLog("ZoomStoryOrganiser: organiseAllStories called while Zoom was already in the process of organising");
+//			return
+//		}
+//
+//		alreadyOrganising = true
+//
+//		// Run a separate thread to do (some of) the work
+//		let organizerThread = Thread(target: self, selector: #selector(ZoomStoryOrganiser.organiserThread(_:)), object: nil)
+//		organizerThread.name = "Zoom Organiser Thread"
+//		organizerThread.start()
+	}
+	
+	@objc(reorganiseStoriesToNewDirectoryURL:)
+	func reorganiseStories(to newStoryDirectory: URL) {
+		// TODO: implement
+	}
+	
+	@available(*, deprecated, message: "Use reorganiseStories(to:) or -reorganiseStoriesToNewDirectoryURL: instead")
+	@objc(reorganiseStoriesToNewDirectory:)
+	func reorganiseStories(toNewDirectory newStoryDirectory: String) {
+		reorganiseStories(to: URL(fileURLWithPath: newStoryDirectory, isDirectory: true))
+	}
+	
+	@objc private func organiserThread(_ dict: Any?) {
+		autoreleasepool {
+//			let fm = FileManager()
+//			// Start things rolling
+//			DispatchQueue.main.async {
+//				self.startedActing()
+//			}
+//			
+//			var gameStorageDirectory: String = ""
+//			DispatchQueue.main.sync {
+//				gameStorageDirectory = ZoomPreferences.global.organiserDirectory
+//			}
+//			
+//			// Get the list of stories we need to update
+//			// It is assumed any new stories at this point will be organised correctly
+//			storyLock.lock()
+//			let filenames = stories.map({$0.url})
+//			storyLock.unlock()
 		}
 	}
 }
