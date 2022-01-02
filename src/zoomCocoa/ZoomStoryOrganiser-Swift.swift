@@ -554,7 +554,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		// Don't even think about UFS or HFSX. There's no way to tell which we're using
 		if ((try? idealDir?.checkResourceIsReachable() ?? false) != nil) {
 			// Doh!
-			NSLog("Wanted to move game from '%@' to '%@', but '%@' already exists", currentDir.path, idealDir?.path ?? "Nil", idealDir?.path ?? "Nil");
+			NSLog("Wanted to move game from '%@' to '%@', but '%@' already exists", currentDir.path, idealDir?.path ?? "(nil)", idealDir?.path ?? "(nil)");
 			return false
 		}
 		
@@ -603,13 +603,31 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			oldGameFile?.appendPathComponent(oldGameLoc.lastPathComponent)
 			
 #if DEVELOPMENT_BUILD
-			NSLog("ID %@ (%@) is located at %@ (%@)", ident, realID, oldGameFile!.path, oldGameLoc.path)
+			NSLog("ID %@ (%@) is located at %@ (%@)", ident, realID, oldGameFile?.path ?? "(nil)", oldGameLoc.path)
 #endif
-
 			
 			// Actually perform the move
 			if moveStoryToPreferredDirectory(with: stories[identID].fileID) {
 				changed = true
+				
+				// Store the new location of the game, if necessary
+				if (/* DISABLES CODE */ true || oldGameLoc == oldGameFile ) {
+					var newGameFile = directory(for: ident, create: false)?.appendingPathComponent(oldGameLoc.lastPathComponent)
+					newGameFile = newGameFile?.standardizedFileURL
+					
+#if DEVELOPMENT_BUILD
+					NSLog("Have moved to %@", newGameFile?.path ?? "(nil)")
+#endif
+					if oldGameFile == nil || newGameFile == nil {
+						NSLog("Story ID %@ doesn't seem to exist...", ident)
+						continue
+					}
+					
+					if oldGameFile != newGameFile, let newGameFile = newGameFile {
+						stories.remove(at: identID)
+						stories.append(Object(url: newGameFile, bookmarkData: try? newGameFile.bookmarkData(options: [.securityScopeAllowOnlyReadAccess]), fileID: ident))
+					}
+				}
 			}
 		}
 		
