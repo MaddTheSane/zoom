@@ -537,13 +537,19 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 		// See if they already match
 		if idealDir == currentDir {
-			return true;
+			return true
 		}
 		
 #if DEVELOPMENT_BUILD
-		NSLog("Ideal location is %@", idealDir!.path);
+		NSLog("Ideal location is %@", idealDir?.path ?? "(nil)")
 #endif
 
+		guard let idealDir = idealDir else {
+#if DEVELOPMENT_BUILD
+			NSLog("...which isn't a real path!")
+#endif
+			return false
+		}
 		
 		// If they don't match, then idealDir should be new (or something weird has just occured)
 		// Hmph. HFS+ is case-insensitve, and stringByStandardizingPath does not take account of this. This could
@@ -552,9 +558,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		// used for comparing filenames internally to HFS+.
 		//
 		// Don't even think about UFS or HFSX. There's no way to tell which we're using
-		if ((try? idealDir?.checkResourceIsReachable() ?? false) != nil) {
+		if (try? idealDir.checkResourceIsReachable()) ?? false {
 			// Doh!
-			NSLog("Wanted to move game from '%@' to '%@', but '%@' already exists", currentDir.path, idealDir?.path ?? "(nil)", idealDir?.path ?? "(nil)");
+			NSLog("Wanted to move game from '%@' to '%@', but '%@' already exists", currentDir.path, idealDir.path, idealDir.path)
 			return false
 		}
 		
@@ -563,9 +569,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		// Vague possibilities of this failing: in particular, currentDir may be not write-accessible or
 		// something might appear there between our check and actually moving the directory
 		do {
-			try FileManager.default.moveItem(at: currentDir, to: idealDir!)
+			try FileManager.default.moveItem(at: currentDir, to: idealDir)
 		} catch {
-			NSLog("Failed to move '%@' to '%@'", currentDir.path, idealDir!.path)
+			NSLog("Failed to move '%@' to '%@'", currentDir.path, idealDir.path)
 			return false
 		}
 		
@@ -703,16 +709,130 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 		// Copy to a standard directory, change the filename we're using
 		filename = filename.standardizedFileURL
-			
+		
 		let fileDir = directory(for: ident, create: true)
 		var destFile = fileDir?.appendingPathComponent(oldFilename.lastPathComponent)
 		destFile = destFile?.standardizedFileURL
 		
-	#if DEVELOPMENT_BUILD
-		NSLog("... best directory %@ (file will be %@)", fileDir!.path, destFile!.path)
-	#endif
-
-	
+#if DEVELOPMENT_BUILD
+		NSLog("... best directory %@ (file will be %@)", fileDir?.path ?? "(nil)", destFile?.path ?? "(nil)")
+#endif
+		
+		
+		if filename != destFile, let destFile = destFile {
+			var moved = false
+			if filename.path.lowercased() == destFile.path.lowercased() {
+				// *LIKELY* that these are in fact the same file with different case names
+				// Cocoa doesn't seem to provide a good way to see if too paths are actually the same:
+				// so the semantics of this might be incorrect in certain edge cases. We move to ensure
+				// that everything is nice and safe
+				try? FileManager.default.moveItem(at: filename, to: destFile)
+				moved = true
+				filename = destFile
+			}
+			// The file might already be organised, but in the wrong directory
+			let gameStorageDirectory: String = ZoomPreferences.global.organiserDirectory!
+			let gameStorageURL = URL(fileURLWithPath: gameStorageDirectory, isDirectory: true)
+			let storageComponents = gameStorageURL.pathComponents
+			
+			let filenameComponents = filename.pathComponents
+			var outsideOrganisation = true
+			
+			if filenameComponents.count == storageComponents.count + 3 {
+				// filenameComponents should have 3 components extra over the storage directory: group/title/game.ext
+				
+				// Compare the components
+				outsideOrganisation = false
+				for (c1, c2) in zip(filenameComponents, storageComponents) {
+					// Note, there's no way to see if we're using a case-sensitive file system or not. We assume
+					// we are, as that's the default. People running with HFSX or UFS can just put up with the
+					// odd weirdness occuring due to this.
+					if c1.compare(c2, options: [.caseInsensitive]) != .orderedSame {
+						outsideOrganisation = true
+						break
+					}
+				}
+			}
+			
+		organization: do  {
+			if !outsideOrganisation {
+				// Have to move the file from the directory its in to the new directory
+				// Really want to move resources and savegames too... Hmm
+				let oldDir = filename.deletingLastPathComponent()
+				guard let dirEnum = try? FileManager.default.contentsOfDirectory(at: oldDir, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants]) else {
+					break organization
+				}
+				
+				for fileToMove in dirEnum {
+#if DEVELOPMENT_BUILD
+					NSLog("... reorganising %@ to %@",  fileToMove.path, fileDir?.appendingPathComponent(fileToMove.lastPathComponent).path ?? "(nil)")
+#endif
+					
+					try? FileManager.default.moveItem(at: oldDir, to: fileDir!.appendingPathComponent(fileToMove.lastPathComponent))
+				}
+				moved = true
+				filename = destFile
+			}
+		}
+			// If we haven't already moved the file, then
+			if !moved {
+				do {
+					try? FileManager.default.removeItem(at: destFile)
+					try FileManager.default.copyItem(at: filename, to: destFile)
+					filename = destFile
+				} catch {
+					NSLog("Warning: couldn't copy '%@' to '%@'", filename.path, destFile.path)
+				}
+			}
+			
+			// Notify the workspace of the change
+			// Actually, don't: -noteFileSystemChanged: seems to be soft-deprecated.
+		}
+		
+		// Update the index
+		if let filenameIndex = stories.firstIndex(where: { obj in
+			return obj.url == oldFilename
+		}) {
+			stories.remove(at: filenameIndex)
+		}
+		
+		if ident != nil {
+			stories.append(Object(url: filename, bookmarkData: try? filename.bookmarkData(options: [.securityScopeAllowOnlyReadAccess]), fileID: ident))
+		}
+		// Organise the story's resources
+		if var resources = story.object(forKey: "ResourceFilename") as? String, FileManager.default.fileExists(atPath: resources) {
+			guard let dir = directory(for: ident, create: false) else {
+				NSLog("No organised directory for game: cannot store resources");
+				return
+			}
+			
+			var isDir: ObjCBool = false
+			let exists = urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil)
+			
+			guard exists, isDir.boolValue else {
+				NSLog("Organised directory for game does not exist")
+				return
+			}
+			
+			let newFile = dir.appendingPathComponent("resource.blb").standardizedFileURL
+			let oldFile = URL(fileURLWithPath: resources, isDirectory: false).standardizedFileURL
+			
+			if oldFile.path.lowercased() != newFile.path.lowercased() {
+				if (try? newFile.checkResourceIsReachable()) ?? false {
+					try? FileManager.default.removeItem(at: newFile)
+				}
+				
+				do {
+					try FileManager.default.copyItem(at: oldFile, to: newFile)
+					resources = newFile.path
+				} catch {
+					NSLog("Unable to copy resource file to new location: \(error.localizedDescription)")
+				}
+				story.setObject(resources, forKey: "ResourceFilename")
+			}
+		} else {
+			story.setObject(nil, forKey: "ResourceFilename")
+		}
 	}
 }
 
