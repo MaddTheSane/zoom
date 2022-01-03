@@ -345,7 +345,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			case "/": // Makes some twisted kind of sense
 				return ":"
 			case ":":
-				return "?"
+				return "_"
 			case "\0" ..< " ":
 				return "?"
 			default:
@@ -865,11 +865,35 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 	}
 	
+	@MainActor private func renamed(_ ident: ZoomStoryID?, to url: URL) {
+		guard let ident = ident else {
+			return
+		}
+
+		do {
+			storyLock.lock()
+			defer {
+				storyLock.unlock()
+			}
+			
+			if let oldFileName = stories.firstIndex(where: {$0.fileID == ident}) {
+				stories.remove(at: oldFileName)
+			}
+			
+			stories.append(Object(url: url, bookmarkData: try? url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess]), fileID: ident))
+		}
+		organiserChanged()
+	}
+	
+	/// Changes the story organisation directory.
+	/// Should be called before changing the story directory in the preferences.
 	@objc(reorganiseStoriesToNewDirectoryURL:)
 	func reorganiseStories(to newStoryDirectory: URL) {
 		// TODO: implement
 	}
 	
+	/// Changes the story organisation directory.
+	/// Should be called before changing the story directory in the preferences.
 	@available(*, deprecated, message: "Use reorganiseStories(to:) or -reorganiseStoriesToNewDirectoryURL: instead")
 	@objc(reorganiseStoriesToNewDirectory:)
 	func reorganiseStories(toNewDirectory newStoryDirectory: String) {
@@ -902,7 +926,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		for story in ourStories {
 			let filename = story.url
 			
-			if (try? filename.checkResourceIsReachable()) ?? false {
+			if !((try? filename.checkResourceIsReachable()) ?? false) {
 				// The story does not exist: remove from the database and keep moving
 				
 				await MainActor.run(body: {
@@ -1003,6 +1027,104 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				inWrongDirectory = true
 			}
 			
+			// Deal with these two cases: create the group/move the directory
+			if inWrongGroup {
+				// Create the group directory if required
+				let groupDirectory = gameStorageDirectory.appendingPathComponent(expectedGroup, isDirectory: true)
+				
+				// Create the group directory if it doesn't already exist
+				// Don't organise this file if there's a file already here
+
+				var isDir: ObjCBool = false
+				if urlIsAvailable(groupDirectory, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) {
+					if isDir.boolValue {
+						// Oops, this is a file: can't move anything here
+						NSLog("Organiser: Can't create group directory at %@ - there's a file in the way", groupDirectory.path)
+						continue;
+					}
+				} else {
+					NSLog("Organiser: Creating group directory at %@", groupDirectory.path);
+					do {
+						try FileManager.default.createDirectory(at: groupDirectory, withIntermediateDirectories: false, attributes: nil)
+					} catch {
+						// strerror & co aren't thread-safe so we can't safely retrieve the actual error number
+						NSLog("Organiser: Failed to create directory at %@, returned %@", groupDirectory.path, error.localizedDescription);
+						continue;
+
+					}
+				}
+			}
+			
+			if inWrongGroup || inWrongDirectory {
+				// Move the game (semi-atomically)
+				storyLock.lock()
+				
+				let oldDirectory = filename.deletingLastPathComponent()
+				
+				let groupDirectory = gameStorageDirectory.appendingPathComponent(expectedGroup, isDirectory: true)
+				
+				var titleDirectory: URL? = nil
+				
+				var count = 0
+				
+				// Work out where to put the game (duplicates might exist)
+				repeat {
+					if (count == 0) {
+						titleDirectory = groupDirectory.appendingPathComponent(expectedDir, isDirectory: true)
+					} else {
+						titleDirectory = groupDirectory.appendingPathComponent("\(expectedDir) \(count)", isDirectory: true)
+					}
+					
+					if titleDirectory!.path.lowercased() == oldDirectory.path.lowercased() {
+						// Nothing to do!
+						NSLog("Organiser: oops, name difference is due to multiple stories with the same title");
+						break
+					}
+					
+					if (try? titleDirectory!.checkResourceIsReachable()) ?? false {
+						// Already exists - try the next name along
+						count += 1
+						continue
+					}
+					
+					// Doesn't exist at the moment: OK for renaming
+					break
+				} while true
+
+				
+				if titleDirectory!.path.lowercased() == oldDirectory.path.lowercased() {
+					// Still nothing to do
+					storyLock.unlock()
+					continue;
+				}
+				
+				// Move the game to its new home
+				NSLog("Organiser: Moving %@ to %@", oldDirectory.path, titleDirectory!.path);
+				do {
+					try FileManager.default.moveItem(at: oldDirectory, to: titleDirectory!)
+				} catch {
+					NSLog("Organiser: Failed to move %@ to %@ (rename failed)", oldDirectory.path, titleDirectory!.path)
+					storyLock.unlock()
+					continue;
+				}
+				
+				// Change the storyFilenames array
+				/* -- ??
+				NSInteger oldIndex = [storyFilenames indexOfObject: filename];
+				
+				if (oldIndex != NSNotFound) {
+					[storyFilenames removeObjectAtIndex: oldIndex];
+					[storyIdents removeObjectAtIndex: oldIndex];
+				}
+				 */
+				
+				
+				storyLock.unlock()
+
+				// Update filenamesToIdents and identsToFilenames appropriately
+				let tmpString = titleDirectory!.appendingPathComponent(filename.lastPathComponent)
+				await renamed(storyID, to: tmpString)
+			}
 		}
 		
 		// Not organising any more
