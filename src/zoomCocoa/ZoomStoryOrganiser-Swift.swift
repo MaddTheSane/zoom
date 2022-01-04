@@ -75,7 +75,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				return
 			}
 			var stale = false
-			url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &stale)
+			url = try URL(resolvingBookmarkData: bookmarkData, options: [.withoutUI], bookmarkDataIsStale: &stale)
 			if stale {
 				self.bookmarkData = try url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
 			}
@@ -146,8 +146,14 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		let dat = try Data(contentsOf: saveURL)
 		let decoder = JSONDecoder()
 		let wrapper = try decoder.decode(SaveWrapper.self, from: dat)
-		stories = wrapper.stories
 		gameDirectories = wrapper.gameDirectories
+		stories = wrapper.stories.filter { story in
+			do {
+				return try story.url.checkResourceIsReachable()
+			} catch {
+				return false
+			}
+		}
 	}
 	
 	@MainActor func save() throws {
@@ -665,7 +671,22 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		defer {
 			storyLock.unlock()
 		}
-		return stories.first(where: {$0.fileID == ident})?.url
+		guard let storyIdx = stories.firstIndex(where: {$0.fileID == ident}) else {
+			return nil
+		}
+		let aURL = stories[storyIdx].url
+		
+		if (try? aURL.checkResourceIsReachable()) ?? false {
+			return aURL
+		}
+		do {
+			try stories[storyIdx].update()
+		} catch {
+			// Return the old, bad URL
+			return aURL
+		}
+		
+		return stories[storyIdx].url
 	}
 	
 	@available(*, deprecated, message: "Use urlFor(_:) or -URLForIdent: instead")
@@ -1253,9 +1274,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		// Tidy up
 		await endedActing()
 	}
-}
 
-extension ZoomStoryOrganiser {
 	@objc(frontispieceForBlorb:)
 	static func frontispiece(for decodedFile: ZoomBlorbFile) -> NSImage? {
 		var coverPictureNumber: Int32 = -1
