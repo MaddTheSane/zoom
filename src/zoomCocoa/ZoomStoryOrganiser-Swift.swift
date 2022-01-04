@@ -887,14 +887,132 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	/// Changes the story organisation directory.
 	/// Should be called before changing the story directory in the preferences.
-	@objc(reorganiseStoriesToNewDirectoryURL:)
+	@MainActor @objc(reorganiseStoriesToNewDirectoryURL:)
 	func reorganiseStories(to newStoryDirectory: URL) {
-		// TODO: implement
+		do {
+			if !((try? newStoryDirectory.checkResourceIsReachable()) ?? false) {
+				do {
+					try FileManager.default.createDirectory(at: newStoryDirectory, withIntermediateDirectories: false, attributes: nil)
+				} catch {
+					NSLog("WARNING: Can't reorganise to %@ - couldn't create directory: %@", newStoryDirectory.path, error.localizedDescription);
+					return
+				}
+			}
+			
+			storyLock.lock()
+			defer {
+				storyLock.unlock()
+			}
+			
+			// Get the old story directory
+			let lastStoryDirectory = ZoomPreferences.global.organiserDirectory!
+			
+			// Nothing to do if it's not different
+			if lastStoryDirectory.lowercased() == newStoryDirectory.path.lowercased() {
+				storyLock.unlock()
+				storyLock.lock()
+			}
+			
+			// Move the stories around
+			startedActing()
+			defer {
+				endedActing()
+			}
+			
+			let lastStoryDirURL = URL(fileURLWithPath: lastStoryDirectory, isDirectory: true)
+			
+			/// List of files in our database
+			let allStories = stories
+			
+			/// Parts of directories
+			let originalComponents = lastStoryDirURL.pathComponents
+			
+			for aStory in allStories {
+				// Retrieve info about the file
+				let storyID = aStory.fileID
+				let filename = aStory.url
+				let filenameComponents = filename.pathComponents
+				// Do nothing if the file is definitely outside the organisation structure
+				guard filenameComponents.count > originalComponents.count + 1 else {
+					NSLog("WARNING: Not organising %@, as it doesn't appear to have been organised before", aStory.url.path)
+					continue	// Can't be equivalent.
+				}
+				
+				// Work out where this file would end up
+				var newFilename = newStoryDirectory
+				for part in filenameComponents[filenameComponents.index(filenameComponents.endIndex, offsetBy: -3) ..< filenameComponents.endIndex] {
+					newFilename.appendPathComponent(part)
+				}
+				
+				guard ((try? filename.checkResourceIsReachable()) ?? false) else {
+					// File has gone away - note that with the way this algorithm is implemented, this is expected to happen
+					// If the file now exists in the new location, update our database
+					// If not, then log a warning
+					if !((try? newFilename.checkResourceIsReachable()) ?? false) {
+						NSLog("WARNING: The file %@ appears to have gone away somewhere mysterious", filename.path)
+					} else {
+						storyLock.unlock()
+						renamed(storyID, to: newFilename)
+						storyLock.lock()
+					}
+					continue
+				}
+				
+				// If filename is in the original directory, then move it to the new one
+				var isOrganised = true
+				for (x, comp) in originalComponents.enumerated() {
+					if filenameComponents[x].caseInsensitiveCompare(comp) != .orderedSame {
+						isOrganised = false
+						break
+					}
+				}
+				
+				if !isOrganised {
+					NSLog("WARNING: Not organising %@, as it doesn't appear to have been organised before", filename.path)
+					continue;	// Can't be equivalent.
+				}
+
+				// Work out what to move to where
+				let component = originalComponents.count
+				
+				var moveFrom: URL? = nil
+				var moveTo: URL? = nil
+				
+				while component < filenameComponents.count {
+					let componentToMove = filenameComponents[originalComponents.count]
+					
+					moveFrom = lastStoryDirURL.appendingPathComponent(componentToMove)
+					moveTo = newStoryDirectory.appendingPathComponent(componentToMove)
+				}
+				
+				guard let moveFrom = moveFrom, let moveTo = moveTo else {
+					continue
+				}
+				
+				if (try? moveTo.checkResourceIsReachable()) ?? false {
+					NSLog("WARNING: Not moving %@, as it would clobber a file at %@", moveFrom.path, moveTo.path)
+					continue;
+				}
+				
+				do {
+					try FileManager.default.moveItem(at: moveFrom, to: moveTo)
+				} catch {
+					NSLog("WARNING: Failed to move %@ to %@, error %@", moveFrom.path, moveTo.path, error.localizedDescription)
+					continue
+				}
+				
+				// Update our database
+				storyLock.unlock()
+				renamed(storyID, to: newFilename)
+				storyLock.lock()
+			}
+		}
+		try? save() // In case we later crash
 	}
 	
 	/// Changes the story organisation directory.
 	/// Should be called before changing the story directory in the preferences.
-	@available(*, deprecated, message: "Use reorganiseStories(to:) or -reorganiseStoriesToNewDirectoryURL: instead")
+	@MainActor @available(*, deprecated, message: "Use reorganiseStories(to:) or -reorganiseStoriesToNewDirectoryURL: instead")
 	@objc(reorganiseStoriesToNewDirectory:)
 	func reorganiseStories(toNewDirectory newStoryDirectory: String) {
 		reorganiseStories(to: URL(fileURLWithPath: newStoryDirectory, isDirectory: true))
