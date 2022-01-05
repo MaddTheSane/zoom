@@ -333,6 +333,84 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		organiserChanged()
 	}
 	
+	@MainActor private func id(for filename: URL) -> ZoomStoryID? {
+		ZoomIsSpotlightIndexing = false
+		guard (try? filename.checkResourceIsReachable()) ?? false else {
+			return nil
+		}
+		return ZoomStoryID(for: filename)
+	}
+	
+	private func preferenceThread() async {
+		await startedActing()
+		
+		// If story organisation is on, we need to check for any disappeared stories that have appeared in
+		// the organiser directory, and recreate any story data as required.
+		//
+		// REMEMBER: this is not the main thread! Don't make bad things happen!
+		if await MainActor.run(body: { () -> Bool in
+			return ZoomPreferences.global.keepGamesOrganised
+		}) {
+			// Directory scanning time.
+			let gameStorageDirectory = await MainActor.run { () -> URL in
+				let org = ZoomPreferences.global.organiserDirectory!
+				return URL(fileURLWithPath: org, isDirectory: true)
+			}
+			if let orgDir = try? FileManager.default.contentsOfDirectory(at: gameStorageDirectory, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]) {
+				for newDir in orgDir {
+					// Must be a directory
+					guard (try? newDir.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) ?? false else {
+						continue
+					}
+					
+					// Iterate through the files in this directory
+					if let groupD = try? FileManager.default.contentsOfDirectory(at: newDir, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]) {
+						for newDir2 in groupD {
+							var gameFile: URL? = nil
+							// Must be a directory
+							guard (try? newDir2.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) ?? false else {
+								continue
+							}
+							var gameFileID: ZoomStoryID? = nil
+							if let gameD = try? FileManager.default.contentsOfDirectory(at: newDir2, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]) {
+								for newDir3 in gameD {
+									gameFileID = await id(for: newDir3)
+
+									if gameFileID != nil {
+										gameFile = newDir3
+										break
+									}
+								}
+								
+								guard let gameFile = gameFile else {
+									continue
+								}
+								let urlData = try? gameFile.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier
+								
+								// See if it's already in our database
+								let story = await stories.first { obj in
+									guard let localUrlData = try? gameFile.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier else {
+										return false
+									}
+									return localUrlData.isEqual(urlData)
+								}
+								let fileID = story?.fileID
+								
+								if fileID == nil {
+									try? await foundFileNotInDatabase(groupName: newDir.lastPathComponent, gameName: newDir2.lastPathComponent, gameFile: gameFile)
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		await organiserChanged()
+		// Tidy up
+		await endedActing()
+	}
+	
 	/// Called from the `preferenceThread()` (to the main thread) when a story not in the database is found
 	@MainActor private func foundFileNotInDatabase(groupName: String, gameName: String, gameFile: URL) throws {
 		ZoomIsSpotlightIndexing = false
@@ -652,7 +730,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		// Don't even think about UFS or HFSX. There's no way to tell which we're using
 		if (try? idealDir.checkResourceIsReachable()) ?? false {
 			// Doh!
-			NSLog("Wanted to move game from '%@' to '%@', but '%@' already exists", currentDir.path, idealDir.path, idealDir.path)
+			NSLog("Wanted to move game from '%1$@' to '%2$@', but '%2$@' already exists", currentDir.path, idealDir.path)
 			return false
 		}
 		
@@ -874,7 +952,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 					NSLog("... reorganising %@ to %@",  fileToMove.path, fileDir?.appendingPathComponent(fileToMove.lastPathComponent).path ?? "(nil)")
 #endif
 					
-					try? FileManager.default.moveItem(at: oldDir, to: fileDir!.appendingPathComponent(fileToMove.lastPathComponent))
+					try? FileManager.default.moveItem(at: fileToMove, to: fileDir!.appendingPathComponent(fileToMove.lastPathComponent))
 				}
 				moved = true
 				filename = destFile
