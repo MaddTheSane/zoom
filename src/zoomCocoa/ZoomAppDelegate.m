@@ -269,6 +269,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	// Make sure that the plugin manager is finalised
 	[[ZoomPlugInManager sharedPlugInManager] finishedWithObject];
 	[ZoomDownload removeTemporaryDirectory];
+	[[ZoomStoryOrganiser sharedStoryOrganiser] saveAndReturnError: NULL];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

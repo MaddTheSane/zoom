@@ -419,8 +419,8 @@
 	}
 	
 	// Get the game file for this save from the story organiser
-	NSString* gameFile = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: storyID];
-	[self findResourcesForFile: gameFile];
+	NSURL* gameFile = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: storyID];
+	[self findResourcesForFile: gameFile.path];
 	
 	if (gameFile == nil) {
 		// Couldn't find a story for this savegame
@@ -434,14 +434,15 @@
 	}
 	
 	NSError *underlying;
-	NSData* data = [NSData dataWithContentsOfFile: gameFile options: 0 error: &underlying];
+	NSData* data = [NSData dataWithContentsOfURL: gameFile options: 0 error: &underlying];
 	if (data == nil) {
 		// Couldn't find the story data for this savegame
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to find story file", @"Unable to find story file"),
 				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat: NSLocalizedString(@"Zoom is unable to load a valid story file for '%@' (tried '%@')", @"Zoom is unable to load a valid story file for '%@' (tried '%@')"), [[wrapper filename] lastPathComponent], gameFile],
-				NSUnderlyingErrorKey: underlying
+				NSUnderlyingErrorKey: underlying,
+				NSURLErrorDomain: gameFile
 			}];
 		}
 		return NO;		
@@ -453,7 +454,7 @@
 
 		wasRestored = YES;
 		
-		[self setFileURL: [NSURL fileURLWithPath: gameFile]];
+		[self setFileURL: gameFile];
 		return [self readFromData: data
 						   ofType: @"public.zcode"
 							error: outError];
@@ -497,7 +498,7 @@
 	// (which doesn't use this chunk)
 	wasRestored = YES;
 	
-	[self setFileURL: [NSURL fileURLWithPath: gameFile]];
+	[self setFileURL: gameFile];
 	return [self readFromData: data
 					   ofType: @"public.zcode"
 						error: outError];

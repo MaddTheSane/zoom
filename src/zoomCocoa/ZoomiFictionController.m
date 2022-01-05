@@ -706,11 +706,11 @@ static dispatch_block_t onceTypesBlock = ^{
 }
 
 - (IBAction) restoreAutosave: (id) sender {
-	NSString* filename = [self selectedFilename];
+	NSURL* filename = [self selectedFileURL];
 	
 	// FIXME: multiple selections?, actually save/restore autosaves
 	if (filename) {
-		[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filename] display:NO completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+		[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:filename display:NO completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
 			ZoomClient* newDoc = (id)document;
 			
 			if ([[newDoc windowControllers] count] == 0) {
@@ -844,15 +844,10 @@ static dispatch_block_t onceTypesBlock = ^{
 - (ZoomStory*) storyForID: (ZoomStoryID*) ident {
 	ZoomStoryOrganiser* org = [ZoomStoryOrganiser sharedStoryOrganiser];
 	
-	NSString* filename = [org filenameForIdent: ident];
+	NSURL *fileURL = [org URLForIdent: ident];
 	ZoomStory* story = [(ZoomAppDelegate*)[NSApp delegate] findStory: ident];
 	
-	if (filename == nil) {
-		filename = @"No filename";
-	}
-	
-	if (story == nil) {
-		NSURL *fileURL = [NSURL fileURLWithPath: filename];
+	if (story == nil && fileURL != nil) {
 		Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForURL: fileURL];
 		ZoomPlugIn* pluginInstance = pluginClass?[(ZoomPlugIn*)[pluginClass alloc] initWithURL:fileURL]:nil;
 		
@@ -1196,9 +1191,9 @@ static dispatch_block_t onceTypesBlock = ^{
 			numSelected++;
 			
 			ZoomStoryID* ident = [storyList objectAtIndex: row];
-			NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
+			NSURL* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: ident];
 			
-			if ([[NSDocumentController sharedDocumentController] documentForURL: [NSURL fileURLWithPath:filename]] != nil) {
+			if ([[NSDocumentController sharedDocumentController] documentForURL: filename] != nil) {
 				[continueButton setEnabled: YES];
 			} else {
 				[newgameButton setEnabled: YES];
