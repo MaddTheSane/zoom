@@ -6,6 +6,8 @@
 //
 
 import Cocoa
+import ZoomView
+import ZoomView.ZoomPreferences
 import ZoomView.Swift
 
 private let generalSettingsItemName = NSToolbarItem.Identifier("generalSettings")
@@ -683,7 +685,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 
 	@IBAction func resetOrganiseDir(_ sender: Any?) {
 		if preferences.keepGamesOrganised {
-			ZoomStoryOrganiser.shared.reorganiseStories(toNewDirectory: ZoomPreferences.defaultOrganiserDirectory)
+			ZoomStoryOrganiser.shared.reorganiseStories(to: URL(fileURLWithPath: ZoomPreferences.defaultOrganiserDirectory, isDirectory: true))
 		}
 		
 		preferences.organiserDirectory = nil

@@ -195,7 +195,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		for (path, storyID) in unarchiveDict {
 			let pathurl = URL(fileURLWithPath: path)
-			try? addStory(at: pathurl, withIdentity: storyID, skipSave: true)
+			try? addStory(at: pathurl, with: storyID, skipSave: true)
 		}
 		if let oldDict2 = UserDefaults.standard.dictionary(forKey: "ZoomGameDirectories") as? [String: String] {
 			let mappedDict = oldDict2.mapValues { val in
@@ -212,11 +212,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	// MARK: - Storing stories
 	
 	@objc(addStoryAtURL:withIdentity:organise:error:)
-	@MainActor func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false) throws {
-		try addStory(at: filename, withIdentity: ident, organise: organise, skipSave: false)
+	@MainActor func addStory(at filename: URL, with ident: ZoomStoryID, organise: Bool = false) throws {
+		try addStory(at: filename, with: ident, organise: organise, skipSave: false)
 	}
 	
-	@MainActor private func addStory(at filename: URL, withIdentity ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
+	@MainActor private func addStory(at filename: URL, with ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
 		guard try filename.checkResourceIsReachable() else {
 			throw CocoaError(.fileNoSuchFile, userInfo: [NSURLErrorKey: filename])
 		}
@@ -256,7 +256,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 #if DEVELOPMENT_BUILD
 		NSLog("Adding %@ (IFID %@)", filename.path, ident)
 		if let oldFilename = oldURL {
-			NSLog("... previously %@ (%@)", oldFilename.path, (oldIdent!))
+			NSLog("... previously %@ (%@)", oldFilename.path, oldIdent?.description ?? "(nil)")
 		}
 #endif
 		// If there's no story registered, then we need to create one
@@ -331,6 +331,81 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		storyLock.unlock()
 		organiserChanged()
+	}
+	
+	/// Called from the `preferenceThread()` (to the main thread) when a story not in the database is found
+	@MainActor private func foundFileNotInDatabase(groupName: String, gameName: String, gameFile: URL) throws {
+		ZoomIsSpotlightIndexing = false
+		
+		guard let newID = ZoomStoryID(for: gameFile) else {
+			NSLog("Found unindexed game at %@, but failed to obtain an ID. Not indexing", gameFile.path)
+			return
+		}
+		
+		var otherFile = false
+		do {
+			storyLock.lock()
+			defer {
+				storyLock.unlock()
+			}
+			if let identFile = stories.first(where: {$0.fileID == newID}) {
+				otherFile = true
+				
+				NSLog("Story %@ appears to be a duplicate of %@", gameFile.path, identFile.url.path)
+			} else {
+				otherFile = false
+				
+				NSLog("Story %@ not in database (will add)", gameFile.path)
+			}
+		}
+		let data = (NSApp.delegate as! ZoomAppDelegate).userMetadata()
+		var oldStory = (NSApp.delegate as! ZoomAppDelegate).findStory(newID)
+		if oldStory == nil {
+			NSLog("Creating metadata entry for story '%@'", gameName)
+			
+			let newStory = try ZoomStory.defaultMetadata(for: gameFile)
+			
+			data.copyStory(newStory)
+			try? data.writeToDefaultFile()
+			oldStory = newStory
+		} else {
+			NSLog("Found metadata for story '%@'", gameName)
+		}
+		
+		guard let oldStory = oldStory else {
+			return
+		}
+		
+		// Check for any resources associated with this story
+		if oldStory.object(forKey: "ResourceFilename") == nil {
+			var possibleResource = gameFile.deletingLastPathComponent().appendingPathComponent("resource.blb")
+			var isDir: ObjCBool = false
+			var exists = urlIsAvailable(possibleResource, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil)
+			if exists && !isDir.boolValue {
+				NSLog("Found resources for game at %@", possibleResource.path)
+				
+				oldStory.setObject(possibleResource.path, forKey: "ResourceFilename")
+				
+				data.copyStory(oldStory)
+				try? data.writeToDefaultFile()
+			} else {
+				possibleResource = gameFile.deletingLastPathComponent().appendingPathComponent(gameFile.deletingPathExtension().lastPathComponent).appendingPathExtension("blb")
+				isDir = false
+				exists = urlIsAvailable(possibleResource, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil)
+				
+				if (exists && !isDir.boolValue) {
+					NSLog("Found resources for game at %@", possibleResource.path);
+					
+					oldStory.setObject(possibleResource.path, forKey: "ResourceFilename")
+					
+					data.copyStory(oldStory)
+					try? data.writeToDefaultFile()
+				}
+			}
+		}
+		
+		// Now store with us
+		try addStory(at: gameFile, with: newID)
 	}
 	
 	// MARK: - Story-specific data
@@ -749,7 +824,6 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 #if DEVELOPMENT_BUILD
 		NSLog("... best directory %@ (file will be %@)", fileDir?.path ?? "(nil)", destFile?.path ?? "(nil)")
 #endif
-		
 		
 		if filename != destFile, let destFile = destFile {
 			var moved = false
@@ -1274,7 +1348,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		// Tidy up
 		await endedActing()
 	}
-
+	
+	// MARK: -
+	
 	@objc(frontispieceForBlorb:)
 	static func frontispiece(for decodedFile: ZoomBlorbFile) -> NSImage? {
 		var coverPictureNumber: Int32 = -1
