@@ -1,0 +1,47 @@
+#!../bin/jacl
+#processed:424
+#!/usr/local/jacl/bin/fcgijacl
+#                                                                     BLACKJACL
+# -----------------------------------------------------------------------------
+# Copyright (C) Stuart Allen 2001. All rights resevered.
+# -----------------------------------------------------------------------------
+
+integer INDEX
+integer COUNTER
+integer NODE1
+integer NODE2
+integer cardA
+integer cardB
+integer cardC
+integer CHECK_STRATEGY 0
+
+{+set_node1
+set NODE1 = shoe
+set COUNTER = random
+set COUNTER + 4
+repeat
+set NODE1 = NODE1(next)
+set COUNTER - 1;
+until COUNTER = 0
+}
+
+{+set_node2
+set NODE2 = end
+set COUNTER = random
+set COUNTER + 4
+repeat
+set NODE2 = NODE2(previous)
+set COUNTER - 1;
+until COUNTER = 0
+}
+
+# Optional rules
+integer SOFT_SEVENTEEN		false	; DEALER HITS ON A SOFT SEVENTEEN
+integer DAS				true	; ALLOWED TO DOUBLE AFTER SPIT
+
+location casino : casino
+
+{look
+execute "+display_table"
+}
+

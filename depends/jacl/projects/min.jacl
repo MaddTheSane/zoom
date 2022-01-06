@@ -1,0 +1,27 @@
+#!../bin/jacl
+
+string teststring "fred"
+
+integer INDEX
+
+{+intro
+write "Call recursively 10 times.^"
+set INDEX = 10
+execute "+recurse"
+terminate
+}
+
+{+recurse
+set local = random
+write "INDEX: " INDEX " RANDOM: " local "^"
+set INDEX - 1
+if INDEX > 0
+   execute "+recurse"
+endif
+write "INDEX: " INDEX " RANDOM: " local "^"
+}
+
+location cave
+object fred
+player
+
