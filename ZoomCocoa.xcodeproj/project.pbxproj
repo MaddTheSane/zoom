@@ -1494,7 +1494,7 @@
 		55BC13172786D53000369EBE /* bjorb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bjorb.c; sourceTree = "<group>"; };
 		55BC13182786D53000369EBE /* Makefile.OSX */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.OSX; sourceTree = "<group>"; };
 		55BC13192786D53000369EBE /* jacl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jacl.h; sourceTree = "<group>"; };
-		55BC131B2786D53000369EBE /* libcsv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = libcsv.c; sourceTree = "<group>"; };
+		55BC131B2786D53000369EBE /* libcsv.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = libcsv.c; sourceTree = "<group>"; usesTabs = 0; };
 		55BC131C2786D53000369EBE /* winglk_startup.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = winglk_startup.c; sourceTree = "<group>"; };
 		55BC131D2786D53000369EBE /* cgijacl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cgijacl.h; sourceTree = "<group>"; };
 		55BC131E2786D53000369EBE /* interpreter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = interpreter.c; sourceTree = "<group>"; };
@@ -5204,7 +5204,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+					"GLK=1",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
@@ -5219,6 +5219,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"GLK=1",
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
 				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";

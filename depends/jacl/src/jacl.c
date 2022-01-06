@@ -79,7 +79,7 @@ char            walkthru[81] = "\0";
 
 char            function_name[81];
 
-char            default_function[81];
+//char            default_function[81];
 char            override[81];
 
 char            temp_buffer[1024];

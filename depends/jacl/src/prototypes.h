@@ -4,7 +4,8 @@
  */
 
 #include <GlkView/glk.h>
-#define GLK
+#include "types.h"
+
 #ifdef GLK
 strid_t open_glk_file(glui32 usage, glui32 mode, char *filename);
 glui32 glk_get_bin_line_stream(strid_t file_stream, char *buffer, glui32 max_length); 
@@ -25,8 +26,8 @@ extern void garglk_set_story_name(const char *name);
 extern void garglk_set_config(const char *name);
 #endif
 
-void default_footer();
-void default_header();
+void default_footer(void);
+void default_header(void);
 int bearing(double x1, double y1, double x2, double y2);
 int distance(double x1, double y1, double x2, double y2);
 int strcondition(void);
@@ -76,7 +77,7 @@ int  read_integer(FILE *file);
 long read_long(FILE *file);
 void jacl_encrypt (char *string);
 void jacl_decrypt (char *string);
-void log_message();
+void log_message(char *message, int console);
 void set_them(int noun_number);
 void preparse(void);
 void inspect(int object_num);
@@ -100,7 +101,7 @@ struct cinteger_type *cinteger_resolve(char *name);
 struct cinteger_type *cinteger_resolve_indexed(char *name, int index);
 int array_length_resolve(char *testString);
 int legal_label_check(char *word, int line, int type);
-int attribute_test();
+//int attribute_test();
 char* object_names(int object_index, char *names_buffer);
 char* arg_text_of(char *string);
 char* arg_text_of_word(int wordnumber);
@@ -114,7 +115,7 @@ int and_condition(void);
 void free_from(struct word_type *x);
 void word_check(void);
 void eachturn(void);
-void read_config_file();
+void read_config_file(void);
 void version_info(void);
 int jacl_whitespace(int character);
 int get_here(void);
@@ -152,9 +153,9 @@ int  save_game(char *filename);
 int  restore_game(char *filename, int warn);
 void save_game_state(void);
 void restore_game_state(void);
-void add_string();
+//void add_string();
 void add_cstring(char *name, char *value);
-void clear_string();
+//void clear_string();
 void clear_cstring(char *name);
 void add_cinteger(char *name, int value);
 void clear_cinteger(char *name);
@@ -187,12 +188,12 @@ void unkvarrun(char *variable);
 void outofmem(void);
 void set_defaults(void);
 void no_it(void);
-void clrscrn();
+void clrscrn(void);
 void more(char* message);
 int jpp(void);
 int process_file(char *sourceFile1, char *sourceFile2);
 char* strip_return(char *string);
-char** command_completion();
+char** command_completion(char* text, int start, int end);
 char* object_generator(char* text, int state);
 char* verb_generator(char* text, int state);
 void add_word(char * word);

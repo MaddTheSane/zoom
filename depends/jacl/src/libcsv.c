@@ -17,11 +17,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#if ___STDC_VERSION__ >= 199901L
-#  include <stdint.h>
-#else
-#  define SIZE_MAX ((size_t)-1) /* C89 doesn't have stdint.h or SIZE_MAX */
-#endif
+#include <stdint.h>
 
 #include "csv.h"
 
@@ -178,8 +174,8 @@ csv_fini(struct csv_parser *p, void (*cb1)(void *, size_t, void *), void (*cb2)(
       /* Fall-through */
     case FIELD_NOT_BEGUN:
     case FIELD_BEGUN:
-      quoted = p->quoted, pstate = p->pstate;
-      spaces = p->spaces, entry_pos = p->entry_pos;
+      quoted = p->quoted; pstate = p->pstate;
+      spaces = p->spaces; entry_pos = p->entry_pos;
       SUBMIT_FIELD(p);
       SUBMIT_ROW(p, -1);
     case ROW_NOT_BEGUN: /* Already ended properly */
@@ -320,7 +316,7 @@ csv_parse(struct csv_parser *p, const void *s, size_t len, void (*cb1)(void *, s
   if (!p->entry_buf && pos < len) {
     /* Buffer hasn't been allocated yet and len > 0 */
     if (csv_increase_buffer(p) != 0) { 
-      p->quoted = quoted, p->pstate = pstate, p->spaces = spaces, p->entry_pos = entry_pos;
+      p->quoted = quoted; p->pstate = pstate; p->spaces = spaces; p->entry_pos = entry_pos;
       return pos;
     }
   }
@@ -329,7 +325,7 @@ csv_parse(struct csv_parser *p, const void *s, size_t len, void (*cb1)(void *, s
     /* Check memory usage, increase buffer if neccessary */
     if (entry_pos == ((p->options & CSV_APPEND_NULL) ? p->entry_size - 1 : p->entry_size) ) {
       if (csv_increase_buffer(p) != 0) {
-        p->quoted = quoted, p->pstate = pstate, p->spaces = spaces, p->entry_pos = entry_pos;
+        p->quoted = quoted; p->pstate = pstate; p->spaces = spaces; p->entry_pos = entry_pos;
         return pos;
       }
     }
@@ -373,7 +369,7 @@ csv_parse(struct csv_parser *p, const void *s, size_t len, void (*cb1)(void *, s
             /* STRICT ERROR - double quote inside non-quoted field */
             if (p->options & CSV_STRICT) {
               p->status = CSV_EPARSE;
-              p->quoted = quoted, p->pstate = pstate, p->spaces = spaces, p->entry_pos = entry_pos;
+              p->quoted = quoted; p->pstate = pstate; p->spaces = spaces; p->entry_pos = entry_pos;
               return pos-1;
             }
             SUBMIT_CHAR(p, c);
@@ -417,7 +413,7 @@ csv_parse(struct csv_parser *p, const void *s, size_t len, void (*cb1)(void *, s
             /* STRICT ERROR - unescaped double quote */
             if (p->options & CSV_STRICT) {
               p->status = CSV_EPARSE;
-              p->quoted = quoted, p->pstate = pstate, p->spaces = spaces, p->entry_pos = entry_pos;
+              p->quoted = quoted; p->pstate = pstate; p->spaces = spaces; p->entry_pos = entry_pos;
               return pos-1;
             }
             spaces = 0;
@@ -430,7 +426,7 @@ csv_parse(struct csv_parser *p, const void *s, size_t len, void (*cb1)(void *, s
           /* STRICT ERROR - unescaped double quote */
           if (p->options & CSV_STRICT) {
             p->status = CSV_EPARSE;
-            p->quoted = quoted, p->pstate = pstate, p->spaces = spaces, p->entry_pos = entry_pos;
+			p->quoted = quoted; p->pstate = pstate; p->spaces = spaces; p->entry_pos = entry_pos;
             return pos-1;
           }
           pstate = FIELD_BEGUN;
@@ -442,7 +438,7 @@ csv_parse(struct csv_parser *p, const void *s, size_t len, void (*cb1)(void *, s
        break;
     }
   }
-  p->quoted = quoted, p->pstate = pstate, p->spaces = spaces, p->entry_pos = entry_pos;
+  p->quoted = quoted; p->pstate = pstate; p->spaces = spaces; p->entry_pos = entry_pos;
   return pos;
 }
 

@@ -31,10 +31,10 @@ extern short int	release;
 glkunix_startup_t *arguments;
 
 /* THE STREAM FOR OPENING UP THE ARCHIVE CONTAINING GRAPHICS AND SOUND */
-strid_t				blorb_stream;
+//strid_t				blorb_stream;
 
 /* PROTOTYPE FOR NEEDED UTILITY FUNCTION */
-void create_paths();
+//void create_paths(char *full_path);
 
 glkunix_argumentlist_t glkunix_arguments[] = {
     {"", glkunix_arg_ValueFollows, "filename: The game file to load." },
@@ -121,7 +121,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 	 * FILENAMES OFF OF THE FILE. IF THIS IS NOT CALLED, THE LIBRARY WORKS IN 
 	 * THE UNIX CURRENT WORKING DIRECTORY, AND PICKS REASONABLE DEFAULT 
 	 * DEFAULTS. */
-	glkunix_set_base_file(game_file);
+//	glkunix_set_base_file(game_file);
 
     /* Set title of game */
 #ifdef GARGLK
