@@ -44,7 +44,7 @@ glui32 				status_width, status_height;
 schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL, 
 										 NULL, NULL, NULL, NULL };
 
-event_t				*cancelled_event;
+static event_t		*cancelled_event;
 
 extern char			text_buffer[];
 extern char			*word[];
@@ -88,8 +88,8 @@ static glui32   chunk_buffer_uni[4096];
 #endif
 char            proxy_buffer[1024];
 
-char			oops_buffer[1024];
-char			oopsed_current[1024];
+static char		oops_buffer[1024];
+static char		oopsed_current[1024];
 char            last_command[1024];
 char			*blank_command = "blankjacl\0";
 char            *current_command = (char *) NULL;
@@ -97,7 +97,6 @@ static char		command_buffer[1024];
 #ifndef NOUNICODE
 static glui32	command_buffer_uni[1024];
 #endif
-char			players_command[1024];
 
 int				walkthru_running = FALSE;
 
@@ -120,10 +119,10 @@ static strid_t script_stream = NULL;
 int             noun[4];
 int             player = 0;
 
-int             noun3_backup;
-int             player_backup = 0;
+static int      noun3_backup;
+static int      player_backup = 0;
 
-int             variable_contents;
+static int             variable_contents;
 int             oec;
 int            *object_element_address,
 			   *object_backup_address;
@@ -688,7 +687,7 @@ save_game_state()
 }
 
 int
-save_interaction(char *filename)
+save_interaction(const char *filename)
 {
 	frefid_t saveref;
 
@@ -702,7 +701,7 @@ save_interaction(char *filename)
 	if (filename == NULL) {
 		saveref = glk_fileref_create_by_prompt(fileusage_SavedGame | fileusage_BinaryMode, filemode_Write, 0);
 	} else {
-		saveref = glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode, filename, 0);
+		saveref = glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode, (char*)filename, 0);
 
 	}
 
@@ -1298,7 +1297,7 @@ walking_thru()
 }
 
 int
-restore_interaction(char *filename)
+restore_interaction(const char *filename)
 {
 	frefid_t saveref;
 
@@ -1312,7 +1311,7 @@ restore_interaction(char *filename)
 	if (filename == NULL) {
 		saveref = glk_fileref_create_by_prompt(fileusage_SavedGame | fileusage_BinaryMode, filemode_Read, 0);
 	} else {
-		saveref = glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode, filename, 0);
+		saveref = glk_fileref_create_by_name(fileusage_SavedGame | fileusage_BinaryMode, (char*)filename, 0);
 	}
 
 	jacl_set_window(mainwin);

@@ -8,20 +8,13 @@
 #include "types.h"
 #include "prototypes.h"
 
-extern char						temp_buffer[];
-extern char						function_name[];
-
 extern struct object_type		*object[];
 extern struct variable_type		*variable[];
 
 extern char						*word[];
 
-extern int						player;
 extern int						wp;
-extern int						objects;
 extern int						custom_error;
-
-extern int						spaced;
 
 int
 check_light(int where)

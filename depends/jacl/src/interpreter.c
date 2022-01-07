@@ -124,8 +124,6 @@ extern int						after_from;
 extern int						last_exact;
 
 extern char						rpc_function_name[];
-extern char						temp_directory[];
-extern char						data_directory[];
 static char						csv_buffer[2048];
 
 int								resolved_attribute;
@@ -147,16 +145,6 @@ int								interrupted = FALSE;
 static char 					string_buffer[2048];
 static char						argument_buffer[1024];
 #ifdef GLK
-extern schanid_t				sound_channel[];
-extern strid_t					game_stream;
-extern winid_t					mainwin;
-extern winid_t 					statuswin;
-extern winid_t 					current_window;
-
-extern strid_t 					mainstr;
-extern strid_t 					statusstr;
-extern strid_t 					quotestr;
-extern strid_t 					inputstr;
 static glsi32  					top_of_loop = 0;
 static glsi32  					top_of_select = 0;
 static glsi32					top_of_while = 0;
@@ -164,7 +152,6 @@ static glsi32					top_of_iterate = 0;
 static glsi32					top_of_update = 0;
 static glsi32 					top_of_do_loop = 0;
 #else
-extern FILE                     *file;
 char  					        option_buffer[2024];
 int								style_stack[100];
 int								style_index = 0;
@@ -186,8 +173,6 @@ extern int						subheader_mode;
 extern int						note_mode;
 #endif
 
-extern char						user_id[];
-extern char						prefix[];
 extern char						text_buffer[];
 extern char						chunk_buffer[];
 extern char						*word[];
@@ -203,20 +188,6 @@ extern int						max_size[];
 /* CONTAINED IN ENCAPSULATE.C */
 extern int						quoted[];
 
-extern struct object_type		*object[];
-extern struct integer_type		*integer_table;
-extern struct integer_type		*integer[];
-extern struct cinteger_type		*cinteger_table;
-extern struct attribute_type	*attribute_table;
-extern struct string_type		*string_table;
-extern struct string_type		*cstring_table;
-extern struct function_type		*function_table;
-extern struct function_type		*executing_function;
-extern struct command_type		*completion_list;
-extern struct word_type			*grammar_table;
-extern struct synonym_type		*synonym_table;
-extern struct filter_type		*filter_table;
-
 extern char						function_name[];
 extern char						temp_buffer[];
 extern char						error_buffer[];
@@ -227,16 +198,6 @@ extern char						override[];
 
 extern int						noun[];
 extern int						wp;
-extern int						start_of_this_command;
-extern int						start_of_last_command;
-extern int						buffer_index;
-extern int						objects;
-extern int						integers;
-extern int						player;
-extern int						oec;
-extern int						*object_element_address;
-extern int						*object_backup_address;
-extern int						walkthru_running;
 
 // VALUES FROM LOADER
 extern int						value_resolved;
@@ -346,7 +307,7 @@ cb2 (int c, void *not_used) {
 }
 
 int
-execute(char *funcname)
+execute(const char *funcname)
 {
 	int             index;
 	int             counter;
@@ -3175,8 +3136,8 @@ and_strcondition()
 int
 str_test(int first)
 {
-	char  *index;
-	char  *compare;
+	const char  *index;
+	const char  *compare;
 
 	// GET THE TWO STRING VALUES TO COMPARE
 
@@ -3307,7 +3268,7 @@ clear_cinteger(char *name)
 }
 
 void
-add_cstring(char *name, char *value)
+add_cstring(const char *name, const char *value)
 {
 	/* ADD A STRING CONSTANT WITH THE SUPPLIED NAME AND VALUE */
 

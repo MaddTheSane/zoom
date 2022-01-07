@@ -54,9 +54,6 @@ extern char					*word[];
 extern int					objects;
 extern int					integers;
 extern int					player;
-extern int					oec;
-extern int					*object_element_address;
-extern int					*object_backup_address;
 
 extern int					value_resolved;
 
@@ -110,10 +107,10 @@ var_text_of_word(int wordnumber)
 	}
 }
 
-char		   *
+const char		   *
 arg_text_of_word(int wordnumber)
 {
-    char *value;
+    const char *value;
 
 	if (quoted[wordnumber] == 1) {
 		return (word[wordnumber]);
@@ -410,7 +407,7 @@ integer_resolve(const char *name)
 }
 
 struct integer_type *
-integer_resolve_indexed(char *name, int index)
+integer_resolve_indexed(const char *name, int index)
 {
 	struct integer_type *pointer = integer_table;
 
@@ -581,7 +578,7 @@ string_resolve(const char *name)
 }
 
 struct string_type *
-string_resolve_indexed(char *name, int index)
+string_resolve_indexed(const char *name, int index)
 {
 	struct string_type *pointer = string_table;
 
@@ -662,7 +659,7 @@ cstring_resolve(const char *name)
 }
 
 struct string_type *
-cstring_resolve_indexed(char *name, int index)
+cstring_resolve_indexed(const char *name, int index)
 {
 	struct string_type *pointer = cstring_table;
 
@@ -689,7 +686,7 @@ cstring_resolve_indexed(char *name, int index)
 }
 
 struct function_type *
-function_resolve(char *name)
+function_resolve(const char *name)
 {
 	char           *full_name;
 	char			core_name[84];
@@ -730,8 +727,8 @@ function_resolve(char *name)
 	return (NULL);
 }
 
-char *
-expand_function(char *name)
+const char *
+expand_function(const char *name)
 {
 	/* THIS FUNCTION TAKES A SCOPE FUNCTION CALL SUCH AS noun1.function
 	 * AND REOLVE THE ACTUAL FUNCTION NAME SUCH AS function_key */
@@ -1015,7 +1012,7 @@ macro_resolve(const char *testString)
 }
 
 int
-count_resolve(char *testString)
+count_resolve(const char *testString)
 {
 	struct function_type 	*resolved_function = NULL;
 
@@ -1031,10 +1028,10 @@ count_resolve(char *testString)
 }
 
 int
-array_length_resolve(char *testString)
+array_length_resolve(const char *testString)
 {
 	int             counter = 0;
-	char            *array_name = &testString[1];
+	const char      *array_name = &testString[1];
 
 	struct integer_type *integer_pointer = integer_table;
 	struct cinteger_type *cinteger_pointer = cinteger_table;
@@ -1198,7 +1195,7 @@ object_element_resolve(const char *testString)
 }
 
 int
-object_resolve(char object_string[])
+object_resolve(const char *object_string)
 {
 	int             index;
 
@@ -1234,7 +1231,7 @@ object_resolve(char object_string[])
 }
 
 long
-attribute_resolve(char *attribute)
+attribute_resolve(const char *attribute)
 {
 	long            bit_mask;
 
@@ -1340,7 +1337,7 @@ attribute_resolve(char *attribute)
 }
 
 long
-user_attribute_resolve(char *name)
+user_attribute_resolve(const char *name)
 {
 	struct attribute_type *pointer = attribute_table;
 

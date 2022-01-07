@@ -8,10 +8,7 @@
 #include "types.h"
 #include "prototypes.h"
 
-extern struct function_type		*executing_function;
 extern char           			*word[];
-
-extern char						error_buffer[];
 
 void
 badparrun()
@@ -147,28 +144,28 @@ badplrrun(int value)
 }
 
 void
-badptrrun(char *name, int value)
+badptrrun(const char *name, int value)
 {
 	sprintf(error_buffer, BAD_POINTER, executing_function->name, name, value);
 	log_error(error_buffer, PLUS_STDOUT);
 }
 
 void
-unkvarrun(char *variable)
+unkvarrun(const char *variable)
 {
 	sprintf(error_buffer, UNDEFINED_CONTAINER_RUN, executing_function->name, arg_text_of(variable));
 	log_error(error_buffer, PLUS_STDOUT);
 }
 
 void
-unkstrrun(char *variable)
+unkstrrun(const char *variable)
 {
 	sprintf(error_buffer, UNDEFINED_STRING_RUN, executing_function->name, variable);
 	log_error(error_buffer, PLUS_STDOUT);
 }
 
 void
-unkscorun(char *scope)
+unkscorun(const char *scope)
 {
 	sprintf(error_buffer, UNKNOWN_SCOPE_RUN, executing_function->name, scope);
 	log_error(error_buffer, PLUS_STDOUT);

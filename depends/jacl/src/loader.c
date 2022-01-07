@@ -16,16 +16,11 @@ int					encrypted = FALSE;
 static int			in_print = FALSE;
 
 extern char			text_buffer[];
-extern char         	temp_buffer[];
-extern char			prefix[];
-extern char			error_buffer[];
 extern const char	*word[];
 extern int			quoted[];
-extern int			punctuated[];
 extern int			wp;
 
 #ifdef GLK
-extern schanid_t                sound_channel[];
 #else
 #ifndef __NDS__
 extern struct parameter_type	*parameter_table;
@@ -34,36 +29,10 @@ struct parameter_type *new_parameter;
 #endif
 #endif
 
-extern struct object_type		*object[];
-extern struct integer_type		*integer_table;
-extern struct integer_type		*integer[];
-extern struct cinteger_type		*cinteger_table;
-extern struct string_type		*string_table;
-extern struct string_type		*cstring_table;
-extern struct attribute_type	*attribute_table;
-extern struct function_type		*function_table;
-extern struct function_type		*executing_function;
-extern struct command_type		*completion_list;
-extern struct word_type			*grammar_table;
-extern struct synonym_type		*synonym_table;
-extern struct filter_type		*filter_table;
-
 
 static struct string_type *current_string = NULL;
 static struct integer_type *current_integer = NULL;
 static struct integer_type *last_system_integer = NULL;
-
-#ifdef GLK
-extern strid_t					game_stream;
-#else
-extern FILE                     *file;
-#endif
-
-extern int						objects;
-extern int						integers;
-extern int						functions;
-extern int						strings;
-extern int						player;
 
 extern int						it;
 extern int						them[];
