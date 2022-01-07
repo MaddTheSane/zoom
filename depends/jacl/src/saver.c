@@ -28,6 +28,11 @@ extern int						parent;
 
 extern int    			        noun[];
 
+static void write_integer(FILE *file, int x);
+static void write_long(FILE *file, long x);
+static int  read_integer(FILE *file);
+static long read_long(FILE *file);
+
 int
 save_game(char *filename)
 {

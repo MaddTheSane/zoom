@@ -65,10 +65,10 @@ int								object_expected = FALSE;
 char							default_function[84];
 char							object_name[84];
 
-char				            base_function[84];
-char            				before_function[84];
-char            				after_function[84];
-char            				local_after_function[84];
+static char				        base_function[84];
+static char            		    before_function[84];
+static char            			after_function[84];
+static char            			local_after_function[84];
 
 extern char						text_buffer[];
 extern char						function_name[];
@@ -90,6 +90,8 @@ extern struct word_type			*grammar_table;
 extern struct function_type		*executing_function;
 extern struct object_type		*object[];
 extern struct variable_type		*variable[];
+
+static int find_parent(int index);
 
 void
 parser()

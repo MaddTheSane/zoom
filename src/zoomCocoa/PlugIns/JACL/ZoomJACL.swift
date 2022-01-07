@@ -17,7 +17,7 @@ final public class JACL: ZoomGlkPlugIn {
 	}
 	
 	public override class var pluginDescription: String {
-		return "Plays Adrift files"
+		return "Plays JACL Adventure Creation Language files"
 	}
 	
 	public override class var pluginAuthor: String {
@@ -38,16 +38,16 @@ final public class JACL: ZoomGlkPlugIn {
 			fileURL.pathExtension.caseInsensitiveCompare("j2") == .orderedSame
 		}
 		
-		return isCompatibleAdriftFile(at: fileURL)
+		return isCompatibleJACLFile(at: fileURL)
 	}
 	
 	public override init?(url gameFile: URL) {
 		super.init(url: gameFile)
-		clientPath = Bundle(for: JACL.self).path(forAuxiliaryExecutable: "scare")
+		clientPath = Bundle(for: JACL.self).path(forAuxiliaryExecutable: "jacl-interpreter")
 	}
 	
 	public override func idForStory() -> ZoomStoryID? {
-		guard let stringID = stringIDForAdriftFile(at: gameURL) else {
+		guard let stringID = stringIDForJACLFile(at: gameURL) else {
 			return nil
 		}
 		
@@ -69,3 +69,10 @@ final public class JACL: ZoomGlkPlugIn {
 	}
 }
 
+private func stringIDForJACLFile(at url: URL) -> String? {
+	return nil
+}
+
+private func isCompatibleJACLFile(at url: URL) -> Bool {
+	return false
+}

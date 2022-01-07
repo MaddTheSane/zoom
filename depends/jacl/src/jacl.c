@@ -31,6 +31,7 @@
 #include "language.h"
 #include <string.h>
 #include "prototypes.h"
+#include "interpreter.h"
 
 #ifndef GARGLK
 #include <GlkClient/gi_blorb.h>
@@ -45,8 +46,6 @@ schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL,
 
 event_t				*cancelled_event;
 
-extern struct csv_parser parser_csv;
-
 extern char			text_buffer[];
 extern char			*word[];
 extern short int	quoted[];
@@ -54,7 +53,6 @@ extern short int	punctuated[];
 extern int			wp;
 
 extern int			custom_error;
-extern int			interrupted;
 
 extern int			jpp_error;
 
@@ -84,9 +82,9 @@ char            override[81];
 
 char            temp_buffer[1024];
 char            error_buffer[1024];
-unsigned char   chunk_buffer[4096];
+static unsigned char chunk_buffer[4096];
 #ifndef NOUNICODE
-glui32          chunk_buffer_uni[4096];
+static glui32   chunk_buffer_uni[4096];
 #endif
 char            proxy_buffer[1024];
 
@@ -95,9 +93,9 @@ char			oopsed_current[1024];
 char            last_command[1024];
 char			*blank_command = "blankjacl\0";
 char            *current_command = (char *) NULL;
-char			command_buffer[1024];
+static char		command_buffer[1024];
 #ifndef NOUNICODE
-glui32			command_buffer_uni[1024];
+static glui32	command_buffer_uni[1024];
 #endif
 char			players_command[1024];
 
@@ -132,7 +130,7 @@ int            *object_element_address,
 
 short int       spaced = TRUE;
 
-int       		delay = 0;
+static int       delay = 0;
 
 /* START OF GLK STUFF */
 
@@ -171,6 +169,14 @@ struct command_type *completion_list = NULL;
 struct word_type *grammar_table = NULL;
 struct synonym_type *synonym_table = NULL;
 struct filter_type *filter_table = NULL;
+
+#ifdef GLK
+static void convert_to_utf8(glui32 *text, int len);
+static int convert_to_utf32 (unsigned char *text);
+static glui32 parse_utf8(unsigned char *buf, glui32 buflen, glui32 *out, glui32 outlen);
+#endif
+
+static void version_info(void);
 
 void
 glk_main(void)
@@ -762,10 +768,8 @@ restore_game_state()
 	TIME->value = FALSE;
 }
 
-void convert_to_utf8(glui32 *text, int len);
-
 void
-write_text(char *string_buffer)
+write_text(const char *string_buffer)
 {
 	int             index,
 					length;

@@ -8,6 +8,7 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "interpreter.h"
 #include <string.h>
 
 #ifdef GLK
@@ -37,7 +38,6 @@ extern struct filter_type		*filter_table;
 extern char					function_name[];
 extern char					temp_buffer[];
 extern char					error_buffer[];
-extern char					integer_buffer[16];
 
 #ifndef GLK
 #ifndef __NDS__
@@ -50,8 +50,6 @@ extern int					noun[];
 extern int					quoted[];
 extern int					percented[];
 extern char					*word[];
-
-extern int					resolved_attribute;
 
 extern int					objects;
 extern int					integers;
@@ -66,7 +64,7 @@ char 						macro_function[84];
 int							value_has_been_resolved;
 
 int            *
-container_resolve(char *container_name)
+container_resolve(const char *container_name)
 {
 	container_name = arg_text_of(container_name);
 
@@ -93,10 +91,10 @@ container_resolve(char *container_name)
 		return ((int *) NULL);
 }
 
-char		   *
+const char		   *
 var_text_of_word(int wordnumber)
 {
-    char *value;
+    const char *value;
 
 	if (percented[wordnumber] == FALSE) {
 		return (word[wordnumber]);
@@ -213,8 +211,8 @@ text_of(char *string)
 	}
 }
 
-char           *
-arg_text_of(char *string)
+const char           *
+arg_text_of(const char *string)
 {
 	struct string_type *resolved_string;
 	struct string_type *resolved_cstring;
@@ -237,7 +235,7 @@ arg_text_of(char *string)
 }
 
 int
-validate(char *string)
+validate(const char *string)
 {
 	int             index,
 	                count;
@@ -262,7 +260,7 @@ validate(char *string)
 }
 
 long
-value_of(char *value, int run_time)
+value_of(const char *value, int run_time)
 {
 	long            compare;
 
@@ -349,7 +347,7 @@ value_of(char *value, int run_time)
 }
 
 struct integer_type *
-integer_resolve(char *name)
+integer_resolve(const char *name)
 {
 	int             index,
 					iterator,
@@ -439,7 +437,7 @@ integer_resolve_indexed(char *name, int index)
 }
 
 struct cinteger_type *
-cinteger_resolve(char *name)
+cinteger_resolve(const char *name)
 {
 	int             index,
 					iterator,
@@ -502,7 +500,7 @@ cinteger_resolve(char *name)
 }
 
 struct cinteger_type *
-cinteger_resolve_indexed(char *name, int index)
+cinteger_resolve_indexed(const char *name, int index)
 {
 	struct cinteger_type *pointer = cinteger_table;
 
@@ -529,7 +527,7 @@ cinteger_resolve_indexed(char *name, int index)
 }
 
 struct string_type *
-string_resolve(char *name)
+string_resolve(const char *name)
 {
 	int             index,
 					iterator,
@@ -610,7 +608,7 @@ string_resolve_indexed(char *name, int index)
 }
 
 struct string_type *
-cstring_resolve(char *name)
+cstring_resolve(const char *name)
 {
 	int             index,
 					iterator,
@@ -784,7 +782,7 @@ expand_function(char *name)
 }
 
 char *
-macro_resolve(char *testString)
+macro_resolve(const char *testString)
 {
 	int             index,
 	                counter;
@@ -1108,7 +1106,7 @@ array_length_resolve(char *testString)
 }
 
 int
-object_element_resolve(char *testString)
+object_element_resolve(const char *testString)
 {
 	int             index,
 					iterator,

@@ -311,6 +311,10 @@
 		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
 		55A2EB9E273C86500006340C /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA0273C86500006340C /* NoteWindow.xib */; };
 		55A2EBA5273C86660006340C /* Skein.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA7273C86660006340C /* Skein.xib */; };
+		55B4598F278798080037A6A3 /* glk_saver.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC13122786D53000369EBE /* glk_saver.c */; };
+		55B4599B2787992C0037A6A3 /* libcsv.LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55BC13202786D53000369EBE /* libcsv.LICENSE */; };
+		55B4599C278799500037A6A3 /* ZoomJACL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BC111E2786D04B00369EBE /* ZoomJACL.swift */; };
+		55B4599D27879AAE0037A6A3 /* babel.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC130E2786D53000369EBE /* babel.c */; };
 		55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */; };
 		55BA3C1427253B5B007F6C82 /* geas-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BE627253B5A007F6C82 /* geas-util.cc */; };
 		55BA3C1527253B5B007F6C82 /* geas-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BE727253B5A007F6C82 /* geas-state.cc */; };
@@ -339,7 +343,6 @@
 		55BC13822786DE1700369EBE /* jpp.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC12982786D53000369EBE /* jpp.c */; };
 		55BC13832786DE4300369EBE /* loader.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC12842786D53000369EBE /* loader.c */; };
 		55BC13842786DFC500369EBE /* resolvers.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC13102786D53000369EBE /* resolvers.c */; };
-		55BC13852786DFCA00369EBE /* saver.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC12882786D53000369EBE /* saver.c */; };
 		55BC13862786DFCD00369EBE /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC13162786D53000369EBE /* utils.c */; };
 		55BC13872786E11D00369EBE /* display.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC128A2786D53000369EBE /* display.c */; };
 		55BC13882786E21000369EBE /* errors.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC13672786D53000369EBE /* errors.c */; };
@@ -1424,6 +1427,7 @@
 		55A2EBA6273C86660006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Skein.xib; sourceTree = "<group>"; };
 		55A2EBA9273C86680006340C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Skein.strings; sourceTree = "<group>"; };
 		55A2EBAB273C86690006340C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Skein.strings"; sourceTree = "<group>"; };
+		55B4599E27879D5E0037A6A3 /* interpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interpreter.h; sourceTree = "<group>"; };
 		55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDownloadView.swift; sourceTree = "<group>"; };
 		55BA3BD227253B21007F6C82 /* geas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = geas; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BA3BDF27253B5A007F6C82 /* CONTACT.txt */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = CONTACT.txt; sourceTree = "<group>"; };
@@ -1456,7 +1460,7 @@
 		55BC111D2786D04B00369EBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BC111E2786D04B00369EBE /* ZoomJACL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomJACL.swift; sourceTree = "<group>"; };
 		55BC11382786D0B600369EBE /* JACL.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JACL.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
-		55BC12842786D53000369EBE /* loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = loader.c; sourceTree = "<group>"; };
+		55BC12842786D53000369EBE /* loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = loader.c; sourceTree = "<group>"; tabWidth = 4; };
 		55BC12852786D53000369EBE /* csv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = csv.h; sourceTree = "<group>"; };
 		55BC12872786D53000369EBE /* findroute.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = findroute.c; sourceTree = "<group>"; };
 		55BC12882786D53000369EBE /* saver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = saver.c; sourceTree = "<group>"; };
@@ -2553,6 +2557,7 @@
 				55BC13122786D53000369EBE /* glk_saver.c */,
 				55BC13682786D53000369EBE /* glk_startup.c */,
 				55BC131E2786D53000369EBE /* interpreter.c */,
+				55B4599E27879D5E0037A6A3 /* interpreter.h */,
 				55BC12AA2786D53000369EBE /* jacl.c */,
 				55BC13192786D53000369EBE /* jacl.h */,
 				55BC12982786D53000369EBE /* jpp.c */,
@@ -2577,8 +2582,10 @@
 				55BC13092786D53000369EBE /* webjacl.h */,
 				55BC131C2786D53000369EBE /* winglk_startup.c */,
 			);
+			indentWidth = 2;
 			path = src;
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		55BC12992786D53000369EBE /* cgihtml-1.69 */ = {
 			isa = PBXGroup;
@@ -3419,6 +3426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BC136B2786D58100369EBE /* README in Resources */,
+				55B4599B2787992C0037A6A3 /* libcsv.LICENSE in Resources */,
 				55BC136A2786D55500369EBE /* projects in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3625,6 +3633,7 @@
 				4BD79AD10BA2CB44002C82B2 /* hugo.c in Sources */,
 				55BE4AC92707082700100A7D /* twine.c in Sources */,
 				4BD79AD20BA2CB44002C82B2 /* level9.c in Sources */,
+				55B4599D27879AAE0037A6A3 /* babel.c in Sources */,
 				4BD79AD30BA2CB44002C82B2 /* magscrolls.c in Sources */,
 				4BD79AD40BA2CB44002C82B2 /* tads.c in Sources */,
 				4BD79AD50BA2CB44002C82B2 /* tads2.c in Sources */,
@@ -3748,6 +3757,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55B4599C278799500037A6A3 /* ZoomJACL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3763,8 +3773,8 @@
 				55BC13822786DE1700369EBE /* jpp.c in Sources */,
 				55BC13812786DB8C00369EBE /* interpreter.c in Sources */,
 				55BC138C2786EA6D00369EBE /* encapsulate.c in Sources */,
-				55BC13852786DFCA00369EBE /* saver.c in Sources */,
 				55BC13802786D70100369EBE /* jacl.c in Sources */,
+				55B4598F278798080037A6A3 /* glk_saver.c in Sources */,
 				55BC13892786E65600369EBE /* parser.c in Sources */,
 				55BC13842786DFC500369EBE /* resolvers.c in Sources */,
 				55BC138B2786E96B00369EBE /* glk_startup.c in Sources */,

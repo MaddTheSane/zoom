@@ -7,8 +7,8 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
-#include "csv.h"
-#include "errno.h"
+#include "interpreter.h"
+#include <errno.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -61,21 +61,21 @@ char *strcasestr(const char *s, const char *find)
 
 #define MAX_TRY 10 
 
-struct flock	read_lck;
-int				read_fd;
-struct flock	write_lck;
-int				write_fd;
+static struct flock	read_lck;
+static int			read_fd;
+static struct flock	write_lck;
+static int			write_fd;
 
-char *url_encode(char *str);
-char to_hex(char code);
+static char *url_encode(const char *str);
+static char to_hex(char code);
 
-char *location_attributes[] = {
+static const char * const location_attributes[] = {
  "VISITED ", "DARK ", "ON_WATER ", "UNDER_WATER ", "WITHOUT_AIR ", "OUTDOORS ",
  "MID_AIR ", "TIGHT_ROPE ", "POLLUTED ", "SOLVED ", "MID_WATER ", "DARKNESS ",
  "MAPPED ", "KNOWN ",
  NULL };
 
-char *object_attributes[] = {
+static const char * const object_attributes[] = {
  "CLOSED ", "LOCKED ", "DEAD ", "IGNITABLE ", "WORN ", "CONCEALING ",
  "LUMINOUS ", "WEARABLE ", "CLOSABLE ", "LOCKABLE ", "ANIMATE ", "LIQUID ",
  "CONTAINER ", "SURFACE ", "PLURAL ", "FLAMMABLE ", "BURNING ", "LOCATION ",
@@ -83,42 +83,42 @@ char *object_attributes[] = {
  "SCORED ", "SITTING ", "NPC ", "DONE ", "GAS ", "NO_TAB ",
  "NOT_IMPORTANT ", NULL };
 
-char *object_elements[] = {
+static const char * const object_elements[] = {
  "parent", "capacity", "mass", "bearing", "velocity", "next", "previous",
  "child", "index", "status", "state", "counter", "points", "class", "x", "y", 
  NULL };
 
-char *location_elements[] = {
+static const char * const location_elements[] = {
  "north", "south", "east", "west", "northeast", "northwest", "southeast",
  "southwest", "up", "down", "in", "out", "points", "class", "x", "y", 
  NULL };
 
 struct csv_parser				parser_csv;
-char							in_name[1024];
-char							out_name[1024];
-FILE 						*infile, *outfile, *tempfile;
-int							first_column;
+static char						in_name[1024];
+static char						out_name[1024];
+static FILE 					*infile, *outfile, *tempfile;
+static int						first_column;
 
-int             				stack = 0;
-int             				proxy_stack = 0;
+static int             			stack = 0;
+static int             			proxy_stack = 0;
 
-int             				field_no = 0;
+static int             			field_no = 0;
 
-struct stack_type				backup[STACK_SIZE];
-struct proxy_type				proxy_backup[STACK_SIZE];
+static struct stack_type		backup[STACK_SIZE];
+static struct proxy_type		proxy_backup[STACK_SIZE];
 
-struct function_type *resolved_function = NULL;
-struct string_type *resolved_string = NULL;
+static struct function_type *resolved_function = NULL;
+static struct string_type *resolved_string = NULL;
 
-struct string_type *new_string = NULL;
+static struct string_type *new_string = NULL;
 struct string_type *current_cstring = NULL;
-struct string_type *previous_cstring = NULL;
+static struct string_type *previous_cstring = NULL;
 
-struct cinteger_type *new_cinteger = NULL;
+static struct cinteger_type *new_cinteger = NULL;
 struct cinteger_type *current_cinteger = NULL;
-struct cinteger_type *previous_cinteger = NULL;
+static struct cinteger_type *previous_cinteger = NULL;
 
-long							bit_mask;
+static long						bit_mask;
 extern int 						encrypted;
 extern int						after_from;
 extern int						last_exact;
@@ -126,26 +126,26 @@ extern int						last_exact;
 extern char						rpc_function_name[];
 extern char						temp_directory[];
 extern char						data_directory[];
-char							csv_buffer[2048];
+static char						csv_buffer[2048];
 
 int								resolved_attribute;
 
 /* THE ITERATION VARIABLE USED FOR LOOPS */
-int								*loop_integer = NULL;
-int								*select_integer = NULL;
+static int						*loop_integer = NULL;
+static int						*select_integer = NULL;
 
-int								criterion_value = 0;
-int								criterion_type = 0;
-int								criterion_negate = FALSE;
-int             				current_level;
-int             				execution_level;
-int             				*ask_integer;
-int								new_x;
-int								new_y;
+static int						criterion_value = 0;
+static int						criterion_type = 0;
+static int						criterion_negate = FALSE;
+static int             			current_level;
+static int             			execution_level;
+static int             			*ask_integer;
+static int						new_x;
+static int						new_y;
 
 int								interrupted = FALSE;
-char 							string_buffer[2048];
-char							argument_buffer[1024];
+static char 					string_buffer[2048];
+static char						argument_buffer[1024];
 #ifdef GLK
 extern schanid_t				sound_channel[];
 extern strid_t					game_stream;
@@ -157,12 +157,12 @@ extern strid_t 					mainstr;
 extern strid_t 					statusstr;
 extern strid_t 					quotestr;
 extern strid_t 					inputstr;
-glsi32  						top_of_loop = 0;
-glsi32  						top_of_select = 0;
-glsi32							top_of_while = 0;
-glsi32							top_of_iterate = 0;
-glsi32							top_of_update = 0;
-glsi32 							top_of_do_loop = 0;
+static glsi32  					top_of_loop = 0;
+static glsi32  					top_of_select = 0;
+static glsi32					top_of_while = 0;
+static glsi32					top_of_iterate = 0;
+static glsi32					top_of_update = 0;
+static glsi32 					top_of_do_loop = 0;
 #else
 extern FILE                     *file;
 char  					        option_buffer[2024];
@@ -245,9 +245,12 @@ extern FILE           			*transcript;
 extern char						margin_string[];
 
 char  					        integer_buffer[16];
-char							called_name[1024];
-char							scope_criterion[24];
-char							*output;
+static char						called_name[1024];
+static char						scope_criterion[24];
+static char						*output;
+
+static int exit_function(int return_code);
+
 
 void
 terminate(int code)
@@ -283,7 +286,7 @@ terminate(int code)
 #endif
 }
 
-void
+static void
 build_proxy(void)
 {
 	int             index;
@@ -305,7 +308,7 @@ build_proxy(void)
 	//printf("--- proxy buffer = \"%s\"\n", proxy_buffer);
 }
 
-void 
+static void
 cb1 (void *s, size_t i, void *not_used) {
 	struct string_type *resolved_cstring;
 
@@ -332,7 +335,7 @@ cb1 (void *s, size_t i, void *not_used) {
 
 }
 
-void 
+static void
 cb2 (int c, void *not_used) {
 	// THE END OF THE RECORD HAS BEEN REACHED, EXPORT THE NUMBER OF FIELDS READ
 	struct cinteger_type *resolved_cinteger;
@@ -3545,8 +3548,9 @@ char to_hex(char code) {
 
 /* Returns a url-encoded version of str */
 /* IMPORTANT: be sure to free() the returned string after use */
-char *url_encode(char *str) {
-  char *pstr = str, *buf = malloc(strlen(str) * 3 + 1), *pbuf = buf;
+char *url_encode(const char *str) {
+  const char *pstr = str;
+  char *buf = malloc(strlen(str) * 3 + 1), *pbuf = buf;
   while (*pstr) {
     if (isalnum(*pstr) || *pstr == '-' || *pstr == '_' || *pstr == '.' || *pstr == '~') 
       *pbuf++ = *pstr;

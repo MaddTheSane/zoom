@@ -33,9 +33,13 @@ extern int						parent;
 
 extern int    			        noun[];
 
+static void write_integer(strid_t stream, int x);
+static void write_long(strid_t stream, long x);
+static int  read_integer(strid_t stream);
+static long read_long(strid_t stream);
+
 int
-save_game(saveref)
-	 frefid_t           saveref;
+save_game(frefid_t saveref)
 {
 	struct integer_type *current_integer = integer_table;
     struct function_type *current_function = function_table;
@@ -111,9 +115,7 @@ save_game(saveref)
 }
 
 int
-restore_game(saveref, warn)
-	 frefid_t           saveref;
-	 int			 	warn;
+restore_game(frefid_t saveref, int warn)
 {
 	struct integer_type *current_integer = integer_table;
     struct function_type *current_function = function_table;

@@ -42,12 +42,12 @@ extern char			temp_directory[];
 
 extern char			error_buffer[];
 
-int					lines_written;
+static int			lines_written;
 
-FILE 	 	        *outputFile = NULL;
-FILE   	    		*inputFile = NULL;
+static FILE 	 	*outputFile = NULL;
+static FILE   	    *inputFile = NULL;
 
-char				*stripped_line;
+static char			*stripped_line;
 
 /* INDICATES THAT THE CURRENT '.j2' FILE BEING WORKED 
  * WITH BEING PREPARED FOR RELEASE (DON'T INCLUDE DEBUG LIBARIES) */
@@ -55,11 +55,11 @@ short int			release = FALSE;
 
 /* INDICATES THAT THE CURRENT '.j2' FILE BEING WORKED 
  * SHOULD BE ENCRYPTED */
-short int			do_encrypt = TRUE;
+static short int			do_encrypt = TRUE;
 
 /* INDICATES THAT THE CURRENT '.processed' FILE BRING WRITTEN SHOULD NOW
  * HAVE EACH LINE ENCRYPTED AS THE FIRST NONE COMMENT LINE HAS BEEN HIT */
-short int			encrypting = FALSE;
+static short int			encrypting = FALSE;
 
 int
 jpp()

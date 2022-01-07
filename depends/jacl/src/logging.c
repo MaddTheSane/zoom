@@ -13,9 +13,7 @@ extern char						prefix[];
 
 #ifdef __NDS__
 void
-log_error(message, console)
-	char        *message;
-	int			console;
+log_error(const char *message, int console)
 {
 	char 			consoleMessage[256];
 
@@ -26,9 +24,7 @@ log_error(message, console)
 #endif
 #ifdef GLK
 void
-log_error(message, console)
-	char        *message;
-	int			console;
+log_error(const char *message, int console)
 {
 	/* LOG A MESSAGE TO THE CONSOLE */
 
@@ -36,7 +32,7 @@ log_error(message, console)
     event_t			event;
 
 	// BUILD A STRING SUITABLE FOR DISPLAY ON THE CONSOLE.
-	sprintf(consoleMessage, "ERROR: %s^", message);
+	snprintf(consoleMessage, sizeof(consoleMessage), "ERROR: %s^", message);
 
 	glk_set_style(style_Alert);
 	write_text(consoleMessage);
@@ -66,9 +62,7 @@ log_access(char *message)
 }
 
 void
-log_error(message, console)
-	char        *message;
-	int			console;
+log_error(const char *message, int console)
 {
 	FILE           *errorLog = fopen(error_log, "a");
 	time_t          tnow;
@@ -108,9 +102,7 @@ log_debug(message, console)
 }
 
 void
-log_message(message, console)
-	char        *message;
-	int			console;
+log_message(const char *message, int console)
 {
 	FILE           *errorLog = fopen(error_log, "a");
 	time_t          tnow;

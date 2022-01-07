@@ -133,7 +133,7 @@ unkdirrun(int wordno)
 }
 
 void
-badparun()
+badparun(void)
 {
 	sprintf(error_buffer, BAD_PARENT, executing_function->name);
 	log_error(error_buffer, PLUS_STDOUT);

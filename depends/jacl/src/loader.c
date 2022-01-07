@@ -7,18 +7,19 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "interpreter.h"
 #include <string.h>
 
 /* INDICATES THAT THE CURRENT '.j2' FILE BEING WORKED 
  * WITH IS ENCRYPTED */
 int					encrypted = FALSE;
-int					in_print = FALSE;
+static int			in_print = FALSE;
 
 extern char			text_buffer[];
 extern char         	temp_buffer[];
 extern char			prefix[];
 extern char			error_buffer[];
-extern char			*word[];
+extern const char	*word[];
 extern int			quoted[];
 extern int			punctuated[];
 extern int			wp;
@@ -48,12 +49,9 @@ extern struct synonym_type		*synonym_table;
 extern struct filter_type		*filter_table;
 
 
-struct string_type *current_string = NULL;
-struct integer_type *current_integer = NULL;
-struct integer_type *last_system_integer = NULL;
-
-extern struct string_type *current_cstring;
-extern struct cinteger_type *current_cinteger;
+static struct string_type *current_string = NULL;
+static struct integer_type *current_integer = NULL;
+static struct integer_type *last_system_integer = NULL;
 
 #ifdef GLK
 extern strid_t					game_stream;
@@ -76,6 +74,8 @@ extern int						parent;
 extern int    			        noun[];
 
 int								value_resolved;
+
+static int legal_label_check(const char *word, int line, int type);
 
 void
 read_gamefile()
@@ -1089,7 +1089,7 @@ build_grammar_table(struct word_type *pointer)
 }
 
 int
-legal_label_check(char *word, int line, int type)
+legal_label_check(const char *word, int line, int type)
 {
 	struct integer_type *integer_pointer = integer_table;
 	struct cinteger_type *cinteger_pointer = cinteger_table;
@@ -1420,7 +1420,7 @@ set_defaults()
 }
 
 void
-create_cinteger (char *name, int value)
+create_cinteger (const char *name, int value)
 {
 	struct cinteger_type *new_cinteger = NULL;
 
@@ -1443,7 +1443,7 @@ create_cinteger (char *name, int value)
 }
 
 void
-create_integer (char *name, int value)
+create_integer (const char *name, int value)
 {
 	struct integer_type *new_integer = NULL;
 
@@ -1469,7 +1469,7 @@ create_integer (char *name, int value)
 }
 
 void
-create_string (char *name, char *value)
+create_string (const char *name, const char *value)
 {
 	struct string_type *new_string = NULL;
 
@@ -1504,7 +1504,7 @@ create_string (char *name, char *value)
 }
 
 void
-create_cstring (char *name, char *value)
+create_cstring (const char *name, const char *value)
 {
 	struct string_type *new_string = NULL;
 
