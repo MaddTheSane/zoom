@@ -176,6 +176,7 @@ static glui32 parse_utf8(unsigned char *buf, glui32 buflen, glui32 *out, glui32 
 #endif
 
 static void version_info(void);
+static void jacl_set_window(winid_t new_window);
 
 void
 glk_main(void)

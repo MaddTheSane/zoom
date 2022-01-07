@@ -25,6 +25,10 @@ final public class JACL: ZoomGlkPlugIn {
 	}
 	
 	public override class var canLoadSavegames: Bool {
+		return false
+	}
+	
+	public override class var needsPathPassedToTask: Bool {
 		return true
 	}
 	
@@ -73,6 +77,25 @@ private func stringIDForJACLFile(at url: URL) -> String? {
 	return nil
 }
 
+private let processedData: Data = {
+	"\n#processed:".data(using: .ascii)!
+}()
 private func isCompatibleJACLFile(at url: URL) -> Bool {
+	// TAKE A COPY OF THE FIRST 2000 BYTES
+	guard let fh = try? FileHandle(forReadingFrom: url) else {
+		return false
+	}
+	let fileData: Data
+	if #available(macOS 10.15.4, *) {
+		guard let dat = try? fh.read(upToCount: 2000) else {
+			return false
+		}
+		fileData = dat
+	} else {
+		fileData = fh.readData(ofLength: 2000)
+	}
+	if fileData.range(of: processedData) != nil {
+		return true
+	}
 	return false
 }

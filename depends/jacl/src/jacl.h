@@ -81,6 +81,7 @@ extern char		temp_buffer[];
 
 extern char		user_id[];
 extern char		prefix[];
+extern char		processed_file[];
 extern char		function_name[];
 
 extern struct object_type		*object[];

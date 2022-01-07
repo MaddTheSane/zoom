@@ -49,7 +49,6 @@ int grand_of(int child, int objs_only);
 int check_light(int where);
 int find_route(int fromRoom, int toRoom, int known);
 int	count_resolve(const char *testString);
-void jacl_set_window(winid_t new_window);
 void create_cstring(const char *name, const char *value);
 void create_string(const char *name, const char *value);
 void create_integer(const char *name, int value);

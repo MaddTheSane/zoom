@@ -19,12 +19,6 @@
 
 int					jpp_error = FALSE;
 
-extern strid_t 		game_stream;
-extern char			game_file[];
-extern char			temp_buffer[];
-extern char			error_buffer[];
-extern char			processed_file[];
-
 short int			encrypt1;
 extern short int	release;
 
