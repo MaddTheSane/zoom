@@ -7,14 +7,10 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "encapsulate.h"
+#include "parser.h"
 
-extern struct object_type		*object[];
 extern struct variable_type		*variable[];
-
-extern char						*word[];
-
-extern int						wp;
-extern int						custom_error;
 
 int
 check_light(int where)

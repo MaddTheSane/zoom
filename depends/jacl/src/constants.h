@@ -3,6 +3,9 @@
  * according to GNU GPL, see file COPYING for details.
  */
 
+#ifndef __CONSTANTS_H__
+#define __CONSTANTS_H__
+
 #define MAX_WORDS               20
 #define STACK_SIZE              20
 #define MAX_UNDO                100
@@ -165,3 +168,5 @@
 #define SUBHEADER				5
 #define REVERSE					6
 #define PRE						7
+
+#endif

@@ -20,27 +20,8 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "encapsulate.h"
 #include <string.h>
-
-extern char			text_buffer[];
-extern char			temp_buffer[];
-extern char			*word[];
-extern short int	quoted[];
-extern short int	punctuated[];
-extern int			wp;
-
-extern char			user_id[];
-extern char			prefix[];
-extern char			game_path[];
-extern char			game_file[];
-extern char			processed_file[];
-
-extern short int	encrypted;
-
-extern char			include_directory[];
-extern char			temp_directory[];
-
-extern char			error_buffer[];
 
 static int			lines_written;
 
@@ -60,6 +41,8 @@ static short int			do_encrypt = TRUE;
 /* INDICATES THAT THE CURRENT '.processed' FILE BRING WRITTEN SHOULD NOW
  * HAVE EACH LINE ENCRYPTED AS THE FIRST NONE COMMENT LINE HAS BEEN HIT */
 static short int			encrypting = FALSE;
+
+static int process_file(char *sourceFile1, char *sourceFile2);
 
 int
 jpp()

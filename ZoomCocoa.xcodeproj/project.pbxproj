@@ -1428,6 +1428,8 @@
 		55A2EBA9273C86680006340C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Skein.strings; sourceTree = "<group>"; };
 		55A2EBAB273C86690006340C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Skein.strings"; sourceTree = "<group>"; };
 		55B4599E27879D5E0037A6A3 /* interpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interpreter.h; sourceTree = "<group>"; };
+		55B4599F27892ED20037A6A3 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
+		55B459A02789318F0037A6A3 /* encapsulate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = encapsulate.h; sourceTree = "<group>"; };
 		55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDownloadView.swift; sourceTree = "<group>"; };
 		55BA3BD227253B21007F6C82 /* geas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = geas; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BA3BDF27253B5A007F6C82 /* CONTACT.txt */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = CONTACT.txt; sourceTree = "<group>"; };
@@ -1501,7 +1503,7 @@
 		55BC131B2786D53000369EBE /* libcsv.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = libcsv.c; sourceTree = "<group>"; usesTabs = 0; };
 		55BC131C2786D53000369EBE /* winglk_startup.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = winglk_startup.c; sourceTree = "<group>"; };
 		55BC131D2786D53000369EBE /* cgijacl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cgijacl.h; sourceTree = "<group>"; };
-		55BC131E2786D53000369EBE /* interpreter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = interpreter.c; sourceTree = "<group>"; };
+		55BC131E2786D53000369EBE /* interpreter.c */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = interpreter.c; sourceTree = "<group>"; };
 		55BC131F2786D53000369EBE /* webjacl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = webjacl.c; sourceTree = "<group>"; };
 		55BC13202786D53000369EBE /* libcsv.LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = libcsv.LICENSE; sourceTree = "<group>"; };
 		55BC13212786D53000369EBE /* parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
@@ -2552,6 +2554,7 @@
 				55BC128A2786D53000369EBE /* display.c */,
 				55BC12972786D53000369EBE /* dsjacl.c */,
 				55BC135D2786D53000369EBE /* encapsulate.c */,
+				55B459A02789318F0037A6A3 /* encapsulate.h */,
 				55BC13672786D53000369EBE /* errors.c */,
 				55BC12872786D53000369EBE /* findroute.c */,
 				55BC13122786D53000369EBE /* glk_saver.c */,
@@ -2571,6 +2574,7 @@
 				55BC13182786D53000369EBE /* Makefile.OSX */,
 				55BC13152786D53000369EBE /* Makefile.Unix */,
 				55BC13212786D53000369EBE /* parser.c */,
+				55B4599F27892ED20037A6A3 /* parser.h */,
 				55BC13132786D53000369EBE /* prototypes.h */,
 				55BC13112786D53000369EBE /* README */,
 				55BC13102786D53000369EBE /* resolvers.c */,

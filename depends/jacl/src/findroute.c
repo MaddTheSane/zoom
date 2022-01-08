@@ -8,9 +8,6 @@
 #include "types.h"
 #include "prototypes.h"
 
-extern struct object_type       *object[];
-extern int                      objects;
-
 /**************************************/
 /* Queue functions                    */
 /**************************************/

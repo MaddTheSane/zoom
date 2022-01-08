@@ -9,35 +9,13 @@
 #include "types.h"
 #include "prototypes.h"
 #include "interpreter.h"
+#include "encapsulate.h"
 #include <string.h>
-
-#ifdef GLK
-extern glui32 					status_width, status_height;
-extern winid_t 				statuswin;
-#endif
 
 #ifdef __NDS__
 extern int					screen_width;
 extern int					screen_depth;
 #endif
-
-extern struct object_type		*object[];
-extern struct integer_type		*integer_table;
-extern struct integer_type		*integer[];
-extern struct cinteger_type		*cinteger_table;
-extern struct attribute_type		*attribute_table;
-extern struct string_type		*string_table;
-extern struct string_type		*cstring_table;
-extern struct function_type		*function_table;
-extern struct function_type		*executing_function;
-extern struct command_type		*completion_list;
-extern struct word_type			*grammar_table;
-extern struct synonym_type		*synonym_table;
-extern struct filter_type		*filter_table;
-
-extern char					function_name[];
-extern char					temp_buffer[];
-extern char					error_buffer[];
 
 #ifndef GLK
 #ifndef __NDS__
@@ -45,15 +23,6 @@ extern char					game_url[];
 extern char					user_id[];
 #endif
 #endif
-
-extern int					noun[];
-extern int					quoted[];
-extern int					percented[];
-extern char					*word[];
-
-extern int					objects;
-extern int					integers;
-extern int					player;
 
 extern int					value_resolved;
 
@@ -126,10 +95,10 @@ arg_text_of_word(int wordnumber)
 	}
 }
 
-char		   *
+const char		   *
 text_of_word(int wordnumber)
 {
-    char *value;
+    const char *value;
 
 	if (quoted[wordnumber] == 1) {
 		return (word[wordnumber]);
@@ -145,8 +114,8 @@ text_of_word(int wordnumber)
 	}
 }
 
-char           *
-text_of(char *string)
+const char           *
+text_of(const char *string)
 {
 	struct integer_type *resolved_integer;
 	struct cinteger_type *resolved_cinteger;

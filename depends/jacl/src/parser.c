@@ -7,13 +7,15 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "parser.h"
+#include "encapsulate.h"
 #include <string.h>
 
 #define FIRST_LIST		noun_number-2
 #define SECOND_LIST		noun_number
 
 int								object_list[4][MAX_OBJECTS];
-int								multiple_resolved[MAX_OBJECTS];
+static int						multiple_resolved[MAX_OBJECTS];
 
 // THIS IS THE NUMBER OF OBJECTS LEFT IN THE LIST
 int								list_size[4];
@@ -28,17 +30,17 @@ int								max_size[4];
  * noun2 EXCEPTIONS	: 3
  */
 
-int             				selection;
+static int             			selection;
 
-int				             	matches = 0;
-int            					highest_confidence = 0;
-int            				 	prime_suspect = 0;
-int             				done = 0;
-int             				backup_pointer = 0;
-int								everything = 0;
+static int				        matches = 0;
+static int            			highest_confidence = 0;
+static int            			prime_suspect = 0;
+static int             			done = 0;
+static int             			backup_pointer = 0;
+static int						everything = 0;
 
-int             				confidence[MAX_OBJECTS];
-int								possible_objects[MAX_OBJECTS];
+static int             			confidence[MAX_OBJECTS];
+static int						possible_objects[MAX_OBJECTS];
 
 int								it;
 int								them[MAX_OBJECTS];
@@ -51,47 +53,31 @@ int								custom_error;
 int								oops_word;
 int								last_exact;
 
-char							*expected_scope[3];
+static char						*expected_scope[3];
 
 // THIS ARRAY DEFINES THE OBJECTS THAT THE CURRENT OBJECTS ARE
 // SUPPOSED TO BE A CHILD OF
 int								from_objects[MAX_OBJECTS];
 
 int								after_from;
-char							*from_word;
+static char						*from_word;
 
-int								object_expected = FALSE;
+static int						object_expected = FALSE;
 
 char							default_function[84];
-char							object_name[84];
+static char						object_name[84];
 
 static char				        base_function[84];
 static char            		    before_function[84];
 static char            			after_function[84];
 static char            			local_after_function[84];
 
-extern char						text_buffer[];
-extern char						function_name[];
-extern char						temp_buffer[];
-extern char						error_buffer[];
-extern char						override[];
-extern char						*word[];
-
-extern int						quoted[];
-
-extern struct object_type		*object[];
-extern int						objects;
-
-extern int						noun[];
-extern int						wp;
-extern int						player;
-
-extern struct word_type			*grammar_table;
-extern struct function_type		*executing_function;
-extern struct object_type		*object[];
-extern struct variable_type		*variable[];
-
 static int find_parent(int index);
+static void diagnose(void);
+static int build_object_list(struct word_type *scope_word, int noun_number);
+static void add_all(struct word_type *scope_word, int noun_number);
+static void add_to_list(int noun_number, int resolved_object);
+static void call_functions(char *base_name);
 
 void
 parser()
@@ -1761,7 +1747,7 @@ diagnose()
 }
 
 int
-scope(int index, char *expected, int restricted)
+scope(int index, const char *expected, int restricted)
 {
 	/* THIS FUNCTION DETERMINES IF THE SPECIFIED OBJECT IS IN THE SPECIFIED
 	 * SCOPE - IT RETURNS TRUE IF SO, FALSE IF NOT. */

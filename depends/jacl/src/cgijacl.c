@@ -24,6 +24,8 @@
 #include "types.h"
 #include "prototypes.h"
 #include "csv.h"
+#include "parser.h"
+#include "encapsulate.h"
 
 extern struct csv_parser parser_csv;
 
@@ -122,6 +124,7 @@ struct synonym_type *synonym_table = NULL;
 struct filter_type *filter_table = NULL;
 
 static void version_info(void);
+static void read_config_file(void);
 
 int
 main(argc, argv)

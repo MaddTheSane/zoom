@@ -6,6 +6,7 @@
 #include "jacl.h"
 #include "types.h"
 #include "prototypes.h"
+#include "encapsulate.h"
 #include <string.h>
 
 extern struct synonym_type *synonym_table;

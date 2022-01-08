@@ -8,6 +8,8 @@
 #include "types.h"
 #include "prototypes.h"
 #include "interpreter.h"
+#include "parser.h"
+#include "encapsulate.h"
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
@@ -120,8 +122,6 @@ static struct cinteger_type *previous_cinteger = NULL;
 
 static long						bit_mask;
 extern int 						encrypted;
-extern int						after_from;
-extern int						last_exact;
 
 extern char						rpc_function_name[];
 static char						csv_buffer[2048];
@@ -173,45 +173,26 @@ extern int						subheader_mode;
 extern int						note_mode;
 #endif
 
-extern char						text_buffer[];
-extern char						chunk_buffer[];
-extern char						*word[];
-
-extern char						bookmark[];
-extern char						file_prompt[];
-
-/* CONTAINED IN PARSER.C */
-extern int						object_list[4][MAX_WORDS];
-extern int						list_size[];
-extern int						max_size[];
-
-/* CONTAINED IN ENCAPSULATE.C */
-extern int						quoted[];
-
-extern char						function_name[];
-extern char						temp_buffer[];
-extern char						error_buffer[];
-extern char						proxy_buffer[];
-
-extern char						default_function[];
-extern char						override[];
-
-extern int						noun[];
-extern int						wp;
-
 // VALUES FROM LOADER
 extern int						value_resolved;
-
-extern FILE           			*transcript;
-extern char						margin_string[];
 
 char  					        integer_buffer[16];
 static char						called_name[1024];
 static char						scope_criterion[24];
-static char						*output;
+static const char				*output;
 
 static int exit_function(int return_code);
-
+static void pop_proxy(void);
+static void push_proxy(void);
+static void pop_stack(void);
+static void push_stack(glsi32 file_pointer);
+static int select_next(void);
+static int bearing(double x1, double y1, double x2, double y2);
+static int distance(double x1, double y1, double x2, double y2);
+static void new_position(double x1, double y1, double bearing, double velocity);
+static int grand_of(int child, int objs_only);
+static void set_arguments(char *function_call);
+static void inspect(int object_num);
 
 void
 terminate(int code)

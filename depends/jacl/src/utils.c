@@ -10,25 +10,6 @@
 #include "prototypes.h"
 #include <string.h>
 
-extern char						function_name[];
-
-extern struct object_type		*object[];
-extern struct variable_type		*variable[];
-
-extern int						objects;
-extern int						player;
-
-extern char						game_file[];
-extern char						game_path[];
-extern char						prefix[];
-extern char						blorb[];
-extern char   			        bookmark[];
-extern char            			walkthru[];
-extern char						include_directory[];
-extern char            			temp_directory[];
-extern char            			data_directory[];
-extern char            			temp_buffer[];
-
 void
 eachturn()
 {

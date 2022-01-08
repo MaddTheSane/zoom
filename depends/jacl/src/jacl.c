@@ -32,6 +32,8 @@
 #include <string.h>
 #include "prototypes.h"
 #include "interpreter.h"
+#include "parser.h"
+#include "encapsulate.h"
 
 #ifndef GARGLK
 #include <GlkClient/gi_blorb.h>
@@ -41,27 +43,12 @@
 
 glui32 				status_width, status_height;
 
-schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL, 
+schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL,
 										 NULL, NULL, NULL, NULL };
 
 static event_t		*cancelled_event;
 
-extern char			text_buffer[];
-extern char			*word[];
-extern short int	quoted[];
-extern short int	punctuated[];
-extern int			wp;
-
-extern int			custom_error;
-
 extern int			jpp_error;
-
-extern int			it;
-extern int			them[];
-extern int			her;
-extern int			him;
-
-extern int			oops_word;
 
 #ifdef WINGLK
 struct	string_type	*resolved_string;
@@ -879,7 +866,7 @@ newline()
 }
 
 void
-more(char* message)
+more(const char* message)
 {
 	int character;
 

@@ -8,17 +8,14 @@
 #include "types.h"
 #include "prototypes.h"
 #include "interpreter.h"
+#include "encapsulate.h"
+#include "parser.h"
 #include <string.h>
 
 /* INDICATES THAT THE CURRENT '.j2' FILE BEING WORKED 
  * WITH IS ENCRYPTED */
 int					encrypted = FALSE;
 static int			in_print = FALSE;
-
-extern char			text_buffer[];
-extern const char	*word[];
-extern int			quoted[];
-extern int			wp;
 
 #ifdef GLK
 #else
@@ -33,14 +30,6 @@ struct parameter_type *new_parameter;
 static struct string_type *current_string = NULL;
 static struct integer_type *current_integer = NULL;
 static struct integer_type *last_system_integer = NULL;
-
-extern int						it;
-extern int						them[];
-extern int						her;
-extern int						him;
-extern int						parent;
-
-extern int    			        noun[];
 
 int								value_resolved;
 
