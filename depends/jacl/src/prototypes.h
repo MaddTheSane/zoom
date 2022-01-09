@@ -7,7 +7,7 @@
 #include "types.h"
 
 #ifdef GLK
-strid_t open_glk_file(glui32 usage, glui32 mode, char *filename);
+strid_t open_glk_file(glui32 usage, glui32 mode, const char *filename);
 glui32 glk_get_bin_line_stream(strid_t file_stream, char *buffer, glui32 max_length); 
 #else
 void update_parameters();
@@ -39,7 +39,7 @@ int find_route(int fromRoom, int toRoom, int known);
 void undoing(void);
 void create_paths(char *full_path);
 int get_key(void);
-char get_character(char *message);
+char get_character(const char *message);
 int get_yes_or_no(void);
 void get_string(char *string_buffer);
 int get_number(int insist, int low, int high);
@@ -47,7 +47,7 @@ int save_interaction(const char *filename);
 int restore_interaction(const char *filename);
 void jacl_encrypt (char *string);
 void jacl_decrypt (char *string);
-void log_message(char *message, int console);
+void log_message(const char *message, int console);
 void set_them(int noun_number);
 void preparse(void);
 long value_of(const char *value, int run_time);
@@ -111,9 +111,9 @@ void restore_game_state(void);
 //void add_string();
 void add_cstring(const char *name, const char *value);
 //void clear_string();
-void clear_cstring(char *name);
-void add_cinteger(char *name, int value);
-void clear_cinteger(char *name);
+void clear_cstring(const char *name);
+void add_cinteger(const char *name, int value);
+void clear_cinteger(const char *name);
 void restart_game(void);
 void read_gamefile(void);
 void unkvalerr(int line, int wordno);
@@ -145,7 +145,5 @@ void more(const char* message);
 int jpp(void);
 char* strip_return(char *string);
 char** command_completion(char* text, int start, int end);
-char* object_generator(char* text, int state);
-char* verb_generator(char* text, int state);
 void add_word(char * word);
 void jacl_sleep(unsigned int mseconds);

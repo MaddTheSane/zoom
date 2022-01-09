@@ -166,6 +166,10 @@ static void version_info(void);
 static void jacl_set_window(winid_t new_window);
 static void walking_thru(void);
 static void scripting(void);
+#ifdef READLINE
+static char* object_generator(const char* text, int state);
+static char* verb_generator(const char* text, int state);
+#endif
 
 void
 glk_main(void)
@@ -1076,7 +1080,7 @@ get_yes_or_no(void)
 }
 
 char
-get_character(char *message)
+get_character(const char *message)
 {
     char *cx;
 	char commandbuf[256];
@@ -1123,13 +1127,13 @@ get_character(char *message)
 }
 
 strid_t
-open_glk_file (glui32 usage, glui32 mode, char *filename)
+open_glk_file (glui32 usage, glui32 mode, const char *filename)
 {
 
 	frefid_t	file_reference;
 	strid_t		stream_reference;
 
-   	file_reference = glk_fileref_create_by_name(usage, filename, 0);
+   	file_reference = glk_fileref_create_by_name(usage, (char*)filename, 0);
 
 	if (file_reference) {
     	stream_reference = glk_stream_open_file(file_reference, mode, 0);
@@ -1351,10 +1355,7 @@ jacl_set_window(winid_t	new_window)
 
 #ifdef READLINE
 char **
-command_completion(text, start, end)
-char* text;
-int start;
-int end;
+command_completion(char* text, int start, int end)
 {
     /* READLINE TAB COMPLETION CODE */
     char **options;
@@ -1368,10 +1369,9 @@ int end;
 
     return (options);
 }
-#endif
 
 char *
-object_generator(char* text, int state)
+object_generator(const char* text, int state)
 {
     static int len;
     static struct command_type* now;
@@ -1417,7 +1417,7 @@ object_generator(char* text, int state)
 }
 
 char *
-verb_generator(char* text, int state)
+verb_generator(const char* text, int state)
 {
     static int len;
     static struct command_type* now;
@@ -1457,6 +1457,7 @@ verb_generator(char* text, int state)
 
     return (char *) NULL;
 }
+#endif
 
 /* ADD A COPY OF STRING TO A LIST OF STRINGS IF IT IS NOT
    ALREADY IN THE LIST. THIS IS FOR THE USE OF READLINE */

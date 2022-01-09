@@ -10,8 +10,6 @@
 #include "encapsulate.h"
 #include "parser.h"
 
-extern struct variable_type		*variable[];
-
 int
 check_light(int where)
 {

@@ -96,7 +96,7 @@ log_error(const char *message, int console)
 }
 
 void
-log_debug(message, console)
+log_debug(const char *message, int console)
 {
 	log_message(message, console);
 }

@@ -56,8 +56,8 @@ char *
 strip_return (char *string)
 {
 	/* STRIP ANY TRAILING RETURN OR NEWLINE OFF THE END OF A STRING */
-	int index;
-	int length = strlen(string);
+	size_t index;
+	size_t length = strlen(string);
 
 	for (index = 0; index < length; index++) {
 		switch (string[index]) {
@@ -84,7 +84,7 @@ random_number()
 void
 create_paths(char *full_path)
 {
-	int				index;
+	size_t			index;
 	char           *last_slash;
 
 	/* SAVE A COPY OF THE SUPPLIED GAMEFILE NAME */
@@ -176,7 +176,7 @@ jacl_whitespace(int character)
 char *
 stripwhite (char *string)
 {
-    int i;
+    size_t i;
 
 	/* STRIP WHITESPACE FROM THE START AND END OF STRING. */
 	while (jacl_whitespace (*string)) string++;
@@ -200,7 +200,7 @@ stripwhite (char *string)
 void
 jacl_encrypt(char *string)
 {
-	int index, length;
+	size_t index, length;
 
 	length = strlen(string);
 	

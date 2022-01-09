@@ -3191,7 +3191,7 @@ str_test(int first)
 }
 
 void
-add_cinteger(char *name, int value)
+add_cinteger(const char *name, int value)
 {
 	/* THIS FUNCTION ADDS A NEW JACL CONSTANT TO THE LIST */
 
@@ -3217,7 +3217,7 @@ add_cinteger(char *name, int value)
 }
 
 void
-clear_cinteger(char *name)
+clear_cinteger(const char *name)
 {
     /* FREE CONSTANTS THAT HAVE SUPPLIED NAME*/
 
@@ -3280,7 +3280,7 @@ add_cstring(const char *name, const char *value)
 }
 
 void
-clear_cstring(char *name)
+clear_cstring(const char *name)
 {
     /* FREE CONSTANTS THAT HAVE SUPPLIED NAME*/
 	if (cstring_table != NULL) {

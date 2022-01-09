@@ -205,7 +205,7 @@ arg_text_of(const char *string)
 int
 validate(const char *string)
 {
-	int             index,
+	size_t          index,
 	                count;
 
 	if (string == NULL) {
@@ -317,10 +317,10 @@ value_of(const char *value, int run_time)
 struct integer_type *
 integer_resolve(const char *name)
 {
-	int             index,
+	size_t          index,
 					iterator,
 	                counter;
-	int             delimiter = 0;
+	size_t          delimiter = 0;
 	char            expression[84];
 
 	strncpy(expression, name, 80);
@@ -382,8 +382,9 @@ integer_resolve_indexed(const char *name, int index)
 {
 	struct integer_type *pointer = integer_table;
 
-	if (pointer == NULL)
+	if (pointer == NULL) {
 		return (NULL);
+	}
 
 	do {
 		if (!strcmp(name, pointer->name)) {
@@ -397,8 +398,7 @@ integer_resolve_indexed(const char *name, int index)
 			}
 		} else
 			pointer = pointer->next_integer;
-	}
-	while (pointer != NULL);
+	} while (pointer != NULL);
 
 	/* IF index != 0, INDEX OUT OF RANGE, OTHERWISE NOT VARIABLE */
 	return (NULL);
@@ -407,10 +407,10 @@ integer_resolve_indexed(const char *name, int index)
 struct cinteger_type *
 cinteger_resolve(const char *name)
 {
-	int             index,
+	size_t          index,
 					iterator,
 	                counter;
-	int             delimiter = 0;
+	size_t          delimiter = 0;
 	char            expression[84];
 
 	strncpy(expression, name, 80);
@@ -472,8 +472,9 @@ cinteger_resolve_indexed(const char *name, int index)
 {
 	struct cinteger_type *pointer = cinteger_table;
 
-	if (pointer == NULL)
+	if (pointer == NULL) {
 		return (NULL);
+	}
 
 	do {
 		if (!strcmp(name, pointer->name)) {
@@ -485,10 +486,10 @@ cinteger_resolve_indexed(const char *name, int index)
 				pointer = pointer->next_cinteger;
 				index--;
 			}
-		} else
+		} else {
 			pointer = pointer->next_cinteger;
-	}
-	while (pointer != NULL);
+		}
+	} while (pointer != NULL);
 
 	/* IF index != 0, INDEX OUT OF RANGE, OTHERWISE NOT VARIABLE */
 	return (NULL);
@@ -497,10 +498,10 @@ cinteger_resolve_indexed(const char *name, int index)
 struct string_type *
 string_resolve(const char *name)
 {
-	int             index,
+	size_t          index,
 					iterator,
 	                counter;
-	int             delimiter = 0;
+	size_t          delimiter = 0;
 	char            expression[84];
 
 	strncpy(expression, name, 80);
@@ -579,10 +580,10 @@ string_resolve_indexed(const char *name, int index)
 struct string_type *
 cstring_resolve(const char *name)
 {
-	int             index,
+	size_t          index,
 					iterator,
 	                counter;
-	int             delimiter = 0;
+	size_t          delimiter = 0;
 	char            expression[84];
 
 	strncpy(expression, name, 80);
@@ -668,8 +669,9 @@ function_resolve(const char *name)
 
 	struct function_type *pointer = function_table;
 
-	if (function_table == NULL)
+	if (function_table == NULL) {
 		return (NULL);
+	}
 
 	/* STRIP ARGUMENTS OFF FIRST, THEN EXPAND RESOLVE NAME */
 	index = 0;
@@ -690,10 +692,11 @@ function_resolve(const char *name)
 	/* LOOP THROUGH ALL THE FUNCTIONS LOOKING FOR A FUNCTION THAT
 	 * HAS THIS EXPANDED FULL NAME */
 	do {
-		if (!strcmp(full_name, pointer->name))
+		if (!strcmp(full_name, pointer->name)) {
 			return (pointer);
-		else
+		} else {
 			pointer = pointer->next_function;
+		}
 	} while (pointer != NULL);
 
 	/* RETURN A POINTER TO THE STRUCTURE THAT ENCAPSULATES THE FUNCTION */
@@ -705,9 +708,9 @@ expand_function(const char *name)
 {
 	/* THIS FUNCTION TAKES A SCOPE FUNCTION CALL SUCH AS noun1.function
 	 * AND REOLVE THE ACTUAL FUNCTION NAME SUCH AS function_key */
-	int             index,
+	size_t          index,
 	                counter;
-	int             delimiter = 0;
+	size_t          delimiter = 0;
 	char            expression[84];
 
 	strncpy(expression, name, 80);
@@ -994,7 +997,7 @@ count_resolve(const char *testString)
 		// FUNCTION
 		return (executing_function->call_count);
 	} else if ((resolved_function = function_resolve(testString + 1)) != NULL) {
-		return (resolved_function->call_count);	
+		return (resolved_function->call_count);
 	} else {
 		return array_length_resolve(testString);
 	}
@@ -1017,8 +1020,7 @@ array_length_resolve(const char *testString)
 				counter++;
 			} 
 			integer_pointer = integer_pointer->next_integer;
-		}
-		while (integer_pointer != NULL);
+		} while (integer_pointer != NULL);
 	}
 
 	/* IF ONE OR MORE INTEGERS WITH THIS NAME WERE FOUND
@@ -1032,14 +1034,14 @@ array_length_resolve(const char *testString)
 				counter++;
 			}
 			string_pointer = string_pointer->next_string;
-		}
-		while (string_pointer != NULL);
+		} while (string_pointer != NULL);
 	}
 
 	/* IF ONE OR MORE STRINGS WITH THIS NAME WERE FOUND
        RETURN THE COUNT */
-	if (counter) 
+	if (counter) {
 		return (counter);
+	}
 
 	if (cinteger_pointer != NULL) {
 		do {
@@ -1053,8 +1055,9 @@ array_length_resolve(const char *testString)
 
 	/* IF ONE OR MORE INTEGER CONSTANTS WITH THIS NAME WERE FOUND
        RETURN THE COUNT */
-	if (counter) 
+	if (counter) {
 		return (counter);
+	}
 
 	if (cstring_pointer != NULL) {
 		do {
@@ -1062,14 +1065,14 @@ array_length_resolve(const char *testString)
 				counter++;
 			}
 			cstring_pointer = cstring_pointer->next_string;
-		}
-		while (cstring_pointer != NULL);
+		} while (cstring_pointer != NULL);
 	}
 
 	/* IF ONE OR MORE STRING CONSTANTS WITH THIS NAME WERE FOUND
        RETURN THE COUNT */
-	if (counter) 
+	if (counter) {
 		return (counter);
+	}
 
 	/* NO VARIABLES OR STRINGS FOUND */
 	return (0);
@@ -1078,10 +1081,10 @@ array_length_resolve(const char *testString)
 int
 object_element_resolve(const char *testString)
 {
-	int             index,
+	size_t          index,
 					iterator,
 	                counter;
-	int             delimiter = 0;
+	size_t          delimiter = 0;
 	char            expression[84];
 
 	struct integer_type *resolved_integer;
@@ -1156,7 +1159,7 @@ object_element_resolve(const char *testString)
 
 	if (counter < 0 || counter > 15) {
 		sprintf(error_buffer,
-				"ERROR: In function \"%s\", element \"%s\" out of range (%d).^",
+				"ERROR: In function \"%s\", element \"%s\" out of range (%zu).^",
 				executing_function->name, &expression[delimiter], counter);
 		write_text(error_buffer);
 		return (FALSE);
@@ -1206,7 +1209,7 @@ object_resolve(const char *object_string)
 long
 attribute_resolve(const char *attribute)
 {
-	long            bit_mask;
+	unsigned int            bit_mask;
 
 	if (!strcmp(attribute, "VISITED")) {
 		return (VISITED);

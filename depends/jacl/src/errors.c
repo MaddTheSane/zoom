@@ -7,8 +7,7 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
-
-extern char           			*word[];
+#include "encapsulate.h"
 
 void
 badparrun()
