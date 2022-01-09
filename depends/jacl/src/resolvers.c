@@ -29,6 +29,8 @@ extern int					value_resolved;
 char 						macro_function[84];
 int							value_has_been_resolved;
 
+static int	count_resolve(const char *testString);
+
 int            *
 container_resolve(const char *container_name)
 {
@@ -79,16 +81,16 @@ var_text_of_word(int wordnumber)
 const char		   *
 arg_text_of_word(int wordnumber)
 {
-    const char *value;
+	const char *value;
 
 	if (quoted[wordnumber] == 1) {
 		return (word[wordnumber]);
 	} else {
-        value_has_been_resolved = TRUE;
-        value = arg_text_of(word[wordnumber]);
-        while (value_has_been_resolved && percented[wordnumber]) {
-           value = arg_text_of(value);
-		   percented[wordnumber]--;
+		value_has_been_resolved = TRUE;
+		value = arg_text_of(word[wordnumber]);
+		while (value_has_been_resolved && percented[wordnumber]) {
+			value = arg_text_of(value);
+			percented[wordnumber]--;
 		}
 
 		return (value);
@@ -98,16 +100,16 @@ arg_text_of_word(int wordnumber)
 const char		   *
 text_of_word(int wordnumber)
 {
-    const char *value;
+	const char *value;
 
 	if (quoted[wordnumber] == 1) {
 		return (word[wordnumber]);
 	} else {
-        value_has_been_resolved = TRUE;
-        value = text_of(word[wordnumber]);
-        while (value_has_been_resolved && percented[wordnumber]) {
-           value = text_of(value);
-		   percented[wordnumber]--;
+		value_has_been_resolved = TRUE;
+		value = text_of(word[wordnumber]);
+		while (value_has_been_resolved && percented[wordnumber]) {
+			value = text_of(value);
+			percented[wordnumber]--;
 		}
 
 		return (value);
@@ -128,51 +130,51 @@ text_of(const char *string)
 	/* CHECK IF THE SUPPLIED STRING IS THE NAME OF A STRING CONSTANT,
 	 * IF NOT, RETURN THE STRING LITERAL */
 	if ((return_string = macro_resolve(string)) != NULL) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		return(return_string);
 	} else if ((resolved_integer = integer_resolve(string)) != NULL) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
 		sprintf(integer_buffer, "%d", resolved_integer->value);
 		return(integer_buffer);
 	} else if ((resolved_cinteger = cinteger_resolve(string)) != NULL) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
 		sprintf(integer_buffer, "%d", resolved_cinteger->value);
 		return(integer_buffer);
 	} else if (object_element_resolve(string)) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		integer_buffer[0] = 0;
 		sprintf(integer_buffer, "%d", oec);
 		return(integer_buffer);
 	} else if ((index = object_resolve(string)) != -1) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		if (index < 1 || index > objects) {
 			badptrrun(string, index);
 			return ("");
 		} else {
-		   return(object[index]->label);
+			return(object[index]->label);
 		}
 	} else if ((resolved_string = string_resolve(string)) != NULL) {
 		return (resolved_string->value);
 	} else if ((resolved_cstring = cstring_resolve(string)) != NULL) {
 		return (resolved_cstring->value);
 	} else if (function_resolve(string) != NULL) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		sprintf(integer_buffer, "%d", execute(string));
 		return(integer_buffer);
 #ifndef GLK
 #ifndef __NDS__
 	} else if (!strcmp(string, "$url")) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		return (game_url);
 	} else if (!strcmp(string, "$user_id")) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		return (user_id);
 #endif
 #endif
 	} else {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		return (string);
 	}
 }
@@ -187,15 +189,15 @@ arg_text_of(const char *string)
 	/* CHECK IF THE SUPPLIED STRING IS THE NAME OF A STRING CONSTANT,
 	 * IF NOT, RETURN THE STRING LITERAL */
 	if ((macro_text = macro_resolve(string)) != NULL) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		return(macro_text);
 	} else if ((resolved_string = string_resolve(string)) != NULL) {
 		return (resolved_string->value);
 	} else if ((resolved_cstring = cstring_resolve(string)) != NULL) {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		return (resolved_cstring->value);
 	} else {
-        value_has_been_resolved = FALSE;
+		value_has_been_resolved = FALSE;
 		return (string);
 	}
 }
@@ -230,7 +232,7 @@ value_of(const char *value, int run_time)
 {
 	long            compare;
 
-    value_resolved = TRUE;
+	value_resolved = TRUE;
 
 	value = arg_text_of(value);
 
@@ -280,7 +282,7 @@ value_of(const char *value, int run_time)
 #endif
 #endif
 	} else if (!strcmp(value, "unixtime")) {
-         return (time(NULL));
+		return (time(NULL));
 	} else if (validate(value)) {
 		return (atoi(value));
 	} else if (((resolved_string = string_resolve(value)) != NULL) && validate(resolved_string->value)) {
@@ -336,7 +338,7 @@ integer_resolve(const char *name)
 			for (iterator = counter; iterator > 0; iterator--) {
 				if (expression[iterator] == ']') {
 					expression[iterator] = 0;
-					break;	
+					break;
 				} else if (expression[iterator] == '(') {
 					/* NOT A VARIABLE ARRAY */
 					return (FALSE);
@@ -426,7 +428,7 @@ cinteger_resolve(const char *name)
 			for (iterator = counter; iterator > 0; iterator--) {
 				if (expression[iterator] == ']') {
 					expression[iterator] = 0;
-					break;	
+					break;
 				} else if (expression[iterator] == '(') {
 					/* NOT A CONSTANT ARRAY */
 					return (FALSE);
@@ -512,7 +514,7 @@ string_resolve(const char *name)
 			for (iterator = counter; iterator > 0; iterator--) {
 				if (expression[iterator] == ']') {
 					expression[iterator] = 0;
-					break;	
+					break;
 				}
 			}
 			break;
@@ -542,8 +544,9 @@ string_resolve(const char *name)
 
 	if (counter > -1) {
 		return (string_resolve_indexed (expression, counter));
-	} else
+	} else {
 		return (NULL);
+	}
 }
 
 struct string_type *
@@ -551,8 +554,9 @@ string_resolve_indexed(const char *name, int index)
 {
 	struct string_type *pointer = string_table;
 
-	if (pointer == NULL)
+	if (pointer == NULL) {
 		return (NULL);
+	}
 
 	do {
 		if (!strcmp(name, pointer->name)) {
@@ -567,8 +571,7 @@ string_resolve_indexed(const char *name, int index)
 		} else {
 			pointer = pointer->next_string;
 		}
-	}
-	while (pointer != NULL);
+	} while (pointer != NULL);
 
 	return (NULL);
 }
@@ -593,7 +596,7 @@ cstring_resolve(const char *name)
 			for (iterator = counter; iterator > 0; iterator--) {
 				if (expression[iterator] == ']') {
 					expression[iterator] = 0;
-					break;	
+					break;
 				}
 			}
 			break;
@@ -605,8 +608,9 @@ cstring_resolve(const char *name)
 			/* HIT A ( BEFORE A [ THEREFORE */
 			/* IS AN OBJECT ELEMENT, NOT AN ARRAY */
 			return (NULL);
-		} else if (expression[index] == ' ')
+		} else if (expression[index] == ' ') {
 			return (NULL);
+		}
 	}
 
 	if (delimiter == 0) {
@@ -623,8 +627,9 @@ cstring_resolve(const char *name)
 
 	if (counter > -1) {
 		return (cstring_resolve_indexed (expression, counter));
-	} else
+	} else {
 		return (NULL);
+	}
 }
 
 struct string_type *
@@ -632,8 +637,9 @@ cstring_resolve_indexed(const char *name, int index)
 {
 	struct string_type *pointer = cstring_table;
 
-	if (pointer == NULL)
+	if (pointer == NULL) {
 		return (NULL);
+	}
 
 	do {
 		if (!strcmp(name, pointer->name)) {
@@ -648,8 +654,7 @@ cstring_resolve_indexed(const char *name, int index)
 		} else {
 			pointer = pointer->next_string;
 		}
-	}
-	while (pointer != NULL);
+	} while (pointer != NULL);
 
 	return (NULL);
 }
@@ -689,8 +694,7 @@ function_resolve(const char *name)
 			return (pointer);
 		else
 			pointer = pointer->next_function;
-	}
-	while (pointer != NULL);
+	} while (pointer != NULL);
 
 	/* RETURN A POINTER TO THE STRUCTURE THAT ENCAPSULATES THE FUNCTION */
 	return (NULL);
@@ -1204,29 +1208,29 @@ attribute_resolve(const char *attribute)
 {
 	long            bit_mask;
 
-	if (!strcmp(attribute, "VISITED"))
+	if (!strcmp(attribute, "VISITED")) {
 		return (VISITED);
-	else if (!strcmp(attribute, "DARK"))
+	} else if (!strcmp(attribute, "DARK")) {
 		return (DARK);
-	else if (!strcmp(attribute, "ON_WATER"))
+	} else if (!strcmp(attribute, "ON_WATER")) {
 		return (ON_WATER);
-	else if (!strcmp(attribute, "UNDER_WATER"))
+	} else if (!strcmp(attribute, "UNDER_WATER")) {
 		return (UNDER_WATER);
-	else if (!strcmp(attribute, "WITHOUT_AIR"))
+	} else if (!strcmp(attribute, "WITHOUT_AIR")) {
 		return (WITHOUT_AIR);
-	else if (!strcmp(attribute, "OUTDOORS"))
+	} else if (!strcmp(attribute, "OUTDOORS")) {
 		return (OUTDOORS);
-	else if (!strcmp(attribute, "MID_AIR"))
+	} else if (!strcmp(attribute, "MID_AIR")) {
 		return (MID_AIR);
-	else if (!strcmp(attribute, "TIGHT_ROPE"))
+	} else if (!strcmp(attribute, "TIGHT_ROPE")) {
 		return (TIGHT_ROPE);
-	else if (!strcmp(attribute, "POLLUTED"))
+	} else if (!strcmp(attribute, "POLLUTED")) {
 		return (POLLUTED);
-	else if (!strcmp(attribute, "SOLVED"))
+	} else if (!strcmp(attribute, "SOLVED")) {
 		return (SOLVED);
-	else if (!strcmp(attribute, "MID_WATER"))
+	} else if (!strcmp(attribute, "MID_WATER")) {
 		return (MID_WATER);
-	else if (!strcmp(attribute, "DARKNESS")) {
+	} else if (!strcmp(attribute, "DARKNESS")) {
 		bit_mask = DARKNESS;
 		if (check_light(HERE)) {
 			bit_mask = ~bit_mask;
@@ -1235,74 +1239,75 @@ attribute_resolve(const char *attribute)
 			object[HERE]->attributes = object[HERE]->attributes | bit_mask;
 		}
 		return (DARKNESS);
-	} else if (!strcmp(attribute, "MAPPED"))
+	} else if (!strcmp(attribute, "MAPPED")) {
 		return (MAPPED);
-	else if (!strcmp(attribute, "KNOWN"))
+	} else if (!strcmp(attribute, "KNOWN")) {
 		return (KNOWN);
-	else if (!strcmp(attribute, "CLOSED"))
+	} else if (!strcmp(attribute, "CLOSED")) {
 		return (CLOSED);
-	else if (!strcmp(attribute, "LOCKED"))
+	} else if (!strcmp(attribute, "LOCKED")) {
 		return (LOCKED);
-	else if (!strcmp(attribute, "DEAD"))
+	} else if (!strcmp(attribute, "DEAD")) {
 		return (DEAD);
-	else if (!strcmp(attribute, "IGNITABLE"))
+	} else if (!strcmp(attribute, "IGNITABLE")) {
 		return (IGNITABLE);
-	else if (!strcmp(attribute, "WORN"))
+	} else if (!strcmp(attribute, "WORN")) {
 		return (WORN);
-	else if (!strcmp(attribute, "CONCEALING"))
+	} else if (!strcmp(attribute, "CONCEALING")) {
 		return (CONCEALING);
-	else if (!strcmp(attribute, "LUMINOUS"))
+	} else if (!strcmp(attribute, "LUMINOUS")) {
 		return (LUMINOUS);
-	else if (!strcmp(attribute, "WEARABLE"))
+	} else if (!strcmp(attribute, "WEARABLE")) {
 		return (WEARABLE);
-	else if (!strcmp(attribute, "CLOSABLE"))
+	} else if (!strcmp(attribute, "CLOSABLE")) {
 		return (CLOSABLE);
-	else if (!strcmp(attribute, "LOCKABLE"))
+	} else if (!strcmp(attribute, "LOCKABLE")) {
 		return (LOCKABLE);
-	else if (!strcmp(attribute, "ANIMATE"))
+	} else if (!strcmp(attribute, "ANIMATE")) {
 		return (ANIMATE);
-	else if (!strcmp(attribute, "LIQUID"))
+	} else if (!strcmp(attribute, "LIQUID")) {
 		return (LIQUID);
-	else if (!strcmp(attribute, "CONTAINER"))
+	} else if (!strcmp(attribute, "CONTAINER")) {
 		return (CONTAINER);
-	else if (!strcmp(attribute, "SURFACE"))
+	} else if (!strcmp(attribute, "SURFACE")) {
 		return (SURFACE);
-	else if (!strcmp(attribute, "PLURAL"))
+	} else if (!strcmp(attribute, "PLURAL")) {
 		return (PLURAL);
-	else if (!strcmp(attribute, "FLAMMABLE"))
+	} else if (!strcmp(attribute, "FLAMMABLE")) {
 		return (FLAMMABLE);
-	else if (!strcmp(attribute, "BURNING"))
+	} else if (!strcmp(attribute, "BURNING")) {
 		return (BURNING);
-	else if (!strcmp(attribute, "LOCATION"))
+	} else if (!strcmp(attribute, "LOCATION")) {
 		return (LOCATION);
-	else if (!strcmp(attribute, "ON"))
+	} else if (!strcmp(attribute, "ON")) {
 		return (ON);
-	else if (!strcmp(attribute, "DAMAGED"))
+	} else if (!strcmp(attribute, "DAMAGED")) {
 		return (DAMAGED);
-	else if (!strcmp(attribute, "FEMALE"))
+	} else if (!strcmp(attribute, "FEMALE")) {
 		return (FEMALE);
-	else if (!strcmp(attribute, "POSSESSIVE"))
+	} else if (!strcmp(attribute, "POSSESSIVE")) {
 		return (POSSESSIVE);
-	else if (!strcmp(attribute, "OUT_OF_REACH"))
+	} else if (!strcmp(attribute, "OUT_OF_REACH")) {
 		return (OUT_OF_REACH);
-	else if (!strcmp(attribute, "TOUCHED"))
+	} else if (!strcmp(attribute, "TOUCHED")) {
 		return (TOUCHED);
-	else if (!strcmp(attribute, "SCORED"))
+	} else if (!strcmp(attribute, "SCORED")) {
 		return (SCORED);
-	else if (!strcmp(attribute, "SITTING"))
+	} else if (!strcmp(attribute, "SITTING")) {
 		return (SITTING);
-	else if (!strcmp(attribute, "NPC"))
+	} else if (!strcmp(attribute, "NPC")) {
 		return (NPC);
-	else if (!strcmp(attribute, "DONE"))
+	} else if (!strcmp(attribute, "DONE")) {
 		return (DONE);
-	else if (!strcmp(attribute, "GAS"))
+	} else if (!strcmp(attribute, "GAS")) {
 		return (MAPPED);
-	else if (!strcmp(attribute, "NO_TAB"))
+	} else if (!strcmp(attribute, "NO_TAB")) {
 		return (NO_TAB);
-	else if (!strcmp(attribute, "NOT_IMPORTANT"))
+	} else if (!strcmp(attribute, "NOT_IMPORTANT")) {
 		return (NOT_IMPORTANT);
-	else
+	} else {
 		return (0);
+	}
 }
 
 long

@@ -48,7 +48,7 @@ extern char						error_log[];
 extern char						access_log[];
 
 void
-log_access(char *message)
+log_access(const char *message)
 {
 	/* LOG A MESSAGE TO THE ACCESS LOG */
 

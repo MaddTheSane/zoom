@@ -193,6 +193,10 @@ static void new_position(double x1, double y1, double bearing, double velocity);
 static int grand_of(int child, int objs_only);
 static void set_arguments(char *function_call);
 static void inspect(int object_num);
+static int strcondition(void);
+static int logic_test(int first);
+static int str_test(int first);
+static int and_strcondition(void);
 
 void
 terminate(int code)

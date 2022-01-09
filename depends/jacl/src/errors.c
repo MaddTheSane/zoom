@@ -174,9 +174,9 @@ unkscorun(const char *scope)
 void
 totalerrs(int errors)
 {
-	if (errors == 1)
+	if (errors == 1) {
 		sprintf(error_buffer, ERROR_DETECTED);
-	else {
+	} else {
 		sprintf(error_buffer, ERRORS_DETECTED, errors);
 	}
 

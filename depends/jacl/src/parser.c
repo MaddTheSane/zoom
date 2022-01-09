@@ -60,7 +60,7 @@ static char						*expected_scope[3];
 int								from_objects[MAX_OBJECTS];
 
 int								after_from;
-static char						*from_word;
+static const char				*from_word;
 
 static int						object_expected = FALSE;
 
@@ -78,6 +78,11 @@ static int build_object_list(struct word_type *scope_word, int noun_number);
 static void add_all(struct word_type *scope_word, int noun_number);
 static void add_to_list(int noun_number, int resolved_object);
 static void call_functions(char *base_name);
+static int verify_from_object(int from_object);
+static int is_child_of_from(int child);
+static int get_from_object(struct word_type *scope_word, int noun_number);
+static int noun_resolve(struct word_type *scope_word, int finding_from, int noun_number);
+static int first_available(int list_number);
 
 void
 parser()
@@ -624,7 +629,7 @@ build_object_list(struct word_type *scope_word, int noun_number)
 
 	int				index, counter;
 	int				resolved_object;
-	char			*except_word;
+	const char		*except_word;
 
 	//printf("--- entering build object list starting at %s with a scope_word of %s\n", word[wp], scope_word->word);
 	/* LOOK AHEAD FOR A FROM CLAUSE AND STORE from_object IF SO */

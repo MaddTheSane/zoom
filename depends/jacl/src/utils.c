@@ -27,7 +27,7 @@ eachturn()
 	/* SET TIME TO FALSE SO THAT NO MORE eachturn FUNCTIONS ARE EXECUTED
 	 * UNTIL EITHER THE COMMAND PROMPT IS RETURNED TO (AND TIME IS SET
 	 * TO TRUE AGAIN, OR IT IS MANUALLY SET TO TRUE BY A VERB THAT CALLS
-	 * MORE THAN ONE proxy COMMAND. THIS IS BECAUSE OTHERWISE A VERB THAT 
+	 * MORE THAN ONE proxy COMMAND. THIS IS BECAUSE OTHERWISE A VERB THAT
 	 * USES A proxy COMMAND TO TRANSLATE THE VERB IS RESULT IN TWO MOVES
 	 * (OR MORE) HAVING PASSED FOR THE ONE ACTION. */
 	TIME->value = FALSE;
@@ -61,10 +61,10 @@ strip_return (char *string)
 
 	for (index = 0; index < length; index++) {
 		switch (string[index]) {
-		case '\r':
-		case '\n':
-			string[index] = 0;
-			break;
+			case '\r':
+			case '\n':
+				string[index] = 0;
+				break;
 		}
 	}
 
@@ -215,7 +215,7 @@ jacl_encrypt(char *string)
 void
 jacl_decrypt(char *string)
 {
-	int index, length;
+	size_t index, length;
 
 	length = strlen(string);
 	

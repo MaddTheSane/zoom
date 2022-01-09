@@ -34,30 +34,38 @@ static struct integer_type *last_system_integer = NULL;
 int								value_resolved;
 
 static int legal_label_check(const char *word, int line, int type);
+static void create_cstring(const char *name, const char *value);
+static void create_string(const char *name, const char *value);
+static void create_integer(const char *name, int value);
+static void create_cinteger(const char *name, int value);
+static void free_from(struct word_type *x);
+static void set_defaults(void);
+static void create_language_constants(void);
+static void build_grammar_table(struct word_type *pointer);
 
 void
 read_gamefile()
 {
 	int			index,
 				counter,
-	               errors;
+				errors;
 #ifdef GLK
 	int			result;
 #endif
-	int            location_count = 0;
-	int            object_count = 0;
-	int            line = 0;
-	int            self_parent = 0;
+	int			location_count = 0;
+	int			object_count = 0;
+	int			line = 0;
+	int			self_parent = 0;
 	int			is_static = FALSE;
 
-	long           start_of_file = 0;
+	long		start_of_file = 0;
 #ifdef GLK
 	glui32 		current_file_position;
 #else
 	long 		current_file_position;
 #endif
 
-	long           bit_mask;
+	long		bit_mask;
 
 	struct filter_type *current_filter = NULL;
 	struct filter_type *new_filter = NULL;
@@ -69,7 +77,7 @@ read_gamefile()
 	struct function_type *current_function = NULL;
 	struct name_type *current_name = NULL;
 
-	char            function_name[81];
+	char		function_name[81];
 
 	// CREATE SOME SYSTEM VARIABLES
 
@@ -106,7 +114,7 @@ read_gamefile()
 
 	create_integer ("compass", 0);
 	// START AT -1 AS TIME PASSES BEFORE THE FIRST PROMPT
-	create_integer ("total_moves", -1); 
+	create_integer ("total_moves", -1);
 	create_integer ("time", TRUE);
 	create_integer ("score", 0);
 	create_integer ("display_mode", 0);
@@ -127,7 +135,7 @@ read_gamefile()
 	create_integer ("local_a", 0);
 	create_integer ("linebreaks", 1);
 
-	/* STORE THIS SO THE SECOND PASS KNOWS WHERE TO START 
+	/* STORE THIS SO THE SECOND PASS KNOWS WHERE TO START
 	 * SETTING VALUES FROM (EVERYTHING BEFORE THIS IN THE
 	 * VARIABLE TABLE IS A SYSTEM VARIABLE */
 	last_system_integer = current_integer;
@@ -140,9 +148,9 @@ read_gamefile()
 	create_cinteger ("jacl_version", J_VERSION);
 	create_cinteger ("jacl_release", J_RELEASE);
 	create_cinteger ("jacl_build", J_BUILD);
-    create_cinteger ("GLK", 0);
-    create_cinteger ("CGI", 1);
-    create_cinteger ("NDS", 2);
+	create_cinteger ("GLK", 0);
+	create_cinteger ("CGI", 1);
+	create_cinteger ("NDS", 2);
 #ifdef GLK
 	create_cinteger ("interpreter", 0);
 #else
@@ -171,12 +179,12 @@ read_gamefile()
 	TIMER_ENABLED->value = FALSE;
 #endif
 
-    create_cinteger ("true", 1);
-    create_cinteger ("false", 0);
-    create_cinteger ("null", 0);
-    create_cinteger ("nowhere", 0);
-    create_cinteger ("heavy", HEAVY);
-    create_cinteger ("scenery", SCENERY);
+	create_cinteger ("true", 1);
+	create_cinteger ("false", 0);
+	create_cinteger ("null", 0);
+	create_cinteger ("nowhere", 0);
+	create_cinteger ("heavy", HEAVY);
+	create_cinteger ("scenery", SCENERY);
 	create_cinteger ("north", NORTH_DIR);
 	create_cinteger ("south", SOUTH_DIR);
 	create_cinteger ("east", EAST_DIR);
@@ -219,9 +227,9 @@ read_gamefile()
 	set_defaults();
 
 	/* CREATE A DUMMY FUNCTION TO BE USED WHEN AN ERROR MESSAGE
-       IS PRINTED AS A RESULT OF CODE CALLED BY THE INTERPRETER */
+	 IS PRINTED AS A RESULT OF CODE CALLED BY THE INTERPRETER */
 	if ((function_table = (struct function_type *)
-		malloc(sizeof(struct function_type))) == NULL)
+		 malloc(sizeof(struct function_type))) == NULL)
 		outofmem();
 	else {
 		current_function = function_table;
@@ -234,7 +242,7 @@ read_gamefile()
 		current_function->nosave = TRUE;
 	}
 
-    executing_function = function_table;
+	executing_function = function_table;
 
 	errors = 0;
 	objects = 0;
@@ -296,7 +304,7 @@ read_gamefile()
 				if (word[1] == NULL) {
 					noproperr(line);
 					errors++;
-				} else if (legal_label_check(word[1], line, OBJ_TYPE)) {	
+				} else if (legal_label_check(word[1], line, OBJ_TYPE)) {
 					errors++;
 				} else {
 					objects++;
@@ -368,7 +376,7 @@ read_gamefile()
 							parameter_table = new_parameter;
 						} else {
 							current_parameter->next_parameter =
-								new_parameter;
+							new_parameter;
 						}
 						current_parameter = new_parameter;
 						strncpy(current_parameter->name, word[1], 40);
@@ -402,18 +410,18 @@ read_gamefile()
 					errors++;
 				} else {
 					/* CHECK IF MORE THAN ONE VALUE IS SUPPLIED AND CREATE
-					   ADDITIONAL CONSTANTS IF REQUIRED */
+					 ADDITIONAL CONSTANTS IF REQUIRED */
 					index = 2;
 
 					while (word[index] != NULL && index < MAX_WORDS) {
 						if (quoted[index] == TRUE || !validate(word[index])) {
-							if (legal_label_check(word[1], line, CSTR_TYPE)) {	
+							if (legal_label_check(word[1], line, CSTR_TYPE)) {
 								errors++;
 							} else {
 								create_cstring(word[1], word[index]);
 							}
 						} else {
-							if (legal_label_check(word[1], line, CINT_TYPE)) {	
+							if (legal_label_check(word[1], line, CINT_TYPE)) {
 								errors++;
 							} else {
 								create_cinteger(word[1], value_of(word[index], 0));
@@ -430,9 +438,9 @@ read_gamefile()
 				if (word[1] == NULL) {
 					noproperr(line);
 					errors++;
-				} else if (legal_label_check(word[1], line, ATT_TYPE)) {	
+				} else if (legal_label_check(word[1], line, ATT_TYPE)) {
 					errors++;
-				} else if (current_attribute != NULL && current_attribute->value == 1073741824) {	
+				} else if (current_attribute != NULL && current_attribute->value == 1073741824) {
 					maxatterr(line, 1);
 					errors++;
 				} else {
@@ -454,12 +462,12 @@ read_gamefile()
 					}
 
 					/* CHECK IF MORE THAN ONE VALUE IS SUPPLIED AND CREATE
-					   ADDITIONAL CONSTANTS IF REQUIRED */
+					 ADDITIONAL CONSTANTS IF REQUIRED */
 					index = 2;
 					while (word[index] != NULL && index < MAX_WORDS) {
-						if (legal_label_check(word[index], line, ATT_TYPE)) {	
+						if (legal_label_check(word[index], line, ATT_TYPE)) {
 							errors++;
-						} else if (current_attribute != NULL && current_attribute->value == 1073741824) {	
+						} else if (current_attribute != NULL && current_attribute->value == 1073741824) {
 							maxatterr(line, index);
 							errors++;
 						} else {
@@ -482,7 +490,7 @@ read_gamefile()
 				if (word[1] == NULL) {
 					noproperr(line);
 					errors++;
-				} else if (legal_label_check(word[1], line, STR_TYPE)) {	
+				} else if (legal_label_check(word[1], line, STR_TYPE)) {
 					errors++;
 				} else {
 					if (word[2] == NULL) {
@@ -520,7 +528,7 @@ read_gamefile()
 				if (word[2] == NULL) {
 					noproperr(line);
 					errors++;
-				} else if (legal_label_check(word[1], line, STR_TYPE)) {	
+				} else if (legal_label_check(word[1], line, STR_TYPE)) {
 					errors++;
 				} else {
 					int x;
@@ -539,7 +547,7 @@ read_gamefile()
 				if (word[2] == NULL) {
 					noproperr(line);
 					errors++;
-				} else if (legal_label_check(word[1], line, INT_TYPE)) {	
+				} else if (legal_label_check(word[1], line, INT_TYPE)) {
 					errors++;
 				} else {
 					int default_value, x;
@@ -569,13 +577,13 @@ read_gamefile()
 				if (word[1] == NULL) {
 					noproperr(line);
 					errors++;
-				} else if (legal_label_check(word[1], line, INT_TYPE)) {	
+				} else if (legal_label_check(word[1], line, INT_TYPE)) {
 					errors++;
 				} else {
 					create_integer (word[1], 0);
 
 					/* CHECK IF MORE THAN ONE VALUE IS SUPPLIED AND CREATE
-					   ADDITIONAL VARIABLES IF REQUIRED */
+					 ADDITIONAL VARIABLES IF REQUIRED */
 					index = 3;
 					while (word[index] != NULL && index < MAX_WORDS) {
 						create_integer (word[1], 0);
@@ -587,7 +595,7 @@ read_gamefile()
 #ifdef GLK
 		result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
-        fgets(text_buffer, 1024, file);
+		fgets(text_buffer, 1024, file);
 #endif
 		line++;
 
@@ -596,7 +604,7 @@ read_gamefile()
 #ifdef GLK
 			result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
-        	fgets(text_buffer, 1024, file);
+			fgets(text_buffer, 1024, file);
 #endif
 			line++;
 		}
@@ -641,8 +649,8 @@ read_gamefile()
 	glk_stream_set_position(game_stream, (glsi32)start_of_file, seekmode_Start);
 	result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
-    fseek(file, start_of_file, SEEK_SET);
-    fgets(text_buffer, 1024, file);
+	fseek(file, start_of_file, SEEK_SET);
+	fgets(text_buffer, 1024, file);
 #endif
 
 	line++;
@@ -652,7 +660,7 @@ read_gamefile()
 #ifdef GLK
 		result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
-    	fgets(text_buffer, 1024, file);
+		fgets(text_buffer, 1024, file);
 #endif
 		line++;
 	}
@@ -697,7 +705,7 @@ read_gamefile()
 						}
 					} else if (!strcmp(word[wp], "static")) {
 						// ALL FUNCTION AFTER THIS POINT ARE STATIC.
-						is_static = TRUE;	
+						is_static = TRUE;
 						// THIS IS ONLY A DIRECTIVE CHANGING FUTURE FUNCTION DECLARATIONS,
 						// NOT A REAL FUNCTION, SO MOVE ON TO THE NEXT WORD
 						wp++;
@@ -716,7 +724,7 @@ read_gamefile()
 						 malloc(sizeof(struct function_type))) == NULL)
 						outofmem();
 					else {
-						// STORE THE NUMBER OF FUNCTIONS DEFINED TO 
+						// STORE THE NUMBER OF FUNCTIONS DEFINED TO
 						// HELP VALIDATE SAVED GAME FILES
 						functions++;
 
@@ -725,7 +733,7 @@ read_gamefile()
 #ifdef GLK
 						current_function->position = glk_stream_get_position(game_stream);
 #else
-                            	current_function->position = ftell(file);
+						current_function->position = ftell(file);
 #endif
 						current_function->call_count = 0;
 						current_function->nosave = is_static;
@@ -800,8 +808,8 @@ read_gamefile()
 				current_integer->value = FALSE;
 			}
 
-		/* CONSUME ALL THESE KEYWORDS TO AVOID AN UNKNOWN KEYWORD */
-		/* ERROR DURING THE SECOND PASS (ALL WORK DONE IN FIRST PASS) */
+			/* CONSUME ALL THESE KEYWORDS TO AVOID AN UNKNOWN KEYWORD
+			 * ERROR DURING THE SECOND PASS (ALL WORK DONE IN FIRST PASS) */
 		} else if (!strcmp(word[0], "constant"));
 		else if (!strcmp(word[0], "string"));
 		else if (!strcmp(word[0], "attribute"));
@@ -842,7 +850,7 @@ read_gamefile()
 				location_count = object_count;
 				object[object_count]->PARENT = 0;
 				object[object_count]->attributes =
-					object[object_count]->attributes | LOCATION;
+				object[object_count]->attributes | LOCATION;
 			}
 
 
@@ -917,8 +925,9 @@ read_gamefile()
 			if (object_count == 0) {
 				noobjerr(line);
 				errors++;
-			} else
+			} else {
 				player = object_count;
+			}
 		} else if (!strcmp(word[0], "short")) {
 			if (word[2] == NULL) {
 				noproperr(line);
@@ -989,7 +998,7 @@ read_gamefile()
 	}
 
 	/* CREATE THE CONSTANT THE RECORDS THE TOTAL NUMBER OF OBJECTS */
-    create_cinteger ("objects", objects);
+	create_cinteger ("objects", objects);
 
 	/* LOOP THROUGH ALL THE OBJECTS AND CALL THEIR CONSTRUCTORS
 	for (index = 1; index <= objects; index++) {
@@ -1178,7 +1187,7 @@ restart_game()
 		/* STOP ALL SOUNDS AND SET VOLUMES BACK TO 100% */
 		for (index = 0; index < 4; index++) {
 			glk_schannel_stop(sound_channel[index]);
-			glk_schannel_set_volume(sound_channel[index], 65535);
+			glk_schannel_set_volume(sound_channel[index], 65536);
 
 			/* STORE A COPY OF THE CURRENT VOLUME FOR ACCESS
 			 * FROM JACL CODE */
@@ -1188,7 +1197,7 @@ restart_game()
 	}
 #endif
 
-    /* FREE ALL OBJECTS */
+	/* FREE ALL OBJECTS */
 	for (index = 1; index <= objects; index++) {
 		current_name = object[index]->first_name;
 		while (current_name->next_name != NULL) {
@@ -1200,7 +1209,7 @@ restart_game()
 		free(object[index]);
 	}
 
-    /* FREE ALL VARIABLES */
+	/* FREE ALL VARIABLES */
 
 	if (integer_table != NULL) {
 		if (integer_table->next_integer != NULL) {
@@ -1220,7 +1229,7 @@ restart_game()
 		integer_table = NULL;
 	}
 
-    /* FREE ALL FUNCTIONS */
+	/* FREE ALL FUNCTIONS */
 	if (function_table != NULL) {
 		if (function_table->next_function != NULL) {
 			do {
@@ -1239,7 +1248,7 @@ restart_game()
 		function_table = NULL;
 	}
 
-    /* FREE ALL FILTERS */
+	/* FREE ALL FILTERS */
 	if (filter_table != NULL) {
 		if (filter_table->next_filter != NULL) {
 			do {
@@ -1258,7 +1267,7 @@ restart_game()
 		filter_table = NULL;
 	}
 
-    /* FREE ALL STRINGS */
+	/* FREE ALL STRINGS */
 	if (string_table != NULL) {
 		if (string_table->next_string != NULL) {
 			do {
@@ -1277,7 +1286,7 @@ restart_game()
 		string_table = NULL;
 	}
 
-    /* FREE ALL ATTRIBUTES */
+	/* FREE ALL ATTRIBUTES */
 	if (attribute_table != NULL) {
 		if (attribute_table->next_attribute != NULL) {
 			do {
@@ -1333,7 +1342,7 @@ restart_game()
 		cstring_table = NULL;
 	}
 
-    /* FREE ALL SYNONYMS */
+	/* FREE ALL SYNONYMS */
 	if (synonym_table != NULL) {
 		if (synonym_table->next_synonym != NULL) {
 			do {
@@ -1431,9 +1440,9 @@ create_string (const char *name, const char *value)
 {
 	struct string_type *new_string = NULL;
 
-	if ((new_string = (struct string_type *) 
-		malloc(sizeof(struct string_type))) == NULL) {
-			outofmem();
+	if ((new_string = (struct string_type *)
+		 malloc(sizeof(struct string_type))) == NULL) {
+		outofmem();
 	} else {
 		/* KEEP A COUNT OF HOW MANY STRINGS ARE DEFINED TO
 		 * VALIDATE SAVED GAMES */
@@ -1448,7 +1457,7 @@ create_string (const char *name, const char *value)
 		strncpy(current_string->name, name, 40);
 		current_string->name[40] = 0;
 
-		if (value != NULL) {	
+		if (value != NULL) {
 			strncpy(current_string->value, value, 1023);
 		} else {
 			/* IF NO VALUE IS SUPPLIED, JUST NULL-TERMINATE
@@ -1466,9 +1475,9 @@ create_cstring (const char *name, const char *value)
 {
 	struct string_type *new_string = NULL;
 
-	if ((new_string = (struct string_type *) 
-		malloc(sizeof(struct string_type))) == NULL) {
-			outofmem();
+	if ((new_string = (struct string_type *)
+		 malloc(sizeof(struct string_type))) == NULL) {
+		outofmem();
 	} else {
 		if (cstring_table == NULL) {
 			cstring_table = new_string;
@@ -1479,7 +1488,7 @@ create_cstring (const char *name, const char *value)
 		strncpy(current_cstring->name, name, 40);
 		current_cstring->name[40] = 0;
 
-		if (value != NULL) {	
+		if (value != NULL) {
 			strncpy(current_cstring->value, value, 1023);
 		} else {
 			/* IF NO VALUE IS SUPPLIED, JUST NULL-TERMINATE
@@ -1495,10 +1504,9 @@ create_cstring (const char *name, const char *value)
 void
 create_language_constants() 
 {
-
 	/* SET THE DEFAULT LANGUAGE CONSTANTS IF ANY OR ALL OF THEM
-     * ARE MISSING FROM THE GAME THAT IS BEING LOADED. DEFAULT
-     * TO THE NATIVE_LANGUAGE SETTING IN language.h */
+	 * ARE MISSING FROM THE GAME THAT IS BEING LOADED. DEFAULT
+	 * TO THE NATIVE_LANGUAGE SETTING IN language.h */
 
 	if (cstring_resolve("COMMENT_IGNORED") == NULL)
 		create_cstring	("COMMENT_IGNORED", COMMENT_IGNORED);

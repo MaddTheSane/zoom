@@ -16,12 +16,12 @@ char            text_buffer[1024];
 
 /* THIS IS A STRING CONSTANT TO POINT TO WHENEVER A COMMA IS
  * USED IN THE PLAYER'S INPUT */
-static const char           *comma = "comma\0";
-static const char           *then = "then\0";
-const char      *word[MAX_WORDS];
+static const char	*comma = "comma\0";
+static const char	*then = "then\0";
+const char		*word[MAX_WORDS];
 int				quoted[MAX_WORDS];
 int				percented[MAX_WORDS];
-int             wp;
+int				wp;
 
 void
 encapsulate()
@@ -41,74 +41,75 @@ encapsulate()
 	}
 
 	for (index = 0; index < length; index++) {
-
 		switch (text_buffer[index]) {
-		case ':':
-		case '\t':
-		case ' ':
-		case ',':
-			text_buffer[index] = 0;
-			new_word = TRUE;
-			break;
-		case ';':
-		case '#':
-		case '\r':
-		case '\n':
-			/* TERMINATE THE WHOLE COMMAND ON HITTING A NEWLINE CHARACTER, A
-			 * SEMICOLON OR A HASH */
-			text_buffer[index] = 0;
-			index = length;
-			break;
-		case '"':
-			index++;
-			/* NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR 
-			 * THE COMMAND 'write'*/	
-			quoted[position] = 1;	
+			case ':':
+			case '\t':
+			case ' ':
+			case ',':
+				text_buffer[index] = 0;
+				new_word = TRUE;
+				break;
+			case ';':
+			case '#':
+			case '\r':
+			case '\n':
+				/* TERMINATE THE WHOLE COMMAND ON HITTING A NEWLINE CHARACTER, A
+				 * SEMICOLON OR A HASH */
+				text_buffer[index] = 0;
+				index = length;
+				break;
+			case '"':
+				index++;
+				/* NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR
+				 * THE COMMAND 'write'*/
+				quoted[position] = 1;
 
-			word[position] = &text_buffer[index];
-
-			if (position < MAX_WORDS)
-				position++;
-
-			/* IF A WORD IS ENCLOSED IN QUOTES, KEEP GOING UNTIL THE END
-			 * OF THE LINE OR A CLOSING QUOTE IS FOUND, NOT BREAKING AT
-			 * WHITESPACE AS USUAL */
-			for (; index < length; index++) {
-				if (text_buffer[index] == '"') {
-					text_buffer[index] = 0;
-					new_word = TRUE;
-					break;
-				} else if (text_buffer[index] == '\r' || text_buffer[index] == '\n') {
-					text_buffer[index] = 0;
-					index = length;
-					break;
-				}
-			}
-			break;
-		default:
-			if (new_word) {
-                if (text_buffer[index] == '%' && text_buffer[index+1] != ' ' && text_buffer[index+1] != '\t') {
-					percented[position]++;
-                    break;
-				}
 				word[position] = &text_buffer[index];
-				new_word = FALSE;
-				if (position < MAX_WORDS)
+
+				if (position < MAX_WORDS) {
 					position++;
-			}
-			break;
+				}
+
+				/* IF A WORD IS ENCLOSED IN QUOTES, KEEP GOING UNTIL THE END
+				 * OF THE LINE OR A CLOSING QUOTE IS FOUND, NOT BREAKING AT
+				 * WHITESPACE AS USUAL */
+				for (; index < length; index++) {
+					if (text_buffer[index] == '"') {
+						text_buffer[index] = 0;
+						new_word = TRUE;
+						break;
+					} else if (text_buffer[index] == '\r' || text_buffer[index] == '\n') {
+						text_buffer[index] = 0;
+						index = length;
+						break;
+					}
+				}
+				break;
+			default:
+				if (new_word) {
+					if (text_buffer[index] == '%' && text_buffer[index+1] != ' ' && text_buffer[index+1] != '\t') {
+						percented[position]++;
+						break;
+					}
+					word[position] = &text_buffer[index];
+					new_word = FALSE;
+					if (position < MAX_WORDS)
+						position++;
+				}
+				break;
 		}
 
 	}
 
 	/* NULL OUT ALL THE WORD POINTERS BEYOND THE LAST WORD */
-	for (index = position; index < MAX_WORDS; index++)
+	for (index = position; index < MAX_WORDS; index++) {
 		word[index] = NULL;
+	}
 
 	wp = 0;
 }
 
-// THIS VERSION OF ENCAPSULATE DOESN'T LOOK FOR CERTAIN SPECIAL CHARACTERS
+/// THIS VERSION OF ENCAPSULATE DOESN'T LOOK FOR CERTAIN SPECIAL CHARACTERS
 void
 command_encapsulate()
 {
@@ -131,74 +132,75 @@ command_encapsulate()
 		text_buffer[index] = tolower((int) text_buffer[index]);
 
 		switch (text_buffer[index]) {
-		case ':':
-		case '\t':
-		case ' ':
-			text_buffer[index] = 0;
-			new_word = TRUE;
-			break;
-		case ',':
-			text_buffer[index] = 0;
-			// SET THIS WORD TO POINT TO A STRING CONSTANT OF 'comma' AS THE
-			// COMMA ITSELF WILL BE NULLED OUT TO TERMINATE THE PRECEEDING
-			// WORD IN THE COMMAND.
-			word[position] = comma;
-			if (position < MAX_WORDS)
-				position++;
-			new_word = TRUE;
-			break;
-		case '.':
-			text_buffer[index] = 0;
-			// SET THIS WORD TO POINT TO A STRING CONSTANT OF 'comma' AS THE
-			// COMMA ITSELF WILL BE NULLED OUT TO TERMINATE THE PRECEEDING
-			// WORD IN THE COMMAND
-			word[position] = then;
-			if (position < MAX_WORDS)
-				position++;
-			new_word = TRUE;
-			break;
-		case ';':
-		case '\r':
-		case '\n':
-			// TERMINATE THE WHOLE COMMAND ON HITTING A NEWLINE CHARACTER, A
-			// SEMICOLON OR A HASH
-			text_buffer[index] = 0;
-			index = length;
-			break;
-		case '"':
-			index++;
-			// NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR 
-			// THE COMMAND 'write'	
-			quoted[position] = 1;	
-
-			word[position] = &text_buffer[index];
-
-			if (position < MAX_WORDS)
-				position++;
-
-			// IF A WORD IS ENCLOSED IN QUOTES, KEEP GOING UNTIL THE END
-			// OF THE LINE OR A CLOSING QUOTE IS FOUND, NOT BREAKING AT
-			// WHITESPACE AS USUAL
-			for (; index < length; index++) {
-				if (text_buffer[index] == '"') {
-					text_buffer[index] = 0;
-					new_word = TRUE;
-					break;
-				} else if (text_buffer[index] == '\r' || text_buffer[index] == '\n') {
-					text_buffer[index] = 0;
-					index = length;
-					break;
-				}
-			}
-			break;
-		default:
-			if (new_word) {
-				word[position] = &text_buffer[index];
-				new_word = FALSE;
+			case ':':
+			case '\t':
+			case ' ':
+				text_buffer[index] = 0;
+				new_word = TRUE;
+				break;
+			case ',':
+				text_buffer[index] = 0;
+				// SET THIS WORD TO POINT TO A STRING CONSTANT OF 'comma' AS THE
+				// COMMA ITSELF WILL BE NULLED OUT TO TERMINATE THE PRECEEDING
+				// WORD IN THE COMMAND.
+				word[position] = comma;
 				if (position < MAX_WORDS)
 					position++;
-			}
-			break;
+				new_word = TRUE;
+				break;
+			case '.':
+				text_buffer[index] = 0;
+				// SET THIS WORD TO POINT TO A STRING CONSTANT OF 'comma' AS THE
+				// COMMA ITSELF WILL BE NULLED OUT TO TERMINATE THE PRECEEDING
+				// WORD IN THE COMMAND
+				word[position] = then;
+				if (position < MAX_WORDS)
+					position++;
+				new_word = TRUE;
+				break;
+			case ';':
+			case '\r':
+			case '\n':
+				// TERMINATE THE WHOLE COMMAND ON HITTING A NEWLINE CHARACTER, A
+				// SEMICOLON OR A HASH
+				text_buffer[index] = 0;
+				index = length;
+				break;
+			case '"':
+				index++;
+				// NEED TO REMEMBER THAT THIS WORD WAS ENCLOSED IN QUOTES FOR
+				// THE COMMAND 'write'
+				quoted[position] = 1;
+
+				word[position] = &text_buffer[index];
+
+				if (position < MAX_WORDS) {
+					position++;
+				}
+
+				// IF A WORD IS ENCLOSED IN QUOTES, KEEP GOING UNTIL THE END
+				// OF THE LINE OR A CLOSING QUOTE IS FOUND, NOT BREAKING AT
+				// WHITESPACE AS USUAL
+				for (; index < length; index++) {
+					if (text_buffer[index] == '"') {
+						text_buffer[index] = 0;
+						new_word = TRUE;
+						break;
+					} else if (text_buffer[index] == '\r' || text_buffer[index] == '\n') {
+						text_buffer[index] = 0;
+						index = length;
+						break;
+					}
+				}
+				break;
+			default:
+				if (new_word) {
+					word[position] = &text_buffer[index];
+					new_word = FALSE;
+					if (position < MAX_WORDS)
+						position++;
+				}
+				break;
 		}
 
 	}
@@ -235,11 +237,11 @@ jacl_truncate()
 					match = TRUE;
 				}
 				filter = filter->next_filter;
-			}
-			while (filter != NULL && !match);
+			} while (filter != NULL && !match);
 			filter = filter_table;
-			if (!match)
+			if (!match) {
 				position++;
+			}
 		};
 	}
 
@@ -252,12 +254,12 @@ jacl_truncate()
 					word[counter] = synonym->standard;
 					break;
 				}
-				if (synonym->next_synonym != NULL)
+				if (synonym->next_synonym != NULL) {
 					synonym = synonym->next_synonym;
-				else
+				} else {
 					break;
-			}
-			while (TRUE);
+				}
+			} while (TRUE);
 		}
 	}
 }

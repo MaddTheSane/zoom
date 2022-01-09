@@ -84,16 +84,16 @@ extern char		prefix[];
 extern char		processed_file[];
 extern char		function_name[];
 
-extern char						override[];
-extern char						game_file[];
-extern char						game_path[];
-extern char						blorb[];
-extern char   			        bookmark[];
-extern char            			walkthru[];
-extern char						include_directory[];
-extern char            			temp_directory[];
-extern char            			data_directory[];
-extern int    			        noun[];
+extern char		override[];
+extern char		game_file[];
+extern char		game_path[];
+extern char		blorb[];
+extern char		bookmark[];
+extern char		walkthru[];
+extern char		include_directory[];
+extern char		temp_directory[];
+extern char		data_directory[];
+extern int		noun[];
 
 extern struct object_type		*object[];
 extern struct integer_type		*integer_table;

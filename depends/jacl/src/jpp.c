@@ -52,7 +52,7 @@ jpp()
 	lines_written = 0;
 
 	/* CHECK IF GAME FILE IS ALREADY A PROCESSED FILE BY LOOKING FOR THE
-	 * STRING "#encrypted" OR "#processed" WITHIN THE FIRST FIVE LINES OF 
+	 * STRING "#encrypted" OR "#processed" WITHIN THE FIRST FIVE LINES OF
 	 * THE GAME FILE IF SO, RETURN THE GAME FILE AS THE PROCESSED FILE */
 	if ((inputFile = fopen(game_file, "r")) != NULL) {
 		int index = 0;
@@ -76,8 +76,8 @@ jpp()
 				}
 				strcpy(processed_file, game_file);
 				
-				return (TRUE);	
-			}					
+				return (TRUE);
+			}
 			result = fgets(text_buffer, 1024, inputFile);
 			if (!result) {
 				//return (FALSE);
@@ -149,11 +149,12 @@ process_file(char *sourceFile1, char *sourceFile2)
 
 	while (!feof(inputFile) || *text_buffer != 0) {
 		if (!strncmp(text_buffer, "#include", 8) ||
-		   (!strncmp(text_buffer, "#debug", 6) & !release)) {
+			(!strncmp(text_buffer, "#debug", 6) & !release)) {
 			includeFile = strrchr(text_buffer, '"');
 
-			if (includeFile != NULL)
+			if (includeFile != NULL) {
 				*includeFile = 0;
+			}
 
 			includeFile = strchr(text_buffer, '"');
 
@@ -182,7 +183,7 @@ process_file(char *sourceFile1, char *sourceFile2)
 				fputs("#encrypted\n", outputFile);
 #endif
 				encrypting = TRUE;
-			} 
+			}
 
 			/* ENCRYPT PROCESSED FILE IF REQUIRED */
 			if (encrypting) {

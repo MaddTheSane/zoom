@@ -307,27 +307,23 @@ find_route(int fromRoom, int toRoom, int known)
 	setAdd(&visited, fromRoom);
 	firstTime = 1;
 
-	while (!qIsEmpty(&q))
-	{
+	while (!qIsEmpty(&q)) {
 		int n, dir, firstDir;
 		qPop(&q, &n, &firstDir);
 
-		if (n == toRoom)
-		{
+		if (n == toRoom) {
 			result = firstDir;
 			break;
 		}
 
-		for (dir = 0;dir < 12 ;dir++)
-		{
+		for (dir = 0;dir < 12 ;dir++) {
 			int dest = object[n]->integer[dir];
 
 			if (dest < 1 || dest > objects) continue;
 
 			if (object[dest] == NULL) continue;
 
-			if (dest != NOWHERE && !setContains(&visited, dest))
-			{
+			if (dest != NOWHERE && !setContains(&visited, dest)) {
 				if (!known || (object[dest]->attributes & KNOWN)) {
 					qAppend(&q, dest, (firstTime ? dir : firstDir));
 					setAdd(&visited, dest);

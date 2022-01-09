@@ -40,8 +40,9 @@ sentence_output(int index, int capital)
 		strcat(temp_buffer, object[index]->inventory);
 	}
 
-	if (capital)
+	if (capital) {
 		temp_buffer[0] = toupper(temp_buffer[0]);
+	}
 
 	return (temp_buffer);
 }
@@ -49,19 +50,21 @@ sentence_output(int index, int capital)
 char *
 isnt_output(int index)
 {
-	if (object[index]->attributes & PLURAL)
+	if (object[index]->attributes & PLURAL) {
 		return (cstring_resolve("ARENT")->value);
-	else
+	} else {
 		return (cstring_resolve("ISNT")->value);
+	}
 }
 
 char *
 is_output(int index)
 {
-	if (object[index]->attributes & PLURAL)
+	if (object[index]->attributes & PLURAL) {
 		return (cstring_resolve("ARE")->value);
-	else
+	} else {
 		return (cstring_resolve("IS")->value);
+	}
 }
 
 char *
@@ -83,8 +86,9 @@ sub_output(int index, int capital)
 		}
 	}
 
-	if (capital)
+	if (capital) {
 		temp_buffer[0] = toupper(temp_buffer[0]);
+	}
 
 	return temp_buffer;
 }
@@ -108,8 +112,9 @@ obj_output(int index, int capital)
 		}
 	}
 
-	if (capital)
+	if (capital) {
 		temp_buffer[0] = toupper(temp_buffer[0]);
+	}
 
 	return temp_buffer;
 }
@@ -146,19 +151,21 @@ that_output(int index, int capital)
 char *
 doesnt_output(int index)
 {
-	if (object[index]->attributes & PLURAL)
+	if (object[index]->attributes & PLURAL) {
 		return (cstring_resolve("DONT")->value);
-	else
+	} else {
 		return (cstring_resolve("DOESNT")->value);
+	}
 }
 
 char *
 does_output(int index)
 {
-	if (object[index]->attributes & PLURAL)
+	if (object[index]->attributes & PLURAL) {
 		return (cstring_resolve("DO")->value);
-	else
+	} else {
 		return (cstring_resolve("DOES")->value);
+	}
 }
 
 char *
@@ -172,8 +179,9 @@ list_output(int index, int capital)
 		strcat(temp_buffer, object[index]->inventory);
 	}
 
-	if (capital)
+	if (capital) {
 		temp_buffer[0] = toupper(temp_buffer[0]);
+	}
 
 	return (temp_buffer);
 }
@@ -183,8 +191,9 @@ plain_output(int index, int capital)
 {
 	strcpy(temp_buffer, object[index]->inventory);
 
-	if (capital)
+	if (capital) {
 		temp_buffer[0] = toupper(temp_buffer[0]);
+	}
 
 	return (temp_buffer);
 }
@@ -245,8 +254,8 @@ look_around()
 	strcat(function_name, object[HERE]->label);
 	execute(function_name);
 
-	/* GIVE THE LOCATION THE ATTRIBUTES 'VISITED', 'KNOWN', AND 'MAPPED' NOW 
-     * THAT THE LOOK FUNCTION HAS RUN */
+	/* GIVE THE LOCATION THE ATTRIBUTES 'VISITED', 'KNOWN', AND 'MAPPED' NOW
+	 * THAT THE LOOK FUNCTION HAS RUN */
 	object[HERE]->attributes = object[HERE]->attributes | KNOWN;
 	object[HERE]->attributes = object[HERE]->attributes | VISITED;
 	object[HERE]->attributes = object[HERE]->attributes | MAPPED;
@@ -259,4 +268,3 @@ look_around()
 
 	execute("+after_look");
 }
-
