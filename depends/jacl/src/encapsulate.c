@@ -12,12 +12,12 @@
 extern struct synonym_type *synonym_table;
 extern struct filter_type *filter_table;
 
-char            text_buffer[1024];
+char            	text_buffer[1024];
 
 /* THIS IS A STRING CONSTANT TO POINT TO WHENEVER A COMMA IS
  * USED IN THE PLAYER'S INPUT */
-static const char	*comma = "comma\0";
-static const char	*then = "then\0";
+static const char	comma[] = "comma";
+static const char	then[] = "then";
 const char		*word[MAX_WORDS];
 int				quoted[MAX_WORDS];
 int				percented[MAX_WORDS];

@@ -333,7 +333,6 @@
 		55BB92542048AF1300AB4B5B /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB924E2048AC4000AB4B5B /* libexpat.tbd */; };
 		55BB92702048D8D900AB4B5B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BB926F2048D8D900AB4B5B /* Media.xcassets */; };
 		55BB927120490D3100AB4B5B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
-		55BC136A2786D55500369EBE /* projects in Resources */ = {isa = PBXBuildFile; fileRef = 55BC13692786D55500369EBE /* projects */; };
 		55BC136B2786D58100369EBE /* README in Resources */ = {isa = PBXBuildFile; fileRef = 55BC13112786D53000369EBE /* README */; };
 		55BC13792786D69E00369EBE /* jacl-interpreter in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55BC13702786D67900369EBE /* jacl-interpreter */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55BC137E2786D6CC00369EBE /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
@@ -1470,24 +1469,10 @@
 		55BC128A2786D53000369EBE /* display.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = display.c; sourceTree = "<group>"; };
 		55BC12952786D53000369EBE /* Makefile.Microsoft */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.Microsoft; sourceTree = "<group>"; };
 		55BC12962786D53000369EBE /* version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		55BC12972786D53000369EBE /* dsjacl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dsjacl.c; sourceTree = "<group>"; };
 		55BC12982786D53000369EBE /* jpp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jpp.c; sourceTree = "<group>"; };
-		55BC129B2786D53000369EBE /* html-lib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "html-lib.c"; sourceTree = "<group>"; };
-		55BC129D2786D53000369EBE /* cgi-llist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cgi-llist.h"; sourceTree = "<group>"; };
-		55BC129E2786D53000369EBE /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		55BC129F2786D53000369EBE /* CHANGES */ = {isa = PBXFileReference; lastKnownFileType = text; path = CHANGES; sourceTree = "<group>"; };
-		55BC12A02786D53000369EBE /* cgi-lib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "cgi-lib.c"; sourceTree = "<group>"; };
-		55BC12A22786D53000369EBE /* string-lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "string-lib.h"; sourceTree = "<group>"; };
-		55BC12A32786D53000369EBE /* html-lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "html-lib.h"; sourceTree = "<group>"; };
-		55BC12A52786D53000369EBE /* cgi-lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cgi-lib.h"; sourceTree = "<group>"; };
-		55BC12A72786D53000369EBE /* cgi-llist.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "cgi-llist.c"; sourceTree = "<group>"; };
-		55BC12A82786D53000369EBE /* CREDITS */ = {isa = PBXFileReference; lastKnownFileType = text; path = CREDITS; sourceTree = "<group>"; };
-		55BC12A92786D53000369EBE /* string-lib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "string-lib.c"; sourceTree = "<group>"; };
 		55BC12AA2786D53000369EBE /* jacl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jacl.c; sourceTree = "<group>"; };
 		55BC12AB2786D53000369EBE /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		55BC13082786D53000369EBE /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		55BC13092786D53000369EBE /* webjacl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = webjacl.h; sourceTree = "<group>"; };
-		55BC130A2786D53000369EBE /* cgijacl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cgijacl.c; sourceTree = "<group>"; };
 		55BC130B2786D53000369EBE /* language.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = language.h; sourceTree = "<group>"; };
 		55BC130E2786D53000369EBE /* babel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = babel.c; sourceTree = "<group>"; };
 		55BC13102786D53000369EBE /* resolvers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = resolvers.c; sourceTree = "<group>"; };
@@ -1502,16 +1487,13 @@
 		55BC13192786D53000369EBE /* jacl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jacl.h; sourceTree = "<group>"; };
 		55BC131B2786D53000369EBE /* libcsv.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = libcsv.c; sourceTree = "<group>"; usesTabs = 0; };
 		55BC131C2786D53000369EBE /* winglk_startup.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = winglk_startup.c; sourceTree = "<group>"; };
-		55BC131D2786D53000369EBE /* cgijacl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cgijacl.h; sourceTree = "<group>"; };
 		55BC131E2786D53000369EBE /* interpreter.c */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = interpreter.c; sourceTree = "<group>"; };
-		55BC131F2786D53000369EBE /* webjacl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = webjacl.c; sourceTree = "<group>"; };
 		55BC13202786D53000369EBE /* libcsv.LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = libcsv.LICENSE; sourceTree = "<group>"; };
 		55BC13212786D53000369EBE /* parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
 		55BC135D2786D53000369EBE /* encapsulate.c */ = {isa = PBXFileReference; indentWidth = 5; lastKnownFileType = sourcecode.c.c; path = encapsulate.c; sourceTree = "<group>"; tabWidth = 5; };
 		55BC13662786D53000369EBE /* logging.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = logging.c; sourceTree = "<group>"; };
 		55BC13672786D53000369EBE /* errors.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = errors.c; sourceTree = "<group>"; };
 		55BC13682786D53000369EBE /* glk_startup.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glk_startup.c; sourceTree = "<group>"; };
-		55BC13692786D55500369EBE /* projects */ = {isa = PBXFileReference; lastKnownFileType = folder; path = projects; sourceTree = "<group>"; };
 		55BC13702786D67900369EBE /* jacl-interpreter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "jacl-interpreter"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BD080E21B7638800A8DD5F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
 		55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomViewProtocols.h; sourceTree = "<group>"; };
@@ -2534,7 +2516,6 @@
 		55BC113A2786D4E000369EBE /* jacl */ = {
 			isa = PBXGroup;
 			children = (
-				55BC13692786D55500369EBE /* projects */,
 				55BC12832786D53000369EBE /* src */,
 			);
 			path = jacl;
@@ -2546,13 +2527,9 @@
 				55BC130E2786D53000369EBE /* babel.c */,
 				55BC13172786D53000369EBE /* bjorb.c */,
 				55BC12892786D53000369EBE /* bjorb.licence */,
-				55BC12992786D53000369EBE /* cgihtml-1.69 */,
-				55BC130A2786D53000369EBE /* cgijacl.c */,
-				55BC131D2786D53000369EBE /* cgijacl.h */,
 				55BC13142786D53000369EBE /* constants.h */,
 				55BC12852786D53000369EBE /* csv.h */,
 				55BC128A2786D53000369EBE /* display.c */,
-				55BC12972786D53000369EBE /* dsjacl.c */,
 				55BC135D2786D53000369EBE /* encapsulate.c */,
 				55B459A02789318F0037A6A3 /* encapsulate.h */,
 				55BC13672786D53000369EBE /* errors.c */,
@@ -2582,32 +2559,12 @@
 				55BC12AB2786D53000369EBE /* types.h */,
 				55BC13162786D53000369EBE /* utils.c */,
 				55BC12962786D53000369EBE /* version.h */,
-				55BC131F2786D53000369EBE /* webjacl.c */,
-				55BC13092786D53000369EBE /* webjacl.h */,
 				55BC131C2786D53000369EBE /* winglk_startup.c */,
 			);
 			indentWidth = 4;
 			path = src;
 			sourceTree = "<group>";
 			usesTabs = 1;
-		};
-		55BC12992786D53000369EBE /* cgihtml-1.69 */ = {
-			isa = PBXGroup;
-			children = (
-				55BC12A02786D53000369EBE /* cgi-lib.c */,
-				55BC12A52786D53000369EBE /* cgi-lib.h */,
-				55BC12A72786D53000369EBE /* cgi-llist.c */,
-				55BC129D2786D53000369EBE /* cgi-llist.h */,
-				55BC129F2786D53000369EBE /* CHANGES */,
-				55BC12A82786D53000369EBE /* CREDITS */,
-				55BC129B2786D53000369EBE /* html-lib.c */,
-				55BC12A32786D53000369EBE /* html-lib.h */,
-				55BC129E2786D53000369EBE /* Makefile */,
-				55BC12A92786D53000369EBE /* string-lib.c */,
-				55BC12A22786D53000369EBE /* string-lib.h */,
-			);
-			path = "cgihtml-1.69";
-			sourceTree = "<group>";
 		};
 		55BE4AE7270998B100100A7D /* Quest4 */ = {
 			isa = PBXGroup;
@@ -3431,7 +3388,6 @@
 			files = (
 				55BC136B2786D58100369EBE /* README in Resources */,
 				55B4599B2787992C0037A6A3 /* libcsv.LICENSE in Resources */,
-				55BC136A2786D55500369EBE /* projects in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
