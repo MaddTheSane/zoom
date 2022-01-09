@@ -75,7 +75,6 @@ const char* text_of_word(int wordnumber);
 const char* expand_function(const char *name);
 int* container_resolve(const char *container_name);
 int condition(void);
-int and_condition(void);
 void word_check(void);
 void eachturn(void);
 int jacl_whitespace(int character);

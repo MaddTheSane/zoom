@@ -127,9 +127,7 @@ static void version_info(void);
 static void read_config_file(void);
 
 int
-main(argc, argv)
-	 int             argc;
-	 char           *argv[];
+main(int argc, char *argv[])
 {
 	int             index;
 	char           *last_slash;

@@ -9,7 +9,7 @@
 #define encapsulate_h
 
 extern char			text_buffer[];
-extern const char		*word[];
+extern const char	*word[];
 extern int			noun[];
 extern int			quoted[];
 extern int			percented[];

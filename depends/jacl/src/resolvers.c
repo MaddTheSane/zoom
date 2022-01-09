@@ -20,7 +20,6 @@ extern int					screen_depth;
 #ifndef GLK
 #ifndef __NDS__
 extern char					game_url[];
-extern char					user_id[];
 #endif
 #endif
 

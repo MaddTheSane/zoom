@@ -38,6 +38,7 @@
 #ifndef GARGLK
 #include <GlkClient/gi_blorb.h>
 #include <GlkView/glk.h>
+#include <GlkClient/cocoaglk.h>
 //#include "Gargoyle/garglk.h"
 #endif
 
@@ -54,13 +55,13 @@ extern int			jpp_error;
 struct	string_type	*resolved_string;
 #endif
 
-char            include_directory[81] = "\0";
-char            temp_directory[81] = "\0";
-char            data_directory[81] = "\0";
+char            include_directory[PATH_MAX] = "";
+char            temp_directory[PATH_MAX] = "";
+char            data_directory[PATH_MAX] = "";
 char            special_prompt[81] = "\n: \0";
-char            file_prompt[5] = ": \0";
-char            bookmark[81] = "\0";
-char            walkthru[81] = "\0";
+//char            file_prompt[5] = ": \0";
+char            bookmark[PATH_MAX] = "";
+char            walkthru[PATH_MAX] = "";
 
 char            function_name[81];
 
@@ -78,8 +79,8 @@ char            proxy_buffer[1024];
 static char		oops_buffer[1024];
 static char		oopsed_current[1024];
 char            last_command[1024];
-char			*blank_command = "blankjacl\0";
-char            *current_command = (char *) NULL;
+static const char blank_command[] = "blankjacl";
+static const char *current_command = (char *) NULL;
 static char		command_buffer[1024];
 #ifndef NOUNICODE
 static glui32	command_buffer_uni[1024];
@@ -96,7 +97,7 @@ int             objects, integers, functions, strings;
 strid_t         game_stream = NULL;
 
 /* THE STREAM FOR OPENING UP THE ARCHIVE CONTAINING GRAPHICS AND SOUND */
-strid_t				blorb_stream;
+strid_t			blorb_stream;
 
 /* A FILE REFERENCE FOR THE TRANSCRIPT FILE. */
 static frefid_t script_fref = NULL;
@@ -109,7 +110,7 @@ int             player = 0;
 static int      noun3_backup;
 static int      player_backup = 0;
 
-static int             variable_contents;
+static int      variable_contents;
 int             oec;
 int            *object_element_address,
 			   *object_backup_address;
@@ -137,10 +138,10 @@ strid_t inputstr = NULL;
 
 char            user_id[] = "local";
 char            prefix[81] = "\0";
-char            blorb[81] = "\0";
-char            game_path[256] = "\0";
-char            game_file[256] = "\0";
-char            processed_file[256] = "\0";
+char            blorb[PATH_MAX] = "\0";
+char            game_path[PATH_MAX] = "\0";
+char            game_file[PATH_MAX] = "\0";
+char            processed_file[PATH_MAX] = "\0";
 
 struct object_type *object[MAX_OBJECTS];
 struct integer_type *integer_table = NULL;
@@ -407,7 +408,7 @@ glk_main(void)
 		if (text_buffer[0] == 0) {
 			/* NO COMMAND WAS SPECIFIED, FILL THE COMMAND IN AS 'blankjacl'
 			 * FOR THE GAME TO PROCESS AS DESIRED */
-			strcpy(text_buffer, "blankjacl");
+			strcpy(text_buffer, blank_command);
 			current_command = blank_command;
 		}
 
@@ -441,7 +442,7 @@ glk_main(void)
 		} else {
 			/* NO COMMAND WAS SPECIFIED, FILL THE COMMAND IN AS 'blankjacl'
 			 * FOR THE GAME TO PROCESS AS DESIRED */
-			strcpy(text_buffer, "blankjacl");
+			strcpy(text_buffer, blank_command);
 			command_encapsulate();
 			preparse();
 		}
@@ -1556,7 +1557,10 @@ convert_to_utf32 (unsigned char *text)
 	return (rlen);
 }
 
-static void gli_strict_warning(const char *a) {}
+static void gli_strict_warning(const char *a)
+{
+	cocoaglk_warning(a);
+}
 
 glui32 
 parse_utf8(unsigned char *buf, glui32 buflen,

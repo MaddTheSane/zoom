@@ -67,10 +67,10 @@ final public class JACL: ZoomGlkPlugIn {
 		return meta
 	}
 	
-	public override var coverImage: NSImage? {
-		let babel = ZoomBabel(url: gameURL)
-		return babel.coverImage()
-	}
+//	public override var coverImage: NSImage? {
+//		let babel = ZoomBabel(url: gameURL)
+//		return babel.coverImage()
+//	}
 }
 
 private func stringIDForJACLFile(at url: URL) -> String? {
@@ -97,5 +97,6 @@ private func isCompatibleJACLFile(at url: URL) -> Bool {
 	if fileData.range(of: processedData) != nil {
 		return true
 	}
-	return false
+	//TODO: JACL checks.
+	return url.pathExtension.caseInsensitiveCompare("jacl") == .orderedSame
 }

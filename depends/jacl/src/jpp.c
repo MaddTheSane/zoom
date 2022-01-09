@@ -36,11 +36,11 @@ short int			release = FALSE;
 
 /* INDICATES THAT THE CURRENT '.j2' FILE BEING WORKED 
  * SHOULD BE ENCRYPTED */
-static short int			do_encrypt = TRUE;
+static short int	do_encrypt = TRUE;
 
 /* INDICATES THAT THE CURRENT '.processed' FILE BRING WRITTEN SHOULD NOW
  * HAVE EACH LINE ENCRYPTED AS THE FIRST NONE COMMENT LINE HAS BEEN HIT */
-static short int			encrypting = FALSE;
+static short int	encrypting = FALSE;
 
 static int process_file(char *sourceFile1, char *sourceFile2);
 

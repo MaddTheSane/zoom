@@ -197,6 +197,7 @@ static int strcondition(void);
 static int logic_test(int first);
 static int str_test(int first);
 static int and_strcondition(void);
+static int and_condition(void);
 
 void
 terminate(int code)
@@ -955,7 +956,7 @@ execute(const char *funcname)
 
 						/* NOW SCALE THE 0-100 VOLUME TO THE 0-65536 EXPECTED
 						 * BY Glk */
-						volume = volume * 655;
+						volume *= 655.36;
 
 						/* SET THE VOLUME */
 						glk_schannel_set_volume(sound_channel[channel], (glui32) volume);
