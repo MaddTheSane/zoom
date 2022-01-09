@@ -145,5 +145,4 @@ void more(const char* message);
 int jpp(void);
 char* strip_return(char *string);
 char** command_completion(char* text, int start, int end);
-void add_word(char * word);
 void jacl_sleep(unsigned int mseconds);

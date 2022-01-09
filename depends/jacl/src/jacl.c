@@ -169,6 +169,7 @@ static void scripting(void);
 #ifdef READLINE
 static char* object_generator(const char* text, int state);
 static char* verb_generator(const char* text, int state);
+static void add_word(const char * word);
 #endif
 
 void
@@ -1457,12 +1458,11 @@ verb_generator(const char* text, int state)
 
     return (char *) NULL;
 }
-#endif
 
-/* ADD A COPY OF STRING TO A LIST OF STRINGS IF IT IS NOT
-   ALREADY IN THE LIST. THIS IS FOR THE USE OF READLINE */
+/*! Add a copy of string to a list of strings if it is not
+ already in the list. This is for the use of readline */
 void
-add_word(char * word)
+add_word(const char * word)
 {
     static struct command_type *current_word = NULL;
     struct command_type *previous_word = NULL;
@@ -1490,6 +1490,7 @@ add_word(char * word)
 		}
     }
 }
+#endif
 
 void 
 convert_to_utf8(glui32 *text, int len) {
