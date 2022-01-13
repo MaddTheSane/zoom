@@ -26,7 +26,6 @@ struct parameter_type *new_parameter;
 #endif
 #endif
 
-
 static struct string_type *current_string = NULL;
 static struct integer_type *current_integer = NULL;
 static struct integer_type *last_system_integer = NULL;
@@ -77,7 +76,7 @@ read_gamefile()
 	struct function_type *current_function = NULL;
 	struct name_type *current_name = NULL;
 
-	char		function_name[81];
+	char            function_name[81];
 
 	// CREATE SOME SYSTEM VARIABLES
 
@@ -227,11 +226,11 @@ read_gamefile()
 	set_defaults();
 
 	/* CREATE A DUMMY FUNCTION TO BE USED WHEN AN ERROR MESSAGE
-	 IS PRINTED AS A RESULT OF CODE CALLED BY THE INTERPRETER */
+       IS PRINTED AS A RESULT OF CODE CALLED BY THE INTERPRETER */
 	if ((function_table = (struct function_type *)
-		 malloc(sizeof(struct function_type))) == NULL)
+		 malloc(sizeof(struct function_type))) == NULL) {
 		outofmem();
-	else {
+	} else {
 		current_function = function_table;
 		strcpy(current_function->name, "JACL*Internal");
 		current_function->position = 0;
@@ -250,29 +249,52 @@ read_gamefile()
 	functions = 0;
 	strings = 0;
 
+#ifdef GLK
 	glk_stream_set_position(game_stream, (glsi32)start_of_file, seekmode_Start);
 	result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+#else
+    fseek(file, start_of_file, SEEK_SET);
+    fgets(text_buffer, 1024, file);
+#endif
 
 	line++;
 
 	if (!encrypted && strstr(text_buffer, "#encrypted")) {
 		encrypted = TRUE;
+#ifdef GLK
 		result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+#else
+		fgets(text_buffer, 1024, file);
+#endif
 		line++;
 	}
 
 	if (encrypted) jacl_decrypt(text_buffer);
 
-	while (result) {
+#ifdef GLK
+	while (result)
+#else
+    while (!feof(file))
+#endif
+	{
 		encapsulate();
 		if (word[0] == NULL);
 		else if (text_buffer[0] == '{') {
+#ifdef GLK
 			while (result) {
 				result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+#else
+            while (!feof(file)) {
+                fgets(text_buffer, 1024, file);
+#endif
 				line++;
 				if (!encrypted && strstr(text_buffer, "#encrypted")) {
 					encrypted = TRUE;
+#ifdef GLK
 					result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+#else
+                    fgets(text_buffer, 1024, file);
+#endif
 					line++;
 				}
 				if (encrypted) jacl_decrypt(text_buffer);
@@ -304,7 +326,7 @@ read_gamefile()
 				if (word[1] == NULL) {
 					noproperr(line);
 					errors++;
-				} else if (legal_label_check(word[1], line, OBJ_TYPE)) {
+				} else if (legal_label_check(word[1], line, OBJ_TYPE)) {	
 					errors++;
 				} else {
 					objects++;
@@ -376,7 +398,7 @@ read_gamefile()
 							parameter_table = new_parameter;
 						} else {
 							current_parameter->next_parameter =
-							new_parameter;
+								new_parameter;
 						}
 						current_parameter = new_parameter;
 						strncpy(current_parameter->name, word[1], 40);
@@ -410,7 +432,7 @@ read_gamefile()
 					errors++;
 				} else {
 					/* CHECK IF MORE THAN ONE VALUE IS SUPPLIED AND CREATE
-					 ADDITIONAL CONSTANTS IF REQUIRED */
+					   ADDITIONAL CONSTANTS IF REQUIRED */
 					index = 2;
 
 					while (word[index] != NULL && index < MAX_WORDS) {
@@ -462,7 +484,7 @@ read_gamefile()
 					}
 
 					/* CHECK IF MORE THAN ONE VALUE IS SUPPLIED AND CREATE
-					 ADDITIONAL CONSTANTS IF REQUIRED */
+					   ADDITIONAL CONSTANTS IF REQUIRED */
 					index = 2;
 					while (word[index] != NULL && index < MAX_WORDS) {
 						if (legal_label_check(word[index], line, ATT_TYPE)) {
@@ -583,7 +605,7 @@ read_gamefile()
 					create_integer (word[1], 0);
 
 					/* CHECK IF MORE THAN ONE VALUE IS SUPPLIED AND CREATE
-					 ADDITIONAL VARIABLES IF REQUIRED */
+					   ADDITIONAL VARIABLES IF REQUIRED */
 					index = 3;
 					while (word[index] != NULL && index < MAX_WORDS) {
 						create_integer (word[1], 0);
@@ -666,7 +688,12 @@ read_gamefile()
 	}
 	if (encrypted) jacl_decrypt(text_buffer);
 
-	while (result) {
+#ifdef GLK
+	while (result)
+#else
+    while (!feof(file))
+#endif
+	{
 		encapsulate();
 		if (word[0] == NULL);
 		else if (text_buffer[0] == '{') {
@@ -721,10 +748,10 @@ read_gamefile()
 					}
 					if ((current_function->next_function =
 						 (struct function_type *)
-						 malloc(sizeof(struct function_type))) == NULL)
+						 malloc(sizeof(struct function_type))) == NULL) {
 						outofmem();
-					else {
-						// STORE THE NUMBER OF FUNCTIONS DEFINED TO
+					} else {
+						// STORE THE NUMBER OF FUNCTIONS DEFINED TO 
 						// HELP VALIDATE SAVED GAME FILES
 						functions++;
 
@@ -745,13 +772,22 @@ read_gamefile()
 				}
 			}
 
+#ifdef GLK
 			while (result) {
 				result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+#else
+            while (!feof(file)) {
+                fgets(text_buffer, 1024, file);
+#endif
 				line++;
 
 				if (!encrypted && strstr(text_buffer, "#encrypted")) {
 					encrypted = TRUE;
+#ifdef GLK
 					result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+#else
+					fgets(text_buffer, 1024, file);
+#endif
 					line++;
 				}
 				if (encrypted) jacl_decrypt(text_buffer);
@@ -808,8 +844,8 @@ read_gamefile()
 				current_integer->value = FALSE;
 			}
 
-			/* CONSUME ALL THESE KEYWORDS TO AVOID AN UNKNOWN KEYWORD
-			 * ERROR DURING THE SECOND PASS (ALL WORK DONE IN FIRST PASS) */
+		/* CONSUME ALL THESE KEYWORDS TO AVOID AN UNKNOWN KEYWORD */
+		/* ERROR DURING THE SECOND PASS (ALL WORK DONE IN FIRST PASS) */
 		} else if (!strcmp(word[0], "constant"));
 		else if (!strcmp(word[0], "string"));
 		else if (!strcmp(word[0], "attribute"));
@@ -850,7 +886,7 @@ read_gamefile()
 				location_count = object_count;
 				object[object_count]->PARENT = 0;
 				object[object_count]->attributes =
-				object[object_count]->attributes | LOCATION;
+					object[object_count]->attributes | LOCATION;
 			}
 
 
@@ -985,13 +1021,22 @@ read_gamefile()
 			errors++;
 		}
 
+#ifdef GLK
 		current_file_position = glk_stream_get_position(game_stream);
 		result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+#else
+		current_file_position = ftell(file);
+		fgets(text_buffer, 1024, file);
+#endif
 		line++;
 
 		if (!encrypted && strstr(text_buffer, "#encrypted")) {
 			encrypted = TRUE;
+#ifdef GLK
 			result = glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
+#else
+			fgets(text_buffer, 1024, file);
+#endif
 			line++;
 		}
 		if (encrypted) jacl_decrypt(text_buffer);
@@ -1013,6 +1058,11 @@ read_gamefile()
 		terminate(48);
 	}
 }
+		//Fixes a bug with Xcode indentation
+#if 0
+	}
+}
+#endif
 
 void
 build_grammar_table(struct word_type *pointer)

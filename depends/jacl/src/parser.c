@@ -46,7 +46,7 @@ int								it;
 int								them[MAX_OBJECTS];
 int								her;
 int								him;
-int								parent;
+static int						parent;
 
 int								custom_error;
 
@@ -57,7 +57,7 @@ static char						*expected_scope[3];
 
 // THIS ARRAY DEFINES THE OBJECTS THAT THE CURRENT OBJECTS ARE
 // SUPPOSED TO BE A CHILD OF
-int								from_objects[MAX_OBJECTS];
+static int						from_objects[MAX_OBJECTS];
 
 int								after_from;
 static const char				*from_word;
@@ -73,16 +73,19 @@ static char            			after_function[84];
 static char            			local_after_function[84];
 
 static int find_parent(int index);
-static void diagnose(void);
 static int build_object_list(struct word_type *scope_word, int noun_number);
-static void add_all(struct word_type *scope_word, int noun_number);
+static void call_functions(const char *base_name);
 static void add_to_list(int noun_number, int resolved_object);
-static void call_functions(char *base_name);
-static int verify_from_object(int from_object);
-static int is_child_of_from(int child);
-static int get_from_object(struct word_type *scope_word, int noun_number);
 static int noun_resolve(struct word_type *scope_word, int finding_from, int noun_number);
-static int first_available(int list_number);
+static int get_from_object(struct word_type *scope_word, int noun_number);
+static int is_direct_child_of_from(int child);
+static int is_child_of_from(int child);
+static int verify_from_object(int from_object);
+static void add_all(struct word_type *scope_word, int noun_number);
+static struct word_type *exact_match(struct word_type *pointer);
+static struct word_type *object_match(struct word_type *iterator, int noun_number);
+static void set_them(int noun_number);
+static void diagnose(void);
 
 void
 parser()
@@ -356,7 +359,7 @@ first_available(int list_number)
 }
 
 void
-call_functions(char *base_name)
+call_functions(const char *base_name)
 {
 	/* THIS FUNCTION CALLS ALL THE APPROPRIATE JACL FUNCTIONS TO RESPOND
 	 * TO A PLAYER'S COMMAND GIVEN A BASE FUNCTION NAME AND THE CURRENT
@@ -597,7 +600,7 @@ exact_match(struct word_type *pointer)
 	return (NULL);
 }
 
-static int
+int
 is_terminator(struct word_type *scope_word)
 {
 	struct word_type *terminator = scope_word->first_child;
@@ -1512,7 +1515,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 
 			if (finding_from) {
 				if (strcmp(scope_word->word, "*anywhere") && strcmp(scope_word->word, "**anywhere")) {
-					if (scope(index, "*present", FALSE) == FALSE) {
+					if (scope(index, "*present", TRUE) == FALSE) {
 						matches--;
 						confidence[index] = FALSE;
 						continue;
@@ -1872,7 +1875,10 @@ find_parent(int index)
 }
 
 int
-parent_of(int parent, int child, int restricted)
+parent_of(parent, child, restricted)
+	 int             parent,
+	                 child,
+					 restricted;
 {
 	/* THIS FUNCTION WILL CLIMB THE OBJECT TREE STARTING AT 'CHILD' UNTIL
 	 * 'PARENT' IS REACHED (RETURN TRUE), OR THE TOP OF THE TREE OR A CLOSED

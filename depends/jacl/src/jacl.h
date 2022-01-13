@@ -94,6 +94,7 @@ extern char		include_directory[];
 extern char		temp_directory[];
 extern char		data_directory[];
 extern int		noun[];
+extern char		last_command[];
 
 extern struct object_type		*object[];
 extern struct integer_type		*integer_table;

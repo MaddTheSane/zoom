@@ -25,10 +25,7 @@ extern short int	release;
 glkunix_startup_t *arguments;
 
 /* THE STREAM FOR OPENING UP THE ARCHIVE CONTAINING GRAPHICS AND SOUND */
-//strid_t				blorb_stream;
-
-/* PROTOTYPE FOR NEEDED UTILITY FUNCTION */
-//void create_paths(char *full_path);
+strid_t				blorb_stream;
 
 glkunix_argumentlist_t glkunix_arguments[] = {
     {"", glkunix_arg_ValueFollows, "filename: The game file to load." },

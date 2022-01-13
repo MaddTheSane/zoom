@@ -42,7 +42,7 @@ static short int	do_encrypt = TRUE;
  * HAVE EACH LINE ENCRYPTED AS THE FIRST NONE COMMENT LINE HAS BEEN HIT */
 static short int	encrypting = FALSE;
 
-static int process_file(char *sourceFile1, char *sourceFile2);
+static int process_file(const char *sourceFile1, const char *sourceFile2);
 
 int
 jpp()
@@ -117,7 +117,7 @@ jpp()
 }
 
 int
-process_file(char *sourceFile1, char *sourceFile2)
+process_file(const char *sourceFile1, const char *sourceFile2)
 {
 	char            temp_buffer1[1025];
 	char            temp_buffer2[1025];

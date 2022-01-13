@@ -8,7 +8,6 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
-#include "parser.h"
 
 static void write_integer(strid_t stream, int x);
 static void write_long(strid_t stream, long x);

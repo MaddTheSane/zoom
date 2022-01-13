@@ -10,6 +10,9 @@
 #include "prototypes.h"
 #include <string.h>
 
+
+static int jacl_whitespace(int character);
+
 void
 eachturn()
 {
@@ -68,7 +71,7 @@ strip_return (char *string)
 		}
 	}
 
-	return (char *) string;
+	return string;
 }
 
 int

@@ -25,7 +25,7 @@ notintrun()
 }
 
 void
-unkfunrun(char *name)
+unkfunrun(const char *name)
 {
 	sprintf(error_buffer, UNKNOWN_FUNCTION_RUN, name);
 	log_error(error_buffer, PLUS_STDOUT);

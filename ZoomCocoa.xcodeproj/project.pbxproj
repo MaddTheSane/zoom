@@ -1467,7 +1467,6 @@
 		55BC12842786D53000369EBE /* loader.c */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = loader.c; sourceTree = "<group>"; tabWidth = 4; };
 		55BC12852786D53000369EBE /* csv.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = csv.h; sourceTree = "<group>"; usesTabs = 0; };
 		55BC12872786D53000369EBE /* findroute.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = findroute.c; sourceTree = "<group>"; };
-		55BC12882786D53000369EBE /* saver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = saver.c; sourceTree = "<group>"; };
 		55BC12892786D53000369EBE /* bjorb.licence */ = {isa = PBXFileReference; explicitFileType = text; path = bjorb.licence; sourceTree = "<group>"; };
 		55BC128A2786D53000369EBE /* display.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = display.c; sourceTree = "<group>"; };
 		55BC12952786D53000369EBE /* Makefile.Microsoft */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile.Microsoft; sourceTree = "<group>"; };
@@ -2558,7 +2557,6 @@
 				55BC13132786D53000369EBE /* prototypes.h */,
 				55BC13112786D53000369EBE /* README */,
 				55BC13102786D53000369EBE /* resolvers.c */,
-				55BC12882786D53000369EBE /* saver.c */,
 				55BC12AB2786D53000369EBE /* types.h */,
 				55BC13162786D53000369EBE /* utils.c */,
 				55BC12962786D53000369EBE /* version.h */,

@@ -1,9 +1,9 @@
-//
-//  parser.h
-//  ZoomCocoa
-//
-//  Created by C.W. Betts on 1/7/22.
-//
+/* parser.h --- Parsing of player's commands
+ * Created by C.W. Betts on 1/7/22.
+ * (C) 2022 Stuart Allen, distribute and use
+ * according to GNU GPL, see file COPYING for details.
+ */
+
 
 #ifndef parser_h
 #define parser_h

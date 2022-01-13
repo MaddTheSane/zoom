@@ -44,7 +44,7 @@
 
 glui32 				status_width, status_height;
 
-schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL,
+schanid_t 			sound_channel[8] = { NULL, NULL, NULL, NULL, 
 										 NULL, NULL, NULL, NULL };
 
 static event_t		*cancelled_event;
@@ -65,7 +65,6 @@ char            walkthru[PATH_MAX] = "";
 
 char            function_name[81];
 
-//char            default_function[81];
 char            override[81];
 
 char            temp_buffer[1024];
@@ -85,6 +84,7 @@ static char		command_buffer[1024];
 #ifndef NOUNICODE
 static glui32	command_buffer_uni[1024];
 #endif
+char			players_command[1024];
 
 int				walkthru_running = FALSE;
 
@@ -97,7 +97,7 @@ int             objects, integers, functions, strings;
 strid_t         game_stream = NULL;
 
 /* THE STREAM FOR OPENING UP THE ARCHIVE CONTAINING GRAPHICS AND SOUND */
-strid_t			blorb_stream;
+extern strid_t	blorb_stream;
 
 /* A FILE REFERENCE FOR THE TRANSCRIPT FILE. */
 static frefid_t script_fref = NULL;
@@ -117,7 +117,7 @@ int            *object_element_address,
 
 short int       spaced = TRUE;
 
-static int       delay = 0;
+static int      delay = 0;
 
 /* START OF GLK STUFF */
 
@@ -157,16 +157,13 @@ struct word_type *grammar_table = NULL;
 struct synonym_type *synonym_table = NULL;
 struct filter_type *filter_table = NULL;
 
-#ifdef GLK
-static void convert_to_utf8(glui32 *text, int len);
-static int convert_to_utf32 (unsigned char *text);
-static glui32 parse_utf8(unsigned char *buf, glui32 buflen, glui32 *out, glui32 outlen);
-#endif
-
 static void version_info(void);
 static void jacl_set_window(winid_t new_window);
 static void walking_thru(void);
 static void scripting(void);
+static void save_game_state(void);
+static void restore_game_state(void);
+static void word_check(void);
 #ifdef READLINE
 static char* object_generator(const char* text, int state);
 static char* verb_generator(const char* text, int state);
@@ -1419,7 +1416,7 @@ object_generator(const char* text, int state)
 }
 
 char *
-verb_generator(const char* text, int state)
+verb_generator(char* text, int state)
 {
     static int len;
     static struct command_type* now;

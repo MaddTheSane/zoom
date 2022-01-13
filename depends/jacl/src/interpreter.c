@@ -7,10 +7,11 @@
 #include "language.h"
 #include "types.h"
 #include "prototypes.h"
+#include "csv.h"
+#include <errno.h>
 #include "interpreter.h"
 #include "parser.h"
 #include "encapsulate.h"
-#include <errno.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -59,6 +60,10 @@ char *strcasestr(const char *s, const char *find)
 	}
 	return ((char *)s);
 }
+#endif
+
+#ifdef __NDS__
+extern void jflush(void);
 #endif
 
 #define MAX_TRY 10 
@@ -120,7 +125,7 @@ static struct cinteger_type *new_cinteger = NULL;
 struct cinteger_type *current_cinteger = NULL;
 static struct cinteger_type *previous_cinteger = NULL;
 
-static long						bit_mask;
+static unsigned int				bit_mask;
 extern int 						encrypted;
 
 extern char						rpc_function_name[];
@@ -182,22 +187,18 @@ static char						scope_criterion[24];
 static const char				*output;
 
 static int exit_function(int return_code);
+static int select_next(void);
+static void new_position(double x1, double y1, double bearing, double velocity);
 static void pop_proxy(void);
 static void push_proxy(void);
 static void pop_stack(void);
-static void push_stack(glsi32 file_pointer);
-static int select_next(void);
+static int condition(void);
+static int and_condition(void);
+static int and_strcondition(void);
 static int bearing(double x1, double y1, double x2, double y2);
 static int distance(double x1, double y1, double x2, double y2);
-static void new_position(double x1, double y1, double bearing, double velocity);
-static int grand_of(int child, int objs_only);
-static void set_arguments(char *function_call);
-static void inspect(int object_num);
 static int strcondition(void);
-static int logic_test(int first);
-static int str_test(int first);
-static int and_strcondition(void);
-static int and_condition(void);
+static void set_arguments(const char *function_call);
 
 void
 terminate(int code)
@@ -1157,7 +1158,7 @@ execute(const char *funcname)
 			} else if (!strcmp(word[0], "cursor")) {
 				if (word[2] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return(exit_function (TRUE));
 				} else {
 					printf("\x1b[%d;%dH", (int) value_of(word[1], TRUE), (int) value_of(word[2], TRUE));
@@ -1170,7 +1171,7 @@ execute(const char *funcname)
 			} else if (!strcmp(word[0], "askstring") || !strcmp(word[0], "getstring")) {
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else {
 					/* GET A POINTER TO THE STRING BEING MODIFIED */
@@ -1298,7 +1299,7 @@ execute(const char *funcname)
 					pop_stack();
 					return (TRUE);
 				} else {
-					index = value_of(word[1]);
+					index = value_of(word[1], 0);
 					if (word[2] != NULL) {
 						sprintf(option_buffer, "<option value=\"%d\">",
 								index);
@@ -1372,7 +1373,7 @@ execute(const char *funcname)
 					pop_stack();
 					return (TRUE);
 				} else {
-					char * encoded;
+					const char * encoded;
 
 					if (!strcmp(word[0], "hyperlink")) {
 						encoded = url_encode(text_of_word(2));
@@ -1485,7 +1486,7 @@ execute(const char *funcname)
 			} else if (!strcmp(word[0], "image")) {
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else {
 					if (word[2] == NULL) {
@@ -1499,7 +1500,7 @@ execute(const char *funcname)
 			} else if (!strcmp(word[0], "sound")) {
 				if (word[2] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
-					noproprun(0);
+					noproprun();
 					return (exit_function(TRUE));
 				} else {
 					write_text("<audio autoplay=~autoplay~>");
@@ -2544,7 +2545,7 @@ bearing(double x1, double y1, double x2, double y2)
 }
 
 void
-set_arguments(char *function_call)
+set_arguments(const char *function_call)
 {
 	/* THIS FUNCTION CREATES AN ARRAY OF JACL INTEGER CONSTANTS TO
 	   REPRESENT THE ARGUMENTS PASSED TO A JACL FUNCTION */
@@ -2716,8 +2717,13 @@ pop_stack()
 
 }
 
+#ifdef GLK
 void
 push_stack(glsi32 file_pointer)
+#else
+void
+push_stack(long file_pointer)
+#endif
 {
 	/* COPY ALL THE CURRENT SYSTEM DATA ONTO THE STACK */
 	int index;
