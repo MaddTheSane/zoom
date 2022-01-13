@@ -52,8 +52,9 @@ save_game(frefid_t saveref)
     }
 
 	for (index = 1; index <= objects; index++) {
-		if (object[index]->nosave)
+		if (object[index]->nosave) {
 			continue;
+		}
 		
 		for (counter = 0; counter < 16; counter++) {
 			write_integer (bookmark, object[index]->integer[counter]);

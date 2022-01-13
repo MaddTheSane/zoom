@@ -208,29 +208,29 @@ terminate(int code)
 
 #ifdef GLK
 	int index;
-    event_t			event;
+	event_t			event;
 
 	// FLUSH THE GLK WINDOW SO THE ERROR GETS DISPLAYED IMMEDIATELY.
-    glk_select_poll(&event);
+	glk_select_poll(&event);
 
 	/* CLOSE THE SOUND CHANNELS */
 	for (index = 0; index < 8; index++) {
 		if (sound_channel[index] != NULL) {
 			glk_schannel_destroy(sound_channel[index]);
 		}
-	}	
+	}
 
-    /* CLOSE THE STREAM */
+	/* CLOSE THE STREAM */
 	if (game_stream != NULL) {
-    	glk_stream_close(game_stream, NULL);
+		glk_stream_close(game_stream, NULL);
 	}
 	
-    glk_exit();
+	glk_exit();
 #else
-    if (file != NULL)           /* CLOSE THE GAME FILE */
-        fclose(file);
-
-    exit(code);
+	if (file != NULL)           /* CLOSE THE GAME FILE */
+		fclose(file);
+	
+	exit(code);
 #endif
 }
 
@@ -381,7 +381,7 @@ execute(const char *funcname)
 		else if (!strcmp(word[0], "endwhile")) {
 			current_level--;
 			if (current_level < execution_level) {
-				// THIS ENDWHILE COMMAND WAS BEING EXECUTED, 
+				// THIS ENDWHILE COMMAND WAS BEING EXECUTED,
 				// NOT JUST COUNTED.
 				if (top_of_while == FALSE) {
 					sprintf(error_buffer, NO_WHILE, executing_function->name);
@@ -390,7 +390,7 @@ execute(const char *funcname)
 #ifdef GLK
 					glk_stream_set_position(game_stream, top_of_while, seekmode_Start);
 #else
-                    fseek(file, top_of_while, SEEK_SET);
+					fseek(file, top_of_while, SEEK_SET);
 #endif
 					execution_level = current_level;
 				}
@@ -398,7 +398,7 @@ execute(const char *funcname)
 		} else if (!strcmp(word[0], "enditerate")) {
 			current_level--;
 			if (current_level < execution_level) {
-				// THIS ENDITERATE COMMAND WAS BEING EXECUTED, 
+				// THIS ENDITERATE COMMAND WAS BEING EXECUTED,
 				// NOT JUST COUNTED.
 				if (top_of_iterate == FALSE) {
 					sprintf(error_buffer, NO_ITERATE, executing_function->name);
@@ -407,7 +407,7 @@ execute(const char *funcname)
 #ifdef GLK
 					glk_stream_set_position(game_stream, top_of_iterate, seekmode_Start);
 #else
-                    fseek(file, top_of_iterate, SEEK_SET);
+					fseek(file, top_of_iterate, SEEK_SET);
 #endif
 					execution_level = current_level;
 				}
@@ -415,7 +415,7 @@ execute(const char *funcname)
 		} else if (!strcmp(word[0], "endupdate")) {
 			current_level--;
 			if (current_level < execution_level) {
-				// THIS ENDUPDATE COMMAND WAS BEING EXECUTED, 
+				// THIS ENDUPDATE COMMAND WAS BEING EXECUTED,
 				// NOT JUST COUNTED.
 				if (top_of_update == FALSE) {
 					sprintf(error_buffer, NO_UPDATE, executing_function->name);
@@ -424,13 +424,13 @@ execute(const char *funcname)
 #ifdef GLK
 					glk_stream_set_position(game_stream, top_of_update, seekmode_Start);
 #else
-                    fseek(file, top_of_update, SEEK_SET);
+					fseek(file, top_of_update, SEEK_SET);
 #endif
 					execution_level = current_level;
 				}
 			}
 		} else if (!strcmp(word[0], "print") && current_level != execution_level) {
-			// SKIP THIS BLOCK OF PLAIN TEXT UNTIL IT FINDS A 
+			// SKIP THIS BLOCK OF PLAIN TEXT UNTIL IT FINDS A
 			// LINE THAT STARTS WITH A '.'
 #ifdef GLK
 			glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
@@ -454,7 +454,7 @@ execute(const char *funcname)
 		} else if (!strcmp(word[0], "endif")) {
 			current_level--;
 			if (current_level < execution_level) {
-				/* THIS SHOULD NEVER HAPPEN */	
+				/* THIS SHOULD NEVER HAPPEN */
 				execution_level = current_level;
 			}
 		} else if (!strcmp(word[0], "endall")) {
@@ -475,7 +475,7 @@ execute(const char *funcname)
 #ifdef GLK
 				top_of_do_loop = glk_stream_get_position(game_stream);
 #else
-                top_of_do_loop = ftell(file);
+				top_of_do_loop = ftell(file);
 #endif
 			} else if (!strcmp(word[0], "until")) {
 				if (word[3] == NULL) {
@@ -490,7 +490,7 @@ execute(const char *funcname)
 #ifdef GLK
 						glk_stream_set_position(game_stream, top_of_do_loop, seekmode_Start);
 #else
-                        fseek(file, top_of_do_loop, SEEK_SET);
+						fseek(file, top_of_do_loop, SEEK_SET);
 #endif
 					}
 				}
@@ -520,11 +520,11 @@ execute(const char *funcname)
 
 				current_level++;
 				/* THIS LOOP COMES BACK TO THE START OF THE LINE CURRENTLY
-				   EXECUTING, NOT THE LINE AFTER */
+				 EXECUTING, NOT THE LINE AFTER */
 
 				top_of_iterate = before_command;
 
-				// infile REMAINS OPEN DURING THE ITERATION, ONLY NEEDS 
+				// infile REMAINS OPEN DURING THE ITERATION, ONLY NEEDS
 				// OPENING THE FIRST TIME
 				if (infile == NULL) {
 					strcpy (temp_buffer, data_directory);
@@ -541,9 +541,9 @@ execute(const char *funcname)
 				}
 
 				if (infile == NULL) {
-    					sprintf(error_buffer, "Failed to open file %s: %s\n", temp_buffer, strerror(errno));
+					sprintf(error_buffer, "Failed to open file %s: %s\n", temp_buffer, strerror(errno));
 					log_error(error_buffer, LOG_ONLY);
-  				} else {
+				} else {
 					if (word[1] == NULL) {
 						/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
 						noproprun();
@@ -552,16 +552,16 @@ execute(const char *funcname)
 						// IF THERE IS ANOTHER RECORD TO READ FROM THE CSV FILE THEN
 						// SET THE field[] CONSTANTS AND INCREMENT THE execution_level
 						fgets(csv_buffer, 2048, infile);
-            			if (!feof(infile)) {
-  							i = strlen(csv_buffer);
+						if (!feof(infile)) {
+							i = strlen(csv_buffer);
 							//sprintf (temp_buffer, "Read ~%s~ with %d bytes.^", csv_buffer, i);
 							//write_text(temp_buffer);
-    						if (csv_parse(&parser_csv, csv_buffer, i, cb1, cb2, (void *) NULL) != i) {
-      							sprintf(error_buffer, "Error parsing file: %s\n", csv_strerror(csv_error(&parser_csv)));
+							if (csv_parse(&parser_csv, csv_buffer, i, cb1, cb2, (void *) NULL) != i) {
+								sprintf(error_buffer, "Error parsing file: %s\n", csv_strerror(csv_error(&parser_csv)));
 								log_error(error_buffer, PLUS_STDOUT);
-      							fclose(infile);
-      							infile = NULL;
-    						} else {
+								fclose(infile);
+								infile = NULL;
+							} else {
 								// A LINE HAS BEEN SUCCESSFULLY READ, EXECUTE THE CONTENTS OF THE LOOP
 								execution_level++;
 							}
@@ -573,18 +573,18 @@ execute(const char *funcname)
 				}
 			} else if (!strcmp(word[0], "update")) {
 				int i;
-				int try = 0; 
+				int try = 0;
 
 				// SET UP THE RECORD LOCKING STRUCTURE, THE ADDRESS OF WHICH
 				// IS PASSED TO THE fcntl() SYSTEM CALL
 				write_lck.l_type = F_WRLCK;	// SETTING A WRITE LOCK
 				write_lck.l_whence = 0;		// OFFSET l_start FROM BEGINNING OF FILE
-				write_lck.l_start = 0LL; 
+				write_lck.l_start = 0LL;
 				write_lck.l_len = 0LL;		// UNTIL THE END OF THE FILE ADDRESS SPACE
 
 				read_lck.l_type = F_RDLCK;	// SETTING A READ LOCK
 				read_lck.l_whence = 0;		// OFFSET l_start FROM BEGINNING OF FILE
-				read_lck.l_start = 0LL; 
+				read_lck.l_start = 0LL;
 				read_lck.l_len = 0LL;		// UNTIL THE END OF THE FILE ADDRESS SPACE
 
 				// A NEW iterate LOOP MEANS STARTING BACK AT THE FIRST FIELD
@@ -592,11 +592,11 @@ execute(const char *funcname)
 
 				current_level++;
 				// THIS LOOP COMES BACK TO THE START OF THE LINE CURRENTLY
-				// EXECUTING, NOT THE LINE AFTER 
+				// EXECUTING, NOT THE LINE AFTER
 
 				top_of_update = before_command;
 
-				// infile REMAINS OPEN DURING THE ITERATION, ONLY NEEDS 
+				// infile REMAINS OPEN DURING THE ITERATION, ONLY NEEDS
 				// OPENING THE FIRST TIME
 				if (infile == NULL) {
 					strcpy (in_name, data_directory);
@@ -622,56 +622,56 @@ execute(const char *funcname)
 				}
 
 				if (infile == NULL) {
-    				sprintf(error_buffer, "Failed to open input CSV file ~%s~: %s\n", in_name, strerror(errno));
+					sprintf(error_buffer, "Failed to open input CSV file ~%s~: %s\n", in_name, strerror(errno));
 					log_error(error_buffer, LOG_ONLY);
 					if (outfile != NULL) {
 						fclose(outfile);
 						outfile = NULL;
 					}
 					return(exit_function (TRUE));
-  				} else {
+				} else {
 					if (outfile == NULL) {
-    					sprintf(error_buffer, "Failed to open output CSV file ~%s~: %s\n", out_name, strerror(errno));
+						sprintf(error_buffer, "Failed to open output CSV file ~%s~: %s\n", out_name, strerror(errno));
 						log_error(error_buffer, LOG_ONLY);
 						if (infile != NULL) {
-	    					fclose(infile);
+							fclose(infile);
 							infile = NULL;
 						}
 						return(exit_function (TRUE));
 					} else {
 						write_fd = fileno(outfile);
-						// ATTEMPT LOCKING OUTPUT FILE MAX_TRY TIMES BEFORE GIVING UP. 
-  						while (fcntl(write_fd, F_SETLK, &write_lck)<0) {  
-     						if (errno == EAGAIN || errno == EACCES) { 
-         						// THERE MIGHT BE OTHER ERROR CASES IN WHICH 
-          						// USERS MIGHT TRY AGAIN 
-          						if (++try < MAX_TRY) { 
-               						jacl_sleep(1000); 
-               						continue; 
-          						} 
-         						sprintf(error_buffer, "File busy unable to get lock on output file.\n"); 
+						// ATTEMPT LOCKING OUTPUT FILE MAX_TRY TIMES BEFORE GIVING UP.
+						while (fcntl(write_fd, F_SETLK, &write_lck)<0) {
+							if (errno == EAGAIN || errno == EACCES) {
+								// THERE MIGHT BE OTHER ERROR CASES IN WHICH
+								// USERS MIGHT TRY AGAIN
+								if (++try < MAX_TRY) {
+									jacl_sleep(1000);
+									continue;
+								}
+								sprintf(error_buffer, "File busy unable to get lock on output file.\n");
 								log_error(error_buffer, PLUS_STDOUT);
 								return(exit_function (TRUE));
-      						} 
-  						} 
+							}
+						}
 
 						try = 0;
 
 						read_fd = fileno(infile);
-						// ATTEMPT LOCKING OUTPUT FILE MAX_TRY TIMES BEFORE GIVING UP. 
-  						while (fcntl(read_fd, F_SETLK, &read_lck)<0) {  
-     						if (errno == EAGAIN || errno == EACCES) { 
-         						// THERE MIGHT BE OTHER ERROR CASES IN WHICH 
-          						// USERS MIGHT TRY AGAIN 
-          						if (++try < MAX_TRY) { 
-               						jacl_sleep(1000); 
-               						continue; 
-          						} 
-         						sprintf(error_buffer, "File busy unable to get lock on input file.\n"); 
+						// ATTEMPT LOCKING OUTPUT FILE MAX_TRY TIMES BEFORE GIVING UP.
+						while (fcntl(read_fd, F_SETLK, &read_lck)<0) {
+							if (errno == EAGAIN || errno == EACCES) {
+								// THERE MIGHT BE OTHER ERROR CASES IN WHICH
+								// USERS MIGHT TRY AGAIN
+								if (++try < MAX_TRY) {
+									jacl_sleep(1000);
+									continue;
+								}
+								sprintf(error_buffer, "File busy unable to get lock on input file.\n");
 								log_error(error_buffer, PLUS_STDOUT);
 								return(exit_function (TRUE));
-      						} 
-  						} 
+							}
+						}
 
 						if (word[1] == NULL) {
 							/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
@@ -681,26 +681,26 @@ execute(const char *funcname)
 							// IF THERE IS ANOTHER RECORD TO READ FROM THE CSV FILE THEN
 							// SET THE field[] CONSTANTS AND INCREMENT THE execution_level
 							fgets(csv_buffer, 2048, infile);
-	            			if (!feof(infile)) {
-	  							i = strlen(csv_buffer);
-	    						if (csv_parse(&parser_csv, csv_buffer, i, cb1, cb2, (int *) &field_no) != i) {
-	      							sprintf(error_buffer, "Error parsing file: %s\n", csv_strerror(csv_error(&parser_csv)));
+							if (!feof(infile)) {
+								i = strlen(csv_buffer);
+								if (csv_parse(&parser_csv, csv_buffer, i, cb1, cb2, (int *) &field_no) != i) {
+									sprintf(error_buffer, "Error parsing file: %s\n", csv_strerror(csv_error(&parser_csv)));
 									log_error(error_buffer, PLUS_STDOUT);
 									read_lck.l_type = F_UNLCK;	// SETTING A READ LOCK
-  									fcntl(read_fd, F_SETLK, &read_lck);
-	      							fclose(infile);
-	      							infile = NULL;
-	    						} else {
+									fcntl(read_fd, F_SETLK, &read_lck);
+									fclose(infile);
+									infile = NULL;
+								} else {
 									// A LINE HAS BEEN SUCCESSFULLY READ, EXECUTE THE CONTENTS OF THE LOOP
 									execution_level++;
 								}
 							} else {
 								write_lck.l_type = F_UNLCK;	// REMOVE THE WRITE LOCK
-  								fcntl(write_fd, F_SETLK, &write_lck);
+								fcntl(write_fd, F_SETLK, &write_lck);
 								fclose(outfile);
 
 								read_lck.l_type = F_UNLCK;	// REMOVE THE READ LOCK
-  								fcntl(read_fd, F_SETLK, &read_lck);
+								fcntl(read_fd, F_SETLK, &read_lck);
 								fclose(infile);
 
 								rename (out_name, in_name);
@@ -714,7 +714,7 @@ execute(const char *funcname)
 			} else if (!strcmp(word[0], "while")) {
 				current_level++;
 				/* THIS LOOP COMES BACK TO THE START OF THE LINE CURRENTLY
-				   EXECUTING, NOT THE LINE AFTER */
+				 * EXECUTING, NOT THE LINE AFTER */
 				top_of_while = before_command;
 				if (word[3] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
@@ -726,7 +726,7 @@ execute(const char *funcname)
 			} else if (!strcmp(word[0], "whileall")) {
 				current_level++;
 				/* THIS LOOP COMES BACK TO THE START OF THE LINE CURRENTLY
-				   EXECUTING, NOT THE LINE AFTER */
+				 * EXECUTING, NOT THE LINE AFTER */
 				top_of_while = before_command;
 				if (word[3] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
@@ -736,12 +736,12 @@ execute(const char *funcname)
 					execution_level++;
 				}
 			} else if (!strcmp(word[0], "loop")) {
-				/* THE LOOP COMMAND LOOPS ONCE FOR EACH DEFINED 
+				/* THE LOOP COMMAND LOOPS ONCE FOR EACH DEFINED
 				 * OBJECT (FOREACH) */
 #ifdef GLK
 				top_of_loop = glk_stream_get_position(game_stream);
 #else
-                top_of_loop = ftell(file);
+				top_of_loop = ftell(file);
 #endif
 				if (word[1] == NULL) {
 					// IF NONE IS SUPPLIED DEFAULT TO noun3
@@ -772,17 +772,17 @@ execute(const char *funcname)
 #ifdef GLK
 						glk_stream_set_position(game_stream, top_of_loop, seekmode_Start);
 #else
-                        fseek(file, top_of_loop, SEEK_SET);
+						fseek(file, top_of_loop, SEEK_SET);
 #endif
 					}
 				}
 			} else if (!strcmp(word[0], "select")) {
-				/* THE SELECT COMMAND LOOPS ONCE FOR EACH DEFINED 
+				/* THE SELECT COMMAND LOOPS ONCE FOR EACH DEFINED
 				 * OBJECT THAT MATCHES THE SUPPLIED CRITERION */
 #ifdef GLK
 				top_of_select = glk_stream_get_position(game_stream);
 #else
-                top_of_select = ftell(file);
+				top_of_select = ftell(file);
 #endif
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
@@ -802,8 +802,8 @@ execute(const char *funcname)
 					}
 				}
 				
-				// SET THE VALUE OF THE SELECT INDEX TO ONE BEFORE THE 
-                // FIRST OBJECT. THE NEXT FUNCTION AUTOMATICALLY INCREMENTS
+				// SET THE VALUE OF THE SELECT INDEX TO ONE BEFORE THE
+				// FIRST OBJECT. THE NEXT FUNCTION AUTOMATICALLY INCREMENTS
 				// THE INDEX BY ONE AT THE START OF THE WHILE LOOP.
 				*select_integer = 0;
 
@@ -816,10 +816,10 @@ execute(const char *funcname)
 				}
 
 				// DETERMINE THE CRITERION FOR SELETION
-			    if (!strcmp(argument_buffer, "*held")
-    						|| !strcmp(argument_buffer, "*here")
-    						|| !strcmp(argument_buffer, "*anywhere")
-    						|| !strcmp(argument_buffer, "*present")) {
+				if (!strcmp(argument_buffer, "*held")
+					|| !strcmp(argument_buffer, "*here")
+					|| !strcmp(argument_buffer, "*anywhere")
+					|| !strcmp(argument_buffer, "*present")) {
 					criterion_type = CRI_SCOPE;
 					strncpy(scope_criterion, argument_buffer, 20);
 				} else if ((criterion_value = attribute_resolve(argument_buffer))) {
@@ -834,7 +834,7 @@ execute(const char *funcname)
 						criterion_type = CRI_PARENT;
 					} else {
 						// CAN'T RESOLVE CRITERION
-						criterion_type = CRI_NONE;	
+						criterion_type = CRI_NONE;
 					}
 				}
 
@@ -855,7 +855,9 @@ execute(const char *funcname)
 					fgets(text_buffer, 1024, file);
 #endif
 
-					if (encrypted) jacl_decrypt(text_buffer);
+					if (encrypted) {
+						jacl_decrypt(text_buffer);
+					}
 
 					while (text_buffer[0] != '}') {
 						encapsulate();
@@ -878,7 +880,7 @@ execute(const char *funcname)
 #ifdef GLK
 						glk_stream_set_position(game_stream, top_of_select, seekmode_Start);
 #else
-                        fseek(file, top_of_select, SEEK_SET);
+						fseek(file, top_of_select, SEEK_SET);
 #endif
 					} else {
 						*select_integer = 0;
@@ -972,13 +974,15 @@ execute(const char *funcname)
 					} else {
 						index = value_of(word[1], TRUE);
 						/* DON'T ALLOW NEGATIVE VALUES, BUT NO UPPER LIMIT */
-						if (index < 0) index = 0;
+						if (index < 0) {
+							index = 0;
+						}
 
 						/* SET THE GLK TIMER */
 						glk_request_timer_events((glui32) index);
 
 						/* EXPOSE THE CURRENT VALUE THROUGH A JACL CONSTANT
-						   SO THAT GAME CODE CAN READ THE IT */
+						 SO THAT GAME CODE CAN READ THE IT */
 						cinteger_resolve("timer")->value = index;
 					}
 				}
@@ -1109,15 +1113,15 @@ execute(const char *funcname)
 					more (word[1]);
 				}
 			} else if (!strcmp(word[0], "style")) {
-				/* THIS COMMAND IS USED TO OUTPUT ANSI CODES OR SET GLK 
+				/* THIS COMMAND IS USED TO OUTPUT ANSI CODES OR SET GLK
 				 * STREAM STYLES */
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
 					noproprun();
 					return(exit_function (TRUE));
 				} else {
-					if (!strcmp(word[1], "bold") 
-								|| !strcmp(word[1], "emphasised")) {
+					if (!strcmp(word[1], "bold")
+						|| !strcmp(word[1], "emphasised")) {
 						glk_set_style(style_Emphasized);
 					} else if (!strcmp(word[1], "note")) {
 						glk_set_style(style_Note);
@@ -1128,18 +1132,18 @@ execute(const char *funcname)
 					} else if (!strcmp(word[1], "subheader")) {
 						glk_set_style(style_Subheader);
 					} else if (!strcmp(word[1], "reverse")
-								|| !strcmp(word[1], "inverse")) {
+							   || !strcmp(word[1], "inverse")) {
 						if (current_window == mainwin) {
 							glk_set_style(style_User2);
 						} else {
 							glk_set_style(style_User1);
 						}
-					} else if (!strcmp(word[1], "pre") 
-								|| !strcmp(word[1], "preformatted")) {
+					} else if (!strcmp(word[1], "pre")
+							   || !strcmp(word[1], "preformatted")) {
 						glk_set_style(style_Preformatted);
 					} else if (!strcmp(word[1], "normal")) {
 						glk_set_style(style_Normal);
-					} 
+					}
 				}
 			} else if (!strcmp(word[0], "flush")) {
 			} else if (!strcmp(word[0], "hyperlink")) {
@@ -1241,15 +1245,15 @@ execute(const char *funcname)
 					more (word[1]);
 				}
 			} else if (!strcmp(word[0], "style")) {
-				/* THIS COMMAND IS USED TO OUTPUT ANSI CODES OR SET GLK 
+				/* THIS COMMAND IS USED TO OUTPUT ANSI CODES OR SET GLK
 				 * STREAM STYLES */
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
 					noproprun();
 					return(exit_function (TRUE));
 				} else {
-					if (!strcmp(word[1], "bold") 
-								|| !strcmp(word[1], "emphasised")) {
+					if (!strcmp(word[1], "bold")
+						|| !strcmp(word[1], "emphasised")) {
 						printf("\x1b[37;1m"); 	// SET TO BRIGHT WHITE
 						bold_mode = TRUE;
 					} else if (!strcmp(word[1], "note")) {
@@ -1264,11 +1268,11 @@ execute(const char *funcname)
 						printf("\x1b[33;1m"); 	// SET TO BRIGHT YELLOW
 						subheader_mode = TRUE;
 					} else if (!strcmp(word[1], "reverse")
-								|| !strcmp(word[1], "inverse")) {
+							   || !strcmp(word[1], "inverse")) {
 						printf("\x1b[7m");	// SET TO DIM WHITE
 						reverse_mode = TRUE;
-					} else if (!strcmp(word[1], "pre") 
-								|| !strcmp(word[1], "preformatted")) {
+					} else if (!strcmp(word[1], "pre")
+							   || !strcmp(word[1], "preformatted")) {
 						printf("\x1b[37;0m"); 	// SET TO DIM WHITE
 						pre_mode = TRUE;
 					} else if (!strcmp(word[1], "normal")) {
@@ -1279,7 +1283,7 @@ execute(const char *funcname)
 						input_mode = FALSE;
 						subheader_mode = FALSE;
 						note_mode = FALSE;
-					} 
+					}
 				}
 			} else if (!strcmp(word[0], "hyperlink")) {
 				/* OUTPUT LINK TEXT AS PLAIN TEXT UNDER Glk */
@@ -1291,7 +1295,7 @@ execute(const char *funcname)
 					write_text(text_of_word(1));
 				}
 #else
-/* HERE STARTS THE CGIJACL-ONLY FUNCTIONS */
+				/* HERE STARTS THE CGIJACL-ONLY FUNCTIONS */
 			} else if (!strcmp(word[0], "option")) {
 				/* USED TO ADD AN OPTION TO AN HTML LIST */
 				if (word[1] == NULL) {
@@ -1402,7 +1406,7 @@ execute(const char *funcname)
 					}
 
 					if (!strcmp(word[0], "hyperlink")) {
-                    		free (encoded); 
+						free (encoded);
 					}
 
 					write_text(string_buffer);
@@ -1419,15 +1423,15 @@ execute(const char *funcname)
 				sprintf(temp_buffer, "<input type=hidden name=\"user_id\" value=\"%s\">", user_id);
 				write_text(temp_buffer);
 			} else if (!strcmp(word[0], "style")) {
-				/* THIS COMMAND IS USED TO OUTPUT ANSI CODES OR SET GLK 
+				/* THIS COMMAND IS USED TO OUTPUT ANSI CODES OR SET GLK
 				 * STREAM STYLES */
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
 					noproprun();
 					return(exit_function (TRUE));
 				} else {
-					if (!strcmp(word[1], "bold") 
-								|| !strcmp(word[1], "emphasised")) {
+					if (!strcmp(word[1], "bold")
+						|| !strcmp(word[1], "emphasised")) {
 						write_text("<b>");
 						style_stack[style_index++] = BOLD;
 					} else if (!strcmp(word[1], "note")) {
@@ -1443,11 +1447,11 @@ execute(const char *funcname)
 						write_text("<h2>");
 						style_stack[style_index++] = SUBHEADER;
 					} else if (!strcmp(word[1], "reverse")
-								|| !strcmp(word[1], "inverse")) {
+							   || !strcmp(word[1], "inverse")) {
 						write_text("<b>");
 						style_stack[style_index++] = REVERSE;
-					} else if (!strcmp(word[1], "pre") 
-								|| !strcmp(word[1], "preformatted")) {
+					} else if (!strcmp(word[1], "pre")
+							   || !strcmp(word[1], "preformatted")) {
 						write_text("<pre>");
 						style_stack[style_index++] = PRE;
 					} else if (!strcmp(word[1], "normal")) {
@@ -1476,12 +1480,12 @@ execute(const char *funcname)
 									write_text("</pre>");
 									break;
 							}
-						} 
+						}
 						style_index = 0;
-					} 
+					}
 				}
-			/* THESE FINAL COMMANDS HAVE NO EFFECT UNDER CGIJACL 
-			   AND THERE IS NO HARM IN IGNORING THEM */
+				/* THESE FINAL COMMANDS HAVE NO EFFECT UNDER CGIJACL
+				 AND THERE IS NO HARM IN IGNORING THEM */
 			} else if (!strcmp(word[0], "flush")) {
 			} else if (!strcmp(word[0], "image")) {
 				if (word[1] == NULL) {
@@ -1528,7 +1532,7 @@ execute(const char *funcname)
 #ifdef GLK
 				push_stack(glk_stream_get_position(game_stream));
 #else
-                push_stack(ftell(file));
+				push_stack(ftell(file));
 #endif
 				push_proxy();
 
@@ -1548,9 +1552,9 @@ execute(const char *funcname)
 
 				pop_stack();
 			} else if (!strcmp(word[0], "override")) {
-				/* TELLS THE INTERPRETER TO LOOK FOR AN _override FUNCTION 
-				 * TO EXECUTE IN PLACE OF ANY CODE THAT FOLLOWS THIS LINE. 
-				 * THIS COMMAND IS USED EXCLUSIVELY IN GLOBAL FUNCTIONS 
+				/* TELLS THE INTERPRETER TO LOOK FOR AN _override FUNCTION
+				 * TO EXECUTE IN PLACE OF ANY CODE THAT FOLLOWS THIS LINE.
+				 * THIS COMMAND IS USED EXCLUSIVELY IN GLOBAL FUNCTIONS
 				 * ASSOCIATED WITH GRAMMAR LINES */
 				if (execute(override) == TRUE) {
 					return(exit_function (TRUE));
@@ -1577,7 +1581,7 @@ execute(const char *funcname)
 						char * argstart;
 
 						/* REMOVE ANY PARAMETERS FROM FUNCTION NAME
-						   BEFORE DISPLAYING ERROR MESSAGE */
+						 * BEFORE DISPLAYING ERROR MESSAGE */
 						argstart = strchr(string_buffer, '<');
 						if (argstart != NULL)
 							*argstart = 0;
@@ -1634,7 +1638,7 @@ execute(const char *funcname)
 					tempfile = fopen(temp_buffer, "r");
 
 					if (tempfile == NULL) {
-    						sprintf(error_buffer, "Failed to open output file %s: %s\n", temp_buffer, strerror(errno));
+						sprintf(error_buffer, "Failed to open output file %s: %s\n", temp_buffer, strerror(errno));
 					} else {
 						fgets(temp_buffer, 160, tempfile);
 
@@ -1654,15 +1658,15 @@ execute(const char *funcname)
 			} else if (!strcmp(word[0], "print")) {
 				int non_space = FALSE;
 
-				// DISPLAYS A BLOCK OF PLAIN TEXT UNTIL IT FINDS A 
+				// DISPLAYS A BLOCK OF PLAIN TEXT UNTIL IT FINDS A
 				// LINE THAT STARTS WITH A '.'
 #ifdef GLK
 				glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
-                fgets(text_buffer, 1024, file);
+				fgets(text_buffer, 1024, file);
 #endif
 
-				if (encrypted) jacl_decrypt(text_buffer);
+				if (encrypted) { jacl_decrypt(text_buffer); }
 
 				while (text_buffer[0] != '.') {
 					index = 0;
@@ -1671,7 +1675,7 @@ execute(const char *funcname)
 					/* REMOVE ANY NEWLINE CHARACTERS */
 					while (text_buffer[index] != 0) {
 						if (text_buffer[index] == '|' && non_space == FALSE) {
-							/* THE BAR CHARACTER IS CHANGED TO A SPACE TO 
+							/* THE BAR CHARACTER IS CHANGED TO A SPACE TO
 							 * ALLOW INDENTING OF NEW PARAGRAPHS ETC */
 							text_buffer[index] = ' ';
 						} else if (text_buffer[index] == '\r') {
@@ -1691,12 +1695,12 @@ execute(const char *funcname)
 					}
 
 					if (text_buffer[0] != 0) {
-						// CHECK IF THERE IS THE NEED TO ADD AN 
+						// CHECK IF THERE IS THE NEED TO ADD AN
 						// IMPLICIT SPACE
 						index = strlen(text_buffer);
 	
-						if (text_buffer[index - 1] == '\\') {	
-							// A BACKSLASH IS USED TO INDICATE AN IMPLICIT 
+						if (text_buffer[index - 1] == '\\') {
+							// A BACKSLASH IS USED TO INDICATE AN IMPLICIT
 							// SPACE SHOULD NOT BE PRINTED
 							text_buffer[index - 1] = 0;
 						} else if (text_buffer[index - 1] != '^') {
@@ -1713,7 +1717,7 @@ execute(const char *funcname)
 #ifdef GLK
 					glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
-                    fgets(text_buffer, 1024, file);
+					fgets(text_buffer, 1024, file);
 #endif
 
 					if (encrypted) jacl_decrypt(text_buffer);
@@ -1736,7 +1740,7 @@ execute(const char *funcname)
 				}
 			} else if (!strcmp(word[0], "write")) {
 				for (counter = 1; word[counter] != NULL && counter < MAX_WORDS; counter++) {
-					output = text_of_word(counter);			
+					output = text_of_word(counter);
 					if (*output != 0) {
 						// IF THE OUTPUT ISN'T AN EMPTY STRING, DISPLAY IT
 						write_text(output);
@@ -1753,7 +1757,7 @@ execute(const char *funcname)
 						return(exit_function (TRUE));
 					}
 					
-					*container = strlen(text_of(word[2]));	
+					*container = strlen(text_of(word[2]));
 				}
 			} else if (!strcmp(word[0], "savegame")) {
 				if (word[1] == NULL) {
@@ -1771,7 +1775,7 @@ execute(const char *funcname)
 							*container = save_interaction(arg_text_of_word(2));
 						}
 					}
-				} 
+				}
 			} else if (!strcmp(word[0], "restoregame")) {
 				if (word[1] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
@@ -1788,7 +1792,7 @@ execute(const char *funcname)
 							*container = restore_interaction(arg_text_of_word(2));
 						}
 					}
-				} 
+				}
 			} else if (!strcmp(word[0], "restartgame")) {
 				restart_game();
 				execute ("+intro");
@@ -1810,7 +1814,7 @@ execute(const char *funcname)
 				int *split_container;
 				char split_buffer[1024] = "";
 				char container_buffer[1024] = "";
-				char delimiter[1024] = ""; 
+				char delimiter[1024] = "";
 				char *match = NULL;
 				struct string_type *resolved_splitstring = NULL;
 
@@ -1831,9 +1835,9 @@ execute(const char *funcname)
 						return (exit_function(TRUE));
 					} else {
 						*split_container = 0;
-						match = source;		// THERE IS ALWAYS ONE MATCH, EVEN IF
-											// NO DELIMETERS ARE FOUND
-
+						match = source;		/* THERE IS ALWAYS ONE MATCH, EVEN IF
+											 * NO DELIMETERS ARE FOUND */
+						
 						while ((match = strstr(source, delimiter))) {
 							*match = 0;
 							strcpy(container_buffer, var_text_of_word(4));
@@ -1867,7 +1871,7 @@ execute(const char *funcname)
 					}
 				}
 			} else if (!strcmp(word[0], "setstring") ||
-						!strcmp(word[0], "addstring")) {
+					   !strcmp(word[0], "addstring")) {
 				char setstring_buffer[2048] = "";
 				struct string_type *resolved_setstring = NULL;
 
@@ -1914,10 +1918,10 @@ execute(const char *funcname)
 						return (exit_function(TRUE));
 					}
 
-					index = value_of(word[3], TRUE);	
+					index = value_of(word[3], TRUE);
 
 					for (counter = 0; counter < index; counter++) {
-					     strcat(setstring_buffer, text_of_word(2));
+						strcat(setstring_buffer, text_of_word(2));
 					}
 
 					/* setstring_buffer IS NOW FILLED, COPY THE UP TO 1023 BYTES OF
@@ -2028,7 +2032,7 @@ execute(const char *funcname)
 				}
 			} else if (!strcmp(word[0], "dir_to") ||
 					   !strcmp(word[0], "npc_to")) {
-				/* CALCULATE THE FIRST DIRECTION TO TRAVEL IN GET TO 
+				/* CALCULATE THE FIRST DIRECTION TO TRAVEL IN GET TO
 				 * A SPECIFIED LOCATION */
 				if (word[3] == NULL) {
 					/* NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND */
@@ -2098,7 +2102,7 @@ execute(const char *funcname)
 							} else if (!strcmp(word[mark], "grandof")) {
 								*container = grand_of(counter, TRUE);
 							} else if (word[mark][0] == '=') {
-								*container = counter; 
+								*container = counter;
 							} else {
 								sprintf(error_buffer, ILLEGAL_OPERATOR,
 										executing_function->name,
@@ -2125,11 +2129,11 @@ execute(const char *funcname)
 						} else {
 							if (!strcmp(word[2], "has")) {
 								object[index]->attributes =
-									object[index]->attributes | bit_mask;
+								object[index]->attributes | bit_mask;
 							} else if (!strcmp(word[2], "hasnt")) {
 								bit_mask = ~bit_mask;
 								object[index]->attributes =
-									object[index]->attributes & bit_mask;
+								object[index]->attributes & bit_mask;
 							}
 						}
 					} else if ((bit_mask = user_attribute_resolve(arg_text_of(word[3])))) {
@@ -2140,11 +2144,11 @@ execute(const char *funcname)
 						} else {
 							if (!strcmp(word[2], "has")) {
 								object[index]->user_attributes =
-									object[index]->user_attributes | bit_mask;
+								object[index]->user_attributes | bit_mask;
 							} else if (!strcmp(word[2], "hasnt")) {
 								bit_mask = ~bit_mask;
 								object[index]->user_attributes =
-									object[index]->user_attributes & bit_mask;
+								object[index]->user_attributes & bit_mask;
 							}
 						}
 					} else {
@@ -2152,10 +2156,10 @@ execute(const char *funcname)
 						return (exit_function(TRUE));
 					}
 				}
-			} else if (!strcmp(word[0], "append") 
-				|| !strcmp(word[0], "append_nt")
-				|| !strcmp(word[0], "append_fc")
-				|| !strcmp(word[0], "append_lc")) {
+			} else if (!strcmp(word[0], "append")
+					   || !strcmp(word[0], "append_nt")
+					   || !strcmp(word[0], "append_fc")
+					   || !strcmp(word[0], "append_lc")) {
 
 				if (!strcmp(word[0], "append") || !strcmp(word[0], "append_fc")) {
 					// INITIATE THE WRITING OF A NEW LINE
@@ -2165,7 +2169,7 @@ execute(const char *funcname)
 						fclose(outfile);
 						outfile = NULL;
 					}
-				} 
+				}
 
 				if (word[2] == NULL) {
 					// NOT ENOUGH PARAMETERS SUPPLIED FOR THIS COMMAND
@@ -2183,16 +2187,16 @@ execute(const char *funcname)
 					}
 
 					if (outfile == NULL) {
-    					sprintf(error_buffer, "Failed to open file %s: %s\n", temp_buffer, strerror(errno));
+						sprintf(error_buffer, "Failed to open file %s: %s\n", temp_buffer, strerror(errno));
 						log_error(error_buffer, PLUS_STDOUT);
-  					} else {
+					} else {
 						for (counter = 2; word[counter] != NULL && counter < MAX_WORDS; counter++) {
-							output = text_of_word(counter);			
+							output = text_of_word(counter);
 							if (*output != 0) {
 								if (first_column == FALSE) {
-	  								fputc(',', outfile);
+									fputc(',', outfile);
 								}
-	  							csv_fwrite(outfile, output, (size_t) strlen(output));
+								csv_fwrite(outfile, output, (size_t) strlen(output));
 								first_column = FALSE;
 							}
 						}
@@ -2220,14 +2224,14 @@ execute(const char *funcname)
 				} else {
 					if (outfile == NULL) {
 						log_error("Insert statement not inside an 'update' loop.", PLUS_STDOUT);
-  					} else {
+					} else {
 						for (counter = 1; word[counter] != NULL && counter < MAX_WORDS; counter++) {
-							output = text_of_word(counter);			
+							output = text_of_word(counter);
 							if (*output != 0) {
 								if (first == FALSE) {
-	  								fputc(',',(FILE *)outfile);
+									fputc(',',(FILE *)outfile);
 								}
-	  							csv_fwrite((FILE *)outfile, output, (size_t) strlen(output));
+								csv_fwrite((FILE *)outfile, output, (size_t) strlen(output));
 								first = FALSE;
 							}
 						}
@@ -2270,7 +2274,7 @@ execute(const char *funcname)
 						object[index]->PARENT = object_1;
 						if (!(object[object_1]->attributes & LOCATION))
 							object[object_1]->QUANTITY -= object[index]->MASS;
-					} 
+					}
 				}
 			} else if (!strcmp(word[0], "ifstringall")) {
 				/* CHECK IF A STRING EQUALS OR CONTAINS ANOTHER STRING */
@@ -2333,15 +2337,15 @@ execute(const char *funcname)
 						executing_function->name, word[0]);
 				log_error(error_buffer, PLUS_STDOUT);
 			}
-		} else if (!strcmp(word[wp], "if") 
-				|| !strcmp(word[wp], "ifall")
-				|| !strcmp(word[wp], "ifstring")
-				|| !strcmp(word[wp], "ifstringall")
-				|| !strcmp(word[wp], "ifexecute")
-				|| !strcmp(word[wp], "iterate")
-				|| !strcmp(word[wp], "update")
-				|| !strcmp(word[wp], "while")
-				|| !strcmp(word[wp], "whileall")) {
+		} else if (!strcmp(word[wp], "if")
+				   || !strcmp(word[wp], "ifall")
+				   || !strcmp(word[wp], "ifstring")
+				   || !strcmp(word[wp], "ifstringall")
+				   || !strcmp(word[wp], "ifexecute")
+				   || !strcmp(word[wp], "iterate")
+				   || !strcmp(word[wp], "update")
+				   || !strcmp(word[wp], "while")
+				   || !strcmp(word[wp], "whileall")) {
 			current_level++;
 		}
 
@@ -2349,10 +2353,10 @@ execute(const char *funcname)
 		before_command = glk_stream_get_position(game_stream);
 		glk_get_bin_line_stream(game_stream, text_buffer, (glui32) 1024);
 #else
-        before_command = ftell(file);
-        fgets(text_buffer, 1024, file);
+		before_command = ftell(file);
+		fgets(text_buffer, 1024, file);
 #endif
-		if (encrypted) jacl_decrypt(text_buffer);
+		if (encrypted) { jacl_decrypt(text_buffer); }
 	};
 
 	return (exit_function(TRUE));
@@ -2363,14 +2367,14 @@ exit_function(int return_code)
 {
 	if (infile != NULL) {
 		read_lck.l_type = F_UNLCK;	// SETTING A READ LOCK
-  		fcntl(read_fd, F_SETLK, &read_lck);
-    	fclose(infile);
+		fcntl(read_fd, F_SETLK, &read_lck);
+		fclose(infile);
 		infile = NULL;
 	}
 
 	if (outfile != NULL) {
 		write_lck.l_type = F_UNLCK;	// SETTING A WRITE LOCK
-  		fcntl(write_fd, F_SETLK, &write_lck);
+		fcntl(write_fd, F_SETLK, &write_lck);
 		fclose(outfile);
 		outfile = NULL;
 	}
@@ -2385,8 +2389,8 @@ char *
 object_names(int object_index, char *names_buffer)
 {
 	/* THIS FUNCTION CREATES A LIST OF ALL AN OBJECT'S NAMES.
-	   THE escape ARGUMENT INDICATES WHETHER A + SIGN SHOULD BE
-	   USED IN PLACE OF A SPACE BETWEEN EACH OF THE NAMES */
+	 THE escape ARGUMENT INDICATES WHETHER A + SIGN SHOULD BE
+	 USED IN PLACE OF A SPACE BETWEEN EACH OF THE NAMES */
 	struct name_type *current_name = object[object_index]->first_name;
 	names_buffer[0] = 0;
 
@@ -2402,26 +2406,26 @@ object_names(int object_index, char *names_buffer)
 int
 distance(double x1, double y1, double x2, double y2)
 {
-	/* THIS FUNCTION CALCULATES THE DISTANCE BETWEEN TWO POINTS IN A 
-	   TWO-DIMENSIONAL PLANE */
+	/* THIS FUNCTION CALCULATES THE DISTANCE BETWEEN TWO POINTS IN A
+	 TWO-DIMENSIONAL PLANE */
 	double          delta_x,
 	                delta_y;
 	double          distance,
 	                total;
 
 	/*
-	 * Object two in which quadrant compared to object one? 0 x = opp, y = 
+	 * Object two in which quadrant compared to object one? 0 x = opp, y =
 	 * ajd + 0 degrees 1 x = adj, y = opp + 90 degrees 2 x = opp, y = ajd
-	 * + 180 degrees 3 x = adj, y = opp + 270 degrees 
+	 * + 180 degrees 3 x = adj, y = opp + 270 degrees
 	 */
 
 	/*
-	 * DETERMINE WHICH QUADRANT OBJECT TWO IS IN 
+	 * DETERMINE WHICH QUADRANT OBJECT TWO IS IN
 	 */
 
 	if (x2 > x1) {
 		/*
-		 * OBJECT TWO IS IN 1 OR 2 
+		 * OBJECT TWO IS IN 1 OR 2
 		 */
 		delta_x = x2 - x1;
 		if (y2 > y1) {
@@ -2431,7 +2435,7 @@ distance(double x1, double y1, double x2, double y2)
 		}
 	} else {
 		/*
-		 * OBJECT TWO IS IN 3 OR 4 
+		 * OBJECT TWO IS IN 3 OR 4
 		 */
 		delta_x = x1 - x2;
 		if (y2 > y1) {
@@ -2459,13 +2463,13 @@ new_position(double x1, double y1, double bearing, double velocity)
 	double          radians;
 
 	/*
-	 * Object two in which quadrant compared to object one? 0 x = opp, y = 
+	 * Object two in which quadrant compared to object one? 0 x = opp, y =
 	 * ajd + 0 degrees 1 x = adj, y = opp + 90 degrees 2 x = opp, y = ajd
-	 * + 180 degrees 3 x = adj, y = opp + 270 degrees 
+	 * + 180 degrees 3 x = adj, y = opp + 270 degrees
 	 */
 
 	/*
-	 * sin finds opp, cos finds adj 
+	 * sin finds opp, cos finds adj
 	 */
 
 	if (bearing < 91) {
@@ -2508,9 +2512,9 @@ bearing(double x1, double y1, double x2, double y2)
 	double          bearing;
 
 	/*
-	 * Object two in which quadrant compared to object one? 0 x = opp, y = 
+	 * Object two in which quadrant compared to object one? 0 x = opp, y =
 	 * ajd + 0 degrees 1 x = adj, y = opp + 90 degrees 2 x = opp, y = ajd
-	 * + 180 degrees 3 x = adj, y = opp + 270 degrees 
+	 * + 180 degrees 3 x = adj, y = opp + 270 degrees
 	 */
 
 	if (x2 > x1) {
@@ -2579,8 +2583,9 @@ set_arguments(const char *function_call)
 				// THE ADDRESS OF THIS CHARACTER IN THE ARGUMENT BUFFER
 				arg_ptr[position] = &argument_buffer[index];
 				new_word = FALSE;
-				if (position < MAX_WORDS)
+				if (position < MAX_WORDS) {
 					position++;
+				}
 			}
 		}
 	}
@@ -2627,7 +2632,7 @@ set_arguments(const char *function_call)
 	/* CREATE A CONSTANT FOR EACH ARGUMENT AFTER THE CORE FUNCTION NAME */
 	index = 0;
 	while (arg_ptr[index] != NULL) {
-		if (index == 0) noun[3] = arg_value[index];
+		if (index == 0) { noun[3] = arg_value[index]; }
 		add_cinteger ("arg", arg_value[index]);
 		//printf("--- %s = %s\n", arg_ptr[index], arg_text_of(arg_ptr[index]));
 		add_cstring ("string_arg", arg_text_of(arg_ptr[index]));
@@ -2657,8 +2662,9 @@ pop_stack()
     }
 
 	/* RESTORE THE CONTENTS OF text_buffer */
-	for (counter = 0; counter < 1024; counter++)
+	for (counter = 0; counter < 1024; counter++) {
 		text_buffer[counter] = backup[stack].text_buffer[counter];
+	}
 
 	/* RESTORE THE CONTENTS OF called_name */
 	//for (counter = 0; counter < 256; counter++)
@@ -2789,8 +2795,7 @@ push_stack(long file_pointer)
                     backup[stack].arguments[index++] = current_cinteger->value;
                 }
                 current_cinteger = current_cinteger->next_cinteger;
-            }
-            while (current_cinteger != NULL);
+            } while (current_cinteger != NULL);
         }
 
 		// STORE THE NUMBER OF ARGUMENTS PASSED TO THIS FUNCTION
@@ -2808,8 +2813,7 @@ push_stack(long file_pointer)
                 }
 
                 current_cstring = current_cstring->next_string;
-            }
-            while (current_cstring != NULL);
+            } while (current_cstring != NULL);
         }
 	}
 
@@ -2844,8 +2848,9 @@ pop_proxy()
     }
 
 	/* RESTORE ALL THE NOUN POINTERS */
-	for (counter = 0; counter < 4; counter++)
+	for (counter = 0; counter < 4; counter++) {
 		noun[counter] = proxy_backup[proxy_stack].object_pointers[counter];
+	}
 
 	/* PUSH ALL THE RESOLVED OBJECTS ONTO THE STACK */
 	for (index = 0; index < 4; index++) {
@@ -2903,8 +2908,7 @@ push_proxy()
                 if (!strcmp(current_cinteger->name, "$integer")) {
                     proxy_backup[proxy_stack].integer[counter++] = current_cinteger->value;                }
                 current_cinteger = current_cinteger->next_cinteger;
-            }
-            while (current_cinteger != NULL);
+            } while (current_cinteger != NULL);
         }
 
 		proxy_backup[proxy_stack].integercount = counter;
@@ -2924,8 +2928,7 @@ push_proxy()
                 }
 
                 current_cstring = current_cstring->next_string;
-            }
-            while (current_cstring != NULL);
+            } while (current_cstring != NULL);
         }
 
 		proxy_backup[proxy_stack].textcount = counter;
@@ -2943,15 +2946,14 @@ condition()
 {
 	/* COMPARE GROUPS OF TWO ELEMENTS. RETURN TRUE IF ANY ONE GROUP OF 
 	 * ELEMENTS COMPARE 'TRUE' */
-	int             first;
-
-	first = 1;
+	int             first = 1;
 
 	while (word[first + 2] != NULL && ((first +2) < MAX_WORDS)) {
-		if (logic_test(first))
+		if (logic_test(first)) {
 			return (TRUE);
-		else
-			first = first + 3;
+		} else {
+			first += 3;
+		}
 	}
 	return (FALSE);
 }
@@ -2961,15 +2963,14 @@ and_condition()
 {
 	/* COMPARE GROUPS OF TWO ELEMENTS. RETURN FALSE IF ANY ONE GROUP OF 
 	 * ELEMENTS COMPARE 'FALSE' */
-	int             first;
-
-	first = 1;
+	int             first = 1;
 
 	while (word[first + 2] != NULL && ((first +2) < MAX_WORDS)) {
-		if (logic_test(first) == FALSE)
+		if (logic_test(first) == FALSE) {
 			return (FALSE);
-		else
-			first = first + 3;
+		} else {
+			first += 3;
+		}
 	}
 	return (TRUE);
 }
@@ -2986,32 +2987,37 @@ logic_test(int first)
 	compare = value_of(word[first + 2], TRUE);
 
 	if (!strcmp(word[first + 1], "=") || !strcmp(word[first + 1], "==")) {
-		if (index == compare)
+		if (index == compare) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], ">")) {
-		if (index > compare)
+		if (index > compare) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "<")) {
-		if (index < compare)
+		if (index < compare) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "is")) {
 		if (index < 1 || index > objects) {
 			unkobjrun(first);
 			return (FALSE);
-		} else
+		} else {
 			return (scope(index, word[first + 2], FALSE));
+		}
 	} else if (!strcmp(word[first + 1], "isnt")) {
 		if (index < 1 || index > objects) {
 			unkobjrun(first);
 			return (FALSE);
-		} else
+		} else {
 			return (!scope(index, word[first + 2], FALSE));
+		}
 	} else if (!strcmp(word[first + 1], "has"))
 		if (index < 1 || index > objects) {
 			unkobjrun(first);
@@ -3036,22 +3042,25 @@ logic_test(int first)
 		}
 	else if (!strcmp(word[first + 1], "!=")
 			 || !strcmp(word[first + 1], "<>")) {
-		if (index != compare)
+		if (index != compare) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], ">=")
 			   || !strcmp(word[first + 1], "=>")) {
-		if (index >= compare)
+		if (index >= compare) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "<=")
 			   || !strcmp(word[first + 1], "=<")) {
-		if (index <= compare)
+		if (index <= compare) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "grandof")) {
 		/* GRANDOF SAYS THAT AN OBJECT IS THE EVENTUAL PARENT OF ANOTHER OBJECT, NOT
 		 * NECESSARILY IMMEDIATE */
@@ -3063,10 +3072,11 @@ logic_test(int first)
 				unkobjrun(first + 2);
 				return (FALSE);
 			} else {
-				if (parent_of(index, compare, UNRESTRICT))
+				if (parent_of(index, compare, UNRESTRICT)) {
 					return (TRUE);
-				else
+				} else {
 					return (FALSE);
+				}
 			}
 		}
 	} else if (!strcmp(word[first + 1], "!grandof")) {
@@ -3078,10 +3088,11 @@ logic_test(int first)
 				unkobjrun(first + 2);
 				return (FALSE);
 			} else {
-				if (parent_of(index, compare, UNRESTRICT))
+				if (parent_of(index, compare, UNRESTRICT)) {
 					return (FALSE);
-				else
+				} else {
 					return (TRUE);
+				}
 			}
 		}
 	} else {
@@ -3096,9 +3107,7 @@ logic_test(int first)
 int
 strcondition()
 {
-	int             first;
-
-	first = 1;
+	int             first = 1;
 
 	while (word[first + 2] != NULL && ((first +2) < MAX_WORDS)) {
 		if (str_test(first)) {
@@ -3113,9 +3122,7 @@ strcondition()
 int
 and_strcondition()
 {
-	int             first;
-
-	first = 1;
+	int             first = 1;
 
 	while (word[first + 2] != NULL && ((first +2) < MAX_WORDS)) {
 		if (str_test(first) == FALSE) {
@@ -3145,30 +3152,35 @@ str_test(int first)
 			return (FALSE);
 		}
 	} else if (!strcmp(word[first + 1], "!contains")) {
-		if (strcasestr(index, compare))
+		if (strcasestr(index, compare)) {
 			return (FALSE);
-		else
+		} else {
 			return (TRUE);
+		}
 	} else if (!strcmp(word[first + 1], "contains")) {
-		if (strcasestr(index, compare))
+		if (strcasestr(index, compare)) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "!beginswith")) {
-		if (strncmp(index, compare, strlen(compare)))
+		if (strncmp(index, compare, strlen(compare))) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "beginswith")) {
-		if (!strncmp(index, compare, strlen(compare)))
+		if (!strncmp(index, compare, strlen(compare))) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "<>") || !strcmp(word[first + 1], "!=")) {
-		if (strcasecmp(index, compare))
+		if (strcasecmp(index, compare)) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "==C") || !strcmp(word[first + 1], "=C")) {
 		if (!strcmp(index, compare)) {
 			return (TRUE);
@@ -3176,20 +3188,23 @@ str_test(int first)
 			return (FALSE);
 		}
 	} else if (!strcmp(word[first + 1], "!containsC")) {
-		if (strstr(index, compare))
+		if (strstr(index, compare)) {
 			return (FALSE);
-		else
+		} else {
 			return (TRUE);
+		}
 	} else if (!strcmp(word[first + 1], "containsC")) {
-		if (strstr(index, compare))
+		if (strstr(index, compare)) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else if (!strcmp(word[first + 1], "<>C") || !strcmp(word[first + 1], "!=C")) {
-		if (strcmp(index, compare))
+		if (strcmp(index, compare)) {
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	} else {
 		sprintf(error_buffer,
 				"ERROR: In function \"%s\", illegal operator \"%s\".^",
@@ -3199,15 +3214,14 @@ str_test(int first)
 	}
 }
 
+/// This function adds a new JACL constant to the list
 void
 add_cinteger(const char *name, int value)
 {
-	/* THIS FUNCTION ADDS A NEW JACL CONSTANT TO THE LIST */
-
 	if ((new_cinteger = (struct cinteger_type *)
-		malloc(sizeof(struct cinteger_type))) == NULL)
+		 malloc(sizeof(struct cinteger_type))) == NULL) {
 		outofmem();
-	else {
+	} else {
 		if (cinteger_table == NULL) {
 			cinteger_table = new_cinteger;
 		} else {
@@ -3225,11 +3239,10 @@ add_cinteger(const char *name, int value)
 	}
 }
 
+/// Free constants that have supplied name
 void
 clear_cinteger(const char *name)
 {
-    /* FREE CONSTANTS THAT HAVE SUPPLIED NAME*/
-
 	//printf("--- clear integer %s\n", name);
 	if (cinteger_table != NULL) {
 		current_cinteger = cinteger_table;
@@ -3442,7 +3455,6 @@ grand_of(int child, int objs_only)
 int
 select_next()
 {
-
 	while (++*select_integer <= objects) {
 		switch (criterion_type) {
 			case CRI_ATTRIBUTE:

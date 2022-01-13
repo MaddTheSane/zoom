@@ -399,8 +399,9 @@ integer_resolve_indexed(const char *name, int index)
 				pointer = pointer->next_integer;
 				index--;
 			}
-		} else
+		} else {
 			pointer = pointer->next_integer;
+		}
 	} while (pointer != NULL);
 
 	/* IF index != 0, INDEX OUT OF RANGE, OTHERWISE NOT VARIABLE */
@@ -446,8 +447,9 @@ cinteger_resolve(const char *name)
 			/* HIT A ( BEFORE A [ THEREFORE */
 			/* IS AN OBJECT ELEMENT, NOT AN ARRAY */
 			return (NULL);
-		} else if (expression[index] == ' ')
+		} else if (expression[index] == ' ') {
 			return (NULL);
+		}
 	}
 
 	// NO DELIMITER FOUND, TRY AS UNINDEXED CONSTANT

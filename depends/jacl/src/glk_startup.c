@@ -108,21 +108,21 @@ int glkunix_startup_code(glkunix_startup_t *data)
 	/* SET THE LIBRARY'S IDEA OF THE "CURRENT DIRECTORY" FOR THE EXECUTING
 	 * PROGRAM. THE ARGUMENT SHOULD BE THE NAME OF A FILE (NOT A DIRECTORY).
 	 * WHEN THIS IS SET, fileref_create_by_name() WILL CREATE FILES IN THE SAME
-	 * DIRECTORY AS THAT FILE, AND create_by_prompt() WILL BASE DEFAULT 
-	 * FILENAMES OFF OF THE FILE. IF THIS IS NOT CALLED, THE LIBRARY WORKS IN 
-	 * THE UNIX CURRENT WORKING DIRECTORY, AND PICKS REASONABLE DEFAULT 
+	 * DIRECTORY AS THAT FILE, AND create_by_prompt() WILL BASE DEFAULT
+	 * FILENAMES OFF OF THE FILE. IF THIS IS NOT CALLED, THE LIBRARY WORKS IN
+	 * THE UNIX CURRENT WORKING DIRECTORY, AND PICKS REASONABLE DEFAULT
 	 * DEFAULTS. */
 //	glkunix_set_base_file(game_file);
 
-    /* Set title of game */
+	/* Set title of game */
 #ifdef GARGLK
-    char *s;
-    s = strrchr(game_file, '\\');
-    if (!s) s = strrchr(game_file, '/');
-    garglk_set_story_name(s ? s + 1 : game_file);
+	char *s;
+	s = strrchr(game_file, '\\');
+	if (!s) s = strrchr(game_file, '/');
+	garglk_set_story_name(s ? s + 1 : game_file);
 #endif
 
 	/* RETURN TRUE ERRORS OR NOT SO THE MAIN WINDOWS CAN BE OPENED AND
 	 * ANY ERROR MESSAGE DISPLAYED */
-    return (TRUE);
+	return (TRUE);
 }

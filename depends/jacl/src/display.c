@@ -15,9 +15,9 @@ check_light(int where)
 {
 	int             index;
 
-	if ((object[where]->attributes & DARK) == FALSE)
+	if ((object[where]->attributes & DARK) == FALSE) {
 		return (TRUE);
-	else {
+	} else {
 		for (index = 1; index <= objects; index++) {
 			if ((object[index]->attributes & LUMINOUS)
 				&& scope(index, "*present", FALSE))

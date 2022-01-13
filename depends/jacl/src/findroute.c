@@ -12,15 +12,13 @@
 /* Queue functions                    */
 /**************************************/
 
-typedef struct QueueNode
-{
+typedef struct QueueNode {
 	int val;
 	int val2;
 	struct QueueNode *next;
 } QueueNode;
 
-typedef struct
-{
+typedef struct Queue {
 	QueueNode *head;
 	QueueNode *tail;
 } Queue;
@@ -36,8 +34,7 @@ qDelete(Queue *q)
 {
 	QueueNode *node, *next;
 
-	for (node = q->head;node != NULL;node = next)
-	{
+	for (node = q->head;node != NULL;node = next) {
 		next = node->next;
 		free(node);
 	}
@@ -56,15 +53,11 @@ qDebug(Queue *q)
 {
 	printf("Queue:");
 
-	if (q->head == NULL)
-	{
+	if (q->head == NULL) {
 		printf(" empty");
-	}
-	else
-	{
+	} else {
 		QueueNode *node;
-		for (node = q->head;node != NULL;node = node->next)
-		{
+		for (node = q->head;node != NULL;node = node->next) {
 			printf(" %d (%d)", node->val, node->val2);
 		}
 	}
@@ -80,12 +73,9 @@ qAppend(Queue *q, int val, int val2)
 	node->val2 = val2;
 	node->next = NULL;
 
-	if (q->head == NULL)
-	{
+	if (q->head == NULL) {
 		q->head = q->tail = node;
-	}
-	else
-	{
+	} else {
 		q->tail->next = node;
 		q->tail = node;
 	}
@@ -99,12 +89,9 @@ qPop(Queue *q, int *val, int *val2)
 	*val = q->head->val;
 	*val2 = q->head->val2;
 
-	if (q->head == q->tail)
-	{
+	if (q->head == q->tail) {
 		q->head = q->tail = NULL;
-	}
-	else
-	{
+	} else {
 		q->head = q->head->next;
 	}
 }
@@ -151,7 +138,7 @@ qTest(void)
 /* Set functions                      */
 /**************************************/
 
-/* linked list for hash table */
+/*! linked list for hash table */
 typedef struct SetNode
 {
 	int val;
@@ -160,7 +147,7 @@ typedef struct SetNode
 
 #define SET_HASHSIZE 101
 
-typedef struct
+typedef struct Set
 {
 	SetNode *node[SET_HASHSIZE];
 } Set;
@@ -170,8 +157,7 @@ setInit(Set *set)
 {
 	int n;
 
-	for (n = 0;n < SET_HASHSIZE;n++)
-	{
+	for (n = 0;n < SET_HASHSIZE;n++) {
 		set->node[n] = NULL;
 	}
 }
@@ -181,12 +167,10 @@ setDelete(Set *set)
 {
 	int n;
 
-	for (n = 0;n < SET_HASHSIZE;n++)
-	{
+	for (n = 0;n < SET_HASHSIZE;n++) {
 		SetNode *node, *next;
 
-		for (node = set->node[n];node != NULL;node = next)
-		{
+		for (node = set->node[n];node != NULL;node = next) {
 			next = node->next;
 			free(node);
 		}
@@ -202,12 +186,10 @@ setDebug(Set *set)
 
 	printf("Set:");
 
-	for (n = 0;n < SET_HASHSIZE;n++)
-	{
+	for (n = 0;n < SET_HASHSIZE;n++) {
 		SetNode *node;
 
-		for (node = set->node[n];node != NULL;node = node->next)
-		{
+		for (node = set->node[n];node != NULL;node = node->next) {
 			printf(" %d", node->val);
 		}
 	}
@@ -229,9 +211,10 @@ setAdd(Set *set, int val)
 
 	/* check if val is already in the set */
 
-	for (node = set->node[n];node != NULL;node = node->next)
-	{
-		if (node->val == val) { return; }
+	for (node = set->node[n];node != NULL;node = node->next) {
+		if (node->val == val) {
+			return;
+		}
 	}
 
 	node = (SetNode*) malloc(sizeof(SetNode));
@@ -248,9 +231,10 @@ setContains(Set *set, int val)
 	SetNode *node;
 	int n = setHash(val);
 
-	for (node = set->node[n];node != NULL;node = node->next)
-	{
-		if (node->val == val) { return 1; }
+	for (node = set->node[n];node != NULL;node = node->next) {
+		if (node->val == val) {
+			return 1;
+		}
 	}
 
 	return 0;
