@@ -1557,11 +1557,6 @@ convert_to_utf32 (unsigned char *text)
 	return (rlen);
 }
 
-static void gli_strict_warning(const char *a)
-{
-	cocoaglk_warning(a);
-}
-
 glui32 
 parse_utf8(unsigned char *buf, glui32 buflen,
     glui32 *out, glui32 outlen)
