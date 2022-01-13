@@ -1424,37 +1424,37 @@ verb_generator(char* text, int state)
     struct word_type *pointer;
 
     /* IF THIS IS A NEW WORD TO COMPLETE, INITIALIZE NOW. THIS INCLUDES
-    SAVING THE LENGTH OF TEXT FOR EFFICIENCY, AND INITIALIZING THE INDEX
-    VARIABLE TO 0. */
+	 SAVING THE LENGTH OF TEXT FOR EFFICIENCY, AND INITIALIZING THE INDEX
+	 VARIABLE TO 0. */
 
-    if (!state) {
-        /* BUILD THE LIST */
-        completion_list = NULL;
+	if (!state) {
+		/* BUILD THE LIST */
+		completion_list = NULL;
 
-        pointer = grammar_table;
-        while(pointer != NULL) {
-            add_word(pointer->word);
-            pointer = pointer->next_sibling;
-        }
+		pointer = grammar_table;
+		while(pointer != NULL) {
+			add_word(pointer->word);
+			pointer = pointer->next_sibling;
+		}
 
-        add_word("walkthru");
+		add_word("walkthru");
 
-        now = completion_list;
-        len = strlen (text);
-    }
+		now = completion_list;
+		len = strlen (text);
+	}
 
-    while (now != NULL) {
-        if (!strncmp(text, now->word, len)) {
-            to_send = now;
-            now = now->next;
+	while (now != NULL) {
+		if (!strncmp(text, now->word, len)) {
+			to_send = now;
+			now = now->next;
 
-            /* MALLOC A COPY AND RETURN A POINTER TO THE COPY */
-            return ((char*) to_send->word);
-        }
-        now = now->next;
-    }
+			/* MALLOC A COPY AND RETURN A POINTER TO THE COPY */
+			return ((char*) to_send->word);
+		}
+		now = now->next;
+	}
 
-    return (char *) NULL;
+	return (char *) NULL;
 }
 
 /*! Add a copy of string to a list of strings if it is not
@@ -1466,13 +1466,15 @@ add_word(const char * word)
     struct command_type *previous_word = NULL;
 
     /* DON'T ADD WORDS SUCH AS *present TO THE LIST*/
-    if (*word == '*')
+	if (*word == '*') {
         return;
+	}
 
-    if (current_word != NULL)
+	if (current_word != NULL) {
         previous_word = current_word;
+	}
 
-    current_word = (struct command_type *) malloc(sizeof(struct command_type));
+	current_word = (struct command_type *) malloc(sizeof(struct command_type));
 
     if (current_word != NULL) {
         if (completion_list == NULL) {
@@ -1543,7 +1545,7 @@ convert_to_utf32 (unsigned char *text)
 	    return 0;
 	}
 
-	text_len = strlen(text);
+	text_len = (int)strlen(text);
 
 	if (!text_len) {
 	    return 0;

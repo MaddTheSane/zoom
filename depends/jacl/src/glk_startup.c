@@ -126,4 +126,3 @@ int glkunix_startup_code(glkunix_startup_t *data)
 	 * ANY ERROR MESSAGE DISPLAYED */
     return (TRUE);
 }
-

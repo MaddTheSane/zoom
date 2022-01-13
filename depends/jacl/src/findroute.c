@@ -109,7 +109,7 @@ qPop(Queue *q, int *val, int *val2)
 	}
 }
 
-static void
+void
 qTest(void)
 {
 	int val, val2;
@@ -256,7 +256,7 @@ setContains(Set *set, int val)
 	return 0;
 }
 
-static void setTest(void)
+void setTest(void)
 {
 	Set s;
 

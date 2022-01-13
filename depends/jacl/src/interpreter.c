@@ -3101,10 +3101,11 @@ strcondition()
 	first = 1;
 
 	while (word[first + 2] != NULL && ((first +2) < MAX_WORDS)) {
-		if (str_test(first))
+		if (str_test(first)) {
 			return (TRUE);
-		else
+		} else {
 			first = first + 3;
+		}
 	}
 	return (FALSE);
 }
@@ -3117,10 +3118,11 @@ and_strcondition()
 	first = 1;
 
 	while (word[first + 2] != NULL && ((first +2) < MAX_WORDS)) {
-		if (str_test(first) == FALSE)
+		if (str_test(first) == FALSE) {
 			return (FALSE);
-		else
+		} else {
 			first = first + 3;
+		}
 	}
 	return (TRUE);
 }
@@ -3495,25 +3497,25 @@ select_next()
 
 /* Converts an integer value to its hex character*/
 char to_hex(char code) {
-  static char hex[] = "0123456789abcdef";
-  return hex[code & 15];
+	static char hex[] = "0123456789abcdef";
+	return hex[code & 15];
 }
 
 /* Returns a url-encoded version of str */
 /* IMPORTANT: be sure to free() the returned string after use */
 char *url_encode(const char *str) {
-  const char *pstr = str;
-  char *buf = malloc(strlen(str) * 3 + 1), *pbuf = buf;
-  while (*pstr) {
-    if (isalnum(*pstr) || *pstr == '-' || *pstr == '_' || *pstr == '.' || *pstr == '~') 
-      *pbuf++ = *pstr;
-    else if (*pstr == ' ') 
-      *pbuf++ = '+';
-	else {
-		*pbuf++ = '%'; *pbuf++ = to_hex(*pstr >> 4); *pbuf++ = to_hex(*pstr & 15);
+	const char *pstr = str;
+	char *buf = malloc(strlen(str) * 3 + 1), *pbuf = buf;
+	while (*pstr) {
+		if (isalnum(*pstr) || *pstr == '-' || *pstr == '_' || *pstr == '.' || *pstr == '~') {
+			*pbuf++ = *pstr;
+		} else if (*pstr == ' ') {
+			*pbuf++ = '+';
+		} else {
+			*pbuf++ = '%'; *pbuf++ = to_hex(*pstr >> 4); *pbuf++ = to_hex(*pstr & 15);
+		}
+		pstr++;
 	}
-    pstr++;
-  }
-  *pbuf = '\0';
-  return buf;
+	*pbuf = '\0';
+	return buf;
 }

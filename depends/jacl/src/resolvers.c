@@ -760,8 +760,8 @@ expand_function(const char *name)
 char *
 macro_resolve(const char *testString)
 {
-	int             index,
-	                counter;
+	int				index,
+					counter;
 	int             delimiter = 0;
 	char            expression[84];
 
@@ -777,8 +777,9 @@ macro_resolve(const char *testString)
 		}
 	}
 
-	if (delimiter == FALSE)
+	if (delimiter == FALSE) {
 		return (NULL);
+	}
 
 	if (*expression != 0) {
 		index = value_of(expression, TRUE);
@@ -980,7 +981,7 @@ macro_resolve(const char *testString)
 		sprintf (temp_buffer, "%d", index);
 		strcat (macro_function, temp_buffer);
 
-		// BUILD THE FUNCTION NAME AND PASS THE OBJECT AS 
+		// BUILD THE FUNCTION NAME AND PASS THE OBJECT AS
 		// THE ONLY ARGUMENT
 		if (execute(macro_function)) {
 			return (string_resolve("return_value")->value);
@@ -1021,15 +1022,16 @@ array_length_resolve(const char *testString)
 		do {
 			if (!strcmp(array_name, integer_pointer->name)) {
 				counter++;
-			} 
+			}
 			integer_pointer = integer_pointer->next_integer;
 		} while (integer_pointer != NULL);
 	}
 
 	/* IF ONE OR MORE INTEGERS WITH THIS NAME WERE FOUND
-       RETURN THE COUNT */
-	if (counter) 
+	 RETURN THE COUNT */
+	if (counter) {
 		return (counter);
+	}
 
 	if (string_pointer != NULL) {
 		do {
@@ -1041,7 +1043,7 @@ array_length_resolve(const char *testString)
 	}
 
 	/* IF ONE OR MORE STRINGS WITH THIS NAME WERE FOUND
-       RETURN THE COUNT */
+	 RETURN THE COUNT */
 	if (counter) {
 		return (counter);
 	}
@@ -1057,7 +1059,7 @@ array_length_resolve(const char *testString)
 	}
 
 	/* IF ONE OR MORE INTEGER CONSTANTS WITH THIS NAME WERE FOUND
-       RETURN THE COUNT */
+	 RETURN THE COUNT */
 	if (counter) {
 		return (counter);
 	}
@@ -1072,7 +1074,7 @@ array_length_resolve(const char *testString)
 	}
 
 	/* IF ONE OR MORE STRING CONSTANTS WITH THIS NAME WERE FOUND
-       RETURN THE COUNT */
+	 RETURN THE COUNT */
 	if (counter) {
 		return (counter);
 	}
@@ -1084,7 +1086,7 @@ array_length_resolve(const char *testString)
 int
 object_element_resolve(const char *testString)
 {
-	size_t          index,
+	size_t			index,
 					iterator,
 	                counter;
 	size_t          delimiter = 0;
@@ -1107,7 +1109,7 @@ object_element_resolve(const char *testString)
 			for (iterator = counter; iterator > 0; iterator--) {
 				if (expression[iterator] == ')') {
 					expression[iterator] = 0;
-					break;	
+					break;
 				}
 			}
 			break;
@@ -1124,20 +1126,22 @@ object_element_resolve(const char *testString)
 			for (; index < counter; index++) {
 				if (expression[index] == ']') {
 					/* BREAK OUT AND KEEP LOOKING FOR A ( */
-					break;	
+					break;
 				} else if (expression[index] == '(') {
 					/* THIS EXPRESSION IS DEFINITELY AN ARRAY WITH AN */
 					/* OBJECT ELEMENT AS THE INDEX */
 					return (FALSE);
 				}
 			}
-		} else if (expression[index] == ' ')
+		} else if (expression[index] == ' ') {
 			return (FALSE);
+		}
 	}
 
 	// NO DELIMITER FOUND OR NO STRING BEFORE DELIMITER
-	if (delimiter == FALSE || delimiter == 1)
+	if (delimiter == FALSE || delimiter == 1) {
 		return (FALSE);
+	}
 
 	index = object_resolve(expression);
 
@@ -1321,16 +1325,16 @@ user_attribute_resolve(const char *name)
 {
 	struct attribute_type *pointer = attribute_table;
 
-	if (pointer == NULL)
+	if (pointer == NULL) {
 		return (0);
+	}
 
 	do {
 		if (!strcmp(name, pointer->name)) {
 			return (pointer->value);
 		} else
 			pointer = pointer->next_attribute;
-	}
-	while (pointer != NULL);
+	} while (pointer != NULL);
 
 	/* ATTRIBUTE NOT FOUND */
 	return (0);

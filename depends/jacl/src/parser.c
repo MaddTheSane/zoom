@@ -383,29 +383,31 @@ call_functions(const char *base_name)
 	strcpy(local_after_function, "after_");
 	strcat(local_after_function, base_name + 1);
 	if (noun[1] != FALSE) {
-        strcat(local_after_function, "_");
+		strcat(local_after_function, "_");
 		strcat(local_after_function, object[noun[1]]->label);
 	}
 	if (noun[0] != FALSE) {
-        strcat(local_after_function, "_");
+		strcat(local_after_function, "_");
 		strcat(local_after_function, object[noun[0]]->label);
 	}
 
 	/* THIS IS CALLED IF AN 'override' COMMAND IS EXECUTED
-	 * IN A LIBRARY FUNCTION BUT THE OBJECT-OR-LOCATION-SPECIFIC 
+	 * IN A LIBRARY FUNCTION BUT THE OBJECT-OR-LOCATION-SPECIFIC
 	 * OVERRIDE DOES NOT EXIST. IT IS SET TO '+default_func' */
 	strcpy(default_function, "+default_");
 	strcat(default_function, base_name + 1);
 
 	/* EXECUTE THE GLOBAL *DEFAULT* BEFORE FUNCTION
 	 * AND RETURN IF IT RETURNS TRUE */
-	if (execute("+before") != FALSE)
+	if (execute("+before") != FALSE) {
 		return;
+	}
 
 	/* EXECUTE THE VERB-SPECIFIC BEFORE 
 	   FUNCTION AND RETURN IF IT RETURNS TRUE */
-	if (execute(before_function) != FALSE)
+	if (execute(before_function) != FALSE) {
 		return;
+	}
 
 	if (noun[0] == FALSE) { /* USER'S COMMAND HAS NO NOUNS */
 		strcat(base_function, object[HERE]->label);
@@ -413,10 +415,10 @@ call_functions(const char *base_name)
 		if (execute(base_function) == FALSE) {
 			/* THIS LOCATION-SPECIFIC FUNCTION DOES NOT
 			 * EXIST OR HAS ISSUED A 'break false' COMMAND.
-			 * EXECUTE THE FUNCTION '+func' 
-			 * WITH THE POSSIBLILITY OF 
-			 * EXECUTING THE FUNCTION 'func_override_here' 
-			 * IF AN 'override' COMMAND IS FOUND IN '+func' 
+			 * EXECUTE THE FUNCTION '+func'
+			 * WITH THE POSSIBLILITY OF
+			 * EXECUTING THE FUNCTION 'func_override_here'
+			 * IF AN 'override' COMMAND IS FOUND IN '+func'
 			 * IF THIS OVERRIDE FUNCTION ISN'T FOUND
 			 * THE DEFAULT FUNCTION WILL BE EXECUTED */
 			
@@ -430,8 +432,9 @@ call_functions(const char *base_name)
 			strcat(base_function, base_name + 1);
 
 			/* CALL THE LIBRARY'S DEFAULT BEHAVIOR */
-			if (execute(base_function) == FALSE)
+			if (execute(base_function) == FALSE) {
 				unkfunrun(base_function);
+			}
 		}
 	} else if (noun[1] == FALSE) { /* USER'S COMMAND HAS ONE NOUN */
 		strcat(base_function, object[noun[0]]->label);
@@ -439,10 +442,10 @@ call_functions(const char *base_name)
 		if (execute(base_function) == FALSE) {
 			/* THIS OBJECT-SPECIFIC FUNCTION DOES NOT
 			 * EXIST OR HAS ISSUED A 'break false' COMMAND.
-			 * EXECUTE THE FUNCTION '+func' 
-			 * WITH THE POSSIBLILITY OF 
-			 * EXECUTING THE FUNCTION 'func_override_noun1' 
-			 * IF AN 'override' COMMAND IS FOUND IN '+func' 
+			 * EXECUTE THE FUNCTION '+func'
+			 * WITH THE POSSIBLILITY OF
+			 * EXECUTING THE FUNCTION 'func_override_noun1'
+			 * IF AN 'override' COMMAND IS FOUND IN '+func'
 			 * IF THIS OVERRIDE FUNCTION ISN'T FOUND
 			 * THE DEFAULT FUNCTION WILL BE EXECUTED */
 			
@@ -456,23 +459,24 @@ call_functions(const char *base_name)
 			strcat(base_function, base_name + 1);
 
 			/* CALL THE LIBRARY'S DEFAULT BEHAVIOR */
-			if (execute(base_function) == FALSE)
+			if (execute(base_function) == FALSE) {
 				unkfunrun(base_function);
+			}
 		}
 	} else { /* USER'S COMMAND HAS TWO NOUNS */
 		strcat(base_function, object[noun[1]]->label);
 		strcat(base_function, "_");
 		strcat(base_function, object[noun[0]]->label);
-		/* EXECUTE THE FUNCTION 'func_noun2_noun1' 
+		/* EXECUTE THE FUNCTION 'func_noun2_noun1'
 		 * IE give_to_fred THAT IS ASSOCIATED WITH
 		 * THE OBJECT flint_stone */
 		if (execute(base_function) == FALSE) {
 			/* THIS OBJECTS-SPECIFIC FUNCTION DOES NOT
 			 * EXIST OR HAS ISSUED A 'break false' COMMAND.
-			 * EXECUTE THE FUNCTION '+func' 
-			 * WITH THE POSSIBLILITY OF 
-			 * EXECUTING THE FUNCTION 'func_override_noun2_noun1' 
-			 * IF AN 'override' COMMAND IS FOUND IN '+func' 
+			 * EXECUTE THE FUNCTION '+func'
+			 * WITH THE POSSIBLILITY OF
+			 * EXECUTING THE FUNCTION 'func_override_noun2_noun1'
+			 * IF AN 'override' COMMAND IS FOUND IN '+func'
 			 * IF THIS OVERRIDE FUNCTION ISN'T FOUND
 			 * THE DEFAULT FUNCTION WILL BE EXECUTED */
 			
@@ -487,25 +491,29 @@ call_functions(const char *base_name)
 			strcat(base_function, base_name + 1);
 
 			/* CALL THE LIBRARY'S DEFAULT BEHAVIOR */
-			if (execute(base_function) == FALSE)
+			if (execute(base_function) == FALSE) {
 				unkfunrun(base_function);
+			}
 		}
 	}
 
-	/* EXECUTE THE LOCAL AFTER FUNCTION 
+	/* EXECUTE THE LOCAL AFTER FUNCTION
 	 * AND RETURN IF IT RETURNS TRUE */
-	if (execute(local_after_function) != FALSE)
+	if (execute(local_after_function) != FALSE) {
 		return;
+	}
 
-	/* EXECUTE THE VERB-SPECIFIC AFTER 
+	/* EXECUTE THE VERB-SPECIFIC AFTER
 	 * FUNCTION AND RETURN IF IT RETURNS TRUE */
-	if (execute(after_function) != FALSE)
+	if (execute(after_function) != FALSE) {
 		return;
+	}
 
 	/* EXECUTE THE GLOBAL *DEFAULT* AFTER FUNCTION
 	 * AND RETURN IF IT RETURNS TRUE */
-	if (execute("+after") != FALSE)
+	if (execute("+after") != FALSE) {
 		return;
+	}
 
 
 	//sprintf(temp_buffer, "TIME = %d", TIME->value);
@@ -514,7 +522,7 @@ call_functions(const char *base_name)
 	if (TIME->value) {
 		//printf("--- %s\n", base_function);
 		eachturn();
-	} 
+	}
 
 	return;
 }
@@ -530,13 +538,13 @@ object_match(struct word_type *iterator, int noun_number)
 	int object_was_option = FALSE;
 
 	do {
-		/* THIS LOOP MEANS THAT CERTAIN ERRORS SUCH AS TAKING FROM A 
+		/* THIS LOOP MEANS THAT CERTAIN ERRORS SUCH AS TAKING FROM A
 		 * CLOSED CONTAINER CAN OCCUR MORE THAN ONCE */
 		if (iterator->word[0] == '*') {
 			object_was_option = TRUE;
 			if (build_object_list(iterator, noun_number)) {
-				/* RETURN THE POINT IN THE GRAMMAR TREE THAT MATCHED TO 
-			 	* CONTINUE ON FROM */
+				/* RETURN THE POINT IN THE GRAMMAR TREE THAT MATCHED TO
+				 * CONTINUE ON FROM */
 				//printf("--- returned TRUE from build_object_list\n");
 				return (iterator);
 			}
@@ -547,10 +555,9 @@ object_match(struct word_type *iterator, int noun_number)
 			 * TRY ANY OTHERS */
 			return (NULL);
 		}
-	}
-	while ((iterator = iterator->next_sibling) != NULL);
+	} while ((iterator = iterator->next_sibling) != NULL);
 
-	/* THERE WERE NO OBJECT PLACE HOLDERS OR, IF THERE WERE, NO 
+	/* THERE WERE NO OBJECT PLACE HOLDERS OR, IF THERE WERE, NO
 	 * MATCHING OBJECTS COULD BE RESOLVED */
 	//printf("--- returning null from object_match\n");
 
@@ -568,7 +575,7 @@ struct word_type *
 exact_match(struct word_type *pointer)
 {
 	/* THIS FUNCTION LOOPS THROUGH ALL THE POSIBILITIES IN THE CURRENT LEVEL
-	 * OF THE GRAMMAR TREE TO SEE IF THERE ARE ANY EXACT MATCHES WITH THE 
+	 * OF THE GRAMMAR TREE TO SEE IF THERE ARE ANY EXACT MATCHES WITH THE
 	 * CURRENT WORD IN THE PLAYER'S COMMAND.
 	 * AN EXACT MATCH IS ANYTHING THAT ISN'T AN OBJECT PLACE HOLDER. */
 	struct word_type *iterator = pointer;
@@ -593,8 +600,7 @@ exact_match(struct word_type *pointer)
 			wp++;
 			return (iterator);
 		}
-	}
-	while ((iterator = iterator->next_sibling) != NULL);
+	} while ((iterator = iterator->next_sibling) != NULL);
 
 	/* THERE WERE NO EXACT MATCHES, SO RETURN FALSE */
 	return (NULL);
@@ -615,10 +621,9 @@ is_terminator(struct word_type *scope_word)
 			if (!strcmp(word[wp], terminator->word)
 				|| (!strcmp(terminator->word, "$integer")
 					&& validate(word[wp]))) {
-					return (TRUE);
+				return (TRUE);
 			}
-		}
-		while ((terminator = terminator->next_sibling) != NULL);
+		} while ((terminator = terminator->next_sibling) != NULL);
 	}
 
 	return (FALSE);
@@ -628,7 +633,7 @@ int
 build_object_list(struct word_type *scope_word, int noun_number)
 {
 	/* THIS FUNCTION BUILDS A LIST OF OBJECTS FROM THE PLAYER'S COMMAND
-     * AND RETURNS THE NUMBER OF OBJECTS IN THAT LIST */
+	 * AND RETURNS THE NUMBER OF OBJECTS IN THAT LIST */
 
 	int				index, counter;
 	int				resolved_object;
@@ -650,7 +655,7 @@ build_object_list(struct word_type *scope_word, int noun_number)
 		 * MORE OBJECTS TO RESOLVE */
 
 		if (!strcmp(word[wp], cstring_resolve("BUT_WORD")->value) ||
-					!strcmp(word[wp], cstring_resolve("EXCEPT_WORD")->value)) {
+			!strcmp(word[wp], cstring_resolve("EXCEPT_WORD")->value)) {
 			/* START ADDING ALL FUTURE RESOLVED OBJECTS TO A SECOND LIST
 			 * TO REMOVE FROM THE FIRST */
 			except_word = word[wp];
@@ -665,21 +670,21 @@ build_object_list(struct word_type *scope_word, int noun_number)
 			/* LOOK FORWARD FOR A FROM CLAUSE */
 			if (get_from_object(scope_word, noun_number) == FALSE) {
 				/* THERE WAS AN ERROR, AND A MESSAGE HAS ALREADY BEEN
-		 		 * DISPLAYED */
+				 * DISPLAYED */
 				return (FALSE);
 			}
 
 			/* MOVE TO THE SECOND LIST THAT WILL ULTIMATELY BE SUBTRACTED
 			 * FROM THE FIRST LIST */
 			if (noun_number < 2) {
-				/* CREATE A 'them' SET THAT CAN BE REFERRED TO IN THE 
+				/* CREATE A 'them' SET THAT CAN BE REFERRED TO IN THE
 				 * 'except' CLAUSE */
 				set_them(noun_number);
 				/* JUMP TO THE 'EXCEPT' LIST THAT CORRESPONDS TO THIS
 				 * RESOLVED LIST */
 				noun_number = noun_number + 2;
 			} else {
-				sprintf (error_buffer, cstring_resolve("DOUBLE_EXCEPT")->value, except_word);	
+				sprintf (error_buffer, cstring_resolve("DOUBLE_EXCEPT")->value, except_word);
 				write_text (error_buffer);
 				custom_error = TRUE;
 				return (FALSE);
@@ -700,18 +705,18 @@ build_object_list(struct word_type *scope_word, int noun_number)
 			/* LOOK FOR THE NEXT FROM CLAUSE */
 			if (get_from_object(scope_word, noun_number) == FALSE) {
 				/* THERE WAS AN ERROR, AND A MESSAGE HAS ALREADY BEEN
-		 		 * DISPLAYED */
+				 * DISPLAYED */
 				return (FALSE);
 			}
 		} else if (!strcmp("then", word[wp])) {
 			break;
 		} else if (is_terminator(scope_word)) {
-			/* THERE ARE NO MORE OBJECTS TO RESOLVE */ 
+			/* THERE ARE NO MORE OBJECTS TO RESOLVE */
 
 			//printf("--- %s is a build list terminator\n", word[wp]);
 			break;
-		} else if (	!strcmp(word[wp], "comma") || 
-					!strcmp(word[wp], cstring_resolve("AND_WORD")->value)) {
+		} else if (!strcmp(word[wp], "comma") ||
+				   !strcmp(word[wp], cstring_resolve("AND_WORD")->value)) {
 			/* JUST MOVE ONTO THE NEXT WORD AND SEE WHAT COME NEXT */
 			wp++;
 		} else {
@@ -749,24 +754,24 @@ build_object_list(struct word_type *scope_word, int noun_number)
 		/* LOOP THROUGH ALL THE ITEMS IN THE SECOND LIST */
 		for (index = 0; index < max_size[SECOND_LIST]; index++) {
 			if (object_list[SECOND_LIST][index] != 0) {
-				/* THIS OBJECT IS A REAL OBJECT SO LOOP THROUGH ALL THE ITEMS 
+				/* THIS OBJECT IS A REAL OBJECT SO LOOP THROUGH ALL THE ITEMS
 				 * IN THE FIRST LIST */
 				//printf("--- exception object is %s\n", object[object_list[SECOND_LIST][index]]->label);
 				for (counter = 0; counter < max_size[FIRST_LIST]; counter++) {
-					/* LOOP THROUGH ALL THE OBJECTS IN THE FIRST LIST 
+					/* LOOP THROUGH ALL THE OBJECTS IN THE FIRST LIST
 					 * IF AN OBJECT FROM THE SECOND LIST EXISTS IN THE FIRST
-				  	 * LIST, REMOVE IT */
+					 * LIST, REMOVE IT */
 					//printf("--- comparing %s = %s\n", object[object_list[FIRST_LIST][counter]]->label, object[object_list[SECOND_LIST][index]]->label);
-					if (object_list[FIRST_LIST][counter] == 
+					if (object_list[FIRST_LIST][counter] ==
 						object_list[SECOND_LIST][index]) {
 						
 						//printf("--- removing object %s\n", object[object_list[FIRST_LIST][counter]]->label);
 						object_list[FIRST_LIST][counter] = 0;
 						list_size[FIRST_LIST]--;
 					}
-				}	
+				}
 			}
-		}	
+		}
 	}
 
 	if (noun_number > 1) {
@@ -894,7 +899,7 @@ is_direct_child_of_from(int child)
 
 	while (from_objects[index] != 0) {
 		//printf("--- in is_direct from object is %s\n", object[from_objects[index]]->label);
-		if (object[child]->PARENT == from_objects[index]) {	
+		if (object[child]->PARENT == from_objects[index]) {
 			//printf("--- object %s is in the from object\n", object[child]->label);
 			return (TRUE);
 		}
@@ -908,7 +913,7 @@ int
 get_from_object(struct word_type *scope_word, int noun_number)
 {
 	/* THIS FUNCTION LOOKS AHEAD TO FIND IF THE CURRENT OBJECT REFERENCE
-	 * IS QUALIFIED BY A 'FROM' WORD. IT RETURNS FALSE ON AN ERROR 
+	 * IS QUALIFIED BY A 'FROM' WORD. IT RETURNS FALSE ON AN ERROR
 	 * CONDITION AND TRUE OTHERWISE, REGARDLESS OF WHETHER A FROM OBJECT
 	 * IS SPECIFIED */
 
@@ -927,8 +932,7 @@ get_from_object(struct word_type *scope_word, int noun_number)
 		if (!strcmp(cstring_resolve("FROM_WORD")->value, terminator->word)) {
 			//printf("--- from is a terminator, don't get a from object\n");
 			return (TRUE);
-		}
-		while ((terminator = terminator->next_sibling) != NULL);
+		} while ((terminator = terminator->next_sibling) != NULL);
 	}
 
 	/* LOOP FROM THE CURRENT WORD TO THE NEXT TERMINATOR AND LOOK FOR THE
@@ -937,7 +941,7 @@ get_from_object(struct word_type *scope_word, int noun_number)
 		//printf("--- from loop checking %s\n", word[wp]);
 		if (!strcmp(word[wp], cstring_resolve("FROM_WORD")->value)) {
 			from_word = word[wp];
-			wp++;		
+			wp++;
 			
 			/* scope_word FOR THE CURRENT OBJECT IS PASSED ONLY SO
 			 * noun_resolve CAN FIND OUT THE APPROPRIATE TERMINATORS
@@ -947,8 +951,8 @@ get_from_object(struct word_type *scope_word, int noun_number)
 			from_object = noun_resolve(scope_word, TRUE, noun_number);
 				
 			/* STORE THE wp FROM AFTER THE RESOLVED FROM OBJECT SO
-	 		 * WE CAN JUMP FORWARD TO HERE AGAIN WHEN WE HIT THIS
-	 		 * FROM CLAUSE IN PROCESSING (THIS FUNCTION IS A LOOK-AHEAD */
+			 * WE CAN JUMP FORWARD TO HERE AGAIN WHEN WE HIT THIS
+			 * FROM CLAUSE IN PROCESSING (THIS FUNCTION IS A LOOK-AHEAD */
 			after_from = wp;
 
 			//printf("--- looked forward and found a from object of %s\n", object[from_object]->label);
@@ -974,7 +978,7 @@ get_from_object(struct word_type *scope_word, int noun_number)
 				/* NULL TERMINATE THE LIST */
 				from_objects[counter] = 0;
 
-				/* OBJECTS HAVE BEEN SET AND ARE VALID, RESTORE THE WORD 
+				/* OBJECTS HAVE BEEN SET AND ARE VALID, RESTORE THE WORD
 				 * POINTER */
 				wp = backup;
 				return (TRUE);
@@ -983,11 +987,11 @@ get_from_object(struct word_type *scope_word, int noun_number)
 					return (FALSE);
 				} else {
 					/* ADD THIS OBJECT TO THE NULL TERMINATED LIST */
-					from_objects[0] = from_object;	
+					from_objects[0] = from_object;
 					from_objects[1] = 0;
 
-					/* OBJECT HAS BEEN SET AND IS VALID, RESTORE THE WORD 
-				 	* POINTER */
+					/* OBJECT HAS BEEN SET AND IS VALID, RESTORE THE WORD
+					 * POINTER */
 					wp = backup;
 					return (TRUE);
 				}
@@ -998,15 +1002,15 @@ get_from_object(struct word_type *scope_word, int noun_number)
 				return (FALSE);
 			}
 			//printf("--- finished processing from clause, next word is %s\n", word[wp]);
-		} else if ( !strcmp(cstring_resolve("EXCEPT_WORD")->value, word[wp]) ||
-					!strcmp(cstring_resolve("BUT_WORD")->value, word[wp])) {
-			/* THIS IS THE LIMIT OF THE EFFECT ANY FROM OBJECT ANYWAY, 
+		} else if (!strcmp(cstring_resolve("EXCEPT_WORD")->value, word[wp]) ||
+				   !strcmp(cstring_resolve("BUT_WORD")->value, word[wp])) {
+			/* THIS IS THE LIMIT OF THE EFFECT ANY FROM OBJECT ANYWAY,
 			 * SO TREAT IT LIKE A TERMINATOR */
 			//printf("--- %s is a get_from_object except word\n", word[wp]);
 			wp = backup;
 			return (TRUE);
 		} else if (is_terminator(scope_word) || !strcmp("then", word[wp])) {
-			/* THERE ARE NO MORE OBJECTS TO RESOLVE */ 
+			/* THERE ARE NO MORE OBJECTS TO RESOLVE */
 
 			//printf("--- %s is a get_from_object terminator\n", word[wp]);
 			wp = backup;
@@ -1035,10 +1039,10 @@ verify_from_object(int from_object)
 	//} else if (object[from_object]->attributes & CLOSED) {
 	if (object[from_object]->attributes & CONTAINER && object[from_object]->attributes & CLOSED) {
 		//printf("--- container is concealing\n");
-        if (object[from_object]->attributes & FEMALE) {
-			sprintf (error_buffer, cstring_resolve("CONTAINER_CLOSED_FEM")->value, sentence_output(from_object, TRUE));	
+		if (object[from_object]->attributes & FEMALE) {
+			sprintf (error_buffer, cstring_resolve("CONTAINER_CLOSED_FEM")->value, sentence_output(from_object, TRUE));
 		} else {
-			sprintf (error_buffer, cstring_resolve("CONTAINER_CLOSED")->value, sentence_output(from_object, TRUE));	
+			sprintf (error_buffer, cstring_resolve("CONTAINER_CLOSED")->value, sentence_output(from_object, TRUE));
 		}
 		write_text(error_buffer);
 		custom_error = TRUE;
@@ -1068,14 +1072,17 @@ add_to_list(int noun_number, int resolved_object)
 {
 	/* ADD THIS OBJECT TO THE OBJECT LIST DEPENDING */
 	/* AND SET IT, THEM, HER AND HIM */
-	if (!(object[resolved_object]->attributes & ANIMATE))
+	if (!(object[resolved_object]->attributes & ANIMATE)) {
 		it = resolved_object;
+	}
 	if (object[resolved_object]->attributes & ANIMATE
-		&& object[resolved_object]->attributes & FEMALE)
+		&& object[resolved_object]->attributes & FEMALE) {
 		her = resolved_object;
+	}
 	if (object[resolved_object]->attributes & ANIMATE
-		&& !(object[resolved_object]->attributes & FEMALE))
-	him = resolved_object;
+		&& !(object[resolved_object]->attributes & FEMALE)) {
+		him = resolved_object;
+	}
 	
 	//printf("--- adding_object %s to list %d at index %d\n", object[resolved_object]->label, noun_number, max_size[noun_number]);
 	object_list[noun_number][max_size[noun_number]] = resolved_object;
@@ -1117,15 +1124,16 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 
 	/* SET THE CONFIDENCE FOR EACH OBJECT TO 1 TO INDICATE THAT THEY ARE
 	 * ALL EQUALLY POSSIBLE AT THE MOMENT. SET TO ZERO TO DISCOUNT */
-	for (index = 1; index <= objects; index++)
+	for (index = 1; index <= objects; index++) {
 		confidence[index] = 1;
+	}
 
 	/* CLEAR THE OBJECT NAME BEFORE BUILDING IT WAS WE GO ALONG */
 	object_name[0] = 0;
 
 	/* CHECK FOR A QUANTITY QUALIFIER */
 	if (validate(word[wp])) {
-		/* FIRST WORD IS AN INTEGER AND SECOND WORD IS 'OF' SO 
+		/* FIRST WORD IS AN INTEGER AND SECOND WORD IS 'OF' SO
 		 * TREAT THIS AS A LIMIT QUALIFIER BEFORE STARTING TO
 		 * PROCESS THE REST OF THE WORDS */
 		if (word[wp +1] != NULL && !strcmp(word[wp + 1], cstring_resolve("OF_WORD")->value)) {
@@ -1136,7 +1144,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 				return_limit = 1;
 			}
 
-			object_expected = TRUE;	
+			object_expected = TRUE;
 			strcpy(object_name, word[wp]);
 			strcat(object_name, " ");
 			strcat(object_name, cstring_resolve("OF_WORD")->value);
@@ -1155,10 +1163,10 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	while (word[wp] != NULL) {
 		// ADD THE WORDS USED TO error_buffer FOR POSSIBLE USE
 		// IN A DISABMIGUATE EMESSAGE
-		if (first_word == FALSE) {		
+		if (first_word == FALSE) {
 			strcat(error_buffer, " ");
 		}
-		strcat(error_buffer, word[wp]);	
+		strcat(error_buffer, word[wp]);
 		first_word = FALSE;
 
 		/* LOOP THROUGH WORDS IN THE PLAYER'S INPUT */
@@ -1184,19 +1192,18 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 					|| (!strcmp(terminator->word, "$integer")
 						&& validate(word[wp]))) {
 					if (!matches) {
-						/* A TERMINATOR HAS BEEN FOUND BEFORE A 
+						/* A TERMINATOR HAS BEEN FOUND BEFORE A
 						 * SINGLE MATCHING OBJECT NAME. */
 						return (FALSE);
 					} else {
-						/* A TERMINATOR HAS BEEN FOUND, BUT NOT 
-						 * BEFORE MATCHING OBJECT NAMES. JUMP FORWARD TO 
+						/* A TERMINATOR HAS BEEN FOUND, BUT NOT
+						 * BEFORE MATCHING OBJECT NAMES. JUMP FORWARD TO
 						 * RESOLVING INTO OBJECT NUMBER(S) */
 						done = TRUE;
 						break;
 					}
 				}
-			}
-			while ((terminator = terminator->next_sibling) != NULL);
+			} while ((terminator = terminator->next_sibling) != NULL);
 		}
 
 		if (done == TRUE) {
@@ -1209,16 +1216,17 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 
 		//puts("--- passed checking for a terminator");
 
-		/* ADD THE CURRENT WORD TO THE NAME OF THE OBJECT THE PLAYER 
+		/* ADD THE CURRENT WORD TO THE NAME OF THE OBJECT THE PLAYER
 		 * IS TRYING TO REFER TO FOR USE IN AN ERROR MESSAGE IF
 		 * LATER REQUIRED */
-		if (object_name[0] != 0)
+		if (object_name[0] != 0) {
 			strcat(object_name, " ");
+		}
 
 		strcat(object_name, word[wp]);
 
 		if (!strcmp("everything", word[wp])) {
-			/* ALL THIS NEEDS TO SIGNIFY IS THAT IT IS OKAY TO RETURN MULTIPLE 
+			/* ALL THIS NEEDS TO SIGNIFY IS THAT IT IS OKAY TO RETURN MULTIPLE
 			 * RESULTS. EVERYTHING ELSE SHOULD TAKE CARE OF ITSELF GIVEN ALL
 			 * OBJECTS START OF WITH A CONFIDENCE OF 1, AND ALL OBJECTS WITH
 			 * A CONFIDENCE > 0 ARE RETURNED WHEN return_limit > 1 */
@@ -1245,17 +1253,17 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 			}
 			//printf("--- finished setting matches to %d for all\n", matches);
 		} else {
-			/* THE CURRENT WORD IS NOT ONE OF THE NEXT POSSIBLE WORDS IN THE 
-			 * PLAYER'S COMMAND OR ANY OF THE SPECIAL MEANING WORDS, THEREFORE 
+			/* THE CURRENT WORD IS NOT ONE OF THE NEXT POSSIBLE WORDS IN THE
+			 * PLAYER'S COMMAND OR ANY OF THE SPECIAL MEANING WORDS, THEREFORE
 			 * TEST IT AGAINST ALL OF THE NAMES OF ALL OF THE OBJECTS. */
 			for (index = 1; index <= objects; index++) {
 				if (!confidence[index]) {
-					/* SKIP OBJECTS THAT HAVE ALREADY 
+					/* SKIP OBJECTS THAT HAVE ALREADY
 					 * BEEN EXCLUDED BY A PREVIOUS WORD */
-					continue;		
+					continue;
 				}
 	
-				/* NEXT WORD IN PLAYERS INPUT IS YET TO 
+				/* NEXT WORD IN PLAYERS INPUT IS YET TO
 				 * BE TESTED AGAINST ALL THIS OBJECT'S NAMES */
 				object_matched = FALSE;
 	
@@ -1267,45 +1275,45 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 					} else {
 						if (index == it) {
 							object_matched = TRUE;
-						}	
+						}
 					}
 				} else if (!strcmp(cstring_resolve("HER_WORD")->value, word[wp]) ||
-					!strcmp(cstring_resolve("HERSELF_WORD")->value, word[wp])) {
+						   !strcmp(cstring_resolve("HERSELF_WORD")->value, word[wp])) {
 					if (her == FALSE) {
 						no_it();
 						return (FALSE);
 					} else {
 						if (index == her) {
 							object_matched = TRUE;
-						}	
+						}
 					}
 				} else if (!strcmp(cstring_resolve("HIM_WORD")->value, word[wp]) ||
-					!strcmp(cstring_resolve("HIMSELF_WORD")->value, word[wp])) {
+						   !strcmp(cstring_resolve("HIMSELF_WORD")->value, word[wp])) {
 					if (him == FALSE) {
 						no_it();
 						return (FALSE);
 					} else {
 						if (index == him) {
 							object_matched = TRUE;
-						}	
+						}
 					}
 				} else if (!strcmp(cstring_resolve("THEM_WORD")->value, word[wp]) ||
-					!strcmp(cstring_resolve("THEMSELVES_WORD")->value, word[wp]) ||
-					!strcmp(cstring_resolve("ONES_WORD")->value, word[wp])) {
-					/* THIS NEED ONLY BE THE SIZE OF 'THEM', BUT NO HARM 
+						   !strcmp(cstring_resolve("THEMSELVES_WORD")->value, word[wp]) ||
+						   !strcmp(cstring_resolve("ONES_WORD")->value, word[wp])) {
+					/* THIS NEED ONLY BE THE SIZE OF 'THEM', BUT NO HARM
 					 * IN MAKING IT THE FULL SIZE */
 					if (return_limit == FALSE) {
 						return_limit = MAX_OBJECTS;
 					}
 
-					/* LOOP THROUGH ALL THE OBJECT IN THE 'THEM' ARRAY AND 
-			 		 * SEE IF THIS OBJECT IS PRESENT */
+					/* LOOP THROUGH ALL THE OBJECT IN THE 'THEM' ARRAY AND
+					 * SEE IF THIS OBJECT IS PRESENT */
 					counter = 0;
 
 					while (them[counter] != 0) {
 						if (them[counter] == index) {
 							//printf("--- found previous them object %s\n", object[index]->label);
-							object_matched = TRUE;	
+							object_matched = TRUE;
 							break;
 						}
 						counter++;
@@ -1331,14 +1339,14 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 					while (current_name != NULL) {
 						/* LOOP THROUGH ALL THE CURRENT OBJECTS NAMES */
 						if (!strcmp(word[wp], current_name->name)) {
-							/* CURRENT WORD MATCHES THE CURRENT NAME 
+							/* CURRENT WORD MATCHES THE CURRENT NAME
 							 *OF THE CURRENT OBJECT */
 							//printf("--- %s is a name match of object %d\n", word[wp], index);
-							object_matched = TRUE;	
+							object_matched = TRUE;
 		
 							/* MOVE ON TO NEXT OBJECT, THIS OBJECT SHOULD
 							 * NOT HAVE THE SAME NAME TWICE */
-							break;				
+							break;
 						}
 						current_name = current_name->next_name;
 					}
@@ -1349,10 +1357,10 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 					while (current_name != NULL) {
 						/* LOOP THROUGH ALL THE CURRENT OBJECTS NAMES */
 						if (!strcmp(word[wp], current_name->name)) {
-							/* CURRENT WORD MATCHES THE CURRENT NAME 
+							/* CURRENT WORD MATCHES THE CURRENT NAME
 							 *OF THE CURRENT OBJECT */
 							//printf("--- %s is a plural name match of object %d\n", word[wp], index);
-							object_matched = TRUE;	
+							object_matched = TRUE;
 		
 							/* IT IS NOW OKAY FOR THIS FUNCTION TO RETURN MORE
 							 * THAT ONE MATCHING OBJECT AS THE PLURAL FORM
@@ -1365,7 +1373,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 		
 							/* MOVE ON TO NEXT OBJECT, THIS OBJECT SHOULD
 							 * NOT HAVE THE SAME NAME TWICE */
-							break;				
+							break;
 						}
 						current_name = current_name->next_name;
 					}
@@ -1385,26 +1393,27 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 						confidence[index]++;
 					}
 				} else {
-					/* THE CURRENT WORD IS NOT ONE OF THE NAMES OF THE 
+					/* THE CURRENT WORD IS NOT ONE OF THE NAMES OF THE
 					 * CURRENT OBJECT.
-					 * IF THE OBJECT HAD PREVIOUSLY BEEN A CANDIDATE, DECREMENT 
+					 * IF THE OBJECT HAD PREVIOUSLY BEEN A CANDIDATE, DECREMENT
 					 * THE NUMBER OF MATCHING OBJECTS. */
-					if (confidence[index] > 1)
+					if (confidence[index] > 1) {
 						matches--;
+					}
 	
 					/* AS THE CURRENT WORD DID NOT MATCH ANY OF THE NAMES OF
-					 * THE THIS OBJECT, EXCLUDE IT FROM CONTENTION. */ 
+					 * THE THIS OBJECT, EXCLUDE IT FROM CONTENTION. */
 					confidence[index] = FALSE;
 				}
 			} /* MOVE ON TO NEXT OBJECT FOR IN LOOP */
 		}
 	
 		if (!matches) {
-			/* IF THERE ARE NO REMAINING MATCHES DON'T MOVE ON TO THE NEXT 
+			/* IF THERE ARE NO REMAINING MATCHES DON'T MOVE ON TO THE NEXT
 			 * WORD IN THE PLAYER'S INPUT. */
 			//printf("--- %s isnt a name match for any object\n", word[wp]);
 
-			/* THIS WORD IS A LIKELY BE INCORRECT AS IT DIDN'T MATCH 
+			/* THIS WORD IS A LIKELY BE INCORRECT AS IT DIDN'T MATCH
 			 * ANY OBJECTS */
 			if (oops_word == -1 && word[wp] != NULL) {
 				oops_word = wp;
@@ -1420,20 +1429,20 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 
 	//printf("--- finished processing words\n");
 
-	/***************************************************
+	/*
 	 * FINISHED LOOKING THROUGH THE PLAYER'S INPUT NOW *
-	 * MOVE THE POINTER BACK FOR PARSER TO PROCESS     * 
-	 * THIS SHOULDN'T BE DONE FOR A WORD LIKE 'AND'    * 
-	 ***************************************************/
+	 * MOVE THE POINTER BACK FOR PARSER TO PROCESS     *
+	 * THIS SHOULDN'T BE DONE FOR A WORD LIKE 'AND'    *
+	 */
 
 	if (return_limit == FALSE) {
 		/* THE RETURN LIMIT WAS NEVER SET, SO TREAT THIS AS AN IMPLICIT 1 */
 		return_limit = 1;
 	}
 
-	if (matches == 0) {			
+	if (matches == 0) {
 		/* THE PLAYER'S INPUT COULD NOT BE RESOLVED TO A SINGLE OBJECT
-		 * BUT NO TERMINATING WORD WAS USED BEFORE A NON-TERMINATING 
+		 * BUT NO TERMINATING WORD WAS USED BEFORE A NON-TERMINATING
 		 * WORD IN A PLACE WHERE AN OBJECT COULD BE SPECIFIED ---
 		 * IN OTHER WORDS, PRESUME THE PLAYER WAS TRYING TO REFER TO
 		 * AN OBJECT BUT SOMEHOW GOT IT WRONG */
@@ -1441,7 +1450,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 		//printf("--- matches = 0\n");
 		/* THIS VARIABLE IS USED TO CHANGE THE BEHAVIOR OF diagnose()
 		 * SHOULD THIS COMMAND TURN OUT TO BE INVALID */
-		object_expected = TRUE;	
+		object_expected = TRUE;
 
 		wp = backup_pointer;	/* BACK UP THE CURRENT WORD POINTER.
 								 * SO THE PARSER CAN INVESTIAGE THE
@@ -1455,8 +1464,8 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	//printf("--- starting with %d matches\n", matches);
 
 	/* LOOP THROUGH ALL OBJECTS AND REMOVE FROM ANY OBJECT THAT IS NOT IN THE
-	 * CURRENT LOCATION, PROVIDED THE VERB DOESN'T ALLOW THE OBJECT TO 
-     * BE *ANYWHERE. */
+	 * CURRENT LOCATION, PROVIDED THE VERB DOESN'T ALLOW THE OBJECT TO
+	 * BE *ANYWHERE. */
 	for (index = 1; index <= objects; index++) {
 		if (confidence[index] != FALSE && strcmp(scope_word->word, "*anywhere") && strcmp(scope_word->word, "**anywhere") && strcmp(scope_word->word, "*location")) {
 			if (scope(index, "*present", UNRESTRICT) == FALSE) {
@@ -1477,7 +1486,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 			}
 		}
 
-		/* FOR ALL CONTENDERS, CALCULATE THE CONFIDENCE AS A PERCENTAGE, 
+		/* FOR ALL CONTENDERS, CALCULATE THE CONFIDENCE AS A PERCENTAGE,
 		 * SO LONG AS WE ARE STILL LOOKING FOR A SINGLE OBJECT */
 		if (confidence[index] != FALSE && return_limit == 1) {
 			current_name = object[index]->first_name;
@@ -1546,7 +1555,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	 * EXCLUDE OBJECTS THAT DO NOT HAVE ONE OF THE NAMES SUPPLIED */
 	if (matches > 1 && return_limit == 1) {
 		// CALCULATE THE HIGHEST CONFIDENCE NOW THAT OBJECTS
-	 	// NOT IN SCOPE HAVE BEEN REMOVED 
+		// NOT IN SCOPE HAVE BEEN REMOVED
 		highest_confidence = 0;
 
 		for (index = 1; index <= objects; index++) {
@@ -1557,8 +1566,8 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 
 		//printf("--- removing lower confidence objects\n");
 		for (index = 1; index <= objects; index++) {
-			/* REMOVE ANY OBJECTS THAT ARE NOT EQUAL 
-			   TO THE HIGHEST CONFIDENCE. */
+			/* REMOVE ANY OBJECTS THAT ARE NOT EQUAL
+			 TO THE HIGHEST CONFIDENCE. */
 			if (confidence[index] != FALSE) {
 				if (confidence[index] < highest_confidence) {
 					//printf("--- removing %s due to confidence of %d being under %d\n", object[index]->label, confidence[index], highest_confidence);
@@ -1582,7 +1591,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	}
 
 	if (matches == 1) {
-		/* IF ONLY ONE POSSIBILITY REMAINS, RETURN THIS OBJECT AND SET THE 
+		/* IF ONLY ONE POSSIBILITY REMAINS, RETURN THIS OBJECT AND SET THE
 		 * APPROPRIATE POINTERS. */
 		//printf("--- only one object left\n");
 		for (index = 1; index <= objects; index++) {
@@ -1658,24 +1667,24 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 	*/
 
 	// CHECK IF ALL THE OBJECTS WERE REJECTED
-    if (matches == 0) {
+	if (matches == 0) {
 		return (prime_suspect);
 	}
 
 	// CHECK IF ONLY ONE OBJECT NOW REMAINS
-    if (matches == 1) {
-        /* IF ONLY ONE POSSIBILITY REMAINS, RETURN THIS OBJECT AND SET THE
-         * APPROPRIATE POINTERS. */
-        //printf("--- only one object left\n");
-        for (index = 1; index <= objects; index++) {
-            if (confidence[index] != FALSE) {
-                return (index);
-            }
-        }
-    }
+	if (matches == 1) {
+		/* IF ONLY ONE POSSIBILITY REMAINS, RETURN THIS OBJECT AND SET THE
+		 * APPROPRIATE POINTERS. */
+		//printf("--- only one object left\n");
+		for (index = 1; index <= objects; index++) {
+			if (confidence[index] != FALSE) {
+				return (index);
+			}
+		}
+	}
 
 #if defined GLK || defined __NDS__
-	/* NO OBJECT HAS CLAIMED OWNERSHIP, PROMPT THE PLAYER TO SPECIFY 
+	/* NO OBJECT HAS CLAIMED OWNERSHIP, PROMPT THE PLAYER TO SPECIFY
 	 * WHICH ONE THEY REQUIRE. */
 	counter = 1;
 	write_text(cstring_resolve("BY")->value);
@@ -1769,11 +1778,11 @@ scope(int index, const char *expected, int restricted)
 		if (object[index]->PARENT == HELD) {
 			return (TRUE);
 		} else if (object[index]->MASS >= HEAVY) {
-			/* ALLOW AND OBJECT TO BE CONSIDERED HELD IF IT HAS A 
+			/* ALLOW AND OBJECT TO BE CONSIDERED HELD IF IT HAS A
 			 * MASS OF HEAVY OR GREATER AND ITS DIRECT PARENT IS
 			 * BEING HELD. IE, A LABEL ON A JAR CAN BE SHOWN BECAUSE
 			 * THE JAR IS BEING HELD. */
-            temp = object[index]->PARENT;
+			temp = object[index]->PARENT;
 			if (temp > 0 && temp < objects) {
 				if (object[temp]->PARENT == HELD) {
 					return (TRUE);
@@ -1809,7 +1818,7 @@ scope(int index, const char *expected, int restricted)
 		if (object_list[0][0] >0 && object_list[0][0] < objects) {
 			return (parent_of(object_list[0][0], index, restricted));
 		} else {
-			// THERE IS NO PREVIOUS OBJECT SO TREAT THIS LIKE A *here 
+			// THERE IS NO PREVIOUS OBJECT SO TREAT THIS LIKE A *here
 			return (parent_of(HERE, index, restricted));
 		}
 	} else if (!strcmp(expected, "*present") || !strcmp(expected, "**present")) {
@@ -1831,14 +1840,14 @@ scope(int index, const char *expected, int restricted)
 int
 find_parent(int index)
 {
-	/* THIS FUNCTION WILL SET THE GLOBAL VARIABLE parent TO 
+	/* THIS FUNCTION WILL SET THE GLOBAL VARIABLE parent TO
 	 * THE OBJECT THAT IS AT THE TOP OF THE POSSESSION TREE.
 	 * IT WILL RETURN TRUE IF THE OBJECT IS VISIBLE TO THE
 	 * PLAYER */
 	//printf("--- find parent of %s\n", object[index]->label);
 
 	if (!(object[index]->attributes & LOCATION) &&
-			object[index]->PARENT != NOWHERE) {
+		object[index]->PARENT != NOWHERE) {
 
 		parent = object[index]->PARENT;
 		//printf("--- parent is %s\n", object[parent]->label);
@@ -1848,9 +1857,9 @@ find_parent(int index)
 			sprintf(error_buffer, SELF_REFERENCE, executing_function->name, object[index]->label);
 			log_error(error_buffer, PLUS_STDOUT);
 			return (FALSE);
-		} else	if (!(object[parent]->attributes & LOCATION) 
-			&& ((object[parent]->attributes & CLOSED && object[parent]->attributes & CONTAINER)
-			|| object[parent]->attributes & CONCEALING)) {
+		} else	if (!(object[parent]->attributes & LOCATION)
+					&& ((object[parent]->attributes & CLOSED && object[parent]->attributes & CONTAINER)
+						|| object[parent]->attributes & CONCEALING)) {
 			//printf("--- %s is closed, so return FALSE\n", object[parent]->label);
 			return (FALSE);
 		} else if (parent == HERE || parent == HELD) {
@@ -1866,26 +1875,24 @@ find_parent(int index)
 			}
 		}
 	} else {
-		if (index == HERE)
+		if (index == HERE) {
 			/* THE OBJECT IS THE PLAYER'S CURRENT LOCATION. */
 			return (TRUE);
-		else
+		} else {
 			return (FALSE);
+		}
 	}
 }
 
 int
-parent_of(parent, child, restricted)
-	 int             parent,
-	                 child,
-					 restricted;
+parent_of(int parent, int child, int restricted)
 {
 	/* THIS FUNCTION WILL CLIMB THE OBJECT TREE STARTING AT 'CHILD' UNTIL
 	 * 'PARENT' IS REACHED (RETURN TRUE), OR THE TOP OF THE TREE OR A CLOSED
 	 * OR CONCEALING OBJECT IS REACHED (RETURN FALSE). */
 	
 	/* restricted ARGUMENT TELLS FUNCTION TO IGNORE OBJECT IF IT IS IN AN
-	 * OBJECT WITH A mass OF heavy OR LESS THAT IS NOT THE SUPPLIED 
+	 * OBJECT WITH A mass OF heavy OR LESS THAT IS NOT THE SUPPLIED
 	 * PARENT ie. DON'T ACCEPT OBJECTS IN SUB OBJECTS */
 
 	int             index;
@@ -1894,7 +1901,7 @@ parent_of(parent, child, restricted)
 	if (child == parent) {
 		return (TRUE);
 	} else if (!(object[child]->attributes & LOCATION) &&
-			object[child]->PARENT != NOWHERE) {
+			   object[child]->PARENT != NOWHERE) {
 		/* STORE THE CHILDS PARENT OBJECT */
 		index = object[child]->PARENT;
 		//printf("--- %s is the parent of %s\n", object[index]->label, object[child]->label);
@@ -1905,9 +1912,9 @@ parent_of(parent, child, restricted)
 			log_error(error_buffer, PLUS_STDOUT);
 			//printf("--- self parent.\n");
 			return (FALSE);
-		} else	if (!(object[index]->attributes & LOCATION) 
-			&& ((object[index]->attributes & CLOSED && object[index]->attributes & CONTAINER)
-			|| object[index]->attributes & CONCEALING)) {
+		} else	if (!(object[index]->attributes & LOCATION)
+					&& ((object[index]->attributes & CLOSED && object[index]->attributes & CONTAINER)
+						|| object[index]->attributes & CONCEALING)) {
 			/* THE CHILDS PARENT IS CLOSED OR CONCEALING - CANT BE SEEN */
 			//printf("--- parent %s is closed\n", object[index]->label);
 			return (FALSE);
@@ -1915,7 +1922,7 @@ parent_of(parent, child, restricted)
 			//printf("--- scenery object.\n");
 			return (FALSE);
 		} else {
-			//printf("--- comparing %s with %s\n", object[index]->label, object[parent]->label);	
+			//printf("--- comparing %s with %s\n", object[index]->label, object[parent]->label);
 			if (index == parent) {
 				/* YES, IS PARENT OF CHILD */
 				return (TRUE);
