@@ -383,7 +383,6 @@
 		55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
 		55FF56862758C481000B0D21 /* GlkSound.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55FF5B42275A263C000B0D21 /* Ogg.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B32275A262C000B0D21 /* Ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		55FF5B43275A263D000B0D21 /* Vorbis.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B3B275A262C000B0D21 /* Vorbis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55FF5B44275A263D000B0D21 /* SFBAudioEngine.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B35275A262C000B0D21 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55FF5B47275A29E5000B0D21 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
 /* End PBXBuildFile section */
@@ -995,7 +994,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				55FF5B42275A263C000B0D21 /* Ogg.framework in Copy frameworks */,
-				55FF5B43275A263D000B0D21 /* Vorbis.framework in Copy frameworks */,
 				55FF5B44275A263D000B0D21 /* SFBAudioEngine.framework in Copy frameworks */,
 				55FF56862758C481000B0D21 /* GlkSound.framework in Copy frameworks */,
 				4B36C4440955EC2600874F9F /* GlkView.framework in Copy frameworks */,
