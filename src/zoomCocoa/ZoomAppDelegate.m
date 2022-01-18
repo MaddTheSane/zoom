@@ -190,7 +190,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		saveFilename = filename;
 		filename = nil;
 		if (ident) {
-			filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
+			filename = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: ident].path;
 		}
 	}
 	
@@ -224,7 +224,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 															withIdentity: ident
 																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
 																   error: NULL];
-				filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
+				filename = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: ident].path;
 			}
 			
 			// ... we've managed to load this file with the given plug-in, so display it
