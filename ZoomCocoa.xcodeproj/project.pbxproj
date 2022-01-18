@@ -222,6 +222,7 @@
 		4BF02D200C4A8141006FC32E /* ZoomGlkSaveRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BF02D1E0C4A8141006FC32E /* ZoomGlkSaveRef.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BF02D210C4A8141006FC32E /* ZoomGlkSaveRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */; };
 		5502A687275C42D00066927C /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
+		550DD3C62796B191001BD77E /* ZoomPlugInManagerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */; };
 		551E27D426F8464A007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27DA26F84691007204E1 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
@@ -1329,6 +1330,7 @@
 		4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkSaveRef.m; sourceTree = "<group>"; };
 		4BF1576306BAD034001A3C27 /* ZoomBlorbFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomBlorbFile.h; sourceTree = "<group>"; };
 		4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomBlorbFile.m; sourceTree = "<group>"; };
+		550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPlugInManagerSwift.swift; sourceTree = "<group>"; };
 		552A037F2049E74B00A4ECAA /* ZoomView.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ZoomView.modulemap; sourceTree = "<group>"; };
 		552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomPlugIns.modulemap; sourceTree = "<group>"; };
 		552CEEAE2715109C009D87A5 /* scare */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scare; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2021,6 +2023,7 @@
 				4BF02D1E0C4A8141006FC32E /* ZoomGlkSaveRef.h */,
 				4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */,
 				4B123EC80C9C636200CA3374 /* ZoomPlugInManager.h */,
+				550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */,
 				4B123EC90C9C636200CA3374 /* ZoomPlugInManager.m */,
 				4B1242D60CAE93D600CA3374 /* ZoomPlugInController.h */,
 				4B1242D70CAE93D600CA3374 /* ZoomPlugInController.m */,
@@ -3453,6 +3456,7 @@
 				4B7CB0AD09362A8D00F3B8F6 /* ZoomStory.m in Sources */,
 				4B7CB0AF09362A8E00F3B8F6 /* ZoomStoryID.m in Sources */,
 				4B7CB0B309362AA600F3B8F6 /* ifmetadata.c in Sources */,
+				550DD3C62796B191001BD77E /* ZoomPlugInManagerSwift.swift in Sources */,
 				4B7CB0B509362AA700F3B8F6 /* ifmetabase.c in Sources */,
 				4B7CB15809362DFB00F3B8F6 /* ZoomMetadata.m in Sources */,
 				4B7CB1B20936345D00F3B8F6 /* ZoomGlkPlugIn.m in Sources */,

@@ -182,8 +182,9 @@ glk_main(void)
 	override[0] = 0;
 
 	/* ALLOC AN EVENT TO STORE A CANCELLED EVENT IN */
- 	if ((cancelled_event = (event_t *) malloc(sizeof(event_t))) == NULL)
+	if ((cancelled_event = (event_t *) malloc(sizeof(event_t))) == NULL) {
         outofmem();
+	}
 
 	/* CREATE style_User1 FOR USE IN THE STATUS LINE */
 	glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
