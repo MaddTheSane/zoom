@@ -432,13 +432,7 @@ NS_ENUM(NSInteger) {
 }
 
 - (NSString*) selectedFilename {
-	ZoomStoryID* ident = [self selectedStoryID];
-	
-	if (ident != nil) {
-		return [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: ident];
-	}
-	
-	return nil;
+	return [self selectedFileURL].path;
 }
 
 - (NSURL*) selectedFileURL {
@@ -2418,7 +2412,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	} else if ([addedFiles count] == 1) {
 		// Play one story
 		ZoomStoryID* storyToPlay = [addedFiles lastObject];
-		NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: storyToPlay];
+		NSString* filename = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: storyToPlay].path;
 		
 		if (filename) {
 			[[NSApp delegate] application: NSApp
@@ -2475,7 +2469,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		
 		// If there's a signpost ID and we have that file, then open it
 		if (signpostId) {
-			NSString* storyFilename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: signpostId];
+			NSString* storyFilename = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: signpostId].path;
 			if (storyFilename) {
 				[[NSApp delegate] application: NSApp
 									 openFile: storyFilename];
@@ -2956,7 +2950,7 @@ static dispatch_block_t onceTypesBlock = ^{
 	for (ZoomStoryID* downloadId in [signpost ifids]) {
 		// If we're not forcing a download, open the existing file
 		if (downloadId && !forceDownload) {
-			NSString* storyFilename = [[ZoomStoryOrganiser sharedStoryOrganiser] filenameForIdent: downloadId];
+			NSString* storyFilename = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: downloadId].path;
 			if (storyFilename) {
 				[[NSApp delegate] application: NSApp
 									 openFile: storyFilename];
