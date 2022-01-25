@@ -8,6 +8,17 @@
 import Cocoa
 import WebKit
 import ZoomPlugIns.Swift
+import ZoomPlugIns.ZoomStory
+import ZoomPlugIns.ZoomResourceDrop
+import ZoomPlugIns.ZoomMetadata
+import ZoomPlugIns.ZoomStoryID
+import ZoomPlugIns.ZoomGameInfoController
+import ZoomPlugIns.ZoomNotesController
+import ZoomPlugIns.ZoomPlugInManager
+import ZoomPlugIns.ZoomPlugInController
+import ZoomPlugIns.ZoomPlugIn
+import ZoomView.Swift
+import ZoomPlugIns.ifmetabase
 
 extension ZoomiFictionController: WKNavigationDelegate {
 	
@@ -34,12 +45,11 @@ extension ZoomiFictionController: WKNavigationDelegate {
 		ifdbView.loadFileURL(failedURL, allowingReadAccessTo: failedURL.deletingLastPathComponent())
 	}
 	
-	public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+	public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction) async -> WKNavigationActionPolicy {
 		let archiveTypes = ["zip", "tar", "tgz", "gz", "bz2", "z"]
 		
 		guard webView === ifdbView else {
-			decisionHandler(.cancel)
-			return
+			return .cancel
 		}
 		
 		if navigationAction.navigationType == .linkActivated, var url = navigationAction.request.url {
@@ -74,17 +84,15 @@ extension ZoomiFictionController: WKNavigationDelegate {
 				activeDownload.start()
 				
 				// Ignore the request
-				decisionHandler(.cancel)
-				
-				return
+				return .cancel
 			}
 		}
 		
 		// Default is to use the request
 		if NSURLConnection.canHandle(navigationAction.request) {
-			decisionHandler(.allow)
+			return .allow
 		} else {
-			decisionHandler(.cancel)
+			return .cancel
 		}
 	}
 	
@@ -102,10 +110,8 @@ extension ZoomiFictionController: WKNavigationDelegate {
 		progressIndicator.stopAnimation(self)
 	}
 	
-	public func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+	public func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse) async -> WKNavigationResponsePolicy {
 		if !navigationResponse.canShowMIMEType {
-			decisionHandler(.cancel)
-
 			let alert = NSAlert()
 			alert.messageText = NSLocalizedString("Zoom cannot download this type of file", comment: "Zoom cannot download this type of file")
 			alert.informativeText = String(format: NSLocalizedString("Zoom cannot download this type of file Info: %@", comment: "Zoom cannot download this type of file Info, param is mime type or unknown"), navigationResponse.response.mimeType ?? "Unknown")
@@ -113,8 +119,10 @@ extension ZoomiFictionController: WKNavigationDelegate {
 			alert.beginSheetModal(for: window!) { response in
 				// Do nothing
 			}
+			
+			return .cancel
 		} else {
-			decisionHandler(.allow)
+			return .allow
 		}
 	}
 	
@@ -132,4 +140,3 @@ extension ZoomiFictionController: WKNavigationDelegate {
 	
 	// TODO: Revive ZoomJSError functionality. Maybe use WKUserScript?
 }
-

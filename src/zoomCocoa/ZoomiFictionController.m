@@ -41,7 +41,6 @@
 - (NSString*) queryEncode: (NSString*) string;
 - (void) installSignpostPluginFromData: (NSData*) signpostXml;
 - (void) installPluginFromDownload: (ZoomDownload*) downloadedPlugin;
-- (void) updateBackForwardButtons;
 
 @end
 
@@ -92,8 +91,6 @@
 	IBOutlet NSMenu* storyMenu;
 	IBOutlet NSMenu* saveMenu;
 	
-	BOOL showDrawer;
-	
 	BOOL needsUpdating;
 	
 	BOOL queuedUpdate;
@@ -107,8 +104,8 @@
 	ZoomResourceDrop* resourceDrop;
 	
 	// Data source information
-	NSMutableArray* filterSet1;
-	NSMutableArray* filterSet2;
+	NSMutableArray<NSString*>* filterSet1;
+	NSMutableArray<NSString*>* filterSet2;
 	
 	NSMutableArray<ZoomStoryID*>* storyList;
 	NSString*       sortColumn;
@@ -348,7 +345,6 @@ NS_ENUM(NSInteger) {
 			  forTable: filterTable2];
 
 
-	showDrawer = YES;
 	needsUpdating = YES;
 	
 	sortColumn = [[[NSUserDefaults standardUserDefaults] objectForKey: sortGroup] copy];
@@ -466,17 +462,15 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 #else
 static NSArray<NSString*>* ZComFileTypes;
 static NSArray<NSString*>* blorbFileTypes;
-static dispatch_once_t onceTypesToken;
-static dispatch_block_t onceTypesBlock = ^{
-	ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
-	blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
-};
-
 #endif
 
 - (void) addURLs: (NSArray<NSURL*> *)filenames {
 #if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
-	dispatch_once(&onceTypesToken, onceTypesBlock);
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
+		blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
+	});
 #endif
 
 	// Add all the files we can
@@ -1919,7 +1913,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		}
 		lastStory = story;
 		
-		switch ([field intValue]) {
+		switch ([field integerValue]) {
 			case ZoomTitleField:
 				title = newAttributeValue;
 				break;
@@ -2016,7 +2010,7 @@ static dispatch_block_t onceTypesBlock = ^{
 		NSFont* descFont = [NSFont systemFontOfSize: 11];
 
 		NSFont* font;
-		switch ([field intValue]) {
+		switch ([field integerValue]) {
 			case ZoomTitleNewlineField:
 				field = @(ZoomTitleField);
 			case ZoomTitleField:
@@ -2213,11 +2207,6 @@ static dispatch_block_t onceTypesBlock = ^{
 	
 	// The return value is the set of things that would be replaced
 	return replacements;
-}
-
-- (void) mergeiFictionFromFile: (NSString*) filename {
-	[self mergeiFictionFromURL: [NSURL fileURLWithPath:filename]
-						 error: NULL];
 }
 
 - (BOOL) mergeiFictionFromURL: (NSURL*) filename error: (NSError**) outError {

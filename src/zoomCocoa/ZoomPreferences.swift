@@ -561,7 +561,6 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
-	
 	open var textMargin: CGFloat {
 		get {
 			prefLock.lock()

@@ -67,7 +67,6 @@
 - (void) configureFromMainTableSelection;
 - (void) reloadTableData;
 
-- (void) mergeiFictionFromFile: (NSString*) filename;
 - (BOOL) mergeiFictionFromURL: (NSURL*) filename error: (NSError**) outError;
 - (NSArray<ZoomStory*>*) mergeiFictionFromMetabase: (ZoomMetadata*) newData;
 
