@@ -7,7 +7,7 @@
 
 import Cocoa
 
-private let BlinkInterval = 0.6
+private let BlinkInterval: TimeInterval = 0.6
 
 @objcMembers public
 class ZoomCursor: NSObject {
@@ -136,7 +136,7 @@ class ZoomCursor: NSObject {
 	}
 	
 	/// Cursor has, uh, blunked
-	func ZCblunk() {
+	private func ZCblunk() {
 		// Only send the message if our visibility has changed
 		let nowVisible = self.isVisible
 		let nowActive = self.activeStyle

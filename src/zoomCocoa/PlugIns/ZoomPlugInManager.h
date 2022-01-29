@@ -79,7 +79,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 
 // Getting information about plugins
 /// Array of \c ZoomPlugInInfo objects containing the information about all the plugins known about by this object
-- (NSArray<ZoomPlugInInfo*>*) informationForPlugins;
+@property (nonatomic, readonly, copy) NSArray<ZoomPlugInInfo*> *informationForPlugins;
 /// Performs a check for updates operation on the specified URLs
 - (void) checkForUpdatesFromURLs: (NSArray<NSURL*>*) urls;
 /// Performs a general check for updates operation

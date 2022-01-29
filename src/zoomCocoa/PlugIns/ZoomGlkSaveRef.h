@@ -16,27 +16,20 @@
 /// GlkFileRef object that can be used to create a .glksave package
 ///
 @class ZoomSkein;
-@interface ZoomGlkSaveRef : NSObject<GlkFileRef> {
-	//! The plugin specifying what is creating this fileref
-	ZoomPlugIn* plugin;
-	//! The path for this fileref
-	NSString* path;
-	
-	//! The preview lines to save for this object
-	NSArray<NSString*>* preview;
-	//! The skein to save for this object (or the skein loaded for this object)
-	ZoomSkein* skein;
-	
-	//! The delegate for this object
-	id<ZoomGlkSaveRefDelegate> delegate;
-	//! The autoflush flag
-	BOOL autoflush;
-}
+@interface ZoomGlkSaveRef : NSObject<GlkFileRef>
 
 // Initialisation
 //! Initialises a saveref that saves files from the specified plugin object to the specified path
 - (id) initWithPlugIn: (ZoomPlugIn*) plugin
-				 path: (NSString*) path;
+				 path: (NSString*) path DEPRECATED_MSG_ATTRIBUTE("Use -initWithPlugIn:saveURL: instead");
+
+/// Initialises a saveref that saves files from the specified plugin object to the specified file URL.
+- (id) initWithPlugIn: (ZoomPlugIn*) plugin
+			  saveURL: (NSURL*) path;
+
+/// Creates a saveref that saves files from the specified plugin object to the specified file URL.
++ (id<GlkFileRef>) createRefWithPlugIn: (ZoomPlugIn*) plugIn
+							   saveURL: (NSURL*) path NS_RETURNS_RETAINED;
 
 // Extra properties
 //! Sets the delegate for this object (the delegate is retained)

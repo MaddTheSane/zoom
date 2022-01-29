@@ -484,6 +484,7 @@
 #pragma mark - Going fullscreen
 
 - (IBAction) playInFullScreen: (id) sender {
+	// TODO: migrate to modern full-screen calling conventions!
 	if (isFullscreen) {
 		// Show the menubar
 		[NSMenu setMenuBarVisible: YES];
@@ -696,15 +697,12 @@
 	
 	if (returnCode == NSModalResponseOK) {
 		// TODO: preview
-		if ([[[[panel URL] pathExtension] lowercaseString] isEqualToString: @"glksave"]) {
-			ZoomGlkSaveRef* saveRef = [[ZoomGlkSaveRef alloc] initWithPlugIn: [[self document] plugIn]
-																		path: [[panel URL] path]];
-			[saveRef setSkein: skein];
-			[promptHandler promptedFileRef: saveRef];
-		} else {
-			GlkFileRef* promptRef = [[GlkFileRef alloc] initWithPath: [panel URL]];
-			[promptHandler promptedFileRef: promptRef];
+		id<GlkFileRef> saveRef = [ZoomGlkSaveRef createRefWithPlugIn: [[self document] plugIn]
+															 saveURL: [panel URL]];
+		if ([saveRef isKindOfClass:[ZoomGlkSaveRef class]]) {
+			[(ZoomGlkSaveRef*)saveRef setSkein: skein];
 		}
+		[promptHandler promptedFileRef: saveRef];
 		
 		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
 											   forKey: @"GlkSaveDirectory"];

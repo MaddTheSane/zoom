@@ -12,24 +12,44 @@
 #import <GlkView/GlkFileStream.h>
 #import <ZoomView/ZoomView-Swift.h>
 
-@implementation ZoomGlkSaveRef
+@implementation ZoomGlkSaveRef {
+	//! The plugin specifying what is creating this fileref
+	ZoomPlugIn* plugin;
+	//! The file URL for this fileref
+	NSURL* path;
+	
+	//! The preview lines to save for this object
+	NSArray<NSString*>* preview;
+	//! The skein to save for this object (or the skein loaded for this object)
+	ZoomSkein* skein;
+	
+	//! The delegate for this object
+	id<ZoomGlkSaveRefDelegate> delegate;
+	//! The autoflush flag
+	BOOL autoflush;
+}
 
 #pragma mark - Initialisation
 
 - (id) initWithPlugIn: (ZoomPlugIn*) newPlugin
 				 path: (NSString*) newPath {
+	return [self initWithPlugIn: newPlugin saveURL: [NSURL fileURLWithPath: newPath]];
+}
+
+- (id) initWithPlugIn: (ZoomPlugIn*) newPlugin
+			  saveURL: (NSURL *) newPath {
 	self = [super init];
 	
 	if (self) {
-		// Revert to being a standard GlkFileRef if the path doesn't end in .glksave (or it does and isn't a directory)
+		// Return nil if the path doesn't end in .glksave (or it does and isn't a directory)
 		BOOL isDir;
-		if (![[NSFileManager defaultManager] fileExistsAtPath: newPath
+		if (![[NSFileManager defaultManager] fileExistsAtPath: newPath.path
 												  isDirectory: &isDir]) {
 			isDir = YES;
 		}
 			
 		if (![[[newPath pathExtension] lowercaseString] isEqualToString: @"glksave"] || !isDir) {
-			return (id)[[GlkFileRef alloc] initWithPath: [NSURL fileURLWithPath:path]];
+			return nil;
 		}
 		
 		// Set up the plugin and path for this object
@@ -38,6 +58,22 @@
 	}
 	
 	return self;
+}
+
++ (id<GlkFileRef>) createRefWithPlugIn: (ZoomPlugIn *) plugIn
+							   saveURL: (NSURL *) newPath {
+	// Revert to being a standard GlkFileRef if the path doesn't end in .glksave (or it does and isn't a directory)
+	BOOL isDir;
+	if (![[NSFileManager defaultManager] fileExistsAtPath: newPath.path
+											  isDirectory: &isDir]) {
+		isDir = YES;
+	}
+
+	if (![[[newPath pathExtension] lowercaseString] isEqualToString: @"glksave"] || !isDir) {
+		return [[GlkFileRef alloc] initWithPath: newPath];
+	}
+
+	return [[ZoomGlkSaveRef alloc] initWithPlugIn: plugIn saveURL: newPath];
 }
 
 #pragma mark - Creating the glksave package
@@ -57,7 +93,7 @@
 	NSData* savePropertyList = [NSPropertyListSerialization dataWithPropertyList: saveProperties
 																		  format: NSPropertyListXMLFormat_v1_0
 																		 options: 0
-																error: &error];
+																		   error: &error];
 	if (error) {
 		error = nil;
 	}
@@ -113,7 +149,7 @@
 	}
 	
 	// Write it out
-	if (![saveWrapper writeToURL: [NSURL fileURLWithPath: path]
+	if (![saveWrapper writeToURL: path
 						 options: (NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating)
 			 originalContentsURL: nil
 						   error: NULL]) {
@@ -178,7 +214,7 @@
 		
 		// Set the image for this save game
 		[[NSWorkspace sharedWorkspace] setIcon: newImage
-									   forFile: path
+									   forFile: path.path
 									   options: 0];
 	}
 
@@ -201,11 +237,11 @@
 
 - (byref id<GlkStream>) createReadOnlyStream {
 	// Load the skein from the path if it exists
-	NSString* skeinPath = [path stringByAppendingPathComponent: @"Skein.skein"];
-	if ([[NSFileManager defaultManager] fileExistsAtPath: skeinPath]) {
+	NSURL* skeinPath = [path URLByAppendingPathComponent: @"Skein.skein"];
+	if ([skeinPath checkResourceIsReachableAndReturnError: NULL]) {
 		if (!skein) skein = [[ZoomSkein alloc] init];
 		
-		[skein parseXMLContentsAtURL: [NSURL fileURLWithPath: skeinPath] error: NULL];
+		[skein parseXMLContentsAtURL: skeinPath error: NULL];
 	}
 	
 	// Inform the delegate we're about to start reading
@@ -214,14 +250,14 @@
 	}
 	
 	// Create a read-only stream
-	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
+	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingFromFileURL: [path URLByAppendingPathComponent: @"Save.data"]];
 	
 	return stream;
 }
 
 - (byref id<GlkStream>) createWriteOnlyStream {
 	if ([self createSavePackage]) {
-		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
+		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingToFileURL: [path URLByAppendingPathComponent: @"Save.data"]];
 		
 		return stream;
 	}
@@ -239,18 +275,18 @@
 	}
 	
 	// Construct a read/write stream
-	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
+	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFileURL: [path URLByAppendingPathComponent: @"Save.data"]];
 	
 	return stream;			
 }
 
 - (void) deleteFile {
-	[[NSFileManager defaultManager] removeItemAtPath: path
-											   error: NULL];	
+	[[NSFileManager defaultManager] removeItemAtURL: path
+											  error: NULL];
 }
 
 - (BOOL) fileExists {
-	return [[NSFileManager defaultManager] fileExistsAtPath: path];	
+	return [[NSFileManager defaultManager] fileExistsAtPath: path.path];
 }
 
 @synthesize autoflushStream = autoflush;

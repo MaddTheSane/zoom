@@ -561,7 +561,7 @@ static int RankForStatus(ZoomPlugInStatus status) {
 - (NSArray*) informationForPlugins {
 	if (pluginInformation == nil) [self setupInformation];
 	
-	return pluginInformation;
+	return [pluginInformation copy];
 }
 
 - (void) startNextCheck {

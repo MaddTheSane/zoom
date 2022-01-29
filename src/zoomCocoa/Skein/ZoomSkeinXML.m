@@ -108,12 +108,8 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	// Root item usually has the command '- start -'
 	
 	NSXMLElement *root = elementWithNameAndAttribute(@"Skein", @"rootNode", rootItem.nodeIdentifier.UUIDString);
-	{
-		NSXMLNode *nameNode = [[NSXMLNode alloc] initWithKind: NSXMLNamespaceKind options: NSXMLNodePrettyPrint];
-		nameNode.name = @"";
-		nameNode.stringValue = @"http://www.logicalshift.org.uk/IF/Skein";
-		[root addNamespace:nameNode];
-	}
+	[root addNamespace:[NSXMLNode namespaceWithName:@"" stringValue:@"http://www.logicalshift.org.uk/IF/Skein"]];
+	
 	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithKind: NSXMLDocumentKind options: NSXMLDocumentTidyXML | NSXMLNodePrettyPrint];
 	xmlDoc.version = @"1.0";
 	xmlDoc.characterEncoding = @"UTF-8";
@@ -166,12 +162,12 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 		}
 		
 		if (node.children.count > 0) {
-			NSXMLElement *children = elementWithNameAndValue(@"children", nil, NO);
-			[item addChild: children];
+			NSMutableArray *children = [NSMutableArray arrayWithCapacity: node.children.count];
 			
 			for (ZoomSkeinItem *childItem in node.children) {
-				[children addChild: elementWithNameAndAttribute(@"child", @"nodeId", childItem.nodeIdentifier.UUIDString)];
+				[children addObject: elementWithNameAndAttribute(@"child", @"nodeId", childItem.nodeIdentifier.UUIDString)];
 			}
+			[item addChild: [NSXMLNode elementWithName: @"children" children: children attributes:nil]];
 		}
 	}
 	
