@@ -12,6 +12,8 @@
 #import <ZoomView/ZoomSkeinItem.h>
 #import <ZoomView/ZoomSkeinLayout.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ZoomSkeinViewDelegate;
 
 extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinItem);
@@ -34,17 +36,17 @@ extern NSString * const ZoomSkeinTranscriptURLDefaultsKey;
 @property (weak) id<ZoomSkeinViewDelegate> delegate;
 
 #pragma mark Affecting the display
-- (void) scrollToItem: (ZoomSkeinItem*) item;
+- (void) scrollToItem: (nullable ZoomSkeinItem*) item;
 
 - (void) editItem: (ZoomSkeinItem*) skeinItem;
 - (void) editItemAnnotation: (ZoomSkeinItem*) skeinItem;
-@property (retain) ZoomSkeinItem *selectedItem;
+@property (nullable, strong) ZoomSkeinItem *selectedItem;
 
 - (void) highlightSkeinLine: (ZoomSkeinItem*) itemOnLine;
 
 - (void) layoutSkein;
 
-- (IBAction)updateSkein:(id)sender;
+- (IBAction)updateSkein:(nullable id)sender;
 
 @end
 
@@ -69,3 +71,5 @@ extern NSString * const ZoomSkeinTranscriptURLDefaultsKey;
 - (void) cantEditRootItem;
 
 @end
+
+NS_ASSUME_NONNULL_END

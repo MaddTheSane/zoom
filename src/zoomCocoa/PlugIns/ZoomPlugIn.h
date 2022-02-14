@@ -6,6 +6,10 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+
+#ifndef __ZOOMPLUGINS_ZOOMPLUGIN_H__
+#define __ZOOMPLUGINS_ZOOMPLUGIN_H__
+
 #import <Cocoa/Cocoa.h>
 
 #import <ZoomPlugIns/ZoomStory.h>
@@ -94,3 +98,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

@@ -181,9 +181,6 @@
 		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
 		
 		story = [[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: storyId];
-	} else {
-		// If there is some metadata, then keep it around
-//		[story retain];
 	}
 	
 	// Retrieve story resources (if available)
