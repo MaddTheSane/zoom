@@ -72,6 +72,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		mutating func update() throws {
 			guard let bookmarkData = bookmarkData else {
+				do {
+					self.bookmarkData = try url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
+				} catch {}
 				return
 			}
 			var stale = false
@@ -746,7 +749,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		// Success: store the new directory in the defaults
-		if ident != nil && ident.description != nil {
+		if ident != nil && ident.description != "(null)" {
 			gameDirectories[ident.description] = idealDir
 			try? save()
 		}

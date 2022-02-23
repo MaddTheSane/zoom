@@ -34,14 +34,20 @@
 
 /* Data structures */
 
-typedef unsigned short IFChar;						/*!< A UTF-16 character */
+/*! A UTF-16 character */
+typedef unsigned short IFChar;
 
-typedef struct IFMetabase* IFMetabase;				/*!< A metabase */
-typedef struct IFID* IFID;							/*!< A story identifier */
-typedef struct IFStory* IFStory;					/*!< A story entry in the metabase */
+/*! A metabase */
+typedef struct IFMetabase* IFMetabase;
+/*! A story identifier */
+typedef struct IFID* IFID;
+/*! A story entry in the metabase */
+typedef struct IFStory* IFStory;
 
-typedef struct IFStoryIterator* IFStoryIterator;	/*!< An iterator that covers all stories */
-typedef struct IFValueIterator* IFValueIterator;	/*!< An iterator that covers the values set for a story */
+/*! An iterator that covers all stories */
+typedef struct IFStoryIterator* IFStoryIterator;
+/*! An iterator that covers the values set for a story */
+typedef struct IFValueIterator* IFValueIterator;
 
 /* Functions - general metabase manipulation */
 

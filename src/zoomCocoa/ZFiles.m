@@ -12,10 +12,6 @@
 #include "file.h"
 #include "display.h"
 
-struct ZFile {
-    id<ZFile> theFile;
-};
-
 #pragma mark - Files
 ZFile* open_file_from_object(id<ZFile> file) {
     if (file == nil)

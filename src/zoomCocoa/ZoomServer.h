@@ -13,6 +13,10 @@
 
 @class ZoomZMachine;
 
+struct ZFile {
+    __strong id<ZFile> theFile;
+};
+
 // Globals
 extern NSRunLoop*         mainLoop;
 

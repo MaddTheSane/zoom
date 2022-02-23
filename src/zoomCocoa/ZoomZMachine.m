@@ -243,7 +243,7 @@
 }
 
 #pragma mark - Debugging
-void cocoa_debug_handler(ZDWord pc) {
+static void cocoa_debug_handler(ZDWord pc) {
 	[mainMachine breakpoint: pc];
 }
 

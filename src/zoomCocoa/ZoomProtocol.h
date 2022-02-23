@@ -294,6 +294,23 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 - (void)  beep;
 
 - (void)  setWindowTitle:(in bycopy NSString *)text;
+
+@optional
+// Sound
+- (void) setUpSound;
+- (oneway void) finalizeSound;
+- (void) playAIFFOnChannel: (int) channel
+				  withFile: (in byref id<ZFile>) file
+				  atOffset: (int) offset
+				 andLength: (int) length;
+- (void) playMODOnChannel: (int) channel
+				 withFile: (in byref id<ZFile>) file
+				 atOffset: (int) offset
+				andLength: (int) length;
+- (oneway void) stopSoundChannel: (int) chan;
+- (void) setUpSoundChannel: (int) chan
+				  atVolume: (int) vol
+				   repeats: (int) repeatCount;
 @end
 
 // Some useful standard classes

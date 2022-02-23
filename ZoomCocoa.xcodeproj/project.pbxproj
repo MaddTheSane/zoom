@@ -316,6 +316,7 @@
 		55B4599B2787992C0037A6A3 /* libcsv.LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55BC13202786D53000369EBE /* libcsv.LICENSE */; };
 		55B4599C278799500037A6A3 /* ZoomJACL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BC111E2786D04B00369EBE /* ZoomJACL.swift */; };
 		55B4599D27879AAE0037A6A3 /* babel.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC130E2786D53000369EBE /* babel.c */; };
+		55B524FC27C6E1E600370DAA /* ZSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B524FB27C6E1E600370DAA /* ZSound.m */; };
 		55B73CF726FDBC4900FCE3F2 /* ZoomDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */; };
 		55BA3C1427253B5B007F6C82 /* geas-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BE627253B5A007F6C82 /* geas-util.cc */; };
 		55BA3C1527253B5B007F6C82 /* geas-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55BA3BE727253B5A007F6C82 /* geas-state.cc */; };
@@ -1432,6 +1433,8 @@
 		55B4599E27879D5E0037A6A3 /* interpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interpreter.h; sourceTree = "<group>"; };
 		55B4599F27892ED20037A6A3 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
 		55B459A02789318F0037A6A3 /* encapsulate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = encapsulate.h; sourceTree = "<group>"; };
+		55B524FA27C6E1A800370DAA /* sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sound.h; sourceTree = "<group>"; };
+		55B524FB27C6E1E600370DAA /* ZSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSound.m; sourceTree = "<group>"; };
 		55B73CF626FDBC4900FCE3F2 /* ZoomDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDownloadView.swift; sourceTree = "<group>"; };
 		55BA3BD227253B21007F6C82 /* geas */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = geas; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BA3BDF27253B5A007F6C82 /* CONTACT.txt */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = CONTACT.txt; sourceTree = "<group>"; };
@@ -1904,6 +1907,7 @@
 				4B1E3FBF050F7DE200A8E303 /* interp.h */,
 				4B1E3FBD050F7DE200A8E303 /* random.c */,
 				4B1E3FBE050F7DE200A8E303 /* random.h */,
+				55B524FA27C6E1A800370DAA /* sound.h */,
 				4B1E3FB3050F7DE200A8E303 /* state.c */,
 				4B1E3FB8050F7DE200A8E303 /* state.h */,
 				4B1E3FBC050F7DE200A8E303 /* stream.c */,
@@ -1933,6 +1937,7 @@
 				4B4EF620050FD66E00A8E303 /* ZFiles.m */,
 				4BE447B80510DE5900A8E303 /* ZDisplay.m */,
 				4BE621CF068C20D500369528 /* Z6Display.m */,
+				55B524FB27C6E1E600370DAA /* ZSound.m */,
 				553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */,
 			);
 			name = ZoomCocoa;
@@ -3513,6 +3518,7 @@
 				4BB8C15B08C2497700D7D334 /* ZoomServer.m in Sources */,
 				4BB8C15C08C2497700D7D334 /* ZoomZMachine.m in Sources */,
 				4BB8C15D08C2497700D7D334 /* v6display.c in Sources */,
+				55B524FC27C6E1E600370DAA /* ZSound.m in Sources */,
 				4BB8C15E08C2497700D7D334 /* ZFiles.m in Sources */,
 				4BB8C15F08C2497700D7D334 /* ZDisplay.m in Sources */,
 				4BB8C16008C2497700D7D334 /* Z6Display.m in Sources */,

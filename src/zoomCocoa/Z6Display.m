@@ -19,6 +19,8 @@
 
 struct BlorbImage* zoomImageCache = NULL;
 int zoomImageCacheSize = 0;
+struct BlorbSound* zoomSoundCache = NULL;
+int zoomSoundCacheSize = 0;
 
 #pragma mark - V6 display
 
@@ -413,12 +415,49 @@ BlorbImage* blorb_findimage(BlorbFile* blorb, int num) {
 }
 
 BlorbSound* blorb_findsound(BlorbFile* blorb, int num) {
+    // Get the image storage
+    BlorbSound* res = NULL;
+    
+    if (num < 0 || num > 32768) return NULL; // Limits on the number of images
+    
+    if (num >= zoomSoundCacheSize) {
+        int x;
+        
+        zoomSoundCache = realloc(zoomSoundCache, sizeof(struct BlorbSound)*(num+1));
+        
+        for (x=zoomSoundCacheSize; x<=num; x++) {
+            zoomSoundCache[x].in_use = 0;
+        }
+        
+        zoomSoundCacheSize = num;
+    }
+    
+    // Use the cached sound if possible
+    res = zoomSoundCache + num;
+    if (res->in_use) {
+        if (res->file_offset < 0) {
+            return NULL;
+        } else {
+            return res;
+        }
+    }
+
     // Get information on this sound from the remote system
     id<ZDisplay> disp = [mainMachine display];
     if (![disp containsSoundWithNumber: num]) {
+        // Sound not available: mark it as so
+        res->file_offset = -1;
+        res->in_use = 0;
         return NULL;
     }
     
-	return NULL;
+    res->file_offset = 0;
+    res->file_len = 0;
+    res->number = num;
+    res->in_use = 1;
+    // TODO: fill out
+    res->type = TYPE_UNKNOWN;
+
+	return res;
 }
 

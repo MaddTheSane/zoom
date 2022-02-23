@@ -114,6 +114,7 @@ struct BlorbSound
   int file_offset;
   int file_len;
   int number;
+  int in_use;
 };
 
 struct BlorbResolution
