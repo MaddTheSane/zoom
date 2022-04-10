@@ -2302,7 +2302,7 @@ OPCODE "save_undo"     EXT:0x09 ARGS:0 STORE CANJUMP VERSION 5,6,7,8
 			       );
   tmp = GetVar(st); /* (Pop the value again if it's on the stack) */
   
-  if (machine.undo)
+  if (machine.undo[0])
     store(stack, st, 1);
   else
     store(stack, st, 0);

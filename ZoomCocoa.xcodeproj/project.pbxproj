@@ -1145,7 +1145,7 @@
 		4B1E3FD2050F7DFD00A8E303 /* TODO */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = TODO; sourceTree = SOURCE_ROOT; };
 		4B1E3FD3050F7E0800A8E303 /* THANKS */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = THANKS; sourceTree = SOURCE_ROOT; };
 		4B1E3FD4050F7E1000A8E303 /* README */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = README; sourceTree = SOURCE_ROOT; };
-		4B1E3FD5050F7E1A00A8E303 /* zcode.ops */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = zcode.ops; path = src/zcode.ops; sourceTree = SOURCE_ROOT; tabWidth = 8; };
+		4B1E3FD5050F7E1A00A8E303 /* zcode.ops */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = text; name = zcode.ops; path = src/zcode.ops; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; };
 		4B1E3FD6050F7E3100A8E303 /* build_files.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = build_files.sh; path = ProjectBuilder/build_files.sh; sourceTree = SOURCE_ROOT; };
 		4B1E3FD7050F7E3100A8E303 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ProjectBuilder/config.h; sourceTree = SOURCE_ROOT; };
 		4B1E3FD9050F7E4300A8E303 /* ztypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ztypes.h; path = ProjectBuilder/etc/ztypes.h; sourceTree = SOURCE_ROOT; };
@@ -2688,6 +2688,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /bin/bash;
+			buildWorkingDirectory = "";
 			dependencies = (
 				4BB8C11908C248FF00D7D334 /* PBXTargetDependency */,
 			);
