@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class ZoomCursor;
 
 @protocol ZoomCursorDelegate <NSObject>
@@ -18,3 +20,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

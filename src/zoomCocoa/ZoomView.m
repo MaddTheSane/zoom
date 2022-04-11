@@ -3096,7 +3096,6 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	return textToSpeechReceiver;
 }
 
-#if 0
 #pragma mark - Sound
 
 - (void) setUpSound {
@@ -3111,26 +3110,28 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 				  withFile: (in byref id<ZFile>) file
 				  atOffset: (int) offset
 				 andLength: (int) length {
-	
+	[sound playAIFFOnChannel: channel withFile: file
+					atOffset: offset andLength: length];
 }
 
 - (void) playMODOnChannel: (int) channel
 				 withFile: (in byref id<ZFile>) file
 				 atOffset: (int) offset
 				andLength: (int) length {
-	
+	[sound playMODOnChannel: channel withFile: file
+				   atOffset: offset andLength: length];
+
 }
 
 - (oneway void) stopSoundChannel: (int) chan {
-	
+	[sound stopSoundChannel: chan];
 }
 
 - (void) setUpSoundChannel: (int) chan
 				  atVolume: (int) vol
 				   repeats: (int) repeatCount {
-	
+	[sound setUpSoundChannel: chan atVolume: vol repeats: repeatCount];
 }
-#endif
 
 #pragma mark - Accessibility
 

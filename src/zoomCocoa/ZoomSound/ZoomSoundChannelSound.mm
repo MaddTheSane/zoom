@@ -6,7 +6,7 @@
 //
 
 #import "ZoomSoundChannelSound.h"
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomProtocol.h>
 
 #include <SFBAudioEngine/AudioPlayer.h>
 #include <SFBAudioEngine/AudioDecoder.h>
@@ -17,7 +17,7 @@
 
 class ZFileInputSource final: public SFB::InputSource {
 public:
-	ZFileInputSource(id<ZFile> bytes);
+	ZFileInputSource(id<ZFile> bytes): SFB::InputSource(), _file(bytes) { }
 	virtual ~ZFileInputSource() = default;
 
 private:
@@ -71,10 +71,6 @@ static SFB::InputSource::unique_ptr CreateWithZFile(id<ZFile> zFile, CFErrorRef 
 @implementation ZoomSoundChannelSound
 
 @end
-
-ZFileInputSource::ZFileInputSource(id<ZFile> bytes): SFB::InputSource(), _file(bytes)
-{
-}
 
 SInt64 ZFileInputSource::_Read(void *buffer, SInt64 byteCount) {
 	if (_file.seekPosition + byteCount > _file.fileSize) {
