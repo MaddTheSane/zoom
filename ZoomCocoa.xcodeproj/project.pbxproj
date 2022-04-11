@@ -356,6 +356,14 @@
 		55BD080D21B7638800A8DD5F /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BD080F21B7638800A8DD5F /* schema.strings */; };
 		55BD081721B85E8600A8DD5F /* ZoomViewProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BD081821B8C16800A8DD5F /* Skein.xcassets */; };
+		55BD63032803B97D00CDEA64 /* ZoomSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD63012803B97D00CDEA64 /* ZoomSound.h */; };
+		55BD63042803B97D00CDEA64 /* ZoomSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BD63022803B97D00CDEA64 /* ZoomSound.m */; };
+		55BD63082803C15F00CDEA64 /* ZoomSoundChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD63062803C15F00CDEA64 /* ZoomSoundChannel.h */; };
+		55BD63092803C15F00CDEA64 /* ZoomSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BD63072803C15F00CDEA64 /* ZoomSoundChannel.m */; };
+		55BD630C2803C18A00CDEA64 /* ZoomSoundChannelSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD630A2803C18A00CDEA64 /* ZoomSoundChannelSound.h */; };
+		55BD630D2803C18A00CDEA64 /* ZoomSoundChannelSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55BD630B2803C18A00CDEA64 /* ZoomSoundChannelSound.mm */; };
+		55BD63102803C1A600CDEA64 /* ZoomSoundChannelMIDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD630E2803C1A600CDEA64 /* ZoomSoundChannelMIDI.h */; };
+		55BD63112803C1A600CDEA64 /* ZoomSoundChannelMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BD630F2803C1A600CDEA64 /* ZoomSoundChannelMIDI.m */; };
 		55BE4AC92707082700100A7D /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AC82707082700100A7D /* twine.c */; };
 		55BE4AD42707B32200100A7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BE4AD62707B32200100A7D /* InfoPlist.strings */; };
 		55BE4AD827082DED00100A7D /* ClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AD727082DED00100A7D /* ClearView.swift */; };
@@ -1502,6 +1510,14 @@
 		55BD080E21B7638800A8DD5F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
 		55BD081621B85E8600A8DD5F /* ZoomViewProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomViewProtocols.h; sourceTree = "<group>"; };
 		55BD081821B8C16800A8DD5F /* Skein.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Skein.xcassets; sourceTree = "<group>"; };
+		55BD63012803B97D00CDEA64 /* ZoomSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSound.h; sourceTree = "<group>"; };
+		55BD63022803B97D00CDEA64 /* ZoomSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomSound.m; sourceTree = "<group>"; };
+		55BD63062803C15F00CDEA64 /* ZoomSoundChannel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSoundChannel.h; sourceTree = "<group>"; };
+		55BD63072803C15F00CDEA64 /* ZoomSoundChannel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomSoundChannel.m; sourceTree = "<group>"; };
+		55BD630A2803C18A00CDEA64 /* ZoomSoundChannelSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSoundChannelSound.h; sourceTree = "<group>"; };
+		55BD630B2803C18A00CDEA64 /* ZoomSoundChannelSound.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZoomSoundChannelSound.mm; sourceTree = "<group>"; };
+		55BD630E2803C1A600CDEA64 /* ZoomSoundChannelMIDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSoundChannelMIDI.h; sourceTree = "<group>"; };
+		55BD630F2803C1A600CDEA64 /* ZoomSoundChannelMIDI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomSoundChannelMIDI.m; sourceTree = "<group>"; };
 		55BE4AC82707082700100A7D /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = twine.c; sourceTree = "<group>"; };
 		55BE4AD52707B32200100A7D /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55BE4AD727082DED00100A7D /* ClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearView.swift; sourceTree = "<group>"; };
@@ -2254,6 +2270,7 @@
 		4BDFA4E80535E9DE00A8E303 /* ZoomView */ = {
 			isa = PBXGroup;
 			children = (
+				55BD63052803C12900CDEA64 /* ZoomSound */,
 				552A037F2049E74B00A4ECAA /* ZoomView.modulemap */,
 				4B4D512006E3894F007FAD2B /* ZoomConnector.h */,
 				4B4D512106E3894F007FAD2B /* ZoomConnector.m */,
@@ -2572,6 +2589,21 @@
 			sourceTree = "<group>";
 			usesTabs = 1;
 		};
+		55BD63052803C12900CDEA64 /* ZoomSound */ = {
+			isa = PBXGroup;
+			children = (
+				55BD63012803B97D00CDEA64 /* ZoomSound.h */,
+				55BD63022803B97D00CDEA64 /* ZoomSound.m */,
+				55BD63062803C15F00CDEA64 /* ZoomSoundChannel.h */,
+				55BD63072803C15F00CDEA64 /* ZoomSoundChannel.m */,
+				55BD630A2803C18A00CDEA64 /* ZoomSoundChannelSound.h */,
+				55BD630B2803C18A00CDEA64 /* ZoomSoundChannelSound.mm */,
+				55BD630E2803C1A600CDEA64 /* ZoomSoundChannelMIDI.h */,
+				55BD630F2803C1A600CDEA64 /* ZoomSoundChannelMIDI.m */,
+			);
+			path = ZoomSound;
+			sourceTree = "<group>";
+		};
 		55BE4AE7270998B100100A7D /* Quest4 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2651,16 +2683,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BD2747C08701E6700C1AE15 /* ZoomView.h in Headers */,
+				55BD63082803C15F00CDEA64 /* ZoomSoundChannel.h in Headers */,
 				4BD2747D08701E6700C1AE15 /* ZoomLowerWindow.h in Headers */,
+				55BD63102803C1A600CDEA64 /* ZoomSoundChannelMIDI.h in Headers */,
 				4BD2747E08701E6700C1AE15 /* ZoomUpperWindow.h in Headers */,
 				4BD2747F08701E6700C1AE15 /* ZoomMoreView.h in Headers */,
 				4BD2748008701E6700C1AE15 /* ZoomTextView.h in Headers */,
 				4BD2748108701E6700C1AE15 /* ZoomProtocol.h in Headers */,
 				4BD2748208701E6700C1AE15 /* ZoomScrollView.h in Headers */,
 				4BD2748308701E6700C1AE15 /* ZoomUpperWindowView.h in Headers */,
+				55BD630C2803C18A00CDEA64 /* ZoomSoundChannelSound.h in Headers */,
 				4BD2748508701E6700C1AE15 /* ZoomPixmapWindow.h in Headers */,
 				4BD2748608701E6700C1AE15 /* ZoomCursor.h in Headers */,
 				55D14CD827017521006DF31A /* ZoomViewHeaders.h in Headers */,
+				55BD63032803B97D00CDEA64 /* ZoomSound.h in Headers */,
 				4BD2748708701E6700C1AE15 /* ZoomInputLine.h in Headers */,
 				4BD2748808701E6700C1AE15 /* ZoomSkeinItem.h in Headers */,
 				4BD2748908701E6700C1AE15 /* ZoomSkein.h in Headers */,
@@ -3564,14 +3600,18 @@
 				4BD274A108701E6700C1AE15 /* ZoomView.m in Sources */,
 				4BD274A208701E6700C1AE15 /* ZoomLowerWindow.m in Sources */,
 				4BD274A308701E6700C1AE15 /* ZoomUpperWindow.m in Sources */,
+				55BD63112803C1A600CDEA64 /* ZoomSoundChannelMIDI.m in Sources */,
 				4BD274A408701E6700C1AE15 /* ZoomMoreView.m in Sources */,
 				4BD274A508701E6700C1AE15 /* ZoomTextView.m in Sources */,
+				55BD630D2803C18A00CDEA64 /* ZoomSoundChannelSound.mm in Sources */,
 				4BD274A608701E6700C1AE15 /* ZoomProtocol.m in Sources */,
 				4BD274A708701E6700C1AE15 /* ZoomScrollView.m in Sources */,
 				4BD274A808701E6700C1AE15 /* ZoomUpperWindowView.m in Sources */,
 				4BD274AA08701E6700C1AE15 /* ZoomPixmapWindow.m in Sources */,
 				4BD274AC08701E6700C1AE15 /* ZoomInputLine.m in Sources */,
+				55BD63092803C15F00CDEA64 /* ZoomSoundChannel.m in Sources */,
 				4BD274AD08701E6700C1AE15 /* ZoomSkein.m in Sources */,
+				55BD63042803B97D00CDEA64 /* ZoomSound.m in Sources */,
 				559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */,
 				4BD274AE08701E6700C1AE15 /* ZoomSkeinItem.m in Sources */,
 				4BD274AF08701E6700C1AE15 /* ZoomSkeinView.m in Sources */,

@@ -14,6 +14,7 @@
 #import "ZoomLowerWindow.h"
 #import "ZoomUpperWindow.h"
 #import "ZoomPixmapWindow.h"
+#import "ZoomSound/ZoomSound.h"
 
 #import "ZoomScrollView.h"
 #import "ZoomConnector.h"
@@ -106,6 +107,9 @@
 	
 	//! Resources
 	ZoomBlorbFile* resources;
+	
+	//! Sound interface
+	ZoomSound* sound;
 }
 
 static NSHashTable<ZoomView*>* allocatedViews = nil;
@@ -3096,11 +3100,11 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 #pragma mark - Sound
 
 - (void) setUpSound {
-	
+	sound = [[ZoomSound alloc] init];
 }
 
 - (oneway void) finalizeSound {
-	
+	sound = nil;
 }
 
 - (void) playAIFFOnChannel: (int) channel

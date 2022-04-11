@@ -60,6 +60,10 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     [handle seekToFileOffset: p];
 }
 
+- (off_t) seekPosition {
+    return [handle offsetInFile];
+}
+
 // Write
 - (oneway void) writeByte: (unsigned char) byte {
     NSData* data = [NSData dataWithBytes: &byte
@@ -218,6 +222,10 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     if (pos > [data length]) {
         pos = [data length];
     }
+}
+
+- (off_t) seekPosition {
+    return pos;
 }
 
 - (oneway void) writeByte: (__unused unsigned char) byte {
@@ -867,6 +875,10 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 - (oneway void) seekTo: (off_t) p {
 	pos = p;
+}
+
+- (off_t) seekPosition {
+    return pos;
 }
 
 - (oneway void) writeByte: (unsigned char) byte {

@@ -124,6 +124,8 @@ NS_SWIFT_NAME(ZFileProtocol)
 - (bycopy NSData*) readBlock: (NSInteger) length;
 
 - (oneway void)		   seekTo: (off_t) pos;
+@property (readonly) off_t seekPosition;
+- (off_t)			   seekPosition;
 
 - (oneway void) writeByte:  (unsigned char) byte;
 - (oneway void) writeWord:  (short) word;
