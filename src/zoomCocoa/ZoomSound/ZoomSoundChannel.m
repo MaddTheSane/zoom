@@ -6,6 +6,7 @@
 //
 
 #import "ZoomSoundChannel.h"
+#import "ZoomSound.h"
 
 @implementation ZoomSoundChannel
 

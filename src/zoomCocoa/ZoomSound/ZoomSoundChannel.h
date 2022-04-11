@@ -9,7 +9,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZoomSoundChannel : NSObject
+@class ZoomSound;
+
+@interface ZoomSoundChannel : NSObject {
+	int loop;
+	int notify;
+	int paused;
+
+	int resid; /* for notifies */
+
+	/* for volume fades */
+	int volume_notify;
+	int volume_timeout;
+	float target_volume;
+	float volume;
+	float volume_delta;
+	NSTimer *timer;
+}
+
+
+
+@property (weak) ZoomSound *soundManager;
 
 @end
 

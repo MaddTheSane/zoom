@@ -7,6 +7,7 @@
 
 #import "ZoomSoundChannelSound.h"
 #import <ZoomView/ZoomProtocol.h>
+#import "ZoomSound.h"
 
 #include <SFBAudioEngine/AudioPlayer.h>
 #include <SFBAudioEngine/AudioDecoder.h>
@@ -57,7 +58,7 @@ private:
 
 #pragma GCC visibility pop
 
-static SFB::InputSource::unique_ptr CreateWithZFile(id<ZFile> zFile, CFErrorRef *error = nullptr)
+SFB::InputSource::unique_ptr CreateWithZFile(id<ZFile> zFile, CFErrorRef *error = nullptr)
 {
 #pragma unused(error)
 
@@ -68,7 +69,11 @@ static SFB::InputSource::unique_ptr CreateWithZFile(id<ZFile> zFile, CFErrorRef 
 	return SFB::InputSource::unique_ptr(new ZFileInputSource(zFile));
 }
 
-@implementation ZoomSoundChannelSound
+@implementation ZoomSoundChannelSound {
+	SFB::Audio::Player    *_player;        // The player instance
+	
+	NSString *mimeString;
+}
 
 @end
 

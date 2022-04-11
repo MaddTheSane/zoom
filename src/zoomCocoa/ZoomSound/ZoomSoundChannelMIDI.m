@@ -6,6 +6,7 @@
 //
 
 #import "ZoomSoundChannelMIDI.h"
+#import "ZoomSound.h"
 
 @implementation ZoomSoundChannelMIDI
 
