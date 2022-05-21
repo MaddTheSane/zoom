@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CommonCrypto
+import CryptoKit
 import ZoomPlugIns.ZoomDownload
 
 private var localDownloadDirectory: URL = {
@@ -64,7 +64,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 	private var tmpFile: URL?
 	
 	/// Prepares to download the specified URL
-	@objc(initWithURL:) public init(url: URL) {
+	@objc(initWithURL:) public init(from url: URL) {
 		self.url = url
 		let config = URLSessionConfiguration.ephemeral
 		config.networkServiceType = .background
@@ -443,8 +443,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 		
 		// If we have an MD5, then verify that the file matches it
 		if let md5 = expectedMD5 {
-			var state = CC_MD5_CTX()
-			CC_MD5_Init(&state)
+			var ckMD5 = Insecure.MD5()
 			
 			guard let readDownload = try? FileHandle(forReadingFrom: tmpFile!) else {
 				failed(reason: "The downloaded file was deleted before it could be processed")
@@ -455,16 +454,13 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 			do {
 				var readBytes = readDownload.readData(ofLength: 65536)
 				while readBytes.count > 0 {
-					readBytes.withUnsafeBytes { bufPtr in
-						_=CC_MD5_Update(&state, bufPtr.baseAddress, CC_LONG(bufPtr.count))
-					}
+					ckMD5.update(data: readBytes)
 					readBytes = readDownload.readData(ofLength: 65536)
 				}
 			}
 			
 			// Finish up and get the MD5 digest
-			var bytes: [UInt8] = Array(repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-			CC_MD5_Final(&bytes, &state)
+			let bytes = ckMD5.finalize()
 
 			let digestData = Data(bytes)
 			NSLog("MD5 digest is \(digestData)")

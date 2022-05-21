@@ -9,7 +9,7 @@ import Cocoa
 import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomBabel
-import CommonCrypto
+import CryptoKit
 
 final public class JACL: ZoomGlkPlugIn {
 	public override class var pluginVersion: String {

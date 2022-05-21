@@ -9,7 +9,7 @@ import Cocoa
 import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomBabel
-import CommonCrypto
+import CryptoKit
 
 final public class Adrift: ZoomGlkPlugIn {
 	public override class var pluginVersion: String {
@@ -96,20 +96,15 @@ private struct VisualBasicRNG {
 }
 
 private func hashMD5(from handle: FileHandle) -> String {
-	var md5 = CC_MD5_CTX()
-	var bytes: [UInt8] = Array(repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+	var md5 = Insecure.MD5()
 	handle.seek(toFileOffset: 0)
-	CC_MD5_Init(&md5)
 	var dat = handle.readData(ofLength: 65536)
 	while dat.count > 0 {
-		dat.withUnsafeBytes { bufPtr in
-			_=CC_MD5_Update(&md5, bufPtr.baseAddress, CC_LONG(bufPtr.count))
-		}
+		md5.update(data: dat)
 		dat = handle.readData(ofLength: 65536)
 	}
 	
-	CC_MD5_Final(&bytes, &md5)
-	let mappedBytes = bytes.map { byte in
+	let mappedBytes = md5.finalize().map { byte in
 		return String(format: "%02X", byte)
 	}
 	return mappedBytes.joined()

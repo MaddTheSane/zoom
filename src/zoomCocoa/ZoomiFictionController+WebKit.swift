@@ -79,7 +79,7 @@ extension ZoomiFictionController: WKNavigationDelegate {
 				downloadUpdateList = false
 				downloadPlugin = false
 				
-				activeDownload = ZoomDownload(url: url)
+				activeDownload = ZoomDownload(from: url)
 				activeDownload.delegate = self
 				activeDownload.start()
 				
