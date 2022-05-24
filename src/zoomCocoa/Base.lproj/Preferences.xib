@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -573,7 +573,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <slider toolTip="Adjust this slider to set the size of the font used by Zoom." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="161">
-                                        <rect key="frame" x="27" y="144" width="299" height="28"/>
+                                        <rect key="frame" x="20" y="144" width="313" height="28"/>
                                         <sliderCell key="cell" alignment="left" minValue="9" maxValue="36" doubleValue="12" tickMarkPosition="below" numberOfTickMarks="28" allowsTickMarkValuesOnly="YES" sliderType="linear" id="469">
                                             <font key="font" size="12" name="Helvetica"/>
                                         </sliderCell>
@@ -632,7 +632,7 @@
                                     <constraint firstItem="166" firstAttribute="centerX" secondItem="168" secondAttribute="centerX" id="9P3-jD-q2F"/>
                                     <constraint firstItem="165" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="164" secondAttribute="trailing" constant="8" symbolic="YES" id="9na-TG-zfe"/>
                                     <constraint firstItem="144" firstAttribute="leading" secondItem="123" secondAttribute="leading" constant="12" id="Azb-9h-5Ra"/>
-                                    <constraint firstItem="161" firstAttribute="leading" secondItem="123" secondAttribute="leading" constant="29" id="CiT-Tf-swp"/>
+                                    <constraint firstItem="163" firstAttribute="trailing" secondItem="161" secondAttribute="trailing" id="CHX-Js-bCi"/>
                                     <constraint firstItem="133" firstAttribute="top" secondItem="125" secondAttribute="bottom" constant="2" id="D9l-bq-46f"/>
                                     <constraint firstItem="138" firstAttribute="centerX" secondItem="144" secondAttribute="centerX" id="JGs-Wd-wtP"/>
                                     <constraint firstItem="163" firstAttribute="trailing" secondItem="143" secondAttribute="trailing" id="Jwe-kv-l9J"/>
@@ -658,7 +658,7 @@
                                     <constraint firstItem="126" firstAttribute="top" secondItem="133" secondAttribute="bottom" constant="8" symbolic="YES" id="hq7-lk-OKd"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="143" secondAttribute="bottom" constant="20" id="m7O-Dv-bUu"/>
                                     <constraint firstItem="133" firstAttribute="leading" secondItem="138" secondAttribute="leading" id="mYi-03-cbP"/>
-                                    <constraint firstItem="165" firstAttribute="baseline" secondItem="163" secondAttribute="baseline" id="pQb-NE-4gU"/>
+                                    <constraint firstItem="165" firstAttribute="firstBaseline" secondItem="163" secondAttribute="firstBaseline" id="pQb-NE-4gU"/>
                                     <constraint firstItem="144" firstAttribute="top" secondItem="138" secondAttribute="bottom" constant="20" id="qd7-Lz-MBh"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="160" secondAttribute="trailing" constant="20" symbolic="YES" id="tEr-rq-Y5t"/>
                                     <constraint firstItem="164" firstAttribute="leading" secondItem="143" secondAttribute="leading" id="tb0-Vr-BVO"/>
@@ -668,7 +668,7 @@
                                     <constraint firstItem="125" firstAttribute="top" secondItem="127" secondAttribute="bottom" constant="8" symbolic="YES" id="vzA-He-Hrn"/>
                                     <constraint firstItem="124" firstAttribute="top" secondItem="123" secondAttribute="top" constant="5" id="wH4-Mn-dRz"/>
                                     <constraint firstItem="144" firstAttribute="leading" secondItem="166" secondAttribute="leading" id="xPW-af-LMQ"/>
-                                    <constraint firstItem="164" firstAttribute="baseline" secondItem="165" secondAttribute="baseline" id="xw6-Z0-083"/>
+                                    <constraint firstItem="164" firstAttribute="firstBaseline" secondItem="165" secondAttribute="firstBaseline" id="xw6-Z0-083"/>
                                     <constraint firstItem="127" firstAttribute="trailing" secondItem="133" secondAttribute="trailing" id="yQD-cr-Qlt"/>
                                 </constraints>
                             </view>
@@ -685,7 +685,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="342"/>
                                         <clipView key="contentView" id="FJN-wJ-7kj">
                                             <rect key="frame" x="1" y="1" width="351" height="340"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" headerView="497" id="34">
                                                     <rect key="frame" x="0.0" y="0.0" width="351" height="317"/>

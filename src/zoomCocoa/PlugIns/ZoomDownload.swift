@@ -50,7 +50,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 	public let url: URL
 	
 	/// Sets the expected MD5 for the downloaded file
-	public var expectedMD5: Data?	
+	public var expectedMD5: Data?
 	/// The main unarchiving task
 	private var task: Process?
 	/// The set of subtasks that are currently running
@@ -462,10 +462,9 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 			// Finish up and get the MD5 digest
 			let bytes = ckMD5.finalize()
 
-			let digestData = Data(bytes)
-			NSLog("MD5 digest is \(digestData)")
+			NSLog("MD5 digest is \(bytes)")
 			
-			guard digestData == md5 else {
+			guard bytes == md5 else {
 				NSLog("Could not verify download")
 				failed(reason: "The downloaded file has an invalid checksum")
 				return
