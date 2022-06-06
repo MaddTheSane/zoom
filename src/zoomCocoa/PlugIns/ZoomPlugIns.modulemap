@@ -59,7 +59,7 @@ framework module ZoomPlugIns {
 		requires objc
 		header "ZoomPlugIn.h"
 				
-		module Glk {
+		explicit module Glk {
 			header "ZoomGlkPlugIn.h"
 			
 			module Document {
@@ -83,7 +83,7 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
-	module ZoomPlugInController {
+	explicit module ZoomPlugInController {
 		requires objc
 		header "ZoomPlugInController.h"
 		export *
@@ -95,7 +95,7 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
-	module ZoomPlugInManager {
+	explicit module ZoomPlugInManager {
 		requires objc
 		header "ZoomPlugInManager.h"
 		export *

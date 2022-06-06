@@ -23,7 +23,7 @@
 #import <ZoomPlugIns/ZoomPlugInController.h>
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import "ZoomWindowThatIsKey.h"
-#import <ZoomPlugIns/ZoomPlugIns-Swift.h> 
+#import <ZoomPlugIns/ZoomPlugIns-Swift.h>
 #import <ZoomPlugIns/ZoomSignPost.h>
 #import "Zoom-Swift.h"
 #import <ZoomView/ZoomView-Swift.h>

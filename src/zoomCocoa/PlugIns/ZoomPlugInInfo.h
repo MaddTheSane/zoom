@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <ZoomPlugIns/ZoomDownload.h>
+@class ZoomDownload;
 
 typedef NS_ENUM(int, ZoomPlugInStatus) {
 	/// Installed plugin

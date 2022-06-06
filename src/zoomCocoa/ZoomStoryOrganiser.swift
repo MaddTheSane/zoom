@@ -1023,14 +1023,13 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	func organiseAllStories() {
-		storyLock.lock()
-		defer {
-			storyLock.unlock()
-		}
-
 		guard !alreadyOrganising else {
 			NSLog("ZoomStoryOrganiser: organiseAllStories called while Zoom was already in the process of organising");
 			return
+		}
+		storyLock.lock()
+		defer {
+			storyLock.unlock()
 		}
 
 		alreadyOrganising = true

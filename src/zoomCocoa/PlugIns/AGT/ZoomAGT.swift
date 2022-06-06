@@ -98,7 +98,7 @@ final public class AGT: ZoomGlkPlugIn {
 	
 	public override func idForStory() -> ZoomStoryID? {
 		guard let file = try? FileHandle(forReadingFrom: gameURL) else {
-				  return nil
+			return nil
 		}
 		
 		/* Read the position of the game desciption block */

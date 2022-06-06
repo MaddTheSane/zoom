@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ZoomPlugIns/ZoomPlugIns-Swift.h>
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>
 #import <ZoomView/ZoomBlorbFile.h>
