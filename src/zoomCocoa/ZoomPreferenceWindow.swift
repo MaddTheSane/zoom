@@ -82,21 +82,19 @@ private func fontMenu(fixed: Bool) -> NSMenu {
 		return a.caseInsensitiveCompare(b) == .orderedAscending
 	}
 	
-	for family in families {
+	result.items = families.compactMap { family -> NSMenuItem? in
 		// Get the font
-		guard let sampleFont = mgr.font(withFamily: family, traits: [], weight: 5, size: 13) else {
-			continue
+		guard let sampleFont = mgr.font(withFamily: family, traits: [], weight: 5, size: NSFont.systemFontSize) else {
+			return nil
 		}
 		
 		if fixed && !sampleFont.isFixedPitch {
-			continue
+			return nil
 		}
 		// Construct the item
 		let fontItem = NSMenuItem()
 		fontItem.attributedTitle = NSAttributedString(string: family, attributes: [.font: sampleFont])
-		
-		// Add to the menu
-		result.addItem(fontItem)
+		return fontItem
 	}
 	
 	// Return the result
