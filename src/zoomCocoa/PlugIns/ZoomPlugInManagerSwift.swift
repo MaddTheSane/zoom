@@ -14,7 +14,7 @@ extension ZoomPlugInManager {
 	/// - parameter filename: URL to a story file.
 	/// - returns: A plug-in class that can read the specified URL, or `nil` if
 	/// there's no plug-in that can.
-	open func plugIn(for fileName: URL) -> ZoomPlugIn.Type? {
+	public func plugIn(for fileName: URL) -> ZoomPlugIn.Type? {
 		return __plugIn(for: fileName) as? ZoomPlugIn.Type
 	}
 }
