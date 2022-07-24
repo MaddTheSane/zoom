@@ -724,8 +724,8 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	@IBAction func hyphenationChanged(_ sender: Any?) {
 		let newState = useHyphenation.state == .on
 		
-		if newState != preferences.useLigatures {
-			preferences.useLigatures = newState
+		if newState != preferences.useHyphenation {
+			preferences.useHyphenation = newState
 		}
 	}
 
