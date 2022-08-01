@@ -11,7 +11,7 @@
 
 static NSString* babelFolder = nil;
 static NSLock* babelLock;
-static NSMutableDictionary* babelCache = nil;
+static NSMutableDictionary<NSString*, ZoomBabel*>* babelCache = nil;
 
 @interface ZoomBabel()
 
