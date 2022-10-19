@@ -66,7 +66,7 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 @property float rating;
 
 @property int coverPicture;
-@property (readwrite, copy) NSString *description;
+@property (readwrite, nullable, copy) NSString *description;
 
 - (nullable id) objectForKey: (NSString*) key; //!< Always returns an NSString (other objects are possible for other metadata)
 

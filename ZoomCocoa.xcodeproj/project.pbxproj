@@ -223,6 +223,13 @@
 		4BF02D210C4A8141006FC32E /* ZoomGlkSaveRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */; };
 		5502A687275C42D00066927C /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
 		550DD3C62796B191001BD77E /* ZoomPlugInManagerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */; };
+		55132C3028FFE9AB007C87B6 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55132C2F28FFE9AB007C87B6 /* Quartz.framework */; };
+		55132C3528FFE9AB007C87B6 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55132C3428FFE9AB007C87B6 /* PreviewProvider.swift */; };
+		55132C3D28FFE9AB007C87B6 /* ZoomNewSaveQL.appex in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 55132C2E28FFE9AB007C87B6 /* ZoomNewSaveQL.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		55132C4128FFEA41007C87B6 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
+		55132C4228FFEA41007C87B6 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
+		55132C4728FFEA8D007C87B6 /* zoom-game.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F46050FB21C00A8E303 /* zoom-game.icns */; };
+		55132C4928FFEAC7007C87B6 /* babel in Copy Babel */ = {isa = PBXBuildFile; fileRef = 4BD79A8F0BA2C9AA002C82B2 /* babel */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		551E27D426F8464A007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27DA26F84691007204E1 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
@@ -619,6 +626,34 @@
 			remoteGlobalIDString = 4BF085290E166E8300DB5C6B;
 			remoteInfo = GlkSound;
 		};
+		55132C3B28FFE9AB007C87B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55132C2D28FFE9AB007C87B6;
+			remoteInfo = ZoomNewQL;
+		};
+		55132C4328FFEA58007C87B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
+			remoteInfo = ZoomPlugIns;
+		};
+		55132C4528FFEA58007C87B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BD2747808701E6700C1AE15;
+			remoteInfo = ZoomView;
+		};
+		55132C4A28FFEAD0007C87B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BD79A8E0BA2C9AA002C82B2;
+			remoteInfo = babel;
+		};
 		551E27D226F84639007204E1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
@@ -944,6 +979,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				55C673C4278BADCD005A7A21 /* JACL.zoomPlugin in Copy Glk plugins */,
+				55132C3D28FFE9AB007C87B6 /* ZoomNewSaveQL.appex in Copy Glk plugins */,
 				55DA686027351FBF0007990A /* AGX.zoomPlugin in Copy Glk plugins */,
 				55368A862728FE3000740A0A /* Quest4.zoomPlugin in Copy Glk plugins */,
 				552CF034271792C7009D87A5 /* Adrift.zoomPlugin in Copy Glk plugins */,
@@ -1011,6 +1047,17 @@
 				4BB8C20208C249F400D7D334 /* ZoomView.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55132C4828FFEAB5007C87B6 /* Copy Babel */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				55132C4928FFEAC7007C87B6 /* babel in Copy Babel */,
+			);
+			name = "Copy Babel";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		552CF02627176CED009D87A5 /* CopyFiles */ = {
@@ -1338,6 +1385,11 @@
 		4BF1576306BAD034001A3C27 /* ZoomBlorbFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomBlorbFile.h; sourceTree = "<group>"; };
 		4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomBlorbFile.m; sourceTree = "<group>"; };
 		550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPlugInManagerSwift.swift; sourceTree = "<group>"; };
+		55132C2E28FFE9AB007C87B6 /* ZoomNewSaveQL.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ZoomNewSaveQL.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		55132C2F28FFE9AB007C87B6 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		55132C3428FFE9AB007C87B6 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
+		55132C3928FFE9AB007C87B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55132C3A28FFE9AB007C87B6 /* ZoomNewQL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZoomNewQL.entitlements; sourceTree = "<group>"; };
 		552A037F2049E74B00A4ECAA /* ZoomView.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ZoomView.modulemap; sourceTree = "<group>"; };
 		552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomPlugIns.modulemap; sourceTree = "<group>"; };
 		552CEEAE2715109C009D87A5 /* scare */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scare; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1672,6 +1724,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55132C2B28FFE9AB007C87B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55132C4128FFEA41007C87B6 /* ZoomPlugIns.framework in Frameworks */,
+				55132C4228FFEA41007C87B6 /* ZoomView.framework in Frameworks */,
+				55132C3028FFE9AB007C87B6 /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		552CEEAB2715109C009D87A5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1830,6 +1892,7 @@
 				55368B00272A046400740A0A /* agt2agx */,
 				55BC11382786D0B600369EBE /* JACL.zoomPlugin */,
 				55BC13702786D67900369EBE /* jacl-interpreter */,
+				55132C2E28FFE9AB007C87B6 /* ZoomNewSaveQL.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1861,6 +1924,7 @@
 				4BCF3F2B050F8E2400A8E303 /* Foundation.framework */,
 				4B7284FA0CD383C80079D89B /* QuartzCore.framework */,
 				4B0A32AE06A5966D00BB8878 /* WebKit.framework */,
+				55132C2F28FFE9AB007C87B6 /* Quartz.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2164,6 +2228,7 @@
 				4B7CB0730936276B00F3B8F6 /* PlugIns */,
 				4B7284810CD37AF90079D89B /* Leopard */,
 				5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */,
+				55132C3128FFE9AB007C87B6 /* ZoomNewSaveQL */,
 			);
 			name = ZoomClient;
 			path = src/zoomCocoa;
@@ -2321,6 +2386,16 @@
 			name = Metadata;
 			sourceTree = "<group>";
 			usesTabs = 1;
+		};
+		55132C3128FFE9AB007C87B6 /* ZoomNewSaveQL */ = {
+			isa = PBXGroup;
+			children = (
+				55132C3428FFE9AB007C87B6 /* PreviewProvider.swift */,
+				55132C3928FFE9AB007C87B6 /* Info.plist */,
+				55132C3A28FFE9AB007C87B6 /* ZoomNewQL.entitlements */,
+			);
+			path = ZoomNewSaveQL;
+			sourceTree = "<group>";
 		};
 		552CEEAF2715109C009D87A5 /* scare */ = {
 			isa = PBXGroup;
@@ -2886,6 +2961,7 @@
 				4BA375DA0CD3CBF000C7B1D4 /* PBXTargetDependency */,
 				4BB8C18B08C249F400D7D334 /* PBXTargetDependency */,
 				4B7CB1F4093635C400F3B8F6 /* PBXTargetDependency */,
+				55132C3C28FFE9AB007C87B6 /* PBXTargetDependency */,
 			);
 			name = Zoom;
 			packageProductDependencies = (
@@ -2933,6 +3009,27 @@
 			productName = babel;
 			productReference = 4BD79A8F0BA2C9AA002C82B2 /* babel */;
 			productType = "com.apple.product-type.tool";
+		};
+		55132C2D28FFE9AB007C87B6 /* ZoomNewSaveQL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55132C3E28FFE9AC007C87B6 /* Build configuration list for PBXNativeTarget "ZoomNewSaveQL" */;
+			buildPhases = (
+				55132C2A28FFE9AB007C87B6 /* Sources */,
+				55132C2B28FFE9AB007C87B6 /* Frameworks */,
+				55132C2C28FFE9AB007C87B6 /* Resources */,
+				55132C4828FFEAB5007C87B6 /* Copy Babel */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55132C4B28FFEAD0007C87B6 /* PBXTargetDependency */,
+				55132C4428FFEA58007C87B6 /* PBXTargetDependency */,
+				55132C4628FFEA58007C87B6 /* PBXTargetDependency */,
+			);
+			name = ZoomNewSaveQL;
+			productName = ZoomNewQL;
+			productReference = 55132C2E28FFE9AB007C87B6 /* ZoomNewSaveQL.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		552CEEAD2715109C009D87A5 /* scare */ = {
 			isa = PBXNativeTarget;
@@ -3119,7 +3216,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Zoom;
-				LastSwiftUpdateCheck = 1300;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					4B7CB08009362A3B00F3B8F6 = {
@@ -3130,6 +3227,9 @@
 					};
 					4BD2747808701E6700C1AE15 = {
 						LastSwiftMigration = 1300;
+					};
+					55132C2D28FFE9AB007C87B6 = {
+						CreatedOnToolsVersion = 14.0.1;
 					};
 					552CEEAD2715109C009D87A5 = {
 						CreatedOnToolsVersion = 13.0;
@@ -3207,6 +3307,7 @@
 				55368AEA272A046400740A0A /* agt2agx */,
 				55BC11222786D0B600369EBE /* JACL */,
 				55BC136F2786D67900369EBE /* jacl-interpreter */,
+				55132C2D28FFE9AB007C87B6 /* ZoomNewSaveQL */,
 			);
 		};
 /* End PBXProject section */
@@ -3403,6 +3504,14 @@
 				55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */,
 				4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */,
 				55DA68A32739D4B50007990A /* LocalizedSkein.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55132C2C28FFE9AB007C87B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55132C4728FFEA8D007C87B6 /* zoom-game.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3660,6 +3769,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55132C2A28FFE9AB007C87B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55132C3528FFE9AB007C87B6 /* PreviewProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		552CEEAA2715109C009D87A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3898,6 +4015,26 @@
 			isa = PBXTargetDependency;
 			name = GlkSound;
 			targetProxy = 5502A67B275C42B30066927C /* PBXContainerItemProxy */;
+		};
+		55132C3C28FFE9AB007C87B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55132C2D28FFE9AB007C87B6 /* ZoomNewSaveQL */;
+			targetProxy = 55132C3B28FFE9AB007C87B6 /* PBXContainerItemProxy */;
+		};
+		55132C4428FFEA58007C87B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
+			targetProxy = 55132C4328FFEA58007C87B6 /* PBXContainerItemProxy */;
+		};
+		55132C4628FFEA58007C87B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BD2747808701E6700C1AE15 /* ZoomView */;
+			targetProxy = 55132C4528FFEA58007C87B6 /* PBXContainerItemProxy */;
+		};
+		55132C4B28FFEAD0007C87B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BD79A8E0BA2C9AA002C82B2 /* babel */;
+			targetProxy = 55132C4A28FFEAD0007C87B6 /* PBXContainerItemProxy */;
 		};
 		551E27D326F84639007204E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4556,6 +4693,7 @@
 		4B7CB08809362A3B00F3B8F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -4592,6 +4730,7 @@
 		4B7CB08909362A3B00F3B8F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -4772,6 +4911,7 @@
 		4BD274BF08701E6700C1AE15 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.1.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4811,6 +4951,7 @@
 		4BD274C008701E6700C1AE15 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.1.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4873,6 +5014,61 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = babel;
 				STRIP_INSTALLED_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		55132C3F28FFE9AC007C87B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = src/zoomCocoa/ZoomNewSaveQL/ZoomNewQL.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/ZoomNewSaveQL/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Zoom Save QL";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.ZoomNewSaveQL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		55132C4028FFE9AC007C87B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = src/zoomCocoa/ZoomNewSaveQL/ZoomNewQL.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/ZoomNewSaveQL/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Zoom Save QL";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.ZoomNewSaveQL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
@@ -5406,6 +5602,15 @@
 			buildConfigurations = (
 				4BD79A920BA2C9C9002C82B2 /* Debug */,
 				4BD79A930BA2C9C9002C82B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55132C3E28FFE9AC007C87B6 /* Build configuration list for PBXNativeTarget "ZoomNewSaveQL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55132C3F28FFE9AC007C87B6 /* Debug */,
+				55132C4028FFE9AC007C87B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
