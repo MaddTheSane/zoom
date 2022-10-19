@@ -14,7 +14,7 @@
 
 
 // Notifications
-extern NSNotificationName const ZoomStoryOrganiserChangedNotification;
-extern NSNotificationName const ZoomStoryOrganiserProgressNotification;
+extern NSNotificationName const ZoomStoryOrganiserChangedNotification NS_REFINED_FOR_SWIFT;
+extern NSNotificationName const ZoomStoryOrganiserProgressNotification NS_REFINED_FOR_SWIFT;
 
 @class ZoomStoryOrganiser;

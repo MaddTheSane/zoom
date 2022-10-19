@@ -49,8 +49,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		
 		gameIndices = [[NSMutableArray alloc] init];
 
-		NSString* configDir = [self zoomConfigDirectory];
-		NSURL *configURL = [NSURL fileURLWithPath: configDir];
+		NSURL *configURL = [self zoomConfigDirectoryURL];
 
 		// Load the metadata
 		NSURL* userDataURL = [configURL URLByAppendingPathComponent: @"metadata.iFiction" isDirectory: NO];
@@ -401,6 +400,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 }
 
 - (NSString*) zoomConfigDirectory {
+	return [self zoomConfigDirectoryURL].path;
+}
+
+- (NSURL*)zoomConfigDirectoryURL {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
 	NSArray* libraryDirs = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
@@ -411,7 +414,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		NSURL* zoomLib = [libDir URLByAppendingPathComponent: @"Zoom"];
 		if ([[NSFileManager defaultManager] fileExistsAtPath: zoomLib.path isDirectory: &isDir]) {
 			if (isDir) {
-				return zoomLib.path;
+				return zoomLib;
 			}
 		}
 	}
@@ -422,7 +425,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 									 withIntermediateDirectories: NO
 													  attributes: nil
 														   error: NULL]) {
-			return zoomLib.path;
+			return zoomLib;
 		}
 	}
 	

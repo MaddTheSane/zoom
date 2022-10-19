@@ -341,8 +341,7 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 - (BOOL) writeToDefaultFileWithError:(NSError *__autoreleasing *)outError {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
-	NSString* configDir = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory];
-	NSURL *configURL = [NSURL fileURLWithPath: configDir isDirectory: YES];
+	NSURL* configURL = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectoryURL];
 	configURL = [configURL URLByAppendingPathComponent: @"metadata.iFiction" isDirectory: NO];
 	
 	return [self writeToURL: configURL

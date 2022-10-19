@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZoomMetadata*) userMetadata;
 
 @property (readonly, copy, null_unspecified) NSString *zoomConfigDirectory;
+@property (readonly, copy, null_unspecified) NSURL *zoomConfigDirectoryURL;
 @property (readonly, strong) id<ZoomLeopard> leopard;
 
 - (IBAction) fixedOpenDocument: (nullable id) sender;

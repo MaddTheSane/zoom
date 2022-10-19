@@ -24,11 +24,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	// TODO: migrate to CoreData
 
 	@nonobjc public class var changedNotification: NSNotification.Name {
-		return .ZoomStoryOrganiserChanged
+		return .__ZoomStoryOrganiserChanged
 	}
 
 	@nonobjc public class var progressNotification: NSNotification.Name {
-		return .ZoomStoryOrganiserProgress
+		return .__ZoomStoryOrganiserProgress
 	}
 	
 	@MainActor private(set) var stories = [Object]()
@@ -143,8 +143,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	@MainActor func load() throws {
-		let dir = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectory!
-		var saveURL = URL(fileURLWithPath: dir, isDirectory: true)
+		var saveURL = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectoryURL!
 		saveURL.appendPathComponent("Library.json")
 		let dat = try Data(contentsOf: saveURL)
 		let decoder = JSONDecoder()
@@ -160,8 +159,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	@MainActor func save() throws {
-		let dir = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectory!
-		var saveURL = URL(fileURLWithPath: dir, isDirectory: true)
+		var saveURL = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectoryURL!
 		saveURL.appendPathComponent("Library.json")
 		let encoder = JSONEncoder()
 		let wrapper = SaveWrapper(stories: stories, gameDirectories: gameDirectories)
@@ -279,7 +277,10 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			try? (NSApp.delegate as! ZoomAppDelegate).userMetadata().writeToDefaultFile()
 		}
 		
-		if let oldURLID = oldURLID, let oldIdent = oldIdent, oldIdent == ident, oldURLID.isEqual(newIdentifier) {
+		if let oldURLID = oldURLID,
+		   let oldIdent = oldIdent,
+		   oldIdent == ident,
+		   oldURLID.isEqual(newIdentifier) {
 			// Nothing to do
 			if organise {
 				organiseStory(theStory!, with: ident)
@@ -594,7 +595,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		if !urlIsAvailable(rootURL, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) {
 			if createGroup {
-				try? FileManager.default.createDirectory(at: rootURL, withIntermediateDirectories: false, attributes: nil)
+				try? FileManager.default.createDirectory(at: rootURL, withIntermediateDirectories: true, attributes: nil)
 				isDir = true
 			} else {
 				return nil
@@ -802,7 +803,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 						continue
 					}
 					
-					if oldGameFile != newGameFile, let newGameFile = newGameFile {
+					if oldGameFile != newGameFile, let newGameFile {
 						stories.remove(at: identID)
 						stories.append(Object(url: newGameFile, bookmarkData: try? newGameFile.bookmarkData(options: [.securityScopeAllowOnlyReadAccess]), fileID: ident))
 					}
@@ -1069,7 +1070,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				do {
 					try FileManager.default.createDirectory(at: newStoryDirectory, withIntermediateDirectories: false, attributes: nil)
 				} catch {
-					NSLog("WARNING: Can't reorganise to %@ - couldn't create directory: %@", newStoryDirectory.path, error.localizedDescription);
+					NSLog("WARNING: Can't reorganise to %@ - couldn't create directory: %@", newStoryDirectory.path, error.localizedDescription)
 					return
 				}
 			}
@@ -1144,7 +1145,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				
 				if !isOrganised {
 					NSLog("WARNING: Not organising %@, as it doesn't appear to have been organised before", filename.path)
-					continue;	// Can't be equivalent.
+					continue	// Can't be equivalent.
 				}
 
 				// Work out what to move to where
@@ -1193,7 +1194,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		reorganiseStories(to: URL(fileURLWithPath: newStoryDirectory, isDirectory: true))
 	}
 	
-	@MainActor func storyFrom(id storyID: ZoomStoryID) -> ZoomStory? {
+	@MainActor @objc(storyFromId:)
+	func story(from storyID: ZoomStoryID) -> ZoomStory? {
 		storyLock.lock()
 		defer {
 			storyLock.unlock()
@@ -1256,7 +1258,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			// Also a faint chance that the file/directory will disappear while we're operating on it.
 			
 			let storyID = story.fileID
-			guard let zStory = await storyFrom(id: storyID) else {
+			guard let zStory = await self.story(from: storyID) else {
 				// No info (file has gone away?)
 				NSLog("Organiser: failed to reorganise file '%@' - couldn't find any information for this file", filename.path)
 				continue

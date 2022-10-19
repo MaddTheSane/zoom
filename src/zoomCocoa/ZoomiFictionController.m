@@ -3102,11 +3102,11 @@ static unsigned int ValueForHexChar(int hex) {
 	// Restart if necessary
 	if ([[ZoomPlugInManager sharedPlugInManager] restartRequired]) {
 		// Write out a startup signpost file
-		NSString* startupSignpost = [[(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory] stringByAppendingPathComponent: @"launch.signpost"];
+		NSURL* startupSignpost = [[(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectoryURL] URLByAppendingPathComponent: @"launch.signpost"];
 		NSData* signpostData = [activeSignpost data];
 		
-		[signpostData writeToFile: startupSignpost
-					   atomically: YES];
+		[signpostData writeToURL: startupSignpost
+					  atomically: YES];
 		
 		// Restart Zoom
 		[[ZoomPlugInController sharedPlugInController] restartZoom];
