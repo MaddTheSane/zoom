@@ -534,6 +534,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	/// If the preferences get corrupted or something similarily silly happens,
 	/// we want to avoid having games point to the wrong directories. This
 	/// routine checks that a directory belongs to a particular game.
+	@objc(directory:isForIdent:)
 	@MainActor func directory(_ dir: URL, isFor ident: ZoomStoryID) -> Bool {
 		var isDir: ObjCBool = false
 		guard urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil) else {

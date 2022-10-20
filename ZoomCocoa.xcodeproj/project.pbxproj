@@ -229,7 +229,6 @@
 		55132C4128FFEA41007C87B6 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		55132C4228FFEA41007C87B6 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		55132C4728FFEA8D007C87B6 /* zoom-game.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F46050FB21C00A8E303 /* zoom-game.icns */; };
-		55132C4928FFEAC7007C87B6 /* babel in Copy Babel */ = {isa = PBXBuildFile; fileRef = 4BD79A8F0BA2C9AA002C82B2 /* babel */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		551E27D426F8464A007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27DA26F84691007204E1 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
@@ -647,13 +646,6 @@
 			remoteGlobalIDString = 4BD2747808701E6700C1AE15;
 			remoteInfo = ZoomView;
 		};
-		55132C4A28FFEAD0007C87B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4BD79A8E0BA2C9AA002C82B2;
-			remoteInfo = babel;
-		};
 		551E27D226F84639007204E1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
@@ -1047,17 +1039,6 @@
 				4BB8C20208C249F400D7D334 /* ZoomView.framework in Copy frameworks */,
 			);
 			name = "Copy frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		55132C4828FFEAB5007C87B6 /* Copy Babel */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-				55132C4928FFEAC7007C87B6 /* babel in Copy Babel */,
-			);
-			name = "Copy Babel";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		552CF02627176CED009D87A5 /* CopyFiles */ = {
@@ -3017,12 +2998,10 @@
 				55132C2A28FFE9AB007C87B6 /* Sources */,
 				55132C2B28FFE9AB007C87B6 /* Frameworks */,
 				55132C2C28FFE9AB007C87B6 /* Resources */,
-				55132C4828FFEAB5007C87B6 /* Copy Babel */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				55132C4B28FFEAD0007C87B6 /* PBXTargetDependency */,
 				55132C4428FFEA58007C87B6 /* PBXTargetDependency */,
 				55132C4628FFEA58007C87B6 /* PBXTargetDependency */,
 			);
@@ -4030,11 +4009,6 @@
 			isa = PBXTargetDependency;
 			target = 4BD2747808701E6700C1AE15 /* ZoomView */;
 			targetProxy = 55132C4528FFEA58007C87B6 /* PBXContainerItemProxy */;
-		};
-		55132C4B28FFEAD0007C87B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4BD79A8E0BA2C9AA002C82B2 /* babel */;
-			targetProxy = 55132C4A28FFEAD0007C87B6 /* PBXContainerItemProxy */;
 		};
 		551E27D326F84639007204E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

@@ -10,7 +10,7 @@ import Quartz
 import ZoomPlugIns.ZoomBabel
 import ZoomView
 
-let zoomConfigDirectory: URL? = {
+private let zoomConfigDirectory: URL? = {
 	let libraryDirs = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
 	for dir in libraryDirs {
 		var isDir: ObjCBool = false
@@ -36,7 +36,7 @@ let zoomConfigDirectory: URL? = {
 
 public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 	
-	func providePreviewforBabel(at fileURL: URL) throws -> QLPreviewReply {
+	private func providePreviewforBabel(at fileURL: URL) throws -> QLPreviewReply {
 		guard fileURL.isFileURL else {
 			throw CocoaError(.fileReadUnsupportedScheme)
 		}
