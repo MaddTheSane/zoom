@@ -38,7 +38,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 	
 	private func providePreviewforBabel(at fileURL: URL) throws -> QLPreviewReply {
 		guard fileURL.isFileURL else {
-			throw CocoaError(.fileReadUnsupportedScheme)
+			throw CocoaError(.fileReadUnsupportedScheme, userInfo: [NSURLErrorKey: fileURL])
 		}
 		let babel = ZoomBabel(url: fileURL)
 		var story = babel.metadata()

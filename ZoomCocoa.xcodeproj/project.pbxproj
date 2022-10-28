@@ -318,6 +318,11 @@
 		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
 		55A2EB9E273C86500006340C /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA0273C86500006340C /* NoteWindow.xib */; };
 		55A2EBA5273C86660006340C /* Skein.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA7273C86660006340C /* Skein.xib */; };
+		55A319C0290138F200ABAAA2 /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A319BF290138F200ABAAA2 /* QuickLookThumbnailing.framework */; };
+		55A319C1290138F200ABAAA2 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55132C2F28FFE9AB007C87B6 /* Quartz.framework */; };
+		55A319C4290138F200ABAAA2 /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A319C3290138F200ABAAA2 /* ThumbnailProvider.swift */; };
+		55A319C9290138F200ABAAA2 /* ZoomThumbnailer.appex in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 55A319BE290138F200ABAAA2 /* ZoomThumbnailer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		55A319CF2901417500ABAAA2 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		55B4598F278798080037A6A3 /* glk_saver.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC13122786D53000369EBE /* glk_saver.c */; };
 		55B4599B2787992C0037A6A3 /* libcsv.LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55BC13202786D53000369EBE /* libcsv.LICENSE */; };
 		55B4599C278799500037A6A3 /* ZoomJACL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BC111E2786D04B00369EBE /* ZoomJACL.swift */; };
@@ -821,6 +826,20 @@
 			remoteGlobalIDString = 4B51AA4607E8770600576AB9;
 			remoteInfo = GlkView;
 		};
+		55A319C7290138F200ABAAA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55A319BD290138F200ABAAA2;
+			remoteInfo = ZoomThumbnailer;
+		};
+		55A319CD2901416D00ABAAA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
+			remoteInfo = ZoomPlugIns;
+		};
 		55BA3C2B27253CBB007F6C82 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
@@ -970,6 +989,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				55A319C9290138F200ABAAA2 /* ZoomThumbnailer.appex in Copy Glk plugins */,
 				55C673C4278BADCD005A7A21 /* JACL.zoomPlugin in Copy Glk plugins */,
 				55132C3D28FFE9AB007C87B6 /* ZoomNewSaveQL.appex in Copy Glk plugins */,
 				55DA686027351FBF0007990A /* AGX.zoomPlugin in Copy Glk plugins */,
@@ -1471,6 +1491,11 @@
 		55A2EBA6273C86660006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Skein.xib; sourceTree = "<group>"; };
 		55A2EBA9273C86680006340C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Skein.strings; sourceTree = "<group>"; };
 		55A2EBAB273C86690006340C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Skein.strings"; sourceTree = "<group>"; };
+		55A319BE290138F200ABAAA2 /* ZoomThumbnailer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ZoomThumbnailer.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		55A319BF290138F200ABAAA2 /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
+		55A319C3290138F200ABAAA2 /* ThumbnailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailProvider.swift; sourceTree = "<group>"; };
+		55A319C5290138F200ABAAA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = src/zoomCocoa/ZoomThumbnailer/Info.plist; sourceTree = SOURCE_ROOT; };
+		55A319C6290138F200ABAAA2 /* ZoomThumbnailer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZoomThumbnailer.entitlements; sourceTree = "<group>"; };
 		55B4599E27879D5E0037A6A3 /* interpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interpreter.h; sourceTree = "<group>"; };
 		55B4599F27892ED20037A6A3 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
 		55B459A02789318F0037A6A3 /* encapsulate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = encapsulate.h; sourceTree = "<group>"; };
@@ -1754,6 +1779,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55A319BB290138F200ABAAA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55A319CF2901417500ABAAA2 /* ZoomPlugIns.framework in Frameworks */,
+				55A319C0290138F200ABAAA2 /* QuickLookThumbnailing.framework in Frameworks */,
+				55A319C1290138F200ABAAA2 /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55BA3BCF27253B21007F6C82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1874,6 +1909,7 @@
 				55BC11382786D0B600369EBE /* JACL.zoomPlugin */,
 				55BC13702786D67900369EBE /* jacl-interpreter */,
 				55132C2E28FFE9AB007C87B6 /* ZoomNewSaveQL.appex */,
+				55A319BE290138F200ABAAA2 /* ZoomThumbnailer.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1906,6 +1942,7 @@
 				4B7284FA0CD383C80079D89B /* QuartzCore.framework */,
 				4B0A32AE06A5966D00BB8878 /* WebKit.framework */,
 				55132C2F28FFE9AB007C87B6 /* Quartz.framework */,
+				55A319BF290138F200ABAAA2 /* QuickLookThumbnailing.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2210,6 +2247,7 @@
 				4B7284810CD37AF90079D89B /* Leopard */,
 				5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */,
 				55132C3128FFE9AB007C87B6 /* ZoomNewSaveQL */,
+				55A319C2290138F200ABAAA2 /* ZoomThumbnailer */,
 			);
 			name = ZoomClient;
 			path = src/zoomCocoa;
@@ -2498,6 +2536,16 @@
 				55DA68AA2739DBC90007990A /* Localizable.strings */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		55A319C2290138F200ABAAA2 /* ZoomThumbnailer */ = {
+			isa = PBXGroup;
+			children = (
+				55A319C3290138F200ABAAA2 /* ThumbnailProvider.swift */,
+				55A319C5290138F200ABAAA2 /* Info.plist */,
+				55A319C6290138F200ABAAA2 /* ZoomThumbnailer.entitlements */,
+			);
+			path = ZoomThumbnailer;
 			sourceTree = "<group>";
 		};
 		55BA3BD327253B21007F6C82 /* geas */ = {
@@ -2943,6 +2991,7 @@
 				4BB8C18B08C249F400D7D334 /* PBXTargetDependency */,
 				4B7CB1F4093635C400F3B8F6 /* PBXTargetDependency */,
 				55132C3C28FFE9AB007C87B6 /* PBXTargetDependency */,
+				55A319C8290138F200ABAAA2 /* PBXTargetDependency */,
 			);
 			name = Zoom;
 			packageProductDependencies = (
@@ -3109,6 +3158,24 @@
 			productReference = 55368B00272A046400740A0A /* agt2agx */;
 			productType = "com.apple.product-type.tool";
 		};
+		55A319BD290138F200ABAAA2 /* ZoomThumbnailer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55A319CA290138F200ABAAA2 /* Build configuration list for PBXNativeTarget "ZoomThumbnailer" */;
+			buildPhases = (
+				55A319BA290138F200ABAAA2 /* Sources */,
+				55A319BB290138F200ABAAA2 /* Frameworks */,
+				55A319BC290138F200ABAAA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55A319CE2901416D00ABAAA2 /* PBXTargetDependency */,
+			);
+			name = ZoomThumbnailer;
+			productName = ZoomThumbnailer;
+			productReference = 55A319BE290138F200ABAAA2 /* ZoomThumbnailer.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		55BA3BD127253B21007F6C82 /* geas */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55BA3BDD27253B21007F6C82 /* Build configuration list for PBXNativeTarget "geas" */;
@@ -3217,6 +3284,9 @@
 						CreatedOnToolsVersion = 13.0;
 						LastSwiftMigration = 1300;
 					};
+					55A319BD290138F200ABAAA2 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
 					55BA3BD127253B21007F6C82 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -3287,6 +3357,7 @@
 				55BC11222786D0B600369EBE /* JACL */,
 				55BC136F2786D67900369EBE /* jacl-interpreter */,
 				55132C2D28FFE9AB007C87B6 /* ZoomNewSaveQL */,
+				55A319BD290138F200ABAAA2 /* ZoomThumbnailer */,
 			);
 		};
 /* End PBXProject section */
@@ -3510,6 +3581,13 @@
 				55368B2B272A0AFC00740A0A /* readme.agility in Resources */,
 				55368B20272A05DB00740A0A /* readme.glk in Resources */,
 				55368B1F272A05CA00740A0A /* GPL in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55A319BC290138F200ABAAA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3843,6 +3921,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55A319BA290138F200ABAAA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55A319C4290138F200ABAAA2 /* ThumbnailProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55BA3BCE27253B21007F6C82 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4119,6 +4205,16 @@
 			isa = PBXTargetDependency;
 			name = GlkView;
 			targetProxy = 55982BEB21C0CE43002B601B /* PBXContainerItemProxy */;
+		};
+		55A319C8290138F200ABAAA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55A319BD290138F200ABAAA2 /* ZoomThumbnailer */;
+			targetProxy = 55A319C7290138F200ABAAA2 /* PBXContainerItemProxy */;
+		};
+		55A319CE2901416D00ABAAA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
+			targetProxy = 55A319CD2901416D00ABAAA2 /* PBXContainerItemProxy */;
 		};
 		55BA3C2C27253CBB007F6C82 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5288,6 +5384,63 @@
 			};
 			name = Release;
 		};
+		55A319CB290138F200ABAAA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = src/zoomCocoa/ZoomThumbnailer/ZoomThumbnailer.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/ZoomThumbnailer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ZoomThumbnailer;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.ZoomThumbnailer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		55A319CC290138F200ABAAA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = src/zoomCocoa/ZoomThumbnailer/ZoomThumbnailer.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/ZoomThumbnailer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ZoomThumbnailer;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.ZoomThumbnailer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
 		55BA3BD627253B21007F6C82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5630,6 +5783,15 @@
 			buildConfigurations = (
 				55368AFE272A046400740A0A /* Debug */,
 				55368AFF272A046400740A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55A319CA290138F200ABAAA2 /* Build configuration list for PBXNativeTarget "ZoomThumbnailer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55A319CB290138F200ABAAA2 /* Debug */,
+				55A319CC290138F200ABAAA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
