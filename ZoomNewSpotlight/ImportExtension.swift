@@ -11,6 +11,7 @@ import ZoomPlugIns.ifmetabase
 import ZoomPlugIns.ZoomMetadata
 import ZoomPlugIns.ZoomStory
 import ZoomPlugIns.ZoomStoryID
+import ZoomView
 
 private let zoomConfigDirectory: URL? = {
 	let libraryDirs = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
@@ -35,6 +36,21 @@ private let zoomConfigDirectory: URL? = {
 	return nil
 }()
 
+private func loadMetadataFromBlorb(at url: URL, lookingFor identifier: ZoomStoryID) -> ZoomStory? {
+	guard let blorb = try? ZoomBlorbFile(contentsOf: url) else {
+		return nil
+	}
+	
+	guard let data = blorb.dataForChunk(withType: "IFmd") else {
+		return nil
+	}
+	
+	guard let meta = try? ZoomMetadata(data: data) else {
+		return nil
+	}
+	
+	return meta.findStory(identifier)
+}
 
 class ImportExtension: CSImportExtension {
     
@@ -42,7 +58,12 @@ class ImportExtension: CSImportExtension {
 		ZoomIsSpotlightIndexing = true
 		
 		let story_id = try ZoomStoryID(zCodeFileAt: forFileAt)
-		guard let story = findStory(with: story_id) else {
+		var story: ZoomStory? = nil
+		story = findStory(with: story_id)
+		if story == nil {
+			story = loadMetadataFromBlorb(at: forFileAt, lookingFor: story_id)
+		}
+		guard let story else {
 			throw CocoaError(.fileReadCorruptFile)
 		}
 		
