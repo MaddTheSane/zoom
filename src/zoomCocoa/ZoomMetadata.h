@@ -56,6 +56,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 // Retrieving information
 - (BOOL) containsStoryWithIdent: (ZoomStoryID*) ident;
 - (ZoomStory*) findOrCreateStory: (ZoomStoryID*) ident;
+- (nullable ZoomStory*) findStory: (ZoomStoryID*) ident;
 @property (readonly, nonatomic, copy) NSArray<ZoomStory*> *stories;
 
 // Storing information

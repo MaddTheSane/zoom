@@ -234,6 +234,31 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 	return IFMB_ContainsStoryWithId(metadata, [ident ident]);
 }
 
+- (ZoomStory*) findStory: (ZoomStoryID*) ident {
+	if (ident == nil || [ident ident] == NULL) {
+		return nil;
+	}
+	BOOL contains = IFMB_ContainsStoryWithId(metadata, [ident ident]);
+	if (!contains) {
+		return nil;
+	}
+	
+	[dataLock lock];
+	
+	IFStory story = IFMB_GetStoryWithId(metadata, [ident ident]);
+	
+	if (story) {
+		ZoomStory* res = [[ZoomStory alloc] initWithStory: story
+												 metadata: self];
+		
+		[dataLock unlock];
+		return res;
+	} else {
+		[dataLock unlock];
+		return nil;
+	}
+}
+
 - (ZoomStory*) findOrCreateStory: (ZoomStoryID*) ident {
 	IFStory story;
 	
