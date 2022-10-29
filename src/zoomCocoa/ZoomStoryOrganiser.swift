@@ -1297,13 +1297,14 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			// CHECK FOR CASE 2: story is in the wrong group
 			var inWrongGroup = false
 			
-			storyLock.lock()
-			var expectedGroup = sanitiseDirectoryName(zStory.group) ?? "Ungrouped"
-			let actualGroup = filenameComponents[filenameComponents.count-3]
-			if expectedGroup == "" {
-				expectedGroup = "Ungrouped"
+			let (expectedGroup, actualGroup) = storyLock.withLock {
+				var expectedGroup = sanitiseDirectoryName(zStory.group) ?? "Ungrouped"
+				let actualGroup = filenameComponents[filenameComponents.count-3]
+				if expectedGroup == "" {
+					expectedGroup = "Ungrouped"
+				}
+				return (expectedGroup, actualGroup)
 			}
-			storyLock.unlock()
 
 			if actualGroup.lowercased() != expectedGroup.lowercased() {
 				NSLog("Organiser: File %@ not in the expected group (%@ vs %@)", filename.path, actualGroup, expectedGroup)
@@ -1313,10 +1314,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			// CHECK FOR CASE 3: story is in the wrong directory
 			var inWrongDirectory = false
 			
-			storyLock.lock()
-			let expectedDir = sanitiseDirectoryName(zStory.title)!
-			let actualDir = filenameComponents[filenameComponents.count - 2]
-			storyLock.unlock()
+			let (expectedDir, actualDir) = storyLock.withLock {
+				let a = sanitiseDirectoryName(zStory.title)!
+				let b = filenameComponents[filenameComponents.count - 2]
+				return (a, b)
+			}
 
 			if actualDir.lowercased() != expectedDir.lowercased() {
 				NSLog("Organiser: File %@ not in the expected directory (%@ vs %@)", filename.path, actualDir, expectedDir);
@@ -1424,9 +1426,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		// Not organising any more
-		storyLock.lock()
-		alreadyOrganising = false
-		storyLock.unlock()
+		storyLock.withLock {
+			alreadyOrganising = false
+		}
 		
 		// Tidy up
 		await endedActing()
