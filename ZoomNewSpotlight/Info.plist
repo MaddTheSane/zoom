@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CSExtensionLabel</key>
+	<string>ZoomNewSpotlightImporter</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>CSSupportedContentTypes</key>
+			<array>
+				<string>public.zcode</string>
+				<string>public.blorb.zcode</string>
+			</array>
+		</dict>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.spotlight.import</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>$(PRODUCT_MODULE_NAME).ImportExtension</string>
+	</dict>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>uk.org.logicalshift.zoom</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZCode story</string>
+			<key>UTTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.zcode</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>IFRS</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>z3</string>
+					<string>z4</string>
+					<string>z5</string>
+					<string>z6</string>
+					<string>z7</string>
+					<string>z8</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-zmachine</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>uk.org.logicalshift.zoom</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZCode story</string>
+			<key>UTTypeIconFile</key>
+			<string>zoom-game</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.blorb.zcode</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>zlb</string>
+					<string>zblorb</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

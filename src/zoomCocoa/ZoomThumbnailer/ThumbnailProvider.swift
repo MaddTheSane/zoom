@@ -6,6 +6,7 @@
 //
 
 import QuickLookThumbnailing
+import ZoomPlugIns
 import ZoomPlugIns.ZoomBabel
 
 class ThumbnailProvider: QLThumbnailProvider {
@@ -26,7 +27,7 @@ class ThumbnailProvider: QLThumbnailProvider {
 		var newSize = theMaxImageSize
 
 		if image.size.width > theMaxImageSize.width || image.size.height > theMaxImageSize.height {
-			if (newSize.width < newSize.height) {
+			if newSize.width < newSize.height {
 				newSize.height = newSize.width
 			} else {
 				newSize.width = newSize.height

@@ -7,6 +7,8 @@
 
 import Cocoa
 import Quartz
+import ZoomPlugIns
+import ZoomPlugIns.ZoomStoryID
 import ZoomPlugIns.ZoomBabel
 import ZoomView
 
