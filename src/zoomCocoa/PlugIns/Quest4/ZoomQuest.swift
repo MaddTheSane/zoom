@@ -101,7 +101,9 @@ final public class Quest: ZoomGlkPlugIn {
 			throw NSError(domain: NSOSStatusErrorDomain, code: paramErr, userInfo: [NSURLErrorKey: gameURL])
 		}
 		let meta = ZoomMetadata()
-		let story = meta.findOrCreateStory(id)
+		guard let story = meta.findOrCreateStory(id) else {
+			throw CocoaError(.featureUnsupported)
+		}
 		
 		let gameRegex = try! NSRegularExpression(pattern: #"define game <([^<>\n]+)>"#, options: [])
 		guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {

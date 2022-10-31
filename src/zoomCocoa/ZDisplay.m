@@ -271,7 +271,7 @@ void display_prints(const int* buf) {
                                           encoding: NSUTF32LittleEndianStringEncoding];
 
     if (!str) {
-    unichar* bufU = NULL;
+    unichar* bufU = malloc(2);
 
     for (length=0; buf[length] != 0; length++) {
         bufU = realloc(bufU, sizeof(unichar)*((length>>4)+1)<<4);

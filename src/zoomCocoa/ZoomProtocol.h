@@ -23,6 +23,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSNotificationName const ZBufferNeedsFlushingNotification;
 
 @protocol ZMachine;
@@ -76,7 +78,7 @@ NS_SWIFT_NAME(ZMachineProtocol)
                           size: (NSInteger) size;
 
 // Obtaining game state
-- (bycopy NSData*) createGameSave;
+- (nullable bycopy NSData*) createGameSave;
 - (bycopy NSData*) storyFile;
 
 // Debugging
@@ -97,10 +99,10 @@ NS_SWIFT_NAME(ZMachineProtocol)
 - (void)   removeAllBreakpoints;
 
 - (int)        addressForName: (NSString*) name;
-- (NSString*)  nameForAddress: (int) address;
+- (nullable NSString*)  nameForAddress: (int) address;
 
-- (NSString*)   sourceFileForAddress: (int) address;
-- (NSString*)   routineForAddress: (int) address;
+- (nullable NSString*)   sourceFileForAddress: (int) address;
+- (nullable NSString*)   routineForAddress: (int) address;
 - (int)         lineForAddress: (int) address;
 - (int)			characterForAddress: (int) address;
 
@@ -108,7 +110,7 @@ NS_SWIFT_NAME(ZMachineProtocol)
 - (int)					 zRegion: (int) addr;
 - (bycopy NSString*)	 descriptionForValue: (ZValueTypeMasks) value;
 
-- (void) setWindowTitle: (in bycopy NSString*) text;
+- (void) setWindowTitle: (nullable in bycopy NSString*) text;
 
 @optional
 - (NSPoint) readMouse;
@@ -121,7 +123,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 - (unsigned char)  readByte;
 - (unsigned short) readWord;
 - (unsigned int)   readDWord;
-- (bycopy NSData*) readBlock: (NSInteger) length;
+- (nullable bycopy NSData*) readBlock: (NSInteger) length;
 
 - (oneway void)		   seekTo: (off_t) pos;
 @property (readonly) off_t seekPosition;
@@ -133,7 +135,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 - (oneway void) writeBlock: (in bycopy NSData*) block;
 
 @property (readonly) BOOL sufferedError;
-- (bycopy NSString*)    errorMessage;
+- (nullable bycopy NSString*)    errorMessage;
 @property (readonly, copy) NSString *errorMessage;
 
 @property (readonly) off_t fileSize;
@@ -276,7 +278,7 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 
 //! Prompting for files
 - (void) promptForFileToWrite: (in ZFileType) type
-				  defaultName: (in bycopy NSString*) name;
+				  defaultName: (nullable in bycopy NSString*) name;
 - (void) promptForFileToRead: (in ZFileType) type
                  defaultName: (in bycopy NSString*) name;
 
@@ -447,5 +449,7 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 
 //! Connecting to the client
 @protocol ZClient <NSObject>
-- (byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine;
+- (nullable byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine;
 @end
+
+NS_ASSUME_NONNULL_END

@@ -71,7 +71,9 @@ final public class JACL: ZoomGlkPlugIn {
 				fileString = fstr2
 
 				let meta = ZoomMetadata()
-				let story = meta.findOrCreateStory(id)
+				guard let story = meta.findOrCreateStory(id) else {
+					throw CocoaError(.featureUnsupported)
+				}
 
 				let gameRegex = try! NSRegularExpression(pattern: #"constant\s+game_title\s+"(.*)""#, options: [])
 				guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
