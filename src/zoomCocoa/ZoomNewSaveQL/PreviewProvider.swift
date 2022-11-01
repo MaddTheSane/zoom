@@ -24,14 +24,6 @@ private let zoomConfigDirectory: URL? = {
 		}
 	}
 	
-	for dir in libraryDirs {
-		let zoomLib = dir.appendingPathComponent("Zoom", isDirectory: true)
-		do {
-			try FileManager.default.createDirectory(at: zoomLib, withIntermediateDirectories: false)
-			return zoomLib
-		} catch {}
-	}
-	
 	return nil
 }()
 

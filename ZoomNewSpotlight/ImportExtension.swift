@@ -12,6 +12,7 @@ import ZoomPlugIns.ZoomMetadata
 import ZoomPlugIns.ZoomStory
 import ZoomPlugIns.ZoomStoryID
 import ZoomView
+import ZoomView.ZoomBlorbFile
 
 private let zoomConfigDirectory: URL? = {
 	let libraryDirs = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
@@ -23,14 +24,6 @@ private let zoomConfigDirectory: URL? = {
 				return zoomLib
 			}
 		}
-	}
-	
-	for dir in libraryDirs {
-		let zoomLib = dir.appendingPathComponent("Zoom", isDirectory: true)
-		do {
-			try FileManager.default.createDirectory(at: zoomLib, withIntermediateDirectories: false)
-			return zoomLib
-		} catch {}
 	}
 	
 	return nil
