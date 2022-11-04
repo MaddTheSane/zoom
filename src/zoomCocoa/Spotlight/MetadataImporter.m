@@ -258,7 +258,7 @@ ZoomStory * FindStory( ZoomStoryID * gameID )
 	NSArray * game_indices = GetGameIndices();
 
 	for (ZoomMetadata * repository in game_indices) {
-		story = [repository containsStoryWithIdent: gameID]?[repository findOrCreateStory:gameID]:nil;
+		story = [repository findStory: gameID];
 		if( story ) 
 			break;
 	}

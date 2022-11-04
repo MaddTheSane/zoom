@@ -166,7 +166,7 @@
 	
 	ZoomMetadata* userMetadata = [(ZoomAppDelegate*)[NSApp delegate] userMetadata];
 	
-	story = [userMetadata containsStoryWithIdent: storyId]?[userMetadata findOrCreateStory: storyId]:nil;
+	story = [userMetadata findStory: storyId];
 	
 	if (!story) {
 		// If there is no metadata, then make some up

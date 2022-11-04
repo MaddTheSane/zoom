@@ -59,7 +59,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 		// Try to load Zoom's built-in metadata if we can
 		if let anURL = zoomConfigDirectory?.appendingPathComponent("metadata.iFiction"),
 		   let metadata = try? ZoomMetadata(contentsOf: anURL) {
-			story = metadata.containsStory(withIdent: storyID) ? metadata.findOrCreateStory(storyID) : story
+			story = metadata.findStory(storyID) ?? story
 		}
 		
 		// If there's no metadata returned, then give up
@@ -291,7 +291,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 				
 				if let metadataURL = zoomConfigDirectory?.appendingPathComponent("metadata.iFiction"),
 				   let metadata = try? ZoomMetadata(contentsOf: metadataURL),
-				   let story = metadata.containsStory(withIdent: storyID) ? metadata.findOrCreateStory(storyID) : nil,
+				   let story = metadata.findStory(storyID),
 				   let title = story.title, title.count > 0 {
 					let titleAttr = AttributedString("Saved game from \(title)", attributes: titleAttributes)
 					result = titleAttr + newline + result

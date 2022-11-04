@@ -77,7 +77,7 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData error: NULL];
 	
 	if (metadata) {
-		story = [metadata containsStoryWithIdent: storyID]?[metadata findOrCreateStory: storyID]:story;
+		story = [metadata findStory: storyID]?:story;
 	}
 	
 	// If there's no metadata returned, then give up
@@ -218,11 +218,11 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 		// .zoomsave package
 		
 		// Read in the skein
-		NSURL* skeinUrl = [NSURL URLWithString: [[url absoluteString] stringByAppendingString: @"/Skein.skein"]];
+		NSURL* skeinUrl = [url URLByAppendingPathComponent:@"Skein.skein" isDirectory:NO];
 		skeinData = [NSData dataWithContentsOfURL: skeinUrl];
 		
 		// Work out the story ID
-		NSURL* plistUrl = [NSURL URLWithString: [[url absoluteString] stringByAppendingString: @"/Info.plist"]];
+		NSURL* plistUrl = [url URLByAppendingPathComponent:@"Info.plist" isDirectory:NO];
 		NSData* plist = [NSData dataWithContentsOfURL: plistUrl];
 		
 		if (plist != nil) {
@@ -240,12 +240,12 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 		// .glksave package
 		
 		// Read in the skein
-		NSURL* skeinUrl = [NSURL URLWithString: [[url absoluteString] stringByAppendingString: @"/Skein.skein"]];
+		NSURL* skeinUrl = [url URLByAppendingPathComponent:@"Skein.skein" isDirectory:NO];
 		skeinData = [NSData dataWithContentsOfURL: skeinUrl];
 
 		
 		// Work out the story ID
-		NSURL* plistUrl = [NSURL URLWithString: [[url absoluteString] stringByAppendingString: @"/Info.plist"]];
+		NSURL* plistUrl = [url URLByAppendingPathComponent:@"Info.plist" isDirectory:NO];
 		NSData* plist = [NSData dataWithContentsOfURL: plistUrl];
 		
 		if (plist != nil) {
@@ -355,7 +355,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 			if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData error: NULL];
 			
 			if (metadata) {
-				story = [metadata containsStoryWithIdent: storyID]?[metadata findOrCreateStory: storyID]:nil;
+				story = [metadata findStory: storyID];
 			}
 			
 			if (story && [[story title] length] > 0) {
