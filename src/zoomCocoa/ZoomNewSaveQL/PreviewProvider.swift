@@ -130,18 +130,18 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 		let descriptionRect = nsDescription.boundingRect(with: NSSize(width: (previewSize.width - previewSize.height) - 16, height: 1e8))
 		if let image {
 			previewSize.height = image.size.height
-			if (previewSize.height < 180) {
+			if previewSize.height < 180 {
 				previewSize.height = 180
 			}
-			if (previewSize.height < descriptionRect.size.height + 32) {
+			if previewSize.height < descriptionRect.size.height + 32 {
 				previewSize.height = descriptionRect.size.height + 32
 			}
-			if (previewSize.height > 320) {
+			if previewSize.height > 320 {
 				previewSize.height = 320
 			}
 			
 			previewSize.width *= previewSize.height / 320.0
-			if (previewSize.width < 560) {
+			if previewSize.width < 560 {
 				previewSize.width = 560
 			}
 		}
@@ -169,9 +169,9 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 				imageRect.size = NSSize(width: previewSize.height - 16, height: previewSize.height - 16)
 				let ratio = imageSize.height / imageSize.width
 				if ratio < 1 {
-					imageRect.size.height *= ratio;
+					imageRect.size.height *= ratio
 				} else {
-					imageRect.size.width /= ratio;
+					imageRect.size.width /= ratio
 				}
 				
 				image.draw(in: imageRect, from: .zero, operation: .sourceOver, fraction: 1)
