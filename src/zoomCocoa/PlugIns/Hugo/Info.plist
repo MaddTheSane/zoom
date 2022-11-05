@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Hugo Executable File</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.hugo</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>Hugo</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>hex</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Hugo Debuggable File</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.hugo.debug</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>HugD</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>hdx</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>ZoomPlugin</key>
+	<dict>
+		<key>Author</key>
+		<string>C.W. &quot;Madd the Sane&quot; Betts</string>
+		<key>DisplayName</key>
+		<string>HUGO</string>
+		<key>Image</key>
+		<string>../../Resources/HUGO.icns</string>
+		<key>InterpreterAuthor</key>
+		<string>Kent Tessman</string>
+		<key>InterpreterVersion</key>
+		<string>3.1.03</string>
+		<key>Version</key>
+		<string>$(MARKETING_VERSION)</string>
+		<key>ZoomVersion</key>
+		<integer>200</integer>
+	</dict>
+</dict>
+</plist>

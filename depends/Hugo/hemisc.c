@@ -523,7 +523,7 @@ AddFontCode:
 #endif
 		if ((c==' ') || (c=='/' && a[i+1]!='/') || (c=='-' && a[i+1]!='-'))
 		{
-			linebreak = plen, linebreaklen = thisline;
+			linebreak = plen; linebreaklen = thisline;
 		}
 	}
 
@@ -1130,7 +1130,9 @@ char *GetText(long textaddr)
 	}
 
 	/* ...Or load the string from disk */
-	if (fseek(game, codeend+textaddr, SEEK_SET)) FatalError(READ_E);
+	if (fseek(game, codeend+textaddr, SEEK_SET)) {
+		FatalError(READ_E);
+	}
 
 	tdatal = fgetc(game);
 	tdatah = fgetc(game);
@@ -1340,7 +1342,7 @@ void LoadGame(void)
 #if defined (DEBUGGER_PRINTFATALERROR)
 		DEBUGGER_PRINTFATALERROR(line);
 #else
-		printf(line);
+		printf("%s", line);
 #endif
 		hugo_closefiles();
 		hugo_blockfree(mem);
@@ -1354,12 +1356,12 @@ void LoadGame(void)
 		hugo_cleanup_screen();
 		hugo_clearfullscreen();
 #endif
-		sprintf(line, "File \"%s\" is incorrect or unknown version.\n", gamefile);
+		snprintf(line, sizeof(line), "File \"%s\" is incorrect or unknown version.\n", gamefile);
 
 #if defined (DEBUGGER_PRINTFATALERROR)
 		DEBUGGER_PRINTFATALERROR(line);
 #else
-		printf(line);
+		printf("%s", line);
 #endif
 		hugo_closefiles();
 		hugo_blockfree(mem);
@@ -1369,11 +1371,12 @@ void LoadGame(void)
 
 	hugo_settextpos(1, physical_windowheight/lineheight);
 
-	if (game_version>=25)
+	if (game_version>=25) {
 		fseek(game, H_TEXTBANK, SEEK_SET);
-	else
+	} else {
 		/* Because pre-v2.5 didn't have performaddr in the header */
 		fseek(game, H_TEXTBANK-2L, SEEK_SET);
+	}
 
 	data = fgetc(game);
 	textbank = fgetc(game);
@@ -1384,7 +1387,9 @@ void LoadGame(void)
 	/* Use a 1024-byte read block */
 	ccount = 1024;
 
-	if (fseek(game, 0, SEEK_SET)) FatalError(READ_E);
+	if (fseek(game, 0, SEEK_SET)) {
+		FatalError(READ_E);
+	}
 
 #ifndef LOADGAMEDATA_REPLACED
 	/* Allocate as much memory as is required */
@@ -1421,7 +1426,9 @@ void LoadGame(void)
 	if (!LoadGameData(false)) FatalError(READ_E);
 #endif
 
-	if (ferror(game)) FatalError(READ_E);
+	if (ferror(game)) {
+		FatalError(READ_E);
+	}
 
 	defseg = gameseg;
 
@@ -1721,7 +1728,9 @@ void Printout(char *a)
 
 		if (script && (unsigned char)b[0]>=' ')
 			/* fprintf() this way for Glk */
-			if (fprintf(script, "%s", b) < 0) FatalError(WRITE_E);
+			if (fprintf(script, "%s", b) < 0) {
+				FatalError(WRITE_E);
+			}
 
 #if defined (SCROLLBACK_DEFINED)
 		if (!inwindow && (unsigned char)b[0]>=' ')
@@ -1833,8 +1842,9 @@ void Printout(char *a)
 		if (script)
 		{
 			/* fprintf() this way for Glk */
-			if (fprintf(script, "%s", "\n")<0)
+			if (fprintf(script, "%s", "\n")<0) {
 				FatalError(WRITE_E);
+			}
 		}
 
 #if defined (SCROLLBACK_DEFINED)
@@ -1933,8 +1943,9 @@ void PromptMore(void)
 
 	if (playback && k==27)         /* if ESC is pressed during playback */
 	{
-		if (fclose(playback))
+		if (fclose(playback)) {
 			FatalError(READ_E);
+		}
 		playback = NULL;
 	}
 	else if (playback && k=='+')

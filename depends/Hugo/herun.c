@@ -105,7 +105,7 @@ void RunEvents(void)
 		eventaddr = (long)PeekWord(2 + i * 4 + 2)*address_scale;
 		var[self] = eventin;
 
-		domain = 0, flag = 0;
+		domain = 0; flag = 0;
 
 #if defined (DEBUGGER)
 		/* Prevent premature stopping */
@@ -352,8 +352,9 @@ FreshInput:
 								if (!strcmp(word[i], "."))
 								{
 									/* fprintf() this way for Glk */
-									if (fprintf(record, "%s", "\n")<0)
+									if (fprintf(record, "%s", "\n")<0) {
 										FatalError(WRITE_E);
+									}
 									if (i==words) goto RecordedNewline;
 								}
 								else if (fputs(word[i], record)<0
@@ -362,7 +363,9 @@ FreshInput:
 									FatalError(WRITE_E);
 								}
 							}
-							if (fprintf(record, "%s", "\n")<0) FatalError(WRITE_E);
+							if (fprintf(record, "%s", "\n")<0) {
+								FatalError(WRITE_E);
+							}
 RecordedNewline:;
 						}
 					}
@@ -2571,8 +2574,9 @@ int RunString()
 		SaveUndo(ARRAYDATA_T, aaddr, i, PeekWord(aaddr+i*2), 0);
 
 		a = line[i];
-		if (a=='\\')
-			++i, a = SpecialChar(line, &i);
+		if (a=='\\') {
+			++i; a = SpecialChar(line, &i);
+		}
 		PokeWord(aaddr+pos*2, a);
 	}
 	PokeWord(aaddr+pos*2, 0);
@@ -2824,7 +2828,7 @@ void RunWindow(void)
 					    RuntimeWarning("Window size evaluates to zero");
 					}
 #endif
-					left = 1, top = 1;
+					left = 1; top = 1;
 					right = SCREENWIDTH/FIXEDCHARWIDTH;
 					bottom = SCREENHEIGHT/FIXEDLINEHEIGHT;
 					physical_lowest_windowbottom = lowest_windowbottom = 0;

@@ -319,6 +319,21 @@
 		559122FA2766AF73001C4C95 /* ZoomPreferenceWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559122F92766AF73001C4C95 /* ZoomPreferenceWindow.swift */; };
 		559122FB27689C2A001C4C95 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B35275A262C000B0D21 /* SFBAudioEngine.framework */; };
 		559123022769FF55001C4C95 /* ZoomDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559123012769FF55001C4C95 /* ZoomDownload.swift */; };
+		5591DC0B291636B600BF6F6F /* heglk.graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBF72916355A00BF6F6F /* heglk.graphics.c */; };
+		5591DC0C2916374000BF6F6F /* he.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBD22916355A00BF6F6F /* he.c */; };
+		5591DC0F291637B100BF6F6F /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
+		5591DC10291637EA00BF6F6F /* hemisc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBE92916355A00BF6F6F /* hemisc.c */; };
+		5591DC112916380700BF6F6F /* heobject.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBD72916355A00BF6F6F /* heobject.c */; };
+		5591DC122916382400BF6F6F /* stringfn.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBEB2916355A00BF6F6F /* stringfn.c */; };
+		5591DC132916385400BF6F6F /* heparse.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBF32916355A00BF6F6F /* heparse.c */; };
+		5591DC142916389200BF6F6F /* heexpr.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBE42916355A00BF6F6F /* heexpr.c */; };
+		5591DC15291638E100BF6F6F /* heset.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBDA2916355A00BF6F6F /* heset.c */; };
+		5591DC16291638F700BF6F6F /* herun.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBD42916355A00BF6F6F /* herun.c */; };
+		5591DC172916391100BF6F6F /* heres.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBEC2916355A00BF6F6F /* heres.c */; };
+		5591DC192916394500BF6F6F /* heglkcocoa.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DC182916394500BF6F6F /* heglkcocoa.c */; };
+		5591DC2329163EDB00BF6F6F /* heglk in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5591DC042916367C00BF6F6F /* heglk */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5591DC2829163EF600BF6F6F /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
+		5591DC2D2916407100BF6F6F /* ZpHugo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5591DC2C2916407100BF6F6F /* ZpHugo.m */; };
 		559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */; };
 		559E68F42743253E0030C3DB /* ZoomCASDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E68F32743253E0030C3DB /* ZoomCASDecoder.m */; };
 		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
@@ -839,6 +854,27 @@
 			remoteGlobalIDString = 55C6BB36204DED96001AE7E5;
 			remoteInfo = SwiftGlk;
 		};
+		5591DC0D291637AA00BF6F6F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B51AA5507E877C900576AB9;
+			remoteInfo = GlkClient;
+		};
+		5591DC2429163EE300BF6F6F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5591DC032916367C00BF6F6F;
+			remoteInfo = heglk;
+		};
+		5591DC2629163EEF00BF6F6F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
+			remoteInfo = ZoomPlugIns;
+		};
 		55982BEB21C0CE43002B601B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
@@ -1111,6 +1147,16 @@
 			files = (
 				55368B11272A052A00740A0A /* agil in CopyFiles */,
 				55368B12272A052A00740A0A /* agt2agx in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5591DC2229163EC200BF6F6F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				5591DC2329163EDB00BF6F6F /* heglk in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1541,7 +1587,7 @@
 		5591DBF42916355A00BF6F6F /* hc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hc.c; sourceTree = "<group>"; };
 		5591DBF52916355A00BF6F6F /* hcpass.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcpass.c; sourceTree = "<group>"; };
 		5591DBF62916355A00BF6F6F /* hcbuild.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcbuild.c; sourceTree = "<group>"; };
-		5591DBF72916355A00BF6F6F /* heglk.c.graphics */ = {isa = PBXFileReference; lastKnownFileType = text; path = heglk.c.graphics; sourceTree = "<group>"; };
+		5591DBF72916355A00BF6F6F /* heglk.graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglk.graphics.c; sourceTree = "<group>"; };
 		5591DBF82916355A00BF6F6F /* README.TXT */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.TXT; sourceTree = "<group>"; };
 		5591DBF92916355A00BF6F6F /* hdwindow.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hdwindow.c; sourceTree = "<group>"; };
 		5591DBFA2916355A00BF6F6F /* hd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hd.c; sourceTree = "<group>"; };
@@ -1550,6 +1596,12 @@
 		5591DBFD2916355A00BF6F6F /* heglk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglk.c; sourceTree = "<group>"; };
 		5591DBFE2916355A00BF6F6F /* hdinter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hdinter.h; sourceTree = "<group>"; };
 		5591DBFF2916355A00BF6F6F /* hdtools.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hdtools.c; sourceTree = "<group>"; };
+		5591DC042916367C00BF6F6F /* heglk */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = heglk; sourceTree = BUILT_PRODUCTS_DIR; };
+		5591DC182916394500BF6F6F /* heglkcocoa.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglkcocoa.c; sourceTree = "<group>"; };
+		5591DC1E29163EB400BF6F6F /* Hugo.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hugo.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		5591DC2A29163FA200BF6F6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5591DC2B2916407100BF6F6F /* ZpHugo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZpHugo.h; sourceTree = "<group>"; };
+		5591DC2C2916407100BF6F6F /* ZpHugo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZpHugo.m; sourceTree = "<group>"; };
 		559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPreferences.swift; sourceTree = "<group>"; };
 		559E68F22743253D0030C3DB /* Quest4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Quest4-Bridging-Header.h"; sourceTree = "<group>"; };
 		559E68F32743253E0030C3DB /* ZoomCASDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomCASDecoder.m; sourceTree = "<group>"; };
@@ -1859,6 +1911,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5591DC012916367C00BF6F6F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5591DC0F291637B100BF6F6F /* GlkClient.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5591DC1B29163EB400BF6F6F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5591DC2829163EF600BF6F6F /* ZoomPlugIns.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55A319BB290138F200ABAAA2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1992,6 +2060,8 @@
 				55132C2E28FFE9AB007C87B6 /* ZoomNewSaveQL.appex */,
 				55A319BE290138F200ABAAA2 /* ZoomThumbnailer.appex */,
 				55101A57290D06D9003CED21 /* ZoomNewSpotlight.appex */,
+				5591DC042916367C00BF6F6F /* heglk */,
+				5591DC1E29163EB400BF6F6F /* Hugo.plugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2185,6 +2255,7 @@
 		4B7CB0730936276B00F3B8F6 /* PlugIns */ = {
 			isa = PBXGroup;
 			children = (
+				5591DC2929163F0E00BF6F6F /* Hugo */,
 				553C83662712382B002782C0 /* Resources */,
 				55368AA3272A03B600740A0A /* AGT */,
 				552CF02127168593009D87A5 /* Adrift */,
@@ -2561,11 +2632,11 @@
 		55368A87272A00DE00740A0A /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				5591DBD02916355A00BF6F6F /* Hugo */,
-				55BC113A2786D4E000369EBE /* jacl */,
 				55368AA7272A044A00740A0A /* agil111src_glk */,
 				4BD79A8A0BA2C95A002C82B2 /* babel */,
 				55BA3BD327253B21007F6C82 /* geas */,
+				5591DBD02916355A00BF6F6F /* Hugo */,
+				55BC113A2786D4E000369EBE /* jacl */,
 				552CEEAF2715109C009D87A5 /* scare */,
 			);
 			name = Dependencies;
@@ -2660,7 +2731,8 @@
 				5591DBD32916355A00BF6F6F /* hebuffer.c */,
 				5591DBE42916355A00BF6F6F /* heexpr.c */,
 				5591DBFD2916355A00BF6F6F /* heglk.c */,
-				5591DBF72916355A00BF6F6F /* heglk.c.graphics */,
+				5591DBF72916355A00BF6F6F /* heglk.graphics.c */,
+				5591DC182916394500BF6F6F /* heglkcocoa.c */,
 				5591DBED2916355A00BF6F6F /* heglkmac.c */,
 				5591DBD12916355A00BF6F6F /* heglkunix.c */,
 				5591DBE02916355A00BF6F6F /* heglkwin.c */,
@@ -2681,6 +2753,16 @@
 				5591DBF82916355A00BF6F6F /* README.TXT */,
 				5591DBF02916355A00BF6F6F /* README.unix */,
 				5591DBEB2916355A00BF6F6F /* stringfn.c */,
+			);
+			path = Hugo;
+			sourceTree = "<group>";
+		};
+		5591DC2929163F0E00BF6F6F /* Hugo */ = {
+			isa = PBXGroup;
+			children = (
+				5591DC2A29163FA200BF6F6F /* Info.plist */,
+				5591DC2B2916407100BF6F6F /* ZpHugo.h */,
+				5591DC2C2916407100BF6F6F /* ZpHugo.m */,
 			);
 			path = Hugo;
 			sourceTree = "<group>";
@@ -3324,6 +3406,43 @@
 			productReference = 55368B00272A046400740A0A /* agt2agx */;
 			productType = "com.apple.product-type.tool";
 		};
+		5591DC032916367C00BF6F6F /* heglk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5591DC082916367D00BF6F6F /* Build configuration list for PBXNativeTarget "heglk" */;
+			buildPhases = (
+				5591DC002916367C00BF6F6F /* Sources */,
+				5591DC012916367C00BF6F6F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5591DC0E291637AA00BF6F6F /* PBXTargetDependency */,
+			);
+			name = heglk;
+			productName = Hugo;
+			productReference = 5591DC042916367C00BF6F6F /* heglk */;
+			productType = "com.apple.product-type.tool";
+		};
+		5591DC1D29163EB400BF6F6F /* Hugo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5591DC1F29163EB400BF6F6F /* Build configuration list for PBXNativeTarget "Hugo" */;
+			buildPhases = (
+				5591DC1A29163EB400BF6F6F /* Sources */,
+				5591DC1B29163EB400BF6F6F /* Frameworks */,
+				5591DC1C29163EB400BF6F6F /* Resources */,
+				5591DC2229163EC200BF6F6F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5591DC2729163EEF00BF6F6F /* PBXTargetDependency */,
+				5591DC2529163EE300BF6F6F /* PBXTargetDependency */,
+			);
+			name = Hugo;
+			productName = Hugo;
+			productReference = 5591DC1E29163EB400BF6F6F /* Hugo.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
 		55A319BD290138F200ABAAA2 /* ZoomThumbnailer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55A319CA290138F200ABAAA2 /* Build configuration list for PBXNativeTarget "ZoomThumbnailer" */;
@@ -3453,6 +3572,12 @@
 						CreatedOnToolsVersion = 13.0;
 						LastSwiftMigration = 1300;
 					};
+					5591DC032916367C00BF6F6F = {
+						CreatedOnToolsVersion = 14.1;
+					};
+					5591DC1D29163EB400BF6F6F = {
+						CreatedOnToolsVersion = 14.1;
+					};
 					55A319BD290138F200ABAAA2 = {
 						CreatedOnToolsVersion = 14.0.1;
 					};
@@ -3528,6 +3653,8 @@
 				55132C2D28FFE9AB007C87B6 /* ZoomNewSaveQL */,
 				55A319BD290138F200ABAAA2 /* ZoomThumbnailer */,
 				55101A56290D06D9003CED21 /* ZoomNewSpotlight */,
+				5591DC032916367C00BF6F6F /* heglk */,
+				5591DC1D29163EB400BF6F6F /* Hugo */,
 			);
 		};
 /* End PBXProject section */
@@ -3761,6 +3888,13 @@
 				55368B2B272A0AFC00740A0A /* readme.agility in Resources */,
 				55368B20272A05DB00740A0A /* readme.glk in Resources */,
 				55368B1F272A05CA00740A0A /* GPL in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5591DC1C29163EB400BF6F6F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4109,6 +4243,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5591DC002916367C00BF6F6F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5591DC192916394500BF6F6F /* heglkcocoa.c in Sources */,
+				5591DC10291637EA00BF6F6F /* hemisc.c in Sources */,
+				5591DC15291638E100BF6F6F /* heset.c in Sources */,
+				5591DC0C2916374000BF6F6F /* he.c in Sources */,
+				5591DC16291638F700BF6F6F /* herun.c in Sources */,
+				5591DC0B291636B600BF6F6F /* heglk.graphics.c in Sources */,
+				5591DC122916382400BF6F6F /* stringfn.c in Sources */,
+				5591DC142916389200BF6F6F /* heexpr.c in Sources */,
+				5591DC132916385400BF6F6F /* heparse.c in Sources */,
+				5591DC112916380700BF6F6F /* heobject.c in Sources */,
+				5591DC172916391100BF6F6F /* heres.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5591DC1A29163EB400BF6F6F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5591DC2D2916407100BF6F6F /* ZpHugo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55A319BA290138F200ABAAA2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4398,6 +4558,21 @@
 			isa = PBXTargetDependency;
 			target = 55368A88272A035E00740A0A /* AGX */;
 			targetProxy = 55368B7C272CA88D00740A0A /* PBXContainerItemProxy */;
+		};
+		5591DC0E291637AA00BF6F6F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GlkClient;
+			targetProxy = 5591DC0D291637AA00BF6F6F /* PBXContainerItemProxy */;
+		};
+		5591DC2529163EE300BF6F6F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5591DC032916367C00BF6F6F /* heglk */;
+			targetProxy = 5591DC2429163EE300BF6F6F /* PBXContainerItemProxy */;
+		};
+		5591DC2729163EEF00BF6F6F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
+			targetProxy = 5591DC2629163EEF00BF6F6F /* PBXContainerItemProxy */;
 		};
 		55982BEC21C0CE43002B601B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5416,7 +5591,6 @@
 					"@executable_path/../../../../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -5435,7 +5609,6 @@
 					"@executable_path/../../../../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -5641,6 +5814,89 @@
 			};
 			name = Release;
 		};
+		5591DC092916367D00BF6F6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					GLK,
+					"HUGO_INLINE=\"static inline\"",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5591DC0A2916367D00BF6F6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					GLK,
+					"HUGO_INLINE=\"static inline\"",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5591DC2029163EB400BF6F6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 200;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Hugo/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ZpHugo;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZpHugo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Debug;
+		};
+		5591DC2129163EB400BF6F6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 200;
+				ENABLE_NS_ASSERTIONS = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Hugo/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ZpHugo;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZpHugo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Release;
+		};
 		55A319CB290138F200ABAAA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5805,7 +6061,6 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
-				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -5821,7 +6076,6 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
-				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -6047,6 +6301,24 @@
 			buildConfigurations = (
 				55368AFE272A046400740A0A /* Debug */,
 				55368AFF272A046400740A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5591DC082916367D00BF6F6F /* Build configuration list for PBXNativeTarget "heglk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5591DC092916367D00BF6F6F /* Debug */,
+				5591DC0A2916367D00BF6F6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5591DC1F29163EB400BF6F6F /* Build configuration list for PBXNativeTarget "Hugo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5591DC2029163EB400BF6F6F /* Debug */,
+				5591DC2129163EB400BF6F6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

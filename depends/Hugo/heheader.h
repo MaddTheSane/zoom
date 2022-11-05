@@ -1087,7 +1087,7 @@ int ValidObj(int obj);
 extern char buffer[];
 extern char full_buffer;
 extern char errbuf[];
-extern char line[];
+extern char line[1025];
 extern int words; extern char *word[];
 extern unsigned int wd[], parsed_number;
 extern char parse_called_twice;
