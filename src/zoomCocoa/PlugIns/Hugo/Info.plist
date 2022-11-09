@@ -68,7 +68,7 @@
 		<key>Version</key>
 		<string>$(MARKETING_VERSION)</string>
 		<key>ZoomVersion</key>
-		<integer>200</integer>
+		<integer>112</integer>
 	</dict>
 </dict>
 </plist>
