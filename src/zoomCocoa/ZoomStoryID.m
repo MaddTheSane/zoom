@@ -737,6 +737,18 @@ typedef unsigned char IFMDByte;
 	}
 }
 
+- (NSString*) IDString {
+	char* stringId = IFMB_IdToString(ident);
+	NSString* identString = [[NSString alloc] initWithBytesNoCopy: stringId length: strlen(stringId) encoding: NSUTF8StringEncoding freeWhenDone: YES];
+	
+	if (identString == nil) {
+		free(stringId);
+		return nil;
+	}
+	
+	return identString;
+}
+
 - (NSString*) description {
 	char* stringId = IFMB_IdToString(ident);
 	NSString* identString = [[NSString alloc] initWithBytesNoCopy: stringId length: strlen(stringId) encoding: NSUTF8StringEncoding freeWhenDone: YES];

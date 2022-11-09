@@ -48,6 +48,8 @@ typedef NS_ERROR_ENUM(ZoomStoryIDErrorDomain, ZoomStoryIDError) {
 
 - (nullable instancetype)initWithCoder:(NSCoder *)coder;
 
+@property (readonly, copy, nullable) NSString *IDString;
+
 @end
 
 //! Set to \c YES to prevent the plug-in manager from looking at plug-ins.
