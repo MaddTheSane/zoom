@@ -334,6 +334,7 @@
 		5591DC2329163EDB00BF6F6F /* heglk in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5591DC042916367C00BF6F6F /* heglk */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5591DC2829163EF600BF6F6F /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		5591DC2D2916407100BF6F6F /* ZpHugo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5591DC2C2916407100BF6F6F /* ZpHugo.m */; };
+		5591DC4629179DF300BF6F6F /* hebuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBD32916355A00BF6F6F /* hebuffer.c */; };
 		559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */; };
 		559E68F42743253E0030C3DB /* ZoomCASDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E68F32743253E0030C3DB /* ZoomCASDecoder.m */; };
 		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
@@ -396,7 +397,7 @@
 		55BD630D2803C18A00CDEA64 /* ZoomSoundChannelSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55BD630B2803C18A00CDEA64 /* ZoomSoundChannelSound.mm */; };
 		55BD63102803C1A600CDEA64 /* ZoomSoundChannelMIDI.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BD630E2803C1A600CDEA64 /* ZoomSoundChannelMIDI.h */; };
 		55BD63112803C1A600CDEA64 /* ZoomSoundChannelMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BD630F2803C1A600CDEA64 /* ZoomSoundChannelMIDI.m */; };
-		55BE4AC92707082700100A7D /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AC82707082700100A7D /* twine.c */; };
+		55BE4AC92707082700100A7D /* html.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AC82707082700100A7D /* html.c */; };
 		55BE4AD42707B32200100A7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55BE4AD62707B32200100A7D /* InfoPlist.strings */; };
 		55BE4AD827082DED00100A7D /* ClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AD727082DED00100A7D /* ClearView.swift */; };
 		55BE4ADA27082EF800100A7D /* WhiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE4AD927082EF800100A7D /* WhiteView.swift */; };
@@ -1700,7 +1701,7 @@
 		55BD630B2803C18A00CDEA64 /* ZoomSoundChannelSound.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZoomSoundChannelSound.mm; sourceTree = "<group>"; };
 		55BD630E2803C1A600CDEA64 /* ZoomSoundChannelMIDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSoundChannelMIDI.h; sourceTree = "<group>"; };
 		55BD630F2803C1A600CDEA64 /* ZoomSoundChannelMIDI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomSoundChannelMIDI.m; sourceTree = "<group>"; };
-		55BE4AC82707082700100A7D /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = twine.c; sourceTree = "<group>"; };
+		55BE4AC82707082700100A7D /* html.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = html.c; sourceTree = "<group>"; };
 		55BE4AD52707B32200100A7D /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55BE4AD727082DED00100A7D /* ClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearView.swift; sourceTree = "<group>"; };
 		55BE4AD927082EF800100A7D /* WhiteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteView.swift; sourceTree = "<group>"; };
@@ -2449,15 +2450,15 @@
 				4BD79AC00BA2CB44002C82B2 /* blorb.c */,
 				4BD79AC10BA2CB44002C82B2 /* executable.c */,
 				4BD79AC20BA2CB44002C82B2 /* glulx.c */,
+				55BE4AC82707082700100A7D /* html.c */,
 				4BD79AC30BA2CB44002C82B2 /* hugo.c */,
 				4BD79AC40BA2CB44002C82B2 /* level9.c */,
 				4BD79AC50BA2CB44002C82B2 /* magscrolls.c */,
-				4BD79A9C0BA2CABF002C82B2 /* tads.h */,
 				4BD79AC60BA2CB44002C82B2 /* tads.c */,
+				4BD79A9C0BA2CABF002C82B2 /* tads.h */,
 				4BD79AC70BA2CB44002C82B2 /* tads2.c */,
 				4BD79AC80BA2CB44002C82B2 /* tads3.c */,
 				4BD79A9D0BA2CABF002C82B2 /* treaty_builder.h */,
-				55BE4AC82707082700100A7D /* twine.c */,
 				4BD79AC90BA2CB44002C82B2 /* zcode.c */,
 			);
 			name = treaty;
@@ -4120,7 +4121,7 @@
 				4BD79ACF0BA2CB44002C82B2 /* executable.c in Sources */,
 				4BD79AD00BA2CB44002C82B2 /* glulx.c in Sources */,
 				4BD79AD10BA2CB44002C82B2 /* hugo.c in Sources */,
-				55BE4AC92707082700100A7D /* twine.c in Sources */,
+				55BE4AC92707082700100A7D /* html.c in Sources */,
 				4BD79AD20BA2CB44002C82B2 /* level9.c in Sources */,
 				55B4599D27879AAE0037A6A3 /* babel.c in Sources */,
 				4BD79AD30BA2CB44002C82B2 /* magscrolls.c in Sources */,
@@ -4249,6 +4250,7 @@
 			files = (
 				5591DC192916394500BF6F6F /* heglkcocoa.c in Sources */,
 				5591DC10291637EA00BF6F6F /* hemisc.c in Sources */,
+				5591DC4629179DF300BF6F6F /* hebuffer.c in Sources */,
 				5591DC15291638E100BF6F6F /* heset.c in Sources */,
 				5591DC0C2916374000BF6F6F /* he.c in Sources */,
 				5591DC16291638F700BF6F6F /* herun.c in Sources */,
@@ -5861,6 +5863,7 @@
 					"$(inherited)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Hugo/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = ZpHugo;
@@ -5884,6 +5887,7 @@
 				CURRENT_PROJECT_VERSION = 200;
 				ENABLE_NS_ASSERTIONS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Hugo/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = ZpHugo;

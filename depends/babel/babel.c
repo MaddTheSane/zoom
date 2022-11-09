@@ -20,7 +20,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef __MACH__
 #include <unistd.h>
+#else
+#ifdef __cplusplus
+extern "C" {
+#endif
+int chdir(const char *);
+char *getcwd(char *, int);
+#ifdef __cplusplus
+}
+#endif
+#endif
 
 char *fn;
 

@@ -49,6 +49,7 @@
 
                       
 #include "treaty.h"
+#include "babel_handler.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -253,7 +254,7 @@ void babel_release_ctx(void *bhp)
  if (bh->format_name) free(bh->format_name);
  bh->format_name=NULL;
 }
-void babel_release(void)
+void babel_release()
 {
  babel_release_ctx(&default_ctx);
 }
@@ -310,11 +311,11 @@ char *babel_get_format_ctx(void *bhp)
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->format_name;
 }
-char *babel_get_format(void)
+char *babel_get_format()
 {
  return babel_get_format_ctx(&default_ctx);
 }
-void *get_babel_ctx(void)
+void *get_babel_ctx()
 {
  return my_malloc(sizeof(struct babel_handler), "babel handler context");
 }
@@ -328,7 +329,7 @@ uint32 babel_get_length_ctx(void *bhp)
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->story_file_extent;
 }
-uint32 babel_get_length(void)
+uint32 babel_get_length()
 {
  return babel_get_length_ctx(&default_ctx);
 }
@@ -338,7 +339,7 @@ int32 babel_get_authoritative_ctx(void *bhp)
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->auth;
 }
-int32 babel_get_authoritative(void)
+int32 babel_get_authoritative()
 {
   return babel_get_authoritative_ctx(&default_ctx);
 }
@@ -347,7 +348,7 @@ void *babel_get_file_ctx(void *bhp)
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->story_file;
 }
-void *babel_get_file(void)
+void *babel_get_file()
 {
  return babel_get_file_ctx(&default_ctx);
 }
@@ -358,7 +359,7 @@ uint32 babel_get_story_length_ctx(void *ctx)
   if (bh->blorb_mode) return bh->story_file_blorbed_extent;
   return bh->story_file_extent;
 }
-uint32 babel_get_story_length(void)
+uint32 babel_get_story_length()
 {
 
  return babel_get_story_length_ctx(&default_ctx);
@@ -369,7 +370,7 @@ void *babel_get_story_file_ctx(void *ctx)
   if (bh->blorb_mode) return bh->story_file_blorbed;
   return bh->story_file;
 }
-void *babel_get_story_file(void)
+void *babel_get_story_file()
 {
  return babel_get_story_file_ctx(&default_ctx);
 }

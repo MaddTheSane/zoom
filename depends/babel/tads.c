@@ -360,13 +360,16 @@ static int u_isnl(const char *p, int32 len)
 static void nextc(const char **p, int32 *len)
 {
     /* skip the first byte */
-    if (*len != 0) {
-        ++*p; --*len;
+    if (*len != 0)
+    {
+        ++*p;
+        --*len;
     }
-
     /* skip continuation bytes */
-    while (*len != 0 && (**p & 0xC0) == 0x80) {
-        ++*p; --*len;
+    while (*len != 0 && (**p & 0xC0) == 0x80)
+    {
+        ++*p;
+        --*len;
     }
 }
 
@@ -377,8 +380,10 @@ static void prevc(const char **p, int32 *len)
     --*p; ++*len;
 
     /* keep skipping as long as we're looking at continuation characters */
-    while ((**p & 0xC0) == 0x80) {
-        --*p; ++*len;
+    while ((**p & 0xC0) == 0x80)
+    {
+        --*p;
+        ++*len;
     }
 }
 
@@ -548,17 +553,20 @@ static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len,
         {
         case '<':
             write_ifiction_z(ctx, "&lt;");
-            ++p; --len;
+            ++p;
+            --len;
             break;
 
         case '>':
             write_ifiction_z(ctx, "&gt;");
-            ++p; --len;
+            ++p;
+            --len;
             break;
 
         case '&':
             write_ifiction_z(ctx, "&amp;");
-            ++p; --len;
+            ++p;
+            --len;
             break;
 
         case '\\':
@@ -739,10 +747,11 @@ static int scan_author_name(const char **p, size_t *len,
             for (++*p, --*len ; *len != 0 && **p != '>' ; ++*p, --*len) ;
 
             /* skip the bracket */
-            if (*len != 0) {
-                ++*p; --*len;
+            if (*len != 0)
+            {
+                ++*p;
+                --*len;
             }
-
             /* skip whitespace */
             for ( ; *len != 0 && u_ishspace(**p) ; ++*p, --*len) ;
 
@@ -758,10 +767,11 @@ static int scan_author_name(const char **p, size_t *len,
         }
 
         /* if we're at a semicolon, skip it */
-        if (*len != 0 && **p == ';') {
-            ++*p; --*len;
+        if (*len != 0 && **p == ';')
+        {
+            ++*p;
+            --*len;
         }
-
         /* 
          *   if we found a non-empty name, return it; otherwise, continue on
          *   to the next semicolon section 
@@ -873,8 +883,10 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
         }
 
         /* skip the comma */
-        if (rem != 0 && *p == ',') {
-            ++p; --rem;
+        if (rem != 0 && *p == ',')
+        {
+            ++p;
+            --rem;
         }
     }
 
@@ -1017,9 +1029,12 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
                  *   skip the closing bracket, if there is one; if we're out
                  *   of string, we're done 
                  */
-                if (rem != 0) {
-                    ++p; --rem;
-                } else
+                if (rem != 0)
+                {
+                    ++p;
+                    --rem;
+                }
+                else
                     break;
             }
 
@@ -1147,8 +1162,10 @@ static valinfo *parse_game_info(const char *ptr, int32 len)
         char *outp;
 
         /* skip any leading whitespace */
-        while (rem != 0 && u_isspace(*p)) {
-            ++p; --rem;
+        while (rem != 0 && u_isspace(*p))
+        {
+            ++p;
+            --rem;
         }
 
         /* if the line starts with '#', it's a comment, so skip it */
