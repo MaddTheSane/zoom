@@ -266,7 +266,7 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 //! Ask the display to backtrack over some input that may already be on the screen
 - (bycopy NSString*) backtrackInputOver: (in bycopy NSString*) prefix;
 
-- (oneway void) setTerminatingCharacters: (in bycopy NSSet<NSNumber*>*) characters;
+- (oneway void) setTerminatingCharacters: (in nullable bycopy NSSet<NSNumber*>*) characters;
 
 - (void) displayMore: (BOOL) shown;
 
@@ -386,8 +386,8 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 
 @property int foregroundColour;
 @property int backgroundColour;
-@property (copy) NSColor *foregroundTrue;
-@property (copy) NSColor *backgroundTrue;
+@property (copy, nullable) NSColor *foregroundTrue;
+@property (copy, nullable) NSColor *backgroundTrue;
 @property (getter=isReversed) BOOL reversed;
 @property (nonatomic, getter=isFixed) BOOL fixed;
 @property (getter=isForceFixed) BOOL forceFixed;

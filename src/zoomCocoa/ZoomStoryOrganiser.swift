@@ -11,9 +11,9 @@ import ZoomPlugIns.ZoomStoryID
 import ZoomPlugIns.ZoomPlugInManager
 import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.Swift
+import ZoomView
 import ZoomView.ZoomPreferences
 import ZoomView.Swift
-import ZoomView
 
 private let ZoomIdentityFilename = ".zoomIdentity"
 
@@ -1355,73 +1355,70 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			
 			if inWrongGroup || inWrongDirectory {
 				// Move the game (semi-atomically)
-				storyLock.lock()
-				
-				let oldDirectory = filename.deletingLastPathComponent()
-				
-				let groupDirectory = gameStorageDirectory.appendingPathComponent(expectedGroup, isDirectory: true)
-				
-				var titleDirectory: URL? = nil
-				
-				var count = 0
-				
-				// Work out where to put the game (duplicates might exist)
-				repeat {
-					if (count == 0) {
-						titleDirectory = groupDirectory.appendingPathComponent(expectedDir, isDirectory: true)
-					} else {
-						titleDirectory = groupDirectory.appendingPathComponent("\(expectedDir) \(count)", isDirectory: true)
-					}
+				let titleDirectory: URL? = storyLock.withLock {
+					let oldDirectory = filename.deletingLastPathComponent()
+					
+					let groupDirectory = gameStorageDirectory.appendingPathComponent(expectedGroup, isDirectory: true)
+					
+					var titleDirectory: URL? = nil
+					
+					var count = 0
+					
+					// Work out where to put the game (duplicates might exist)
+					repeat {
+						if (count == 0) {
+							titleDirectory = groupDirectory.appendingPathComponent(expectedDir, isDirectory: true)
+						} else {
+							titleDirectory = groupDirectory.appendingPathComponent("\(expectedDir) \(count)", isDirectory: true)
+						}
+						
+						if titleDirectory!.path.lowercased() == oldDirectory.path.lowercased() {
+							// Nothing to do!
+							NSLog("Organiser: oops, name difference is due to multiple stories with the same title");
+							break
+						}
+						
+						if (try? titleDirectory!.checkResourceIsReachable()) ?? false {
+							// Already exists - try the next name along
+							count += 1
+							continue
+						}
+						
+						// Doesn't exist at the moment: OK for renaming
+						break
+					} while true
+
 					
 					if titleDirectory!.path.lowercased() == oldDirectory.path.lowercased() {
-						// Nothing to do!
-						NSLog("Organiser: oops, name difference is due to multiple stories with the same title");
-						break
+						// Still nothing to do
+						return nil
 					}
 					
-					if (try? titleDirectory!.checkResourceIsReachable()) ?? false {
-						// Already exists - try the next name along
-						count += 1
-						continue
+					// Move the game to its new home
+					NSLog("Organiser: Moving %@ to %@", oldDirectory.path, titleDirectory!.path)
+					do {
+						try FileManager.default.moveItem(at: oldDirectory, to: titleDirectory!)
+					} catch {
+						NSLog("Organiser: Failed to move %@ to %@ (rename failed)", oldDirectory.path, titleDirectory!.path)
+						return nil
 					}
 					
-					// Doesn't exist at the moment: OK for renaming
-					break
-				} while true
-
-				
-				if titleDirectory!.path.lowercased() == oldDirectory.path.lowercased() {
-					// Still nothing to do
-					storyLock.unlock()
-					continue;
+					// Change the storyFilenames array
+					/* -- ??
+					NSInteger oldIndex = [storyFilenames indexOfObject: filename];
+					
+					if (oldIndex != NSNotFound) {
+						[storyFilenames removeObjectAtIndex: oldIndex];
+						[storyIdents removeObjectAtIndex: oldIndex];
+					}
+					 */
+					return titleDirectory
 				}
-				
-				// Move the game to its new home
-				NSLog("Organiser: Moving %@ to %@", oldDirectory.path, titleDirectory!.path);
-				do {
-					try FileManager.default.moveItem(at: oldDirectory, to: titleDirectory!)
-				} catch {
-					NSLog("Organiser: Failed to move %@ to %@ (rename failed)", oldDirectory.path, titleDirectory!.path)
-					storyLock.unlock()
-					continue;
-				}
-				
-				// Change the storyFilenames array
-				/* -- ??
-				NSInteger oldIndex = [storyFilenames indexOfObject: filename];
-				
-				if (oldIndex != NSNotFound) {
-					[storyFilenames removeObjectAtIndex: oldIndex];
-					[storyIdents removeObjectAtIndex: oldIndex];
-				}
-				 */
-				
-				
-				storyLock.unlock()
 
 				// Update filenamesToIdents and identsToFilenames appropriately
-				let tmpString = titleDirectory!.appendingPathComponent(filename.lastPathComponent)
-				await renamed(storyID, to: tmpString)
+				if let tmpString = titleDirectory?.appendingPathComponent(filename.lastPathComponent) {
+					await renamed(storyID, to: tmpString)
+				}
 			}
 		}
 		
