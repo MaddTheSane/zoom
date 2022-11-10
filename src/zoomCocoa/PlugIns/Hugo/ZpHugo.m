@@ -50,6 +50,7 @@
 }
 
 #pragma mark - Code taken from Babel
+
 static size_t number_of_hexadecimals_before_hyphen(const char *s, size_t len)
 {
 	size_t offset = 0;
@@ -65,10 +66,11 @@ static size_t number_of_hexadecimals_before_hyphen(const char *s, size_t len)
 	return 0;
 }
 
- /* We look for the pattern XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX (8-4-4-4-12)
-  * where X is a number or A-F.
-  * One Hugo game, PAXLess, uses lowercase letters. The rest all use uppercase.
-  */
+/*! We look for the pattern XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX (8-4-4-4-12)
+ * where X is a number or A-F.
+ *
+ * One Hugo game, PAXLess, uses lowercase letters. The rest all use uppercase.
+ */
 static BOOL isUUID(const char *s)
 {
 	if (!(number_of_hexadecimals_before_hyphen(s, 9) == 8)) {
@@ -89,7 +91,7 @@ static BOOL isUUID(const char *s)
 	return YES;
 }
 
-/* The Hugo text obfuscation adds 20 to every character */
+//! The Hugo text obfuscation adds 20 to every character
 static inline char hugo_decode(char c)
 {
 	int decoded_char = c - 20;
@@ -105,7 +107,6 @@ static inline char hugo_decode(char c)
 		return nil;
 	}
 
-	int j;
 	char UUID_candidate[37];
 	const char hyphen = '-' + 20;
 	size_t extent = file.length;
@@ -124,19 +125,11 @@ static inline char hugo_decode(char c)
 			story_file[i+5] == hyphen &&
 			story_file[i+10] == hyphen &&
 			story_file[i+15] == hyphen) {
-			for (j = i + 7; j < extent && story_file[j] != '/'; j++);
-			if (j < extent) {
-				for (j = 0; j < 36; j++) {
-					i += 7;
-//					ASSERT_OUTPUT_SIZE(j-i);
-					memcpy(output, story_file + i, j - i);
-					output[j - i] = 0;
-					UUID_candidate[j] = hugo_decode(story_file[i + j - 8]);
-				}
+			for (int j = 0; j < 36; j++) {
+				UUID_candidate[j] = hugo_decode(story_file[i + j - 8]);
 			}
 			if (isUUID(UUID_candidate)) {
 				/* Found valid UUID at file offset i - 8 */
-//				ASSERT_OUTPUT_SIZE((signed) 37);
 				NSString *output = [[NSString alloc] initWithBytes: UUID_candidate length: 36 encoding: NSASCIIStringEncoding];
 				NSUUID *uuid = [[NSUUID alloc] initWithUUIDString: output];
 				return [[ZoomStoryID alloc] initWithUUID: uuid];

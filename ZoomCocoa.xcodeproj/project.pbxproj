@@ -312,6 +312,7 @@
 		553C836E27123862002782C0 /* ZoomErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553C837027123862002782C0 /* ZoomErrors.strings */; };
 		553D13BF272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */; };
 		553D13E5273234A400D1F2B4 /* ZoomSkeinInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */; };
+		554A4541291CC25300C090C3 /* Hugo.plugin in Copy Glk plugins */ = {isa = PBXBuildFile; fileRef = 5591DC1E29163EB400BF6F6F /* Hugo.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
@@ -848,6 +849,13 @@
 			remoteGlobalIDString = 55368A88272A035E00740A0A;
 			remoteInfo = AGT;
 		};
+		554A453F291CC23700C090C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5591DC1D29163EB400BF6F6F;
+			remoteInfo = Hugo;
+		};
 		554E440C204E6DD4000A7D6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
@@ -1046,6 +1054,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				554A4541291CC25300C090C3 /* Hugo.plugin in Copy Glk plugins */,
 				55A319C9290138F200ABAAA2 /* ZoomThumbnailer.appex in Copy Glk plugins */,
 				55C673C4278BADCD005A7A21 /* JACL.zoomPlugin in Copy Glk plugins */,
 				55132C3D28FFE9AB007C87B6 /* ZoomNewSaveQL.appex in Copy Glk plugins */,
@@ -2467,10 +2476,10 @@
 		4BD79AB70BA2CAE1002C82B2 /* bh */ = {
 			isa = PBXGroup;
 			children = (
-				4BD79A980BA2CABF002C82B2 /* babel_handler.h */,
 				4BD79ADD0BA2CB78002C82B2 /* babel_handler.c */,
-				4BD79A9A0BA2CABF002C82B2 /* md5.h */,
+				4BD79A980BA2CABF002C82B2 /* babel_handler.h */,
 				4BD79ADE0BA2CB78002C82B2 /* md5.c */,
+				4BD79A9A0BA2CABF002C82B2 /* md5.h */,
 				4BD79ADF0BA2CB78002C82B2 /* misc.c */,
 				4BD79AE10BA2CB78002C82B2 /* register.c */,
 			);
@@ -3209,6 +3218,7 @@
 				4B51A95108FAC71400232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
+				554A4540291CC23700C090C3 /* PBXTargetDependency */,
 				55FF5B46275A265F000B0D21 /* PBXTargetDependency */,
 				55368B7D272CA88D00740A0A /* PBXTargetDependency */,
 				552CF03327176D45009D87A5 /* PBXTargetDependency */,
@@ -4560,6 +4570,11 @@
 			isa = PBXTargetDependency;
 			target = 55368A88272A035E00740A0A /* AGX */;
 			targetProxy = 55368B7C272CA88D00740A0A /* PBXContainerItemProxy */;
+		};
+		554A4540291CC23700C090C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5591DC1D29163EB400BF6F6F /* Hugo */;
+			targetProxy = 554A453F291CC23700C090C3 /* PBXContainerItemProxy */;
 		};
 		5591DC0E291637AA00BF6F6F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
