@@ -22,14 +22,6 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 #define ZoomLocalizedStringWithDefaultValue(key, val, comment) \
 	NSLocalizedStringWithDefaultValue(key, @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], val, comment)
 
-@interface ZoomMetadata ()
-
-- (instancetype) initWithData: (NSData*) xmlData
-					  fileURL: (NSURL*) fname
-						error: (NSError**) error NS_DESIGNATED_INITIALIZER;
-
-@end
-
 @implementation ZoomMetadata {
 	NSURL* filename;
 	IFMetabase metadata;
@@ -129,6 +121,8 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 		}];
 	});
 }
+
+@synthesize sourceURL = filename;
 
 - (id) init {
 	self = [super init];
@@ -349,6 +343,18 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 	return [self writeToURL: [NSURL fileURLWithPath: path]
 				 atomically: flag
 					  error: NULL];
+}
+
+- (BOOL)writeToSourceURLAtomically:(BOOL)flag error:(NSError *__autoreleasing  _Nullable *)error
+{
+	if (filename == nil) {
+		if (error) {
+			*error = [NSError errorWithDomain:NSOSStatusErrorDomain code:paramErr userInfo:@{NSLocalizedDescriptionKey: @"No original sourceURL was set when created"}];
+		}
+		return NO;
+	}
+	
+	return [self writeToURL:filename atomically:flag error:error];
 }
 
 - (BOOL)    writeToURL: (NSURL*)path

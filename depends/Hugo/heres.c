@@ -247,7 +247,11 @@ void PlayVideo(void)
 #if defined (COMPILE_V25)
 	var[system_status] = STAT_UNAVAILABLE;
 #endif
-	if (MEM(codeptr+1)==REPEAT_T) loop_flag = true, codeptr++;
+	if (MEM(codeptr+1)==REPEAT_T)
+	{
+		loop_flag = true;
+		codeptr++;
+	}
 
 #if !defined (COMPILE_V25)
 	hugo_stopvideo();

@@ -38,13 +38,27 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 // Initialisation
 //! Blank metadata
 - (id) init NS_DESIGNATED_INITIALIZER;
-//! Calls initWithData
+
+//! Designated initialiser.
+//!
+//! Call one of the convenience initializers instead!
+//! \param xmlData The raw XML data.
+//! \param fname File URL of the data in \c xmlData .
+//! \param error Error value, populated on failure (returned nil).
+- (nullable instancetype) initWithData: (NSData*) xmlData
+							   fileURL: (nullable NSURL*) fname
+								 error: (NSError**) error NS_DESIGNATED_INITIALIZER;
+
+
+//! Converts filename to an NSURL, then calls initWithContentsOfURL:error: with NULL passed to error:
 - (nullable id) initWithContentsOfFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -initWithContentsOfURL:error: instead");
-//! Calls initWithData
+//! Gets data from filename, then calls initWithData:fileURL:error:
 - (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 
-//! Designated initialiser
-- (nullable id) initWithData: (NSData*) xmlData error: (NSError**) outError;
+@property (readonly, copy, nullable) NSURL *sourceURL;
+
+//! Calls initWithData:fileURL:error:
+- (nullable instancetype) initWithData: (NSData*) xmlData error: (NSError**) outError;
 
 // Thread safety [called by ZoomStory]
 - (void) lock;
@@ -71,7 +85,9 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 			 atomically: (BOOL)flag;
 - (BOOL)    writeToURL: (NSURL*)path
 			atomically: (BOOL)flag
-				 error: (NSError**)error;
+				 error: (NSError*__autoreleasing*)error;
+- (BOOL) writeToSourceURLAtomically: (BOOL)flag
+							  error: (NSError*__autoreleasing*)error;
 - (BOOL) writeToDefaultFileWithError: (NSError*__autoreleasing*) outError;
 
 @end

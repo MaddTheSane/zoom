@@ -30,15 +30,9 @@ private let zoomConfigDirectory: URL? = {
 }()
 
 private func loadMetadataFromBlorb(at url: URL, lookingFor identifier: ZoomStoryID) -> ZoomStory? {
-	guard let blorb = try? ZoomBlorbFile(contentsOf: url) else {
-		return nil
-	}
-	
-	guard let data = blorb.dataForChunk(withType: "IFmd") else {
-		return nil
-	}
-	
-	guard let meta = try? ZoomMetadata(data: data) else {
+	guard let blorb = try? ZoomBlorbFile(contentsOf: url),
+		  let data = blorb.dataForChunk(withType: "IFmd"),
+		  let meta = try? ZoomMetadata(data: data) else {
 		return nil
 	}
 	
@@ -51,8 +45,7 @@ class ImportExtension: CSImportExtension {
 		ZoomIsSpotlightIndexing = true
 		
 		let story_id = try ZoomStoryID(zCodeFileAt: forFileAt)
-		var story: ZoomStory? = nil
-		story = findStory(with: story_id)
+		var story = findStory(with: story_id)
 		if story == nil {
 			story = loadMetadataFromBlorb(at: forFileAt, lookingFor: story_id)
 		}
@@ -166,12 +159,7 @@ private func findStory(with gameID: ZoomStoryID) -> ZoomStory? {
 	return nil
 }
 
-private let gameIndices = getGameIndicies()
-
-//
-// GetGameIndices
-//
-private func getGameIndicies() -> [ZoomMetadata] {
+private let gameIndices: [ZoomMetadata] = {
 	var game_indices = [ZoomMetadata]()
 	let configDir = zoomConfigDirectory
 	let userData: Data?
@@ -200,4 +188,4 @@ private func getGameIndicies() -> [ZoomMetadata] {
 	}
 
 	return game_indices
-}
+}()
