@@ -117,7 +117,6 @@ static inline char hugo_decode(char c)
 		return nil;
 	}
 
-	char output[512];
 	for (int i = 0; i < extent - 28; i++) {
 		/* First we look for an obfuscated hyphen, '-' + 20 */
 		/* We need to look 8 characters behind and 28 ahead */
