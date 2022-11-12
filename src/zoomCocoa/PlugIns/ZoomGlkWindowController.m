@@ -135,9 +135,10 @@
 	NSColor* background = zPrefs.colours[zPrefs.backgroundColour];
 	
 	NSMutableDictionary* newStyles = [NSMutableDictionary dictionary];
+	NSDictionary<NSNumber*,GlkStyle*>* oldStyles = [prefs styles];
 
-	for (NSNumber* styleNum in [prefs styles]) {
-		GlkStyle* thisStyle = [[prefs styles] objectForKey: styleNum];
+	for (NSNumber* styleNum in oldStyles) {
+		GlkStyle* thisStyle = [oldStyles objectForKey: styleNum];
 		
 		[thisStyle setTextColour: foreground];
 		[thisStyle setBackColour: background];
