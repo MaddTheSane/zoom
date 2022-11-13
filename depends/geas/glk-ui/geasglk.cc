@@ -103,7 +103,7 @@ void glk_main(void)
     glk_set_window(mainglkwin);
 
     if (!storyfilename) {
-	sprintf(err_buf,"No game name or more than one game name given.\n"
+	snprintf(err_buf,sizeof(err_buf),"No game name or more than one game name given.\n"
 			"Try -h for help.\n");
 	cocoaglk_error(err_buf);
         return;
@@ -127,7 +127,7 @@ void glk_main(void)
     inputwinstream = glk_window_get_stream(inputwin);
 
     if (!glk_gestalt(gestalt_Timer, 0)) {
-	sprintf(err_buf,"\nNote -- The underlying Glk library does not support"
+	snprintf(err_buf,sizeof(err_buf),"\nNote -- The underlying Glk library does not support"
                         " timers.  If this game tries to use timers, then some"
                         " functionality may not work correctly.\n\n");
 	cocoaglk_warning(err_buf);
@@ -147,7 +147,7 @@ void glk_main(void)
             glk_window_clear(inputwin);
         else
             glk_put_cstring("\n");
-        sprintf(cur_buf, "> ");
+        snprintf(cur_buf, sizeof(cur_buf), "> ");
         glk_put_string_stream(inputwinstream, cur_buf);
 
         glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);

@@ -592,9 +592,8 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 									at: &version];
 		
 		char* stringId = IFMB_IdToString(ident);
-		NSString* stringIdent = [NSString stringWithUTF8String: stringId];
+		NSString* stringIdent = [[NSString alloc] initWithBytesNoCopy:stringId length:strlen(stringId) encoding:NSUTF8StringEncoding freeWhenDone:YES];
 		[encoder encodeObject: stringIdent];
-		free(stringId);
 	}
 }
 
@@ -743,6 +742,9 @@ typedef unsigned char IFMDByte;
 	
 	if (identString == nil) {
 		free(stringId);
+		return nil;
+	}
+	if ([identString isEqualToString:@"NULL"]) {
 		return nil;
 	}
 	
