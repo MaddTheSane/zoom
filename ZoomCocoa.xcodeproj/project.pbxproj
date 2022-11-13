@@ -1354,7 +1354,6 @@
 		4B926A1D0CD1480B00CE0ADB /* ZoomJSError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomJSError.h; sourceTree = "<group>"; };
 		4B926A1E0CD1480B00CE0ADB /* ZoomJSError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomJSError.m; sourceTree = "<group>"; };
 		4B94AEEF0CD4B2E5003C75A6 /* ZoomLeopard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomLeopard.h; sourceTree = "<group>"; };
-		4B94AEF00CD4B2E5003C75A6 /* ZoomLeopard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomLeopard.m; sourceTree = "<group>"; };
 		4B94B15E0CD537B8003C75A6 /* ZoomSignPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSignPost.h; sourceTree = "<group>"; };
 		4B94B15F0CD537B8003C75A6 /* ZoomSignPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSignPost.m; sourceTree = "<group>"; };
 		4BA2BCEB06949E730082C022 /* ZoomSkein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkein.h; sourceTree = "<group>"; };
@@ -2226,7 +2225,6 @@
 			children = (
 				4B7286BE0CD3B99C0079D89B /* QuickLook */,
 				4B94AEEF0CD4B2E5003C75A6 /* ZoomLeopard.h */,
-				4B94AEF00CD4B2E5003C75A6 /* ZoomLeopard.m */,
 				55E2441E2920EB4A00C9715F /* ZoomLeopard.swift */,
 			);
 			path = Leopard;

@@ -2507,13 +2507,12 @@ static NSArray<NSString*>* blorbFileTypes;
 	
 	if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 		// Fanicify the animation under leopard
-		NSInvocation* finished = [NSInvocation invocationWithMethodSignature: [self methodSignatureForSelector: @selector(finishPopDownload)]];
-		[finished setTarget: self];
-		[finished setSelector: @selector(finishPopDownload)];
 		
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popView: downloadView
-								   duration: 0.5
-								   finished: finished];
+													 duration: 0.5
+													 finished:^{
+			[self finishPopDownload];
+		}];
 		[downloadWindow setAlphaValue: 1.0];
 	} else {
 		// Use a more prosaic animation on Tiger
@@ -2539,14 +2538,12 @@ static NSArray<NSString*>* blorbFileTypes;
 		// Fanicify the animation under leopard
 		[[downloadView progress] stopAnimation: self];
 		[[downloadView progress] setDoubleValue: 0];
-
-		NSInvocation* finished = [NSInvocation invocationWithMethodSignature: [self methodSignatureForSelector: @selector(finishPopOutDownload)]];
-		[finished setTarget: self];
-		[finished setSelector: @selector(finishPopOutDownload)];
 		
 		[[(ZoomAppDelegate*)[NSApp delegate] leopard] popOutView: downloadView
-									  duration: duration
-									  finished: finished];
+														duration: duration
+														finished:^{
+			[self finishPopOutDownload];
+		}];
 		[downloadWindow setAlphaValue: 1.0];
 	} else {		
 		// Tiger animation

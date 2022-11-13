@@ -751,8 +751,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		// Success: store the new directory in the defaults
-		if ident != nil && ident.description != "(null)" {
-			gameDirectories[ident.description] = idealDir
+		if let identStr = ident.idString {
+			gameDirectories[identStr] = idealDir
 			try? save()
 		}
 		

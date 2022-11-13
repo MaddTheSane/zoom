@@ -9,6 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CAAnimation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+NS_SWIFT_NAME(ZoomLeopardProtocol)
 @protocol ZoomLeopard <NSObject>
 
 // = Animations =
@@ -16,11 +19,11 @@
 /// Causes a view to do a 'pop up' animation
 - (void) popView: (NSView*) view
 		duration: (NSTimeInterval) seconds
-		finished: (NSInvocation*) finished;
+		finished: (void (^ _Nullable)(void)) finished;
 /// Causes a view to do a 'pop out' animation
 - (void) popOutView: (NSView*) view
 		   duration: (NSTimeInterval) seconds
-		   finished: (NSInvocation*) finished;
+		   finished: (void (^ _Nullable)(void)) finished;
 /// Removes the layers for the specified view
 - (void) clearLayersForView: (NSView*) view;
 
@@ -30,13 +33,4 @@
 				toFrame: (NSRect) newWindowFrame;
 @end
 
-///
-/// Implementation of the ZoomLeopard protocol
-///
-@interface ZoomLeopard : NSObject<ZoomLeopard, CAAnimationDelegate> {
-	/// Array of animations that will finished
-	NSMutableArray* animationsWillFinish;
-	NSMutableArray* finishInvocations;
-}
-
-@end
+NS_ASSUME_NONNULL_END
