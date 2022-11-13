@@ -89,7 +89,6 @@
 		4B94B1610CD537B8003C75A6 /* ZoomSignPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B94B15F0CD537B8003C75A6 /* ZoomSignPost.m */; };
 		4B95CDA1C5B03AD500FD9F27 /* ZoomSkeinController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B18852906987AC6004D8501 /* ZoomSkeinController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B95CDA2C5B03AD500FD9F27 /* ZoomSkeinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B18852A06987AC6004D8501 /* ZoomSkeinController.m */; };
-		4B9DC7ED15027DF0003DF057 /* ZoomLeopard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B94AEF00CD4B2E5003C75A6 /* ZoomLeopard.m */; };
 		4B9DC7F11502877B003DF057 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7284FA0CD383C80079D89B /* QuartzCore.framework */; };
 		4BA375D30CD3CBA100C7B1D4 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA373A30CD3CB7B00C7B1D4 /* ApplicationServices.framework */; };
 		4BA375D40CD3CBA100C7B1D4 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA373A40CD3CB7B00C7B1D4 /* CoreServices.framework */; };
@@ -421,6 +420,7 @@
 		55DA689A2739D19E0007990A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DA689C2739D19E0007990A /* MainMenu.xib */; };
 		55DA68A32739D4B50007990A /* LocalizedSkein.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55DA68A52739D4B50007990A /* LocalizedSkein.strings */; };
 		55DA68A82739DBC90007990A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55DA68AA2739DBC90007990A /* Localizable.strings */; };
+		55E2441F2920EB4A00C9715F /* ZoomLeopard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E2441E2920EB4A00C9715F /* ZoomLeopard.swift */; };
 		55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
@@ -1563,49 +1563,27 @@
 		5591DBD22916355A00BF6F6F /* he.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = he.c; sourceTree = "<group>"; };
 		5591DBD32916355A00BF6F6F /* hebuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hebuffer.c; sourceTree = "<group>"; };
 		5591DBD42916355A00BF6F6F /* herun.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = herun.c; sourceTree = "<group>"; };
-		5591DBD52916355A00BF6F6F /* hdval.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hdval.c; sourceTree = "<group>"; };
 		5591DBD62916355A00BF6F6F /* hdheader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hdheader.h; sourceTree = "<group>"; };
 		5591DBD72916355A00BF6F6F /* heobject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heobject.c; sourceTree = "<group>"; };
-		5591DBD82916355A00BF6F6F /* hcres.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcres.c; sourceTree = "<group>"; };
-		5591DBD92916355A00BF6F6F /* heblank.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heblank.c; sourceTree = "<group>"; };
 		5591DBDA2916355A00BF6F6F /* heset.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heset.c; sourceTree = "<group>"; };
 		5591DBDB2916355A00BF6F6F /* heheader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = heheader.h; sourceTree = "<group>"; };
-		5591DBDC2916355A00BF6F6F /* hdmisc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hdmisc.c; sourceTree = "<group>"; };
 		5591DBDD2916355A00BF6F6F /* notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
-		5591DBDE2916355A00BF6F6F /* iotest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = iotest.c; sourceTree = "<group>"; };
-		5591DBDF2916355A00BF6F6F /* hccode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hccode.c; sourceTree = "<group>"; };
 		5591DBE02916355A00BF6F6F /* heglkwin.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglkwin.c; sourceTree = "<group>"; };
 		5591DBE12916355A00BF6F6F /* makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
-		5591DBE22916355A00BF6F6F /* hcmisc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcmisc.c; sourceTree = "<group>"; };
-		5591DBE32916355A00BF6F6F /* MacGlk-Customize.rsrc.hqx */ = {isa = PBXFileReference; lastKnownFileType = archive.binhex; path = "MacGlk-Customize.rsrc.hqx"; sourceTree = "<group>"; };
 		5591DBE42916355A00BF6F6F /* heexpr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heexpr.c; sourceTree = "<group>"; };
-		5591DBE52916355A00BF6F6F /* hddecode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hddecode.c; sourceTree = "<group>"; };
-		5591DBE62916355A00BF6F6F /* hcdef.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcdef.c; sourceTree = "<group>"; };
-		5591DBE72916355A00BF6F6F /* hcfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcfile.c; sourceTree = "<group>"; };
-		5591DBE82916355A00BF6F6F /* hdupdate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hdupdate.c; sourceTree = "<group>"; };
 		5591DBE92916355A00BF6F6F /* hemisc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hemisc.c; sourceTree = "<group>"; };
-		5591DBEA2916355A00BF6F6F /* hcreset.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcreset.c; sourceTree = "<group>"; };
 		5591DBEB2916355A00BF6F6F /* stringfn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stringfn.c; sourceTree = "<group>"; };
 		5591DBEC2916355A00BF6F6F /* heres.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heres.c; sourceTree = "<group>"; };
 		5591DBED2916355A00BF6F6F /* heglkmac.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglkmac.c; sourceTree = "<group>"; };
 		5591DBEE2916355A00BF6F6F /* hcheader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hcheader.h; sourceTree = "<group>"; };
 		5591DBEF2916355A00BF6F6F /* Makefile.unix */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.unix; sourceTree = "<group>"; };
 		5591DBF02916355A00BF6F6F /* README.unix */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.unix; sourceTree = "<group>"; };
-		5591DBF12916355A00BF6F6F /* hccomp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hccomp.c; sourceTree = "<group>"; };
 		5591DBF22916355A00BF6F6F /* htokens.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = htokens.h; sourceTree = "<group>"; };
 		5591DBF32916355A00BF6F6F /* heparse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heparse.c; sourceTree = "<group>"; };
-		5591DBF42916355A00BF6F6F /* hc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hc.c; sourceTree = "<group>"; };
-		5591DBF52916355A00BF6F6F /* hcpass.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcpass.c; sourceTree = "<group>"; };
-		5591DBF62916355A00BF6F6F /* hcbuild.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcbuild.c; sourceTree = "<group>"; };
 		5591DBF72916355A00BF6F6F /* heglk.graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglk.graphics.c; sourceTree = "<group>"; };
 		5591DBF82916355A00BF6F6F /* README.TXT */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.TXT; sourceTree = "<group>"; };
-		5591DBF92916355A00BF6F6F /* hdwindow.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hdwindow.c; sourceTree = "<group>"; };
-		5591DBFA2916355A00BF6F6F /* hd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hd.c; sourceTree = "<group>"; };
-		5591DBFB2916355A00BF6F6F /* hclink.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hclink.c; sourceTree = "<group>"; };
-		5591DBFC2916355A00BF6F6F /* prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = prefix.h; sourceTree = "<group>"; };
 		5591DBFD2916355A00BF6F6F /* heglk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglk.c; sourceTree = "<group>"; };
 		5591DBFE2916355A00BF6F6F /* hdinter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hdinter.h; sourceTree = "<group>"; };
-		5591DBFF2916355A00BF6F6F /* hdtools.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hdtools.c; sourceTree = "<group>"; };
 		5591DC042916367C00BF6F6F /* heglk */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = heglk; sourceTree = BUILT_PRODUCTS_DIR; };
 		5591DC182916394500BF6F6F /* heglkcocoa.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglkcocoa.c; sourceTree = "<group>"; };
 		5591DC1E29163EB400BF6F6F /* Hugo.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hugo.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1749,6 +1727,7 @@
 		55DA68A92739DBC90007990A /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55DA68AC273A108E0007990A /* en-GB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		55DA68AD273A10980007990A /* en-GB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LocalizedSkein.strings"; sourceTree = "<group>"; };
+		55E2441E2920EB4A00C9715F /* ZoomLeopard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomLeopard.swift; sourceTree = "<group>"; };
 		55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<group>"; };
 		55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/vorbis/macosx/Vorbis.xcodeproj; sourceTree = "<group>"; };
@@ -2248,6 +2227,7 @@
 				4B7286BE0CD3B99C0079D89B /* QuickLook */,
 				4B94AEEF0CD4B2E5003C75A6 /* ZoomLeopard.h */,
 				4B94AEF00CD4B2E5003C75A6 /* ZoomLeopard.m */,
+				55E2441E2920EB4A00C9715F /* ZoomLeopard.swift */,
 			);
 			path = Leopard;
 			sourceTree = "<group>";
@@ -2715,29 +2695,10 @@
 		5591DBD02916355A00BF6F6F /* Hugo */ = {
 			isa = PBXGroup;
 			children = (
-				5591DBF42916355A00BF6F6F /* hc.c */,
-				5591DBF62916355A00BF6F6F /* hcbuild.c */,
-				5591DBDF2916355A00BF6F6F /* hccode.c */,
-				5591DBF12916355A00BF6F6F /* hccomp.c */,
-				5591DBE62916355A00BF6F6F /* hcdef.c */,
-				5591DBE72916355A00BF6F6F /* hcfile.c */,
 				5591DBEE2916355A00BF6F6F /* hcheader.h */,
-				5591DBFB2916355A00BF6F6F /* hclink.c */,
-				5591DBE22916355A00BF6F6F /* hcmisc.c */,
-				5591DBF52916355A00BF6F6F /* hcpass.c */,
-				5591DBD82916355A00BF6F6F /* hcres.c */,
-				5591DBEA2916355A00BF6F6F /* hcreset.c */,
-				5591DBFA2916355A00BF6F6F /* hd.c */,
-				5591DBE52916355A00BF6F6F /* hddecode.c */,
 				5591DBD62916355A00BF6F6F /* hdheader.h */,
 				5591DBFE2916355A00BF6F6F /* hdinter.h */,
-				5591DBDC2916355A00BF6F6F /* hdmisc.c */,
-				5591DBFF2916355A00BF6F6F /* hdtools.c */,
-				5591DBE82916355A00BF6F6F /* hdupdate.c */,
-				5591DBD52916355A00BF6F6F /* hdval.c */,
-				5591DBF92916355A00BF6F6F /* hdwindow.c */,
 				5591DBD22916355A00BF6F6F /* he.c */,
-				5591DBD92916355A00BF6F6F /* heblank.c */,
 				5591DBD32916355A00BF6F6F /* hebuffer.c */,
 				5591DBE42916355A00BF6F6F /* heexpr.c */,
 				5591DBFD2916355A00BF6F6F /* heglk.c */,
@@ -2754,12 +2715,9 @@
 				5591DBD42916355A00BF6F6F /* herun.c */,
 				5591DBDA2916355A00BF6F6F /* heset.c */,
 				5591DBF22916355A00BF6F6F /* htokens.h */,
-				5591DBDE2916355A00BF6F6F /* iotest.c */,
-				5591DBE32916355A00BF6F6F /* MacGlk-Customize.rsrc.hqx */,
 				5591DBE12916355A00BF6F6F /* makefile */,
 				5591DBEF2916355A00BF6F6F /* Makefile.unix */,
 				5591DBDD2916355A00BF6F6F /* notes.txt */,
-				5591DBFC2916355A00BF6F6F /* prefix.h */,
 				5591DBF82916355A00BF6F6F /* README.TXT */,
 				5591DBF02916355A00BF6F6F /* README.unix */,
 				5591DBEB2916355A00BF6F6F /* stringfn.c */,
@@ -4057,6 +4015,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E2441F2920EB4A00C9715F /* ZoomLeopard.swift in Sources */,
 				55BE4B11270AB65400100A7D /* ZoomCollapsableView.swift in Sources */,
 				55BE4ADA27082EF800100A7D /* WhiteView.swift in Sources */,
 				558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */,
@@ -4078,7 +4037,6 @@
 				4B3E79DA0BA31FA800661FE8 /* ZoomStoryOrganiser-constants.m in Sources */,
 				4B840AD20CC2BB9C0071F3B3 /* ZoomWindowThatIsKey.m in Sources */,
 				4B926A200CD1480B00CE0ADB /* ZoomJSError.m in Sources */,
-				4B9DC7ED15027DF0003DF057 /* ZoomLeopard.m in Sources */,
 				55368B34272B562300740A0A /* ZoomStoryOrganiser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
