@@ -2726,7 +2726,7 @@ static NSArray<NSString*>* blorbFileTypes;
 
 	NSString* ifdbUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"ZoomIfdbUrl"];
 	if (!ifdbUrl) {
-		ifdbUrl = @"http://ifdb.tads.org/";
+		ifdbUrl = @"https://ifdb.tads.org/";
 	}
 	
 	// If the user has a single game selected, then open it in the browser

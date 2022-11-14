@@ -449,6 +449,7 @@
 #pragma mark - Various IB actions
 
 - (IBAction) playInFullScreen: (id) sender {
+	// TODO: migrate to modern full-screen calling conventions!
 	if (isFullscreen) {
 		ZoomView *theView = zoomView;
 		// Show the menubar

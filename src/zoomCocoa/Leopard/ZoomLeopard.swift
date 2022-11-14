@@ -5,7 +5,7 @@
 //  Created by C.W. Betts on 11/13/22.
 //
 
-import Foundation
+import Cocoa
 import QuartzCore
 
 ///
@@ -13,8 +13,8 @@ import QuartzCore
 ///
 class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 	
-	private var animationsWillFinish: [CAAnimation] = []
-	private var finishInvocations: [() -> ()] = []
+	private var animationsWillFinish = [CAAnimation]()
+	private var finishInvocations = [() -> Void]()
 	
 	func prepareToAnimate(_ view: NSView, in layer: CALayer?) {
 		for subview in view.subviews {
@@ -34,13 +34,12 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 	
 	func prepareToAnimate(_ view: NSView) {
 		let viewLayer = CALayer()
-		viewLayer.backgroundColor = CGColor(red: 0, green: 0,blue: 0,alpha: 0)
+		viewLayer.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
 		
 		prepareToAnimate(view, in: viewLayer)
 	}
 	
-	@objc(popView:duration:finished:)
-	func pop(_ view: NSView, duration seconds: TimeInterval, finished: (()->())?) {
+	func pop(_ view: NSView, duration seconds: TimeInterval, finished: (()->Void)?) {
 		// Set up the layers for this view
 		prepareToAnimate(view)
 		
@@ -64,21 +63,21 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		popBackAnimation.keyPath		= "transform"
 		popBackAnimation.fromValue		= NSValue(caTransform3D: popScaling)
 		popBackAnimation.toValue		= NSValue(caTransform3D: finalScaling)
-		popBackAnimation.duration		= seconds * 0.2;
-		popBackAnimation.beginTime		= CACurrentMediaTime() + seconds * 0.8;
+		popBackAnimation.duration		= seconds * 0.2
+		popBackAnimation.beginTime		= CACurrentMediaTime() + seconds * 0.8
 		popBackAnimation.repeatCount	= 1;
 		popBackAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 
 		// Create a fade-in animation
 		let fadeAnimation = CABasicAnimation()
 		
-		fadeAnimation.keyPath		= "opacity";
+		fadeAnimation.keyPath		= "opacity"
 		fadeAnimation.fromValue		= 0.0 as NSNumber
 		fadeAnimation.toValue		= 1.0 as NSNumber
 		fadeAnimation.repeatCount	= 1;
-		fadeAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-		fadeAnimation.duration		= seconds*0.5;
-		fadeAnimation.fillMode		= .both;
+		fadeAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+		fadeAnimation.duration		= seconds * 0.5
+		fadeAnimation.fillMode		= .both
 		
 		popBackAnimation.delegate = self;
 
@@ -97,40 +96,39 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		}
 	}
 
-	@objc
-	func popOutView(_ view: NSView, duration seconds: TimeInterval, finished: (()->())?) {
+	func popOutView(_ view: NSView, duration seconds: TimeInterval, finished: (()->Void)?) {
 		// Set up the layers for this view
 		prepareToAnimate(view)
 		
 		// Create a pop-up animation
 		let popAnimation = CABasicAnimation()
 		
-		let startScaling = CATransform3DScale(CATransform3DIdentity, 0.2, 0.2, 0.2);
-		let finalScaling = CATransform3DIdentity;
-		let popScaling   = CATransform3DScale(CATransform3DIdentity, 1.1, 1.1, 1.1);
+		let startScaling = CATransform3DScale(CATransform3DIdentity, 0.2, 0.2, 0.2)
+		let finalScaling = CATransform3DIdentity
+		let popScaling   = CATransform3DScale(CATransform3DIdentity, 1.1, 1.1, 1.1)
 		
 		popAnimation.keyPath		= "transform";
 		popAnimation.fromValue		= NSValue(caTransform3D: finalScaling)
 		popAnimation.toValue		= NSValue(caTransform3D: popScaling)
-		popAnimation.duration		= seconds * 0.2;
-		popAnimation.beginTime		= CACurrentMediaTime();
-		popAnimation.repeatCount	= 1;
-		popAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut);
-		popAnimation.fillMode		= .both;
+		popAnimation.duration		= seconds * 0.2
+		popAnimation.beginTime		= CACurrentMediaTime()
+		popAnimation.repeatCount	= 1
+		popAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+		popAnimation.fillMode		= .both
 		
-		let popBackAnimation = CABasicAnimation();
+		let popBackAnimation = CABasicAnimation()
 		
 		popBackAnimation.keyPath		= "transform";
 		popBackAnimation.fromValue		= NSValue(caTransform3D: popScaling)
 		popBackAnimation.toValue		= NSValue(caTransform3D: startScaling)
-		popBackAnimation.duration		= seconds * 0.8;
-		popBackAnimation.beginTime		= CACurrentMediaTime() + seconds * 0.2;
-		popBackAnimation.repeatCount	= 1;
+		popBackAnimation.duration		= seconds * 0.8
+		popBackAnimation.beginTime		= CACurrentMediaTime() + seconds * 0.2
+		popBackAnimation.repeatCount	= 1
 		popBackAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-		popBackAnimation.fillMode		= .both;
+		popBackAnimation.fillMode		= .both
 		
 		// Create a fade-in animation
-		let fadeAnimation = CABasicAnimation();
+		let fadeAnimation = CABasicAnimation()
 		
 		fadeAnimation.keyPath		= "opacity";
 		fadeAnimation.fromValue		= 1.0 as NSNumber;
@@ -140,7 +138,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		fadeAnimation.duration		= seconds
 		fadeAnimation.fillMode		= .both
 
-		fadeAnimation.delegate = self;
+		fadeAnimation.delegate = self
 
 		// Animate the view's layer
 		view.layer?.opacity = 0
@@ -153,11 +151,10 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		if let finished {
 			animationsWillFinish.append(view.layer!.animation(forKey: "FadeView")!)
 			finishInvocations.append(finished)
-			fadeAnimation.delegate = self;
+			fadeAnimation.delegate = self
 		}
 	}
 	
-	@objc(clearLayersForView:)
 	func clearLayers(for view: NSView) {
 		if view.wantsLayer {
 			view.wantsLayer = false
@@ -173,7 +170,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 	}
 	
 	/// Animates a view to full screen
-	@objc func fullScreenView(_ view: NSView, fromFrame oldWindowFrame: NSRect, toFrame newWindowFrame: NSRect) {
+	func fullScreenView(_ view: NSView, fromFrame oldWindowFrame: NSRect, toFrame newWindowFrame: NSRect) {
 		view.wantsLayer = true
 		view.layer?.display()
 		
@@ -197,7 +194,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		scaleAnimation.duration			= 0.35
 		scaleAnimation.repeatCount		= 1
 		scaleAnimation.timingFunction	= CAMediaTimingFunction(name: .easeInEaseOut)
-		scaleAnimation.delegate			= self;
+		scaleAnimation.delegate			= self
 
 		// Animate the view's layer
 		view.layer?.removeAllAnimations()
