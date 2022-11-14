@@ -292,8 +292,8 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 																	   weight: 9
 																	     size: 18];
 		if (!transcriptFont) transcriptFont = [NSFont systemFontOfSize: 12];
-		if (!inputFont) inputFont = [NSFont systemFontOfSize: 12];
-		if (!titleFont) titleFont = [NSFont boldSystemFontOfSize: 12];
+		if (!inputFont) inputFont = [NSFont systemFontOfSize: 12 weight: NSFontWeightMedium];
+		if (!titleFont) titleFont = [NSFont systemFontOfSize: 18 weight: NSFontWeightBold];
 		
 		NSDictionary* transcriptAttributes = [NSDictionary dictionaryWithObjectsAndKeys: 
 											  transcriptFont, NSFontAttributeName,

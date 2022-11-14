@@ -242,8 +242,8 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			
 			// Set up the attributes for the fonts
 			let transcriptFont = NSFontManager.shared.font(withFamily: "Gill Sans", traits: [.unboldFontMask], weight: 5, size: 12) ?? NSFont.systemFont(ofSize: 12)
-			let inputFont = NSFontManager.shared.font(withFamily: "Gill Sans", traits: [.boldFontMask], weight: 9, size: 12) ?? NSFont.systemFont(ofSize: 12)
-			let titleFont = NSFontManager.shared.font(withFamily: "Gill Sans", traits: [.boldFontMask], weight: 9, size: 18) ?? NSFont.systemFont(ofSize: 12, weight: .bold)
+			let inputFont = NSFontManager.shared.font(withFamily: "Gill Sans", traits: [.boldFontMask], weight: 9, size: 12) ?? NSFont.systemFont(ofSize: 12, weight: .medium)
+			let titleFont = NSFontManager.shared.font(withFamily: "Gill Sans", traits: [.boldFontMask], weight: 9, size: 18) ?? NSFont.systemFont(ofSize: 18, weight: .bold)
 			
 			let transcriptAttributes: AttributeContainer = {
 				let titleAttr: [NSAttributedString.Key: Any] = [.font: transcriptFont]

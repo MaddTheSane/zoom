@@ -57,7 +57,11 @@ private let DefaultFonts: [NSFont] = {
 		variableFont = NSFont.systemFont(ofSize: 12)
 	}
 	if fixedFont == nil {
-		fixedFont = NSFont.userFixedPitchFont(ofSize: 12)
+		if #available(macOSApplicationExtension 10.15, *) {
+			fixedFont = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+		} else {
+			fixedFont = NSFont.userFixedPitchFont(ofSize: 12)
+		}
 	}
 	
 	for x2 in ZFontStyle.RawValue(0) ..< 16 {
