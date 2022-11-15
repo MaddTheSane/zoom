@@ -43,7 +43,7 @@ private let showBordersKey = "ShowBorders"
 private let showGlkBordersKey = "ShowGlkBorders"
 private let showCoverPictureKey = "ShowCoverPicture"
 
-private let DefaultFonts: [NSFont] = {
+private let defaultFonts: [NSFont] = {
 	let defaultFontName = "Gill Sans"
 	let fixedFontName = "Courier New"
 	let mgr = NSFontManager.shared
@@ -57,7 +57,7 @@ private let DefaultFonts: [NSFont] = {
 		variableFont = NSFont.systemFont(ofSize: 12)
 	}
 	if fixedFont == nil {
-		if #available(macOSApplicationExtension 10.15, *) {
+		if #available(macOS 10.15, macOSApplicationExtension 10.15, *) {
 			fixedFont = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
 		} else {
 			fixedFont = NSFont.userFixedPitchFont(ofSize: 12)
@@ -90,7 +90,7 @@ private let DefaultFonts: [NSFont] = {
 	return defaultFonts
 }()
 
-private let DefaultColours = [
+private let defaultColours = [
 	NSColor(srgbRed: 0, green: 0, blue: 0, alpha: 1),
 	NSColor(srgbRed: 1, green: 0, blue: 0, alpha: 1),
 	NSColor(srgbRed: 0, green: 1, blue: 0, alpha: 1),
@@ -115,7 +115,7 @@ private let firstRun: () = {
 private func compareValues(_ a: [String: Any], _ b: [String: Any], usingKey key: String) -> Bool {
 	let aVal = a[key] as? NSObject
 	let bVal = b[key] as? NSObject
-	if let aVal = aVal {
+	if let aVal {
 		return aVal.isEqual(bVal)
 	}
 	return false
@@ -162,8 +162,8 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		prefs[revisionKey] = UInt8(0x5A)
 		prefs[glulxInterpreterKey] = GlulxInterpreter.git.rawValue
 		
-		prefs[fontsKey] = DefaultFonts
-		prefs[coloursKey] = DefaultColours
+		prefs[fontsKey] = defaultFonts
+		prefs[coloursKey] = defaultColours
 		
 		prefs[foregroundColourKey] = 0
 		prefs[backgroundColourKey] = 7
@@ -205,14 +205,14 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			
 		} else {
 			NSLog("Unable to decode font block completely: using defaults")
-			prefs[fontsKey] = DefaultFonts
+			prefs[fontsKey] = defaultFonts
 		}
 		
 		if let newColors = prefs[coloursKey] as? [NSColor], newColors.count == 11 {
 			
 		} else {
 			NSLog("Unable to decode colour block completely: using defaults")
-			prefs[coloursKey] = DefaultColours
+			prefs[coloursKey] = defaultColours
 		}
 	}
  
@@ -440,7 +440,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	open var fonts: [NSFont] {
 		get {
 			prefLock.lock()
-			let result = (prefs[fontsKey] as? [NSFont]) ?? DefaultFonts
+			let result = (prefs[fontsKey] as? [NSFont]) ?? defaultFonts
 			prefLock.unlock()
 			
 			return result
