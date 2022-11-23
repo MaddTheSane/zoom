@@ -16,11 +16,11 @@
 
 + (ZoomPlugInController*) sharedPlugInController {
 	static ZoomPlugInController* sharedController = nil;
-	
-	if (!sharedController) {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
 		sharedController = [[ZoomPlugInController alloc] initWithWindowNibName: @"PluginManager"];
-		[[ZoomPlugInManager sharedPlugInManager] setDelegate: sharedController];
-	}
+		ZoomPlugInManager.sharedPlugInManager.delegate = sharedController;
+	});
 	
 	return sharedController;
 }
