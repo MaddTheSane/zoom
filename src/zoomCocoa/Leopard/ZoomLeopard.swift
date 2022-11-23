@@ -13,8 +13,7 @@ import QuartzCore
 ///
 class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 	
-	private var animationsWillFinish = [CAAnimation]()
-	private var finishInvocations = [() -> Void]()
+	private var willFinish = [(animation: CAAnimation, callback: () -> Void)]()
 	
 	func prepareToAnimate(_ view: NSView, in layer: CALayer?) {
 		for subview in view.subviews {
@@ -91,8 +90,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		
 		// Set up the finished event handler
 		if let finished {
-			animationsWillFinish.append(view.layer!.animation(forKey: "PopBackView")!)
-			finishInvocations.append(finished)
+			willFinish.append((view.layer!.animation(forKey: "PopBackView")!, finished))
 		}
 	}
 
@@ -149,9 +147,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		
 		// Set up the finished event handler
 		if let finished {
-			animationsWillFinish.append(view.layer!.animation(forKey: "FadeView")!)
-			finishInvocations.append(finished)
-			fadeAnimation.delegate = self
+			willFinish.append((view.layer!.animation(forKey: "FadeView")!, finished))
 		}
 	}
 	
@@ -161,6 +157,11 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		}
 		
 		for subview in view.subviews {
+			// Scrollers on modern macOS systems are expected to be layered.
+			// Let's respect that, okay.
+			if subview.isKind(of: NSScroller.self) {
+				continue
+			}
 			clearLayers(for: subview)
 		}
 	}
@@ -200,24 +201,25 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		view.layer?.removeAllAnimations()
 		view.layer?.add(scaleAnimation, forKey: "ScaleView")
 		
-		animationsWillFinish.append(view.layer!.animation(forKey: "ScaleView")!)
-		finishInvocations.append {
+		willFinish.append((view.layer!.animation(forKey: "ScaleView")!, {
 			view.wantsLayer = false
-		}
+		}))
 	}
 	
 	// MARK: - Animation delegate functions
 	
 	func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-		var index = animationsWillFinish.firstIndex(of: anim)
+		var index = willFinish.firstIndex { (anim1, _) in
+			return anim1 === anim
+		}
 		
 		while let index2 = index {
-			let invocation = finishInvocations.remove(at: index2)
-			invocation()
+			let invocation = willFinish.remove(at: index2)
+			invocation.callback()
 			
-			animationsWillFinish.remove(at: index2)
-			
-			index = animationsWillFinish.firstIndex(of: anim)
+			index = willFinish.firstIndex { (anim1, _) in
+				return anim1 === anim
+			}
 		}
 	}
 }
