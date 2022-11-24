@@ -2004,7 +2004,6 @@
 				4BCF3F41050FB1C300A8E303 /* ZoomClient */,
 				4BCF3F42050FB1D800A8E303 /* Resources */,
 				55368A87272A00DE00740A0A /* Dependencies */,
-				55101A58290D06D9003CED21 /* ZoomNewSpotlight */,
 				4B1E3F5F050F7B8100A8E303 /* Frameworks */,
 				4B1E3F55050F7B0E00A8E303 /* Products */,
 				4BD274C408701E6700C1AE15 /* Info-ZoomView__Upgraded_.plist */,
@@ -2383,6 +2382,7 @@
 				4BDFA4E80535E9DE00A8E303 /* ZoomView */,
 				4BC5561D06B83EEB00F0DD4A /* Resources */,
 				4B39C93608EEF64C00BA5E90 /* Spotlight */,
+				55101A58290D06D9003CED21 /* NewSpotlight */,
 				4B152D2C0B46D2DA008CC1EF /* Notes */,
 				4B7CB0730936276B00F3B8F6 /* PlugIns */,
 				4B7284810CD37AF90079D89B /* Leopard */,
@@ -2547,14 +2547,14 @@
 			sourceTree = "<group>";
 			usesTabs = 1;
 		};
-		55101A58290D06D9003CED21 /* ZoomNewSpotlight */ = {
+		55101A58290D06D9003CED21 /* NewSpotlight */ = {
 			isa = PBXGroup;
 			children = (
 				55101A59290D06D9003CED21 /* ImportExtension.swift */,
 				55101A5B290D06D9003CED21 /* Info.plist */,
 				55101A5C290D06D9003CED21 /* ZoomNewSpotlight.entitlements */,
 			);
-			path = ZoomNewSpotlight;
+			path = NewSpotlight;
 			sourceTree = "<group>";
 		};
 		55132C3128FFE9AB007C87B6 /* ZoomNewSaveQL */ = {
@@ -5437,13 +5437,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = ZoomNewSpotlight/ZoomNewSpotlight.entitlements;
+				CODE_SIGN_ENTITLEMENTS = src/zoomCocoa/NewSpotlight/ZoomNewSpotlight.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.2.0;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ZoomNewSpotlight/Info.plist;
+				INFOPLIST_FILE = src/zoomCocoa/NewSpotlight/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ZoomNewSpotlight;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5465,14 +5465,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = ZoomNewSpotlight/ZoomNewSpotlight.entitlements;
+				CODE_SIGN_ENTITLEMENTS = src/zoomCocoa/NewSpotlight/ZoomNewSpotlight.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1.2.0;
 				ENABLE_NS_ASSERTIONS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ZoomNewSpotlight/Info.plist;
+				INFOPLIST_FILE = src/zoomCocoa/NewSpotlight/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ZoomNewSpotlight;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
