@@ -68,7 +68,8 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 @property int coverPicture;
 @property (readwrite, nullable, copy) NSString *description;
 
-- (nullable id) objectForKey: (NSString*) key; //!< Always returns an NSString (other objects are possible for other metadata)
+//! Always returns an \c NSString (other objects are possible for other metadata)
+- (nullable id) objectForKey: (NSString*) key;
 
 // Setting data
 

@@ -231,9 +231,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var displayWarnings: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[displayWarningsKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[displayWarningsKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -245,9 +245,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var fatalWarnings: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[fatalWarningsKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[fatalWarningsKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -259,9 +259,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var speakGameText: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[speakGameTextKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[speakGameTextKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -273,9 +273,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var confirmGameClose: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[confirmGameCloseKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[confirmGameCloseKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -288,9 +288,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	/// 0-100
 	open var scrollbackLength: CGFloat {
 		get {
-			prefLock.lock()
-			let result = prefs[scrollbackLengthKey] as? CGFloat
-			prefLock.unlock()
+			let result: CGFloat? = prefLock.withLock({
+				return prefs[scrollbackLengthKey] as? CGFloat
+			})
 			
 			return result ?? 0
 		}
@@ -305,11 +305,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var gameTitle: String? {
 		get {
-			prefLock.lock()
-			let result = prefs[gameTitleKey] as? String
-			prefLock.unlock()
-			
-			return result
+			return prefLock.withLock({
+				return prefs[gameTitleKey] as? String
+			})
 		}
 		set {
 			if let newValue = newValue {
@@ -323,9 +321,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var interpreter: Int32 {
 		get {
-			prefLock.lock()
-			let result = prefs[interpreterKey] as? Int32
-			prefLock.unlock()
+			let result: Int32? = prefLock.withLock({
+				return prefs[interpreterKey] as? Int32
+			})
 			
 			return result ?? 0
 		}
@@ -337,16 +335,14 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var glulxInterpreter: GlulxInterpreter {
 		get {
-			prefLock.lock()
-			defer {
-				prefLock.unlock()
+			return prefLock.withLock {
+				let result = prefs[glulxInterpreterKey] as? Int
+				
+				if let result = result, let result2 = GlulxInterpreter(rawValue: result) {
+					return result2
+				}
+				return .git
 			}
-			let result = prefs[glulxInterpreterKey] as? Int
-			
-			if let result = result, let result2 = GlulxInterpreter(rawValue: result) {
-				return result2
-			}
-			return .git
 		}
 		set {
 			prefs[glulxInterpreterKey] = newValue.rawValue
@@ -356,9 +352,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var revision: UInt8 {
 		get {
-			prefLock.lock()
-			let result = prefs[revisionKey] as? UInt8
-			prefLock.unlock()
+			let result: UInt8? = prefLock.withLock({
+				return prefs[revisionKey] as? UInt8
+			})
 			
 			return result ?? 0
 		}
@@ -439,11 +435,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	/// 16 fonts
 	open var fonts: [NSFont] {
 		get {
-			prefLock.lock()
-			let result = (prefs[fontsKey] as? [NSFont]) ?? defaultFonts
-			prefLock.unlock()
-			
-			return result
+			return prefLock.withLock {
+				return (prefs[fontsKey] as? [NSFont]) ?? defaultFonts
+			}
 		}
 		set {
 			prefs[fontsKey] = newValue
@@ -454,11 +448,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	/// 13 colours
 	open var colours: [NSColor]? {
 		get {
-			prefLock.lock()
-			let result = prefs[coloursKey] as? [NSColor]
-			prefLock.unlock()
-			
-			return result
+			return prefLock.withLock {
+				return prefs[coloursKey] as? [NSColor]
+			}
 		}
 		set {
 			if let newValue = newValue {
@@ -540,7 +532,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 				// Retry with simpler conditions if we fail to get a font for some reason
 				newFont = mgr.font(withFamily: newFamilyName, traits: (x & 4) != 0 ? .fixedPitchFontMask : [], weight: 5, size: size)
 			}
-			if let newFont = newFont {
+			if let newFont {
 				newFonts[x] = newFont
 			}
 		}
@@ -567,9 +559,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var textMargin: CGFloat {
 		get {
-			prefLock.lock()
-			let result = (prefs[textMarginKey] as? CGFloat) ?? 10
-			prefLock.unlock()
+			let result: CGFloat = prefLock.withLock({
+				return (prefs[textMarginKey] as? CGFloat) ?? 10
+			})
 			
 			return result
 		}
@@ -581,9 +573,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var useScreenFonts: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[useScreenFontsKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[useScreenFontsKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -595,9 +587,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var useHyphenation: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[useHyphenationKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[useHyphenationKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -610,9 +602,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var useKerning: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[useKerningKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[useKerningKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -624,9 +616,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var useLigatures: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[useLigaturesKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[useLigaturesKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -640,12 +632,13 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var organiserDirectory: String! {
 		get {
-			prefLock.lock()
-			var result = prefs[organiserDirectoryKey] as? String
-			if result == nil {
-				result = ZoomPreferences.defaultOrganiserDirectory
-			}
-			prefLock.unlock()
+			let result: String? = prefLock.withLock({
+				var result = prefs[organiserDirectoryKey] as? String
+				if result == nil {
+					result = ZoomPreferences.defaultOrganiserDirectory
+				}
+				return result
+			})
 			
 			return result!
 		}
@@ -661,9 +654,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var keepGamesOrganised: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[keepGamesOrganisedKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[keepGamesOrganisedKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -675,9 +668,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var autosaveGames: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[autosaveGamesKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[autosaveGamesKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -691,9 +684,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	// MARK: - Display preferences
 	open var foregroundColour: Int32 {
 		get {
-			prefLock.lock()
-			let result = prefs[foregroundColourKey] as? Int32
-			prefLock.unlock()
+			let result: Int32? = prefLock.withLock({
+				return prefs[foregroundColourKey] as? Int32
+			})
 			
 			return result ?? 0
 		}
@@ -705,9 +698,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var backgroundColour: Int32 {
 		get {
-			prefLock.lock()
-			let result = prefs[backgroundColourKey] as? Int32
-			prefLock.unlock()
+			let result: Int32? = prefLock.withLock({
+				return prefs[backgroundColourKey] as? Int32
+			})
 			
 			return result ?? 0
 		}
@@ -719,9 +712,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var showBorders: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[showBordersKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[showBordersKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -733,9 +726,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var showGlkBorders: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[showGlkBordersKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[showGlkBordersKey] as? Bool
+			})
 			
 			return result ?? false
 		}
@@ -747,9 +740,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var showCoverPicture: Bool {
 		get {
-			prefLock.lock()
-			let result = prefs[showCoverPictureKey] as? Bool
-			prefLock.unlock()
+			let result: Bool? = prefLock.withLock({
+				return prefs[showCoverPictureKey] as? Bool
+			})
 			
 			return result ?? false
 		}

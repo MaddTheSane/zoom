@@ -71,14 +71,14 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		mutating func update() throws {
-			guard let bookmarkData = bookmarkData else {
+			guard let bookmarkData else {
 				do {
 					self.bookmarkData = try url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
 				} catch {}
 				return
 			}
 			var stale = false
-			url = try URL(resolvingBookmarkData: bookmarkData, options: [.withoutUI], bookmarkDataIsStale: &stale)
+			url = try URL(resolvingBookmarkData: bookmarkData, options: [.withoutUI, .withSecurityScope], bookmarkDataIsStale: &stale)
 			if stale {
 				self.bookmarkData = try url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
 			}
@@ -318,22 +318,21 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	@objc(removeStoryWithIdent:deleteFromMetadata:)
 	@MainActor func removeStory(with ident: ZoomStoryID, deleteFromMetadata delete: Bool) {
-		storyLock.lock()
-		
-		let idx = stories.firstIndex { obj in
-			return obj.fileID == ident
+		storyLock.withLock {
+			let idx = stories.firstIndex { obj in
+				return obj.fileID == ident
+			}
+			if let idx {
+				stories.remove(at: idx)
+			}
+			
+			if delete {
+				let usrMeta = (NSApp.delegate as! ZoomAppDelegate).userMetadata()
+				usrMeta.removeStory(withIdent: ident)
+				try? usrMeta.writeToDefaultFile()
+			}
 		}
-		if let idx = idx {
-			stories.remove(at: idx)
-		}
 		
-		if delete {
-			let usrMeta = (NSApp.delegate as! ZoomAppDelegate).userMetadata()
-			usrMeta.removeStory(withIdent: ident)
-			try? usrMeta.writeToDefaultFile()
-		}
-		
-		storyLock.unlock()
 		organiserChanged()
 	}
 	
@@ -425,11 +424,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		var otherFile = false
-		do {
-			storyLock.lock()
-			defer {
-				storyLock.unlock()
-			}
+		storyLock.withLock {
 			if let identFile = stories.first(where: {$0.fileID == newID}) {
 				otherFile = true
 				
@@ -619,7 +614,6 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		guard isDir.boolValue else {
-			
 			return nil
 		}
 		
@@ -825,26 +819,24 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 	@objc(URLForIdent:)
 	@MainActor func urlFor(_ ident: ZoomStoryID) -> URL? {
-		storyLock.lock()
-		defer {
-			storyLock.unlock()
+		return storyLock.withLock {
+			guard let storyIdx = stories.firstIndex(where: {$0.fileID == ident}) else {
+				return nil
+			}
+			let aURL = stories[storyIdx].url
+			
+			if (try? aURL.checkResourceIsReachable()) ?? false {
+				return aURL
+			}
+			do {
+				try stories[storyIdx].update()
+			} catch {
+				// Return the old, bad URL
+				return aURL
+			}
+			
+			return stories[storyIdx].url
 		}
-		guard let storyIdx = stories.firstIndex(where: {$0.fileID == ident}) else {
-			return nil
-		}
-		let aURL = stories[storyIdx].url
-		
-		if (try? aURL.checkResourceIsReachable()) ?? false {
-			return aURL
-		}
-		do {
-			try stories[storyIdx].update()
-		} catch {
-			// Return the old, bad URL
-			return aURL
-		}
-		
-		return stories[storyIdx].url
 	}
 	
 	@available(*, deprecated, message: "Use urlFor(_:) or -URLForIdent: instead")
@@ -886,141 +878,138 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		NSLog("Organising %@ (%@)", story.title!, ident)
 #endif
 		
-		storyLock.lock()
-		defer {
-			storyLock.unlock()
-		}
-		
-		let oldFilename = filename
-
-#if DEVELOPMENT_BUILD
-		NSLog("... currently at %@", oldFilename.path)
-#endif
-
-		// Copy to a standard directory, change the filename we're using
-		filename = filename.standardizedFileURL
-		
-		let fileDir = directory(for: ident, create: true)
-		var destFile = fileDir?.appendingPathComponent(oldFilename.lastPathComponent)
-		destFile = destFile?.standardizedFileURL
-		
-#if DEVELOPMENT_BUILD
-		NSLog("... best directory %@ (file will be %@)", fileDir?.path ?? "(nil)", destFile?.path ?? "(nil)")
-#endif
-		
-		if filename != destFile, let destFile = destFile {
-			var moved = false
-			if filename.path.lowercased() == destFile.path.lowercased() {
-				// *LIKELY* that these are in fact the same file with different case names
-				// Cocoa doesn't seem to provide a good way to see if too paths are actually the same:
-				// so the semantics of this might be incorrect in certain edge cases. We move to ensure
-				// that everything is nice and safe
-				try? FileManager.default.moveItem(at: filename, to: destFile)
-				moved = true
-				filename = destFile
-			}
-			// The file might already be organised, but in the wrong directory
-			let gameStorageDirectory: String = ZoomPreferences.global.organiserDirectory!
-			let gameStorageURL = URL(fileURLWithPath: gameStorageDirectory, isDirectory: true)
-			let storageComponents = gameStorageURL.pathComponents
+		storyLock.withLock {
+			let oldFilename = filename
 			
-			let filenameComponents = filename.pathComponents
-			var outsideOrganisation = true
+#if DEVELOPMENT_BUILD
+			NSLog("... currently at %@", oldFilename.path)
+#endif
 			
-			if filenameComponents.count == storageComponents.count + 3 {
-				// filenameComponents should have 3 components extra over the storage directory: group/title/game.ext
+			// Copy to a standard directory, change the filename we're using
+			filename = filename.standardizedFileURL
+			
+			let fileDir = directory(for: ident, create: true)
+			var destFile = fileDir?.appendingPathComponent(oldFilename.lastPathComponent)
+			destFile = destFile?.standardizedFileURL
+			
+#if DEVELOPMENT_BUILD
+			NSLog("... best directory %@ (file will be %@)", fileDir?.path ?? "(nil)", destFile?.path ?? "(nil)")
+#endif
+			
+			if filename != destFile, let destFile = destFile {
+				var moved = false
+				if filename.path.lowercased() == destFile.path.lowercased() {
+					// *LIKELY* that these are in fact the same file with different case names
+					// Cocoa doesn't seem to provide a good way to see if too paths are actually the same:
+					// so the semantics of this might be incorrect in certain edge cases. We move to ensure
+					// that everything is nice and safe
+					try? FileManager.default.moveItem(at: filename, to: destFile)
+					moved = true
+					filename = destFile
+				}
+				// The file might already be organised, but in the wrong directory
+				let gameStorageDirectory: String = ZoomPreferences.global.organiserDirectory!
+				let gameStorageURL = URL(fileURLWithPath: gameStorageDirectory, isDirectory: true)
+				let storageComponents = gameStorageURL.pathComponents
 				
-				// Compare the components
-				outsideOrganisation = false
-				for (c1, c2) in zip(filenameComponents, storageComponents) {
-					// Note, there's no way to see if we're using a case-sensitive file system or not. We assume
-					// we are, as that's the default. People running with HFSX or UFS can just put up with the
-					// odd weirdness occuring due to this.
-					if c1.compare(c2, options: [.caseInsensitive]) != .orderedSame {
-						outsideOrganisation = true
-						break
+				let filenameComponents = filename.pathComponents
+				var outsideOrganisation = true
+				
+				if filenameComponents.count == storageComponents.count + 3 {
+					// filenameComponents should have 3 components extra over the storage directory: group/title/game.ext
+					
+					// Compare the components
+					outsideOrganisation = false
+					for (c1, c2) in zip(filenameComponents, storageComponents) {
+						// Note, there's no way to see if we're using a case-sensitive file system or not. We assume
+						// we are, as that's the default. People running with HFSX or UFS can just put up with the
+						// odd weirdness occuring due to this.
+						if c1.compare(c2, options: [.caseInsensitive]) != .orderedSame {
+							outsideOrganisation = true
+							break
+						}
 					}
 				}
-			}
-			
-		organization: do  {
-			if !outsideOrganisation {
-				// Have to move the file from the directory its in to the new directory
-				// Really want to move resources and savegames too... Hmm
-				let oldDir = filename.deletingLastPathComponent()
-				guard let dirEnum = try? FileManager.default.contentsOfDirectory(at: oldDir, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants]) else {
-					break organization
-				}
 				
-				for fileToMove in dirEnum {
-#if DEVELOPMENT_BUILD
-					NSLog("... reorganising %@ to %@",  fileToMove.path, fileDir?.appendingPathComponent(fileToMove.lastPathComponent).path ?? "(nil)")
-#endif
+			organization: do  {
+				if !outsideOrganisation {
+					// Have to move the file from the directory its in to the new directory
+					// Really want to move resources and savegames too... Hmm
+					let oldDir = filename.deletingLastPathComponent()
+					guard let dirEnum = try? FileManager.default.contentsOfDirectory(at: oldDir, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants]) else {
+						break organization
+					}
 					
-					try? FileManager.default.moveItem(at: fileToMove, to: fileDir!.appendingPathComponent(fileToMove.lastPathComponent))
-				}
-				moved = true
-				filename = destFile
-			}
-		}
-			// If we haven't already moved the file, then
-			if !moved {
-				do {
-					try? FileManager.default.removeItem(at: destFile)
-					try FileManager.default.copyItem(at: filename, to: destFile)
+					for fileToMove in dirEnum {
+#if DEVELOPMENT_BUILD
+						NSLog("... reorganising %@ to %@",  fileToMove.path, fileDir?.appendingPathComponent(fileToMove.lastPathComponent).path ?? "(nil)")
+#endif
+						
+						try? FileManager.default.moveItem(at: fileToMove, to: fileDir!.appendingPathComponent(fileToMove.lastPathComponent))
+					}
+					moved = true
 					filename = destFile
-				} catch {
-					NSLog("Warning: couldn't copy '%@' to '%@'", filename.path, destFile.path)
 				}
 			}
-			
-			// Notify the workspace of the change
-			// Actually, don't: -noteFileSystemChanged: seems to be soft-deprecated.
-		}
-		
-		// Update the index
-		if let filenameIndex = stories.firstIndex(where: { obj in
-			return obj.url == oldFilename
-		}) {
-			stories.remove(at: filenameIndex)
-		}
-		
-		if ident != nil {
-			stories.append(Object(url: filename, bookmarkData: try? filename.bookmarkData(options: [.securityScopeAllowOnlyReadAccess]), fileID: ident))
-		}
-		// Organise the story's resources
-		if var resources = story.object(forKey: "ResourceFilename") as? String, FileManager.default.fileExists(atPath: resources) {
-			guard let dir = directory(for: ident, create: false) else {
-				NSLog("No organised directory for game: cannot store resources");
-				return
-			}
-			
-			var isDir: ObjCBool = false
-			let exists = urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil)
-			
-			guard exists, isDir.boolValue else {
-				NSLog("Organised directory for game does not exist")
-				return
-			}
-			
-			let newFile = dir.appendingPathComponent("resource.blb").standardizedFileURL
-			let oldFile = URL(fileURLWithPath: resources, isDirectory: false).standardizedFileURL
-			
-			if oldFile.path.lowercased() != newFile.path.lowercased() {
-				if (try? newFile.checkResourceIsReachable()) ?? false {
-					try? FileManager.default.removeItem(at: newFile)
+				// If we haven't already moved the file, then
+				if !moved {
+					do {
+						try? FileManager.default.removeItem(at: destFile)
+						try FileManager.default.copyItem(at: filename, to: destFile)
+						filename = destFile
+					} catch {
+						NSLog("Warning: couldn't copy '%@' to '%@'", filename.path, destFile.path)
+					}
 				}
 				
-				do {
-					try FileManager.default.copyItem(at: oldFile, to: newFile)
-					resources = newFile.path
-				} catch {
-					NSLog("Unable to copy resource file to new location: \(error.localizedDescription)")
-				}
-				story.setObject(resources, forKey: "ResourceFilename")
+				// Notify the workspace of the change
+				// Actually, don't: -noteFileSystemChanged: seems to be soft-deprecated.
 			}
-		} else {
-			story.setObject(nil, forKey: "ResourceFilename")
+			
+			// Update the index
+			if let filenameIndex = stories.firstIndex(where: { obj in
+				return obj.url == oldFilename
+			}) {
+				stories.remove(at: filenameIndex)
+			}
+			
+			if ident != nil {
+				stories.append(Object(url: filename, bookmarkData: try? filename.bookmarkData(options: [.securityScopeAllowOnlyReadAccess]), fileID: ident))
+			}
+			// Organise the story's resources
+			if var resources = story.object(forKey: "ResourceFilename") as? String, FileManager.default.fileExists(atPath: resources) {
+				guard let dir = directory(for: ident, create: false) else {
+					NSLog("No organised directory for game: cannot store resources");
+					return
+				}
+				
+				var isDir: ObjCBool = false
+				let exists = urlIsAvailable(dir, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil)
+				
+				guard exists, isDir.boolValue else {
+					NSLog("Organised directory for game does not exist")
+					return
+				}
+				
+				let newFile = dir.appendingPathComponent("resource.blb").standardizedFileURL
+				let oldFile = URL(fileURLWithPath: resources, isDirectory: false).standardizedFileURL
+				
+				if oldFile.path.lowercased() != newFile.path.lowercased() {
+					if (try? newFile.checkResourceIsReachable()) ?? false {
+						try? FileManager.default.removeItem(at: newFile)
+					}
+					
+					do {
+						try FileManager.default.copyItem(at: oldFile, to: newFile)
+						resources = newFile.path
+					} catch {
+						NSLog("Unable to copy resource file to new location: \(error.localizedDescription)")
+					}
+					story.setObject(resources, forKey: "ResourceFilename")
+				}
+			} else {
+				story.setObject(nil, forKey: "ResourceFilename")
+			}
 		}
 	}
 	
@@ -1029,16 +1018,12 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			NSLog("ZoomStoryOrganiser: organiseAllStories called while Zoom was already in the process of organising");
 			return
 		}
-		storyLock.lock()
-		defer {
-			storyLock.unlock()
-		}
-
-		alreadyOrganising = true
-		
-		
-		Task {
-			await organiserThread()
+		storyLock.withLock {
+			alreadyOrganising = true
+			
+			Task {
+				await organiserThread()
+			}
 		}
 	}
 	
@@ -1047,12 +1032,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			return
 		}
 
-		do {
-			storyLock.lock()
-			defer {
-				storyLock.unlock()
-			}
-			
+		storyLock.withLock {
 			if let oldFileName = stories.firstIndex(where: {$0.fileID == ident}) {
 				stories.remove(at: oldFileName)
 			}
@@ -1197,11 +1177,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	@MainActor @objc(storyFromId:)
 	func story(from storyID: ZoomStoryID) -> ZoomStory? {
-		storyLock.lock()
-		defer {
-			storyLock.unlock()
+		return storyLock.withLock {
+			return (NSApp.delegate as! ZoomAppDelegate).findStory(storyID)
 		}
-		return (NSApp.delegate as! ZoomAppDelegate).findStory(storyID)
 	}
 	
 	private func organiserThread() async {

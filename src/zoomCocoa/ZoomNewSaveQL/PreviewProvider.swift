@@ -11,6 +11,7 @@ import ZoomPlugIns
 import ZoomPlugIns.ZoomStoryID
 import ZoomPlugIns.ZoomBabel
 import ZoomView
+import ZoomView.ZoomSkein
 
 private let zoomConfigDirectory: URL? = {
 	let libraryDirs = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
@@ -30,7 +31,7 @@ private let zoomConfigDirectory: URL? = {
 
 public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 	
-	private func providePreviewforBabel(at fileURL: URL) throws -> QLPreviewReply {
+	private func providePreviewForBabel(at fileURL: URL) throws -> QLPreviewReply {
 		guard fileURL.isFileURL else {
 			throw CocoaError(.fileReadUnsupportedScheme, userInfo: [NSURLErrorKey: fileURL])
 		}
@@ -228,7 +229,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			}
 
 		default:
-			return try providePreviewforBabel(at: url)
+			return try providePreviewForBabel(at: url)
 		}
 		
 		// Try to parse the skein
