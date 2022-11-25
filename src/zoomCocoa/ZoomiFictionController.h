@@ -28,8 +28,6 @@
 @property (weak) IBOutlet WKWebView* ifdbView;
 @property (weak) IBOutlet NSTextField* currentUrl;
 @property (weak) IBOutlet NSProgressIndicator* progressIndicator;
-@property (weak) IBOutlet NSLayoutConstraint *mainCenterConstraint;
-@property (weak) IBOutlet NSLayoutConstraint *mainLeftConstraint;
 
 /// The currently active download
 @property (strong) ZoomDownload* activeDownload;

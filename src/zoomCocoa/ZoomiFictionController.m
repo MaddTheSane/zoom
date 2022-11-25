@@ -2715,24 +2715,6 @@ static NSArray<NSString*>* blorbFileTypes;
 	[fv animateTo: browserView
 			style: ZoomAnimateRight];
 	
-	NSLayoutConstraint *constraint = [browserView.leftAnchor constraintEqualToAnchor: browserView.superview.leftAnchor];
-	constraint.active = YES;
-	constraint = [browserView.rightAnchor constraintEqualToAnchor: browserView.superview.rightAnchor];
-	constraint.active = YES;
-	constraint = [browserView.centerXAnchor constraintEqualToAnchor: browserView.window.contentView.centerXAnchor];
-	constraint.active = YES;
-	constraint = [browserView.window.contentView.leadingAnchor constraintEqualToAnchor: browserView.superview.leadingAnchor constant:7];
-	constraint.active = YES;
-	constraint = [browserView.topAnchor constraintEqualToAnchor: browserView.superview.topAnchor];
-	constraint.active = YES;
-	constraint = [browserView.superview.topAnchor constraintEqualToAnchor: browserView.superview.superview.superview.topAnchor constant:8];
-	constraint.active = YES;
-	constraint = [searchField.topAnchor constraintEqualToAnchor: browserView.bottomAnchor constant: 8];
-	constraint.active = YES;
-//	constraint = [browserView.topAnchor constraintEqualToAnchor: browserView.superview.bottomAnchor];
-//	constraint.active = YES;
-//	_mainLeftConstraint.active = NO;
-
 	NSString* ifdbUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"ZoomIfdbUrl"];
 	if (!ifdbUrl) {
 		ifdbUrl = @"https://ifdb.tads.org/";

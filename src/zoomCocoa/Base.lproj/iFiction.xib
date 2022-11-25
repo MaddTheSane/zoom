@@ -26,8 +26,6 @@
                 <outlet property="ifdbView" destination="332" id="335"/>
                 <outlet property="infoButton" destination="89" id="92"/>
                 <outlet property="infoFlipButton" destination="Euy-xe-sdp" id="o9I-Xd-ueE"/>
-                <outlet property="mainCenterConstraint" destination="5zP-4m-Spd" id="Ybq-Q8-Kg8"/>
-                <outlet property="mainLeftConstraint" destination="c8c-ml-JZv" id="qnm-Dh-FVt"/>
                 <outlet property="mainTableView" destination="148" id="171"/>
                 <outlet property="mainView" destination="340" id="342"/>
                 <outlet property="newgameButton" destination="62" id="68"/>
@@ -202,7 +200,7 @@
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" translatesAutoresizingMaskIntoConstraints="NO" id="287">
-                                                                                <rect key="frame" x="0.0" y="-17" width="434" height="195"/>
+                                                                                <rect key="frame" x="0.0" y="-51" width="434" height="195"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

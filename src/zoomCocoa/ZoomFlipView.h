@@ -50,12 +50,3 @@ typedef NS_ENUM(NSInteger, ZoomViewAnimationStyle) {
 - (NSMutableDictionary*) propertyDictionary;
 
 @end
-
-@interface NSObject(ZoomViewAnimation)
-
-/// Optional method implemented by views that is a request from the animation view to remove any applicable tracking rectangles
-- (void) removeTrackingRects;
-/// Optional method implemented by views that is a request from the animation view to add any tracking rectangles back again
-- (void) setTrackingRects;
-
-@end

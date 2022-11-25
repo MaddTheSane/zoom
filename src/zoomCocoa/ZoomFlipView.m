@@ -60,18 +60,6 @@
 
 #pragma mark - Caching views
 
-+ (void) detrackView: (NSView*) view {
-	if ([view respondsToSelector: @selector(removeTrackingRects)]) {
-		[view removeTrackingRects];
-	}
-}
-
-+ (void) trackView: (NSView*) view {
-	if ([view respondsToSelector: @selector(setTrackingRects)]) {
-		[view setTrackingRects];
-	}
-}
-
 - (NSMutableDictionary*) propertyDictionary {
 	if (props == nil) {
 		props = [[NSMutableDictionary alloc] init];
@@ -106,6 +94,68 @@
 	}
 }
 
+static NSArray<NSLayoutConstraint*> *getSuperviewsConstraints(NSView *viewToGet)
+{
+	NSArray *constraints = [viewToGet.superview.constraints copy];
+	NSMutableArray<NSLayoutConstraint*> *filtered = [NSMutableArray arrayWithCapacity:constraints.count];
+	for (NSLayoutConstraint *constraint in constraints) {
+		id first = constraint.firstItem;
+		id second = constraint.secondItem;
+		BOOL match = NO;
+		if (first == viewToGet) {
+			match = YES;
+		}
+		if (second == viewToGet) {
+			match = YES;
+		}
+		if (match) {
+			[filtered addObject:constraint];
+		}
+	}
+	return filtered;
+}
+
+static NSArray<NSLayoutConstraint*> *replaceConstraintsFromViewToView(NSArray<NSLayoutConstraint*> *constraints, NSView *from, NSView *to)
+{
+	NSMutableArray<NSLayoutConstraint*> *filtered = [NSMutableArray arrayWithCapacity:constraints.count];
+	for (NSLayoutConstraint *constraint in constraints) {
+		id first = constraint.firstItem;
+		id second = constraint.secondItem;
+		id newFirst = first;
+		id newSecond = second;
+		
+		BOOL match = NO;
+		if (first == from) {
+			newFirst = to;
+			match = YES;
+		}
+		if (second == from) {
+			newSecond = to;
+			match = YES;
+		}
+		if (match) {
+			@try {
+				NSLayoutConstraint* newConstraint = nil;
+				newConstraint = [NSLayoutConstraint constraintWithItem:newFirst
+															 attribute:constraint.firstAttribute
+															 relatedBy:constraint.relation
+																toItem:newSecond
+															 attribute:constraint.secondAttribute
+															multiplier:constraint.multiplier
+															  constant:constraint.constant];
+				newConstraint.shouldBeArchived = constraint.shouldBeArchived;
+				newConstraint.priority = NSLayoutPriorityDefaultHigh;
+				[filtered addObject:newConstraint];
+			}
+			@catch (NSException *exception) {
+				NSLog(@"Constraint exception: %@\nFor constraint: %@", exception, constraint);
+			}
+		}
+	}
+
+	return filtered;
+}
+
 - (void) prepareToAnimateView: (NSView*) view {
 	[self finishAnimation];
 	
@@ -120,6 +170,8 @@
 	
 	// Setup the layers
 	[self setupLayersForView: view];
+	NSArray<NSLayoutConstraint*> *oldConstraints = getSuperviewsConstraints(view);
+	NSArray<NSLayoutConstraint*> *newSuperConstraints = replaceConstraintsFromViewToView(oldConstraints, view, self);
 	
 	// Gather some information
 	originalView = view;
@@ -141,7 +193,10 @@
 	[self setAutoresizingMask: [view autoresizingMask]];
 	[self removeFromSuperview];
 	[self setFrame: originalFrame];
+	[self setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
 	[originalSuperview addSubview: self];
+	[originalSuperview addConstraints:newSuperConstraints];
+	[NSLayoutConstraint activateConstraints:newSuperConstraints];
 }
 
 @synthesize animationTime;
@@ -170,8 +225,12 @@
 	
 	[view removeFromSuperview];
 	[view setFrame: [self bounds]];
+	view.translatesAutoresizingMaskIntoConstraints = NO;
 	
 	[self addSubview: view];
+	NSDictionary *views = NSDictionaryOfVariableBindings(view);
+	[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:views]];
+	[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:views]];
 	//[[self layer] addSublayer: [view layer]];
 	[[self propertyDictionary] setObject: [view layer]
 								  forKey: @"FinalLayer"];
