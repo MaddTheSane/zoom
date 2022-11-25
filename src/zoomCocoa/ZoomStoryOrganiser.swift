@@ -23,11 +23,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 @objcMembers class ZoomStoryOrganiser: NSObject {
 	// TODO: migrate to CoreData
 
-	@nonobjc public class var changedNotification: NSNotification.Name {
+	@nonobjc @inlinable public class var changedNotification: NSNotification.Name {
 		return .__ZoomStoryOrganiserChanged
 	}
 
-	@nonobjc public class var progressNotification: NSNotification.Name {
+	@nonobjc @inlinable public class var progressNotification: NSNotification.Name {
 		return .__ZoomStoryOrganiserProgress
 	}
 	
@@ -59,9 +59,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			let ifmbString = try values.decode(String.self, forKey: .ifdbStringID)
 			fileID = ZoomStoryID(idString: ifmbString)
 			bookmarkData = try values.decodeIfPresent(Data.self, forKey: .bookmarkData)
-			do {
-				try update()
-			} catch { }
+			try? update()
 		}
 		
 		init(url: URL, bookmarkData: Data? = nil, fileID: ZoomStoryID) {
@@ -72,9 +70,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		mutating func update() throws {
 			guard let bookmarkData else {
-				do {
-					self.bookmarkData = try url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
-				} catch {}
+				if let newData = try? url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess]) {
+					self.bookmarkData = newData
+				}
 				return
 			}
 			var stale = false
@@ -142,10 +140,14 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		NotificationCenter.default.post(name: ZoomStoryOrganiser.changedNotification, object: self)
 	}
 	
-	@MainActor func load() throws {
+	private static let libraryPath: URL = {
 		var saveURL = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectoryURL!
-		saveURL.appendPathComponent("Library.json")
-		let dat = try Data(contentsOf: saveURL)
+		saveURL.appendPathComponent("Library.json", isDirectory: false)
+		return saveURL
+	}()
+	
+	@MainActor func load() throws {
+		let dat = try Data(contentsOf: ZoomStoryOrganiser.libraryPath)
 		let decoder = JSONDecoder()
 		let wrapper = try decoder.decode(SaveWrapper.self, from: dat)
 		gameDirectories = wrapper.gameDirectories
@@ -159,12 +161,10 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	@MainActor func save() throws {
-		var saveURL = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectoryURL!
-		saveURL.appendPathComponent("Library.json")
 		let encoder = JSONEncoder()
 		let wrapper = SaveWrapper(stories: stories, gameDirectories: gameDirectories)
 		let dat = try encoder.encode(wrapper)
-		try dat.write(to: saveURL)
+		try dat.write(to: ZoomStoryOrganiser.libraryPath)
 	}
 	
 	private var storyLock = NSLock()
@@ -1028,7 +1028,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	@MainActor private func renamed(_ ident: ZoomStoryID?, to url: URL) {
-		guard let ident = ident else {
+		guard let ident else {
 			return
 		}
 
