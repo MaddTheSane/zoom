@@ -1967,11 +1967,11 @@
 		4B0D80D40AC58D9E003E8CCA /* FlipView */ = {
 			isa = PBXGroup;
 			children = (
+				55BE4AD727082DED00100A7D /* ClearView.swift */,
 				55BE4ADB270832BA00100A7D /* FadeView.swift */,
+				55BE4AD927082EF800100A7D /* WhiteView.swift */,
 				4B0D80D90AC590A4003E8CCA /* ZoomFlipView.h */,
 				4B0D80DA0AC590A4003E8CCA /* ZoomFlipView.m */,
-				55BE4AD927082EF800100A7D /* WhiteView.swift */,
-				55BE4AD727082DED00100A7D /* ClearView.swift */,
 			);
 			name = FlipView;
 			sourceTree = "<group>";

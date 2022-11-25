@@ -28,8 +28,8 @@
 - (void) setupLayersForView: (NSView*) view {
 	// Build the root layer
 	if ([[self propertyDictionary] objectForKey: @"RootLayer"] == nil) {
-		CALayer* rootLayer;
-		[[self propertyDictionary] setObject: rootLayer = [CALayer layer]
+		CALayer* rootLayer = [CALayer layer];
+		[[self propertyDictionary] setObject: rootLayer
 									  forKey: @"RootLayer"];
 		rootLayer.layoutManager = self;
 		rootLayer.backgroundColor = [NSColor textBackgroundColor].CGColor;

@@ -175,7 +175,7 @@ static IFChar* Xmdchar(const XML_Char* s, int len) {
 #ifdef HAVE_COREFOUNDATION
 	if (len < 0) len = Xstrlen(s);
 	static_assert(sizeof(XML_Char) == sizeof(char), "Expected XML_Char to be the same size as a char, as is in Apple's built-in expat.");
-	CFStringRef str = CFStringCreateWithBytesNoCopy(NULL, s, len, kCFStringEncodingUTF8, true, kCFAllocatorNull);
+	CFStringRef str = CFStringCreateWithBytesNoCopy(NULL, s, len, kCFStringEncodingUTF8, false, kCFAllocatorNull);
 	CFDataRef utf16Data = CFStringCreateExternalRepresentation(NULL, str, kCFStringEncodingUTF16LE, '?');
 	CFRelease(str);
 	

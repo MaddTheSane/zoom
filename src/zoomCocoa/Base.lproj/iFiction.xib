@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="21225"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="21507"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,6 +26,8 @@
                 <outlet property="ifdbView" destination="332" id="335"/>
                 <outlet property="infoButton" destination="89" id="92"/>
                 <outlet property="infoFlipButton" destination="Euy-xe-sdp" id="o9I-Xd-ueE"/>
+                <outlet property="mainCenterConstraint" destination="5zP-4m-Spd" id="Ybq-Q8-Kg8"/>
+                <outlet property="mainLeftConstraint" destination="c8c-ml-JZv" id="qnm-Dh-FVt"/>
                 <outlet property="mainTableView" destination="148" id="171"/>
                 <outlet property="mainView" destination="340" id="342"/>
                 <outlet property="newgameButton" destination="62" id="68"/>
@@ -200,7 +202,7 @@
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" translatesAutoresizingMaskIntoConstraints="NO" id="287">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="434" height="195"/>
+                                                                                <rect key="frame" x="0.0" y="-17" width="434" height="195"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -653,7 +655,7 @@ Cg
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="163" secondAttribute="bottom" id="52X-Ur-fYZ"/>
                             <constraint firstItem="163" firstAttribute="top" secondItem="340" secondAttribute="top" id="93c-4h-H7K"/>
-                            <constraint firstItem="163" firstAttribute="leading" secondItem="340" secondAttribute="leading" id="c8c-ml-JZv"/>
+                            <constraint firstItem="163" firstAttribute="leading" secondItem="340" secondAttribute="leading" identifier="Main Left" id="c8c-ml-JZv"/>
                             <constraint firstAttribute="trailing" secondItem="163" secondAttribute="trailing" id="lw4-Un-643"/>
                         </constraints>
                     </customView>
@@ -664,7 +666,7 @@ Cg
                     <constraint firstItem="64" firstAttribute="height" secondItem="46" secondAttribute="height" id="4D8-XD-qXk"/>
                     <constraint firstItem="46" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="8" id="4fD-j0-ZgN"/>
                     <constraint firstItem="46" firstAttribute="top" secondItem="62" secondAttribute="top" id="4ml-jk-FKC"/>
-                    <constraint firstItem="340" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="5zP-4m-Spd"/>
+                    <constraint firstItem="340" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" identifier="Center" id="5zP-4m-Spd"/>
                     <constraint firstItem="64" firstAttribute="centerY" secondItem="196" secondAttribute="centerY" id="7GP-v8-xbV"/>
                     <constraint firstAttribute="trailing" secondItem="74" secondAttribute="trailing" constant="17" id="8v2-Iv-eVg"/>
                     <constraint firstItem="74" firstAttribute="top" secondItem="340" secondAttribute="bottom" constant="8" symbolic="YES" id="CE8-SI-bkQ"/>
@@ -846,11 +848,11 @@ Cg
                 <box borderType="line" title="Title" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="338">
                     <rect key="frame" x="-3" y="-4" width="576" height="381"/>
                     <view key="contentView" id="QDo-a1-jtK">
-                        <rect key="frame" x="3" y="3" width="570" height="375"/>
+                        <rect key="frame" x="4" y="5" width="568" height="373"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="326" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="353" width="570" height="22"/>
+                                <rect key="frame" x="0.0" y="351" width="568" height="22"/>
                                 <subviews>
                                     <button hidden="YES" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="348">
                                         <rect key="frame" x="76" y="2" width="51" height="18"/>
@@ -907,7 +909,7 @@ Cg
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="327">
-                                        <rect key="frame" x="477" y="2" width="88" height="18"/>
+                                        <rect key="frame" x="475" y="2" width="88" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Story Browser" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="383">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -939,7 +941,7 @@ Cg
                                 </constraints>
                             </customView>
                             <wkWebView wantsLayer="YES" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="332">
-                                <rect key="frame" x="0.0" y="0.0" width="570" height="353"/>
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="351"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="568" id="3mF-XZ-etK"/>
                                 </constraints>
@@ -976,8 +978,8 @@ Cg
     </objects>
     <resources>
         <image name="Blorb" width="128" height="128"/>
-        <image name="NSGoLeftTemplate" width="10" height="14"/>
-        <image name="NSGoRightTemplate" width="10" height="14"/>
+        <image name="NSGoLeftTemplate" width="12" height="17"/>
+        <image name="NSGoRightTemplate" width="12" height="17"/>
         <image name="NSHomeTemplate" width="16" height="13"/>
         <image name="Z-Decal" width="32" height="32"/>
         <image name="arrow.counterclockwise.circle.fill" catalog="system" width="15" height="15"/>
