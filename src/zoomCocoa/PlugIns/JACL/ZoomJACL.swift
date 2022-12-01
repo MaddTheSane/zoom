@@ -9,7 +9,9 @@ import Cocoa
 import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomBabel
+import ZoomPlugIns.ZoomStoryID
 import CryptoKit
+import RegexBuilder
 
 final public class JACL: ZoomGlkPlugIn {
 	public override class var pluginVersion: String {
@@ -75,19 +77,55 @@ final public class JACL: ZoomGlkPlugIn {
 					throw CocoaError(.featureUnsupported)
 				}
 
-				let gameRegex = try! NSRegularExpression(pattern: #"constant\s+game_title\s+"(.*)""#, options: [])
-				guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
-					//Just here to throw an error to be caught in the current scope.
-					throw CocoaError(.fileReadInapplicableStringEncoding)
-				}
-				let firstString = fileString[Range(firstMatch.range(at: 1), in: fileString)!]
-				story.title = String(firstString)
+				if #available(macOS 13.0, *) {
+					let gameRegex = Regex {
+						"constant"
+						OneOrMore(.whitespace)
+						"game_title"
+						OneOrMore(.whitespace)
+						"\""
+						Capture {
+							ZeroOrMore(.any)
+						}
+						"\""
+					}
+					guard let firstMatch = try gameRegex.firstMatch(in: fileString) else {
+						//Just here to throw an error to be caught in the current scope.
+						throw CocoaError(.fileReadInapplicableStringEncoding)
+					}
+					story.title = String(firstMatch.1)
+					
+					let authorRegex = Regex {
+						"constant"
+						OneOrMore(.whitespace)
+						"game_author"
+						OneOrMore(.whitespace)
+						"\""
+						Capture {
+							ZeroOrMore(.any)
+						}
+						"\""
+					}
+					guard let authorMatch = try authorRegex.firstMatch(in: fileString) else {
+						//Just here to throw an error to be caught in the current scope.
+						throw CocoaError(.fileReadInapplicableStringEncoding)
+					}
+					story.author = String(authorMatch.1)
+				} else {
+					let gameRegex = try! NSRegularExpression(pattern: #"constant\s+game_title\s+"(.*)""#, options: [])
+					guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
+						//Just here to throw an error to be caught in the current scope.
+						throw CocoaError(.fileReadInapplicableStringEncoding)
+					}
+					let firstString = fileString[Range(firstMatch.range(at: 1), in: fileString)!]
+					story.title = String(firstString)
 
-				let autorRegex = try! NSRegularExpression(pattern: #"constant\s+game_author\s+"(.*)""#, options: [])
-				if let authorMatch = autorRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) {
-					let authorSubstring = fileString[Range(authorMatch.range(at: 1), in: fileString)!]
-					let authorString = String(authorSubstring)
-					story.author = authorString
+					let autorRegex = try! NSRegularExpression(pattern: #"constant\s+game_author\s+"(.*)""#, options: [])
+					if let authorMatch = autorRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) {
+						let authorSubstring = fileString[Range(authorMatch.range(at: 1), in: fileString)!]
+						let authorString = String(authorSubstring)
+						story.author = authorString
+					}
 				}
 
 				return story
@@ -134,13 +172,37 @@ private func stringIDForJACLFile(at url: URL) -> String? {
 	guard let fileString = String(data: fileData, encoding: .isoLatin1) else {
 		return nil
 	}
-	let gameRegex = try! NSRegularExpression(pattern: #"constant\s+ifid\s+"(JACL-\d{3})""#, options: [])
-	guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
-		return nil
+	if #available(macOS 13.0, *) {
+		let gameRegex = Regex {
+			"constant"
+			OneOrMore(.whitespace)
+			"ifid"
+			OneOrMore(.whitespace)
+			"\""
+			Capture {
+				Regex {
+					"JACL-"
+					Repeat(count: 3) {
+						One(.digit)
+					}
+				}
+			}
+			"\""
+		}
+		guard let firstMatch = try? gameRegex.firstMatch(in: fileString) else {
+			return nil
+		}
+		let firstString = firstMatch.1
+		return String(firstString)
+	} else {
+		let gameRegex = try! NSRegularExpression(pattern: #"constant\s+ifid\s+"(JACL-\d{3})""#, options: [])
+		guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
+			return nil
+		}
+		let firstString = fileString[Range(firstMatch.range(at: 1), in: fileString)!]
+		
+		return String(firstString)
 	}
-	let firstString = fileString[Range(firstMatch.range(at: 1), in: fileString)!]
-
-	return String(firstString)
 }
 
 private let processedData: Data = {

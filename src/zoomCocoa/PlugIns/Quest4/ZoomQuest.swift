@@ -10,8 +10,9 @@ import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomPlugIn.Glk.WindowController
 import ZoomPlugIns.ZoomPlugIn.Glk.Document
 import ZoomPlugIns
+import _StringProcessing
 
-private var casHeader: Data = {
+private let casHeader: Data = {
 	let strData = "QCGF002"
 	return strData.data(using: .ascii)!
 }()
@@ -105,17 +106,41 @@ final public class Quest: ZoomGlkPlugIn {
 			throw CocoaError(.featureUnsupported)
 		}
 		
-		let gameRegex = try! NSRegularExpression(pattern: #"define game <([^<>\n]+)>"#, options: [])
-		guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
-			return try super.defaultMetadata()
-		}
-		let firstString = fileString[Range(firstMatch.range(at: 1), in: fileString)!]
-		story.title = String(firstString)
-		let autorRegex = try! NSRegularExpression(pattern: #"game author <([^<>\n]+)>"#, options: [])
-		if let authorMatch = autorRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) {
-			let authorSubstring = fileString[Range(authorMatch.range(at: 1), in: fileString)!]
-			let authorString = String(authorSubstring)
-			story.author = authorString
+		if #available(macOS 13.0, *) {
+			//There seems to be a bug: the .inverted in the following code DOES NOT WORK!
+//			let gameRegex = Regex {
+//				"define game <"
+//				Capture {
+//					OneOrMore(.anyOf("<>\\u{A}").inverted)
+//				}
+//				">"
+//			}
+			let gameRegex = /define game <([^<>\n]+)>/
+			guard let firstMatch = try gameRegex.firstMatch(in: fileString) else {
+				return try super.defaultMetadata()
+			}
+			let firstString = firstMatch.1
+			story.title = String(firstString)
+			
+			let authorRegex = /game author <([^<>\n]+)>/
+			if let authorMatch = try authorRegex.firstMatch(in: fileString) {
+				let authorSubstring = authorMatch.1
+				let authorString = String(authorSubstring)
+				story.author = authorString
+			}
+		} else {
+			let gameRegex = try! NSRegularExpression(pattern: #"define game <([^<>\n]+)>"#, options: [])
+			guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
+				return try super.defaultMetadata()
+			}
+			let firstString = fileString[Range(firstMatch.range(at: 1), in: fileString)!]
+			story.title = String(firstString)
+			let autorRegex = try! NSRegularExpression(pattern: #"game author <([^<>\n]+)>"#, options: [])
+			if let authorMatch = autorRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) {
+				let authorSubstring = fileString[Range(authorMatch.range(at: 1), in: fileString)!]
+				let authorString = String(authorSubstring)
+				story.author = authorString
+			}
 		}
 		return story
 	}
