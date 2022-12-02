@@ -167,7 +167,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		try dat.write(to: ZoomStoryOrganiser.libraryPath)
 	}
 	
-	private var storyLock = NSLock()
+	private let storyLock: NSLock = {
+		let toRet = NSLock()
+		toRet.name = "Zoom Story Lock"
+		return toRet
+	}()
 	private var dataChangedNotificationObject: NSObjectProtocol? = nil
 	private var alreadyOrganising = false
 	
@@ -265,7 +269,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			let pluginClass = ZoomPlugInManager.shared.plugIn(for: filename)
 			let pluginInstance = pluginClass?.init(url: filename)
 			
-			if let pluginInstance = pluginInstance {
+			if let pluginInstance {
 				theStory = try pluginInstance.defaultMetadata()
 			} else {
 				theStory = try ZoomStory.defaultMetadata(for: filename)
@@ -277,8 +281,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			try? (NSApp.delegate as! ZoomAppDelegate).userMetadata().writeToDefaultFile()
 		}
 		
-		if let oldURLID = oldURLID,
-		   let oldIdent = oldIdent,
+		if let oldURLID,
+		   let oldIdent,
 		   oldIdent == ident,
 		   oldURLID.isEqual(newIdentifier) {
 			// Nothing to do
@@ -289,10 +293,10 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		var toRemove = IndexSet()
-		if let dupIDIdx = dupIDIdx {
+		if let dupIDIdx {
 			toRemove.insert(dupIDIdx)
 		}
-		if let dupURLIdx = dupURLIdx {
+		if let dupURLIdx {
 			toRemove.insert(dupURLIdx)
 		}
 		
@@ -300,10 +304,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			stories.remove(indexes: toRemove)
 		}
 		
-		var bookData: Data? = nil
-		do {
-			bookData = try filename.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
-		} catch { }
+		let bookData = try? filename.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
 
 		stories.append(Object(url: filename, bookmarkData: bookData, fileID: ident))
 		
@@ -471,7 +472,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				exists = urlIsAvailable(possibleResource, isDirectory: &isDir, isPackage: nil, isReadable: nil, error: nil)
 				
 				if (exists && !isDir.boolValue) {
-					NSLog("Found resources for game at %@", possibleResource.path);
+					NSLog("Found resources for game at %@", possibleResource.path)
 					
 					oldStory.setObject(possibleResource.path, forKey: "ResourceFilename")
 					
@@ -762,7 +763,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		var changed = false
 		
 #if DEVELOPMENT_BUILD
-		NSLog("Finishing changing %@", story.title ?? "(nil)");
+		NSLog("Finishing changing %@", story.title ?? "(nil)")
 #endif
 
 		for ident in storyIDs {
@@ -870,7 +871,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	@objc(organiseStory:withIdent:)
 	@MainActor func organiseStory(_ story: ZoomStory, with ident: ZoomStoryID) {
 		guard var filename = urlFor(ident) else {
-			NSLog("WARNING: Attempted to organise a story with no filename");
+			NSLog("WARNING: Attempted to organise a story with no filename")
 			return
 		}
 		
@@ -979,7 +980,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			// Organise the story's resources
 			if var resources = story.object(forKey: "ResourceFilename") as? String, FileManager.default.fileExists(atPath: resources) {
 				guard let dir = directory(for: ident, create: false) else {
-					NSLog("No organised directory for game: cannot store resources");
+					NSLog("No organised directory for game: cannot store resources")
 					return
 				}
 				
@@ -1015,7 +1016,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	func organiseAllStories() {
 		guard !alreadyOrganising else {
-			NSLog("ZoomStoryOrganiser: organiseAllStories called while Zoom was already in the process of organising");
+			NSLog("ZoomStoryOrganiser: organiseAllStories called while Zoom was already in the process of organising")
 			return
 		}
 		storyLock.withLock {
@@ -1148,7 +1149,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				
 				if (try? moveTo.checkResourceIsReachable()) ?? false {
 					NSLog("WARNING: Not moving %@, as it would clobber a file at %@", moveFrom.path, moveTo.path)
-					continue;
+					continue
 				}
 				
 				do {
@@ -1299,7 +1300,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			}
 
 			if actualDir.lowercased() != expectedDir.lowercased() {
-				NSLog("Organiser: File %@ not in the expected directory (%@ vs %@)", filename.path, actualDir, expectedDir);
+				NSLog("Organiser: File %@ not in the expected directory (%@ vs %@)", filename.path, actualDir, expectedDir)
 				inWrongDirectory = true
 			}
 			
@@ -1316,16 +1317,16 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 					if isDir.boolValue {
 						// Oops, this is a file: can't move anything here
 						NSLog("Organiser: Can't create group directory at %@ - there's a file in the way", groupDirectory.path)
-						continue;
+						continue
 					}
 				} else {
-					NSLog("Organiser: Creating group directory at %@", groupDirectory.path);
+					NSLog("Organiser: Creating group directory at %@", groupDirectory.path)
 					do {
 						try FileManager.default.createDirectory(at: groupDirectory, withIntermediateDirectories: false, attributes: nil)
 					} catch {
 						// strerror & co aren't thread-safe so we can't safely retrieve the actual error number
-						NSLog("Organiser: Failed to create directory at %@, returned %@", groupDirectory.path, error.localizedDescription);
-						continue;
+						NSLog("Organiser: Failed to create directory at %@, returned %@", groupDirectory.path, error.localizedDescription)
+						continue
 
 					}
 				}
@@ -1352,7 +1353,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 						
 						if titleDirectory!.path.lowercased() == oldDirectory.path.lowercased() {
 							// Nothing to do!
-							NSLog("Organiser: oops, name difference is due to multiple stories with the same title");
+							NSLog("Organiser: oops, name difference is due to multiple stories with the same title")
 							break
 						}
 						

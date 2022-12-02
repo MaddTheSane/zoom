@@ -64,7 +64,10 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 	private var tmpFile: URL?
 	
 	/// Prepares to download the specified URL
-	@objc(initWithURL:) public init(from url: URL) {
+	@objc(initWithURL:) public init?(from url: URL?) {
+		guard let url else {
+			return nil
+		}
 		self.url = url
 		let config = URLSessionConfiguration.ephemeral
 		config.networkServiceType = .background

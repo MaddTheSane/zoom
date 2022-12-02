@@ -280,7 +280,7 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 - (void) promptForFileToWrite: (in ZFileType) type
 				  defaultName: (nullable in bycopy NSString*) name;
 - (void) promptForFileToRead: (in ZFileType) type
-                 defaultName: (in bycopy NSString*) name;
+                 defaultName: (nullable in bycopy NSString*) name;
 
 //! Error messages and warnings
 - (void) displayFatalError: (in bycopy NSString*) error;
