@@ -129,11 +129,6 @@
 	return [[ZoomStoryID alloc] initWithData: [self gameData]];
 }
 
-- (ZoomStory*) defaultMetadata {
-	// Just use the default metadata-establishing routine
-	return [self defaultMetadataWithError: NULL];
-}
-
 - (ZoomStory*) defaultMetadataWithError:(NSError *__autoreleasing *)outError {
 	// Just use the default metadata-establishing routine
 	return [ZoomStory defaultMetadataForURL: gameFile error: outError];

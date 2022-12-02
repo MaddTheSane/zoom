@@ -14,10 +14,6 @@ private let saveHighlightActive = NSImage(named: "saveHighlightActive")!
 private let saveBackground = NSImage(named: "saveBackground")!
 
 class SavePreview : NSView {
-	@available(*, deprecated, renamed: "SavePreview.fileURL")
-	var filename: String? {
-		return fileURL?.path
-	}
 	private(set) var fileURL: URL?
 	private var preview: ZoomUpperWindow?
 	private var previewLines: [Any]?

@@ -21,7 +21,7 @@
 NSString* const ZoomStoryDataHasChangedNotification = @"ZoomStoryDataHasChangedNotification";
 static NSString* const ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
 
-static NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
+NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
 
 #ifndef __MAC_11_0
 #define __MAC_11_0          110000

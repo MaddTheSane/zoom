@@ -840,12 +840,6 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 	}
 	
-	@available(*, deprecated, message: "Use urlFor(_:) or -URLForIdent: instead")
-	@objc(filenameForIdent:)
-	@MainActor func filename(for ident: ZoomStoryID) -> String? {
-		return urlFor(ident)?.path
-	}
-	
 	// MARK: - Reorganising stories
 	
 	@objc(organiseStory:)
@@ -1168,14 +1162,6 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		try? save() // In case we later crash
 	}
 	
-	/// Changes the story organisation directory.
-	/// Should be called before changing the story directory in the preferences.
-	@MainActor @available(*, deprecated, message: "Use reorganiseStories(to:) or -reorganiseStoriesToNewDirectoryURL: instead")
-	@objc(reorganiseStoriesToNewDirectory:)
-	func reorganiseStories(toNewDirectory newStoryDirectory: String) {
-		reorganiseStories(to: URL(fileURLWithPath: newStoryDirectory, isDirectory: true))
-	}
-	
 	@MainActor @objc(storyFromId:)
 	func story(from storyID: ZoomStoryID) -> ZoomStory? {
 		return storyLock.withLock {
@@ -1447,12 +1433,6 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		return nil
-	}
-
-	@available(*, deprecated, message: "Use +frontispieceForURL: or frontispiece(for:) instead")
-	@objc(frontispieceForFile:)
-	static func frontispiece(forFile filename: String) -> NSImage? {
-		return frontispiece(for: URL(fileURLWithPath: filename))
 	}
 
 	@objc(frontispieceForURL:)

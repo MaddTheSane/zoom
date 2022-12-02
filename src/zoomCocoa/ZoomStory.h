@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Notifications
 extern NSNotificationName const ZoomStoryDataHasChangedNotification;
+extern NSNotificationName const ZoomStoryExtraMetadataChangedNotification NS_SWIFT_NAME(ZoomStory.extraMetadataChangedNotification);
 
 typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 	IFMD_Unrated NS_SWIFT_NAME(unrated) = 0x0,
