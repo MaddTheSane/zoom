@@ -19,6 +19,7 @@
 #import "ZoomScrollView.h"
 #import "ZoomConnector.h"
 #import <ZoomView/ZoomView-Swift.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 /// Sets variables to force extreme memory checking in the Zoom task; this provides a fairly huge performance
 /// decrease, but provides 'earliest possible' warning of heap corruption.
@@ -1975,7 +1976,11 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
         case ZFileTranscript:
             typeCode = 'TEXT';
                 [panel setMessage: [NSString stringWithFormat: @"%@ transcript recording file", saveOpen]];
-                [panel setAllowedFileTypes: @[(NSString*)kUTTypePlainText]];
+			if (@available(macOS 11.0, *)) {
+				panel.allowedContentTypes = @[UTTypePlainText];
+			} else {
+				panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
+			}
             break;
     }
 }

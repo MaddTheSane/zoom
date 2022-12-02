@@ -26,6 +26,7 @@
 #import <ZoomView/ZoomView-Swift.h>
 #import "Zoom-Swift.h"
 
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <Sparkle/Sparkle.h>
 
 static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
@@ -556,7 +557,11 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	if ([[ZoomSkeinController sharedSkeinController] skein] == nil) return;
 	
 	NSSavePanel* panel = [NSSavePanel savePanel];
-	panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
+	if (@available(macOS 11.0, *)) {
+		panel.allowedContentTypes = @[UTTypePlainText];
+	} else {
+		panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
+	}
 
 	NSURL* directory = nil;
 	if (directory == nil) {
@@ -592,7 +597,11 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	if ([[ZoomSkeinController sharedSkeinController] skein] == nil) return;
 	
 	NSSavePanel* panel = [NSSavePanel savePanel];
-	panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
+	if (@available(macOS 11.0, *)) {
+		panel.allowedContentTypes = @[UTTypePlainText];
+	} else {
+		panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
+	}
 
 	NSURL* directoryURL = nil;
 	if (directoryURL == nil) {
@@ -615,7 +624,11 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	if ([[ZoomSkeinController sharedSkeinController] skein] == nil) return;
 	
 	NSSavePanel* panel = [NSSavePanel savePanel];
-	panel.allowedFileTypes = @[@"skein"];
+	if (@available(macOS 11.0, *)) {
+		panel.allowedContentTypes = @[[UTType typeWithIdentifier:@"uk.org.logicalshift.zoom.skein"]];
+	} else {
+		panel.allowedFileTypes = @[@"uk.org.logicalshift.zoom.skein", @"skein"];
+	}
 	
 	NSURL* directory = nil;
 	if (directory == nil) {

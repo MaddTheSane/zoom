@@ -8,6 +8,7 @@
 
 #define VERBOSITY 1
 #import "ZoomPlugIn.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 
 @implementation ZoomPlugIn {
@@ -56,6 +57,48 @@
 
 + (NSArray<NSString*>*)supportedFileTypes {
 	return @[];
+}
+
++ (NSArray<UTType *> *)supportedContentTypes {
+	// Construct UTTypes from supportedFileTypes, since the plug-in subclass doesn't support it
+	NSArray<NSString*> *sft = [self supportedFileTypes];
+	// Ordered set to prevent duplicates, as well as to keep the order
+	NSMutableOrderedSet<UTType*> *orderedSet = [[NSMutableOrderedSet alloc] initWithCapacity:sft.count];
+	for (NSString *ident in sft) {
+		if ([ident hasPrefix:@"'"]) {
+			// If it starts with an apostrophe, it's probably an OSType
+			// ...But first, let's trim the string
+			NSString *trimmed = [ident substringWithRange:NSMakeRange(1, 4)];
+			UTType *type = [UTType typeWithTag:trimmed tagClass:(NSString*)kUTTagClassOSType conformingToType:UTTypeData];
+			//Because it might fail...
+			if (type != nil) {
+				[orderedSet addObject:type];
+			}
+		} else if ([ident containsString:@"/"]) {
+			// If it contains a slash, it's probably a MIME type(!)
+			// But who would do that?
+			UTType *type = [UTType typeWithMIMEType:ident];
+			//Because it might fail...
+			if (type != nil) {
+				[orderedSet addObject:type];
+			}
+		} else if ([ident containsString:@"."]) {
+			// If it contains a period, it's probably a UTI.
+			UTType *type = [UTType typeWithIdentifier:ident];
+			//Because it might fail...
+			if (type != nil) {
+				[orderedSet addObject:type];
+			}
+		} else {
+			// Anything else is an extension
+			UTType *type = [UTType typeWithFilenameExtension:ident];
+			//Because it might fail...
+			if (type != nil) {
+				[orderedSet addObject:type];
+			}
+		}
+	}
+	return orderedSet.array;
 }
 
 #pragma mark - Designated initialiser

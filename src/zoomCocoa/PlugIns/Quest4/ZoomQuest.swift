@@ -11,6 +11,7 @@ import ZoomPlugIns.ZoomPlugIn.Glk.WindowController
 import ZoomPlugIns.ZoomPlugIn.Glk.Document
 import ZoomPlugIns
 import _StringProcessing
+import UniformTypeIdentifiers
 
 private let casHeader: Data = {
 	let strData = "QCGF002"
@@ -75,6 +76,11 @@ final public class Quest: ZoomGlkPlugIn {
 	
 	public override class var supportedFileTypes: [String] {
 		return ["uk.co.textadventures.asl", "uk.co.textadventures.cas", "asl", "cas"]
+	}
+	
+	@available(macOS 11.0, *)
+	public override class var supportedContentTypes: [UTType] {
+		return [UTType.init(importedAs: "uk.co.textadventures.asl"), UTType.init(importedAs: "uk.co.textadventures.cas")]
 	}
 	
 	public override init?(url gameFile: URL) {

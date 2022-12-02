@@ -17,6 +17,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UTType;
+
 ///
 /// Base class for deriving Zoom plugins for playing new game types.
 ///
@@ -49,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL) canRunURL: (NSURL*) path;
 
 @property (class, readonly, copy) NSArray<NSString*> *supportedFileTypes;
+
+@property (class, readonly, copy) NSArray<UTType*> *supportedContentTypes API_AVAILABLE(macos(11.0));
 
 //! Initialises this plugin to play a specific game
 - (nullable id) initWithFilename: (NSString*) gameFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithURL: instead");

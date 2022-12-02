@@ -1,5 +1,6 @@
 #import "ZoomGameInfoController.h"
 #import "ZoomPreferences.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @interface UnknownSelectors: NSObject
 - (IBAction)infoGenreChanged:(id)sender;
@@ -264,7 +265,11 @@ static NSString* stringOrEmpty(NSString* str) {
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setCanChooseFiles: YES];
 	[openPanel setDelegate: self];
-	openPanel.allowedFileTypes = filetypes;
+	if (@available(macOS 11.0, *)) {
+		openPanel.allowedContentTypes = @[[UTType importedTypeWithIdentifier:@"public.blorb"]];
+	} else {
+		openPanel.allowedFileTypes = filetypes;
+	}
 	
 	NSString* directory = nil;
 	if ([self resourceFilename] != nil) {

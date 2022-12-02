@@ -9,6 +9,7 @@
 #import "ZoomPlugInManager.h"
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
 #import <ZoomPlugIns/ZoomPlugIns-Swift.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
 
@@ -319,6 +320,14 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2];
 	for (Class plugClass in pluginClasses) {
 		[utis addObjectsFromArray: [plugClass supportedFileTypes]];
+	}
+	return utis;
+}
+
+- (NSArray<UTType*>*)pluginSupportedContentTypes {
+	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2];
+	for (Class plugClass in pluginClasses) {
+		[utis addObjectsFromArray: [plugClass supportedContentTypes]];
 	}
 	return utis;
 }

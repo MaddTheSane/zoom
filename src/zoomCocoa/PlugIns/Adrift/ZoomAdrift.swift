@@ -10,6 +10,7 @@ import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomBabel
 import CryptoKit
+import UniformTypeIdentifiers
 
 final public class Adrift: ZoomGlkPlugIn {
 	public override class var pluginVersion: String {
@@ -30,6 +31,11 @@ final public class Adrift: ZoomGlkPlugIn {
 	
 	public override class var supportedFileTypes: [String] {
 		return ["public.adrift", "taf"]
+	}
+	
+	@available(macOS 11.0, *)
+	public override class var supportedContentTypes: [UTType] {
+		return [UTType.init(importedAs: "public.adrift")]
 	}
 	
 	public override class func canRun(_ fileURL: URL) -> Bool {

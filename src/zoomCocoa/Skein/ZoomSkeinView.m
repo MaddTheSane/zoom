@@ -14,6 +14,7 @@
 #import "ZoomSkeinInternal.h"
 
 #include <Carbon/Carbon.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 // Constants
 static const CGFloat defaultItemWidth = 120.0; // Pixels
@@ -1530,7 +1531,11 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	if ([self window] == nil) return;
 	
 	NSSavePanel* panel = [NSSavePanel savePanel];
-	panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
+	if (@available(macOS 11.0, *)) {
+		panel.allowedContentTypes = @[UTTypePlainText];
+	} else {
+		panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
+	}
 	
 	NSURL* directory = nil;
 	if (directory == nil) {

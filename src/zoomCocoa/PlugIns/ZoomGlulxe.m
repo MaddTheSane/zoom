@@ -10,6 +10,7 @@
 #import <ZoomView/ZoomBlorbFile.h>
 #import <ZoomView/ZoomPreferences.h>
 #import <ZoomView/ZoomView-Swift.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @implementation ZoomGlulxe
 
@@ -39,6 +40,10 @@
 
 + (NSArray<NSString*>*)supportedFileTypes {
 	return @[@"ulx", @"blb", @"glb", @"gblorb", @"zblorb"];
+}
+
++ (NSArray<UTType *> *)supportedContentTypes {
+	return @[[UTType importedTypeWithIdentifier:@"public.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb.glulx"], [UTType importedTypeWithIdentifier:@"public.blorb.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb"]];
 }
 
 + (NSString*) pluginVersion {

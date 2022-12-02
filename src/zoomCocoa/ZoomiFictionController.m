@@ -601,9 +601,6 @@ static NSArray<NSString*>* blorbFileTypes;
 - (IBAction) addButtonPressed: (id) sender {
 	// Create an open panel
 	NSOpenPanel* storiesToAdd;
-	NSArray* fileTypes = @[@"public.zcode", @"public.blorb.glulx", @"public.blorb.zcode", @"public.blorb"];
-	NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedFileTypes];
-	fileTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
 	
 	storiesToAdd = [NSOpenPanel openPanel];
 	
@@ -611,7 +608,17 @@ static NSArray<NSString*>* blorbFileTypes;
 	[storiesToAdd setCanChooseDirectories: YES];
 	[storiesToAdd setCanChooseFiles: YES];
 	[storiesToAdd setDelegate: self];
-	storiesToAdd.allowedFileTypes = fileTypes;
+	if (@available(macOS 11.0, *)) {
+		NSArray* fileTypes = @[[UTType importedTypeWithIdentifier:@"public.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb.glulx"], [UTType importedTypeWithIdentifier:@"public.blorb.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb"]];
+		NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedContentTypes];
+		fileTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
+		storiesToAdd.allowedContentTypes = fileTypes;
+	} else {
+		NSArray* fileTypes = @[@"public.zcode", @"public.blorb.glulx", @"public.blorb.zcode", @"public.blorb"];
+		NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedFileTypes];
+		fileTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
+		storiesToAdd.allowedFileTypes = fileTypes;
+	}
 	
 	NSURL* path = [[NSUserDefaults standardUserDefaults] URLForKey: addDirectory];
 	storiesToAdd.directoryURL = path;
@@ -2251,7 +2258,11 @@ static NSArray<NSString*>* blorbFileTypes;
 - (IBAction) saveMetadata: (id) sender {
 	NSSavePanel* panel = [NSSavePanel savePanel];
 	
-	panel.allowedFileTypes = @[@"iFiction"];
+	if (@available(macOS 11.0, *)) {
+		panel.allowedContentTypes = @[[UTType importedTypeWithIdentifier:@"public.ifiction"]];
+	} else {
+		panel.allowedFileTypes = @[@"iFiction"];
+	}
 	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomiFictionSavePath"];
 	if (directory) {
 		panel.directoryURL = directory;

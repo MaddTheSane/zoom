@@ -9,6 +9,7 @@
 #import "ZpHugo.h"
 #import <ZoomView/ZoomBlorbFile.h>
 #import <ZoomPlugIns/ZoomBabel.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @implementation ZpHugo
 
@@ -24,6 +25,10 @@
 
 + (NSArray<NSString*>*)supportedFileTypes {
 	return @[@"public.hugo", @"public.hugo.debug", @"hex", @"hdx", @"'Hugo'", @"'HugD'"];
+}
+
++ (NSArray<UTType *> *)supportedContentTypes {
+	return @[[UTType importedTypeWithIdentifier:@"public.hugo"], [UTType importedTypeWithIdentifier:@"public.hugo.debug"]];
 }
 
 + (NSString*) pluginVersion {

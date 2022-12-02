@@ -14,6 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ZoomPlugInManagerDelegate;
+@class UTType;
 
 // Notifications
 /// Notification that the set of plugin information has changed
@@ -86,6 +87,8 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 - (void) checkForUpdates;
 
 - (NSArray<NSString*>*)pluginSupportedFileTypes;
+
+- (NSArray<UTType*>*)pluginSupportedContentTypes API_AVAILABLE(macos(11.0));
 
 @end
 

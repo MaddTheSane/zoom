@@ -12,6 +12,7 @@ import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomBabel
 import ZoomPlugIns
+import UniformTypeIdentifiers
 
 private let AGX_MAGIC: Data = {
 	let preDat: [UInt8] = [0x58, 0xC7, 0xC1, 0x51]
@@ -56,6 +57,11 @@ final public class AGT: ZoomGlkPlugIn {
 	
 	public override class var supportedFileTypes: [String] {
 		return ["public.agt", "agx", "'AGTS'"]
+	}
+	
+	@available(macOS 11.0, *)
+	public override class var supportedContentTypes: [UTType] {
+		return [UTType.init(importedAs: "public.agt")]
 	}
 	
 	public override class var canLoadSavegames: Bool {

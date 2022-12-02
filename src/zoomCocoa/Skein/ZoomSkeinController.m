@@ -12,10 +12,10 @@
 
 + (ZoomSkeinController*) sharedSkeinController {
 	static ZoomSkeinController* cont = nil;
-	
-	if (!cont) {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
 		cont = [[[self class] alloc] init];
-	}
+	});
 	
 	return cont;
 }
