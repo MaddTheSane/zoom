@@ -38,7 +38,7 @@ static NSString *const ZoomBlorbOffset = @"offset";
 	unsigned int maxCacheNum;
 }
 
-static unsigned int Int4(const unsigned char* bytes) {
+static inline unsigned int Int4(const unsigned char* bytes) {
 	return (bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|(bytes[3]<<0);
 }
 
@@ -64,10 +64,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 
 }
 
-+ (BOOL) fileContentsIsBlorb: (NSString*) filename {
-	return [self URLContentsAreBlorb: [NSURL fileURLWithPath: filename]];
-}
-
 + (BOOL) zfileIsBlorb: (id<ZFile>) zfile {
 	// Possibly should write a faster means of doing this
 	ZoomBlorbFile* fl = [[[self class] alloc] initWithZFile: zfile
@@ -88,10 +84,6 @@ static unsigned int Int4(const unsigned char* bytes) {
 }
 
 #pragma mark - Initialisation
-
-- (id) initWithZFile: (id<ZFile>) f {
-	return [self initWithZFile: f error: NULL];
-}
 
 - (id) initWithZFile: (id<ZFile>) f error: (NSError**) outError {
 	self = [super init];
@@ -213,19 +205,9 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return self;
 }
 
-- (id) initWithData: (NSData*) blorbFile {
-	return [self initWithData: blorbFile
-						error: NULL];
-}
-
 - (instancetype) initWithData: (NSData*) blorbFile error: (NSError**) outError {
 	return [self initWithZFile: [[ZDataFile alloc] initWithData: blorbFile]
 						 error: outError];
-}
-
-- (id) initWithContentsOfFile: (NSString*) filename {
-	return [self initWithContentsOfURL: [NSURL fileURLWithPath: filename]
-								 error: NULL];
 }
 
 - (id) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError {

@@ -41,7 +41,6 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 + (nullable NSString*) keyForTag: (NSInteger) tag;
 
 // Initialisation
-+ (nullable ZoomStory*) defaultMetadataForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use +defaultMetadataForURL:error: instead");
 + (nullable ZoomStory*) defaultMetadataForURL: (NSURL*) filename
 										error: (NSError**) outError;
 

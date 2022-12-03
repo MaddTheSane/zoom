@@ -32,11 +32,6 @@
 #pragma mark - Initialisation
 
 - (id) initWithPlugIn: (ZoomPlugIn*) newPlugin
-				 path: (NSString*) newPath {
-	return [self initWithPlugIn: newPlugin saveURL: [NSURL fileURLWithPath: newPath]];
-}
-
-- (id) initWithPlugIn: (ZoomPlugIn*) newPlugin
 			  saveURL: (NSURL *) newPath {
 	self = [super init];
 	

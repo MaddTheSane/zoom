@@ -44,9 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// it is non-trivial to do so. Default is \c NO .
 @property (class, readonly) BOOL needsPathPassedToTask;
 
-/// \c YES if the specified file is one that the plugin can run
-+ (BOOL) canRunPath: (NSString*) path DEPRECATED_MSG_ATTRIBUTE("Use +canRunURL: instead");
-
 /// \c YES if the specified file URL is one that the plugin can run
 + (BOOL) canRunURL: (NSURL*) path;
 
@@ -54,16 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (class, readonly, copy) NSArray<UTType*> *supportedContentTypes API_AVAILABLE(macos(11.0));
 
-//! Initialises this plugin to play a specific game
-- (nullable id) initWithFilename: (NSString*) gameFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithURL: instead");
-
 // Designated initialiser
 //! Initialises this plugin to play a specific game
 - (nullable id) initWithURL: (NSURL*) gameFile NS_DESIGNATED_INITIALIZER;
 
 // Getting information about what this plugin should be doing
-//! Gets the game associated with this plugin
-@property (readonly, copy) NSString *gameFilename DEPRECATED_MSG_ATTRIBUTE("Use -gameURL instead");
 //! Gets the game associated with this plugin
 @property (readonly, copy) NSURL *gameURL;
 //! Gets the data for the game associated with this plugin
@@ -72,9 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
 // The game document + windows
 //! Retrieves/creates the document associated with this game (should not create window controllers immediately)
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story;
-//! Retrieves/creates the document associated with this game along with the specified save game file (should not create window controllers immediately)
-- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
-								saveGame: (NSString*) saveGame DEPRECATED_MSG_ATTRIBUTE("Use -gameDocumentWithMetadata:saveGameURL: instead");
 
 //! Retrieves/creates the document associated with this game along with the specified save game file (should not create window controllers immediately)
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story

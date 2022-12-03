@@ -50,8 +50,6 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 								 error: (NSError**) error NS_DESIGNATED_INITIALIZER;
 
 
-//! Converts filename to an NSURL, then calls initWithContentsOfURL:error: with NULL passed to error:
-- (nullable id) initWithContentsOfFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -initWithContentsOfURL:error: instead");
 //! Gets data from filename, then calls initWithData:fileURL:error:
 - (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 

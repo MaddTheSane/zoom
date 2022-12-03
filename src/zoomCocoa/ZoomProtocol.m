@@ -787,12 +787,6 @@ static NSString* const ZBufferScrollRegion = @"ZBSR";
 	return self;
 }
 
-- (id) initWithPath: (NSString*) path
-		defaultFile: (NSString*) filename
-		 forWriting: (BOOL) write {
-	return [self initWithURL: [NSURL fileURLWithPath:path] defaultFile: filename forWriting: write];
-}
-
 @synthesize attributes;
 
 - (unsigned char) readByte {

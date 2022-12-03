@@ -35,12 +35,8 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 // Dealing with existing plugins
 /// Causes this class to load all of the plugins
 - (void) loadPlugIns;
-/// Gets the plugin for the specified file
-- (nullable Class) plugInForFile: (NSString*) fileName DEPRECATED_MSG_ATTRIBUTE("Use -plugInForURL: instead") NS_SWIFT_UNAVAILABLE("");
 /// Gets the plugin for the specified URL
 - (nullable Class) plugInForURL: (NSURL*) fileName NS_REFINED_FOR_SWIFT;
-/// Gets a plug-in instance for the specified file
-- (nullable __kindof ZoomPlugIn*) instanceForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -instanceForURL: instead") NS_SWIFT_UNAVAILABLE("");
 /// Gets a plug-in instance for the specified URL
 - (nullable __kindof ZoomPlugIn*) instanceForURL: (NSURL*) filename;
 

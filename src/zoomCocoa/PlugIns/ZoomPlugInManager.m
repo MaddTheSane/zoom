@@ -255,14 +255,6 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	return nil;
 }
 
-- (Class) plugInForFile: (NSString*) filename {
-	return [self plugInForURL: [NSURL fileURLWithPath: filename]];
-}
-
-- (ZoomPlugIn*) instanceForFile: (NSString*) filename {
-	return [self instanceForURL: [NSURL fileURLWithPath: filename]];
-}
-
 - (ZoomPlugIn*) instanceForURL: (NSURL*) filename{
 	[pluginLock lock];
 	
@@ -317,11 +309,11 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 }
 
 - (NSArray<NSString*>*)pluginSupportedFileTypes {
-	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2];
+	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 6];
 	for (Class plugClass in pluginClasses) {
 		[utis addObjectsFromArray: [plugClass supportedFileTypes]];
 	}
-	return utis;
+	return [utis copy];
 }
 
 - (NSArray<UTType*>*)pluginSupportedContentTypes {
@@ -329,7 +321,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	for (Class plugClass in pluginClasses) {
 		[utis addObjectsFromArray: [plugClass supportedContentTypes]];
 	}
-	return utis;
+	return [utis copy];
 }
 
 #pragma mark - Getting information about plugins

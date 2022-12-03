@@ -47,10 +47,6 @@
 	return NO;
 }
 
-+ (BOOL) canRunPath: (NSString*) path {
-	return [self canRunURL: [NSURL fileURLWithPath: path]];
-}
-
 + (BOOL) canRunURL: (NSURL*) path {
 	return NO;
 }
@@ -110,10 +106,6 @@
 	return nil;
 }
 
-- (id) initWithFilename: (NSString*) filename {
-	return [self initWithURL: [NSURL fileURLWithPath:filename]];
-}
-
 - (id) initWithURL:(NSURL *)fileURL {
 	self = [super init];
 	
@@ -130,10 +122,6 @@
 @synthesize gameURL=gameFile;
 @synthesize gameData;
 
-- (NSString *)gameFilename {
-	return gameFile.path;
-}
-
 - (NSData*) gameData {
 	if (gameData == nil) {
 		gameData = [[NSData alloc] initWithContentsOfURL: gameFile];
@@ -149,12 +137,6 @@
 				format: @"An attempt was made to load a game whose plugin (%@) does not provide an interface", NSStringFromClass(self.class)];
 	
 	return nil;
-}
-
-- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
-								saveGame: (NSString*) saveGame {
-	return [self gameDocumentWithMetadata: story
-							  saveGameURL: saveGame ? [NSURL fileURLWithPath: saveGame] : nil];
 }
 
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story

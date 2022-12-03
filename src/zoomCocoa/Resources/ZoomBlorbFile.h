@@ -23,7 +23,6 @@ typedef NS_ERROR_ENUM(ZoomBlorbErrorDomain, ZoomBlorbError) {
 
 // Testing files
 + (BOOL) dataIsBlorbFile: (NSData*) data;
-+ (BOOL) fileContentsIsBlorb: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use +URLContentsAreBlorb: instead");
 + (BOOL) URLContentsAreBlorb: (NSURL*) filename;
 + (BOOL) zfileIsBlorb: (id<ZFile>) file;
 
@@ -31,10 +30,7 @@ typedef NS_ERROR_ENUM(ZoomBlorbErrorDomain, ZoomBlorbError) {
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 /// Designated initialiser
 - (nullable instancetype) initWithZFile: (id<ZFile>) file error: (NSError**) outError NS_DESIGNATED_INITIALIZER;
-- (nullable instancetype) initWithZFile: (id<ZFile>) file DEPRECATED_MSG_ATTRIBUTE("Use -initWithZFile:error: instead") NS_SWIFT_UNAVAILABLE("");
 - (nullable instancetype) initWithData: (NSData*) blorbFile error: (NSError**) outError;
-- (nullable instancetype) initWithData: (NSData*) blorbFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithData:error: instead") NS_SWIFT_UNAVAILABLE("");
-- (nullable instancetype) initWithContentsOfFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -initWithContentsOfURL:error: instead");
 - (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 
 // Cache control

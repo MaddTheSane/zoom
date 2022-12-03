@@ -11,17 +11,14 @@
 #import <GlkView/GlkFileRefProtocol.h>
 
 @protocol ZoomGlkSaveRefDelegate;
+@class ZoomSkein;
 
 ///
 /// GlkFileRef object that can be used to create a .glksave package
 ///
-@class ZoomSkein;
 @interface ZoomGlkSaveRef : NSObject<GlkFileRef>
 
 // Initialisation
-//! Initialises a saveref that saves files from the specified plugin object to the specified path
-- (id) initWithPlugIn: (ZoomPlugIn*) plugin
-				 path: (NSString*) path DEPRECATED_MSG_ATTRIBUTE("Use -initWithPlugIn:saveURL: instead");
 
 /// Initialises a saveref that saves files from the specified plugin object to the specified file URL.
 - (id) initWithPlugIn: (ZoomPlugIn*) plugin

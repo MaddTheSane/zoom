@@ -22,10 +22,6 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 	BOOL needsFreeing;
 }
 
-+ (ZoomStoryID*) idForFile: (NSString*) filename {
-	return [self idForURL: [NSURL fileURLWithPath: filename]];
-}
-
 + (ZoomStoryID*) idForURL: (NSURL*) filename {
 	ZoomStoryID* result = nil;
 
@@ -78,10 +74,6 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 	}
 	
 	return self;
-}
-
-- (instancetype)initWithZCodeStory:(NSData *)gameData {
-	return [self initWithZCodeStory: gameData error: NULL];
 }
 
 - (id) initWithZCodeStory: (NSData*) gameData error: (NSError *__autoreleasing  _Nullable * _Nullable) outError {
@@ -475,14 +467,6 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 	}
 	
 	return self;
-}
-
-- (id) initWithZCodeFile: (NSString*) zcodeFile {
-	return [self initWithZCodeFileAtURL: [NSURL fileURLWithPath: zcodeFile] error: NULL];
-}
-
-- (id) initWithGlulxFile: (NSString*) glulxFile {
-	return [self initWithGlulxFileAtURL: [NSURL fileURLWithPath: glulxFile] error: NULL];
 }
 
 - (id) initWithData: (NSData*) genericGameData

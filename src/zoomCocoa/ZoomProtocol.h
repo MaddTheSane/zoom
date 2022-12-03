@@ -300,7 +300,7 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 - (void)  setWindowTitle:(in bycopy NSString *)text;
 
 @optional
-// Sound
+// More Sound (for the future)
 - (void) setUpSound;
 - (oneway void) finalizeSound;
 - (void) playAIFFOnChannel: (int) channel
@@ -354,15 +354,15 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
-- (instancetype) initWithURL: (NSURL*) url
-				 defaultFile: (NSString*) filename
-				  forWriting: (BOOL) write NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype) initWithURL: (NSURL*) url
+						  defaultFile: (NSString*) filename
+						   forWriting: (BOOL) write NS_DESIGNATED_INITIALIZER;
 
 @property (copy) NSDictionary<NSFileAttributeKey, id> *attributes;
 
 - (void) addData: (NSData*) data
 	 forFilename: (NSString*) filename;
-- (NSData*) dataForFile: (NSString*) filename;
+- (nullable NSData*) dataForFile: (NSString*) filename;
 
 @end
 

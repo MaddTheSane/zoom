@@ -30,10 +30,6 @@
 
 @synthesize clientPath;
 
-- (void) setInputFilename: (NSString*) newInputPath {
-	[self setInputURL: [NSURL fileURLWithPath: newInputPath]];
-}
-
 - (void) setInputURL: (NSURL*) inputPath {
 	inputURL = [inputPath copy];
 	

@@ -40,8 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 //! Selects which GlkClient executable to run
 @property (copy) NSString *clientPath;
 //! The file that should be passed to the client as the file to run
-- (void) setInputFilename: (NSString*) inputPath DEPRECATED_MSG_ATTRIBUTE("Use -setInputURL: instead");
-//! The file that should be passed to the client as the file to run
 - (void) setInputURL: (NSURL*) inputPath;
 //! The logo to display for this story
 @property (strong) NSImage *logo;
@@ -51,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nullable) NSURL *saveGameURL;
 
 //! The preferred directory to put savegames into
-@property (copy) NSURL *preferredSaveDirectory;
+@property (copy, nullable) NSURL *preferredSaveDirectory;
 
 @end
 

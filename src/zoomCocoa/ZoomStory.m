@@ -223,11 +223,6 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	return result;
 }
 
-+ (ZoomStory*) defaultMetadataForFile: (NSString*) filename {
-	return [self defaultMetadataForURL: [NSURL fileURLWithPath: filename]
-								 error: NULL];
-}
-
 #pragma mark - Initialisation
 
 - (id) init {

@@ -177,11 +177,6 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 	return self;
 }
 
-- (id) initWithContentsOfFile: (NSString*) fname {
-	return [self initWithContentsOfURL: [NSURL fileURLWithPath: fname]
-								 error: NULL];
-}
-
 - (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError {
 	NSData *data = [NSData dataWithContentsOfURL: filename
 										 options: NSDataReadingMappedIfSafe
