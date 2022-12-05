@@ -9,23 +9,38 @@
 #import "ZoomTextToSpeech.h"
 
 #include <ApplicationServices/ApplicationServices.h>
+#import <AVFoundation/AVFoundation.h>
 
-#undef UseCocoaSpeech
+#define UseCocoaSpeech
 
 #ifndef UseCocoaSpeech
 static SpeechChannel channel = nil;
 #endif
 
-@implementation ZoomTextToSpeech
+@implementation ZoomTextToSpeech {
+	//! The last text that was spoken
+	NSMutableString* lastText;
+	//! The text that will be spoken once the current command finishes
+	NSMutableString* text;
+	//! The cocoa speech synthesizer to use (if in Cocoa mode, which we don't use as it ignores speech preferences)
+	AVSpeechSynthesizer* synth;
+	//! Whether or not this speaks immediately or not
+	BOOL isImmediate;
 
-+ (void) initialize {
+	//! The skein to use when speaking moves
+	ZoomSkein* skein;
+	//! The number of moves behind to speak
+	int movesBehind;
+}
+
 #ifndef UseCocoaSpeech
++ (void) initialize {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		NewSpeechChannel(NULL, &channel);
 	});
-#endif
 }
+#endif
 
 - (id) init {
 #ifndef UseCocoaSpeech
@@ -38,7 +53,7 @@ static SpeechChannel channel = nil;
 		text = [[NSMutableString alloc] init];
 		
 #ifdef UseCocoaSpeech
-		synth = [[NSSpeechSynthesizer alloc] initWithVoice: [NSSpeechSynthesizer defaultVoice]];
+		synth = [[AVSpeechSynthesizer alloc] init];
 #endif
 	}
 	
@@ -181,7 +196,12 @@ static SpeechChannel channel = nil;
 	
 	SpeakCFString(channel, (__bridge CFStringRef _Nonnull)(buffer), NULL);
 #else
-	[synth startSpeakingString: newText];
+	AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString: newText];
+	if (@available(macOS 11.0, *)) {
+		utterance.prefersAssistiveTechnologySettings = YES;
+	}
+	utterance.postUtteranceDelay = 0.5;
+	[synth speakUtterance: utterance];
 #endif	
 }
 
@@ -189,7 +209,7 @@ static SpeechChannel channel = nil;
 #ifndef UseCocoaSpeech
 	StopSpeech(channel);
 #else
-	[synth stopSpeaking];
+	[synth stopSpeakingAtBoundary: AVSpeechBoundaryWord];
 #endif
 }
 

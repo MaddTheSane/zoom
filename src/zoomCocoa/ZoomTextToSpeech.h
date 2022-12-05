@@ -14,21 +14,7 @@
 //!
 //! An output source that performs text-to-speech functions
 //!
-@interface ZoomTextToSpeech : NSObject<GlkAutomation, ZoomViewOutputReceiver> {
-	//! The last text that was spoken
-	NSMutableString* lastText;
-	//! The text that will be spoken once the current command finishes
-	NSMutableString* text;
-	//! The cocoa speech synthesizer to use (if in Cocoa mode, which we don't use as it ignores speech preferences)
-	NSSpeechSynthesizer* synth;
-	//! Whether or not this speaks immediately or not
-	BOOL isImmediate;
-
-	//! The skein to use when speaking moves
-	ZoomSkein* skein;
-	//! The number of moves behind to speak
-	int movesBehind;
-}
+@interface ZoomTextToSpeech : NSObject<GlkAutomation, ZoomViewOutputReceiver>
 
 //! \c YES if this should speak immediately, \c NO if only on request
 @property (getter=isImmediate) BOOL immediate;

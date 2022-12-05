@@ -85,7 +85,7 @@ class ZoomCursor: NSObject {
 		// Height is decided by the layout manager
 		let height = layoutManager.defaultLineHeight(for: font)
 		
-		return NSSize(width: width, height: height);
+		return NSSize(width: width, height: height)
 	}
 	
 	/// Cause the delegate to undraw any previous cursor
@@ -142,7 +142,7 @@ class ZoomCursor: NSObject {
 		let nowActive = self.activeStyle
 		if (nowActive == lastActive &&
 			nowVisible == lastVisible) {
-			return;
+			return
 		}
 		
 		lastVisible = nowVisible
