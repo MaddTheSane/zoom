@@ -22,6 +22,12 @@
 int main(int argv, const char** argc) {
 	// Get everything running
 	cocoaglk_start(argv, argc);
+	cocoaglk_log("CocoaGlk Hugo interpreter is starting");
+	{
+		char versInfo[40];
+		snprintf(versInfo, sizeof(versInfo), "Hugo interpreter version %i.%i%s", HEVERSION, HEREVISION, HEINTERIM);
+		cocoaglk_log_ex(versInfo, 1);
+	}
 	
 	// Get the game file that we'll be using
 	game = cocoaglk_get_input_stream();
@@ -55,6 +61,7 @@ int main(int argv, const char** argc) {
 	glk_main();
 	
 	// Finish up
+	cocoaglk_log("Finishing normally");
 	cocoaglk_flushbuffer("About to finish");
 	glk_exit();
 	
