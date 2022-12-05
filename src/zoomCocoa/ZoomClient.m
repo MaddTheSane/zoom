@@ -483,8 +483,11 @@
 	// Get the skein for this game
 	NSData* skeinArchive = [[[wrapper fileWrappers] objectForKey: @"Skein.skein"] regularFileContents];
 	if (skeinArchive) {
-		//TODO: handle skein load failures
-		[skein parseXmlData: skeinArchive error: NULL];
+		NSError *skeinErr;
+		if (![skein parseXmlData: skeinArchive error: &skeinErr]) {
+			[self addLoadingError:@"Skein load failed."];
+			[self addLoadingError:skeinErr.localizedDescription];
+		}
 	}
 	
 	// OK, we're ready to roll!
