@@ -79,8 +79,6 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 
 // Saving the file
 - (NSData*) xmlData;
-- (BOOL)    writeToFile: (NSString*)path
-			 atomically: (BOOL)flag;
 - (BOOL)    writeToURL: (NSURL*)path
 			atomically: (BOOL)flag
 				 error: (NSError*__autoreleasing*)error;

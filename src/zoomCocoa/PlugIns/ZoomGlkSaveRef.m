@@ -158,7 +158,7 @@
 		NSImage* newImage = [[NSImage alloc] initWithSize: NSMakeSize(128, 128)];
 		
 		// Pick the 128x128 representation of the original
-		NSEnumerator* originalImageRepEnum = [[originalImage representations] objectEnumerator];
+		NSEnumerator<NSImageRep*>* originalImageRepEnum = [[originalImage representations] objectEnumerator];
 		NSImageRep* rep;
 		for (rep in originalImageRepEnum) {
 			if ([rep size].width >= 128.0) break;
@@ -208,9 +208,10 @@
 		[newImage unlockFocus];
 		
 		// Set the image for this save game
+//		[path setResourceValue:newImage forKey:NSURLCustomIconKey error:NULL];
 		[[NSWorkspace sharedWorkspace] setIcon: newImage
 									   forFile: path.path
-									   options: 0];
+									   options: NSExcludeQuickDrawElementsIconCreationOption];
 	}
 
 	// Report success

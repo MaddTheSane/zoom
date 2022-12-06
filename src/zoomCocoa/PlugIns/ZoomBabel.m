@@ -9,7 +9,7 @@
 #import "ZoomBabel.h"
 #import "ZoomMetadata.h"
 
-static NSString* babelFolder = nil;
+static NSURL* babelFolder = nil;
 static NSLock* babelLock;
 static NSMutableDictionary<NSString*, ZoomBabel*>* babelCache = nil;
 
@@ -30,23 +30,23 @@ static NSMutableDictionary<NSString*, ZoomBabel*>* babelCache = nil;
 	});
 }
 
-+ (NSString*) babelFolder {
++ (NSURL*) babelFolder {
 	// Retrieves the folder to run the babel command in
 	[babelLock lock];
 	
 	if (babelFolder == nil) {
 		// Work out a folder to store our temporary files in
-		NSString* tempDir = NSTemporaryDirectory();
+		NSURL* tempDir = [NSFileManager defaultManager].temporaryDirectory;
 		NSString* dirID = [NSString stringWithFormat: @"Zoom-Babel-%i", getpid()];
 		
-		babelFolder = [tempDir stringByAppendingPathComponent: dirID];
+		babelFolder = [tempDir URLByAppendingPathComponent: dirID isDirectory: YES];
 	}
 
 	// Create the directory if necessary
 	BOOL isDir = NO;
-	if (![[NSFileManager defaultManager] fileExistsAtPath: babelFolder
+	if (![[NSFileManager defaultManager] fileExistsAtPath: babelFolder.path
 											  isDirectory: &isDir]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath: babelFolder
+		[[NSFileManager defaultManager] createDirectoryAtURL: babelFolder
 								  withIntermediateDirectories: NO
 												   attributes: nil
 														error: NULL];
@@ -91,7 +91,7 @@ static NSMutableDictionary<NSString*, ZoomBabel*>* babelCache = nil;
 
 	if (self) {
 		// Default timeout is 0.2 seconds
-		timeout = 0.2;
+		timeout = 15;
 		
 		// Remember the file that we're reading
 		filename = [story copy];
@@ -99,7 +99,7 @@ static NSMutableDictionary<NSString*, ZoomBabel*>* babelCache = nil;
 		waitingForTask = [[NSMutableArray alloc] init];
 		
 		// Start the babel task
-		NSString* babelTaskFolder = [ZoomBabel babelFolder];
+		NSURL* babelTaskFolder = [ZoomBabel babelFolder];
 		if (babelTaskFolder != nil) {
 			NSURL* babelPath = [[NSBundle bundleForClass: [self class]] URLForResource: @"babel"
 																		 withExtension: nil]; 
@@ -107,7 +107,7 @@ static NSMutableDictionary<NSString*, ZoomBabel*>* babelCache = nil;
 			babelTask = [[NSTask alloc] init];
 			babelStdOut = [[NSPipe alloc] init];
 			
-			[babelTask setCurrentDirectoryPath: babelTaskFolder];
+			[babelTask setCurrentDirectoryURL: babelTaskFolder];
 			[babelTask setExecutableURL: babelPath];
 			[babelTask setStandardOutput: [babelStdOut fileHandleForWriting]];
 			
@@ -234,7 +234,7 @@ static NSMutableDictionary<NSString*, ZoomBabel*>* babelCache = nil;
 - (ZoomStoryID*) storyID {
 	if (!storyID) {
 		// Try to read the story ID via babel
-		NSString* babelTaskFolder = [ZoomBabel babelFolder];
+		NSURL* babelTaskFolder = [ZoomBabel babelFolder];
 		if (babelTaskFolder != nil && !ifidTask) {
 			[babelLock lock];
 			
@@ -244,7 +244,7 @@ static NSMutableDictionary<NSString*, ZoomBabel*>* babelCache = nil;
 			ifidTask = [[NSTask alloc] init];
 			ifidStdOut = [[NSPipe alloc] init];
 			
-			[ifidTask setCurrentDirectoryPath: babelTaskFolder];
+			[ifidTask setCurrentDirectoryURL: babelTaskFolder];
 			[ifidTask setLaunchPath: babelPath];
 			[ifidTask setStandardOutput: [ifidStdOut fileHandleForWriting]];
 			

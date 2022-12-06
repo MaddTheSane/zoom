@@ -2169,8 +2169,8 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 			
 				if (file) {
 					id<ZFile> f;
-					[file seekToEndOfFile];
-					NSInteger fileLen = [file offsetInFile];
+					NSInteger fileLen = [file seekToEndOfFile];
+//					fileLen = [file offsetInFile];
 					[file seekToFileOffset:0];
 				
 					f = [[ZHandleFile alloc] initWithFileHandle: file];

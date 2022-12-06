@@ -333,13 +333,6 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 	return res;
 }
 
-- (BOOL) writeToFile: (NSString*)path
-		  atomically: (BOOL)flag {
-	return [self writeToURL: [NSURL fileURLWithPath: path]
-				 atomically: flag
-					  error: NULL];
-}
-
 - (BOOL)writeToSourceURLAtomically:(BOOL)flag error:(NSError *__autoreleasing  _Nullable *)error
 {
 	if (filename == nil) {

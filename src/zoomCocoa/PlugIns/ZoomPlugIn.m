@@ -65,7 +65,7 @@
 			// If it starts with an apostrophe, it's probably an OSType
 			// ...But first, let's trim the string
 			NSString *trimmed = [ident substringWithRange:NSMakeRange(1, 4)];
-			UTType *type = [UTType typeWithTag:trimmed tagClass:(NSString*)kUTTagClassOSType conformingToType:UTTypeData];
+			UTType *type = [UTType typeWithTag:trimmed tagClass:@"com.apple.ostype" conformingToType:UTTypeData];
 			//Because it might fail...
 			if (type != nil) {
 				[orderedSet addObject:type];
