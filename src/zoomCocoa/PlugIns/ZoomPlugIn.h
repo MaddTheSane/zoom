@@ -47,8 +47,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// \c YES if the specified file URL is one that the plugin can run
 + (BOOL) canRunURL: (NSURL*) path;
 
+/// Return an array of file types that an \c NSOpenPanel can select from.
+///
+/// This may be UTIs, file extensions, or OSTypes (Created by \c NSFileTypeForHFSTypeCode or similar).
 @property (class, readonly, copy) NSArray<NSString*> *supportedFileTypes;
 
+/// Return an array of content types that an \c NSOpenPanel can select from.
+///
+/// If your plug-in doesn't implement this method, the default implemention takes the
+/// class property \c supportedFileTypes and creates <code>UTType</code>s from the
+/// parsed extensions, UTIs, and OSTypes.
+/// \note Unless the type identifiers are present in Zoom's \b Info.plist or declared by another application,
+/// <code>+[UTType typeWithIdentifier:]</code> \e will fail, <code>+[UTType importedTypeWithIdentifier:]</code>
+/// will complain. The best way to handle this is to \e not implement this class property and instead
+/// let the default implementation create them from your own \c supportedFileTypes .
 @property (class, readonly, copy) NSArray<UTType*> *supportedContentTypes API_AVAILABLE(macos(11.0));
 
 // Designated initialiser
