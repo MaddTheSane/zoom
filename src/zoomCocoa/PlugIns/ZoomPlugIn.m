@@ -22,19 +22,19 @@
 #pragma mark - Informational functions (subclasses should normally override)
 
 + (NSString*) pluginVersion {
-	NSLog(@"Warning: loaded a plugin (%@) which does not provide pluginVersion", NSStringFromClass(self));
+	NSLog(@"Warning: loaded a plugin (%@) which does not provide +pluginVersion", NSStringFromClass(self));
 	
 	return @"Unknown";
 }
 
 + (NSString*) pluginDescription {
-	NSLog(@"Warning: loaded a plugin (%@) which does not provide pluginDescription", NSStringFromClass(self));
+	NSLog(@"Warning: loaded a plugin (%@) which does not provide +pluginDescription", NSStringFromClass(self));
 	
 	return @"Unknown plugin";
 }
 
 + (NSString*) pluginAuthor {
-	NSLog(@"Warning: loaded a plugin (%@) which does not provide pluginAuthor", NSStringFromClass(self));
+	NSLog(@"Warning: loaded a plugin (%@) which does not provide +pluginAuthor", NSStringFromClass(self));
 	
 	return @"Joe Anonymous";
 }
@@ -61,7 +61,7 @@
 	// Ordered set to prevent duplicates, as well as to keep the order
 	NSMutableOrderedSet<UTType*> *orderedSet = [[NSMutableOrderedSet alloc] initWithCapacity:sft.count];
 	for (NSString *ident in sft) {
-		if ([ident hasPrefix:@"'"]) {
+		if ([ident hasPrefix:@"'"] && [ident length] == 6) {
 			// If it starts with an apostrophe, it's probably an OSType
 			// ...But first, let's trim the string
 			NSString *trimmed = [ident substringWithRange:NSMakeRange(1, 4)];

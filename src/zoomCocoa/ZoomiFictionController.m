@@ -488,7 +488,7 @@ static NSArray<NSString*>* blorbFileTypes;
 		Class plugin;
 		
 		if (isDir) {
-			NSArray<NSURL*>* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL: filename includingPropertiesForKeys: @[NSURLIsDirectoryKey] options: NSDirectoryEnumerationSkipsSubdirectoryDescendants error: NULL];
+			NSArray<NSURL*>* dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL: filename includingPropertiesForKeys: @[NSURLIsDirectoryKey] options: NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsHiddenFiles error: NULL];
 			
 			[selectedFiles addObjectsFromArray: dirContents];
 		} else if ([ZComFileTypes containsObject: fileType]) {
