@@ -10,6 +10,9 @@
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <GlkView/GlkFileRefProtocol.h>
 
+
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ZoomGlkSaveRefDelegate;
 @class ZoomSkein;
 
@@ -21,22 +24,22 @@
 // Initialisation
 
 /// Initialises a saveref that saves files from the specified plugin object to the specified file URL.
-- (id) initWithPlugIn: (ZoomPlugIn*) plugin
-			  saveURL: (NSURL*) path;
+- (nullable id) initWithPlugIn: (ZoomPlugIn*) plugin
+					   saveURL: (NSURL*) path;
 
 /// Creates a saveref that saves files from the specified plugin object to the specified file URL.
-+ (id<GlkFileRef>) createRefWithPlugIn: (ZoomPlugIn*) plugIn
-							   saveURL: (NSURL*) path NS_RETURNS_RETAINED;
++ (nullable id<GlkFileRef>) createRefWithPlugIn: (ZoomPlugIn*) plugIn
+										saveURL: (NSURL*) path NS_RETURNS_RETAINED;
 
 // Extra properties
 //! Sets the delegate for this object (the delegate is retained)
-@property (strong) id<ZoomGlkSaveRefDelegate> delegate;
+@property (strong, nullable) id<ZoomGlkSaveRefDelegate> delegate;
 
 //! An array of strings that can be used for the preview for this file
 - (void) setPreview: (NSArray<NSString*>*) preview;
 //! Sets the skein that will be saved with this reference
 //! Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file
-@property (retain) ZoomSkein *skein;
+@property (retain, nullable) ZoomSkein *skein;
 
 @end
 
@@ -50,3 +53,5 @@
 - (void) readingFromSaveFile: (ZoomGlkSaveRef*) file;
 
 @end
+
+NS_ASSUME_NONNULL_END
