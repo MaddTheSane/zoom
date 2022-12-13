@@ -106,11 +106,9 @@ final public class JACL: ZoomGlkPlugIn {
 						}
 						"\""
 					}
-					guard let authorMatch = try authorRegex.firstMatch(in: fileString) else {
-						//Just here to throw an error to be caught in the current scope.
-						throw CocoaError(.fileReadInapplicableStringEncoding)
+					if let authorMatch = try authorRegex.firstMatch(in: fileString) {
+						story.author = String(authorMatch.1)
 					}
-					story.author = String(authorMatch.1)
 				} else {
 					let gameRegex = try! NSRegularExpression(pattern: #"constant\s+game_title\s+"(.*)""#, options: [])
 					guard let firstMatch = gameRegex.firstMatch(in: fileString, options: [], range: NSRange(fileString.startIndex ..< fileString.endIndex, in: fileString)) else {
