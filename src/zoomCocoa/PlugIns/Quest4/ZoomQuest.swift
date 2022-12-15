@@ -80,7 +80,7 @@ final public class Quest: ZoomGlkPlugIn {
 	
 	@available(macOS 11.0, *)
 	public override class var supportedContentTypes: [UTType] {
-		return [UTType.init(importedAs: "uk.co.textadventures.asl"), UTType.init(importedAs: "uk.co.textadventures.cas")]
+		return [UTType(importedAs: "uk.co.textadventures.asl"), UTType(importedAs: "uk.co.textadventures.cas")]
 	}
 	
 	public override init?(url gameFile: URL) {

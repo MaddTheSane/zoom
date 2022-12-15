@@ -619,13 +619,25 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	}];
 }
 
+API_AVAILABLE(macos(11.0))
+static UTType *getZoomSkeinType(void) {
+	static UTType *result = nil;
+
+	static dispatch_once_t once;
+	dispatch_once(&once, ^ {
+		result = [UTType exportedTypeWithIdentifier:@"uk.org.logicalshift.zoom.skein" conformingToType:UTTypeXML];
+	});
+
+	return result;
+}
+
 - (IBAction) saveSkein: (id) sender {
 	if ([NSApp mainWindow] == nil) return;
 	if ([[ZoomSkeinController sharedSkeinController] skein] == nil) return;
 	
 	NSSavePanel* panel = [NSSavePanel savePanel];
 	if (@available(macOS 11.0, *)) {
-		panel.allowedContentTypes = @[[UTType typeWithIdentifier:@"uk.org.logicalshift.zoom.skein"]];
+		panel.allowedContentTypes = @[getZoomSkeinType()];
 	} else {
 		panel.allowedFileTypes = @[@"uk.org.logicalshift.zoom.skein", @"skein"];
 	}

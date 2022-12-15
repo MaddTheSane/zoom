@@ -1927,6 +1927,22 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	return NO;
 }
 
+API_AVAILABLE(macos(11.0))
+static UTType *getZoomSaveType(void) {
+	static UTType *result = nil;
+
+	static dispatch_once_t once;
+	dispatch_once(&once, ^ {
+		if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"uk.org.logicalshift.zoom"]) {
+			result = [UTType exportedTypeWithIdentifier:@"uk.org.logicalshift.zoomsave" conformingToType:UTTypePackage];
+		} else {
+			result = [UTType importedTypeWithIdentifier:@"uk.org.logicalshift.zoomsave" conformingToType:UTTypePackage];
+		}
+	});
+
+	return result;
+}
+
 #pragma mark - Prompting for files
 - (void) setupPanel: (NSSavePanel*) panel
                type: (ZFileType) type {
@@ -1956,7 +1972,15 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
         case ZFileQuetzal:
             typeCode = 'IFZS';
                 [panel setMessage: [NSString stringWithFormat: @"%@ saved game (quetzal) file", saveOpen]];
-                [panel setAllowedFileTypes: @[usePackage?@"zoomSave":@"qut"]];
+			if (@available(macOS 11.0, *)) {
+				if (usePackage) {
+					panel.allowedContentTypes = @[getZoomSaveType()];
+				} else {
+					panel.allowedContentTypes = @[[UTType importedTypeWithIdentifier:@"public.qut"]];
+				}
+			} else {
+				[panel setAllowedFileTypes: @[usePackage?@"zoomSave":@"qut"]];
+			}
             break;
             
         case ZFileData:

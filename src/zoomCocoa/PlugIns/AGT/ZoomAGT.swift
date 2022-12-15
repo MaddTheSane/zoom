@@ -61,7 +61,7 @@ final public class AGT: ZoomGlkPlugIn {
 	
 	@available(macOS 11.0, *)
 	public override class var supportedContentTypes: [UTType] {
-		return [UTType.init(importedAs: "public.agt")]
+		return [UTType(importedAs: "public.agt")]
 	}
 	
 	public override class var canLoadSavegames: Bool {

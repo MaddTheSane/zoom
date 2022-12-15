@@ -35,7 +35,7 @@ final public class Adrift: ZoomGlkPlugIn {
 	
 	@available(macOS 11.0, *)
 	public override class var supportedContentTypes: [UTType] {
-		return [UTType.init(importedAs: "public.adrift")]
+		return [UTType(importedAs: "public.adrift")]
 	}
 	
 	public override class func canRun(_ fileURL: URL) -> Bool {
