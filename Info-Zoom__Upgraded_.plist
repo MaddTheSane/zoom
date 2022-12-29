@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -381,30 +379,12 @@
 			<false/>
 		</dict>
 	</array>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Zoom $(CURRENT_PROJECT_VERSION)</string>
 	<key>CFBundleIconFile</key>
 	<string>zoom-app.icns</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>YZZY</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.games</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
 	<key>SUFeedURL</key>
 	<string>https://www.logicalshift.co.uk/unix/zoom/update.xml</string>
 	<key>UTExportedTypeDeclarations</key>
@@ -454,6 +434,8 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Skein XML file</string>
+			<key>UTTypeIconFile</key>
+			<string>zoom-file</string>
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
@@ -576,7 +558,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+					<string>application/x-blorb;profile="zcode"</string>
 				</array>
 			</dict>
 		</dict>
@@ -615,6 +597,10 @@
 			<string>public.glulx</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>UlxG</string>
+				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>ulx</string>
@@ -622,10 +608,6 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-glulx</string>
-				</array>
-				<key>com.apple.ostype</key>
-				<array>
-					<string>UlxG</string>
 				</array>
 			</dict>
 		</dict>
@@ -793,13 +775,13 @@
 			<string>public.agt</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>agx</string>
-				</array>
 				<key>com.apple.ostype</key>
 				<array>
 					<string>AGTS</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>agx</string>
 				</array>
 			</dict>
 		</dict>
