@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// class property \c supportedFileTypes and creates <code>UTType</code>s from the
 /// parsed extensions, UTIs, and OSTypes.
 /// \note Unless the type identifiers are present in Zoom's \b Info.plist or declared by another application,
-/// <code>+[UTType typeWithIdentifier:]</code> \e will fail, <code>+[UTType importedTypeWithIdentifier:]</code>
+/// <code>+[UTType typeWithIdentifier:]</code> \e will fail and <code>+[UTType importedTypeWithIdentifier:]</code>
 /// will complain. The best way to handle this is to \e not implement this class property and instead
 /// let the default implementation create them from your own \c supportedFileTypes .
 @property (class, readonly, copy) NSArray<UTType*> *supportedContentTypes API_AVAILABLE(macos(11.0));

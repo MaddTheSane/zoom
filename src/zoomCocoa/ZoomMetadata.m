@@ -153,6 +153,7 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 		metadata = IFMB_Create();
 		IF_ReadIfiction(metadata, [xmlData bytes], [xmlData length]);
 		dataLock = [[NSLock alloc] init];
+		dataLock.name = @"Zoom Metadata Lock";
 		
 #if 0
 		if (metadata->numberOfErrors > 0) {
