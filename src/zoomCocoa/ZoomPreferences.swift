@@ -219,12 +219,19 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	// Getting preferences
  
 	open class var defaultOrganiserDirectory: String {
+		return defaultOrganiserDirectoryURL.path
+	}
+	
+	open class var defaultOrganiserDirectoryURL: URL {
 		_=firstRun
+		if #available(macOSApplicationExtension 13.0, *) {
+			return URL.documentsDirectory.appending(path: "Interactive Fiction", directoryHint: .isDirectory)
+		} else {
 		let docURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 		let resURL = docURLs.first!.appendingPathComponent("Interactive Fiction", isDirectory: true)
-		let res = resURL.path
 		
-		return res
+		return resURL
+		}
 	}
 	
 	// MARK: - Warnings and game text prefs

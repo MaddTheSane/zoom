@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -314,21 +314,21 @@
                 <box title="Keep games organised in" translatesAutoresizingMaskIntoConstraints="NO" id="85">
                     <rect key="frame" x="17" y="40" width="246" height="92"/>
                     <view key="contentView" id="q6C-Zl-VeP">
-                        <rect key="frame" x="3" y="3" width="240" height="74"/>
+                        <rect key="frame" x="4" y="5" width="238" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87">
-                                <rect key="frame" x="8" y="8" width="222" height="58"/>
+                                <rect key="frame" x="8" y="8" width="220" height="56"/>
                                 <clipView key="contentView" drawsBackground="NO" id="a5X-Mo-Yyd">
-                                    <rect key="frame" x="0.0" y="0.0" width="222" height="58"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="56"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="88">
-                                            <rect key="frame" x="0.0" y="0.0" width="225" height="58"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="223" height="56"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.88686131999999995" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="222" height="58"/>
+                                            <size key="minSize" width="220" height="56"/>
                                             <size key="maxSize" width="345" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="/Users/somone/Documents/Interactive Fiction">
@@ -553,7 +553,7 @@
                                         </connections>
                                     </popUpButton>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="143">
-                                        <rect key="frame" x="20" y="27" width="313" height="33"/>
+                                        <rect key="frame" x="20" y="28" width="313" height="33"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" id="467">
                                             <font key="font" metaFont="miniSystem"/>
                                             <string key="title">The other font styles will be automatically generated from the base fonts you select here. If you want a fine-grained control over the fonts that Zoom will use, use the 'Advanced' tab.</string>
@@ -573,7 +573,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <slider toolTip="Adjust this slider to set the size of the font used by Zoom." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="161">
-                                        <rect key="frame" x="20" y="144" width="313" height="28"/>
+                                        <rect key="frame" x="20" y="145" width="313" height="28"/>
                                         <sliderCell key="cell" alignment="left" minValue="9" maxValue="36" doubleValue="12" tickMarkPosition="below" numberOfTickMarks="28" allowsTickMarkValuesOnly="YES" sliderType="linear" id="469">
                                             <font key="font" size="12" name="Helvetica"/>
                                         </sliderCell>
@@ -583,7 +583,7 @@
                                         </connections>
                                     </slider>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="163">
-                                        <rect key="frame" x="302" y="127" width="31" height="13"/>
+                                        <rect key="frame" x="302" y="128" width="31" height="13"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="36pt" id="470">
                                             <font key="font" metaFont="label"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -591,7 +591,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="164">
-                                        <rect key="frame" x="20" y="127" width="25" height="13"/>
+                                        <rect key="frame" x="20" y="128" width="25" height="13"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="9pt" id="471">
                                             <font key="font" metaFont="label"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -599,7 +599,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="165">
-                                        <rect key="frame" x="162" y="127" width="29" height="13"/>
+                                        <rect key="frame" x="162" y="128" width="29" height="13"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="12pt" id="472">
                                             <font key="font" metaFont="label"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -607,10 +607,10 @@
                                         </textFieldCell>
                                     </textField>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="166">
-                                        <rect key="frame" x="12" y="116" width="329" height="5"/>
+                                        <rect key="frame" x="12" y="117" width="329" height="5"/>
                                     </box>
                                     <textField toolTip="This displays a preview of your settings." verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                                        <rect key="frame" x="20" y="68" width="313" height="42"/>
+                                        <rect key="frame" x="20" y="69" width="313" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="AMQ-qt-F5c"/>
                                         </constraints>
@@ -637,7 +637,7 @@
                                     <constraint firstItem="138" firstAttribute="centerX" secondItem="144" secondAttribute="centerX" id="JGs-Wd-wtP"/>
                                     <constraint firstItem="163" firstAttribute="trailing" secondItem="143" secondAttribute="trailing" id="Jwe-kv-l9J"/>
                                     <constraint firstItem="133" firstAttribute="trailing" secondItem="138" secondAttribute="trailing" id="Neh-Yd-1R3"/>
-                                    <constraint firstItem="161" firstAttribute="top" secondItem="160" secondAttribute="bottom" constant="9" id="Nxg-lo-Aba"/>
+                                    <constraint firstItem="161" firstAttribute="top" secondItem="160" secondAttribute="bottom" constant="8" symbolic="YES" id="Nxg-lo-Aba"/>
                                     <constraint firstItem="163" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="165" secondAttribute="trailing" constant="8" symbolic="YES" id="PeC-VO-6xe"/>
                                     <constraint firstItem="168" firstAttribute="top" secondItem="166" secondAttribute="bottom" constant="8" symbolic="YES" id="QvT-91-kqh"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="125" secondAttribute="trailing" constant="20" symbolic="YES" id="R2k-D8-BOe"/>
@@ -645,7 +645,7 @@
                                     <constraint firstItem="161" firstAttribute="centerX" secondItem="165" secondAttribute="centerX" id="SxQ-l8-rcf"/>
                                     <constraint firstItem="138" firstAttribute="top" secondItem="126" secondAttribute="bottom" constant="2" id="Tf7-EC-Icl"/>
                                     <constraint firstItem="168" firstAttribute="centerX" secondItem="143" secondAttribute="centerX" id="VVk-BZ-oQZ"/>
-                                    <constraint firstItem="127" firstAttribute="leading" secondItem="123" secondAttribute="leading" constant="20" id="XWG-Ab-COX"/>
+                                    <constraint firstItem="127" firstAttribute="leading" secondItem="123" secondAttribute="leading" constant="20" symbolic="YES" id="XWG-Ab-COX"/>
                                     <constraint firstItem="144" firstAttribute="trailing" secondItem="166" secondAttribute="trailing" id="ZZZ-0L-ZJN"/>
                                     <constraint firstItem="124" firstAttribute="leading" secondItem="123" secondAttribute="leading" constant="22" id="Zgw-UZ-IsI"/>
                                     <constraint firstItem="160" firstAttribute="leading" secondItem="123" secondAttribute="leading" constant="19" id="agf-Qh-0co"/>
@@ -825,7 +825,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                     </tableColumn>
-                                    <tableColumn identifier="Colour" editable="NO" width="121.63099670410156" minWidth="43.631000518798828" maxWidth="1000" id="41">
+                                    <tableColumn identifier="Colour" editable="NO" width="121.5" minWidth="43.631000518798828" maxWidth="1000" id="41">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Colour">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>

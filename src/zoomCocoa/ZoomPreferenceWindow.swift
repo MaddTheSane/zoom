@@ -683,7 +683,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 
 	@IBAction func resetOrganiseDir(_ sender: Any?) {
 		if preferences.keepGamesOrganised {
-			ZoomStoryOrganiser.shared.reorganiseStories(to: URL(fileURLWithPath: ZoomPreferences.defaultOrganiserDirectory, isDirectory: true))
+			ZoomStoryOrganiser.shared.reorganiseStories(to: ZoomPreferences.defaultOrganiserDirectoryURL)
 		}
 		
 		preferences.organiserDirectory = nil
@@ -716,7 +716,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	@IBAction func screenFontsChanged(_ sender: Any?) {
 		let newState = useScreenFonts.state == .on
 		
-		if (newState != preferences.useScreenFonts) {
+		if newState != preferences.useScreenFonts {
 			preferences.useScreenFonts = newState
 		}
 	}
