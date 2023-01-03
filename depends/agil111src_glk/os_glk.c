@@ -153,6 +153,40 @@ static void gagt_cp_to_utf (const unsigned char *from_string,
                             glui32 *to_string);
 static void gagt_unicode_to_cp (const glui32 *from_string,
                                 unsigned char *to_string);
+static size_t strlen_u (const glui32 *to_string) {
+  size_t count = 0;
+  for (; to_string[count] != 0; count++) {
+    
+  }
+  return count;
+}
+
+static int strcmp_u (const glui32 *__s1, const glui32 *__s2)
+{
+  for (;;)
+    {
+      glui32 uc1 = *__s1++;
+      glui32 uc2 = *__s2++;
+      if (uc1 != 0 && uc1 == uc2)
+        continue;
+      /* Note that uc1 and uc2 each have at most 31 bits. */
+      return (int)uc1 - (int)uc2;
+      /* > 0 if uc1 > uc2, < 0 if uc1 < uc2. */
+    }
+}
+
+static glui32 *strcpy_u (glui32 *__dst, const glui32 *__src)
+{
+  size_t count = 0;
+  for (; __src[count] != 0; count++) {
+    __dst[count] = __src[count];
+  }
+  __dst[count] = 0;
+
+  
+  return __dst;
+}
+
 #endif
 
 /*
@@ -257,6 +291,23 @@ gagt_realloc (void *ptr, size_t size)
  */
 static int
 gagt_strncasecmp (const char *s1, const char *s2, size_t n)
+{
+  size_t index;
+
+  for (index = 0; index < n; index++)
+    {
+      int diff;
+
+      diff = glk_char_to_lower (s1[index]) - glk_char_to_lower (s2[index]);
+      if (diff < 0 || diff > 0)
+        return diff < 0 ? -1 : 1;
+    }
+
+  return 0;
+}
+
+static int
+gagt_strncasecmp_u1 (const char *s1, const glui32 *s2, size_t n)
 {
   size_t index;
 
@@ -806,6 +857,11 @@ gagt_iso_to_cp (const unsigned char *from_string, unsigned char *to_string)
 static char *gagt_status_buffer = NULL,
             *gagt_status_buffer_printed = NULL;
 
+#ifdef GLK_MODULE_UNICODE
+static glui32 *gagt_status_buffer_unicode = NULL,
+              *gagt_status_buffer_printed_unicode = NULL;
+#endif
+
 /**
  * Indication that we are in mid-delay.  The delay is silent, and can look
  * kind of confusing, so to try to make it less so, we'll have the status
@@ -825,9 +881,19 @@ agt_statline (const char *cp_string)
 {
   assert (cp_string);
 
+#ifdef GLK_MODULE_UNICODE
+  if (supports_unicode) {
+    free (gagt_status_buffer_unicode);
+    gagt_status_buffer_unicode = gagt_malloc ((strlen (cp_string) + 1) * 4);
+    gagt_cp_to_utf (cp_string, gagt_status_buffer_unicode);
+  } else {
+#endif
   free (gagt_status_buffer);
   gagt_status_buffer = gagt_malloc (strlen (cp_string) + 1);
   gagt_cp_to_iso (cp_string, gagt_status_buffer);
+#ifdef GLK_MODULE_UNICODE
+  }
+#endif
 
   gagt_debug ("agt_statline", "string='%s'", cp_string);
 }
@@ -918,6 +984,34 @@ gagt_status_update (void)
       print_statline ();
 
       /* See if we have a buffered status line available. */
+#ifdef GLK_MODULE_UNICODE
+      if (supports_unicode) {
+        if (gagt_status_buffer_unicode)
+          {
+            glui32 print_width;
+
+            /*
+             * Print the basic buffered status string, truncating to the
+             * current status window width if necessary, then try adding a
+             * second line if extended status enabled.
+             */
+            print_width = width < strlen_u (gagt_status_buffer_unicode)
+                          ? width : strlen_u (gagt_status_buffer_unicode);
+            glk_put_buffer_uni (gagt_status_buffer_unicode, print_width);
+
+            if (gagt_extended_status_enabled)
+              gagt_status_update_extended ();
+          }
+        else
+          {
+            /*
+             * We don't (yet) have a status line.  Perhaps we're at the
+             * very start of a game.  Print a standard message.
+             */
+            glk_put_string ("Glk AGiliTy version 1.1.1");
+          }
+      } else
+#endif
       if (gagt_status_buffer)
         {
           glui32 print_width;
@@ -965,6 +1059,36 @@ gagt_status_print (void)
   /* Call print_statline() to refresh status line buffer contents. */
   print_statline ();
 
+#ifdef GLK_MODULE_UNICODE
+  if (supports_unicode) {
+    /*
+     * Do no more if there is no status line to print, or if the status
+     * line hasn't changed since last printed.
+     */
+    if (!gagt_status_buffer_unicode
+        || (gagt_status_buffer_printed_unicode
+            && strcmp_u (gagt_status_buffer_unicode, gagt_status_buffer_printed_unicode) == 0))
+      return;
+
+    /* Set fixed width font to try to preserve status line formatting. */
+    glk_set_style (style_Preformatted);
+
+    /*
+     * Bracket, and output the status line buffer.  We don't need to put any
+     * spacing after the opening bracket or before the closing one, because
+     * AGiliTy puts leading/trailing spaces on its status lines.
+     */
+    glk_put_string ("[");
+    glk_put_string_uni (gagt_status_buffer_unicode);
+    glk_put_string ("]\n");
+
+    /* Save the details of the printed status buffer. */
+    free (gagt_status_buffer_printed_unicode);
+    gagt_status_buffer_printed = gagt_malloc ((strlen_u (gagt_status_buffer_unicode) + 1) * 4);
+    strcpy_u (gagt_status_buffer_printed_unicode, gagt_status_buffer_unicode);
+
+  } else {
+#endif
   /*
    * Do no more if there is no status line to print, or if the status
    * line hasn't changed since last printed.
@@ -990,6 +1114,9 @@ gagt_status_print (void)
   free (gagt_status_buffer_printed);
   gagt_status_buffer_printed = gagt_malloc (strlen (gagt_status_buffer) + 1);
   strcpy (gagt_status_buffer_printed, gagt_status_buffer);
+#ifdef GLK_MODULE_UNICODE
+  }
+#endif
 }
 
 
@@ -1102,6 +1229,14 @@ gagt_status_cleanup (void)
 
   free (gagt_status_buffer_printed);
   gagt_status_buffer_printed = NULL;
+
+#ifdef GLK_MODULE_UNICODE
+  free (gagt_status_buffer_unicode);
+  gagt_status_buffer_unicode = NULL;
+
+  free (gagt_status_buffer_printed_unicode);
+  gagt_status_buffer_printed_unicode = NULL;
+#endif
 }
 
 
@@ -1170,6 +1305,10 @@ static const unsigned char GAGT_COLOR_MASK = 0x0f,
 
 /* Forward declaration of message function. */
 static void gagt_standout_string (const char *message);
+
+#ifdef GLK_MODULE_UNICODE
+static void gagt_standout_u_string (const glui32 *message);
+#endif
 
 
 /**
@@ -1602,7 +1741,7 @@ static const unsigned int GAGT_LINE_MAGIC = 0x5bc14482;
 typedef struct gagt_string_s {
   unsigned char *data;        /*!< Buffered character data. */
 #ifdef GLK_MODULE_UNICODE
-  unsigned char *unicode;     /*!< Buffered Unicode data. */
+  glui32 *unicode;     /*!< Buffered Unicode data. */
 #endif
   unsigned char *attributes;  /*!< Parallel character attributes, packed. */
   int allocation;             /*!< Bytes allocated to each of the above. */
@@ -1687,6 +1826,37 @@ gagt_string_append (gagt_stringref_t buffer, const char *string,
   buffer->length += length;
 }
 
+#ifdef GLK_MODULE_UNICODE
+static void
+gagt_string_append_uni (gagt_stringref_t buffer, glui32 *string,
+                    unsigned char packed_attributes)
+{
+  int length, bytes;
+
+  /*
+   * Find the size we'll need from the line buffer to add this string,
+   * and grow buffer if necessary.
+   */
+  length = strlen_u (string);
+  for (bytes = buffer->allocation; bytes < buffer->length + length; )
+    bytes = bytes == 0 ? 1 : bytes << 1;
+
+  if (bytes > buffer->allocation)
+    {
+      buffer->unicode = gagt_realloc (buffer->unicode, bytes * 4);
+      buffer->attributes = gagt_realloc (buffer->attributes, bytes);
+
+      buffer->allocation = bytes;
+    }
+
+  /* Add string to the line buffer, and store packed text attributes. */
+  memcpy (buffer->unicode + buffer->length, string, length*4);
+  memset (buffer->attributes + buffer->length, packed_attributes, length);
+
+  buffer->length += length;
+}
+#endif
+
 static void
 gagt_string_transfer (gagt_stringref_t from, gagt_stringref_t to)
 {
@@ -1703,7 +1873,7 @@ gagt_string_free (gagt_stringref_t buffer)
 {
   free (buffer->data);
 #ifdef GLK_MODULE_UNICODE
-  free (buffer->unicode);
+  free (buffer->unicode); buffer->unicode = NULL;
 #endif
   free (buffer->attributes);
   buffer->data = buffer->attributes = NULL;
@@ -1726,6 +1896,14 @@ gagt_get_string_indent (const gagt_stringref_t buffer)
   int indent, index;
 
   indent = 0;
+#ifdef GLK_MODULE_UNICODE
+  if (supports_unicode) {
+    for (index = 0;
+         index < buffer->length && isspace (buffer->unicode[index]);
+         index++)
+      indent++;
+  } else
+#endif
   for (index = 0;
        index < buffer->length && isspace (buffer->data[index]);
        index++)
@@ -1740,6 +1918,13 @@ gagt_get_string_outdent (const gagt_stringref_t buffer)
   int outdent, index;
 
   outdent = 0;
+#ifdef GLK_MODULE_UNICODE
+  if (supports_unicode) {
+    for (index = buffer->length - 1;
+         index >= 0 && isspace (buffer->unicode[index]); index--)
+      outdent++;
+  } else
+#endif
   for (index = buffer->length - 1;
        index >= 0 && isspace (buffer->data[index]); index--)
     outdent++;
@@ -1779,6 +1964,15 @@ gagt_is_string_hyphenated (const gagt_stringref_t buffer)
 
       last = buffer->length - gagt_get_string_outdent (buffer) - 1;
 
+#ifdef GLK_MODULE_UNICODE
+      if (supports_unicode) {
+        if (buffer->unicode[last] == '-')
+          {
+            if (isalpha (buffer->unicode[last - 1]))
+              is_hyphenated = TRUE;
+          }
+      } else
+#endif
       if (buffer->data[last] == '-')
         {
           if (isalpha (buffer->data[last - 1]))
@@ -1834,18 +2028,32 @@ agt_puts (const char *cp_string)
       char *iso_string;
       unsigned char packed;
       int length;
+#ifdef GLK_MODULE_UNICODE
+      glui32 *uni_string;
+#endif
 
       /* Update the apparent (virtual) window x position. */
       length = strlen (cp_string);
       curr_x += length;
 
+      packed = gagt_pack_current_attributes ();
+#ifdef GLK_MODULE_UNICODE
+      if (supports_unicode) {
+        uni_string = gagt_malloc ((length + 1) * 4);
+        gagt_cp_to_utf (cp_string, uni_string);
+        gagt_string_append_uni (&gagt_current_buffer, uni_string, packed);
+        free(uni_string);
+      }
+#endif
       /*
        * Convert the buffer from IBM cp 437 to Glk's ISO 8859 Latin-1, and
        * add string and packed text attributes to the current line buffer.
        */
       iso_string = gagt_malloc (length + 1);
       gagt_cp_to_iso (cp_string, iso_string);
-      packed = gagt_pack_current_attributes ();
+#ifdef GLK_MODULE_UNICODE
+      if (!supports_unicode)
+#endif
       gagt_string_append (&gagt_current_buffer, iso_string, packed);
 
       /* Add the string to any script file. */
@@ -2406,9 +2614,14 @@ gagt_line_is_standout (const gagt_lineref_t line)
        index < line->buffer.length - line->outdent; index++)
     {
       gagt_attrset_t attribute_set;
-      unsigned char character;
+      glui32 character;
 
       gagt_unpack_attributes (line->buffer.attributes[index], &attribute_set);
+#ifdef GLK_MODULE_UNICODE
+      if (supports_unicode) {
+        character = line->buffer.unicode[index];
+      } else
+#endif
       character = line->buffer.data[index];
 
       /*
@@ -2583,6 +2796,11 @@ gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
            index < line->buffer.length - line->outdent && !is_table; index++)
         {
           int character;
+#ifdef GLK_MODULE_UNICODE
+          if (supports_unicode) {
+            character = (unsigned char)line->buffer.unicode[index];
+          } else
+#endif
           character = line->buffer.data[index];
 
           /* Test this character for punctuation. */
@@ -2638,6 +2856,11 @@ gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
                index++)
             {
               int character;
+#ifdef GLK_MODULE_UNICODE
+              if (supports_unicode) {
+                character = line->buffer.unicode[index];
+              } else
+#endif
               character = line->buffer.data[index];
 
               if (isspace (character))
@@ -3023,6 +3246,14 @@ gagt_compare_special_line (const char *compare, const gagt_lineref_t line)
    * Return true if the lengths match, and the real line data (excluding
    * indent and outdent) also matches, ignoring case.
    */
+#ifdef GLK_MODULE_UNICODE
+  if (supports_unicode) {
+    return strlen (compare) == line->real_length
+           && gagt_strncasecmp_u1 (compare,
+                                   line->buffer.unicode + line->indent,
+                                   line->real_length) == 0;
+  } else
+#endif
   return strlen (compare) == line->real_length
          && gagt_strncasecmp (compare,
                               line->buffer.data + line->indent,
@@ -3321,6 +3552,60 @@ gagt_display_text_element (const char *string, const unsigned char *attributes,
   return set_style;
 }
 
+#ifdef GLK_MODULE_UNICODE
+static glui32
+gagt_display_text_element_uni (const glui32 *string, const unsigned char *attributes,
+                           int length, glui32 current_style, int fixed_width)
+{
+  int marker, index;
+  glui32 set_style;
+  assert (glk_stream_get_current ());
+
+  set_style = current_style;
+
+  /*
+   * Iterate each character in the line range.  We actually delay output
+   * until we see a change in style; that way, we can send a buffer of
+   * characters to Glk, rather than sending them just one at a time.
+   */
+  marker = 0;
+  for (index = 0; index < length; index++)
+    {
+      gagt_attrset_t attribute_set;
+      glui32 style;
+      assert (attributes && string);
+
+      /*
+       * Unpack the AGT font attributes for this character, and add fixed
+       * width font coercion.
+       */
+      gagt_unpack_attributes (attributes[index], &attribute_set);
+      attribute_set.fixed |= fixed_width;
+
+      /*
+       * Decide on any applicable new Glk text styling.  If it's different
+       * to the current style, output the delayed characters, and update
+       * Glk's style setting.
+       */
+      style = gagt_select_style (&attribute_set);
+      if (style != set_style)
+        {
+          glk_put_buffer_uni ((glui32 *) string + marker, index - marker);
+          marker = index;
+
+          glk_set_style (style);
+          set_style = style;
+        }
+    }
+
+  /* Output any remaining delayed characters. */
+  if (marker < length)
+    glk_put_buffer_uni ((glui32 *) string + marker, length - marker);
+
+  return set_style;
+}
+#endif
+
 
 /**
  * gagt_display_line()
@@ -3361,6 +3646,13 @@ gagt_display_line (const gagt_lineref_t line, glui32 current_style,
     }
 
   /* Display this line segment. */
+#ifdef GLK_MODULE_UNICODE
+  if (supports_unicode) {
+    set_style = gagt_display_text_element_uni (line->buffer.unicode + start,
+                                               line->buffer.attributes + start,
+                                               length, current_style, fixed_width);
+  } else
+#endif
   set_style = gagt_display_text_element (line->buffer.data + start,
                                          line->buffer.attributes + start,
                                          length, current_style, fixed_width);
@@ -3510,6 +3802,13 @@ gagt_display_auto (void)
 
   /* Output any help hint and unterminated line from the line buffer. */
   style = gagt_display_provide_help_hint (style);
+#ifdef GLK_MODULE_UNICODE
+  if (supports_unicode) {
+    style = gagt_display_text_element_uni (gagt_current_buffer.unicode,
+                                           gagt_current_buffer.attributes,
+                                           gagt_current_buffer.length, style, FALSE);
+  } else
+#endif
   style = gagt_display_text_element (gagt_current_buffer.data,
                                      gagt_current_buffer.attributes,
                                      gagt_current_buffer.length, style, FALSE);
@@ -3559,6 +3858,14 @@ gagt_display_manual (int fixed_width)
 
   /* Output any help hint and unterminated line from the line buffer. */
   style = gagt_display_provide_help_hint (style);
+#ifdef GLK_MODULE_UNICODE
+  if (supports_unicode) {
+    style = gagt_display_text_element_uni (gagt_current_buffer.unicode,
+                                           gagt_current_buffer.attributes,
+                                           gagt_current_buffer.length,
+                                           style, fixed_width);
+  } else
+#endif
   style = gagt_display_text_element (gagt_current_buffer.data,
                                      gagt_current_buffer.attributes,
                                      gagt_current_buffer.length,
@@ -3614,6 +3921,11 @@ gagt_display_debug (void)
                gagt_help_requested ? "HR" : "__");
       glk_put_string (buffer);
 
+#ifdef GLK_MODULE_UNICODE
+      if (supports_unicode) {
+        glk_put_buffer_uni (gagt_current_buffer.unicode, gagt_current_buffer.length);
+      } else
+#endif
       glk_put_buffer (gagt_current_buffer.data, gagt_current_buffer.length);
     }
 
@@ -3764,6 +4076,57 @@ gagt_header_string (const char *message)
   gagt_styled_string (style_Header, message);
 }
 
+#ifdef GLK_MODULE_UNICODE
+static void
+gagt_styled_u_string (glui32 style, const glui32 *message)
+{
+  assert (message);
+
+  glk_set_style (style);
+  glk_put_string_uni ((glui32 *) message);
+  glk_set_style (style_Normal);
+}
+
+static void
+gagt_styled_uchar (glui32 style, glui32 c)
+{
+  glui32 buffer[2];
+
+  buffer[0] = c;
+  buffer[1] = '\0';
+  gagt_styled_u_string (style, buffer);
+}
+
+static void
+gagt_standout_u_string (const glui32 *message)
+{
+  gagt_styled_u_string (style_Emphasized, message);
+}
+
+static void
+gagt_standout_uchar (glui32 c)
+{
+  gagt_styled_uchar (style_Emphasized, c);
+}
+
+static void
+gagt_normal_u_string (const glui32 *message)
+{
+  gagt_styled_u_string (style_Normal, message);
+}
+
+static void
+gagt_normal_uchar (glui32 c)
+{
+  gagt_styled_uchar (style_Normal, c);
+}
+
+static void
+gagt_header_u_string (const glui32 *message)
+{
+  gagt_styled_u_string (style_Header, message);
+}
+#endif
 
 /*---------------------------------------------------------------------*/
 /*  Glk port delay functions                                           */
@@ -4081,6 +4444,12 @@ gagt_command_script (const char *argument)
           return;
         }
 
+#ifdef GLK_MODULE_UNICODE
+      if (supports_unicode) {
+        gagt_transcript_stream = glk_stream_open_file_uni (fileref,
+                                                           filemode_WriteAppend, 0);
+      } else
+#endif
       gagt_transcript_stream = glk_stream_open_file (fileref,
                                                      filemode_WriteAppend, 0);
       glk_fileref_destroy (fileref);
