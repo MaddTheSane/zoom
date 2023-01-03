@@ -1877,6 +1877,22 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
     }
 }
 
+API_AVAILABLE(macos(11.0))
+static UTType *getZoomSaveType(void) {
+	static UTType *result = nil;
+
+	static dispatch_once_t once;
+	dispatch_once(&once, ^ {
+		if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"uk.org.logicalshift.zoom"]) {
+			result = [UTType exportedTypeWithIdentifier:@"uk.org.logicalshift.zoomsave" conformingToType:UTTypePackage];
+		} else {
+			result = [UTType importedTypeWithIdentifier:@"uk.org.logicalshift.zoomsave" conformingToType:UTTypePackage];
+		}
+	});
+
+	return result;
+}
+
 - (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
 	NSSavePanel* panel = sender;
 
@@ -1900,12 +1916,52 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 		}
 	}
 	
-	return NO;
+	if (@available(macOS 11.0, *)) {
+		UTType *p;
+		if ([url getResourceValue: &p forKey: NSURLContentTypeKey error: NULL]) {
+			if ([[panel allowedContentTypes] containsObject: p]) {
+				return YES;
+			}
+		}
 
+		NSString *pathExt = [url pathExtension];
+		NSArray<UTType *> *utis = [panel allowedContentTypes];
+		for (UTType *uti in utis) {
+			BOOL supports = [[uti tags][UTTagClassFilenameExtension] containsObject:pathExt] || [[uti tags][UTTagClassFilenameExtension] containsObject:[pathExt lowercaseString]];
+			if (supports) {
+				return YES;
+			}
+		}
+		
+		if ([utis containsObject:getZoomSaveType()]) {
+			if ([[url pathExtension] isEqualToString: @"qut"]) {
+				return YES;
+			}
+		}
+	}
+	
+	return NO;
 }
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(__unused NSError * _Nullable *)outError {
 	NSSavePanel* panel = sender;
+	
+	if (@available(macOS 11.0, *)) {
+		NSString *pathExt = [url pathExtension];
+		NSArray<UTType *> *utis = [panel allowedContentTypes];
+		for (UTType *uti in utis) {
+			BOOL supports = [[uti tags][UTTagClassFilenameExtension] containsObject:pathExt] || [[uti tags][UTTagClassFilenameExtension] containsObject:[pathExt lowercaseString]];
+			if (supports) {
+				return YES;
+			}
+		}
+		
+		if ([utis containsObject:getZoomSaveType()]) {
+			if ([[url pathExtension] isEqualToString: @"qut"]) {
+				return YES;
+			}
+		}
+	}
 
 	if ([[panel allowedFileTypes] containsObject:[url pathExtension]]) {
 		return YES;
@@ -1925,22 +1981,6 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	}
 	
 	return NO;
-}
-
-API_AVAILABLE(macos(11.0))
-static UTType *getZoomSaveType(void) {
-	static UTType *result = nil;
-
-	static dispatch_once_t once;
-	dispatch_once(&once, ^ {
-		if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"uk.org.logicalshift.zoom"]) {
-			result = [UTType exportedTypeWithIdentifier:@"uk.org.logicalshift.zoomsave" conformingToType:UTTypePackage];
-		} else {
-			result = [UTType importedTypeWithIdentifier:@"uk.org.logicalshift.zoomsave" conformingToType:UTTypePackage];
-		}
-	});
-
-	return result;
 }
 
 #pragma mark - Prompting for files
