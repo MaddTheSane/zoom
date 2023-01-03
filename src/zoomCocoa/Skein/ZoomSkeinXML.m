@@ -87,7 +87,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	
 	// <Skein rootNode="<nodeID>" xmlns="http://www.logicalshift.org.uk/IF/Skein">
 	//   <generator>Zoom</generator>
-	//   <activeItem nodeId="<nodeID" />
+	//   <activeNode nodeId="<nodeID" />
 	//   <item nodeId="<nodeID>">
 	//     <command/>
 	//     <result/>
@@ -116,6 +116,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	[xmlDoc setRootElement: root];
 	
 	[root addChild: elementWithNameAndValue(@"generator", @"Zoom", NO)];
+	[root addChild: elementWithNameAndAttribute(@"activeNode", @"nodeId", self.activeItem.nodeIdentifier.UUIDString)];
 	
 	// Write items
 	NSMutableArray<ZoomSkeinItem*> *itemStack = [NSMutableArray arrayWithObject: rootItem];
