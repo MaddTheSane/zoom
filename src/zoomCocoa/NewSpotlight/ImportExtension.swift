@@ -15,6 +15,21 @@ import ZoomView
 import ZoomView.ZoomBlorbFile
 
 private let zoomConfigDirectory: URL? = {
+	if #available(macOSApplicationExtension 13.0, *) {
+		var zoomLib = URL.applicationSupportDirectory.appending(path: "Zoom", directoryHint: .isDirectory)
+		do {
+			guard try zoomLib.checkResourceIsReachable() else {
+				return nil
+			}
+			let resVals = try zoomLib.resourceValues(forKeys: [.isDirectoryKey])
+			guard resVals.isDirectory! else {
+				return nil
+			}
+			return zoomLib
+		} catch {
+			return nil
+		}
+	} else {
 	let libraryDirs = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
 	for dir in libraryDirs {
 		var isDir: ObjCBool = false
@@ -27,6 +42,7 @@ private let zoomConfigDirectory: URL? = {
 	}
 	
 	return nil
+	}
 }()
 
 private func loadMetadataFromBlorb(at url: URL, lookingFor identifier: ZoomStoryID) -> ZoomStory? {
@@ -161,16 +177,13 @@ private func findStory(with gameID: ZoomStoryID) -> ZoomStory? {
 
 private let gameIndices: [ZoomMetadata] = {
 	var game_indices = [ZoomMetadata]()
-	let configDir = zoomConfigDirectory
 	let userData: Data?
-	if let userDir = configDir?.appendingPathComponent("metadata.iFiction", isDirectory: false) {
+	if let userDir = zoomConfigDirectory?.appendingPathComponent("metadata.iFiction", isDirectory: false) {
 		userData = try? Data(contentsOf: userDir)
 	} else {
 		userData = nil
 	}
 	let bundle = Bundle(for: ImportExtension.self)
-	let infoComURL = bundle.url(forResource: "infocom", withExtension: "iFiction")
-	let archiveURL = bundle.url(forResource: "archive", withExtension: "iFiction")
 	
 	if let userData, let userMeta = try? ZoomMetadata(data: userData) {
 		game_indices.append(userMeta)
@@ -178,12 +191,12 @@ private let gameIndices: [ZoomMetadata] = {
 		game_indices.append(ZoomMetadata())
 	}
 	
-	if let infoComURL,
-		let infoCom = try? ZoomMetadata(contentsOf: infoComURL) {
+	if let infoComURL = bundle.url(forResource: "infocom", withExtension: "iFiction"),
+	   let infoCom = try? ZoomMetadata(contentsOf: infoComURL) {
 		game_indices.append(infoCom)
 	}
-	if let archiveURL,
-		let archive = try? ZoomMetadata(contentsOf: archiveURL) {
+	if let archiveURL = bundle.url(forResource: "archive", withExtension: "iFiction"),
+	   let archive = try? ZoomMetadata(contentsOf: archiveURL) {
 		game_indices.append(archive)
 	}
 

@@ -14,6 +14,21 @@ import ZoomView
 import ZoomView.ZoomSkein
 
 private let zoomConfigDirectory: URL? = {
+	if #available(macOSApplicationExtension 13.0, *) {
+		var zoomLib = URL.applicationSupportDirectory.appending(path: "Zoom", directoryHint: .isDirectory)
+		do {
+			guard try zoomLib.checkResourceIsReachable() else {
+				return nil
+			}
+			let resVals = try zoomLib.resourceValues(forKeys: [.isDirectoryKey])
+			guard resVals.isDirectory! else {
+				return nil
+			}
+			return zoomLib
+		} catch {
+			return nil
+		}
+	} else {
 	let libraryDirs = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
 	for dir in libraryDirs {
 		var isDir: ObjCBool = false
@@ -26,6 +41,7 @@ private let zoomConfigDirectory: URL? = {
 	}
 	
 	return nil
+	}
 }()
 
 
