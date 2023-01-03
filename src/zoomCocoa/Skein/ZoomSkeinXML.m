@@ -169,6 +169,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 			}
 			[item addChild: [NSXMLNode elementWithName: @"children" children: children attributes:nil]];
 		}
+		[root addChild:item];
 	}
 	
 	return [xmlDoc XMLStringWithOptions: NSXMLNodePrettyPrint | NSXMLNodeCompactEmptyElement];
