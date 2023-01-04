@@ -32,6 +32,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	@MainActor private(set) var stories = [Object]()
+	@MainActor var countOfStories: Int {
+		return stories.count
+	}
 	@MainActor private var gameDirectories = [String: URL]()
 	struct Object: Hashable, Codable {
 		enum CodingKeys: String, CodingKey {
@@ -221,7 +224,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		try addStory(at: filename, with: ident, organise: organise, skipSave: false)
 	}
 	
-	@MainActor private func addStory(at filename: URL, with ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
+	@objc(addStoryAtURL:withIdentity:organise:skipSave:error:)
+	@MainActor func addStory(at filename: URL, with ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
 		guard try filename.checkResourceIsReachable() else {
 			throw CocoaError(.fileNoSuchFile, userInfo: [NSURLErrorKey: filename])
 		}
@@ -244,14 +248,16 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			return nil
 		}()
 		let oldURLID: (NSCopying & NSSecureCoding & NSObjectProtocol)? = {
-			if let oldURL = oldURL, let resVals = try? oldURL.resourceValues(forKeys: [.fileResourceIdentifierKey]), let theID = resVals.fileResourceIdentifier {
+			if let oldURL = oldURL,
+			   let resVals = try? oldURL.resourceValues(forKeys: [.fileResourceIdentifierKey]),
+			   let theID = resVals.fileResourceIdentifier {
 				return theID
 			}
 			return nil
 		}()
 		let oldIdent: ZoomStoryID? = {
-			if let dupIdx = dupURLIdx {
-				return stories[dupIdx].fileID
+			if let dupURLIdx {
+				return stories[dupURLIdx].fileID
 			}
 			return nil
 		}()
@@ -495,7 +501,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	/// Techincally, only `'/'` and `NUL` are invalid characters under UNIX. We invalidate a few more so as to
 	/// avoid the possibility of slightly dumb-looking filenames.
 	private func sanitiseDirectoryName(_ name: String?) -> String? {
-		guard let name = name else {
+		guard let name else {
 			return nil
 		}
 

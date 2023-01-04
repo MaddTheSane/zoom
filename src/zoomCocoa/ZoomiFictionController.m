@@ -475,6 +475,7 @@ static NSArray<NSString*>* blorbFileTypes;
 
 	// Add all the files we can
 	NSMutableArray<NSURL*> *selectedFiles = [filenames mutableCopy];
+	NSInteger preCount = [[ZoomStoryOrganiser sharedStoryOrganiser] countOfStories];
 	
 	while([selectedFiles count] > 0) @autoreleasepool {
 		BOOL isDir;
@@ -499,6 +500,7 @@ static NSArray<NSString*>* blorbFileTypes;
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: filename
 															withIdentity: fileID
 																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+																skipSave: [selectedFiles count] > 1
 																   error: NULL];
 				
 			}
@@ -510,6 +512,7 @@ static NSArray<NSString*>* blorbFileTypes;
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: filename
 															withIdentity: fileID
 																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+																skipSave: [selectedFiles count] > 1
 																   error: NULL];
 				
 			}
@@ -521,11 +524,16 @@ static NSArray<NSString*>* blorbFileTypes;
 				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: filename
 															withIdentity: fileID
 																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+																skipSave: [selectedFiles count] > 1
 																   error: NULL];
 			}
 		}
 
 		[selectedFiles removeObjectAtIndex:0];
+	}
+	NSInteger postCount = [[ZoomStoryOrganiser sharedStoryOrganiser] countOfStories];
+	if (postCount - preCount > 1) {
+		[[ZoomStoryOrganiser sharedStoryOrganiser] organiserChanged];
 	}
 }
 
