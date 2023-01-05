@@ -2539,7 +2539,7 @@ static NSArray<NSString*>* blorbFileTypes;
 		downloadFadeStart = [NSDate date];
 		downloadFadeTimer = [NSTimer timerWithTimeInterval: 0.02
 													target: self
-												  selector: @selector(fadeDownloadIn)
+												  selector: @selector(fadeDownloadIn:)
 												  userInfo: nil
 												   repeats: YES];
 		[[NSRunLoop currentRunLoop] addTimer: downloadFadeTimer
@@ -2570,7 +2570,7 @@ static NSArray<NSString*>* blorbFileTypes;
 		downloadFadeStart = [NSDate date];
 		downloadFadeTimer = [NSTimer timerWithTimeInterval: 0.02
 													target: self
-												  selector: @selector(fadeDownloadOut)
+												  selector: @selector(fadeDownloadOut:)
 												  userInfo: nil
 												   repeats: YES];
 		[[NSRunLoop currentRunLoop] addTimer: downloadFadeTimer
@@ -2578,7 +2578,7 @@ static NSArray<NSString*>* blorbFileTypes;
 	}
 }
 
-- (void) fadeDownloadIn {
+- (void) fadeDownloadIn:(NSTimer*)timer {
 	NSTimeInterval runTime = [[NSDate date] timeIntervalSinceDate: downloadFadeStart];
 	double done = runTime / 0.5;
 	
@@ -2593,7 +2593,7 @@ static NSArray<NSString*>* blorbFileTypes;
 	}
 }
 
-- (void) fadeDownloadOut {
+- (void) fadeDownloadOut:(NSTimer*)timer {
 	NSTimeInterval runTime = [[NSDate date] timeIntervalSinceDate: downloadFadeStart];
 	double done = runTime / 0.5;
 
