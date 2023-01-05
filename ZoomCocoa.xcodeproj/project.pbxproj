@@ -316,7 +316,7 @@
 		555BCB84295D1332002E569F /* agt2agx in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368B00272A046400740A0A /* agt2agx */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
-		559122EC276497B0001C4C95 /* os_zoom.c in Sources */ = {isa = PBXBuildFile; fileRef = 559122EB276497B0001C4C95 /* os_zoom.c */; };
+		559122EC276497B0001C4C95 /* os_zoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 559122EB276497B0001C4C95 /* os_zoom.m */; };
 		559122FA2766AF73001C4C95 /* ZoomPreferenceWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559122F92766AF73001C4C95 /* ZoomPreferenceWindow.swift */; };
 		559122FB27689C2A001C4C95 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FF5B35275A262C000B0D21 /* SFBAudioEngine.framework */; };
 		559123022769FF55001C4C95 /* ZoomDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559123012769FF55001C4C95 /* ZoomDownload.swift */; };
@@ -1544,7 +1544,7 @@
 		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomiFictionController+WebKit.swift"; sourceTree = "<group>"; };
-		559122EB276497B0001C4C95 /* os_zoom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = os_zoom.c; sourceTree = "<group>"; };
+		559122EB276497B0001C4C95 /* os_zoom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = os_zoom.m; sourceTree = "<group>"; };
 		559122F92766AF73001C4C95 /* ZoomPreferenceWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomPreferenceWindow.swift; sourceTree = "<group>"; };
 		559123012769FF55001C4C95 /* ZoomDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDownload.swift; sourceTree = "<group>"; };
 		5591DBD12916355A00BF6F6F /* heglkunix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = heglkunix.c; sourceTree = "<group>"; };
@@ -2651,11 +2651,11 @@
 				55368AC2272A044A00740A0A /* gamedata.c */,
 				55368AC6272A044A00740A0A /* GPL */,
 				55368AAC272A044A00740A0A /* interface.c */,
-				559122EB276497B0001C4C95 /* os_zoom.c */,
 				55368ACE272A044A00740A0A /* interp.h */,
 				55368AC5272A044A00740A0A /* metacommand.c */,
 				55368AAF272A044A00740A0A /* object.c */,
 				55368AAB272A044A00740A0A /* os_glk.c */,
+				559122EB276497B0001C4C95 /* os_zoom.m */,
 				55368ACF272A044A00740A0A /* parser.c */,
 				55368ACD272A044A00740A0A /* porting.txt */,
 				55368AD1272A044A00740A0A /* readme.agility */,
@@ -4163,7 +4163,7 @@
 			files = (
 				55368B0F272A04FD00740A0A /* interface.c in Sources */,
 				55368B19272A055000740A0A /* metacommand.c in Sources */,
-				559122EC276497B0001C4C95 /* os_zoom.c in Sources */,
+				559122EC276497B0001C4C95 /* os_zoom.m in Sources */,
 				55368B0A272A04CF00740A0A /* agxfile.c in Sources */,
 				55368B1C272A058400740A0A /* exec.c in Sources */,
 				55368B04272A04B300740A0A /* agtread.c in Sources */,
