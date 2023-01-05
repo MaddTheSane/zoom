@@ -316,7 +316,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			}
 			
 			let nsResult = try NSAttributedString(result, including: AttributeScopes.AppKitAttributes.self)
-			guard let theRTF = nsResult.rtf(from: NSRange(location: 0, length: nsResult.length - 1)) else {
+			guard let theRTF = nsResult.rtf(from: NSRange(location: 0, length: nsResult.length)) else {
 				// TODO: Better error thrown
 				throw CocoaError(.featureUnsupported)
 			}
