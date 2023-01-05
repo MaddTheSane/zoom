@@ -352,7 +352,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 		
 		for (NSFont* origFont in originalFonts) {
 			NSFont* scaledFont = [[NSFontManager sharedFontManager] convertFont: origFont
-																		 toSize: [origFont pointSize] / scaleFactor];
+																		 toSize: [origFont pointSize] * scaleFactor];
 			
 			[newFonts addObject: scaledFont];
 		}

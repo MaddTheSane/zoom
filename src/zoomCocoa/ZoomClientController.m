@@ -28,7 +28,6 @@
 
     if (self) {
         [self setShouldCloseDocument: YES];
-		isFullscreen = NO;
 		finished = NO;
 		closeConfirmed = NO;
     }
@@ -107,13 +106,13 @@
 
 - (IBAction) reloadGame: (id) sender {
 	// Get the file we're going to re-open
-	NSString* filename = [(NSDocument*)[self document] fileURL].path;
+	NSURL* fileURL = [(NSDocument*)[self document] fileURL];
 	
 	// Close ourselves down
 	[[self document] close];
 	
 	// Reload the story
-	[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: [NSURL fileURLWithPath:filename] display: YES completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+	[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: fileURL display: YES completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
 		//Do nothing
 	}];
 	
@@ -166,7 +165,7 @@
 	finished = YES;
 	[self synchronizeWindowTitleWithDocumentName];
 	
-	if (isFullscreen) [self playInFullScreen: self];
+	if (((self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen)) [self.window toggleFullScreen: self];
 }
 
 - (void) zoomViewIsNotResizable {
@@ -284,9 +283,9 @@
 }
 
 - (void)windowDidResignMain:(NSNotification *)aNotification {
-	if (isFullscreen) {
-		[self playInFullScreen: self];
-	}
+//	if (isFullscreen) {
+//		[self playInFullScreen: self];
+//	}
 	
 	if ([[ZoomGameInfoController sharedGameInfoController] infoOwner] == self) {
 		[self recordGameInfo: self];
@@ -448,132 +447,40 @@
 
 #pragma mark - Various IB actions
 
+- (NSApplicationPresentationOptions)window:(NSWindow *)window willUseFullScreenPresentationOptions:(NSApplicationPresentationOptions)proposedOptions
+{
+	return (proposedOptions | NSApplicationPresentationHideDock | NSApplicationPresentationAutoHideMenuBar) & ~(NSApplicationPresentationAutoHideDock);
+}
+
+- (void)windowWillEnterFullScreen:(NSNotification *)notification
+{
+	oldZoomViewSize = [zoomView frame].size;
+}
+
+- (void)windowDidEnterFullScreen:(NSNotification *)notification
+{
+	NSRect newGlkViewFrame = [[[self window] contentView] bounds];
+	double ratio = newGlkViewFrame.size.width/oldZoomViewSize.width;
+	[zoomView setScaleFactor: ratio];
+}
+
+- (void)windowDidExitFullScreen:(NSNotification *)notification
+{
+	[zoomView setScaleFactor: 1.0];
+}
+
+//- (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state
+//{
+//	[zoomView createAutosaveDataWithCoder: state];
+//}
+//
+//- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state
+//{
+//	[zoomView restoreAutosaveFromCoder:state];
+//}
+
 - (IBAction) playInFullScreen: (id) sender {
-	// TODO: migrate to modern full-screen calling conventions!
-	if (isFullscreen) {
-		ZoomView *theView = zoomView;
-		// Show the menubar
-		[NSMenu setMenuBarVisible: YES];
-
-		// Stop being fullscreen
-		[theView removeFromSuperview];
-		
-		[theView setScaleFactor: 1.0];
-		[theView setFrame: [[normalWindow contentView] bounds]];
-		[[normalWindow contentView] addSubview: theView];
-		
-		// Swap windows back
-		if (normalWindow) {
-			[fullscreenWindow setDelegate: nil];
-			[fullscreenWindow setInitialFirstResponder: nil];
-			
-			[normalWindow setDelegate: self];
-			[normalWindow setWindowController: self];
-			[self setWindow: normalWindow];
-			[normalWindow setInitialFirstResponder: zoomView];
-			[normalWindow makeKeyAndOrderFront: self];
-
-			[fullscreenWindow orderOut: self];
-		}
-		
-		[self setWindowFrameAutosaveName: @"ZoomClientWindow"];
-		isFullscreen = NO;
-	} else {
-		// As of 10.4, we need to create a separate full-screen window (10.4 tries to be 'clever' with the window borders, which messes things up
-		if (!normalWindow) normalWindow = [self window];
-		if (!fullscreenWindow) {
-			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
-																				styleMask: NSWindowStyleMaskBorderless
-																			   backing: NSBackingStoreBuffered
-																				 defer: YES];
-			
-			[fullscreenWindow setLevel: NSFloatingWindowLevel];
-			[fullscreenWindow setHidesOnDeactivate: YES];
-			[fullscreenWindow setReleasedWhenClosed: NO];
-			
-			if (![fullscreenWindow canBecomeKeyWindow]) {
-				[NSException raise: @"ZoomProgrammerIsASpoon"
-							format: @"For some reason, the full screen window won't accept key"];
-			}
-		}
-		
-		// Swap the displayed windows over
-		[self setWindowFrameAutosaveName: @""];
-		[fullscreenWindow setFrame: [normalWindow frame]
-						   display: NO];
-		[fullscreenWindow makeKeyAndOrderFront: self];
-		
-		ZoomView *theView = zoomView;
-		[theView removeFromSuperview];
-		[[fullscreenWindow contentView] addSubview: theView];
-		
-		[normalWindow setInitialFirstResponder: nil];
-		[normalWindow setDelegate: nil];
-
-		NSView* newFirstResponder = [zoomView textView];
-		if (newFirstResponder == nil) newFirstResponder = zoomView;
-		[fullscreenWindow setInitialFirstResponder: newFirstResponder];
-		[fullscreenWindow makeFirstResponder: newFirstResponder];
-		[fullscreenWindow setDelegate: self];
-
-		[fullscreenWindow setWindowController: self];
-		[self setWindow: fullscreenWindow];
-		
-		// Start being fullscreen
-		[[self window] makeKeyAndOrderFront: self];
-		oldWindowFrame = [[self window] frame];
-		
-		// Finish off zoomView
-		NSSize oldZoomViewSize = [zoomView frame].size;
-		
-		[zoomView removeFromSuperviewWithoutNeedingDisplay];
-		
-		// Hide the menubar
-		[NSMenu setMenuBarVisible: NO];
-				
-		// Resize the window
-		NSRect frame = [[[self window] screen] frame];
-		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
-			[[self window] setShowsResizeIndicator: NO];
-			frame = [NSWindow frameRectForContentRect: frame
-											styleMask: NSWindowStyleMaskBorderless];
-			[[self window] setFrame: frame
-							display: YES
-							animate: YES];			
-			[normalWindow orderOut: self];
-		} else {
-			[fullscreenWindow setOpaque: NO];
-			[fullscreenWindow setBackgroundColor: [NSColor clearColor]];
-			[[self window] setContentView: [[ClearView alloc] init]];
-			[[self window] setFrame: frame
-							display: YES
-							animate: NO];
-		}
-		
-		// Resize, reposition the zoomView
-		NSRect newZoomViewFrame = [[[self window] contentView] bounds];
-		NSRect newZoomViewBounds;
-		
-		newZoomViewBounds.origin = NSMakePoint(0,0);
-		newZoomViewBounds.size   = newZoomViewFrame.size;
-		
-		double ratio = oldZoomViewSize.width/newZoomViewFrame.size.width;
-		[zoomView setFrame: newZoomViewFrame];
-		[zoomView setScaleFactor: ratio];
-		
-		// Add it back in again
-		[[[self window] contentView] addSubview: zoomView];
-		
-		// Perform an animation in Leopard
-		if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
-			[[(ZoomAppDelegate*)[NSApp delegate] leopard]
-			 fullScreenView: zoomView
-			 fromFrame: oldWindowFrame
-			 toFrame: frame];			
-		}
-		
-		isFullscreen = YES;
-	}
+	[self.window toggleFullScreen:sender];
 }
 
 #pragma mark - Showing a logo
@@ -659,7 +566,7 @@
 	
 	fadeTimer = [NSTimer timerWithTimeInterval: waitTime
 										target: self
-									  selector: @selector(startToFadeLogo)
+									  selector: @selector(startToFadeLogo:)
 									  userInfo: nil
 									   repeats: NO];
 	[[NSRunLoop currentRunLoop] addTimer: fadeTimer
@@ -674,7 +581,7 @@
 						  ordered: NSWindowAbove];
 }
 
-- (void) startToFadeLogo {
+- (void) startToFadeLogo:(NSTimer*)timer {
 	fadeTimer = nil;
 	
 	fadeTimer = [NSTimer timerWithTimeInterval: 0.01

@@ -53,14 +53,8 @@
 	//! The skein/transcript for this window
 	ZoomSkein* skein;
 	
-	//! YES if this window has been switched to full-screen mode
-	BOOL isFullscreen;
-	//! Cached version of the normal-sized window
-	NSWindow* normalWindow;
-	//! Cached version of the full-screen window
-	NSWindow* fullscreenWindow;
-	//! Size of the window before it became full-screen
-	NSRect oldWindowFrame;
+	//! Size of the view before it became full-screen
+	NSSize oldViewSize;
 	
 	//! The handler for the last save prompt that was presented
 	id<GlkFilePrompt> promptHandler;

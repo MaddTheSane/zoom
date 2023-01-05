@@ -13,18 +13,11 @@
 
 
 @interface ZoomClientController : NSWindowController <NSWindowDelegate, ZoomViewDelegate, ZoomSkeinViewDelegate> {
-	BOOL isFullscreen;
 	BOOL finished;
 	BOOL closeConfirmed;
 	BOOL shownOnce;
 	
-	NSRect oldWindowFrame;
-	
-	// TODO: migrate to newer full-screen window stuff
-	//! Alternative window used for full-screen view
-	NSWindow* fullscreenWindow;
-	//! The usual window
-	NSWindow* normalWindow;
+	NSSize oldZoomViewSize;
 
 	NSTimeInterval fadeTime;
 	NSTimeInterval waitTime;

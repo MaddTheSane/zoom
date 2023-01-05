@@ -484,141 +484,33 @@
 
 #pragma mark - Going fullscreen
 
+- (NSApplicationPresentationOptions)window:(NSWindow *)window willUseFullScreenPresentationOptions:(NSApplicationPresentationOptions)proposedOptions
+{
+	return (proposedOptions | NSApplicationPresentationHideDock | NSApplicationPresentationAutoHideMenuBar) & ~(NSApplicationPresentationAutoHideDock);
+}
+
+- (void)windowWillEnterFullScreen:(NSNotification *)notification
+{
+	// Do nothing if the game is not running
+	if (!running) return;
+
+	oldViewSize = [glkView frame].size;
+}
+
+- (void)windowDidEnterFullScreen:(NSNotification *)notification
+{
+	NSRect newGlkViewFrame = [[[self window] contentView] bounds];
+	double ratio = newGlkViewFrame.size.width/oldViewSize.width;
+	[glkView setScaleFactor: ratio];
+}
+
+- (void)windowDidExitFullScreen:(NSNotification *)notification
+{
+	[glkView setScaleFactor: 1.0];
+}
+
 - (IBAction) playInFullScreen: (id) sender {
-	// TODO: migrate to modern full-screen calling conventions!
-	if (isFullscreen) {
-		// Show the menubar
-		[NSMenu setMenuBarVisible: YES];
-		
-		// Stop being fullscreen
-		__strong GlkView *tmpView = glkView;
-		[tmpView removeFromSuperview];
-		
-		[tmpView setScaleFactor: 1.0];
-		[tmpView setFrame: [[normalWindow contentView] bounds]];
-		[[normalWindow contentView] addSubview: tmpView];
-		tmpView = nil;
-		
-		// Swap windows back
-		if (normalWindow) {
-			[fullscreenWindow setDelegate: nil];
-			[fullscreenWindow setInitialFirstResponder: nil];
-			
-			[normalWindow setDelegate: self];
-			[normalWindow setWindowController: self];
-			[self setWindow: normalWindow];
-			[normalWindow setInitialFirstResponder: glkView];
-			[normalWindow setFrame: oldWindowFrame
-						   display: YES];
-			[normalWindow makeKeyAndOrderFront: self];
-			
-			[fullscreenWindow orderOut: self];
-			fullscreenWindow = nil;
- 		}
-		
-		//[self setWindowFrameAutosaveName: @"ZoomClientWindow"];
-		isFullscreen = NO;
-	} else {
-		// Do nothing if the game is not running
-		if (!running) return;
-		
-		// As of 10.4, we need to create a separate full-screen window (10.4 tries to be 'clever' with the window borders, which messes things up
-		if (!normalWindow) normalWindow = [self window];
-		if (!fullscreenWindow) {
-			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
-																			 styleMask: NSWindowStyleMaskBorderless
-																			   backing: NSBackingStoreBuffered
-																				 defer: YES];
-			
-			[fullscreenWindow setLevel: NSFloatingWindowLevel];
-			[fullscreenWindow setHidesOnDeactivate: YES];
-			[fullscreenWindow setReleasedWhenClosed: NO];
-			[fullscreenWindow setOpaque: NO];
-			if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
-				[fullscreenWindow setBackgroundColor: [NSColor clearColor]];				
-			}
-			
-			if (![fullscreenWindow canBecomeKeyWindow]) {
-				[NSException raise: @"ZoomProgrammerIsASpoon"
-							format: @"For some reason, the full screen window won't accept key"];
-			}
-		}
-		
-		// Swap the displayed windows over
-		[self setWindowFrameAutosaveName: @""];
-		[fullscreenWindow setFrame: [normalWindow frame]
-						   display: NO];
-		[fullscreenWindow makeKeyAndOrderFront: self];
-		
-		__strong GlkView *tmpView = glkView;
-		[tmpView removeFromSuperview];
-		[[fullscreenWindow contentView] addSubview: tmpView];
-		tmpView = nil;
-		
-		[normalWindow setInitialFirstResponder: nil];
-		[normalWindow setDelegate: nil];
-		
-		[fullscreenWindow setInitialFirstResponder: glkView];
-		[fullscreenWindow makeFirstResponder: glkView];
-		[fullscreenWindow setDelegate: self];
-		
-		[fullscreenWindow setWindowController: self];
-		[self setWindow: fullscreenWindow];
-		
-		// Start being fullscreen
-		[[self window] makeKeyAndOrderFront: self];
-		oldWindowFrame = [[self window] frame];
-		
-		// Finish off glkView
-		NSSize oldGlkViewSize = [glkView frame].size;
-		
-		tmpView = glkView;
-		[tmpView removeFromSuperviewWithoutNeedingDisplay];
-		
-		// Hide the menubar
-		[NSMenu setMenuBarVisible: NO];
-		
-		// Resize the window
-		NSRect frame = [[[self window] screen] frame];
-		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
-			[[self window] setShowsResizeIndicator: NO];
-			frame = [NSWindow frameRectForContentRect: frame
-											styleMask: NSWindowStyleMaskBorderless];
-			[[self window] setFrame: frame
-							display: YES
-							animate: YES];			
-			[normalWindow orderOut: self];
-		} else {
-			[[self window] setContentView: [[ClearView alloc] init]];
-			[[self window] setFrame: frame
-							display: YES
-							animate: NO];
-		}
-		
-		// Resize, reposition the glkView
-		NSRect newGlkViewFrame = [[[self window] contentView] bounds];
-		NSRect newGlkViewBounds;
-		
-		newGlkViewBounds.origin = NSMakePoint(0,0);
-		newGlkViewBounds.size   = newGlkViewFrame.size;
-		
-		double ratio = newGlkViewFrame.size.width/oldGlkViewSize.width;
-		[tmpView setFrame: newGlkViewFrame];
-		[tmpView setScaleFactor: ratio];
-		
-		// Add it back in again
-		[[[self window] contentView] addSubview: tmpView];
-		
-		// Perform an animation in Leopard
-		if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
-			[[(ZoomAppDelegate*)[NSApp delegate] leopard]
-			 fullScreenView: glkView
-			 fromFrame: oldWindowFrame
-			 toFrame: frame];			
-		}
-		
-		isFullscreen = YES;
-	}
+	[self.window toggleFullScreen:sender];
 }
 
 #pragma mark - Ending the game
@@ -635,7 +527,7 @@
 }
 
 - (void) taskHasFinished {
-	if (isFullscreen) [self playInFullScreen: self];
+	if ((self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen) [self playInFullScreen: self];
 	
 	[[self window] setTitle: [NSString stringWithFormat: @"%@ (finished)", [[self document] displayName], nil]];	
 
