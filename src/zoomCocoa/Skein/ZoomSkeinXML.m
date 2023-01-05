@@ -87,7 +87,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	
 	// <Skein rootNode="<nodeID>" xmlns="http://www.logicalshift.org.uk/IF/Skein">
 	//   <generator>Zoom</generator>
-	//   <activeNode nodeId="<nodeID" />
+	//   <activeNode nodeId="<nodeID>" />
 	//   <item nodeId="<nodeID>">
 	//     <command/>
 	//     <result/>

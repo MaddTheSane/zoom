@@ -170,42 +170,6 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		view.wantsLayer = false
 	}
 	
-	/// Animates a view to full screen
-	func fullScreenView(_ view: NSView, fromFrame oldWindowFrame: NSRect, toFrame newWindowFrame: NSRect) {
-		view.wantsLayer = true
-		view.layer?.display()
-		
-		let ratioX = oldWindowFrame.size.width / newWindowFrame.size.width
-		let ratioY = oldWindowFrame.size.height / newWindowFrame.size.height
-
-		var scaleFrom = CATransform3DIdentity
-		scaleFrom = CATransform3DScale(scaleFrom, ratioX, ratioY, 1.0)
-		scaleFrom = CATransform3DTranslate(scaleFrom,
-										   oldWindowFrame.size.width - newWindowFrame.size.width,
-										   oldWindowFrame.size.height - newWindowFrame.size.height, 0.0)
-		scaleFrom = CATransform3DTranslate(scaleFrom,
-										   (oldWindowFrame.origin.x - newWindowFrame.origin.x)/ratioX,
-										   (oldWindowFrame.origin.y - newWindowFrame.origin.y)/ratioY, 0.0)
-
-		let scaleAnimation = CABasicAnimation()
-		
-		scaleAnimation.keyPath			= "transform"
-		scaleAnimation.fromValue		= NSValue(caTransform3D: scaleFrom)
-		scaleAnimation.toValue			= NSValue(caTransform3D: CATransform3DIdentity)
-		scaleAnimation.duration			= 0.35
-		scaleAnimation.repeatCount		= 1
-		scaleAnimation.timingFunction	= CAMediaTimingFunction(name: .easeInEaseOut)
-		scaleAnimation.delegate			= self
-
-		// Animate the view's layer
-		view.layer?.removeAllAnimations()
-		view.layer?.add(scaleAnimation, forKey: "ScaleView")
-		
-		willFinish.append((view.layer!.animation(forKey: "ScaleView")!, {
-			view.wantsLayer = false
-		}))
-	}
-	
 	// MARK: - Animation delegate functions
 	
 	func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {

@@ -26,10 +26,6 @@ NS_SWIFT_NAME(ZoomLeopardProtocol)
 /// Removes the layers for the specified view
 - (void) clearLayersForView: (NSView*) view;
 
-/// Animates a view to full screen
-- (void) fullScreenView: (NSView*) view
-			  fromFrame: (NSRect) oldWindowFrame
-				toFrame: (NSRect) newWindowFrame;
 @end
 
 NS_ASSUME_NONNULL_END
