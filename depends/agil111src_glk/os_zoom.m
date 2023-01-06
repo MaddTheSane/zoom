@@ -507,7 +507,7 @@ enum {
 void
 start_interface (fc_type fc)
 {
-  AgilDataSource *ds = [[AgilDataSource alloc] initWithFileSystemRepresentation: fc->gamename];
+  AgilDataSource *ds = [[AgilDataSource alloc] init];
   cocoaglk_set_image_source(ds);
   cocoaglk_set_sound_source(ds);
   switch (font_status)
@@ -7476,7 +7476,7 @@ static glui32 encodeImageFormat(int cmd,int pict)
       break;
 
     case 2:
-      return pict + maxpict + 1;
+      return (glui32)(pict + maxpict + 1);
       break;
       
     case 3:

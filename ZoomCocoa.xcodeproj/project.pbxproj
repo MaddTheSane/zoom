@@ -422,6 +422,7 @@
 		55DA68A32739D4B50007990A /* LocalizedSkein.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55DA68A52739D4B50007990A /* LocalizedSkein.strings */; };
 		55DA68A82739DBC90007990A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55DA68AA2739DBC90007990A /* Localizable.strings */; };
 		55E2441F2920EB4A00C9715F /* ZoomLeopard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E2441E2920EB4A00C9715F /* ZoomLeopard.swift */; };
+		55E4787D2967FFD00017646D /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
 		55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
@@ -1718,6 +1719,8 @@
 		55DA68AC273A108E0007990A /* en-GB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		55DA68AD273A10980007990A /* en-GB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LocalizedSkein.strings"; sourceTree = "<group>"; };
 		55E2441E2920EB4A00C9715F /* ZoomLeopard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomLeopard.swift; sourceTree = "<group>"; };
+		55E4787B2967FFD00017646D /* PCXDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCXDecoder.h; sourceTree = "<group>"; };
+		55E4787C2967FFD00017646D /* PCXDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PCXDecoder.m; sourceTree = "<group>"; };
 		55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<group>"; };
 		55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/vorbis/macosx/Vorbis.xcodeproj; sourceTree = "<group>"; };
@@ -2668,6 +2671,8 @@
 				55368AB2272A044A00740A0A /* util.c */,
 				5551384929678A9C002BAAAC /* AgilDataSource.h */,
 				5551384A29678A9C002BAAAC /* AgilDataSource.m */,
+				55E4787B2967FFD00017646D /* PCXDecoder.h */,
+				55E4787C2967FFD00017646D /* PCXDecoder.m */,
 			);
 			indentWidth = 2;
 			path = agil111src_glk;
@@ -4177,6 +4182,7 @@
 				55368B0D272A04E200740A0A /* filename.c in Sources */,
 				55368B1D272A058900740A0A /* agil.c in Sources */,
 				55368B18272A054C00740A0A /* savegame.c in Sources */,
+				55E4787D2967FFD00017646D /* PCXDecoder.m in Sources */,
 				55368B1B272A057900740A0A /* token.c in Sources */,
 				55368B21272A062F00740A0A /* auxfile.c in Sources */,
 				55368B22272A064C00740A0A /* debugcmd.c in Sources */,

@@ -8,47 +8,7 @@
 #import "AgilDataSource.h"
 #include "agility.h"
 #include "interp.h"
-
-typedef NS_ENUM(uint8_t, PCXVersion) {
-  PCXVersionFixedEGA = 0,
-  PCXVersionModifiableEGA = 2,
-  PCXVersionNoPalette,
-  PCXVersionWindows,
-  PCXVersionTrueColor
-};
-
-typedef NS_ENUM(uint8_t, PCXEncoding) {
-  PCXEncodingNone = 0,
-  PCXEncodingRLE = 1
-};
-
-typedef NS_ENUM(uint16_t, PCXPaletteInfo) {
-  PCXPaletteInfoColorBW = 1,
-  PCXPaletteInfoGrayscale = 2
-};
-
-struct PCXHeader {
-  uint8_t magic; // = 0x0A
-  PCXVersion version;
-  PCXEncoding encoding;
-  uint8_t bitsPerPlane;
-  uint16_t xMin;
-  uint16_t yMin;
-  uint16_t xMax;
-  uint16_t yMax;
-  uint16_t horizDPI;
-  uint16_t vertDPI;
-  uint8_t egaPalette[48];
-  char reserved;
-  uint8_t colorPlanes;
-  uint16_t colorPlaneBytes;
-  PCXPaletteInfo paletteMode;
-  uint16_t horizRes;
-  uint16_t vertRes;
-  char reserved2[54];
-};
-
-static_assert(sizeof(struct PCXHeader) == 128, "Check alignment!");
+#import "PCXDecoder.h"
 
 static FILE *linopen(const char *name, const char *ext)
 {
@@ -94,15 +54,6 @@ static int decodeImageFormat(glui32 image, int *cmd)
 
 @implementation AgilDataSource
 
-- (instancetype)initWithFileSystemRepresentation:(const char*)fsrep
-{
-  if (self = [super init]) {
-    
-  }
-  return self;
-}
-
-
 - (bycopy nullable NSData *)dataForImageResource:(glui32)image {
   filename pictname;
   int gmode;
@@ -128,19 +79,22 @@ static int decodeImageFormat(glui32 image, int *cmd)
   }
   if (pcxfile==NULL) return nil;
   fclose(pcxfile);
+  NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
+  NSURL *urlPath = [gameDir URLByAppendingPathComponent:@(pictname)];
+  urlPath = [urlPath URLByAppendingPathExtension:@(gfxext[gmode])];
 
   if (gmode <= 11 && gmode >= 14) {
     // NSImage can be used to load these files!
-    char *fname = assemble_filename(hold_fc->path, pictname, gfxext[gmode]);
-    NSURL *urlPath = [NSURL fileURLWithFileSystemRepresentation:fname isDirectory:NO relativeToURL:nil];
-    rfree(fname);
     return [NSData dataWithContentsOfURL:urlPath];
   } else if (gmode > 11) {
+    NSError *tmpError;
     //Load PCX
+    PCXDecoder *pcxData = [[PCXDecoder alloc] initWithFileAtURL:urlPath error:&tmpError];
     //Decode PCX
     //Write data
   } else {
-    //TODO: look up .fli/.flc files
+    // Found! https://en.wikipedia.org/wiki/FLIC_(file_format)
+    // TODO: Parse and re-encode file (GIF? APNG?).
   }
   
   return nil;

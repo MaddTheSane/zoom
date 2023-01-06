@@ -71,8 +71,8 @@ typedef signed char schar;
 typedef short integer;  /* Should be a 16+-bit signed numeric type */
                         /* For technical reasons, it must be big enough to
 			   hold a value of type word (see below) */
-typedef unsigned long int32;  /* Should be a 32+-bit unsigned numeric type */
-typedef unsigned long uint32;
+typedef unsigned int int32;  /* Should be a 32+-bit unsigned numeric type */
+typedef unsigned int uint32;
 typedef uchar rbool;
 
 #define WORD_LENG 25

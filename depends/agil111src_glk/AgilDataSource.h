@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AgilDataSource : NSObject <GlkImageSource, GlkSoundSource>
 
-- (instancetype)initWithFileSystemRepresentation:(const char*)fsrep;
-
 @end
 
 NS_ASSUME_NONNULL_END
