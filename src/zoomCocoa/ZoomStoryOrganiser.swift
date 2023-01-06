@@ -766,6 +766,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		guard let storyIDs = story.storyIDs else {
 			return
 		}
+		guard ZoomPreferences.global.keepGamesOrganised else {
+			return
+		}
 		var changed = false
 		
 #if DEVELOPMENT_BUILD
