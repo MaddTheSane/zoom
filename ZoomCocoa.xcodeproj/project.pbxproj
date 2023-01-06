@@ -286,7 +286,6 @@
 		55368B0D272A04E200740A0A /* filename.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB5272A044A00740A0A /* filename.c */; };
 		55368B0E272A04E300740A0A /* filename.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB5272A044A00740A0A /* filename.c */; };
 		55368B0F272A04FD00740A0A /* interface.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAC272A044A00740A0A /* interface.c */; };
-		55368B10272A050900740A0A /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAB272A044A00740A0A /* os_glk.c */; };
 		55368B11272A052A00740A0A /* agil in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368AE9272A045800740A0A /* agil */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55368B17272A054800740A0A /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ACF272A044A00740A0A /* parser.c */; };
 		55368B18272A054C00740A0A /* savegame.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ACA272A044A00740A0A /* savegame.c */; };
@@ -312,6 +311,7 @@
 		553D13BF272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */; };
 		553D13E5273234A400D1F2B4 /* ZoomSkeinInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */; };
 		554A4541291CC25300C090C3 /* Hugo.plugin in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 5591DC1E29163EB400BF6F6F /* Hugo.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5551384B29678A9C002BAAAC /* AgilDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551384A29678A9C002BAAAC /* AgilDataSource.m */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		555BCB84295D1332002E569F /* agt2agx in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368B00272A046400740A0A /* agt2agx */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
@@ -1540,6 +1540,8 @@
 		553C836F27123862002782C0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZoomErrors.strings; sourceTree = "<group>"; };
 		553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = ZoomProtocolLibrary.tbd; sourceTree = "<group>"; };
 		553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinInternal.h; sourceTree = "<group>"; };
+		5551384929678A9C002BAAAC /* AgilDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgilDataSource.h; sourceTree = "<group>"; };
+		5551384A29678A9C002BAAAC /* AgilDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgilDataSource.m; sourceTree = "<group>"; };
 		5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinWeb.h; sourceTree = "<group>"; };
 		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -2664,6 +2666,8 @@
 				55368ACA272A044A00740A0A /* savegame.c */,
 				55368ABA272A044A00740A0A /* token.c */,
 				55368AB2272A044A00740A0A /* util.c */,
+				5551384929678A9C002BAAAC /* AgilDataSource.h */,
+				5551384A29678A9C002BAAAC /* AgilDataSource.m */,
 			);
 			indentWidth = 2;
 			path = agil111src_glk;
@@ -4168,13 +4172,13 @@
 				55368B1C272A058400740A0A /* exec.c in Sources */,
 				55368B04272A04B300740A0A /* agtread.c in Sources */,
 				55368B17272A054800740A0A /* parser.c in Sources */,
+				5551384B29678A9C002BAAAC /* AgilDataSource.m in Sources */,
 				55368B1A272A056800740A0A /* runverb.c in Sources */,
 				55368B0D272A04E200740A0A /* filename.c in Sources */,
 				55368B1D272A058900740A0A /* agil.c in Sources */,
 				55368B18272A054C00740A0A /* savegame.c in Sources */,
 				55368B1B272A057900740A0A /* token.c in Sources */,
 				55368B21272A062F00740A0A /* auxfile.c in Sources */,
-				55368B10272A050900740A0A /* os_glk.c in Sources */,
 				55368B22272A064C00740A0A /* debugcmd.c in Sources */,
 				55368B1E272A059D00740A0A /* object.c in Sources */,
 				55368B06272A04BC00740A0A /* gamedata.c in Sources */,
