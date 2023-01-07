@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSErrorDomain const PCXDecoderErrorDomain;
-NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
+typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
   PCXDecoderInvalidMagic,
   PCXDecoderUnknownVersion,
   PCXDecoderBadEncoding,

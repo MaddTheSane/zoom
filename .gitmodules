@@ -1,3 +1,6 @@
 [submodule "depends/CocoaGlk"]
 	path = depends/CocoaGlk
 	url = https://github.com/MaddTheSane/CocoaGlk.git
+[submodule "depends/libflic"]
+	path = depends/libflic
+	url = https://github.com/aseprite/flic.git

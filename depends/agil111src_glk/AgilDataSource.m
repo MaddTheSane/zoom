@@ -9,6 +9,7 @@
 #include "agility.h"
 #include "interp.h"
 #import "PCXDecoder.h"
+#include "FILCDecoder.h"
 
 static FILE *linopen(const char *name, const char *ext)
 {
@@ -44,7 +45,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
   }
   if (image > maxpict + 1) {
     *cmd = 2;
-    return image - maxpict - 1;
+    return (int)(image - maxpict - 1);
   } else {
     *cmd = 1;
     return image - 1;
@@ -93,8 +94,8 @@ static int decodeImageFormat(glui32 image, int *cmd)
     //Decode PCX
     //Write data
   } else {
-    // Found! https://en.wikipedia.org/wiki/FLIC_(file_format)
-    // TODO: Parse and re-encode file (GIF? APNG?).
+    NSData *dat = CFBridgingRelease(CreateGIFFromFLICData((__bridge CFDataRef)([NSData dataWithContentsOfURL:urlPath])));
+    return dat;
   }
   
   return nil;

@@ -423,6 +423,13 @@
 		55DA68A82739DBC90007990A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55DA68AA2739DBC90007990A /* Localizable.strings */; };
 		55E2441F2920EB4A00C9715F /* ZoomLeopard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E2441E2920EB4A00C9715F /* ZoomLeopard.swift */; };
 		55E4787D2967FFD00017646D /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
+		55E4788D2968CCE60017646D /* libflic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E478872968CCD10017646D /* libflic.a */; };
+		55E4789C2968CD0C0017646D /* flic_details.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4788F2968CD0C0017646D /* flic_details.h */; };
+		55E4789D2968CD0C0017646D /* stdio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E478912968CD0C0017646D /* stdio.cpp */; };
+		55E4789E2968CD0C0017646D /* decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E478982968CD0C0017646D /* decoder.cpp */; };
+		55E4789F2968CD0C0017646D /* flic.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E478992968CD0C0017646D /* flic.h */; };
+		55E478A02968CD0C0017646D /* encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E4789B2968CD0C0017646D /* encoder.cpp */; };
+		55E478A32968CD660017646D /* FILCDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E478A12968CD660017646D /* FILCDecoder.cpp */; };
 		55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
@@ -976,6 +983,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 55BE4AE22709988700100A7D;
 			remoteInfo = Quest;
+		};
+		55E4788B2968CCE00017646D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55E478862968CCD00017646D;
+			remoteInfo = flic;
 		};
 		55FF5B31275A262C000B0D21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1721,6 +1735,18 @@
 		55E2441E2920EB4A00C9715F /* ZoomLeopard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomLeopard.swift; sourceTree = "<group>"; };
 		55E4787B2967FFD00017646D /* PCXDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCXDecoder.h; sourceTree = "<group>"; };
 		55E4787C2967FFD00017646D /* PCXDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PCXDecoder.m; sourceTree = "<group>"; };
+		55E478872968CCD10017646D /* libflic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libflic.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E4788F2968CD0C0017646D /* flic_details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flic_details.h; sourceTree = "<group>"; };
+		55E478902968CD0C0017646D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		55E478912968CD0C0017646D /* stdio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdio.cpp; sourceTree = "<group>"; };
+		55E478922968CD0C0017646D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		55E478932968CD0C0017646D /* CONTRIBUTING.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		55E478982968CD0C0017646D /* decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decoder.cpp; sourceTree = "<group>"; };
+		55E478992968CD0C0017646D /* flic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flic.h; sourceTree = "<group>"; };
+		55E4789A2968CD0C0017646D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		55E4789B2968CD0C0017646D /* encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encoder.cpp; sourceTree = "<group>"; };
+		55E478A12968CD660017646D /* FILCDecoder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FILCDecoder.cpp; sourceTree = "<group>"; };
+		55E478A22968CD660017646D /* FILCDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FILCDecoder.h; sourceTree = "<group>"; };
 		55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<group>"; };
 		55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Vorbis.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/vorbis/macosx/Vorbis.xcodeproj; sourceTree = "<group>"; };
@@ -1881,6 +1907,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E4788D2968CCE60017646D /* libflic.a in Frameworks */,
 				55368AE4272A045800740A0A /* GlkClient.framework in Frameworks */,
 				55368AE5272A045800740A0A /* libglkmain.a in Frameworks */,
 			);
@@ -1952,6 +1979,13 @@
 				55BE4AF8270A635600100A7D /* Cocoa.framework in Frameworks */,
 				55BE4AEE270999A500100A7D /* ZoomPlugIns.framework in Frameworks */,
 				55BE4AEF270999A500100A7D /* ZoomView.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E478852968CCD00017646D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2043,6 +2077,7 @@
 				55101A57290D06D9003CED21 /* ZoomNewSpotlight.appex */,
 				5591DC042916367C00BF6F6F /* heglk */,
 				5591DC1E29163EB400BF6F6F /* Hugo.plugin */,
+				55E478872968CCD10017646D /* libflic.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2614,6 +2649,7 @@
 		55368A87272A00DE00740A0A /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				55E4788E2968CD0C0017646D /* libflic */,
 				55368AA7272A044A00740A0A /* agil111src_glk */,
 				4BD79A8A0BA2C95A002C82B2 /* babel */,
 				55BA3BD327253B21007F6C82 /* geas */,
@@ -2673,6 +2709,8 @@
 				5551384A29678A9C002BAAAC /* AgilDataSource.m */,
 				55E4787B2967FFD00017646D /* PCXDecoder.h */,
 				55E4787C2967FFD00017646D /* PCXDecoder.m */,
+				55E478A12968CD660017646D /* FILCDecoder.cpp */,
+				55E478A22968CD660017646D /* FILCDecoder.h */,
 			);
 			indentWidth = 2;
 			path = agil111src_glk;
@@ -2913,6 +2951,22 @@
 			path = Quest4;
 			sourceTree = "<group>";
 		};
+		55E4788E2968CD0C0017646D /* libflic */ = {
+			isa = PBXGroup;
+			children = (
+				55E478902968CD0C0017646D /* CMakeLists.txt */,
+				55E478932968CD0C0017646D /* CONTRIBUTING.md */,
+				55E478982968CD0C0017646D /* decoder.cpp */,
+				55E4789B2968CD0C0017646D /* encoder.cpp */,
+				55E4788F2968CD0C0017646D /* flic_details.h */,
+				55E478992968CD0C0017646D /* flic.h */,
+				55E4789A2968CD0C0017646D /* LICENSE.txt */,
+				55E478922968CD0C0017646D /* README.md */,
+				55E478912968CD0C0017646D /* stdio.cpp */,
+			);
+			path = libflic;
+			sourceTree = "<group>";
+		};
 		55FF5B15275A262C000B0D21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -3008,6 +3062,15 @@
 				4BA8B5820B1B053E007CD75E /* ZoomTextToSpeech.h in Headers */,
 				4B95CDA1C5B03AD500FD9F27 /* ZoomSkeinController.h in Headers */,
 				553D13E5273234A400D1F2B4 /* ZoomSkeinInternal.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E478832968CCD00017646D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E4789F2968CD0C0017646D /* flic.h in Headers */,
+				55E4789C2968CD0C0017646D /* flic_details.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3344,6 +3407,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55E4788C2968CCE00017646D /* PBXTargetDependency */,
 				55368AD4272A045800740A0A /* PBXTargetDependency */,
 				55368AD6272A045800740A0A /* PBXTargetDependency */,
 				55368AD8272A045800740A0A /* PBXTargetDependency */,
@@ -3503,6 +3567,23 @@
 			productReference = 55BE4AE32709988700100A7D /* Quest4.zoomPlugin */;
 			productType = "com.apple.product-type.bundle";
 		};
+		55E478862968CCD00017646D /* flic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55E478882968CCD10017646D /* Build configuration list for PBXNativeTarget "flic" */;
+			buildPhases = (
+				55E478832968CCD00017646D /* Headers */,
+				55E478842968CCD00017646D /* Sources */,
+				55E478852968CCD00017646D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = flic;
+			productName = flic;
+			productReference = 55E478872968CCD10017646D /* libflic.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -3553,6 +3634,9 @@
 					55BE4AE22709988700100A7D = {
 						CreatedOnToolsVersion = 13.0;
 						LastSwiftMigration = 1310;
+					};
+					55E478862968CCD00017646D = {
+						CreatedOnToolsVersion = 14.2;
 					};
 				};
 			};
@@ -3618,6 +3702,7 @@
 				55101A56290D06D9003CED21 /* ZoomNewSpotlight */,
 				5591DC032916367C00BF6F6F /* heglk */,
 				5591DC1D29163EB400BF6F6F /* Hugo */,
+				55E478862968CCD00017646D /* flic */,
 			);
 		};
 /* End PBXProject section */
@@ -4170,6 +4255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E478A32968CD660017646D /* FILCDecoder.cpp in Sources */,
 				55368B0F272A04FD00740A0A /* interface.c in Sources */,
 				55368B19272A055000740A0A /* metacommand.c in Sources */,
 				559122EC276497B0001C4C95 /* os_zoom.m in Sources */,
@@ -4294,6 +4380,16 @@
 			files = (
 				55BE4AE9270998F600100A7D /* ZoomQuest.swift in Sources */,
 				559E68F42743253E0030C3DB /* ZoomCASDecoder.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E478842968CCD00017646D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E4789E2968CD0C0017646D /* decoder.cpp in Sources */,
+				55E4789D2968CD0C0017646D /* stdio.cpp in Sources */,
+				55E478A02968CD0C0017646D /* encoder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4609,6 +4705,11 @@
 			isa = PBXTargetDependency;
 			target = 55BE4AE22709988700100A7D /* Quest4 */;
 			targetProxy = 55BE4AF227099AB400100A7D /* PBXContainerItemProxy */;
+		};
+		55E4788C2968CCE00017646D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55E478862968CCD00017646D /* flic */;
+			targetProxy = 55E4788B2968CCE00017646D /* PBXContainerItemProxy */;
 		};
 		55FF5B46275A265F000B0D21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5696,6 +5797,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/depends/libflic\"";
 			};
 			name = Debug;
 		};
@@ -5720,6 +5822,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/depends/libflic\"";
 			};
 			name = Release;
 		};
@@ -6077,6 +6180,35 @@
 			};
 			name = Release;
 		};
+		55E478892968CCD10017646D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		55E4788A2968CCD10017646D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -6301,6 +6433,15 @@
 			buildConfigurations = (
 				55BE4AE52709988800100A7D /* Debug */,
 				55BE4AE62709988800100A7D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55E478882968CCD10017646D /* Build configuration list for PBXNativeTarget "flic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55E478892968CCD10017646D /* Debug */,
+				55E4788A2968CCD10017646D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
