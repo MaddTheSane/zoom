@@ -12,7 +12,13 @@
 
 #include "flic.h"
 
-static CFDataRef CreateGIFFromFile(flic::FileInterface *file);
+static CFDataRef CreateGIFFromFile(flic::FileInterface *file) CF_RETURNS_RETAINED;
+static CFDataRef CreateGIFFromFileCrunch(flic::FileInterface *file) CF_RETURNS_RETAINED;
+static CFDataRef createColorDataFromFrame(const flic::Frame& header) CF_RETURNS_RETAINED;
+static CFDataRef createDataFromBuffer(const flic::Frame &frame, const flic::Header &header) CF_RETURNS_RETAINED;
+static CGImageRef createImageFromData(CFDataRef dat, const flic::Frame &frame, const flic::Header &header) CF_RETURNS_RETAINED;
+static CFArrayRef createImageAndInfoFromDataAndTime(CFDataRef src1, const flic::Frame &frame, const flic::Header &header, CFTimeInterval interval) CF_RETURNS_RETAINED;
+static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header) CF_RETURNS_RETAINED;
 
 class CFDataFileInterface final : public flic::FileInterface {
 public:
@@ -97,7 +103,7 @@ static CFDataRef createColorDataFromFrame(const flic::Frame& header)
   return toRet;
 }
 
-static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header)
+static CFDataRef createDataFromBuffer(const flic::Frame &frame, const flic::Header &header)
 {
   CFMutableDataRef src1 = CFDataCreateMutable(kCFAllocatorDefault, header.width * header.height * 3);
   for (int i = 0; i < header.width * header.height; i++) {
@@ -106,27 +112,48 @@ static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::He
     UInt8 bytes[] = {fliColor.r, fliColor.g, fliColor.b};
     CFDataAppendBytes(src1, bytes, 3);
   }
+  return src1;
+}
+
+static CGImageRef createImageFromData(CFDataRef src1, const flic::Frame &frame, const flic::Header &header)
+{
   CGDataProviderRef src = CGDataProviderCreateWithCFData(src1);
-  CFRelease(src1);
   CGColorSpaceRef clrSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
 
-  CGImageRef toRet = CGImageCreate(header.width, header.height, 8, 24, header.width * 3, clrSpace, kCGImageAlphaNone | kCGBitmapByteOrderDefault, src, NULL, false, kCGRenderingIntentDefault);
+  CGImageRef toRet = CGImageCreate(header.width, header.height, 8, 24, header.width * 3, clrSpace, (CGBitmapInfo)kCGImageAlphaNone | kCGBitmapByteOrderDefault, src, NULL, false, kCGRenderingIntentDefault);
   CGColorSpaceRelease(clrSpace);
   CGDataProviderRelease(src);
   return toRet;
 }
 
-CFDataRef CreateGIFFromFLICData(CFDataRef fliDat)
+static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header)
 {
-  CFDataFileInterface file(fliDat);
-  return CreateGIFFromFile(&file);
+  CFDataRef src1 = createDataFromBuffer(frame, header);
+  CGImageRef toRet = createImageFromData(src1, frame, header);
+  CFRelease(src1);
+  return toRet;
 }
 
-CFDataRef CreateGIFFromFLICPath(const char *fliDat)
+CFDataRef CreateGIFFromFLICData(CFDataRef fliDat, bool crunch)
 {
+  CFDataFileInterface file(fliDat);
+  if (crunch) {
+    return CreateGIFFromFileCrunch(&file);
+  } else {
+    return CreateGIFFromFile(&file);
+  }
+}
+
+CFDataRef CreateGIFFromFLICPath(const char *fliDat, bool crunch)
+{
+  CFDataRef toRet;
   FILE *file1 = fopen(fliDat, "rb");
   flic::StdioFileInterface file(file1);
-  CFDataRef toRet = CreateGIFFromFile(&file);
+  if (crunch) {
+    toRet = CreateGIFFromFileCrunch(&file);
+  } else {
+    toRet = CreateGIFFromFile(&file);
+  }
   fclose(file1);
   return toRet;
 }
@@ -178,6 +205,108 @@ CFDataRef CreateGIFFromFile(flic::FileInterface *file)
   CGImageDestinationFinalize(dst);
   CFRelease(dst);
   CFRelease(delayTimeCF);
+
+  return mutDat;
+}
+
+CFArrayRef createImageAndInfoFromDataAndTime(CFDataRef src1, const flic::Frame &frame, const flic::Header &header, CFTimeInterval currentDelayTime)
+{
+  CFDataRef colors = createColorDataFromFrame(frame);
+  CFDictionaryRef imgDictionary = NULL;
+  {
+    CFNumberRef delayTimeCF = CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &currentDelayTime);
+    CFStringRef keys[] = {kCGImagePropertyGIFImageColorMap, kCGImagePropertyGIFUnclampedDelayTime};
+    CFTypeRef values[] = {colors, delayTimeCF};
+    
+    CFDictionaryRef gifDictionary = ::CFDictionaryCreate(kCFAllocatorDefault, (const void **)keys, (const void **)values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    CFRelease(colors);
+    CFRelease(delayTimeCF);
+    
+    imgDictionary = ::CFDictionaryCreate(kCFAllocatorDefault, (const void **)&kCGImagePropertyGIFDictionary, (const void **)&gifDictionary, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    CFRelease(gifDictionary);
+  }
+  CGImageRef img = createImageFromData(src1, frame, header);
+  CFTypeRef values[] = {img, imgDictionary};
+  CFArrayRef imgVal = CFArrayCreate(kCFAllocatorDefault, (const void **)values, 2, &kCFTypeArrayCallBacks);
+  CFRelease(imgDictionary);
+  CGImageRelease(img);
+  return imgVal;
+}
+
+CFDataRef CreateGIFFromFileCrunch(flic::FileInterface *file)
+{
+  flic::Decoder decoder(file);
+  flic::Header header;
+  
+  if (!decoder.readHeader(header)) {
+    return NULL;
+  }
+  
+  std::vector<uint8_t> buffer(header.width * header.height);
+  flic::Frame frame;
+  frame.pixels = &buffer[0];
+  frame.rowstride = header.width;
+  CFMutableArrayRef imgArray = CFArrayCreateMutable(kCFAllocatorDefault, header.frames, &kCFTypeArrayCallBacks);
+  const CFTimeInterval delayTime = header.speed / 1000.0;
+  CFTimeInterval currentDelayTime = delayTime;
+  CFDataRef lastImgData = NULL;
+  
+  // Error out if we have no frames (bad data?)
+  if (header.frames <= 0) {
+    CFRelease(imgArray);
+    return NULL;
+  }
+
+  for (int i=0; i<header.frames; ++i) {
+    if (!decoder.readFrame(frame)) {
+      CFRelease(imgArray);
+      if (lastImgData) {
+        CFRelease(lastImgData);
+      }
+      return NULL;
+    }
+    
+    CFDataRef imgData = createDataFromBuffer(frame, header);
+    
+    if (lastImgData) {
+      if (CFEqual(imgData, lastImgData)) {
+        currentDelayTime += delayTime;
+        CFRelease(imgData);
+        continue;
+      } else {
+        CFArrayRef imgVal = createImageAndInfoFromDataAndTime(lastImgData, frame, header, currentDelayTime);
+        CFArrayAppendValue(imgArray, imgVal);
+        CFRelease(imgVal);
+        CFRelease(lastImgData);
+        lastImgData = imgData;
+        currentDelayTime = delayTime;
+      }
+    } else {
+      lastImgData = imgData;
+    }
+  }
+  //Final image
+  {
+    CFArrayRef imgVal = createImageAndInfoFromDataAndTime(lastImgData, frame, header, currentDelayTime);
+    CFArrayAppendValue(imgArray, imgVal);
+    CFRelease(imgVal);
+    CFRelease(lastImgData);
+    lastImgData = NULL;
+  }
+  
+  const CFIndex count = CFArrayGetCount(imgArray);
+  CFMutableDataRef mutDat = CFDataCreateMutable(kCFAllocatorDefault, 0);
+  CGImageDestinationRef dst = CGImageDestinationCreateWithData(mutDat, kUTTypeGIF, count, NULL);
+  for (int i = 0; i < count; i++) {
+    CFArrayRef imgVal = (CFArrayRef)CFArrayGetValueAtIndex(imgArray, i);
+    CGImageRef imageRef = (CGImageRef)CFArrayGetValueAtIndex(imgVal, 0);
+    CFDictionaryRef imgDictionary = (CFDictionaryRef)CFArrayGetValueAtIndex(imgVal, 1);
+    CGImageDestinationAddImage(dst, imageRef, imgDictionary);
+  }
+  
+  CGImageDestinationFinalize(dst);
+  CFRelease(dst);
+  CFRelease(imgArray);
 
   return mutDat;
 }
