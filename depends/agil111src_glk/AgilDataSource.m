@@ -94,7 +94,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
     //Decode PCX
     //Write data
   } else {
-    NSData *dat = CFBridgingRelease(CreateGIFFromFLICData((__bridge CFDataRef)([NSData dataWithContentsOfURL:urlPath])));
+    NSData *dat = CFBridgingRelease(CreateGIFFromFLICPath(urlPath.fileSystemRepresentation));
     return dat;
   }
   

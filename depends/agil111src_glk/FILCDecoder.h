@@ -15,6 +15,7 @@ extern "C" {
 #endif
 
 extern CFDataRef CreateGIFFromFLICData(CFDataRef fliDat) CF_RETURNS_RETAINED;
+extern CFDataRef CreateGIFFromFLICPath(const char *fliDat) CF_RETURNS_RETAINED;
 
 #ifdef __cplusplus
 }

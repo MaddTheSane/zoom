@@ -12,6 +12,7 @@
 
 #include "flic.h"
 
+static CFDataRef CreateGIFFromFile(flic::FileInterface *file);
 
 class CFDataFileInterface final : public flic::FileInterface {
 public:
@@ -98,7 +99,7 @@ static CFDataRef createColorDataFromFrame(const flic::Frame& header)
 
 static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header)
 {
-  CFMutableDataRef src1 = CFDataCreateMutable(kCFAllocatorDefault, 0);
+  CFMutableDataRef src1 = CFDataCreateMutable(kCFAllocatorDefault, header.width * header.height * 3);
   for (int i = 0; i < header.width * header.height; i++) {
     uint8_t colorIdx = frame.pixels[i];
     const flic::Color &fliColor = frame.colormap[colorIdx];
@@ -118,7 +119,21 @@ static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::He
 CFDataRef CreateGIFFromFLICData(CFDataRef fliDat)
 {
   CFDataFileInterface file(fliDat);
-  flic::Decoder decoder(&file);
+  return CreateGIFFromFile(&file);
+}
+
+CFDataRef CreateGIFFromFLICPath(const char *fliDat)
+{
+  FILE *file1 = fopen(fliDat, "rb");
+  flic::StdioFileInterface file(file1);
+  CFDataRef toRet = CreateGIFFromFile(&file);
+  fclose(file1);
+  return toRet;
+}
+
+CFDataRef CreateGIFFromFile(flic::FileInterface *file)
+{
+  flic::Decoder decoder(file);
   flic::Header header;
   
   if (!decoder.readHeader(header)) {
