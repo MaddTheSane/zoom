@@ -183,9 +183,9 @@ CFDataRef CreateGIFFromFile(flic::FileInterface *file)
       CFRelease(delayTimeCF);
       return NULL;
     }
-    CFDataRef colors = createColorDataFromFrame(frame);
     CFDictionaryRef imgDictionary = NULL;
     {
+      CFDataRef colors = createColorDataFromFrame(frame);
       CFStringRef keys[] = {kCGImagePropertyGIFImageColorMap, kCGImagePropertyGIFUnclampedDelayTime};
       CFTypeRef values[] = {colors, delayTimeCF};
       
@@ -211,9 +211,9 @@ CFDataRef CreateGIFFromFile(flic::FileInterface *file)
 
 CFArrayRef createImageAndInfoFromDataAndTime(CFDataRef src1, const flic::Frame &frame, const flic::Header &header, CFTimeInterval currentDelayTime)
 {
-  CFDataRef colors = createColorDataFromFrame(frame);
   CFDictionaryRef imgDictionary = NULL;
   {
+    CFDataRef colors = createColorDataFromFrame(frame);
     CFNumberRef delayTimeCF = CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &currentDelayTime);
     CFStringRef keys[] = {kCGImagePropertyGIFImageColorMap, kCGImagePropertyGIFUnclampedDelayTime};
     CFTypeRef values[] = {colors, delayTimeCF};
@@ -257,7 +257,7 @@ CFDataRef CreateGIFFromFileCrunch(flic::FileInterface *file)
     return NULL;
   }
 
-  for (int i=0; i<header.frames; ++i) {
+  for (int i = 0; i < header.frames; i++) {
     if (!decoder.readFrame(frame)) {
       CFRelease(imgArray);
       if (lastImgData) {
@@ -297,7 +297,7 @@ CFDataRef CreateGIFFromFileCrunch(flic::FileInterface *file)
   const CFIndex count = CFArrayGetCount(imgArray);
   CFMutableDataRef mutDat = CFDataCreateMutable(kCFAllocatorDefault, 0);
   CGImageDestinationRef dst = CGImageDestinationCreateWithData(mutDat, kUTTypeGIF, count, NULL);
-  for (int i = 0; i < count; i++) {
+  for (CFIndex i = 0; i < count; i++) {
     CFArrayRef imgVal = (CFArrayRef)CFArrayGetValueAtIndex(imgArray, i);
     CGImageRef imageRef = (CGImageRef)CFArrayGetValueAtIndex(imgVal, 0);
     CFDictionaryRef imgDictionary = (CFDictionaryRef)CFArrayGetValueAtIndex(imgVal, 1);
