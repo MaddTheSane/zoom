@@ -93,7 +93,7 @@
 #include "interp.h"
 
 #include "glk.h"
-#include <GlkClient/cocoaglk.h>
+#import <GlkClient/cocoaglk.h>
 #import "AgilDataSource.h"
 
 /*
@@ -154,9 +154,6 @@ static void gagt_event_wait (glui32 wait_type, event_t * event);
 static void gagt_event_wait_2 (glui32 wait_type_1,
                                glui32 wait_type_2,
                                event_t * event);
-#ifdef COCOAGLK
-extern void initDataSources(void);
-#endif
 
 #ifdef GLK_MODULE_UNICODE
 /* Forward declaration of unicode functions. */
@@ -1312,10 +1309,12 @@ static int gagt_coerced_fixed = FALSE;
  * convenient since color is from 0 to 9, then use three bits for the other
  * attributes.
  */
-static const unsigned char GAGT_COLOR_MASK = 0x0f,
-                           GAGT_BLINK_MASK = 1 << 4,
-                           GAGT_FIXED_MASK = 1 << 5,
-                           GAGT_EMPHASIS_MASK = 1 << 6;
+typedef NS_OPTIONS(unsigned char, GAGT_PACKED_OPTIONS) {
+  GAGT_COLOR_MASK = 0x0f,
+  GAGT_BLINK_MASK = 1 << 4,
+  GAGT_FIXED_MASK = 1 << 5,
+  GAGT_EMPHASIS_MASK = 1 << 6
+};
 
 /* Forward declaration of message function. */
 static void gagt_standout_string (const char *message);
