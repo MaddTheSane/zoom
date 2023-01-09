@@ -35,7 +35,14 @@ static const char *gfxext[GFX_EXT_CNT]={".pcx",
           ".gif",".png",".bmp",".jpg",
           ".fli",".flc"};
 
-static char *gamefile_name = "uh...";
+#define SND_EXT_CNT 4
+// FIXME: Are there more possible formats?
+static const char *sndext[SND_EXT_CNT]={".muc",
+          ".voc",
+          ".mid",
+          ".cmf"};
+
+static char *gamefile_name;
 
 static int decodeImageFormat(glui32 image, int *cmd)
 {
@@ -54,6 +61,13 @@ static int decodeImageFormat(glui32 image, int *cmd)
 }
 
 @implementation AgilDataSource
+
+- (instancetype)init {
+  if (self = [super init]) {
+    gamefile_name = hold_fc->gamename;
+  }
+  return self;
+}
 
 - (bycopy nullable NSData *)dataForImageResource:(glui32)image {
   filename pictname;
@@ -95,13 +109,62 @@ static int decodeImageFormat(glui32 image, int *cmd)
     //Write data
   } else {
     NSData *dat = CFBridgingRelease(CreateGIFFromFLICPath(urlPath.fileSystemRepresentation, false));
-    return dat;
+    return [dat copy];
   }
   
   return nil;
 }
 
-- (bycopy nullable NSData *)dataForSoundResource:(glui32)sound { 
+- (bycopy nullable NSData *)dataForSoundResource:(glui32)sound {
+  filename sndname = songlist[sound];
+  FILE *sndfile = NULL;
+  int smode;
+  for(smode=SND_EXT_CNT-1;smode>=0;smode--) {
+    sndfile=linopen(sndname,sndext[smode]);
+    if (sndfile!=NULL) break;
+  }
+  if (sndfile==NULL) return nil;
+  fclose(sndfile);
+  
+  NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
+  NSURL *urlPath = [gameDir URLByAppendingPathComponent:@(sndname)];
+  urlPath = [urlPath URLByAppendingPathExtension:@(sndext[smode])];
+
+  switch (smode) {
+    case 0: //.muc
+      // TODO: read/convert MUC files. Description follows (from porting.txt)
+      /*
+       Songs are stored in the MUC file format:
+         The file format includes no header, but is a collection of
+       six-byte records. Each record consists of three unsigned 16-bit
+       numbers (stored little-endian like all numbers under AGT: the least
+       significant byte comes first): the frequency (in Hertz); the length of
+       time of the tone (in milliseconds); and a delay between tones (also in
+       milliseconds).
+       */
+      return nil;
+      break;
+      
+    case 1: //.voc
+      //TODO: read/convert Creative Voice files.
+      return nil;
+      break;
+      
+    case 2: //.mid
+      // SFBAudioEngine can at least handle MIDI files.
+      return [NSData dataWithContentsOfURL:urlPath];
+      break;
+      
+    case 3: //.cmf
+      //TODO: read/convert Creative Music Format?
+      return nil;
+      break;
+      
+    default:
+      return nil;
+      break;
+  }
+
   return nil;
 }
 

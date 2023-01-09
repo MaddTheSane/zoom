@@ -54,26 +54,26 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 {
   if (header->magic != 0x0A) {
     if (outErr) {
-      *outErr = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderInvalidMagic userInfo:nil];
+      *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderInvalidMagic userInfo: nil];
     }
     return NO;
   }
   if (header->version != PCXVersionFixedEGA && header->version != PCXVersionModifiableEGA && header->version != PCXVersionNoPalette && header->version != PCXVersionWindows && header->version != PCXVersionTrueColor) {
     if (outErr) {
-      *outErr = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderUnknownVersion userInfo:nil];
+      *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnknownVersion userInfo: nil];
     }
     return NO;
   }
   if (header->encoding != PCXEncodingNone && header->encoding != PCXEncodingRLE) {
     if (outErr) {
-      *outErr = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderBadEncoding userInfo:nil];
+      *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
     }
     return NO;
   }
   
   if (header->paletteMode != PCXPaletteInfoColorBW && header->paletteMode != PCXPaletteInfoGrayscale) {
     if (outErr) {
-      *outErr = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderBadEncoding userInfo:nil];
+      *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
     }
     return NO;
   }

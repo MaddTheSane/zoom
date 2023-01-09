@@ -2649,12 +2649,12 @@
 		55368A87272A00DE00740A0A /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				55E4788E2968CD0C0017646D /* libflic */,
 				55368AA7272A044A00740A0A /* agil111src_glk */,
 				4BD79A8A0BA2C95A002C82B2 /* babel */,
 				55BA3BD327253B21007F6C82 /* geas */,
 				5591DBD02916355A00BF6F6F /* Hugo */,
 				55BC113A2786D4E000369EBE /* jacl */,
+				55E4788E2968CD0C0017646D /* libflic */,
 				552CEEAF2715109C009D87A5 /* scare */,
 			);
 			name = Dependencies;

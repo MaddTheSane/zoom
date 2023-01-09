@@ -22,7 +22,7 @@ typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
 
 @interface PCXDecoder : NSObject
 
-- (instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr;
+- (nullable instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr;
 
 @end
 

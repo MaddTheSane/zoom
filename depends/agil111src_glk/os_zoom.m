@@ -7150,7 +7150,7 @@ typedef const struct gagt_char_u_t {
 } gagt_char_u_t;
 typedef gagt_char_u_t *gagt_charref_u_t;
 
-static gagt_char_u_t GAGT_CHAR_U_TABLE[] = {
+static const gagt_char_u_t GAGT_CHAR_U_TABLE[] = {
   /*
    * Low characters -- those below 0x20.   These are the really odd code
    * page 437 characters, rarely used by AGT games.  Low characters are
