@@ -7324,6 +7324,10 @@ static const gagt_char_u_t GAGT_CHAR_U_TABLE[] = {
   {0, 0}            /* 0000 [END OF TABLE] */
 };
 
+// Found using `let char = CFStringConvertIANACharSetNameToEncoding("IBM437" as NSString)`,
+// then `CFStringConvertEncodingToNSStringEncoding(char)` in Swift.
+static const NSStringEncoding DosLatinUSEncoding = 2147484672;
+
 /**
  * Convert a string from code page 437 into UTF-32.  The input and
  * output buffers may \b not be one and the same.
@@ -7384,49 +7388,13 @@ gagt_cp_to_utf (const unsigned char *from_string, glui32 *to_string)
 static void
 gagt_unicode_to_cp (const glui32 *from_string, unsigned char *to_string)
 {
-#ifdef GLK_MODULE_UNICODE_NORM
-  int from_len;
-  for (from_len=0; from_string[from_len] != 0; from_len++);
-  glui32 *normStr = malloc((from_len + 8) * sizeof(glui32));
-  memcpy(normStr, from_string, from_len * sizeof(glui32));
-  normStr[from_len] = 0;
-  // Normalize the string first.
-  glk_buffer_canon_normalize_uni(normStr, from_len + 8, from_len + 1);
-#else
-  glui32 *normStr = from_string;
-#endif
-  
-  int index;
-  glui32 unicode;
-  assert (from_string && to_string);
-  
-#ifdef HAVE_LIBICONV
-#error TODO: Write!
-#else
-  for (index = 0; from_string[index] != '\0'; index++)
-  {
-    unicode = from_string[index];
-    gagt_charref_u_t entry;
-    for (entry = GAGT_CHAR_U_TABLE; entry->unicode; entry++) {
-      if (entry->unicode == unicode) {
-        to_string[index] = entry->cp437;
-      }
-    }
-    if (entry->unicode != 0) {
-      continue;
-    }
-    if (unicode > 127) {
-      to_string[index] = '?';
-    } else {
-      to_string[index] = unicode;
-    }
+  @autoreleasepool {
+    int from_len;
+    for (from_len=0; from_string[from_len] != 0; from_len++);
+    NSString *nsStr = cocoaglk_string_from_uni_buf(from_string, from_len);
+    NSData *convStr = [nsStr dataUsingEncoding: DosLatinUSEncoding allowLossyConversion: YES];
+    [convStr getBytes: to_string length: MIN(convStr.length, from_len)];
   }
-  
-  to_string[index] = '\0';
-#endif
-#ifdef GLK_MODULE_UNICODE_NORM
-  free(normStr);
-#endif
 }
 
 #endif
