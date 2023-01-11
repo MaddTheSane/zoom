@@ -157,10 +157,20 @@ static void gagt_event_wait_2 (glui32 wait_type_1,
 
 #ifdef GLK_MODULE_UNICODE
 /* Forward declaration of unicode functions. */
+/**
+ * Convert a string from code page 437 into UTF-32.  The input and
+ * output buffers may \b not be one and the same.
+ */
 static void gagt_cp_to_utf (const unsigned char *from_string,
                             glui32 *to_string);
+
+/**
+ * Convert a string from Unicode to code page 437.  The input and
+ * output buffers may \b not be one and the same.
+ */
 static void gagt_unicode_to_cp (const glui32 *from_string,
                                 unsigned char *to_string);
+
 static size_t strlen_u (const glui32 *to_string) {
   size_t count = 0;
   for (; to_string[count] != 0; count++) {
@@ -7406,6 +7416,7 @@ gagt_unicode_to_cp (const glui32 *from_string, unsigned char *to_string)
     NSString *nsStr = cocoaglk_string_from_uni_buf(from_string, from_len);
     NSData *convStr = [nsStr dataUsingEncoding: DosLatinUSEncoding allowLossyConversion: YES];
     [convStr getBytes: to_string length: MIN(convStr.length, from_len)];
+    to_string[MIN(convStr.length, from_len)] = 0;
   }
 }
 
