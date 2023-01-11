@@ -7357,7 +7357,7 @@ static const NSStringEncoding DosLatinUSEncoding = 2147484672;
 static void
 gagt_cp_to_utf (const unsigned char *from_string, glui32 *to_string)
 {
-  static int is_initialized = FALSE;
+  static dispatch_once_t is_initialized = 0;
   static glui32 table[UCHAR_MAX + 1];
 
   int index;
@@ -7365,9 +7365,11 @@ gagt_cp_to_utf (const unsigned char *from_string, glui32 *to_string)
   glui32 utf32;
   assert (from_string && to_string);
 
-  if (!is_initialized)
-    {
+  dispatch_once(&is_initialized, ^{
       gagt_charref_u_t entry;
+      unsigned char cp437;
+      glui32 utf32;
+      int index;
 
       /*
        * Create a lookup entry for each code in the main table.  Fill in gaps
@@ -7388,9 +7390,7 @@ gagt_cp_to_utf (const unsigned char *from_string, glui32 *to_string)
           if (table[index] == 0)
             table[index] = index;
         }
-
-      is_initialized = TRUE;
-    }
+  });
 
   for (index = 0; from_string[index] != '\0'; index++)
     {
