@@ -223,32 +223,45 @@ static void
 gagt_fatal (const char *string)
 {
   /*
-   * If the failure happens too early for us to have a window, print
-   * the message to stderr.
+   * Make sure we have a window to send data to.
+   * We will send the message to CocoaGlk, no matter what.
    */
-  if (!gagt_main_window)
+  if (gagt_main_window)
     {
-      fprintf (stderr, "\n\nINTERNAL ERROR: %s\n", string);
+      /* Cancel all possible pending window input events. */
+      glk_cancel_line_event (gagt_main_window, NULL);
+      glk_cancel_char_event (gagt_main_window);
 
-      fprintf (stderr, "\nPlease record the details of this error, try to"
-                       " note down everything you did to cause it, and email"
-                       " this information to simon_baldwin@yahoo.com.\n\n");
-      return;
+      /* Print a message indicating the error. */
+      glk_set_window (gagt_main_window);
+      glk_set_style (style_Normal);
+      glk_put_string ("\n\nINTERNAL ERROR: ");
+      glk_put_string ((char *) string);
+
+      glk_put_string ("\n\nPlease record the details of this error, try to"
+                      " note down everything you did to cause it, and email"
+                      " this information to simon_baldwin@yahoo.com.\n\n");
     }
 
-  /* Cancel all possible pending window input events. */
-  glk_cancel_line_event (gagt_main_window, NULL);
-  glk_cancel_char_event (gagt_main_window);
+  char *fullString;
+  int stringLength = asprintf(&fullString,
+                              "\n\nINTERNAL ERROR: %s\n"
+                              "\nPlease record the details of this error, try to"
+                              " note down everything you did to cause it, and email"
+                              " this information to simon_baldwin@yahoo.com.\n\n",
+                              string);
 
-  /* Print a message indicating the error. */
-  glk_set_window (gagt_main_window);
-  glk_set_style (style_Normal);
-  glk_put_string ("\n\nINTERNAL ERROR: ");
-  glk_put_string ((char *) string);
-
-  glk_put_string ("\n\nPlease record the details of this error, try to"
-                  " note down everything you did to cause it, and email"
-                  " this information to simon_baldwin@yahoo.com.\n\n");
+  if (stringLength == -1) {
+    // huh... odd
+    cocoaglk_error("\n\nINTERNAL ERROR: unknown!\n"
+                   "\nPlease record the details of this error, try to"
+                   " note down everything you did to cause it, and email"
+                   " this information to simon_baldwin@yahoo.com.\n\n");
+    return;
+  }
+  cocoaglk_error(fullString);
+  // We'll exit, but just to be safe...
+  free(fullString);
 }
 
 
