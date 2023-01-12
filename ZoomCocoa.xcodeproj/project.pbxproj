@@ -238,6 +238,7 @@
 		551E27D426F8464A007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27DA26F84691007204E1 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
+		55244204297006350071E081 /* VOCConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55244203297006350071E081 /* VOCConverter.m */; };
 		552A03812049E90900A4ECAA /* treaty.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD79A9E0BA2CABF002C82B2 /* treaty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		552CEEE22715110D009D87A5 /* scobjcts.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEBA2715110B009D87A5 /* scobjcts.c */; };
 		552CEEE72715110D009D87A5 /* screstrs.c in Sources */ = {isa = PBXBuildFile; fileRef = 552CEEC12715110B009D87A5 /* screstrs.c */; };
@@ -1475,6 +1476,8 @@
 		55132C3428FFE9AB007C87B6 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		55132C3928FFE9AB007C87B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55132C3A28FFE9AB007C87B6 /* ZoomNewQL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZoomNewQL.entitlements; sourceTree = "<group>"; };
+		55244202297006350071E081 /* VOCConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VOCConverter.h; sourceTree = "<group>"; };
+		55244203297006350071E081 /* VOCConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VOCConverter.m; sourceTree = "<group>"; };
 		552A037F2049E74B00A4ECAA /* ZoomView.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ZoomView.modulemap; sourceTree = "<group>"; };
 		552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ZoomPlugIns.modulemap; sourceTree = "<group>"; };
 		552CEEAE2715109C009D87A5 /* scare */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scare; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2596,6 +2599,21 @@
 			path = ZoomNewSaveQL;
 			sourceTree = "<group>";
 		};
+		55244201297005A80071E081 /* Data Formats */ = {
+			isa = PBXGroup;
+			children = (
+				55E478A12968CD660017646D /* FILCDecoder.cpp */,
+				55E478A22968CD660017646D /* FILCDecoder.h */,
+				55E4787B2967FFD00017646D /* PCXDecoder.h */,
+				55E4787C2967FFD00017646D /* PCXDecoder.m */,
+				55244202297006350071E081 /* VOCConverter.h */,
+				55244203297006350071E081 /* VOCConverter.m */,
+			);
+			indentWidth = 4;
+			path = "Data Formats";
+			sourceTree = "<group>";
+			usesTabs = 1;
+		};
 		552CEEAF2715109C009D87A5 /* scare */ = {
 			isa = PBXGroup;
 			children = (
@@ -2673,6 +2691,7 @@
 		55368AA7272A044A00740A0A /* agil111src_glk */ = {
 			isa = PBXGroup;
 			children = (
+				55244201297005A80071E081 /* Data Formats */,
 				55368AB1272A044A00740A0A /* agil.c */,
 				55368AB0272A044A00740A0A /* agility.h */,
 				55368AA9272A044A00740A0A /* agility.hdr */,
@@ -2707,10 +2726,6 @@
 				55368AB2272A044A00740A0A /* util.c */,
 				5551384929678A9C002BAAAC /* AgilDataSource.h */,
 				5551384A29678A9C002BAAAC /* AgilDataSource.m */,
-				55E4787B2967FFD00017646D /* PCXDecoder.h */,
-				55E4787C2967FFD00017646D /* PCXDecoder.m */,
-				55E478A12968CD660017646D /* FILCDecoder.cpp */,
-				55E478A22968CD660017646D /* FILCDecoder.h */,
 			);
 			indentWidth = 2;
 			path = agil111src_glk;
@@ -4258,6 +4273,7 @@
 				55E478A32968CD660017646D /* FILCDecoder.cpp in Sources */,
 				55368B0F272A04FD00740A0A /* interface.c in Sources */,
 				55368B19272A055000740A0A /* metacommand.c in Sources */,
+				55244204297006350071E081 /* VOCConverter.m in Sources */,
 				559122EC276497B0001C4C95 /* os_zoom.m in Sources */,
 				55368B0A272A04CF00740A0A /* agxfile.c in Sources */,
 				55368B1C272A058400740A0A /* exec.c in Sources */,

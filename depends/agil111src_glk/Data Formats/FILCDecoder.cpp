@@ -16,7 +16,7 @@ static CFDataRef CreateGIFFromFile(flic::FileInterface *file) CF_RETURNS_RETAINE
 static CFDataRef CreateGIFFromFileCrunch(flic::FileInterface *file) CF_RETURNS_RETAINED;
 static CFDataRef createColorDataFromFrame(const flic::Frame& header) CF_RETURNS_RETAINED;
 static CFDataRef createDataFromBuffer(const flic::Frame &frame, const flic::Header &header) CF_RETURNS_RETAINED;
-static CGImageRef createImageFromData(CFDataRef dat, const flic::Frame &frame, const flic::Header &header) CF_RETURNS_RETAINED;
+static CGImageRef createImageFromData(CFDataRef dat, const flic::Header &header) CF_RETURNS_RETAINED;
 static CFArrayRef createImageAndInfoFromDataAndTime(CFDataRef src1, const flic::Frame &frame, const flic::Header &header, CFTimeInterval interval) CF_RETURNS_RETAINED;
 static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header) CF_RETURNS_RETAINED;
 
@@ -115,7 +115,7 @@ static CFDataRef createDataFromBuffer(const flic::Frame &frame, const flic::Head
   return src1;
 }
 
-static CGImageRef createImageFromData(CFDataRef src1, const flic::Frame &frame, const flic::Header &header)
+static CGImageRef createImageFromData(CFDataRef src1, const flic::Header &header)
 {
   CGDataProviderRef src = CGDataProviderCreateWithCFData(src1);
   CGColorSpaceRef clrSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
@@ -129,7 +129,7 @@ static CGImageRef createImageFromData(CFDataRef src1, const flic::Frame &frame, 
 static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header)
 {
   CFDataRef src1 = createDataFromBuffer(frame, header);
-  CGImageRef toRet = createImageFromData(src1, frame, header);
+  CGImageRef toRet = createImageFromData(src1, header);
   CFRelease(src1);
   return toRet;
 }
@@ -225,7 +225,7 @@ CFArrayRef createImageAndInfoFromDataAndTime(CFDataRef src1, const flic::Frame &
     imgDictionary = ::CFDictionaryCreate(kCFAllocatorDefault, (const void **)&kCGImagePropertyGIFDictionary, (const void **)&gifDictionary, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     CFRelease(gifDictionary);
   }
-  CGImageRef img = createImageFromData(src1, frame, header);
+  CGImageRef img = createImageFromData(src1, header);
   CFTypeRef values[] = {img, imgDictionary};
   CFArrayRef imgVal = CFArrayCreate(kCFAllocatorDefault, (const void **)values, 2, &kCFTypeArrayCallBacks);
   CFRelease(imgDictionary);

@@ -10,6 +10,9 @@
 #include "interp.h"
 #import "PCXDecoder.h"
 #include "FILCDecoder.h"
+#include "VOCConverter.h"
+#include "glk.h"
+#import <GlkClient/cocoaglk.h>
 
 static FILE *linopen(const char *name, const char *ext)
 {
@@ -105,6 +108,11 @@ static int decodeImageFormat(glui32 image, int *cmd)
     NSError *tmpError;
     //Load PCX
     PCXDecoder *pcxData = [[PCXDecoder alloc] initWithFileAtURL:urlPath error:&tmpError];
+    if (!pcxData) {
+      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: Creative Voice conversion failed: %@", urlPath.path, tmpError.localizedDescription]);
+
+      return nil;
+    }
     //Decode PCX
     //Write data
   } else {
@@ -142,11 +150,20 @@ static int decodeImageFormat(glui32 image, int *cmd)
        time of the tone (in milliseconds); and a delay between tones (also in
        milliseconds).
        */
+      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .MUC files right now!", urlPath.path]);
       return nil;
       break;
       
     case 1: //.voc
       //TODO: read/convert Creative Voice files.
+    {
+      NSError *tmpErr;
+      NSData *toRet = convertVOCToRIFF(urlPath, &tmpErr);
+      if (!toRet) {
+        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: Creative Voice conversion failed: %@", urlPath.path, tmpErr.localizedDescription]);
+      }
+      return toRet;
+    }
       return nil;
       break;
       
@@ -157,6 +174,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
       
     case 3: //.cmf
       //TODO: read/convert Creative Music Format?
+      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .MUC files right now!", urlPath.path]);
       return nil;
       break;
       
