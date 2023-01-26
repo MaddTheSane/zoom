@@ -125,6 +125,8 @@ static const glui32 GAGT_PORT_VERSION = 0x00010701;
 static winid_t gagt_main_window = NULL,
                gagt_status_window = NULL;
 
+static schanid_t gagt_sound_channel = NULL;
+
 /*
  * Transcript stream and input log.  These are NULL if there is no current
  * collection of these strings.
@@ -7515,8 +7517,11 @@ int musiccmd(int cmd,int song)
    -2=Is the sound on?  (0=false, -1=true)
 */
 {
-  if (cmd==8) sound_on=1;
-  else if (cmd==9) sound_on=0;
+  if (cmd==8) {
+    sound_on=1;
+  } else if (cmd==9) {
+    sound_on=0;
+  }
 #ifdef DEBUG_BELLS_AND_WHISTLES
   switch (cmd) {
      case 1:bnw_report("Play song",songlist,song);break;

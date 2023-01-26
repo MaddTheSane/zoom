@@ -45,8 +45,6 @@ static const char *sndext[SND_EXT_CNT]={".muc",
           ".mid",
           ".cmf"};
 
-static char *gamefile_name;
-
 static int decodeImageFormat(glui32 image, int *cmd)
 {
   if (image == 0) {
@@ -65,13 +63,6 @@ static int decodeImageFormat(glui32 image, int *cmd)
 
 @implementation AgilDataSource
 
-- (instancetype)init {
-  if (self = [super init]) {
-    gamefile_name = hold_fc->gamename;
-  }
-  return self;
-}
-
 - (bycopy nullable NSData *)dataForImageResource:(glui32)image {
   filename pictname;
   int gmode;
@@ -85,7 +76,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
   } else if (cmd == 2) {
     pictname = pixlist[pict];
   } else if (cmd == 3) {
-    pictname = gamefile_name;
+    pictname = hold_fc->gamename;
   } else {
     return nil;
   }
@@ -98,8 +89,8 @@ static int decodeImageFormat(glui32 image, int *cmd)
   if (pcxfile==NULL) return nil;
   fclose(pcxfile);
   NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
-  NSURL *urlPath = [gameDir URLByAppendingPathComponent:@(pictname)];
-  urlPath = [urlPath URLByAppendingPathExtension:@(gfxext[gmode])];
+  NSString *fileName = [@(pictname) stringByAppendingPathExtension:@(gfxext[gmode])];
+  NSURL *urlPath = [gameDir URLByAppendingPathComponent:fileName];
 
   if (gmode <= 11 && gmode >= 14) {
     // NSImage can be used to load these files!
@@ -109,14 +100,16 @@ static int decodeImageFormat(glui32 image, int *cmd)
     //Load PCX
     PCXDecoder *pcxData = [[PCXDecoder alloc] initWithFileAtURL:urlPath error:&tmpError];
     if (!pcxData) {
-      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: Creative Voice conversion failed: %@", urlPath.path, tmpError.localizedDescription]);
+      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: PCX conversion failed: %@", urlPath.path, tmpError.localizedDescription]);
 
       return nil;
     }
     //Decode PCX
     //Write data
   } else {
-    NSData *dat = CFBridgingRelease(CreateGIFFromFLICPath(urlPath.fileSystemRepresentation, false));
+    CFDataRef cfDat = CreateGIFFromFLICPath(urlPath.fileSystemRepresentation, false);
+    NSData *dat = CFBridgingRelease(cfDat);
+    cfDat = NULL;
     return [dat copy];
   }
   
@@ -135,8 +128,8 @@ static int decodeImageFormat(glui32 image, int *cmd)
   fclose(sndfile);
   
   NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
-  NSURL *urlPath = [gameDir URLByAppendingPathComponent:@(sndname)];
-  urlPath = [urlPath URLByAppendingPathExtension:@(sndext[smode])];
+  NSString *fileName = [@(sndname) stringByAppendingPathExtension:@(sndext[smode])];
+  NSURL *urlPath = [gameDir URLByAppendingPathComponent:fileName];
 
   switch (smode) {
     case 0: //.muc
@@ -164,7 +157,6 @@ static int decodeImageFormat(glui32 image, int *cmd)
       }
       return toRet;
     }
-      return nil;
       break;
       
     case 2: //.mid
