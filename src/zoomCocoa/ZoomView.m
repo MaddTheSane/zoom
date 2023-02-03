@@ -1180,7 +1180,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 			chr == NSDownArrowFunctionKey ||
 			chr == NSLeftArrowFunctionKey ||
 			chr == NSRightArrowFunctionKey) {
-			canTerminate = ([theEvent modifierFlags]&NSEventModifierFlagOption)==1 && ([theEvent modifierFlags]&NSEventModifierFlagCommand)==0;
+			canTerminate = ([theEvent modifierFlags] & (NSEventModifierFlagOption | NSEventModifierFlagCommand)) == NSEventModifierFlagOption;
 		}
 		
 		if (canTerminate && [terminatingChars containsObject: recv]) {

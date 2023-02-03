@@ -119,9 +119,18 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			RunLoop.current.cancelPerform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: strongSelf, argument: story)
 			RunLoop.current.perform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: strongSelf, argument: story, order: 128, modes: [.default, .modalPanel])
 		})
+		checkTimer = Timer(timeInterval: 1, target: self, selector: #selector(self.checkOrganizerChanged(_:)), userInfo: nil, repeats: true)
+		checkTimer.tolerance = 5
+	}
+	
+	@MainActor @objc private func checkOrganizerChanged(_ timer: Timer) {
+		if organizerChanged && !alreadyOrganising {
+			organiserChanged()
+		}
 	}
 	
 	deinit {
+		checkTimer.invalidate()
 		NotificationCenter.default.removeObserver(dataChangedNotificationObject!)
 	}
 	
@@ -137,10 +146,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 	//MARK: -
 	
-	@MainActor func organiserChanged() {
+	@MainActor private func organiserChanged() {
 		try? save()
 		
 		NotificationCenter.default.post(name: ZoomStoryOrganiser.changedNotification, object: self)
+		organizerChanged = false
 	}
 	
 	private static let libraryPath: URL = {
@@ -161,6 +171,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				return false
 			}
 		}
+		organizerChanged = false
 	}
 	
 	@MainActor func save() throws {
@@ -177,6 +188,12 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}()
 	private var dataChangedNotificationObject: NSObjectProtocol? = nil
 	private var alreadyOrganising = false
+	private var organizerChanged = false
+	private var checkTimer: Timer! = nil
+	
+	@MainActor func setOrganiserChanged() {
+		organizerChanged = true
+	}
 	
 	@MainActor func updateFromOldDefaults() {
 		guard let oldDict = UserDefaults.standard.dictionary(forKey: "ZoomStoryOrganiser") as? [String: Data] else {
@@ -214,7 +231,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		UserDefaults.standard.removeObject(forKey: "ZoomStoryOrganiser")
 		UserDefaults.standard.removeObject(forKey: "ZoomGameDirectories")
-		organiserChanged()
+		setOrganiserChanged()
 	}
 	
 	// MARK: - Storing stories
@@ -224,8 +241,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		try addStory(at: filename, with: ident, organise: organise, skipSave: false)
 	}
 	
-	@objc(addStoryAtURL:withIdentity:organise:skipSave:error:)
-	@MainActor func addStory(at filename: URL, with ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
+	@MainActor private func addStory(at filename: URL, with ident: ZoomStoryID, organise: Bool = false, skipSave: Bool) throws {
 		guard try filename.checkResourceIsReachable() else {
 			throw CocoaError(.fileNoSuchFile, userInfo: [NSURLErrorKey: filename])
 		}
@@ -319,7 +335,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		if !skipSave {
-			organiserChanged()
+			setOrganiserChanged()
 		}
 	}
 	
@@ -340,7 +356,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			}
 		}
 		
-		organiserChanged()
+		setOrganiserChanged()
 	}
 	
 	@MainActor private func id(for filename: URL) -> ZoomStoryID? {
@@ -416,7 +432,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			}
 		}
 		
-		await organiserChanged()
+		await setOrganiserChanged()
 		// Tidy up
 		await endedActing()
 	}
@@ -817,7 +833,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		if changed {
-			organiserChanged()
+			setOrganiserChanged()
 		}
 	}
 
@@ -1043,7 +1059,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			
 			stories.append(Object(url: url, bookmarkData: try? url.bookmarkData(options: [.securityScopeAllowOnlyReadAccess]), fileID: ident))
 		}
-		organiserChanged()
+		setOrganiserChanged()
 	}
 	
 	/// Changes the story organisation directory.
@@ -1189,9 +1205,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		// Get the list of stories we need to update
 		// It is assumed any new stories at this point will be organised correctly
-		storyLock.lock()
-		let ourStories = await stories
-		storyLock.unlock()
+		let ourStories = await MainActor.run(body: {
+			storyLock.withLock {
+				return stories
+			}
+		})
 		
 		for story in ourStories {
 			let filename = story.url
@@ -1203,7 +1221,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 					if let idx = stories.firstIndex(of: story) {
 						_=stories.remove(at: idx)
 					}
-					organiserChanged()
+					setOrganiserChanged()
 				})
 				
 				continue

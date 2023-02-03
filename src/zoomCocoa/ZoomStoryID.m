@@ -661,7 +661,7 @@ typedef unsigned char IFMDByte;
 						
 					case IFFormat_UUID:
 					{
-						unsigned char uuid[16];
+						uuid_t uuid;
 						
 						[decoder decodeArrayOfObjCType: @encode(unsigned char)
 												 count: 16

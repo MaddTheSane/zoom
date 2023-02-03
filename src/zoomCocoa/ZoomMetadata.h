@@ -89,7 +89,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 			atomically: (BOOL)flag
 				 error: (NSError*__autoreleasing*)error;
 - (BOOL) writeToSourceURLAtomically: (BOOL)flag
-							  error: (NSError*__autoreleasing*)error;
+							  error: (NSError*__autoreleasing*)error NS_SWIFT_NAME(writeToSource(atomically:));
 - (BOOL) writeToDefaultFileWithError: (NSError*__autoreleasing*) outError;
 
 @end

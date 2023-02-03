@@ -266,6 +266,7 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 //! Ask the display to backtrack over some input that may already be on the screen
 - (bycopy NSString*) backtrackInputOver: (in bycopy NSString*) prefix;
 
+//TODO: migrate to NSCharacterSet
 - (oneway void) setTerminatingCharacters: (in nullable bycopy NSSet<NSNumber*>*) characters;
 
 - (void) displayMore: (BOOL) shown;
