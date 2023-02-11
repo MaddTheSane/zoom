@@ -5006,8 +5006,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -5077,8 +5075,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -5474,8 +5470,6 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_LDFLAGS = (
@@ -5516,8 +5510,6 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				OTHER_LDFLAGS = (

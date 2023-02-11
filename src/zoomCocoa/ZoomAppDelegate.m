@@ -376,7 +376,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 }
 
 - (IBAction) showiFiction: (id) sender {
-	[[[ZoomiFictionController sharediFictionController] window] makeKeyAndOrderFront: self];
+	[[ZoomiFictionController sharediFictionController] showWindow: self];
 }
 
 #pragma mark - Application-wide data
@@ -387,10 +387,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 - (ZoomStory*) findStory: (ZoomStoryID*) gameID {
 	for (ZoomMetadata* repository in gameIndices) {
-		if (![repository containsStoryWithIdent: gameID]) continue;
-		
-		ZoomStory* res = [repository findOrCreateStory: gameID];
-		return res;
+		ZoomStory* res = [repository findStory: gameID];
+		if (res) {
+			return res;
+		}
 	}
 	
 	return nil;

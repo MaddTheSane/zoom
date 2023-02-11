@@ -137,26 +137,19 @@
 
 - (void) scrollRegion: (in NSRect) region
 			  toPoint: (in NSPoint) where {
+	NSRect swappedRegion = region;
+	swappedRegion.origin.y = pixmap.size.height - NSMinY(swappedRegion) - NSHeight(swappedRegion);
 	[pixmap lockFocusFlipped:YES];
 	
-	// Used to use NSCopyBits but Apple randomly broke it sometime in Snow Leopard. The docs lied anyway.
-	// This is much slower :-(
-	NSBitmapImageRep*	copiedBits	= [[NSBitmapImageRep alloc] initWithFocusedViewRect: region];
-	NSImage*			copiedImage	= [[NSImage alloc] init];
-	[copiedImage addRepresentation: copiedBits];
-	[copiedImage drawInRect: NSMakeRect(where.x, where.y, region.size.width, region.size.height)
-				   fromRect: NSZeroRect
+	[pixmap drawInRect: NSMakeRect(where.x, where.y, region.size.width, region.size.height)
+			  fromRect: swappedRegion
 				  operation: NSCompositingOperationSourceOver
 				   fraction: 1.0
 			 respectFlipped: YES
 					  hints: nil];
 	
-	
-	// Uh, docs say we should use NSNullObject here, but it's not defined. Making a guess at its value (sigh)
-	// This would be less of a problem in a view, because we can get the view's own graphics state. But you
-	// can't get the graphics state for an image (in general).
-	// NSCopyBits(0, region, where);
 	[pixmap unlockFocus];
+	[zView setNeedsDisplay: YES];
 }
 
 #pragma mark - Measuring
