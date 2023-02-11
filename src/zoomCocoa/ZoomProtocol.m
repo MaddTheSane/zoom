@@ -4,6 +4,10 @@
 #define maxBufferCount 1024
 NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification";
 
+@interface ZHandleFile ()
+@property (strong) NSError *lastError;
+@end
+
 #pragma mark Implementation of the various standard classes
 @implementation ZHandleFile
 - (id) init {
@@ -27,16 +31,34 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     return self;
 }
 
-// Read
+#pragma mark Read
 - (unsigned char) readByte {
-    NSData* data = [handle readDataOfLength: 1];
+    NSData* data;
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        data = [handle readDataUpToLength: 1 error: &datErr];
+        if (!data) {
+            self.lastError = datErr;
+        }
+    } else {
+        data = [handle readDataOfLength: 1];
+    }
     if (data == nil || [data length] < 1) return 0xff;
 
     return ((unsigned char*)[data bytes])[0];
 }
 
 - (unsigned short) readWord {
-    NSData* data = [handle readDataOfLength: 2];
+    NSData* data;
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        data = [handle readDataUpToLength: 2 error: &datErr];
+        if (!data) {
+            self.lastError = datErr;
+        }
+    } else {
+        data = [handle readDataOfLength: 2];
+    }
     if (data == nil || [data length] < 2) return 0xffff;
 
     const unsigned char* bytes = [data bytes];
@@ -44,7 +66,16 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 }
 
 - (unsigned int) readDWord {
-    NSData* data = [handle readDataOfLength: 4];
+    NSData* data;
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        data = [handle readDataUpToLength: 4 error: &datErr];
+        if (!data) {
+            self.lastError = datErr;
+        }
+    } else {
+        data = [handle readDataOfLength: 4];
+    }
     if (data == nil || [data length] < 4) return 0xffffffff;
 
     const unsigned char* bytes = [data bytes];
@@ -52,23 +83,57 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 }
 
 - (bycopy NSData*) readBlock: (NSInteger) length {
-    NSData* data = [handle readDataOfLength: length];
+    NSData* data;
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        data = [handle readDataUpToLength: length error: &datErr];
+        if (!data) {
+            self.lastError = datErr;
+        }
+    } else {
+        data = [handle readDataOfLength: length];
+    }
     return data;
 }
 
 - (oneway void) seekTo: (off_t) p {
-    [handle seekToFileOffset: p];
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        if (![handle seekToOffset: p error: &datErr]) {
+            self.lastError = datErr;
+        }
+    } else {
+        [handle seekToFileOffset: p];
+    }
 }
 
 - (off_t) seekPosition {
-    return [handle offsetInFile];
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        unsigned long long pos;
+        NSError *datErr;
+        
+        if (![handle getOffset: &pos error: &datErr]) {
+            pos = -1;
+            self.lastError = datErr;
+        }
+        return pos;
+    } else {
+        return [handle offsetInFile];
+    }
 }
 
-// Write
+#pragma mark Write
 - (oneway void) writeByte: (unsigned char) byte {
     NSData* data = [NSData dataWithBytes: &byte
                                   length: 1];
-    [handle writeData: data];
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        if (![handle writeData: data error: &datErr]) {
+            self.lastError = datErr;
+        }
+    } else {
+        [handle writeData: data];
+    }
 }
 
 - (oneway void) writeWord: (short) word {
@@ -80,7 +145,14 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     NSData* data = [NSData dataWithBytes: bytes
                                   length: 2];
 
-    [handle writeData: data];
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        if (![handle writeData: data error: &datErr]) {
+            self.lastError = datErr;
+        }
+    } else {
+        [handle writeData: data];
+    }
 }
 
 - (oneway void) writeDWord: (unsigned int) dword {
@@ -94,47 +166,113 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     NSData* data = [NSData dataWithBytes: bytes
                                   length: 4];
 
-    [handle writeData: data];
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        if (![handle writeData: data error: &datErr]) {
+            self.lastError = datErr;
+        }
+    } else {
+        [handle writeData: data];
+    }
 }
 
 - (oneway void) writeBlock: (in bycopy NSData*) block {
-    [handle writeData: block];
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        NSError *datErr;
+        if (![handle writeData: block error: &datErr]) {
+            self.lastError = datErr;
+        }
+    } else {
+        [handle writeData: block];
+    }
 }
 
 - (BOOL) sufferedError {
-    return NO;
+    return _lastError != nil;
 }
 
 - (bycopy NSString*) errorMessage {
-    return @"";
+    return _lastError.localizedDescription ?: @"";
 }
 
 - (off_t) fileSize {
-    unsigned long long pos = [handle offsetInFile];
-
-    [handle seekToEndOfFile];
-    unsigned long long res = [handle offsetInFile];
-
-    [handle seekToFileOffset: pos];
-
-    return res;
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        unsigned long long pos;
+        unsigned long long res;
+        NSError *datErr;
+        if (![handle getOffset: &pos error: &datErr]) {
+            self.lastError = datErr;
+            return -1;
+        }
+        
+        if (![handle seekToEndReturningOffset: &res error: &datErr]) {
+            self.lastError = datErr;
+            return -1;
+        }
+        
+        if (![handle seekToOffset: pos error: &datErr]) {
+            self.lastError = datErr;
+            return -1;
+        }
+        
+        return res;
+    } else {
+        unsigned long long pos = [handle offsetInFile];
+        
+        [handle seekToEndOfFile];
+        unsigned long long res = [handle offsetInFile];
+        
+        [handle seekToFileOffset: pos];
+        
+        return res;
+    }
 }
 
 - (BOOL) endOfFile {
 	// Sigh, Cocoa provides no 'end of file' method. Er, glaring ommision or what?
-	unsigned long long oldOffset = [handle offsetInFile];
-	
-	[handle seekToEndOfFile];
-	unsigned long long eofOffset = [handle offsetInFile];
-	
-	if (oldOffset == eofOffset) return YES;
-	
-	[handle seekToFileOffset: oldOffset];
-	return NO;
+    if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
+        unsigned long long oldOffset;
+        unsigned long long eofOffset;
+        NSError *datErr;
+        
+        if (![handle getOffset: &oldOffset error: &datErr]) {
+            self.lastError = datErr;
+            return YES;
+        }
+        
+        if (![handle seekToEndReturningOffset: &eofOffset error: &datErr]) {
+            self.lastError = datErr;
+            return YES;
+        }
+
+        if (oldOffset == eofOffset) return YES;
+
+        if (![handle seekToOffset: oldOffset error: &datErr]) {
+            self.lastError = datErr;
+        }
+        return NO;
+    } else {
+        unsigned long long oldOffset = [handle offsetInFile];
+        
+        [handle seekToEndOfFile];
+        unsigned long long eofOffset = [handle offsetInFile];
+        
+        if (oldOffset == eofOffset) return YES;
+        
+        [handle seekToFileOffset: oldOffset];
+        return NO;
+    }
 }
 
 - (oneway void) close {
-    [handle closeFile];
+    if (@available(macOS 10.15, *)) {
+        NSError *err;
+        if (![handle closeAndReturnError:&err]) {
+            self.lastError = err;
+        }
+    } else {
+        [handle closeFile];
+    }
 }
 
 @end

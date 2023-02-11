@@ -6370,6 +6370,9 @@ gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
    * underlying file descriptor or FILE* from a Glk stream either. :-(
    */
 
+#if 1
+  retfile = fopen(glkunix_fileref_get_filename(fileref), fdtype);
+#else
   /* So, start by dup()'ing the first file descriptor we can, ... */
   glkfd = -1;
   for (tryfd = 0; tryfd < FD_SETSIZE; tryfd++)
@@ -6412,7 +6415,7 @@ gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
   retfile = fdopen (retfd, fdtype);
   if (!retfile)
     return badfile (fSAV);
-
+#endif
   /*
    * The result of all of this should now be that retfile is a FILE* wrapper
    * round a file descriptor open on a file indicated by the user through Glk.

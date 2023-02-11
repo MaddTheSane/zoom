@@ -287,4 +287,9 @@
 
 @synthesize autoflushStream = autoflush;
 
+- (bycopy NSURL *)fileURL
+{
+	return [path URLByAppendingPathComponent: @"Save.data"];
+}
+
 @end

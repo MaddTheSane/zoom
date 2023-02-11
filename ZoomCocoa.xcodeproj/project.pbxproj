@@ -5814,6 +5814,7 @@
 					"__unix=1",
 					"$(inherited)",
 					"REPLACE_BNW=1",
+					"UNIX=1",
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5839,6 +5840,7 @@
 					"__unix=1",
 					"$(inherited)",
 					"REPLACE_BNW=1",
+					"UNIX=1",
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
 				LD_RUNPATH_SEARCH_PATHS = (

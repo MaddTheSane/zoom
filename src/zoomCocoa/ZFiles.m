@@ -29,7 +29,11 @@ ZFile* open_file(const char* filename) {
     NSLog(@"Warning: open_file with filename called");
 
     // Open the file
-    NSFileHandle* handle = [NSFileHandle fileHandleForReadingFromURL: [NSURL fileURLWithFileSystemRepresentation: filename isDirectory: NO relativeToURL: nil] error: NULL];
+    int fno = open(filename, O_RDONLY);
+    if (fno == -1) {
+        return NULL;
+    }
+    NSFileHandle* handle = [[NSFileHandle alloc] initWithFileDescriptor: fno closeOnDealloc: YES];
 
     if (handle == nil) {
         return NULL;
@@ -39,6 +43,7 @@ ZFile* open_file(const char* filename) {
     ZFile* f = malloc(sizeof(ZFile));
 
     f->theFile = [[ZHandleFile alloc] initWithFileHandle: handle];
+    [handle release];
 
     return f;
 }
@@ -48,7 +53,12 @@ ZFile* open_file_write(const char* filename) {
     NSLog(@"Warning: open_file_write with filename called");
 
     // Open the file
-    NSFileHandle* handle = [NSFileHandle fileHandleForWritingToURL: [NSURL fileURLWithFileSystemRepresentation: filename isDirectory: NO relativeToURL: nil] error: NULL];
+    int fno = open(filename, O_WRONLY | O_CREAT, 0664);
+    if (fno == -1) {
+        return NULL;
+    }
+    
+    NSFileHandle* handle = [[NSFileHandle alloc] initWithFileDescriptor:fno closeOnDealloc:YES];
 
     if (handle == nil) {
         return NULL;
@@ -58,6 +68,7 @@ ZFile* open_file_write(const char* filename) {
     ZFile* f = malloc(sizeof(ZFile));
 
     f->theFile = [[ZHandleFile alloc] initWithFileHandle: handle];
+    [handle release];
 
     return f;
 }

@@ -26,6 +26,7 @@
 #ifdef UNIX_IO
 #include <fcntl.h>
 #include <sys/stat.h>  /* Needed only for file permission bits */
+#include <unistd.h>
 
 #ifdef __STRICT_ANSI__
 int fileno(FILE *f);
@@ -164,7 +165,7 @@ static rbool smatch(char c, const char *matchset)
 
 static int find_path_sep(const char *name)
 {
-  int i;
+  size_t i;
 
   if (path_sep==NULL) 
     return -1;
@@ -181,7 +182,7 @@ static int search_for_ext(const char *name, filetype base_ft,
 			  filetype *pft)
 {
   filetype t;
-  int xlen,len;
+  size_t xlen,len;
 
   *pft=fNONE;
   len=strlen(name);
@@ -228,14 +229,14 @@ static int search_for_ext(const char *name, filetype base_ft,
 static char *extract_piece(const char *name, int extlen, rbool isext)
 {
   char *root;
-  int len, xlen;
+  size_t len, xlen;
   rbool first;  /* If true, extract from beginning; if false, extract
 		   from end */
 
   len=strlen(name)-extlen;
   xlen=extlen;
   if (isext) {
-    int tmp;
+    size_t tmp;
     tmp=len; len=xlen; xlen=tmp;
   }
   if (len==0) return NULL;
@@ -327,7 +328,7 @@ static void fix_path(file_context_rec *fc)
 fc_type init_file_context(const char *name,filetype ft)
 {
   file_context_rec *fc;
-  int p, x;  /* Path and extension markers */
+  size_t p, x;  /* Path and extension markers */
 
   fc=rmalloc(sizeof(file_context_rec));
   fc->special=0;
@@ -741,7 +742,7 @@ long binsize(genfile f)
   assert(f!=NULL);
 #ifdef UNIX_IO
   {
-    long fd;
+    int fd;
 
     fd=fileno(f);
     pos=lseek(fd,0,SEEK_CUR);
