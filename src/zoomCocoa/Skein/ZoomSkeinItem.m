@@ -114,11 +114,7 @@ static NSString* convertCommand(NSString* command) {
 - (void) dealloc {
 	// First, mark the old items as having no parent
 	NSMutableArray* childrenToDestroy = [NSMutableArray array];
-	NSEnumerator* objEnum = [children objectEnumerator];
-	ZoomSkeinItem* child;
-	for (child in objEnum) {
-		[childrenToDestroy addObject: child];
-	}
+	[childrenToDestroy setArray:[children allObjects]];
 	
 	// Luke, I am your father
 	[childrenToDestroy makeObjectsPerformSelector: @selector(removeFromParent)];

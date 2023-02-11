@@ -53,7 +53,8 @@ extern NSString* const ZoomSIChild;
 + (instancetype) skeinItemWithCommand: (nullable NSString*) command;
 
 - (instancetype) initWithCommand: (nullable NSString*) command;
-- (instancetype) initWithCommand: (nullable NSString*) command identifier: (NSUUID*) uuid;
+- (instancetype) initWithCommand: (nullable NSString*) command identifier: (NSUUID*) uuid NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype) initWithCoder: (NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 
 // Data accessors
 
