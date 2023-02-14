@@ -129,6 +129,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	// init is the designated initialiser for this class
 	public override init() {
 		super.init()
+		prefLock.name = "Zoom Preferences"
 	}
  
 	@objc(globalPreferences)
@@ -234,7 +235,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open class var defaultOrganiserDirectoryURL: URL {
 		_=firstRun
-		if #available(macOSApplicationExtension 13.0, *) {
+		if #available(macOS 13.0, macOSApplicationExtension 13.0, *) {
 			return URL.documentsDirectory.appending(path: "Interactive Fiction", directoryHint: .isDirectory)
 		} else {
 		let docURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
