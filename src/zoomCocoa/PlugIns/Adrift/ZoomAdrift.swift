@@ -129,7 +129,7 @@ private func stringIDForAdriftFile(at url: URL) -> String? {
 
 	/* Burn the first 8 bytes of translation */
 	for _ in 0 ..< 8 { _=vbr.translate(byte: 0) }
-	/* Bytes 8-11 contain the Adrift version number in the formay N.NN */
+	/* Bytes 8-11 contain the Adrift version number in the format N.NN */
 	var buf: [UInt8] = [0,0,0]
 	buf[0] = vbr.translate(byte: data[8])
 	_=vbr.translate(byte: 0)

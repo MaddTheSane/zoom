@@ -650,15 +650,14 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	
 	open var organiserDirectory: String! {
 		get {
-			let result: String? = prefLock.withLock({
-				var result = prefs[organiserDirectoryKey] as? String
-				if result == nil {
-					result = ZoomPreferences.defaultOrganiserDirectory
+			let result: String = prefLock.withLock({
+				guard let result = prefs[organiserDirectoryKey] as? String else {
+					return ZoomPreferences.defaultOrganiserDirectory
 				}
 				return result
 			})
 			
-			return result!
+			return result
 		}
 		set {
 			if let newValue = newValue {

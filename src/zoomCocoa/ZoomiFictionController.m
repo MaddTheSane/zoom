@@ -475,7 +475,6 @@ static NSArray<NSString*>* blorbFileTypes;
 
 	// Add all the files we can
 	NSMutableArray<NSURL*> *selectedFiles = [filenames mutableCopy];
-	NSInteger preCount = [[ZoomStoryOrganiser sharedStoryOrganiser] countOfStories];
 	
 	while([selectedFiles count] > 0) @autoreleasepool {
 		BOOL isDir;

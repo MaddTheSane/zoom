@@ -166,7 +166,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
       
     case 3: //.cmf
       //TODO: read/convert Creative Music Format?
-      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .MUC files right now!", urlPath.path]);
+      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .cmf files right now!", urlPath.path]);
       return nil;
       break;
       

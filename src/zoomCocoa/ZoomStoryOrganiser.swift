@@ -32,9 +32,6 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	@MainActor private(set) var stories = [Object]()
-	@MainActor var countOfStories: Int {
-		return stories.count
-	}
 	@MainActor private var gameDirectories = [String: URL]()
 	struct Object: Hashable, Codable {
 		enum CodingKeys: String, CodingKey {
@@ -86,7 +83,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 	}
 	
-	struct SaveWrapper: Codable {
+	private struct SaveWrapper: Codable {
 		var stories: [Object]
 		var gameDirectories: [String: URL]
 		enum CodingKeys: String, CodingKey {
@@ -119,8 +116,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			RunLoop.current.cancelPerform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: strongSelf, argument: story)
 			RunLoop.current.perform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: strongSelf, argument: story, order: 128, modes: [.default, .modalPanel])
 		})
-		checkTimer = Timer(timeInterval: 1, target: self, selector: #selector(self.checkOrganizerChanged(_:)), userInfo: nil, repeats: true)
+		checkTimer = Timer(timeInterval: 10, target: self, selector: #selector(self.checkOrganizerChanged(_:)), userInfo: nil, repeats: true)
 		checkTimer.tolerance = 5
+		RunLoop.main.add(checkTimer, forMode: .default)
 	}
 	
 	@MainActor @objc private func checkOrganizerChanged(_ timer: Timer) {
@@ -264,12 +262,12 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			return nil
 		}()
 		let oldURLID: (NSCopying & NSSecureCoding & NSObjectProtocol)? = {
-			if let oldURL = oldURL,
+			guard let oldURL = oldURL,
 			   let resVals = try? oldURL.resourceValues(forKeys: [.fileResourceIdentifierKey]),
-			   let theID = resVals.fileResourceIdentifier {
-				return theID
+			   let theID = resVals.fileResourceIdentifier else {
+				return nil
 			}
-			return nil
+			return theID
 		}()
 		let oldIdent: ZoomStoryID? = {
 			if let dupURLIdx {

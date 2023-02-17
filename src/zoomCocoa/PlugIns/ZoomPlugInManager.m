@@ -317,7 +317,7 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 }
 
 - (NSArray<UTType*>*)pluginSupportedContentTypes {
-	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2];
+	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2 + 4];
 	for (Class plugClass in pluginClasses) {
 		[utis addObjectsFromArray: [plugClass supportedContentTypes]];
 	}
