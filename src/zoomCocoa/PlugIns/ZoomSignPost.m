@@ -30,10 +30,14 @@
 #pragma mark - Initialising
 
 - (id) initWithData: (NSData*) data {
+	return self = [self initWithData: data error: NULL];
+}
+
+- (id) initWithData: (NSData*) data error: (NSError**) error {
 	self = [super init];
 	
 	if (self) {
-		if (![self parseData: data]) {
+		if (![self parseData: data error: error]) {
 			return nil;
 		}
 	}
@@ -42,6 +46,10 @@
 }
 
 - (BOOL) parseData: (NSData*) data {
+	return [self parseData: data error: NULL];
+}
+
+- (BOOL) parseData: (NSData*) data error: (NSError**) error {
 	// Reset the state of this object
 	ifids					= nil;
 	interpreterDisplayName	= nil;
@@ -62,14 +70,19 @@
 	[parser setDelegate: self];
 	
 	[parser parse];
-	if (parseError && !reparseAsPlist) return NO;
+	if (parseError && !reparseAsPlist) {
+		if (error) {
+			*error = parser.parserError;
+		}
+		return NO;
+	}
 	
 	// Reparse as a plist if requested
 	if (reparseAsPlist) {
 		NSDictionary* plist = [NSPropertyListSerialization propertyListWithData: data
 																		options: NSPropertyListImmutable
 																		 format: nil
-																		  error: nil];
+																		  error: error];
 		if (!plist) return NO;
 		if (![plist isKindOfClass: [NSDictionary class]]) return NO;
 		
@@ -83,7 +96,12 @@
 
 	// Check that we have the minimal properties required of a valid signpost
 	if (errorMessage) return YES;
-	if (!downloadURL || [downloadURL length] <= 0) return NO;
+	if (!downloadURL || [downloadURL length] <= 0) {
+		if (error) {
+			*error = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+		}
+		return NO;
+	}
 	
 	return YES;
 }

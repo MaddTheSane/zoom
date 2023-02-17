@@ -123,12 +123,12 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 		}
 		
 		// Kill any tasks
-		if let task = task, task.isRunning {
+		if let task, task.isRunning {
 			task.interrupt()
 			task.terminate()
 		}
 		
-		if let subtasks = subtasks {
+		if let subtasks {
 			for sub in subtasks {
 				if sub.isRunning {
 					sub.interrupt()
@@ -508,14 +508,14 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 	
 	@objc private func taskDidTerminate(_ noti: Notification) {
 		// Do nothing if no task is running
-		guard let task = task else {
+		guard let task else {
 			return
 		}
 		// Check if all of the tasks have finished
 		var finished = true
 		var succeeded = true
 		
-		if let subtasks = subtasks {
+		if let subtasks {
 			for sub in subtasks {
 				if sub.isRunning {
 					finished = false

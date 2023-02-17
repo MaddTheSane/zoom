@@ -20,9 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Initialising
 
 //! Parses the specified signpost data
-- (nullable instancetype) initWithData: (NSData*) data;
+- (nullable instancetype) initWithData: (NSData*) data NS_SWIFT_UNAVAILABLE("");
+//! Parses the specified signpost data
+- (nullable instancetype) initWithData: (NSData*) data error: (NSError**) error NS_DESIGNATED_INITIALIZER;
+
+- (instancetype) init UNAVAILABLE_ATTRIBUTE;
 //! Replaces the data stored in this signpost with the specified data
-- (BOOL) parseData: (NSData*) data;
+- (BOOL) parseData: (NSData*) data NS_SWIFT_UNAVAILABLE("");
+//! Replaces the data stored in this signpost with the specified data
+- (BOOL) parseData: (NSData*) data error: (NSError**) error;
 
 #pragma mark - Getting signpost data
 
