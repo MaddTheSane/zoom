@@ -276,20 +276,20 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	// init the story organizer.
 	[[ZoomStoryOrganiser sharedStoryOrganiser] updateFromOldDefaults];
 	// See if there's a startup signpost file
-	NSString* startupSignpost = [[(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory] stringByAppendingPathComponent: @"launch.signpost"];
+	NSURL* startupSignpost = [[(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectoryURL] URLByAppendingPathComponent: @"launch.signpost"];
 	BOOL isDir;
 
-	if ([[NSFileManager defaultManager] fileExistsAtPath: startupSignpost
+	if ([[NSFileManager defaultManager] fileExistsAtPath: startupSignpost.path
 											 isDirectory: &isDir]) {
 		// Do nothing if it's a directory
 		if (isDir) return;
 		
 		// Read the file
-		NSData* startupSignpostData = [NSData dataWithContentsOfFile: startupSignpost];
+		NSData* startupSignpostData = [NSData dataWithContentsOfURL: startupSignpost];
 		
 		// Delete it
-		[[NSFileManager defaultManager] removeItemAtPath: startupSignpost
-												   error: NULL];
+		[[NSFileManager defaultManager] removeItemAtURL: startupSignpost
+												  error: NULL];
 		
 		// Get the iFiction control to handle it
 		[[ZoomiFictionController sharediFictionController] openSignPost: startupSignpostData
@@ -407,7 +407,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 - (NSURL*)zoomConfigDirectoryURL {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?
-	NSArray* libraryDirs = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
+	NSArray* libraryDirs = [NSFileManager.defaultManager URLsForDirectory: NSApplicationSupportDirectory inDomains: NSUserDomainMask];
 
 	for (NSURL* libDir in libraryDirs) {
 		BOOL isDir;

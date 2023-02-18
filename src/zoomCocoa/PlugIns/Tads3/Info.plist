@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ZoomPlugin</key>
+	<dict>
+		<key>Author</key>
+		<string>Andrew Hunter</string>
+		<key>DisplayName</key>
+		<string>TADS</string>
+		<key>Image</key>
+		<string>../../Resources/TADS.icns</string>
+		<key>InterpreterAuthor</key>
+		<string>Mike Roberts</string>
+		<key>InterpreterVersion</key>
+		<string>3.0.12</string>
+		<key>Version</key>
+		<string>1.1.2</string>
+		<key>ZoomVersion</key>
+		<integer>112</integer>
+	</dict>
+</dict>
+</plist>

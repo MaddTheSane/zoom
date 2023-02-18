@@ -357,7 +357,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 		
 		if status >= 400 {
 			// Failure: give up
-			NSLog("Error: %li", status);
+			NSLog("Error: %li", status)
 			
 			switch status {
 			case 403:
@@ -384,7 +384,8 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 		
 		// Create the download directory if it doesn't exist
 		createDownloadDirectory()
-		guard let downloadDirectory = downloadDirectory, (try? downloadDirectory.checkResourceIsReachable()) ?? false else {
+		guard let downloadDirectory,
+			  (try? downloadDirectory.checkResourceIsReachable()) ?? false else {
 			failed(reason: "Couldn't create download directory")
 			return .cancel
 		}

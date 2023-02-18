@@ -316,6 +316,10 @@
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		555BCB84295D1332002E569F /* agt2agx in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368B00272A046400740A0A /* agt2agx */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5563A5722724B707005B40E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5563A5742724B707005B40E0 /* Localizable.strings */; };
+		55687B1C29A0B4B80005E1AE /* ZpTadsTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 55687B1B29A0B4B80005E1AE /* ZpTadsTwo.m */; };
+		55687B1F29A0B5510005E1AE /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
+		55687B2E29A0BD2A0005E1AE /* ZpTadsThree.m in Sources */ = {isa = PBXBuildFile; fileRef = 55687B2D29A0BB460005E1AE /* ZpTadsThree.m */; };
+		55687B2F29A0BD3C0005E1AE /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		558DF646272D3759004682BF /* ZoomiFictionController+WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */; };
 		559122EC276497B0001C4C95 /* os_zoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 559122EB276497B0001C4C95 /* os_zoom.m */; };
 		559122FA2766AF73001C4C95 /* ZoomPreferenceWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559122F92766AF73001C4C95 /* ZoomPreferenceWindow.swift */; };
@@ -851,6 +855,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 55368AEA272A046400740A0A;
 			remoteInfo = agt2agx;
+		};
+		55687B1D29A0B4CC0005E1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
+			remoteInfo = ZoomPlugIns;
+		};
+		55687B2A29A0BB390005E1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
+			remoteInfo = ZoomPlugIns;
 		};
 		5591DC0D291637AA00BF6F6F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1562,6 +1580,14 @@
 		5551384A29678A9C002BAAAC /* AgilDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgilDataSource.m; sourceTree = "<group>"; };
 		5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinWeb.h; sourceTree = "<group>"; };
 		5563A5732724B707005B40E0 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55687B1429A0B3E30005E1AE /* Tads2.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tads2.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		55687B1929A0B4270005E1AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55687B1A29A0B4B80005E1AE /* ZpTadsTwo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZpTadsTwo.h; sourceTree = "<group>"; };
+		55687B1B29A0B4B80005E1AE /* ZpTadsTwo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZpTadsTwo.m; sourceTree = "<group>"; };
+		55687B2429A0BAA40005E1AE /* Tads3.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tads3.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		55687B2929A0BABC0005E1AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55687B2C29A0BB450005E1AE /* ZpTadsThree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZpTadsThree.h; sourceTree = "<group>"; };
+		55687B2D29A0BB460005E1AE /* ZpTadsThree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZpTadsThree.m; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomiFictionController+WebKit.swift"; sourceTree = "<group>"; };
 		559122EB276497B0001C4C95 /* os_zoom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = os_zoom.m; sourceTree = "<group>"; };
@@ -1923,6 +1949,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55687B1129A0B3E30005E1AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55687B1F29A0B5510005E1AE /* ZoomPlugIns.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55687B2129A0BAA40005E1AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55687B2F29A0BD3C0005E1AE /* ZoomPlugIns.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5591DC012916367C00BF6F6F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2081,6 +2123,8 @@
 				5591DC042916367C00BF6F6F /* heglk */,
 				5591DC1E29163EB400BF6F6F /* Hugo.plugin */,
 				55E478872968CCD10017646D /* libflic.a */,
+				55687B1429A0B3E30005E1AE /* Tads2.zoomPlugin */,
+				55687B2429A0BAA40005E1AE /* Tads3.zoomPlugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2274,13 +2318,15 @@
 		4B7CB0730936276B00F3B8F6 /* PlugIns */ = {
 			isa = PBXGroup;
 			children = (
+				55687B1829A0B3F60005E1AE /* Tads2 */,
+				55687B2829A0BAAF0005E1AE /* Tads3 */,
 				5591DC2929163F0E00BF6F6F /* Hugo */,
-				553C83662712382B002782C0 /* Resources */,
 				55368AA3272A03B600740A0A /* AGT */,
 				552CF02127168593009D87A5 /* Adrift */,
 				55BE4AE7270998B100100A7D /* Quest4 */,
 				55BC111C2786D04B00369EBE /* JACL */,
 				4B36C44F0955ECDD00874F9F /* Glulxe */,
+				553C83662712382B002782C0 /* Resources */,
 				552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */,
 				4B7CB0740936278500F3B8F6 /* README */,
 				4B7CB0780936294B00F3B8F6 /* ZoomPlugIn.h */,
@@ -2739,6 +2785,26 @@
 				55DA68AA2739DBC90007990A /* Localizable.strings */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		55687B1829A0B3F60005E1AE /* Tads2 */ = {
+			isa = PBXGroup;
+			children = (
+				55687B1929A0B4270005E1AE /* Info.plist */,
+				55687B1A29A0B4B80005E1AE /* ZpTadsTwo.h */,
+				55687B1B29A0B4B80005E1AE /* ZpTadsTwo.m */,
+			);
+			path = Tads2;
+			sourceTree = "<group>";
+		};
+		55687B2829A0BAAF0005E1AE /* Tads3 */ = {
+			isa = PBXGroup;
+			children = (
+				55687B2929A0BABC0005E1AE /* Info.plist */,
+				55687B2C29A0BB450005E1AE /* ZpTadsThree.h */,
+				55687B2D29A0BB460005E1AE /* ZpTadsThree.m */,
+			);
+			path = Tads3;
 			sourceTree = "<group>";
 		};
 		5591DBD02916355A00BF6F6F /* Hugo */ = {
@@ -3448,6 +3514,42 @@
 			productReference = 55368B00272A046400740A0A /* agt2agx */;
 			productType = "com.apple.product-type.tool";
 		};
+		55687B1329A0B3E30005E1AE /* Tads2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55687B1529A0B3E30005E1AE /* Build configuration list for PBXNativeTarget "Tads2" */;
+			buildPhases = (
+				55687B1029A0B3E30005E1AE /* Sources */,
+				55687B1129A0B3E30005E1AE /* Frameworks */,
+				55687B1229A0B3E30005E1AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55687B1E29A0B4CC0005E1AE /* PBXTargetDependency */,
+			);
+			name = Tads2;
+			productName = Tads2;
+			productReference = 55687B1429A0B3E30005E1AE /* Tads2.zoomPlugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+		55687B2329A0BAA40005E1AE /* Tads3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55687B2529A0BAA50005E1AE /* Build configuration list for PBXNativeTarget "Tads3" */;
+			buildPhases = (
+				55687B2029A0BAA40005E1AE /* Sources */,
+				55687B2129A0BAA40005E1AE /* Frameworks */,
+				55687B2229A0BAA40005E1AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55687B2B29A0BB390005E1AE /* PBXTargetDependency */,
+			);
+			name = Tads3;
+			productName = Tads3;
+			productReference = 55687B2429A0BAA40005E1AE /* Tads3.zoomPlugin */;
+			productType = "com.apple.product-type.bundle";
+		};
 		5591DC032916367C00BF6F6F /* heglk */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5591DC082916367D00BF6F6F /* Build configuration list for PBXNativeTarget "heglk" */;
@@ -3631,6 +3733,12 @@
 						CreatedOnToolsVersion = 13.0;
 						LastSwiftMigration = 1300;
 					};
+					55687B1329A0B3E30005E1AE = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					55687B2329A0BAA40005E1AE = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					5591DC032916367C00BF6F6F = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -3718,6 +3826,8 @@
 				5591DC032916367C00BF6F6F /* heglk */,
 				5591DC1D29163EB400BF6F6F /* Hugo */,
 				55E478862968CCD00017646D /* flic */,
+				55687B1329A0B3E30005E1AE /* Tads2 */,
+				55687B2329A0BAA40005E1AE /* Tads3 */,
 			);
 		};
 /* End PBXProject section */
@@ -3952,6 +4062,20 @@
 				55368B2B272A0AFC00740A0A /* readme.agility in Resources */,
 				55368B20272A05DB00740A0A /* readme.glk in Resources */,
 				55368B1F272A05CA00740A0A /* GPL in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55687B1229A0B3E30005E1AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55687B2229A0BAA40005E1AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4310,6 +4434,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55687B1029A0B3E30005E1AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55687B1C29A0B4B80005E1AE /* ZpTadsTwo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55687B2029A0BAA40005E1AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55687B2E29A0BD2A0005E1AE /* ZpTadsThree.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5591DC002916367C00BF6F6F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4626,6 +4766,16 @@
 			isa = PBXTargetDependency;
 			target = 55368AEA272A046400740A0A /* agt2agx */;
 			targetProxy = 555BCB81295D1308002E569F /* PBXContainerItemProxy */;
+		};
+		55687B1E29A0B4CC0005E1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
+			targetProxy = 55687B1D29A0B4CC0005E1AE /* PBXContainerItemProxy */;
+		};
+		55687B2B29A0BB390005E1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
+			targetProxy = 55687B2A29A0BB390005E1AE /* PBXContainerItemProxy */;
 		};
 		5591DC0E291637AA00BF6F6F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5889,6 +6039,104 @@
 			};
 			name = Release;
 		};
+		55687B1629A0B3E30005E1AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.1.5;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Tads2/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ZpTadsTwo;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.1.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.Tads2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Debug;
+		};
+		55687B1729A0B3E30005E1AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.1.5;
+				ENABLE_NS_ASSERTIONS = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Tads2/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ZpTadsTwo;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.1.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.Tads2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Release;
+		};
+		55687B2629A0BAA50005E1AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.1.5;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Tads3/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ZpTadsThree;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.1.5;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Tads3PlugIn;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Debug;
+		};
+		55687B2729A0BAA50005E1AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.1.5;
+				ENABLE_NS_ASSERTIONS = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Tads3/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = ZpTadsThree;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.1.5;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Tads3PlugIn;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Release;
+		};
 		5591DC092916367D00BF6F6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6398,6 +6646,24 @@
 			buildConfigurations = (
 				55368AFE272A046400740A0A /* Debug */,
 				55368AFF272A046400740A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55687B1529A0B3E30005E1AE /* Build configuration list for PBXNativeTarget "Tads2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55687B1629A0B3E30005E1AE /* Debug */,
+				55687B1729A0B3E30005E1AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55687B2529A0BAA50005E1AE /* Build configuration list for PBXNativeTarget "Tads3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55687B2629A0BAA50005E1AE /* Debug */,
+				55687B2729A0BAA50005E1AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
