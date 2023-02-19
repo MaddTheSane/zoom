@@ -48,7 +48,7 @@
 - (id)initWithURL:(NSURL *)gameFile
 {
 	if (self = [super initWithURL:gameFile]) {
-		
+		[self setClientPath: [[NSBundle bundleForClass: [self class]] pathForAuxiliaryExecutable: @"tads-2"]];
 	}
 	return self;
 }

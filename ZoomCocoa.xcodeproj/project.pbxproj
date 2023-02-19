@@ -6047,10 +6047,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.1.5;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/PlugIns/Tads2/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

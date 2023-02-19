@@ -138,6 +138,10 @@
 			<string>iFiction metadata</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.ifiction</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>
@@ -860,6 +864,27 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>asl</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>iFiction Metadata</string>
+			<key>UTTypeIconFile</key>
+			<string>iFiction</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>public.ifiction</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>iFiction</string>
 				</array>
 			</dict>
 		</dict>
