@@ -116,7 +116,9 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	[xmlDoc setRootElement: root];
 	
 	[root addChild: elementWithNameAndValue(@"generator", @"Zoom", NO)];
-	[root addChild: elementWithNameAndAttribute(@"activeNode", @"nodeId", self.activeItem.nodeIdentifier.UUIDString)];
+	if (self.activeItem) {
+		[root addChild: elementWithNameAndAttribute(@"activeNode", @"nodeId", self.activeItem.nodeIdentifier.UUIDString)];
+	}
 	
 	// Write items
 	NSMutableArray<ZoomSkeinItem*> *itemStack = [NSMutableArray arrayWithObject: rootItem];

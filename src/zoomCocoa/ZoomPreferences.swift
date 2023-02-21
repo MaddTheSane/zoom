@@ -179,7 +179,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		
 		if let fts = prefs[fontsKey] as? Data {
 			var tmp: Any?
-			if #available(macOSApplicationExtension 11.0, *) {
+			if #available(macOS 11.0, macOSApplicationExtension 11.0, *) {
 				tmp = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClass: NSFont.self, from: fts)
 			} else {
 				tmp = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSFont.self], from: fts)
@@ -196,7 +196,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		
 		if let cols = prefs[coloursKey] as? Data {
 			var tmp: Any?
-			if #available(macOSApplicationExtension 11.0, *) {
+			if #available(macOS 11.0, macOSApplicationExtension 11.0, *) {
 				tmp = try? NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClass: NSColor.self, from: cols)
 			} else {
 				tmp = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSColor.self], from: cols)
