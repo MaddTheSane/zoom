@@ -436,8 +436,8 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 		[pixmapCursor setDelegate: self];
 		
 		// FIXME: test of the cursor
-		[pixmapCursor positionAt: NSMakePoint(100, 100)
-						withFont: [self fontFromStyle: 0]];
+		[pixmapCursor positionAtPoint: NSMakePoint(100, 100)
+							 withFont: [self fontFromStyle: 0]];
 		[pixmapCursor setShown: NO];
 		[pixmapCursor setBlinking: YES];
 		[pixmapCursor setActive: YES];
@@ -569,8 +569,8 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 			(style.fixed?ZFontStyleFixed:0)|
 			(style.symbolic?ZFontStyleSymbolic:0);
 		
-		[pixmapCursor positionAt: [pixmapWindow inputPos]
-						withFont: [self fontFromStyle: fontnum]];
+		[pixmapCursor positionAtPoint: [pixmapWindow inputPos]
+							 withFont: [self fontFromStyle: fontnum]];
 		
 		[pixmapCursor setShown: !moreOn];
 	}
@@ -665,8 +665,8 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 			(style.fixed?ZFontStyleFixed:0)|
 			(style.symbolic?ZFontStyleSymbolic:0);
 		
-		[pixmapCursor positionAt: [pixmapWindow inputPos]
-						withFont: [self fontFromStyle: fontnum]];
+		[pixmapCursor positionAtPoint: [pixmapWindow inputPos]
+							 withFont: [self fontFromStyle: fontnum]];
 
 		// Display the cursor
 		[pixmapCursor setShown: YES];

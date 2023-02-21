@@ -39,7 +39,7 @@ class ZoomCursor: NSObject {
 	}
 	
 	// MARK: Drawing
-	@objc public func draw() {
+	public func draw() {
 		guard isVisible else {
 			return
 		}
@@ -61,15 +61,15 @@ class ZoomCursor: NSObject {
 		}
 	}
 	
-	@objc public class var keyPathsForValuesAffectingVisible: Set<String> {
+	public class var keyPathsForValuesAffectingVisible: Set<String> {
 		return Set<String>(["shown", "blinking", "blink"])
 	}
 	
-	@objc public var activeStyle: Bool {
+	public var activeStyle: Bool {
 		return isActive && isFirst
 	}
 	
-	@objc public class var keyPathsForValuesAffectingActiveStyle: Set<String> {
+	public class var keyPathsForValuesAffectingActiveStyle: Set<String> {
 		return Set<String>(["active", "first"])
 	}
 	
@@ -89,7 +89,7 @@ class ZoomCursor: NSObject {
 	}
 	
 	/// Cause the delegate to undraw any previous cursor
-	@objc(positionAt:withFont:)
+	@objc(positionAtPoint:withFont:)
 	public func position(at pt: NSPoint, with font: NSFont) {
 		let wasShown = isShown
 		isShown = false
@@ -152,7 +152,7 @@ class ZoomCursor: NSObject {
 		delegate?.blink?(self)
 	}
 	
-	func ZCblinky() {
+	func ZCblinky(_ timer: Timer) {
 		if activeStyle {
 			blink = !blink
 		} else {
@@ -161,7 +161,7 @@ class ZoomCursor: NSObject {
 		ZCblunk()
 	}
 	
-	@objc public var cursorRect: NSRect {
+	public var cursorRect: NSRect {
 		return cursorRectI.insetBy(dx: -2, dy: -2)
 	}
 	
@@ -179,8 +179,8 @@ class ZoomCursor: NSObject {
 					self.flasher = nil
 				}
 			} else {
-				if (flasher == nil) {
-					flasher = Timer(timeInterval: BlinkInterval, target: self, selector: #selector(self.ZCblinky), userInfo: nil, repeats: true)
+				if flasher == nil {
+					flasher = Timer(timeInterval: BlinkInterval, target: self, selector: #selector(self.ZCblinky(_:)), userInfo: nil, repeats: true)
 					RunLoop.current.add(flasher!, forMode: .default)
 				}
 			}
@@ -228,5 +228,5 @@ class ZoomCursor: NSObject {
 	}
 	
 	/// Delegate
-	@objc public weak var delegate: ZoomCursorDelegate?
+	public weak var delegate: ZoomCursorDelegate?
 }

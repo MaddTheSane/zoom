@@ -123,8 +123,8 @@
     for (ZoomUpperWindow* win in zoomView.upperWindows) {
 		if (win == activeWindow) {
 			// Position the cursor
-			[cursor positionAt: NSMakePoint(fixedSize.width * xp, fixedSize.height * (yp + startY))
-					  withFont: font];
+			[cursor positionAtPoint: NSMakePoint(fixedSize.width * xp, fixedSize.height * (yp + startY))
+						   withFont: font];
 		}
 		
 		startY += [win length];
@@ -176,8 +176,8 @@
 	// Position the input line
 	NSDictionary* styleAttributes = [zoomView attributesForStyle: style];
 
-	[cursor positionAt: [self cursorPos]
-			  withFont: [zoomView fontFromStyle: ZFontStyleFixed]];
+	[cursor positionAtPoint: [self cursorPos]
+				   withFont: [zoomView fontFromStyle: ZFontStyleFixed]];
 	inputLinePos = [self cursorPos];
 	inputLinePos.y -= [[styleAttributes objectForKey: NSFontAttributeName] descender];
 	
