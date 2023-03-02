@@ -46,6 +46,7 @@
 	NSRectFill(NSMakeRect(0, 0, [pixmap size].width, [pixmap size].height));
 			   
 	[pixmap unlockFocus];
+	[zView setNeedsDisplay:YES];
 }
 
 - (oneway void) setFocus {
@@ -94,6 +95,7 @@
 	NSRectFill(rect);
 	
 	[pixmap unlockFocus];
+	//TODO: use -setNeedsDisplayInRect:
 	[zView setNeedsDisplay: YES];
 }
 
@@ -131,6 +133,7 @@
 	   withAttributes: attr];
 	
 	[pixmap unlockFocus];
+	//TODO: use -setNeedsDisplayInRect:
 	[zView setNeedsDisplay: YES];
 	[zView orOutputText: text];
 }
@@ -150,6 +153,7 @@
 	
 	[pixmap unlockFocus];
 	[zView setNeedsDisplay: YES];
+	//TODO: use -setNeedsDisplayInRect:
 }
 
 #pragma mark - Measuring
@@ -227,6 +231,7 @@
 			  hints: nil];
 	[pixmap unlockFocus];
 	
+	//TODO: use -setNeedsDisplayInRect:
 	[zView setNeedsDisplay: YES];
 }
 

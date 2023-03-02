@@ -276,6 +276,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 // Drawing
 - (void) drawRect: (__unused NSRect) rect {
 	if (pixmapWindow != nil) {
+		// TODO: only update what rect deems as dirty.
 		NSRect bounds = [self bounds];
 		NSImage* pixmap = [pixmapWindow pixmap];
 		
