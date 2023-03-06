@@ -20,42 +20,42 @@ private let generalSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: generalSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: General", comment: "General")
 	toRet.image = NSImage(named: "Settings/general")
-	toRet.action = #selector(ZoomPreferenceWindow.generalSettings(_:))
+	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let gameSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: gameSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Game", comment: "Game")
 	toRet.image = NSImage(named: "Settings/game")
-	toRet.action = #selector(ZoomPreferenceWindow.gameSettings(_:))
+	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let displaySettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: displaySettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Display", comment: "Display")
 	toRet.image = NSImage(named: "Settings/display")
-	toRet.action = #selector(ZoomPreferenceWindow.displaySettings(_:))
+	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let fontSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: fontSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Fonts", comment: "Fonts")
 	toRet.image = NSImage(named: "Settings/font")
-	toRet.action = #selector(ZoomPreferenceWindow.fontSettings(_:))
+	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let colourSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: colourSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Colour", comment: "Colour")
 	toRet.image = NSImage(named: NSImage.colorPanelName)
-	toRet.action = #selector(ZoomPreferenceWindow.colourSettings(_:))
+	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let typographicSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: typographicSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Typography", comment: "Typography")
 	toRet.image = NSImage(named: "Settings/typographic")
-	toRet.action = #selector(ZoomPreferenceWindow.typographicSettings(_:))
+	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 
@@ -238,53 +238,28 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	}
 	
 	/// Setting the pane that's being displayed
-	private func switchToPane(_ preferencePane: NSView) {
+	@objc fileprivate func switchToPane(_ sender: NSToolbarItem) {
+
+		let itemToViewDictionary = [generalSettingsItem: generalSettingsView,
+									   gameSettingsItem: gameSettingsView,
+									displaySettingsItem: displaySettingsView,
+									   fontSettingsItem: fontSettingsView,
+									 colourSettingsItem: colourSettingsView,
+								typographicSettingsItem: typographicalSettingsView]
+
+		let preferencePane = itemToViewDictionary[sender]!! as NSView
 		guard window?.contentView != preferencePane else {
 			return
 		}
 		
-		// Select the appropriate item in the toolbar
-		do {
-			var selected: NSToolbarItem.Identifier? = nil
-			
-			if preferencePane === generalSettingsView {
-				selected = generalSettingsItemName
-			} else if preferencePane === gameSettingsView {
-				selected = gameSettingsItemName
-			} else if preferencePane === displaySettingsView {
-				selected = displaySettingsItemName
-			} else if preferencePane === fontSettingsView {
-				selected = fontSettingsItemName
-			} else if preferencePane === colourSettingsView {
-				selected = colourSettingsItemName
-			} else if preferencePane === typographicalSettingsView {
-				selected = typographicSettingsItemName
-			}
-			
-			if let selected = selected {
-				toolbar.selectedItemIdentifier = selected
-			}
-		}
-		
 		// Work out the various frame sizes
-		var currentFrame = window!.contentView!.frame
-		let oldFrame = currentFrame
 		var windowFrame = window!.frame
-		
-		currentFrame.origin.y -= preferencePane.frame.height - currentFrame.height
-		currentFrame.size.height = preferencePane.frame.height
-		
-		// Grr, complicated, as OS X provides no way to work out toolbar proportions except in 10.3
-		windowFrame.origin.x    += (currentFrame.origin.x - oldFrame.origin.x);
-		windowFrame.origin.y    += (currentFrame.origin.y - oldFrame.origin.y);
-		windowFrame.size.width  += (currentFrame.size.width - oldFrame.size.width);
-		windowFrame.size.height += (currentFrame.size.height - oldFrame.size.height);
-		// TODO: use the following somehow...
-//		windowFrame = window!.frameRect(forContentRect: currentFrame)
-		
-		window?.contentView = NSView()
-		window?.setFrame(windowFrame, display: true, animate: true)
+		let frameForContent = window!.frameRect(forContentRect: preferencePane.frame)
+		windowFrame.origin.y -= frameForContent.height - window!.frame.height
+		windowFrame.size.height = frameForContent.height
+
 		window?.contentView = preferencePane
+		window?.setFrame(windowFrame, display: true, animate: true)
 		window?.initialFirstResponder = preferencePane
 	}
 	
@@ -305,33 +280,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
 		return [generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, colourSettingsItemName, typographicSettingsItemName]
 	}
-	
-	// MARK: - Toolbar actions
-	
-	@objc fileprivate func generalSettings(_ val: Any?) {
-		switchToPane(generalSettingsView)
-	}
-	
-	@objc fileprivate func gameSettings(_ val: Any?) {
-		switchToPane(gameSettingsView)
-	}
-	
-	@objc fileprivate func displaySettings(_ val: Any?) {
-		switchToPane(displaySettingsView)
-	}
-	
-	@objc fileprivate func fontSettings(_ val: Any?) {
-		switchToPane(fontSettingsView)
-	}
-	
-	@objc fileprivate func colourSettings(_ val: Any?) {
-		switchToPane(colourSettingsView)
-	}
-	
-	@objc fileprivate func typographicSettings(_ val: Any?) {
-		switchToPane(typographicalSettingsView)
-	}
-	
+
 	// MARK: - Setting the preferences that we're editing
 	
 	private func setButton(_ button: NSPopUpButton, toFontFamily family: String) {
