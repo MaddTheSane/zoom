@@ -351,9 +351,11 @@
 	
 		BOOL saveOK = [zoomView createAutosaveDataWithCoder: theCoder];
 	
+		//To quiet a warning when deallocating theCoder.
+		[theCoder finishEncoding];
+
 		// Produce an autosave file
 		if (saveOK) {
-			[theCoder finishEncoding];
 			NSData* autosaveData = theCoder.encodedData;
 			[autosaveData writeToFile: autosaveFile atomically: YES];
 		}

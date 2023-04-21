@@ -146,7 +146,7 @@
 		}
 	} else {
 		// Just a plain z-code file: load the lot
-		gameData = data;
+		gameData = [data copy];
 	}
 	
 	// Discover the metadata for this game

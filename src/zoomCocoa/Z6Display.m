@@ -418,7 +418,7 @@ BlorbSound* blorb_findsound(BlorbFile* blorb, int num) {
     // Get the image storage
     BlorbSound* res = NULL;
     
-    if (num < 0 || num > 32768) return NULL; // Limits on the number of images
+    if (num < 0 || num > 32768) return NULL; // Limits on the number of sounds
     
     if (num >= zoomSoundCacheSize) {
         int x;

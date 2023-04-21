@@ -344,7 +344,7 @@ void display_printf(const char* format, ...) {
 	NOTE(@"display_printf");
 
     va_start(ap, format);
-    vsnprintf(string, 512, format, ap);
+    vsnprintf(string, sizeof(string), format, ap);
 	string[511] = 0;
     va_end(ap);
 
@@ -482,7 +482,7 @@ int display_readline(int* buf, int len, long int timeout) {
 	
 	// For version 6: write the string we received
 	if (zPixmapDisplay) {
-		static int newline[] = { '\n', 0 };
+        static const int newline[] = L"\n";
 		
 		display_prints(buf);
 		if (termChar == 10 || termChar == 13) display_prints(newline);
