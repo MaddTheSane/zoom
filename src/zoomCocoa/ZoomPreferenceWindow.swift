@@ -166,7 +166,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 			glulxInterpreter.selectItem(withTag: preferences.glulxInterpreter.rawValue)
 			
 			// a kind of chessy way to get the current alpha setting
-			let color = preferences.colours![0]
+			let color = preferences.userColours![0]
 			transparencySlider.doubleValue = color.alphaComponent * 100
 			
 			interpreter.selectItem(at: Int(preferences.interpreter - 1))
@@ -193,6 +193,18 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 		}
 	}
 	
+	@objc class var keyPathsForValuesAffectingCustomColors: Set<String> {
+		return ["preferences"]
+	}
+	
+	@objc dynamic public var customColors: Bool {
+		get {
+			return preferences.useUserColours
+		}
+		set {
+			preferences.useUserColours = newValue
+		}
+	}
 	
 	convenience init() {
 		self.init(windowNibName: "Preferences")
@@ -378,7 +390,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 			return preferences.fonts.count
 		}
 		if tableView === colours {
-			return preferences.colours!.count
+			return preferences.userColours!.count
 		}
 		
 		return 0
@@ -424,7 +436,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 			if tableColumn?.identifier == NSUserInterfaceItemIdentifier("Colour name") {
 				return colorName(at: row)
 			} else if tableColumn?.identifier == NSUserInterfaceItemIdentifier("Colour") {
-				let theColour = preferences.colours![row]
+				let theColour = preferences.userColours![row]
 				return NSAttributedString(string: "Sample",
 										  attributes: [.foregroundColor: theColour,
 													   .backgroundColor: theColour])
@@ -461,7 +473,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 				return
 			}
 			
-			let colour = preferences.colours![selColour]
+			let colour = preferences.userColours![selColour]
 			
 			// Display colours
 			NSColorPanel.shared.color = colour
@@ -499,27 +511,25 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 		}
 		
 		let selected_colour = NSColorPanel.shared.color
-		let colour = selected_colour.usingColorSpace(.sRGB)?.withAlphaComponent(transparencySlider.doubleValue / 100)
+		let colour = selected_colour.withAlphaComponent(transparencySlider.doubleValue / 100)
 		
-		var cols = preferences.colours!
+		var cols = preferences.userColours!
 		
-		if let colour = colour {
-			cols[selColour] = colour
-			preferences.colours = cols
-			
-			colours.reloadData()
-			updateColourMenus()
-		}
+		cols[selColour] = colour
+		preferences.userColours = cols
+		
+		colours.reloadData()
+		updateColourMenus()
 	}
 
 	@IBAction func changeTransparency(_ sender: Any?) {
-		var cols = preferences.colours!
+		var cols = preferences.userColours!
 		
 		cols = cols.map { col -> NSColor in
-			return col.usingColorSpace(.sRGB)!.withAlphaComponent(transparencySlider.doubleValue / 100)
+			return col.withAlphaComponent(transparencySlider.doubleValue / 100)
 		}
 		
-		preferences.colours = cols
+		preferences.userColours = cols
 		
 		colours.reloadData()
 	}

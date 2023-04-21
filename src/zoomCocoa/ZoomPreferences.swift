@@ -29,6 +29,7 @@ private let revisionKey = "Revision"
 
 private let fontsKey = "Fonts"
 private let coloursKey = "Colours"
+private let useUserColoursKey = "UseUserColours"
 private let textMarginKey = "TextMargin"
 private let useScreenFontsKey = "UseScreenFonts"
 private let useHyphenationKey = "UseHyphenation"
@@ -90,7 +91,7 @@ private let defaultFonts: [NSFont] = {
 	return defaultFonts
 }()
 
-private let defaultColours = [
+private let defaultUserColours = [
 	NSColor(srgbRed: 0, green: 0, blue: 0, alpha: 1),
 	NSColor(srgbRed: 1, green: 0, blue: 0, alpha: 1),
 	NSColor(srgbRed: 0, green: 1, blue: 0, alpha: 1),
@@ -104,6 +105,30 @@ private let defaultColours = [
 	NSColor(srgbRed: 0.53, green: 0.53, blue: 0.53, alpha: 1),
 	NSColor(srgbRed: 0.26, green: 0.26, blue: 0.26, alpha: 1)
 ]
+
+private let defaultColours: [NSColor] = {
+	var toRet = [NSColor]()
+	toRet.reserveCapacity(11)
+	
+	toRet.append(NSColor.labelColor)
+	toRet.append(NSColor.systemRed)
+	toRet.append(NSColor.systemGreen)
+	toRet.append(NSColor.systemYellow)
+	toRet.append(NSColor.systemBlue)
+	toRet.append(NSColor.systemPurple)
+	if #available(macOS 12.0, macOSApplicationExtension 12.0, *) {
+		toRet.append(NSColor.systemCyan)
+	} else {
+		// ehh... close enough
+		toRet.append(NSColor.systemTeal)
+	}
+	toRet.append(NSColor.controlBackgroundColor)
+
+	toRet.append(NSColor.quaternaryLabelColor)
+	toRet.append(NSColor.tertiaryLabelColor)
+	toRet.append(NSColor.secondaryLabelColor)
+	return toRet
+}()
 
 private let firstRun: () = {
 	let defaultPrefs = ZoomPreferences(defaultPreferences: ())
@@ -164,7 +189,8 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		prefs[glulxInterpreterKey] = GlulxInterpreter.git.rawValue
 		
 		prefs[fontsKey] = defaultFonts
-		prefs[coloursKey] = defaultColours
+		prefs[coloursKey] = defaultUserColours
+		prefs[useUserColoursKey] = false
 		
 		prefs[foregroundColourKey] = 0
 		prefs[backgroundColourKey] = 7
@@ -223,7 +249,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			
 		} else {
 			NSLog("Unable to decode colour block completely: using defaults")
-			prefs[coloursKey] = defaultColours
+			prefs[coloursKey] = defaultUserColours
 		}
 	}
  
@@ -467,6 +493,18 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	open var colours: [NSColor]? {
 		get {
 			return prefLock.withLock {
+				if (prefs[useUserColoursKey] as? Bool) ?? false {
+					return prefs[coloursKey] as? [NSColor]
+				}
+				return defaultColours
+			}
+		}
+	}
+	
+	/// 13 colours
+	open var userColours: [NSColor]? {
+		get {
+			return prefLock.withLock {
 				return prefs[coloursKey] as? [NSColor]
 			}
 		}
@@ -476,6 +514,18 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			} else {
 				prefs.removeValue(forKey: coloursKey)
 			}
+			preferencesHaveChanged()
+		}
+	}
+	
+	open var useUserColours: Bool {
+		get {
+			return prefLock.withLock {
+				return (prefs[useUserColoursKey] as? Bool) ?? false
+			}
+		}
+		set {
+			prefs[useUserColoursKey] = newValue
 			preferencesHaveChanged()
 		}
 	}
