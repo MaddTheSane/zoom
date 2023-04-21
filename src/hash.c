@@ -77,7 +77,7 @@ static unsigned long crc32_table[256] = { 0, 0, 0, 0 };
 
 #define CRC32_POLY 0x04c11db7     /* AUTODIN II, Ethernet, & FDDI */
 
-static void init_crc32()
+static void init_crc32(void)
 {
         int i, j;
         unsigned long c;

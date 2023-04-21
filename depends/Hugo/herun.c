@@ -1124,7 +1124,7 @@ void RunPrint(void)
 
 /* RUNRESTART */
 
-int RunRestart()
+int RunRestart(void)
 {
 	unsigned int a;
 	long i = 0;
@@ -1333,7 +1333,7 @@ RestoreError:
 
 #endif	// RESTOREGAMEDATA_REPLACED
 
-int RunRestore()
+int RunRestore(void)
 {
 #if !defined (GLK)
 	save = NULL;

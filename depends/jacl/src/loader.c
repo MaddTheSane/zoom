@@ -43,7 +43,7 @@ static void create_language_constants(void);
 static void build_grammar_table(struct word_type *pointer);
 
 void
-read_gamefile()
+read_gamefile(void)
 {
 	int			index,
 				counter,
@@ -1212,7 +1212,7 @@ legal_label_check(const char *word, int line, int type)
 }
 
 void
-restart_game()
+restart_game(void)
 {
 	int             index;
 
@@ -1427,7 +1427,7 @@ free_from(struct word_type *x)
 }
 
 void
-set_defaults()
+set_defaults(void)
 {
 	/* RESET THE BACK-REFERENCE VARIABLES */
 	them[0] = 0;
@@ -1552,7 +1552,7 @@ create_cstring (const char *name, const char *value)
 }
 
 void
-create_language_constants() 
+create_language_constants(void) 
 {
 	/* SET THE DEFAULT LANGUAGE CONSTANTS IF ANY OR ALL OF THEM
 	 * ARE MISSING FROM THE GAME THAT IS BEING LOADED. DEFAULT

@@ -45,7 +45,7 @@ static short int	encrypting = FALSE;
 static int process_file(const char *sourceFile1, const char *sourceFile2);
 
 int
-jpp()
+jpp(void)
 {
 	int				game_version;
 

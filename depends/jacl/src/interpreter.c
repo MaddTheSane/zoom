@@ -2641,7 +2641,7 @@ set_arguments(const char *function_call)
 }
 
 void
-pop_stack()
+pop_stack(void)
 {
 	int index, counter;
 
@@ -2822,7 +2822,7 @@ push_stack(long file_pointer)
 }
 
 void
-pop_proxy()
+pop_proxy(void)
 {
 	int index, counter;
 
@@ -2868,7 +2868,7 @@ pop_proxy()
 }
 
 void
-push_proxy()
+push_proxy(void)
 {
 	/* COPY ALL THE CURRENT SYSTEM DATA ONTO THE STACK */
 	int index;
@@ -2942,7 +2942,7 @@ push_proxy()
 }
 
 int
-condition()
+condition(void)
 {
 	/* COMPARE GROUPS OF TWO ELEMENTS. RETURN TRUE IF ANY ONE GROUP OF 
 	 * ELEMENTS COMPARE 'TRUE' */
@@ -2959,7 +2959,7 @@ condition()
 }
 
 int
-and_condition()
+and_condition(void)
 {
 	/* COMPARE GROUPS OF TWO ELEMENTS. RETURN FALSE IF ANY ONE GROUP OF 
 	 * ELEMENTS COMPARE 'FALSE' */
@@ -3105,7 +3105,7 @@ logic_test(int first)
 }
 
 int
-strcondition()
+strcondition(void)
 {
 	int             first = 1;
 
@@ -3120,7 +3120,7 @@ strcondition()
 }
 
 int
-and_strcondition()
+and_strcondition(void)
 {
 	int             first = 1;
 
@@ -3453,7 +3453,7 @@ grand_of(int child, int objs_only)
 }
 
 int
-select_next()
+select_next(void)
 {
 	while (++*select_integer <= objects) {
 		switch (criterion_type) {

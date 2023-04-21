@@ -14,7 +14,7 @@
    This function's job is to create preview for designated file
    ----------------------------------------------------------------------------- */
 
-static NSString* zoomConfigDirectory() {
+static NSString* zoomConfigDirectory(void) {
 	NSArray* libraryDirs = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
 	
 	for (NSURL* libDir in libraryDirs) {

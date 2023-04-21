@@ -14,7 +14,7 @@
 static int jacl_whitespace(int character);
 
 void
-eachturn()
+eachturn(void)
 {
 	/* INCREMENT THE TOTAL NUMBER OF MOVES MADE AND CALL THE 'EACHTURN'
 	 * FUNCTION FOR THE CURRENT LOCATION AND THE GLOBAL 'EACHTURN'
@@ -37,7 +37,7 @@ eachturn()
 }
 
 int
-get_here()
+get_here(void)
 {
 	/* THIS FUNCTION RETURNS THE VALUE OF 'here' IN A SAFE, ERROR CHECKED
 	 * WAY */
@@ -75,7 +75,7 @@ strip_return (char *string)
 }
 
 int
-random_number()
+random_number(void)
 {
 	/* GENERATE A RANDOM NUMBER BETWEEN 0 AND THE CURRENT VALUE OF
 	 * THE JACL VARIABLE MAX_RAND */

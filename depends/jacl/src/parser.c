@@ -88,7 +88,7 @@ static void set_them(int noun_number);
 static void diagnose(void);
 
 void
-parser()
+parser(void)
 {
 	// THIS FUNCTION COMPARES THE WORDS IN THE PLAYER'S COMMAND TO THE
 	// GRAMMAR TREE OF POSSIBLE COMMANDS
@@ -1743,7 +1743,7 @@ noun_resolve(struct word_type *scope_word, int finding_from, int noun_number)
 }
 
 void
-diagnose()
+diagnose(void)
 {
 	if (custom_error) {
 		TIME->value = FALSE;

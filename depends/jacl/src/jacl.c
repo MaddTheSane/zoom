@@ -449,7 +449,7 @@ glk_main(void)
 }
 
 void
-preparse()
+preparse(void)
 {
 	int position;
 
@@ -485,7 +485,7 @@ preparse()
 }
 
 void
-word_check()
+word_check(void)
 {
 	int index;
 
@@ -628,7 +628,7 @@ word_check()
 }
 
 void
-version_info()
+version_info(void)
 {
 	char            buffer[80];
 
@@ -641,7 +641,7 @@ version_info()
 }
 
 void
-save_game_state()
+save_game_state(void)
 {
 	/* THIS FUNCTION MAKES AN IN-MEMORY COPY OF THE GAME STATE AFTER EACH
 	 * OF THE PLAYER'S COMMANDS SO THE 'undo' COMMAND CAN BE USED */
@@ -715,7 +715,7 @@ save_interaction(const char *filename)
 }
 
 void
-restore_game_state()
+restore_game_state(void)
 {
 	/* THIS FUNCTION IS CALLED AS A RESULT OF THE PLAYER USING THE 'undo'
 	 * COMMAND */
@@ -809,7 +809,7 @@ jacl_sleep(unsigned int mseconds)
 }
 
 void
-status_line()
+status_line(void)
 {
 	int cursor, index;
 	winid_t pair_window;
@@ -865,7 +865,7 @@ status_line()
 }
 
 void
-newline()
+newline(void)
 {
 	/* START A NEW LINE ON THE SCREEN */
 	write_text("\n");
@@ -893,7 +893,7 @@ more(const char* message)
 }
 
 int
-get_key()
+get_key(void)
 {
 	event_t ev;
 
@@ -1151,7 +1151,7 @@ open_glk_file (glui32 usage, glui32 mode, const char *filename)
 }
 
 void
-scripting()
+scripting(void)
 {
 	if (script_stream) {
    		write_text(cstring_resolve("SCRIPTING_ALREADY_ON")->value);
@@ -1185,7 +1185,7 @@ scripting()
 }
 
 void
-undoing()
+undoing(void)
 {
 	if (TOTAL_MOVES->value && strcmp(last_command, cstring_resolve("UNDO_WORD")->value)) {
 		restore_game_state();
@@ -1196,7 +1196,7 @@ undoing()
 }
 
 void
-walking_thru()
+walking_thru(void)
 {
 	int result, index;
 

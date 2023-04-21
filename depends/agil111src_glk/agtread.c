@@ -1626,7 +1626,7 @@ static void finish_read(rbool cleanup)
   }
 }
 
-void free_all_agtread()
+void free_all_agtread(void)
 {
   int i;
 

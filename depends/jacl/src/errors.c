@@ -10,7 +10,7 @@
 #include "encapsulate.h"
 
 void
-badparrun()
+badparrun(void)
 {
 	sprintf(error_buffer, BAD_PARENT, executing_function->name);
 
@@ -18,7 +18,7 @@ badparrun()
 }
 
 void
-notintrun()
+notintrun(void)
 {
 	sprintf(error_buffer, NOT_INTEGER, executing_function->name, word[0]);
 	log_error(error_buffer, PLUS_STDERR);
@@ -55,7 +55,7 @@ unkvalerr(int line, int wordno)
 }
 
 void
-noproprun()
+noproprun(void)
 {
 	sprintf(error_buffer, INSUFFICIENT_PARAMETERS_RUN, executing_function->name, word[0]);
 	log_error(error_buffer, PLUS_STDOUT);
@@ -183,7 +183,7 @@ totalerrs(int errors)
 }
 
 void
-outofmem()
+outofmem(void)
 {
 	log_error(OUT_OF_MEMORY, PLUS_STDERR);
 	terminate(49);

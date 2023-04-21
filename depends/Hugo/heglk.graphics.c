@@ -109,7 +109,7 @@ int hugo_overwrite(char *f)
 {}
 */
 
-void hugo_closefiles()
+void hugo_closefiles(void)
 {
 	/* Glk closes all files at glk_exit() */
 }
@@ -700,7 +700,7 @@ void hugo_print(char *a)
 }
 
 
-void hugo_scrollwindowup()
+void hugo_scrollwindowup(void)
 {
 	/* Glk should look after this for us */
 }

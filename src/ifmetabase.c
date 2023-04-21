@@ -69,7 +69,7 @@ static void FreeStory(IFStory story) {
 }
 
 /* Constructs a new, empty metabase */
-IFMetabase IFMB_Create() {
+IFMetabase IFMB_Create(void) {
 	IFMetabase result = malloc(sizeof(struct IFMetabase));
 	
 	result->numStories = 0;
