@@ -77,12 +77,10 @@ private func fontMenu(fixed: Bool) -> NSMenu {
 	
 	let result = NSMenu()
 	
-	// Iterate through the available font families and create menu items
-	let families = mgr.availableFontFamilies.sorted { a, b in
-		return a.caseInsensitiveCompare(b) == .orderedAscending
-	}
+	let families = mgr.availableFontFamilies
 	
-	result.items = families.compactMap { family -> NSMenuItem? in
+	// Iterate through the available font families and create menu items
+	var mItems = families.compactMap { family -> NSMenuItem? in
 		// Get the font
 		guard let sampleFont = mgr.font(withFamily: family, traits: [], weight: 5, size: NSFont.systemFontSize) else {
 			return nil
@@ -96,6 +94,12 @@ private func fontMenu(fixed: Bool) -> NSMenu {
 		fontItem.attributedTitle = NSAttributedString(string: family, attributes: [.font: sampleFont])
 		return fontItem
 	}
+	
+	mItems.sort { a, b in
+		return a.title.caseInsensitiveCompare(b.title) == .orderedAscending
+	}
+	
+	result.items = mItems
 	
 	// Return the result
 	return result
@@ -259,7 +263,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 									 colourSettingsItem: colourSettingsView,
 								typographicSettingsItem: typographicalSettingsView]
 
-		let preferencePane = itemToViewDictionary[sender]!! as NSView
+		let preferencePane = itemToViewDictionary[sender]!!
 		guard window?.contentView != preferencePane else {
 			return
 		}
@@ -417,7 +421,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 					appendStyle(&name, "symbolic")
 				}
 				
-				if name.count == 0 {
+				if name.isEmpty {
 					name = "roman"
 				}
 				
@@ -774,7 +778,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 }
 
 private func appendStyle(_ styleName: inout String, _ newStyle: String) {
-	if styleName.count == 0 {
+	if styleName.isEmpty {
 		styleName.append(newStyle)
 	} else {
 		styleName.append("-")

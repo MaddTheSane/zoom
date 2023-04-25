@@ -197,7 +197,7 @@ static SpeechChannel channel = nil;
 	SpeakCFString(channel, (__bridge CFStringRef _Nonnull)(buffer), NULL);
 #else
 	AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString: newText];
-	if (@available(macOS 11.0, *)) {
+	if (@available(macOS 11.0, macOSApplicationExtension 11.0, *)) {
 		utterance.prefersAssistiveTechnologySettings = YES;
 	}
 	utterance.postUtteranceDelay = 0.5;

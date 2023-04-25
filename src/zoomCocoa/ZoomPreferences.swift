@@ -190,7 +190,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		
 		prefs[fontsKey] = defaultFonts
 		prefs[coloursKey] = defaultUserColours
-		prefs[useUserColoursKey] = false
+		prefs[useUserColoursKey] = true
 		
 		prefs[foregroundColourKey] = 0
 		prefs[backgroundColourKey] = 7
@@ -824,13 +824,15 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	open var dictionary: [String : Any] {
 		// Fonts and colours need encoding
 		var newDict = prefs
-		if let fts = newDict[fontsKey], let encFonts = try? NSKeyedArchiver.archivedData(withRootObject: fts, requiringSecureCoding: true) {
+		if let fts = newDict[fontsKey],
+		   let encFonts = try? NSKeyedArchiver.archivedData(withRootObject: fts, requiringSecureCoding: true) {
 			newDict[fontsKey] = encFonts
 		} else {
 			newDict.removeValue(forKey: fontsKey)
 		}
 		
-		if let cols = newDict[coloursKey], let encCols = try? NSKeyedArchiver.archivedData(withRootObject: cols, requiringSecureCoding: true) {
+		if let cols = newDict[coloursKey],
+		   let encCols = try? NSKeyedArchiver.archivedData(withRootObject: cols, requiringSecureCoding: true) {
 			newDict[coloursKey] = encCols
 		} else {
 			newDict.removeValue(forKey: coloursKey)
