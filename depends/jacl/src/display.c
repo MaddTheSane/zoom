@@ -216,7 +216,7 @@ long_output(int index)
 }
 
 void
-no_it()
+no_it(void)
 {
 	write_text(cstring_resolve("NO_IT")->value);
 	write_text(word[wp]);
@@ -225,7 +225,7 @@ no_it()
 }
 
 void
-look_around()
+look_around(void)
 {
 	/* THIS FUNCTION DISPLAYS THE DESCRIPTION OF THE CURRENT LOCATION ALONG
 	 * WITH ANY OBJECTS CURRENTLY IN IT */

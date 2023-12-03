@@ -24,7 +24,7 @@ int				percented[MAX_WORDS];
 int				wp;
 
 void
-encapsulate()
+encapsulate(void)
 {
 	int             index,
 	                length;
@@ -111,7 +111,7 @@ encapsulate()
 
 /// THIS VERSION OF ENCAPSULATE DOESN'T LOOK FOR CERTAIN SPECIAL CHARACTERS
 void
-command_encapsulate()
+command_encapsulate(void)
 {
 	int             index,
 	                length;
@@ -214,7 +214,7 @@ command_encapsulate()
 }
 
 void
-jacl_truncate()
+jacl_truncate(void)
 {
 	int             index,
 	                counter,

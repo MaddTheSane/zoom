@@ -2414,7 +2414,7 @@ SaveError:
 
 #endif	// SAVEGAMEDATA_REPLACED
 
-int RunSave()
+int RunSave(void)
 {
 #ifdef PALMOS
 	/* Prevent simultaneous access to the same db record */
@@ -2452,7 +2452,7 @@ int RunSave()
 
 	if (!SaveGameData()) goto SaveError;
 	
-	if (fclose(save)) FatalError(WRITE_E);
+	if (fclose(save)) { FatalError(WRITE_E); }
 	save = NULL;
 
 #if !defined (GLK)
@@ -2470,7 +2470,7 @@ SaveError:
 
 /* RUNSCRIPTSET */
 
-int RunScriptSet()
+int RunScriptSet(void)
 {
 	remaining = 0;
 
@@ -2527,7 +2527,7 @@ int RunScriptSet()
 	As in 'x = string(<array>, "<string>"[, maxlen]'.
 */
 
-int RunString()
+int RunString(void)
 {
 	int i, pos;
 	unsigned int aaddr;                     /* array address   */

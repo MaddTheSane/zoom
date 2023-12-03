@@ -201,8 +201,15 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 		if (!fh) {
 			return nil;
 		}
-		NSData* data = [fh readDataToEndOfFile];
-		[fh closeFile];
+		NSData* data = [fh readDataToEndOfFileAndReturnError:outError];
+		if (!data) {
+			[fh closeAndReturnError:NULL];
+			return nil;
+		}
+		
+		if (![fh closeAndReturnError:outError]) {
+			return nil;
+		}
 		
 		if ([data length] < 64) {
 			// This file is too short to be a Z-Code file

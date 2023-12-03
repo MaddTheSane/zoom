@@ -111,7 +111,7 @@ void PlayMusic(void)
 	char loop_flag = 0;
 	long resstart, reslength;
 
-	if (MEM(codeptr+1)==REPEAT_T) loop_flag = true, codeptr++;
+	if (MEM(codeptr+1)==REPEAT_T) {loop_flag = true; codeptr++;}
 
 	hugo_stopmusic();
 
@@ -202,7 +202,7 @@ void PlaySample(void)
 	char loop_flag = 0;
 	long reslength;
 
-	if (MEM(codeptr+1)==REPEAT_T) loop_flag = true, codeptr++;
+	if (MEM(codeptr+1)==REPEAT_T) {loop_flag = true; codeptr++;}
 
 	hugo_stopsample();
 
@@ -397,8 +397,9 @@ long FindResource(char *filename, char *resname)
 	rescount += fgetc(resource_file)*256;
 	startofdata = fgetc(resource_file);
 	startofdata += (unsigned int)fgetc(resource_file)*256;
-	if (ferror(resource_file))
+	if (ferror(resource_file)) {
 		goto ResfileError;
+	}
 
 
 	/* Now skim through the list of resources in the resourcefile to
@@ -407,11 +408,13 @@ long FindResource(char *filename, char *resname)
 	for (i=1; i<=rescount; i++)
 	{
 		len = fgetc(resource_file);
-		if (ferror(resource_file))
+		if (ferror(resource_file)) {
 			goto ResfileError;
+		}
 
-		if (!(fgets(resource_in_file, len+1, resource_file)))
+		if (!(fgets(resource_in_file, len+1, resource_file))) {
 			goto ResfileError;
+		}
 
 		resposition = (long)fgetc(resource_file);
 		resposition += (long)fgetc(resource_file)*256L;
@@ -428,12 +431,13 @@ long FindResource(char *filename, char *resname)
 		{
 			reslength += (long)fgetc(resource_file)*16777216L;
 		}
-		if (ferror(resource_file)) goto ResfileError;
+		if (ferror(resource_file)) {goto ResfileError;}
 
 		if (!strcmp(resname, resource_in_file))
 		{
-			if (fseek(resource_file, (long)startofdata+resposition, SEEK_SET))
+			if (fseek(resource_file, (long)startofdata+resposition, SEEK_SET)) {
 				goto ResfileError;
+			}
 			return reslength;
 		}
 	}

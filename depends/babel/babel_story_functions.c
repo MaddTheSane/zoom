@@ -25,7 +25,7 @@
 #endif
 void *my_malloc(uint32, char *);
 
-void babel_story_ifid()
+void babel_story_ifid(void)
 {
   char buffer[TREATY_MINIMUM_EXTENT];
   char *ep;
@@ -43,7 +43,7 @@ void babel_story_ifid()
 }
 
 
-void babel_story_format()
+void babel_story_format(void)
 {
   char *b;
   b=babel_get_format();
@@ -109,7 +109,7 @@ static void deep_babel_ifiction(char stopped)
   free(md);
 }
 
-void babel_story_ifiction()
+void babel_story_ifiction(void)
 {
  deep_babel_ifiction(1);
 }
@@ -253,12 +253,12 @@ static void deep_babel_cover(char stopped)
   free(md);
 }
 
-void babel_story_cover()
+void babel_story_cover(void)
 {
  deep_babel_cover(1);
 }
 
-void babel_story_fish()
+void babel_story_fish(void)
 {
  deep_babel_ifiction(0);
  deep_babel_cover(0);
@@ -318,7 +318,7 @@ static char *get_biblio(void)
  return bib;
 
 }
-void babel_story_identify()
+void babel_story_identify(void)
 {
  int32 i, j, l;
  char *b, *cf, *dim;
@@ -359,12 +359,12 @@ void babel_story_identify()
  printf("%s, %dk, %s\n",b, l,cf);
 }
 
-void babel_story_meta()
+void babel_story_meta(void)
 {
  deep_babel_ifiction(2);
 }
 
-void babel_story_story()
+void babel_story_story(void)
 {
   int32 j,i;
   void *p;
@@ -402,7 +402,7 @@ void babel_story_story()
 
 }
 
-void babel_story_unblorb()
+void babel_story_unblorb(void)
 {
  deep_babel_ifiction(1);
  deep_babel_cover(1);
