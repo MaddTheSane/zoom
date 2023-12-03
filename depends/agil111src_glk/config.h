@@ -448,18 +448,28 @@
 
 
 
+#include <stdio.h>
+#if defined(AGIL_USE_STRID) && AGIL_USE_STRID != 0
+#include <glk.h>
+#endif
 
 
 /* Finally, two potentially platform dependent type defintions, 
    for binary and text files respectively.  Don't change these
    unless you are also changing filename.c */
 
+#if defined(AGIL_USE_STRID) && AGIL_USE_STRID != 0
+typedef strid_t genfile;
+#else
 typedef FILE* genfile;
+#endif
 typedef char* file_id_type;  /* i.e. the filename */
 
 #define NO_FILE_ID NULL
 #define BAD_TEXTFILE NULL
 #define BAD_BINFILE  NULL
+
+#if !defined(AGIL_USE_STRID) || AGIL_USE_STRID == 0
 
 #define textgetc(f) fgetc(f)
 #define textungetc(f,c) ungetc(c,f)
@@ -467,12 +477,12 @@ typedef char* file_id_type;  /* i.e. the filename */
 #define texteof(f) feof(f)
 #define textputs(f,s) fputs(s,f)
 
+#else
 
-#if 0
 int textgetc(genfile f);
 void textungetc(genfile f, char c);
 int texteof(genfile f);
 void textgets(genfile f, char *buff, long leng);
 void textputs(genfile f, const char *s);
-#endif
 
+#endif

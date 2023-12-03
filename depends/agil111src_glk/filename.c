@@ -43,6 +43,34 @@ int pclose(FILE *p);
 #define int short
 #endif
 
+#if defined(AGIL_USE_STRID) && AGIL_USE_STRID != 0
+
+int textgetc(genfile f)
+{
+  return glk_get_char_stream(f);
+}
+
+void textungetc(genfile f, char c)
+{
+  glk_put_char_stream(f, c);
+}
+
+int texteof(genfile f)
+{
+  abort();
+}
+
+void textgets(genfile f, char *buff, long leng)
+{
+  glk_get_buffer_stream(f, buff, leng);
+}
+
+void textputs(genfile f, const char *s)
+{
+  glk_put_string_stream(f, s);
+}
+
+#endif
 
 /*----------------------------------------------------------------------*/
 /*  Filetype Data                                                       */
