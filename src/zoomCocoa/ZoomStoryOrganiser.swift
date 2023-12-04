@@ -21,7 +21,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 /// The story organiser is used to store story locations and identifications
 /// (mainly to build up the iFiction window).
 @objcMembers class ZoomStoryOrganiser: NSObject {
-	// TODO: migrate to CoreData
+	// TODO: migrate to CoreData/Swift Data
 
 	@nonobjc @inlinable public class var changedNotification: NSNotification.Name {
 		return .__ZoomStoryOrganiserChanged
