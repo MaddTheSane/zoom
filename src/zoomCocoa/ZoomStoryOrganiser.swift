@@ -713,6 +713,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		return gameDir
 	}
 	
+	@objc(moveStoryToPreferredDirectoryWithIdent:)
 	@MainActor func moveStoryToPreferredDirectory(with ident: ZoomStoryID) -> Bool {
 		guard let currentDir = directory(for: ident, create: false)?.standardizedFileURL else {
 			return false

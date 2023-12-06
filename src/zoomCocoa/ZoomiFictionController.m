@@ -2287,10 +2287,14 @@ static NSArray<NSString*>* blorbFileTypes;
 		}
 		
 		// Save it!
-		// TODO: present error on failure.
-		[newMetadata writeToURL: [panel URL]
-					 atomically: YES
-						  error: NULL];
+		NSError *saveErr = nil;
+		BOOL success = [newMetadata writeToURL: [panel URL]
+									atomically: YES
+										 error: &saveErr];
+		if (!success) {
+			//TODO: present BETTER error on failure.
+			[NSApp presentError:saveErr];
+		}
 		
 		// Store any preference changes
 		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
