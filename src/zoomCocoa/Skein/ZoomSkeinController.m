@@ -21,9 +21,8 @@
 }
 
 - (id) init {
-	self = [self initWithWindowNibName: @"Skein"];
-	
-	if (self) {
+	if (self = [self initWithWindowNibName: @"Skein"]) {
+		
 	}
 	
 	return self;

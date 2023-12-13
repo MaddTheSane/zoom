@@ -1,0 +1,1967 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "6.title" : {
+      "comment" : "Class = \"NSWindow\"; title = \"Preferences\"; ObjectID = \"6\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Preferences"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferences"
+          }
+        }
+      }
+    },
+    "10.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Non-fatal errors will be displayed while playing game\"; ObjectID = \"10\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Non-fatal errors will be displayed while playing game"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non-fatal errors will be displayed while playing game"
+          }
+        }
+      }
+    },
+    "11.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Any warning message will be treated as a fatal error\"; ObjectID = \"11\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Any warning message will be treated as a fatal error"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any warning message will be treated as a fatal error"
+          }
+        }
+      }
+    },
+    "14.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Game text will be spoken out loud\"; ObjectID = \"14\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Game text will be spoken out loud"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game text will be spoken out loud"
+          }
+        }
+      }
+    },
+    "25.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSTextField\"; ibShadowedToolTip = \"Set this to change the interpreter revision reported to games. Most games just report this at the start and make no further use of it.\"; ObjectID = \"25\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Set this to change the interpreter revision reported to games. Most games just report this at the start and make no further use of it."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set this to change the interpreter revision reported to games. Most games just report this at the start and make no further use of it."
+          }
+        }
+      }
+    },
+    "33.headerCell.title" : {
+      "comment" : "Class = \"NSTableColumn\"; headerCell.title = \"Font\"; ObjectID = \"33\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Font"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Font"
+          }
+        }
+      }
+    },
+    "35.headerCell.title" : {
+      "comment" : "Class = \"NSTableColumn\"; headerCell.title = \"Style\"; ObjectID = \"35\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Style"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Style"
+          }
+        }
+      }
+    },
+    "41.headerCell.title" : {
+      "comment" : "Class = \"NSTableColumn\"; headerCell.title = \"Colour\"; ObjectID = \"41\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colour"
+          }
+        }
+      }
+    },
+    "43.headerCell.title" : {
+      "comment" : "Class = \"NSTableColumn\"; headerCell.title = \"Colour name\"; ObjectID = \"43\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color name"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colour name"
+          }
+        }
+      }
+    },
+    "48.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of many Infocom games\"; ObjectID = \"48\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of many Infocom games"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of many Infocom games"
+          }
+        }
+      }
+    },
+    "49.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"3 - Macintosh\"; ObjectID = \"49\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "3 - Macintosh"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 - Macintosh"
+          }
+        }
+      }
+    },
+    "50.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"50\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OtherViews"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "51.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"1 - DECSystem-20\"; ObjectID = \"51\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "1 - DECSystem-20"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 - DECSystem-20"
+          }
+        }
+      }
+    },
+    "52.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"2 - Apple IIe\"; ObjectID = \"52\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "2 - Apple IIe"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 - Apple IIe"
+          }
+        }
+      }
+    },
+    "53.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"11 - Tandy Color\"; ObjectID = \"53\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "11 - Tandy Color"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "11 - Tandy Color"
+          }
+        }
+      }
+    },
+    "54.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"10 - Apple IIgs\"; ObjectID = \"54\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "10 - Apple IIgs"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 - Apple IIgs"
+          }
+        }
+      }
+    },
+    "55.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"9 - Apple IIc\"; ObjectID = \"55\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "9 - Apple IIc"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "9 - Apple IIc"
+          }
+        }
+      }
+    },
+    "56.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"8 - Commodore 64\"; ObjectID = \"56\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "8 - Commodore 64"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "8 - Commodore 64"
+          }
+        }
+      }
+    },
+    "57.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"7 - Commodore 128\"; ObjectID = \"57\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "7 - Commodore 128"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 - Commodore 128"
+          }
+        }
+      }
+    },
+    "58.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"6 - IBM PC\"; ObjectID = \"58\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "6 - IBM PC"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 - IBM PC"
+          }
+        }
+      }
+    },
+    "59.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"4 - Amiga\"; ObjectID = \"59\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "4 - Amiga"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4 - Amiga"
+          }
+        }
+      }
+    },
+    "60.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"5 - Atari ST\"; ObjectID = \"60\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "5 - Atari ST"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 - Atari ST"
+          }
+        }
+      }
+    },
+    "78.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Zoom will keep games organised in a separate folder\"; ObjectID = \"78\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom will keep games organized in a separate folder"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom will keep games organised in a separate folder"
+          }
+        }
+      }
+    },
+    "83.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Autosave games will be created, so you can close and resume a game without having to save it first\"; ObjectID = \"83\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Autosave games will be created, so you can close and resume a game without having to save it first"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autosave games will be created, so you can close and resume a game without having to save it first"
+          }
+        }
+      }
+    },
+    "85.title" : {
+      "comment" : "Class = \"NSBox\"; title = \"Keep games organised in\"; ObjectID = \"85\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep games organized in"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep games organised in"
+          }
+        }
+      }
+    },
+    "90.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Use this to change the directory that games and their data are kept in. You will need to have 'Keep games organised' turned on to make use of this.\"; ObjectID = \"90\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this to change the directory that games and their data are kept in. You will need to have 'Keep games organized' turned on to make use of this."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this to change the directory that games and their data are kept in. You will need to have 'Keep games organised' turned on to make use of this."
+          }
+        }
+      }
+    },
+    "100.title" : {
+      "comment" : "Class = \"NSBox\"; title = \"Title\"; ObjectID = \"100\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Title"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
+          }
+        }
+      }
+    },
+    "106.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Cause Zoom to reorganise its games. Any game with resources that are not currently kept organised will be copied to the appropriate directory. You will need 'Keep games organised' turned on to use this option.\"; ObjectID = \"106\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cause Zoom to reorganize its games. Any game with resources that are not currently kept organized will be copied to the appropriate directory. You will need 'Keep games organized' turned on to use this option."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cause Zoom to reorganise its games. Any game with resources that are not currently kept organised will be copied to the appropriate directory. You will need 'Keep games organised' turned on to use this option."
+          }
+        }
+      }
+    },
+    "116.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Reset the 'organisation' directory back to its default value.\"; ObjectID = \"116\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset the 'organisation' directory back to its default value."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset the 'organisation' directory back to its default value."
+          }
+        }
+      }
+    },
+    "120.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"Advanced\"; ObjectID = \"120\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Advanced"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced"
+          }
+        }
+      }
+    },
+    "121.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"Simple\"; ObjectID = \"121\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Simple"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simple"
+          }
+        }
+      }
+    },
+    "127.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The proportional font is the font usually used for the main text from the story.\"; ObjectID = \"127\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The proportional font is the font usually used for the main text from the story."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The proportional font is the font usually used for the main text from the story."
+          }
+        }
+      }
+    },
+    "128.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"128\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OtherViews"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "129.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"129\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item2"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item2"
+          }
+        }
+      }
+    },
+    "130.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"130\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item1"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item1"
+          }
+        }
+      }
+    },
+    "131.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"131\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item3"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item3"
+          }
+        }
+      }
+    },
+    "133.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The fixed pitch font is usually used for the status bar that a story displays. This font must be a monospace font.\"; ObjectID = \"133\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The fixed pitch font is usually used for the status bar that a story displays. This font must be a monospace font."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The fixed pitch font is usually used for the status bar that a story displays. This font must be a monospace font."
+          }
+        }
+      }
+    },
+    "134.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"134\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OtherViews"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "135.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"135\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item2"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item2"
+          }
+        }
+      }
+    },
+    "136.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"136\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item1"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item1"
+          }
+        }
+      }
+    },
+    "137.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"137\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item3"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item3"
+          }
+        }
+      }
+    },
+    "138.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The 'symbolic' font is the font used for the runes and graphics in Beyond Zork.\"; ObjectID = \"138\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The 'symbolic' font is the font used for the runes and graphics in Beyond Zork."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The 'symbolic' font is the font used for the runes and graphics in Beyond Zork."
+          }
+        }
+      }
+    },
+    "139.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"139\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OtherViews"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "140.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"140\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item2"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item2"
+          }
+        }
+      }
+    },
+    "141.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"141\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item1"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item1"
+          }
+        }
+      }
+    },
+    "142.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"142\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item3"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item3"
+          }
+        }
+      }
+    },
+    "148.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSSlider\"; ibShadowedToolTip = \"If you find that Zoom becomes sluggish after long sessions, adjust this slider to change the amount of text Zoom buffers in the story window. The default value, 'Everything' buffers everything back to the last time the story cleared the screen.\"; ObjectID = \"148\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If you find that Zoom becomes sluggish after long sessions, adjust this slider to change the amount of text Zoom buffers in the story window. The default value, 'Everything' buffers everything back to the last time the story cleared the screen."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you find that Zoom becomes sluggish after long sessions, adjust this slider to change the amount of text Zoom buffers in the story window. The default value, 'Everything' buffers everything back to the last time the story cleared the screen."
+          }
+        }
+      }
+    },
+    "161.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSSlider\"; ibShadowedToolTip = \"Adjust this slider to set the size of the font used by Zoom.\"; ObjectID = \"161\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Adjust this slider to set the size of the font used by Zoom."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adjust this slider to set the size of the font used by Zoom."
+          }
+        }
+      }
+    },
+    "168.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSTextField\"; ibShadowedToolTip = \"This displays a preview of your settings.\"; ObjectID = \"168\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This displays a preview of your settings."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This displays a preview of your settings."
+          }
+        }
+      }
+    },
+    "186.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"If this is unchecked, Zoom will not ask for confirmation when you close a running story.\"; ObjectID = \"186\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If this is unchecked, Zoom will not ask for confirmation when you close a running story."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If this is unchecked, Zoom will not ask for confirmation when you close a running story."
+          }
+        }
+      }
+    },
+    "191.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Check this option to tell Zoom to add margins to any text windows it creates. This can improve the appearance of the display.\"; ObjectID = \"191\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Check this option to tell Zoom to add margins to any text windows it creates. This can improve the appearance of the display."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check this option to tell Zoom to add margins to any text windows it creates. This can improve the appearance of the display."
+          }
+        }
+      }
+    },
+    "194.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSSlider\"; ibShadowedToolTip = \"Drag the slider to the right to increase the width of the margins that Zoom will use\"; ObjectID = \"194\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Drag the slider to the right to increase the width of the margins that Zoom will use"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag the slider to the right to increase the width of the margins that Zoom will use"
+          }
+        }
+      }
+    },
+    "198.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\"; ObjectID = \"198\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability."
+          }
+        }
+      }
+    },
+    "199.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Turn this option on to instruct Zoom to hyphenate text wherever possible. Note that some types of game may not support hyphenation.\"; ObjectID = \"199\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Turn this option on to instruct Zoom to hyphenate text wherever possible. Note that some types of game may not support hyphenation."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn this option on to instruct Zoom to hyphenate text wherever possible. Note that some types of game may not support hyphenation."
+          }
+        }
+      }
+    },
+    "233.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Show a double line between the windows opened by a story\"; ObjectID = \"233\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show a double line between the windows opened by a story"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show a double line between the windows opened by a story"
+          }
+        }
+      }
+    },
+    "241.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The default colour to use for text produced by the story.\"; ObjectID = \"241\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The default color to use for text produced by the story."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The default colour to use for text produced by the story."
+          }
+        }
+      }
+    },
+    "242.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"242\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OtherViews"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "243.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"243\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item1"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item1"
+          }
+        }
+      }
+    },
+    "244.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"244\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item2"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item2"
+          }
+        }
+      }
+    },
+    "245.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"245\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item3"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item3"
+          }
+        }
+      }
+    },
+    "247.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The colour that will be used for the window background by default\"; ObjectID = \"247\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The color that will be used for the window background by default"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The colour that will be used for the window background by default"
+          }
+        }
+      }
+    },
+    "248.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"248\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OtherViews"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "249.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"249\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item1"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item1"
+          }
+        }
+      }
+    },
+    "250.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"250\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item2"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item2"
+          }
+        }
+      }
+    },
+    "251.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"251\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item3"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item3"
+          }
+        }
+      }
+    },
+    "316.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Turn this option on to use kerning when displaying game text. This will move character sequences like 'AV' closer together so there does not appear to be a space between them.\"; ObjectID = \"316\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Turn this option on to use kerning when displaying game text. This will move character sequences like 'AV' closer together so there does not appear to be a space between them."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn this option on to use kerning when displaying game text. This will move character sequences like 'AV' closer together so there does not appear to be a space between them."
+          }
+        }
+      }
+    },
+    "317.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Turn this option on to enable the display of ligatures in the game text. These are alternative characters displayed for common sequences such as 'fi' in English. Turning this option off does not affect mandatory ligatures found in languages such as Arabic.\"; ObjectID = \"317\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Turn this option on to enable the display of ligatures in the game text. These are alternative characters displayed for common sequences such as 'fi' in English. Turning this option off does not affect mandatory ligatures found in languages such as Arabic."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn this option on to enable the display of ligatures in the game text. These are alternative characters displayed for common sequences such as 'fi' in English. Turning this option off does not affect mandatory ligatures found in languages such as Arabic."
+          }
+        }
+      }
+    },
+    "328.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"If a game has suppied a cover picture, then it will be briefly displayed while the game is loading\"; ObjectID = \"328\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If a game has suppied a cover picture, then it will be briefly displayed while the game is loading"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If a game has suppied a cover picture, then it will be briefly displayed while the game is loading"
+          }
+        }
+      }
+    },
+    "402.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"402\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OtherViews"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "403.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Git (fastest)\"; ObjectID = \"403\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Git (fastest)"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Git (fastest)"
+          }
+        }
+      }
+    },
+    "404.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Glulxe\"; ObjectID = \"404\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Glulxe"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glulxe"
+          }
+        }
+      }
+    },
+    "441.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Display warnings\"; ObjectID = \"441\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Display warnings"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Display warnings"
+          }
+        }
+      }
+    },
+    "442.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Warnings are fatal\"; ObjectID = \"442\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Warnings are fatal"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnings are fatal"
+          }
+        }
+      }
+    },
+    "443.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Speak game text\"; ObjectID = \"443\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Speak game text"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speak game text"
+          }
+        }
+      }
+    },
+    "444.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Keep games organised\"; ObjectID = \"444\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep games organized"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep games organised"
+          }
+        }
+      }
+    },
+    "445.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Autosave\"; ObjectID = \"445\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Autosave"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autosave"
+          }
+        }
+      }
+    },
+    "447.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Amount of scrollback to retain:\"; ObjectID = \"447\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Amount of scrollback to retain:"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amount of scrollback to retain:"
+          }
+        }
+      }
+    },
+    "448.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Minimum\"; ObjectID = \"448\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Minimum"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum"
+          }
+        }
+      }
+    },
+    "449.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Everything\"; ObjectID = \"449\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Everything"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything"
+          }
+        }
+      }
+    },
+    "450.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Ask for confirmation when closing a story\"; ObjectID = \"450\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ask for confirmation when closing a story"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask for confirmation when closing a story"
+          }
+        }
+      }
+    },
+    "451.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Check for updates on startup\"; ObjectID = \"451\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Check for updates on startup"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for updates on startup"
+          }
+        }
+      }
+    },
+    "454.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Z-Code Interpreter:\"; ObjectID = \"454\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Z-Code Interpreter:"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z-Code Interpreter:"
+          }
+        }
+      }
+    },
+    "455.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Revision:\"; ObjectID = \"455\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Revision:"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revision:"
+          }
+        }
+      }
+    },
+    "456.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Change...\"; ObjectID = \"456\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Change..."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change..."
+          }
+        }
+      }
+    },
+    "457.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Reorganise now\"; ObjectID = \"457\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reorganize now"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reorganise now"
+          }
+        }
+      }
+    },
+    "458.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Reset directory\"; ObjectID = \"458\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset directory"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset directory"
+          }
+        }
+      }
+    },
+    "459.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Glulx Interpreter:\"; ObjectID = \"459\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Glulx Interpreter:"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glulx Interpreter:"
+          }
+        }
+      }
+    },
+    "461.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Proportional font\"; ObjectID = \"461\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Proportional font"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proportional font"
+          }
+        }
+      }
+    },
+    "462.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Fixed-pitch font\"; ObjectID = \"462\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fixed-pitch font"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixed-pitch font"
+          }
+        }
+      }
+    },
+    "463.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"\\\"Symbolic\\\" font\"; ObjectID = \"463\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"Symbolic\" font"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Symbolic\" font"
+          }
+        }
+      }
+    },
+    "467.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"The other font styles will be automatically generated from the base fonts you select here. If you want a fine-grained control over the fonts that Zoom will use, use the 'Advanced' tab.\"; ObjectID = \"467\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The other font styles will be automatically generated from the base fonts you select here. If you want a fine-grained control over the fonts that Zoom will use, use the 'Advanced' tab."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The other font styles will be automatically generated from the base fonts you select here. If you want a fine-grained control over the fonts that Zoom will use, use the 'Advanced' tab."
+          }
+        }
+      }
+    },
+    "468.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Font size\"; ObjectID = \"468\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Font size"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Font size"
+          }
+        }
+      }
+    },
+    "470.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"36pt\"; ObjectID = \"470\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "36pt"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "36pt"
+          }
+        }
+      }
+    },
+    "471.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"9pt\"; ObjectID = \"471\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "9pt"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "9pt"
+          }
+        }
+      }
+    },
+    "472.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"12pt\"; ObjectID = \"472\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "12pt"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "12pt"
+          }
+        }
+      }
+    },
+    "473.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"You are in a maze of twisty passages, all alike\"; ObjectID = \"473\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are in a maze of twisty passages, all alike"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are in a maze of twisty passages, all alike"
+          }
+        }
+      }
+    },
+    "475.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Transparency:\"; ObjectID = \"475\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Transparency:"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transparency:"
+          }
+        }
+      }
+    },
+    "476.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Show Margins\"; ObjectID = \"476\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Margins"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Margins"
+          }
+        }
+      }
+    },
+    "478.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Narrow margins\"; ObjectID = \"478\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Narrow margins"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Narrow margins"
+          }
+        }
+      }
+    },
+    "479.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Wide margins\"; ObjectID = \"479\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Wide margins"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wide margins"
+          }
+        }
+      }
+    },
+    "480.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Use screen fonts\"; ObjectID = \"480\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Use screen fonts"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use screen fonts"
+          }
+        }
+      }
+    },
+    "481.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Use hyphenation\"; ObjectID = \"481\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Use hyphenation"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use hyphenation"
+          }
+        }
+      }
+    },
+    "482.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Enable kerning\"; ObjectID = \"482\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enable kerning"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable kerning"
+          }
+        }
+      }
+    },
+    "483.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Display ligatures\"; ObjectID = \"483\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Display ligatures"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Display ligatures"
+          }
+        }
+      }
+    },
+    "484.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Show interpreter window borders\"; ObjectID = \"484\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show interpreter window borders"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show interpreter window borders"
+          }
+        }
+      }
+    },
+    "486.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Default text colour\"; ObjectID = \"486\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default text color"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default text colour"
+          }
+        }
+      }
+    },
+    "488.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Default background colour\"; ObjectID = \"488\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default background color"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default background colour"
+          }
+        }
+      }
+    },
+    "489.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Show cover picture when game starts\"; ObjectID = \"489\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show cover picture when game starts"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show cover picture when game starts"
+          }
+        }
+      }
+    },
+    "aEQ-cK-dLn.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Use Custom Colours\"; ObjectID = \"aEQ-cK-dLn\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Use Custom Colours"
+          }
+        }
+      }
+    },
+    "eJQ-yV-bcq.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Custom Colors"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Custom Colours"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

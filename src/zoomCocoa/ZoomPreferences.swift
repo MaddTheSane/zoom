@@ -197,7 +197,6 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		prefs[showBordersKey] = true
 		prefs[showGlkBordersKey] = true
 	}
-
  
 	public init(dictionary preferences: [String : Any]) {
 		_=firstRun
@@ -264,10 +263,10 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		if #available(macOS 13.0, macOSApplicationExtension 13.0, *) {
 			return URL.documentsDirectory.appending(path: "Interactive Fiction", directoryHint: .isDirectory)
 		} else {
-		let docURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-		let resURL = docURLs.first!.appendingPathComponent("Interactive Fiction", isDirectory: true)
-		
-		return resURL
+			let docURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+			let resURL = docURLs.first!.appendingPathComponent("Interactive Fiction", isDirectory: true)
+			
+			return resURL
 		}
 	}
 	

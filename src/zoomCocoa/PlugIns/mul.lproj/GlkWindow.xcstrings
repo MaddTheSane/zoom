@@ -1,0 +1,42 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "23.title" : {
+      "comment" : "Class = \"NSWindow\"; title = \"Window\"; ObjectID = \"23\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Window"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Window"
+          }
+        }
+      }
+    },
+    "r65-cc-M67.title" : {
+      "comment" : "Class = \"NSWindow\"; title = \"Log messages from Glk\"; ObjectID = \"r65-cc-M67\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Log messages from Glk"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log messages from Glk"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

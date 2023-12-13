@@ -33,6 +33,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	@MainActor private(set) var stories = [Object]()
 	@MainActor private var gameDirectories = [String: URL]()
+	
 	struct Object: Hashable, Codable {
 		enum CodingKeys: String, CodingKey {
 			case ifdbStringID = "ifdb_string_id"

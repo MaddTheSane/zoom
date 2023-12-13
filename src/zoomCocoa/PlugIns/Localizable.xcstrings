@@ -1,0 +1,342 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Checking for updates..." : {
+      "comment" : "Checking for updates...",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking for updates…"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking for updates…"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "comment" : "Continue",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
+    "Continue playing" : {
+      "comment" : "Continue playing",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue playing"
+          }
+        }
+      }
+    },
+    "Could not download" : {
+      "comment" : "Could not download",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not download"
+          }
+        }
+      }
+    },
+    "Disabled plug-in" : {
+      "comment" : "Disabled plug-in",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disabled"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disabled"
+          }
+        }
+      }
+    },
+    "Download failed" : {
+      "comment" : "Download failed",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download failed"
+          }
+        }
+      }
+    },
+    "Downloading update" : {
+      "comment" : "Downloading update",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading update"
+          }
+        }
+      }
+    },
+    "Downloading updates..." : {
+      "comment" : "Downloading updates…",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading updates…"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading updates…"
+          }
+        }
+      }
+    },
+    "Failed to install" : {
+      "comment" : "Failed to install",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to install"
+          }
+        }
+      }
+    },
+    "Finish" : {
+      "comment" : "Finish",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
+          }
+        }
+      }
+    },
+    "Finish game question info" : {
+      "comment" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost."
+          }
+        }
+      }
+    },
+    "Finish the game?" : {
+      "comment" : "Finish the game?"
+    },
+    "Install Update Plug-in Later" : {
+      "comment" : "Later",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        }
+      }
+    },
+    "Install Update Plug-in Now" : {
+      "comment" : "Install Now",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install Now"
+          }
+        }
+      }
+    },
+    "Installation failed" : {
+      "comment" : "Installation failed"
+    },
+    "Installed plug-in" : {
+      "comment" : "Installed plug-in",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installed"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installed"
+          }
+        }
+      }
+    },
+    "Interpreter can't load save games info" : {
+      "comment" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected."
+          }
+        }
+      }
+    },
+    "New Plug-in" : {
+      "comment" : "New Plug-in",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Plug-in"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New"
+          }
+        }
+      }
+    },
+    "No notes available" : {
+      "comment" : "No notes available",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No notes available"
+          }
+        }
+      }
+    },
+    "Plug-in Paren (%@, %@)" : {
+      "comment" : "Parantheses around status (#2) with name (#1)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (%2$@)"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ (%2$@)"
+          }
+        }
+      }
+    },
+    "Ready to install" : {
+      "comment" : "Ready to install",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready to install"
+          }
+        }
+      }
+    },
+    "Restart Now" : {
+      "comment" : "Restart Now"
+    },
+    "Restart required" : {
+      "comment" : "Restart required",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart required"
+          }
+        }
+      }
+    },
+    "Restart Zoom Plug-in update" : {
+      "comment" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
+          }
+        }
+      }
+    },
+    "This interpreter is unable to load saved states" : {
+      "comment" : "This interpreter is unable to load saved states"
+    },
+    "Unknown Plug Status" : {
+      "comment" : "Unknown Plug Status",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "Update available" : {
+      "comment" : "Update available",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update available"
+          }
+        }
+      }
+    },
+    "Update available to v%@" : {
+      "comment" : "Update available to version value",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update available to v%@"
+          }
+        }
+      }
+    },
+    "You must restart Zoom to complete the update" : {
+      "comment" : "You must restart Zoom to complete the update"
+    },
+    "Zoom found plug-in updates info" : {
+      "comment" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
+          }
+        }
+      }
+    },
+    "Zoom found updates to some of the installed plugins" : {
+      "comment" : "Zoom found updates to some of the installed plugins"
+    }
+  },
+  "version" : "1.0"
+}

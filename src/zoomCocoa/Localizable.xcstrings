@@ -1,0 +1,1492 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "[ The game has finished ]" : {
+      "comment" : "Found in ZoomView",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[ The game has finished ]"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[ The game has finished ]"
+          }
+        }
+      }
+    },
+    "[ The Zoom interpreter has quit unexpectedly ]" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[ The Zoom interpreter has quit unexpectedly ]"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[ The Zoom interpreter has quit unexpectedly ]"
+          }
+        }
+      }
+    },
+    "[More...]" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[More…]"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[More…]"
+          }
+        }
+      }
+    },
+    "%@ (finished)" : {
+      "comment" : "Game finished window title formatter",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (finished)"
+          }
+        }
+      }
+    },
+    "%@ (restored from %@)" : {
+      "comment" : "%@ (restored from %@)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (restored from %2$@)"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ (restored from %2$@)"
+          }
+        }
+      }
+    },
+    "%@ does not contain a valid 'save.qut' file" : {
+      "comment" : "%@ does not contain a valid 'save.qut' file",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ does not contain a valid ‘save.qut’ file"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ does not contain a valid ‘save.qut’ file"
+          }
+        }
+      }
+    },
+    "%@ is not a valid Quetzal file" : {
+      "comment" : "%@ is not a valid Quetzal file",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is not a valid Quetzal file"
+          }
+        }
+      }
+    },
+    "An autosave file exists for this game" : {
+      "comment" : "An autosave file exists for this game",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An autosave file exists for this game"
+          }
+        }
+      }
+    },
+    "Are you sure you want to delete these games?" : {
+      "comment" : "Are you sure you want to delete these games?",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete these games?"
+          }
+        }
+      }
+    },
+    "Are you sure you want to delete this game?" : {
+      "comment" : "Are you sure you want to delete this game?",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this game?"
+          }
+        }
+      }
+    },
+    "Are you sure you want to delete this saved game?" : {
+      "comment" : "Are you sure you want to delete this saved game?",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this saved game?"
+          }
+        }
+      }
+    },
+    "Are you sure?" : {
+      "comment" : "Are you sure?",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure?"
+          }
+        }
+      }
+    },
+    "Autosaves Exist Info" : {
+      "comment" : "This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten."
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "comment" : "Cancel",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Checking for updates..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking for updates…"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking for updates…"
+          }
+        }
+      }
+    },
+    "Color Black" : {
+      "comment" : "Black",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Black"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Black"
+          }
+        }
+      }
+    },
+    "Color Blue" : {
+      "comment" : "Blue",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blue"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blue"
+          }
+        }
+      }
+    },
+    "Color Cyan" : {
+      "comment" : "Cyan",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cyan"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cyan"
+          }
+        }
+      }
+    },
+    "Color Dark grey" : {
+      "comment" : "Dark grey",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark grey"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark grey"
+          }
+        }
+      }
+    },
+    "Color Green" : {
+      "comment" : "Green",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        }
+      }
+    },
+    "Color Light grey" : {
+      "comment" : "Light grey",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light grey"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light grey"
+          }
+        }
+      }
+    },
+    "Color Magenta" : {
+      "comment" : "Magenta",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magenta"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magenta"
+          }
+        }
+      }
+    },
+    "Color Medium grey" : {
+      "comment" : "Medium grey",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium grey"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium grey"
+          }
+        }
+      }
+    },
+    "Color Red" : {
+      "comment" : "Red",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        }
+      }
+    },
+    "Color Unused colour" : {
+      "comment" : "Unused colour",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unused color"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unused colour"
+          }
+        }
+      }
+    },
+    "Color White" : {
+      "comment" : "White",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "White"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "White"
+          }
+        }
+      }
+    },
+    "Color Yellow" : {
+      "comment" : "Yellow",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow"
+          }
+        }
+      }
+    },
+    "Contents do not look like a saved game" : {
+      "comment" : "Contents do not look like a saved game",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contents do not look like a saved game"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "comment" : "Continue",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
+    "Continue playing" : {
+      "comment" : "Continue playing",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue playing"
+          }
+        }
+      }
+    },
+    "Could not complete the download." : {
+      "comment" : "Could not complete the download.",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not complete the download."
+          }
+        }
+      }
+    },
+    "Could not download the plug-in" : {
+      "comment" : "Could not download the plug-in",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not download the plug-in"
+          }
+        }
+      }
+    },
+    "Could not install the plug-in" : {
+      "comment" : "Could not install the plug-in",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not install the plug-in"
+          }
+        }
+      }
+    },
+    "Delete Game" : {
+      "comment" : "Delete",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Delete"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Don't start new game" : {
+      "comment" : "Don't start new game",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don’t Start New Game"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don’t start new game"
+          }
+        }
+      }
+    },
+    "Downloading updates..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading updates…"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading updates…"
+          }
+        }
+      }
+    },
+    "Drag a Blorb resource file here to change the resources for this game" : {
+      "comment" : "Drag a Blorb resource file here to change the resources for this game",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag a Blorb resource file here to change the resources for this game"
+          }
+        }
+      }
+    },
+    "Drag a Blorb resource file here to set it as the graphics/sound resources for this game" : {
+      "comment" : "Drag a Blorb resource file here to set it as the graphics/sound resources for this game",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag a Blorb resource file here to set it as the graphics/sound resources for this game"
+          }
+        }
+      }
+    },
+    "Fatal error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fatal error"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fatal error"
+          }
+        }
+      }
+    },
+    "Fatal Error Stop" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        }
+      }
+    },
+    "File does not exist" : {
+      "comment" : "File does not exist",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File does not exist"
+          }
+        }
+      }
+    },
+    "File has the wrong extension (%@)" : {
+      "comment" : "File has the wrong extension (%@)",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File has the wrong extension (%@)"
+          }
+        }
+      }
+    },
+    "File is not a directory" : {
+      "comment" : "File is not a directory",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File is not a directory"
+          }
+        }
+      }
+    },
+    "Finish" : {
+      "comment" : "Finish",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
+          }
+        }
+      }
+    },
+    "Finish game question info" : {
+      "comment" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost."
+          }
+        }
+      }
+    },
+    "Finish the game?" : {
+      "comment" : "Finish the game?",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish the game?"
+          }
+        }
+      }
+    },
+    "Game library not found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game library not found"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game library not found"
+          }
+        }
+      }
+    },
+    "Go to label..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to label…"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to label…"
+          }
+        }
+      }
+    },
+    "Group directory not found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group directory not found"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group directory not found"
+          }
+        }
+      }
+    },
+    "IFDB has reported a problem with this game" : {
+      "comment" : "IFDB has reported a problem with this game",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IFDB has reported a problem with this game"
+          }
+        }
+      }
+    },
+    "Install plugin" : {
+      "comment" : "Install plugin",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install plugin"
+          }
+        }
+      }
+    },
+    "Install Update Plug-in Later" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        }
+      }
+    },
+    "Install Update Plug-in Now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install Now"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install Now"
+          }
+        }
+      }
+    },
+    "Interpreter can't load save games info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story’s own restore function to request that it load the state that you selected."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story’s own restore function to request that it load the state that you selected."
+          }
+        }
+      }
+    },
+    "Invalid save game" : {
+      "comment" : "Invalid save game",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid save game"
+          }
+        }
+      }
+    },
+    "Invalid save game Info %@" : {
+      "comment" : "Tell user that it couldn't load save game. %@ is the localized reason why.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This does not look like a valid Zoom save game - it's possible it has moved, or you've saved something that looks like a save game but isn't. %@."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This does not look like a valid Zoom save game - it's possible it has moved, or you've saved something that looks like a save game but isn't. %@."
+          }
+        }
+      }
+    },
+    "Keep Game" : {
+      "comment" : "Keep",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keep"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep"
+          }
+        }
+      }
+    },
+    "Keep old" : {
+      "comment" : "Keep old",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep Old"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep Old"
+          }
+        }
+      }
+    },
+    "Metabase Replacement Info" : {
+      "comment" : "This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?"
+          }
+        }
+      }
+    },
+    "Multiple games selected" : {
+      "comment" : "Multiple games selected",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multiple games selected"
+          }
+        }
+      }
+    },
+    "Need plug-in Download info" : {
+      "comment" : "Tell the user that a plug-in needs to be downloaded to play this game.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\nPlug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\nPlug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins."
+          }
+        }
+      }
+    },
+    "No game selected" : {
+      "comment" : "No game selected",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No game selected"
+          }
+        }
+      }
+    },
+    "No notes available" : {
+      "comment" : "Found in ZoomPlugins",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No notes available"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No notes available"
+          }
+        }
+      }
+    },
+    "Not a valid Quetzal file" : {
+      "comment" : "Not a valid Quetzal file",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a valid Quetzal file"
+          }
+        }
+      }
+    },
+    "Not a valid Zoom savegame package" : {
+      "comment" : "Not a valid Zoom savegame package",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a valid Zoom savegame package"
+          }
+        }
+      }
+    },
+    "Open Story" : {
+      "comment" : "Open Story",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Story"
+          }
+        }
+      }
+    },
+    "Preferences: Colour" : {
+      "comment" : "Colour",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colour"
+          }
+        }
+      }
+    },
+    "Preferences: Display" : {
+      "comment" : "Display",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Display"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Display"
+          }
+        }
+      }
+    },
+    "Preferences: Fonts" : {
+      "comment" : "Fonts",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonts"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonts"
+          }
+        }
+      }
+    },
+    "Preferences: Game" : {
+      "comment" : "Game",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game"
+          }
+        }
+      }
+    },
+    "Preferences: General" : {
+      "comment" : "General",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "Preferences: Typography" : {
+      "comment" : "Typography",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Typography"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Typography"
+          }
+        }
+      }
+    },
+    "Problems were encountered while loading this game" : {
+      "comment" : "Problems were encountered while loading this game",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problems were encountered while loading this game"
+          }
+        }
+      }
+    },
+    "Rating" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rating"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rating"
+          }
+        }
+      }
+    },
+    "Restart Now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart Now"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart Now"
+          }
+        }
+      }
+    },
+    "Restart Zoom Plug-in update" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
+          }
+        }
+      }
+    },
+    "Some story descriptions are already in the database" : {
+      "comment" : "Some story descriptions are already in the database",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some story descriptions are already in the database"
+          }
+        }
+      }
+    },
+    "Start new game" : {
+      "comment" : "Start new game",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start New Game"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start new game"
+          }
+        }
+      }
+    },
+    "The download did not contain any story files" : {
+      "comment" : "The download did not contain any story files",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The download did not contain any story files"
+          }
+        }
+      }
+    },
+    "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved." : {
+      "comment" : "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved."
+          }
+        }
+      }
+    },
+    "This interpreter is unable to load saved states" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This interpreter is unable to load saved states"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This interpreter is unable to load saved states"
+          }
+        }
+      }
+    },
+    "Unable to find story file" : {
+      "comment" : "Unable to find story file",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find story file"
+          }
+        }
+      }
+    },
+    "Unable to load metadata" : {
+      "comment" : "Unable to load metadata",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to load metadata"
+          }
+        }
+      }
+    },
+    "Unable to load saved screen state" : {
+      "comment" : "Unable to load saved screen state",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to load saved screen state"
+          }
+        }
+      }
+    },
+    "Use new" : {
+      "comment" : "Use new",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use New"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use New"
+          }
+        }
+      }
+    },
+    "Warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning"
+          }
+        }
+      }
+    },
+    "Warning: %@ is a file" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning: %1$@ is a file"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning: %1$@ is a file"
+          }
+        }
+      }
+    },
+    "You must restart Zoom to complete the update" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must restart Zoom to complete the update"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must restart Zoom to complete the update"
+          }
+        }
+      }
+    },
+    "Zoom cannot download this type of file" : {
+      "comment" : "Zoom cannot download this type of file",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom cannot download this type of file"
+          }
+        }
+      }
+    },
+    "Zoom cannot download this type of file Info: %@" : {
+      "comment" : "Zoom cannot download this type of file Info, param is mime type or unknown",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType %@"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType %@"
+          }
+        }
+      }
+    },
+    "Zoom cannot find this story" : {
+      "comment" : "Zoom cannot find this story",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom cannot find this story"
+          }
+        }
+      }
+    },
+    "Zoom does not know where a valid story file for '%@' is and so is unable to load it" : {
+      "comment" : "Zoom does not know where a valid story file for '%@' is and so is unable to load it",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom does not know where a valid story file for ‘%@’ is and so is unable to load it"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom does not know where a valid story file for ‘%@’ is and so is unable to load it"
+          }
+        }
+      }
+    },
+    "Zoom encountered an error (%@) while trying to load an iFiction file." : {
+      "comment" : "Zoom encountered an error (%@) while trying to load an iFiction file.",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom encountered an error (%@) while trying to load an iFiction file."
+          }
+        }
+      }
+    },
+    "Zoom encountered an error while trying to load an iFiction file." : {
+      "comment" : "Zoom encountered an error while trying to load an iFiction file.",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom encountered an error while trying to load an iFiction file."
+          }
+        }
+      }
+    },
+    "Zoom found plug-in updates info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
+          }
+        }
+      }
+    },
+    "Zoom found updates to some of the installed plugins" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom found updates to some of the installed plugins"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom found updates to some of the installed plugins"
+          }
+        }
+      }
+    },
+    "Zoom is unable to load a valid story file for '%@' (tried '%@')" : {
+      "comment" : "Zoom is unable to load a valid story file for '%@' (tried '%@')",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom is unable to load a valid story file for ‘%1$@’ (tried ‘%2$@’)"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom is unable to load a valid story file for ‘%1$@’ (tried ‘%2$@’)"
+          }
+        }
+      }
+    },
+    "Zoom needs to download a new plug-in in order play this story" : {
+      "comment" : "Zoom needs to download a new plug-in in order play this story",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom needs to download a new plug-in in order play this story"
+          }
+        }
+      }
+    },
+    "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins." : {
+      "comment" : "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins."
+          }
+        }
+      }
+    },
+    "Zoom update file lost" : {
+      "comment" : "Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed."
+          }
+        }
+      }
+    },
+    "Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom was expecting to find the story file for %1$@ at %2$@, but it is no longer there. You will need to locate the story in the Finder and load it manually."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom was expecting to find the story file for %1$@ at %2$@, but it is no longer there. You will need to locate the story in the Finder and load it manually."
+          }
+        }
+      }
+    },
+    "Zoom was unable to find the saved screen state for '%@', and so is unable to start it" : {
+      "comment" : "Zoom was unable to find the saved screen state for '%@', and so is unable to start it",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom was unable to find the saved screen state for ‘%@’, and so is unable to start it"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom was unable to find the saved screen state for ‘%@’, and so is unable to start it"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

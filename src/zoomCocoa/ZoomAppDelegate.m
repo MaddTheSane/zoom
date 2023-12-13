@@ -275,6 +275,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// init the story organizer.
 	[[ZoomStoryOrganiser sharedStoryOrganiser] updateFromOldDefaults];
+	// load preferences.
+	(void)[ZoomPreferences globalPreferences];
 	// See if there's a startup signpost file
 	NSURL* startupSignpost = [[(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectoryURL] URLByAppendingPathComponent: @"launch.signpost"];
 	BOOL isDir;

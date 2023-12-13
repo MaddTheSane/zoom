@@ -1,0 +1,977 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "6.title" : {
+      "comment" : "Class = \"NSWindow\"; title = \"Story Information\"; ObjectID = \"6\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Story Information"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Story Information"
+          }
+        }
+      }
+    },
+    "8.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"General\"; ObjectID = \"8\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "General"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "9.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"Comments\"; ObjectID = \"9\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Comments"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comments"
+          }
+        }
+      }
+    },
+    "83.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Fantasy\"; ObjectID = \"83\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fantasy"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fantasy"
+          }
+        }
+      }
+    },
+    "84.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Science Fiction\"; ObjectID = \"84\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Science Fiction"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Science Fiction"
+          }
+        }
+      }
+    },
+    "85.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"Menu\"; ObjectID = \"85\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Menu"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        }
+      }
+    },
+    "87.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Mystery\"; ObjectID = \"87\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mystery"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mystery"
+          }
+        }
+      }
+    },
+    "88.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Surreal\"; ObjectID = \"88\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Surreal"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surreal"
+          }
+        }
+      }
+    },
+    "89.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Parody\"; ObjectID = \"89\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Parody"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parody"
+          }
+        }
+      }
+    },
+    "90.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Humour\"; ObjectID = \"90\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Humour"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Humour"
+          }
+        }
+      }
+    },
+    "91.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Romance\"; ObjectID = \"91\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Romance"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romance"
+          }
+        }
+      }
+    },
+    "92.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Horror\"; ObjectID = \"92\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Horror"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horror"
+          }
+        }
+      }
+    },
+    "93.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Fairy Tale\"; ObjectID = \"93\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fairy Tale"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fairy Tale"
+          }
+        }
+      }
+    },
+    "94.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Historical\"; ObjectID = \"94\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Historical"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historical"
+          }
+        }
+      }
+    },
+    "98.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Interpreter Abuse\"; ObjectID = \"98\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Interpreter Abuse"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interpreter Abuse"
+          }
+        }
+      }
+    },
+    "99.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Arcade\"; ObjectID = \"99\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Arcade"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade"
+          }
+        }
+      }
+    },
+    "121.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"Ratings\"; ObjectID = \"121\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ratings"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ratings"
+          }
+        }
+      }
+    },
+    "124.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Polite\"; ObjectID = \"124\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Polite"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polite"
+          }
+        }
+      }
+    },
+    "125.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Merciful\"; ObjectID = \"125\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Merciful"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merciful"
+          }
+        }
+      }
+    },
+    "127.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"127\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OtherViews"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "128.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Unrated\"; ObjectID = \"128\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unrated"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unrated"
+          }
+        }
+      }
+    },
+    "129.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Tough\"; ObjectID = \"129\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tough"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tough"
+          }
+        }
+      }
+    },
+    "130.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Nasty\"; ObjectID = \"130\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nasty"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nasty"
+          }
+        }
+      }
+    },
+    "131.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Cruel\"; ObjectID = \"131\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cruel"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cruel"
+          }
+        }
+      }
+    },
+    "141.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Speed-IF\"; ObjectID = \"141\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Speed-IF"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speed-IF"
+          }
+        }
+      }
+    },
+    "181.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"Blorb\"; ObjectID = \"181\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blorb"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blorb"
+          }
+        }
+      }
+    },
+    "191.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Contemporary Fiction\"; ObjectID = \"191\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Contemporary Fiction"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contemporary Fiction"
+          }
+        }
+      }
+    },
+    "206.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Name\"; ObjectID = \"206\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "207.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Author\"; ObjectID = \"207\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Author"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Author"
+          }
+        }
+      }
+    },
+    "208.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Year of first publication\"; ObjectID = \"208\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Year of first publication"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year of first publication"
+          }
+        }
+      }
+    },
+    "209.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Group\"; ObjectID = \"209\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Group"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group"
+          }
+        }
+      }
+    },
+    "210.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Headline\"; ObjectID = \"210\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Headline"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Headline"
+          }
+        }
+      }
+    },
+    "216.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Genre\"; ObjectID = \"216\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Genre"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genre"
+          }
+        }
+      }
+    },
+    "219.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Teaser\"; ObjectID = \"219\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Teaser"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teaser"
+          }
+        }
+      }
+    },
+    "220.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Comments\"; ObjectID = \"220\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Comments"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comments"
+          }
+        }
+      }
+    },
+    "221.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Zarfian cruelty rating\"; ObjectID = \"221\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Zarfian cruelty rating"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zarfian cruelty rating"
+          }
+        }
+      }
+    },
+    "223.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"My rating\"; ObjectID = \"223\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "My rating"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My rating"
+          }
+        }
+      }
+    },
+    "225.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Terrible\"; ObjectID = \"225\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Terrible"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terrible"
+          }
+        }
+      }
+    },
+    "227.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Excellent\"; ObjectID = \"227\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Excellent"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excellent"
+          }
+        }
+      }
+    },
+    "229.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Choose...\"; ObjectID = \"229\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose…"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose…"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[0]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[0] = \"Fantasy\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fantasy"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fantasy"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[1]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[1] = \"Science Fiction\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Science Fiction"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Science Fiction"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[2]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[2] = \"Horror\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Horror"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horror"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[3]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[3] = \"Fairy Tale\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fairy Tale"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fairy Tale"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[4]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[4] = \"Surreal\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Surreal"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surreal"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[5]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[5] = \"Contemporary Fiction\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Contemporary Fiction"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contemporary Fiction"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[6]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[6] = \"Mystery\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mystery"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mystery"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[7]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[7] = \"Romance\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Romance"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romance"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[8]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[8] = \"Historical\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Historical"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historical"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[9]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[9] = \"Humour\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Humour"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Humour"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[10]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[10] = \"Parody\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Parody"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parody"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[11]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[11] = \"Speed-IF\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Speed-IF"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speed-IF"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[12]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[12] = \"Arcade\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Arcade"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade"
+          }
+        }
+      }
+    },
+    "bVl-uf-Ad0.ibShadowedObjectValues[13]" : {
+      "comment" : "Class = \"NSComboBoxCell\"; bVl-uf-Ad0.ibShadowedObjectValues[13] = \"Interpreter Abuse\"; ObjectID = \"bVl-uf-Ad0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Interpreter Abuse"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interpreter Abuse"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
