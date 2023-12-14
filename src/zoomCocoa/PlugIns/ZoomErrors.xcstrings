@@ -170,6 +170,139 @@
           }
         }
       }
+    },
+    "ZoomStoryIDErrorBadZCodeVersion.description" : {
+      "comment" : "Z-code version is greater than 8",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File has a bad z-code version"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File has a bad z-code version"
+          }
+        }
+      }
+    },
+    "ZoomStoryIDErrorBadZCodeVersion.reason" : {
+      "comment" : "Z-code version is greater than 8.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z-code version is greater than 8."
+          }
+        }
+      }
+    },
+    "ZoomStoryIDErrorFileTooSmall.description" : {
+      "comment" : "File is less than 64 bytes",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File is too small to identify"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File is too small to identify"
+          }
+        }
+      }
+    },
+    "ZoomStoryIDErrorFileTooSmall.reason" : {
+      "comment" : "File is less than 64 bytes",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File is less than 64 bytes."
+          }
+        }
+      }
+    },
+    "ZoomStoryIDErrorNoGlulxChunk.description" : {
+      "comment" : "Unable to find Glulx chunk in blorb",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find Glulx chunk"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find Glulx chunk"
+          }
+        }
+      }
+    },
+    "ZoomStoryIDErrorNoGlulxChunk.reason" : {
+      "comment" : "Unable to find a Glulx chunk in the specified blorb.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find a Glulx chunk in the specified blorb."
+          }
+        }
+      }
+    },
+    "ZoomStoryIDErrorNoIdentGenerated.description" : {
+      "comment" : "IFID was not generated",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IFID was not generated"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IFID was not generated"
+          }
+        }
+      }
+    },
+    "ZoomStoryIDErrorNoZCodeChunk.description" : {
+      "comment" : "Unable to find z-code chunk in blorb",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find z-code chunk"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find z-code chunk"
+          }
+        }
+      }
+    },
+    "ZoomStoryIDErrorNoZCodeChunk.reason" : {
+      "comment" : "Unable to find z-code chunk in the specified blorb.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find a z-code chunk in the specified blorb."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

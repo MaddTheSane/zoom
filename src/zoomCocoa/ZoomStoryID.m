@@ -22,6 +22,52 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 	BOOL needsFreeing;
 }
 
++ (void)initialize {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[NSError setUserInfoValueProviderForDomain:ZoomStoryIDErrorDomain provider:^id _Nullable(NSError * _Nonnull err, NSErrorUserInfoKey  _Nonnull userInfoKey) {
+			if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+				switch ((ZoomStoryIDError)err.code) {
+					case ZoomStoryIDErrorFileTooSmall:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorFileTooSmall.description", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"File is too small to identify", @"File is less than 64 bytes");
+						break;
+					case ZoomStoryIDErrorBadZCodeVersion:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorBadZCodeVersion.description", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"File has a bad z-code version", @"Z-code version is greater than 8");
+						break;
+					case ZoomStoryIDErrorNoZCodeChunk:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorNoZCodeChunk.description", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"Unable to find z-code chunk", @"Unable to find z-code chunk in blorb");
+						break;
+					case ZoomStoryIDErrorNoGlulxChunk:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorNoGlulxChunk.description", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"Unable to find Glulx chunk", @"Unable to find Glulx chunk in blorb");
+						break;
+					case ZoomStoryIDErrorNoIdentGenerated:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorNoIdentGenerated.description", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"IFID was not generated", @"IFID was not generated");
+						break;
+				}
+			} else if ([userInfoKey isEqualToString:NSLocalizedFailureReasonErrorKey]) {
+				switch ((ZoomStoryIDError)err.code) {
+					case ZoomStoryIDErrorFileTooSmall:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorFileTooSmall.reason", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"File is less than 64 bytes.", @"File is less than 64 bytes");
+						break;
+					case ZoomStoryIDErrorBadZCodeVersion:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorBadZCodeVersion.reason", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"Z-code version is greater than 8.", @"Z-code version is greater than 8");
+						break;
+					case ZoomStoryIDErrorNoZCodeChunk:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorNoZCodeChunk.reason", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"Unable to find a z-code chunk in the specified blorb.", @"Unable to find z-code chunk in blorb");
+						break;
+					case ZoomStoryIDErrorNoGlulxChunk:
+						return NSLocalizedStringWithDefaultValue(@"ZoomStoryIDErrorNoGlulxChunk.reason", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"Unable to find a Glulx chunk in the specified blorb.", @"Unable to find Glulx chunk in blorb");
+						break;
+					case ZoomStoryIDErrorNoIdentGenerated:
+						return nil;
+						break;
+				}
+			}
+			return nil;
+		}];
+	});
+}
+
 + (ZoomStoryID*) idForURL: (NSURL*) filename {
 	ZoomStoryID* result = nil;
 
