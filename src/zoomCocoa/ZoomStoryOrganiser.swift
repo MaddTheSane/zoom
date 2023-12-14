@@ -185,7 +185,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		toRet.name = "Zoom Story Lock"
 		return toRet
 	}()
-	private var dataChangedNotificationObject: NSObjectProtocol? = nil
+	private var dataChangedNotificationObject: NSObjectProtocol! = nil
 	private var alreadyOrganising = false
 	private var organizerChanged = false
 	private var checkTimer: Timer! = nil

@@ -38,7 +38,7 @@ class HQImageView: NSImageView {
     }
     
 	override func mouseDown(with event: NSEvent) {
-		if event.clickCount == 2, let target = self.target {
+		if event.clickCount == 2, let target {
 			sendAction(action, to: target)
 		}
 	}
