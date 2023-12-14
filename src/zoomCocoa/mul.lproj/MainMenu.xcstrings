@@ -146,7 +146,7 @@
       }
     },
     "72.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Open...\"; ObjectID = \"72\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Open…\"; ObjectID = \"72\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -182,7 +182,7 @@
       }
     },
     "77.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Page Setup...\"; ObjectID = \"77\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Page Setup…\"; ObjectID = \"77\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -200,7 +200,7 @@
       }
     },
     "78.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Print...\"; ObjectID = \"78\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Print…\"; ObjectID = \"78\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -362,7 +362,7 @@
       }
     },
     "129.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Preferences...\"; ObjectID = \"129\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Preferences…\"; ObjectID = \"129\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -650,7 +650,7 @@
       }
     },
     "204.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Spelling...\"; ObjectID = \"204\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Spelling…\"; ObjectID = \"204\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -722,7 +722,7 @@
       }
     },
     "209.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Find...\"; ObjectID = \"209\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Find…\"; ObjectID = \"209\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -938,7 +938,7 @@
       }
     },
     "242.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Save Transcript...\"; ObjectID = \"242\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Save Transcript…\"; ObjectID = \"242\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -1766,19 +1766,19 @@
       }
     },
     "336.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Save Metadata...\"; ObjectID = \"336\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Save Metadata…\"; ObjectID = \"336\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Save Metadata..."
+            "value" : "Save Metadata…"
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Save Metadata..."
+            "value" : "Save Metadata…"
           }
         }
       }
@@ -1838,7 +1838,7 @@
       }
     },
     "350.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Save Recording...\"; ObjectID = \"350\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Save Recording…\"; ObjectID = \"350\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -1856,7 +1856,7 @@
       }
     },
     "351.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Save Skein...\"; ObjectID = \"351\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Save Skein…\"; ObjectID = \"351\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -1892,7 +1892,7 @@
       }
     },
     "358.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Check for Updates...\"; ObjectID = \"358\";",
+      "comment" : "Class = \"NSMenuItem\"; title = \"Check for Updates…\"; ObjectID = \"358\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {

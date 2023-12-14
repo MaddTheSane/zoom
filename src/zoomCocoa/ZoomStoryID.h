@@ -44,6 +44,7 @@ typedef NS_ERROR_ENUM(ZoomStoryIDErrorDomain, ZoomStoryIDError) {
 
 - (nullable instancetype)initWithCoder:(NSCoder *)coder;
 
+/// Will be \c nil if the IFID type is a \a null .
 @property (readonly, copy, nullable) NSString *IDString;
 
 @end

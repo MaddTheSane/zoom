@@ -2093,11 +2093,11 @@ static NSArray<NSString*>* blorbFileTypes;
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = NSLocalizedString(@"Are you sure?", @"Are you sure?");
 	alert.informativeText = request;
-	NSButton *delButton = [alert addButtonWithTitle: NSLocalizedString(@"Delete Game", @"Delete")];
+	NSButton *delButton = [alert addButtonWithTitle: NSLocalizedStringWithDefaultValue(@"Delete Game", @"Localizable", [NSBundle mainBundle], @"Delete", @"Delete")];
 	if (@available(macOS 11.0, *)) {
 		delButton.hasDestructiveAction = YES;
 	}
-	[alert addButtonWithTitle:NSLocalizedString(@"Keep Game", @"Keep")].keyEquivalent = @"\1B";
+	[alert addButtonWithTitle:NSLocalizedStringWithDefaultValue(@"Keep Game", @"Localizable", [NSBundle mainBundle], @"Keep", @"Keep")].keyEquivalent = @"\1B";
 	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 		if (returnCode != NSAlertFirstButtonReturn) return;
 		
