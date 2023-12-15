@@ -85,7 +85,9 @@ final public class JACL: ZoomGlkPlugIn {
 						OneOrMore(.whitespace)
 						"\""
 						Capture {
-							ZeroOrMore(.any)
+							ZeroOrMore {
+								/./
+							}
 						}
 						"\""
 					}
@@ -102,7 +104,9 @@ final public class JACL: ZoomGlkPlugIn {
 						OneOrMore(.whitespace)
 						"\""
 						Capture {
-							ZeroOrMore(.any)
+							ZeroOrMore {
+								/./
+							}
 						}
 						"\""
 					}
@@ -162,7 +166,7 @@ private func stringIDForJACLFile(at url: URL) -> String? {
 	if let ifidRange = fileData.range(of: ifidJACL) {
 		let first = fileData.index(ifidRange.startIndex, offsetBy: 5)
 		let last = fileData.index(first, offsetBy: 8)
-		let ifidData = fileData[first ... last]
+		let ifidData = fileData[first ..< last]
 		if let str = String(data: ifidData, encoding: .ascii) {
 			return str
 		}

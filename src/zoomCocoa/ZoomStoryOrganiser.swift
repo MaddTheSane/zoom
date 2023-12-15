@@ -287,8 +287,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 #endif
 		// If there's no story registered, then we need to create one
 		if theStory == nil {
-			let pluginClass = ZoomPlugInManager.shared.plugIn(for: filename)
-			let pluginInstance = pluginClass?.init(url: filename)
+			let pluginInstance = ZoomPlugInManager.shared.instance(for: filename)
 			
 			if let pluginInstance {
 				theStory = try pluginInstance.defaultMetadata()

@@ -45,7 +45,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 /// Array of strings indicating the names of the loaded plugins
 - (NSArray<NSString*>*) loadedPlugIns;
 /// Returns the version of the plugin with the specified name
-- (NSString*) versionForPlugIn: (NSString*) plugin;
+- (nullable NSString*) versionForPlugIn: (NSString*) plugin;
 /// Compares version numbers
 - (BOOL) version: (NSString*) oldVersion
 	 isNewerThan: (NSString*) newVerison;

@@ -75,7 +75,7 @@ final public class Quest: ZoomGlkPlugIn {
 	}
 	
 	public override class var supportedFileTypes: [String] {
-		return ["uk.co.textadventures.asl", "uk.co.textadventures.cas", "asl", "cas"]
+		return ["uk.co.textadventures.asl", "uk.co.textadventures.cas"] + extensions
 	}
 	
 	@available(macOS 11.0, *)
