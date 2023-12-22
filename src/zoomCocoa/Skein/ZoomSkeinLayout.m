@@ -92,7 +92,7 @@ static NSImage* unchangedDark, *activeDark;
 	// use image slicing
 	NSRect fullDrawRect = NSMakeRect(pos.x-20, pos.y, width + 20 + 20, 30);
 	
-	// Draw the edge bits
+	// Draw whole image
 	[img drawInRect: fullDrawRect
 		   fromRect: NSZeroRect
 		  operation: NSCompositingOperationSourceOver

@@ -210,7 +210,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			throw CocoaError(.featureUnsupported)
 		}
 		
-		var skeinData: Data
+		var skeinURL: URL
 		var storyID: ZoomStoryID? = nil
 		
 		switch contentType {
@@ -218,8 +218,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			// .zoomsave package
 			
 			// Read in the skein
-			let skeinURL = url.appendingPathComponent("Skein.skein", isDirectory: false)
-			skeinData = try Data(contentsOf: skeinURL)
+			skeinURL = url.appendingPathComponent("Skein.skein", isDirectory: false)
 			
 			// Work out the story ID
 			let plistUrl = url.appendingPathComponent("Info.plist", isDirectory: false)
@@ -233,8 +232,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			// .glksave package
 
 			// Read in the skein
-			let skeinURL = url.appendingPathComponent("Skein.skein", isDirectory: false)
-			skeinData = try Data(contentsOf: skeinURL)
+			skeinURL = url.appendingPathComponent("Skein.skein", isDirectory: false)
 			
 			// Work out the story ID
 			let plistUrl = url.appendingPathComponent("Info.plist", isDirectory: false)
@@ -250,7 +248,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 		
 		// Try to parse the skein
 		let skein = ZoomSkein()
-		try skein.parseXmlData(skeinData)
+		try skein.parseXMLContents(at: skeinURL)
 
 		let reply = QLPreviewReply(dataOfContentType: .rtf, contentSize: CGSize(width: 200, height: 200)) { reply in
 			// If we've got a skein, then generate an attributed string to represent the transcript of play

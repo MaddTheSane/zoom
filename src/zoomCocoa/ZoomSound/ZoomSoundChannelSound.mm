@@ -58,7 +58,7 @@ private:
 
 #pragma GCC visibility pop
 
-SFB::InputSource::unique_ptr CreateWithZFile(id<ZFile> zFile, CFErrorRef *error = nullptr)
+static SFB::InputSource::unique_ptr CreateWithZFile(id<ZFile> zFile, CFErrorRef *error = nullptr)
 {
 #pragma unused(error)
 

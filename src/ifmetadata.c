@@ -1219,6 +1219,14 @@ wchar_t* IFStrnCpyW(wchar_t* dst, const IFMDChar* src, size_t sz) {
 
 #ifdef HAVE_COREFOUNDATION
 CFStringRef IFStrCpyCF(const IFMDChar* src) {
+#if 1
+	//TODO: test this
+	CFDataRef aDat = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, (const UInt8 *)src, IFStrLen(src) * 4, kCFAllocatorNull);
+	CFStringRef string = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, aDat, kCFStringEncodingUTF32LE);
+	CFRelease(aDat);
+	
+	return string;
+#else
 	int len;
 	unsigned short int* utf16 = GetUTF16(src, &len);
 	CFStringRef string;
@@ -1226,6 +1234,7 @@ CFStringRef IFStrCpyCF(const IFMDChar* src) {
 	string = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, utf16, len, kCFAllocatorMalloc);
 	
 	return string;
+#endif
 }
 
 IFMDChar* IFMakeStrCF(const CFStringRef src) {

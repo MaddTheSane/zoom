@@ -381,7 +381,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			return prefLock.withLock {
 				let result = prefs[glulxInterpreterKey] as? Int
 				
-				if let result = result, let result2 = GlulxInterpreter(rawValue: result) {
+				if let result, let result2 = GlulxInterpreter(rawValue: result) {
 					return result2
 				}
 				return .git
@@ -537,7 +537,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			return prototypeFont.familyName
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				setFontRange(0..<4, toFamily: newValue)
 			}
 		}
@@ -551,7 +551,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			return prototypeFont.familyName
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				setFontRange(4..<8, toFamily: newValue)
 			}
 		}
@@ -565,7 +565,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			return prototypeFont.familyName
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				setFontRange(8..<16, toFamily: newValue)
 			}
 		}
@@ -709,7 +709,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			return result
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				prefs[organiserDirectoryKey] = newValue
 			} else {
 				prefs.removeValue(forKey: organiserDirectoryKey)
