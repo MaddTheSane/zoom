@@ -1238,7 +1238,185 @@ void hugo_stopvideo(void)
 {}
 #endif
 
-#if !defined (SOUND_SUPPORTED)
+#if defined (GLK_MODULE_SOUND2)
+
+#define PIC 0
+#define SND 1
+#define MAXRES 1024
+static long resids[2][MAXRES];
+static int numres[2] = { 0, 0 };
+
+static int loadres(HUGO_FILE infile, int reslen, int type)
+{
+	char buf[4096];
+	frefid_t fileref;
+	strid_t stream;
+	long offset;
+	int id;
+	int i, n;
+
+	offset = ftell(infile);
+	for (i = 0; i < numres[type]; i++)
+	{
+		if (resids[type][i] == offset)
+		{
+			return i;
+		}
+	}
+
+	/* Too many resources loaded... */
+	if (numres[type] + 1 == MAXRES)
+	{
+		return -1;
+	}
+
+	id = numres[type]++;
+	sprintf(buf, "%s%d", type == PIC ? "PIC" : "SND", id);
+	resids[type][id] = offset;
+
+	fileref = glk_fileref_create_by_name(fileusage_Data, buf, 0);
+	if (!fileref)
+	{
+		return -1;
+	}
+
+	stream = glk_stream_open_file(fileref, filemode_Write, 0);
+	if (!stream)
+	{
+		glk_fileref_destroy(fileref);
+		return -1;
+	}
+
+	glk_fileref_destroy(fileref);
+
+	while (reslen > 0)
+	{
+		n = fread(buf, 1, reslen < sizeof buf ? reslen : sizeof buf, infile);
+		if (n <= 0)
+		{
+			break;
+		}
+		glk_put_buffer_stream(stream, buf, n);
+		reslen -= n;
+	}
+
+	glk_stream_close(stream, NULL);
+
+	return id;
+}
+
+static schanid_t mchannel = NULL;
+static schanid_t schannel = NULL;
+
+void initsound(void)
+{
+	if (!glk_gestalt(gestalt_Sound, 0))
+		return;
+	schannel = glk_schannel_create(0);
+}
+
+void initmusic(void)
+{
+	if (!glk_gestalt(gestalt_Sound, 0) || !glk_gestalt(gestalt_SoundMusic, 0))
+	{
+		return;
+	}
+	mchannel = glk_schannel_create(0);
+}
+
+int hugo_playmusic(HUGO_FILE infile, long reslen, char loop_flag)
+{
+	int id;
+
+	if (!mchannel)
+		initmusic();
+	if (mchannel)
+	{
+		id = loadres(infile, reslen, SND);
+		if (id < 0)
+		{
+			fclose(infile);
+			return false;
+		}
+		glk_schannel_play_ext(mchannel, id, loop_flag ? -1 : 1, 0);
+	}
+
+	fclose(infile);
+	return true;
+}
+
+void hugo_musicvolume(int vol)
+{
+	if (!mchannel) 
+	{
+		initmusic();
+	}
+	if (!mchannel)
+	{
+		return;
+	}
+	glk_schannel_set_volume(mchannel, (vol * 0x10000) / 100);
+}
+
+void hugo_stopmusic(void)
+{
+	if (!mchannel) 
+	{
+		initmusic();
+	}
+	if (!mchannel)
+	{
+		return;
+	}
+	glk_schannel_stop(mchannel);
+}
+
+int hugo_playsample(HUGO_FILE infile, long reslen, char loop_flag)
+{
+	int id;
+
+	if (schannel)
+	{
+		id = loadres(infile, reslen, SND);
+		if (id < 0)
+		{
+			fclose(infile);
+			return false;
+		}
+		glk_schannel_play_ext(schannel, id, loop_flag ? -1 : 1, 0);
+	}
+
+	fclose(infile);
+	return true;
+}
+
+void hugo_samplevolume(int vol)
+{
+	if (!schannel) 
+	{
+		initsound();
+	}
+	if (!schannel)
+	{
+		return;
+	}
+	glk_schannel_set_volume(schannel, (vol * 0x10000) / 100);
+}
+
+void hugo_stopsample(void)
+{
+	if (!schannel)
+	{
+		initsound();
+	}
+	if (!schannel)
+	{
+		return;
+	}
+	glk_schannel_stop(schannel);
+}
+
+#elif !defined (SOUND_SUPPORTED)
 int hugo_playmusic(HUGO_FILE infile, long reslength, char loop_flag)
 {
 	fclose(infile);
