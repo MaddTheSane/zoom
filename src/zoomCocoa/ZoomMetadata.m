@@ -20,7 +20,23 @@ NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.errors";
 
 #define ZoomLocalizedStringWithDefaultValue(key, val, comment) \
-	NSLocalizedStringWithDefaultValue(key, @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], val, comment)
+	[[NSBundle bundleForClass: [ZoomMetadata class]] localizedStringForKey:(key) value:(val) table:@"ZoomErrors"]
+
+#if 0
+//To make genstrings happy:
+ 
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Programmer Is A Spoon", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"Programmer is a spoon", @"Programmer is a spoon");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError XML", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"XML parsing error", @"XML parsing error");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Not XML", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"File is not in XML format", @"File is not in XML format");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Version", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"Unknown iFiction version number", @"Unknown iFiction version number");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Tag", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"Invalid iFiction tag encountered in file", @"Invalid iFiction tag encountered in file");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Not IF Index", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"No index found", @"No index found");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Format", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"Unknown story format", @"Unknown story format");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Mismatched Formats", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"Story and identification data specify different formats", @"Story and identification data specify different formats");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Stories Share IDs", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"Two stories have the same ID", @"Two stories have the same ID");
+NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Duplicate ID", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"One story contains the same ID twice", @"One story contains the same ID twice");
+
+#endif
 
 @implementation ZoomMetadata {
 	NSURL* filename;
@@ -338,7 +354,9 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 {
 	if (filename == nil) {
 		if (error) {
-			*error = [NSError errorWithDomain:NSOSStatusErrorDomain code:paramErr userInfo:@{NSLocalizedDescriptionKey: @"No original sourceURL was set when created"}];
+			*error = [NSError errorWithDomain:NSOSStatusErrorDomain code:paramErr
+									 userInfo:@{NSLocalizedDescriptionKey: @"No original sourceURL was set when created.",
+												NSDebugDescriptionErrorKey: @"No original sourceURL was set when created."}];
 		}
 		return NO;
 	}

@@ -660,6 +660,10 @@ typedef unsigned char IFMDByte;
 	if (self) {
 		if (decoder.allowsKeyedCoding) {
 			NSString* idString = (NSString*)[decoder decodeObjectOfClass:[NSString class] forKey:@"IFMBStringID"];
+			if (!idString) {
+				[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderValueNotFoundError userInfo:@{NSLocalizedDescriptionKey: @"IFMBStringID was not present or was not a string.", NSDebugDescriptionErrorKey: @"IFMBStringID was not present or was not a string."}]];
+				return nil;
+			}
 			
 			ident = IFMB_IdFromString([idString UTF8String]);
 			needsFreeing = YES;
@@ -730,12 +734,17 @@ typedef unsigned char IFMDByte;
 				}
 			} else if (version == 2) {
 				NSString* idString = (NSString*)[decoder decodeObject];
+				if (![idString isKindOfClass:[NSString class]]) {
+					[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderValueNotFoundError userInfo:@{NSLocalizedDescriptionKey: @"IFMBStringID was not present or was not a string.", NSDebugDescriptionErrorKey: @"IFMBStringID was not present or was not a string."}]];
+					return nil;
+				}
 				
 				ident = IFMB_IdFromString([idString UTF8String]);
 				needsFreeing = YES;
 			} else {
 				// Only v1 and v2 decodes supported ATM
 				
+				[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderReadCorruptError userInfo:@{NSLocalizedDescriptionKey: @"Invalid ZoomStoryID version.", NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2 for legacy coding).", version]}]];
 				NSLog(@"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2)", version);
 				
 				return nil;

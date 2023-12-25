@@ -56,6 +56,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 //! \param outError Error value, populated on failure (returned nil).
 - (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 
+//! Will be \c nil if created without a URL.
 @property (readonly, copy, nullable) NSURL *sourceURL;
 
 //! Calls initWithData:fileURL:error:
