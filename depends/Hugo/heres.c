@@ -30,7 +30,7 @@ long FindResource(char *filename, char *resname);
 int GetResourceParameters(char *filename, char *resname, int restype);
 
 /* from hejpeg.c */
-int hugo_displaypicture(HUGO_FILE infile, long len);
+//int hugo_displaypicture(HUGO_FILE infile, long len);
 
 /* from hesound.c */
 int hugo_playmusic(HUGO_FILE infile, long reslength, char loop_flag);

@@ -14,8 +14,7 @@
 #include "gi_blorb.h"
 
 
-int hugo_color(int c);
-int hugo_displaypicture(HUGO_FILE infile, long reslength);
+static int hugo_color(int c);
 
 
 /* Glk main window: */

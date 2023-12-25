@@ -354,10 +354,6 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 								error: error];
 }
 
-- (BOOL) writeToDefaultFile {
-	return [self writeToDefaultFileWithError: NULL];
-}
-
 - (BOOL) writeToDefaultFileWithError:(NSError *__autoreleasing *)outError {
 	// The app delegate may not be the best place for this routine... Maybe a function somewhere
 	// would be better?

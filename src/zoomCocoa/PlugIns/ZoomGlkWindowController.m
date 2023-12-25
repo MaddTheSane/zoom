@@ -315,6 +315,10 @@
 	}
 }
 
+- (nullable NSString*) pathForNamedFile: (NSString*) name {
+	return [[inputURL URLByDeletingLastPathComponent] URLByAppendingPathComponent:name].path;
+}
+
 #pragma mark - Log messages
 
 - (void) showLogMessage: (NSString*) message

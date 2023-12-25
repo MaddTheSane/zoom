@@ -1187,6 +1187,8 @@ char *strupr(char *s);
 extern unsigned char minimal_windowing, illegal_window;
 #endif
 
+extern int hugo_displaypicture(HUGO_FILE infile, long reslength);
+
 
 /*-------------------------------------------------------------------------*/
 
