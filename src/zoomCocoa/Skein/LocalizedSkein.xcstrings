@@ -15,6 +15,12 @@
             "state" : "translated",
             "value" : "Add Label"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ラベルを追加する"
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add New"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新規追加"
           }
         }
       }
@@ -49,6 +61,12 @@
             "state" : "translated",
             "value" : "Delete"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "削除する"
+          }
         }
       }
     },
@@ -65,6 +83,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete all Below"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "以下をすべて削除する"
           }
         }
       }
@@ -83,6 +107,12 @@
             "state" : "translated",
             "value" : "Delete all in Thread"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "スレッド内のすべてを削除する"
+          }
         }
       }
     },
@@ -99,6 +129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit Label"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ラベルの編集"
           }
         }
       }
@@ -117,6 +153,12 @@
             "state" : "translated",
             "value" : "Insert Knot"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "結び目を挿入する"
+          }
         }
       }
     },
@@ -133,6 +175,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lock"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ロック"
           }
         }
       }
@@ -151,6 +199,12 @@
             "state" : "translated",
             "value" : "Lock this Thread"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このスレッドをロックする"
+          }
         }
       }
     },
@@ -167,6 +221,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New Thread"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新しいスレッド"
           }
         }
       }
@@ -185,6 +245,12 @@
             "state" : "translated",
             "value" : "Play to Here"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ここで遊ぶ"
+          }
         }
       }
     },
@@ -201,6 +267,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save Transcript to Here…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "トランスクリプトをここに保存してください..."
           }
         }
       }
@@ -219,6 +291,12 @@
             "state" : "translated",
             "value" : "Show in Transcript"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "トランスクリプトで表示する"
+          }
         }
       }
     },
@@ -235,6 +313,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unlock"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "の鍵を開ける"
           }
         }
       }

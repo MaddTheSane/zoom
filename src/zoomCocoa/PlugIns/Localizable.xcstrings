@@ -15,6 +15,12 @@
             "state" : "translated",
             "value" : "Checking for updates…"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アップデートをチェック中..."
+          }
         }
       }
     },
@@ -25,6 +31,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "続ける"
           }
         }
       }
@@ -37,6 +49,12 @@
             "state" : "translated",
             "value" : "Continue playing"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "遊び続ける"
+          }
         }
       }
     },
@@ -47,6 +65,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not download"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ダウンロードできませんでした"
           }
         }
       }
@@ -65,6 +89,12 @@
             "state" : "translated",
             "value" : "Disabled"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "障害者"
+          }
         }
       }
     },
@@ -76,6 +106,12 @@
             "state" : "translated",
             "value" : "Download failed"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ダウンロードに失敗しました"
+          }
         }
       }
     },
@@ -86,6 +122,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Downloading update"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アップデートのダウンロード"
           }
         }
       }
@@ -104,6 +146,12 @@
             "state" : "translated",
             "value" : "Downloading updates…"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アップデートをダウンロード中..."
+          }
         }
       }
     },
@@ -114,6 +162,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Failed to install"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "インストールに失敗しました"
           }
         }
       }
@@ -126,6 +180,12 @@
             "state" : "translated",
             "value" : "Finish"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "終わる"
+          }
         }
       }
     },
@@ -137,11 +197,25 @@
             "state" : "translated",
             "value" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "この窓にはまだ物語が流れています。節約せずに終わらせたいのは確かですか？ゲームの現状は失われます。"
+          }
         }
       }
     },
     "Finish the game?" : {
-      "comment" : "Finish the game?"
+      "comment" : "Finish the game?",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲームを終わらせますか？"
+          }
+        }
+      }
     },
     "Install Update Plug-in Later" : {
       "comment" : "Later",
@@ -150,6 +224,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Later"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "後で"
           }
         }
       }
@@ -162,11 +242,25 @@
             "state" : "translated",
             "value" : "Install Now"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "今すぐインストール"
+          }
         }
       }
     },
     "Installation failed" : {
-      "comment" : "Installation failed"
+      "comment" : "Installation failed",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "インストールに失敗しました"
+          }
+        }
+      }
     },
     "Installed plug-in" : {
       "comment" : "Installed plug-in",
@@ -182,6 +276,12 @@
             "state" : "translated",
             "value" : "Installed"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "インストール済み"
+          }
         }
       }
     },
@@ -192,6 +292,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このストーリーのインタプリタの設計に制限があるため、Zoomは保存された状態ファイルの読み込みを要求できません。\n\nストーリー独自の復元機能を使用して、選択した状態のロードを要求する必要があります。"
           }
         }
       }
@@ -210,6 +316,12 @@
             "state" : "translated",
             "value" : "New"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新しいプラグイン"
+          }
         }
       }
     },
@@ -220,6 +332,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No notes available"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "メモはありません"
           }
         }
       }
@@ -239,6 +357,12 @@
             "state" : "translated",
             "value" : "%1$@ (%2$@)"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@（%2$@）"
+          }
         }
       }
     },
@@ -250,11 +374,25 @@
             "state" : "translated",
             "value" : "Ready to install"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "インストール準備完了"
+          }
         }
       }
     },
     "Restart Now" : {
-      "comment" : "Restart Now"
+      "comment" : "Restart Now",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "今すぐ再起動する"
+          }
+        }
+      }
     },
     "Restart required" : {
       "comment" : "Restart required",
@@ -263,6 +401,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restart required"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "再起動が必要です"
           }
         }
       }
@@ -275,11 +419,25 @@
             "state" : "translated",
             "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは、インタプリタプラグインのアップデートをインストールしました。アップデートを完了するには、Zoomを再起動する必要があります。"
+          }
         }
       }
     },
     "This interpreter is unable to load saved states" : {
-      "comment" : "This interpreter is unable to load saved states"
+      "comment" : "This interpreter is unable to load saved states",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このインタプリタは保存された状態を読み込めません"
+          }
+        }
+      }
     },
     "Unknown Plug Status" : {
       "comment" : "Unknown Plug Status",
@@ -295,6 +453,12 @@
             "state" : "translated",
             "value" : "Error"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "間違い"
+          }
         }
       }
     },
@@ -305,6 +469,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Update available"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "利用可能な更新"
           }
         }
       }
@@ -317,11 +487,25 @@
             "state" : "translated",
             "value" : "Update available to v%@"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "バージョン%@に利用可能なアップデート"
+          }
         }
       }
     },
     "You must restart Zoom to complete the update" : {
-      "comment" : "You must restart Zoom to complete the update"
+      "comment" : "You must restart Zoom to complete the update",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アップデートを完了するには、Zoomを再起動する必要があります"
+          }
+        }
+      }
     },
     "Zoom found plug-in updates info" : {
       "comment" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.",
@@ -331,11 +515,25 @@
             "state" : "translated",
             "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは、インストールされているプラグインのいくつかにいくつかのアップデートを見つけました。これらを今すぐインストールして、インタプリタを最新バージョンに更新できます。"
+          }
         }
       }
     },
     "Zoom found updates to some of the installed plugins" : {
-      "comment" : "Zoom found updates to some of the installed plugins"
+      "comment" : "Zoom found updates to some of the installed plugins",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズームは、インストールされているプラグインの一部の更新を発見しました"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

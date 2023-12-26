@@ -276,29 +276,6 @@
         }
       }
     },
-    "Checking for updates..." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Checking for updates…"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Checking for updates…"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "アップデートをチェック中..."
-          }
-        }
-      }
-    },
     "Color Black" : {
       "comment" : "Black",
       "localizations" : {
@@ -724,29 +701,6 @@
         }
       }
     },
-    "Downloading updates..." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Downloading updates…"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Downloading updates…"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "アップデートをダウンロード中..."
-          }
-        }
-      }
-    },
     "Drag a Blorb resource file here to change the resources for this game" : {
       "comment" : "Drag a Blorb resource file here to change the resources for this game",
       "localizations" : {
@@ -1039,75 +993,6 @@
         }
       }
     },
-    "Install Update Plug-in Later" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Later"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Later"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "後で"
-          }
-        }
-      }
-    },
-    "Install Update Plug-in Now" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Install Now"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Install Now"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "今すぐインストール"
-          }
-        }
-      }
-    },
-    "Interpreter can't load save games info" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story’s own restore function to request that it load the state that you selected."
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story’s own restore function to request that it load the state that you selected."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "このストーリーのインタプリタの設計に制限があるため、Zoomは保存された状態ファイルの読み込みを要求できません。\n\nストーリー独自の復元機能を使用して、選択した状態のロードを要求する必要があります。"
-          }
-        }
-      }
-    },
     "Invalid save game" : {
       "comment" : "Invalid save game",
       "localizations" : {
@@ -1271,30 +1156,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "ゲームが選択されていません"
-          }
-        }
-      }
-    },
-    "No notes available" : {
-      "comment" : "Found in ZoomPlugins",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No notes available"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No notes available"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "メモはありません"
           }
         }
       }
@@ -1528,52 +1389,6 @@
         }
       }
     },
-    "Restart Now" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Restart Now"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Restart Now"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "今すぐ再起動する"
-          }
-        }
-      }
-    },
-    "Restart Zoom Plug-in update" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Zoomは、インタプリタプラグインのアップデートをインストールしました。アップデートを完了するには、Zoomを再起動する必要があります。"
-          }
-        }
-      }
-    },
     "Some story descriptions are already in the database" : {
       "comment" : "Some story descriptions are already in the database",
       "localizations" : {
@@ -1644,29 +1459,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "この窓にはまだ物語が流れています。本当にそれを終わらせたいですか?ゲームの現在の状態は自動的に保存されます。"
-          }
-        }
-      }
-    },
-    "This interpreter is unable to load saved states" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This interpreter is unable to load saved states"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This interpreter is unable to load saved states"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "このインタプリタは保存された状態を読み込めません"
           }
         }
       }
@@ -1791,29 +1583,6 @@
         }
       }
     },
-    "You must restart Zoom to complete the update" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You must restart Zoom to complete the update"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You must restart Zoom to complete the update"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "アップデートを完了するには、Zoomを再起動する必要があります"
-          }
-        }
-      }
-    },
     "Zoom cannot download this type of file" : {
       "comment" : "Zoom cannot download this type of file",
       "localizations" : {
@@ -1924,52 +1693,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Zoomは、iFictionファイルをロードしようとしているときにエラーが発生しました。"
-          }
-        }
-      }
-    },
-    "Zoom found plug-in updates info" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Zoomは、インストールされているプラグインのいくつかにいくつかのアップデートを見つけました。これらを今すぐインストールして、インタプリタを最新バージョンに更新できます。"
-          }
-        }
-      }
-    },
-    "Zoom found updates to some of the installed plugins" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zoom found updates to some of the installed plugins"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zoom found updates to some of the installed plugins"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ズームは、インストールされているプラグインの一部の更新を発見しました"
           }
         }
       }

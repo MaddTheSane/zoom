@@ -62,7 +62,7 @@
 	[pluginProgress setIndeterminate: YES];
 	[pluginProgress startAnimation: self];
 	
-	[statusField setStringValue: NSLocalizedString(@"Checking for updates...", @"Checking for updates...")];
+	[statusField setStringValue: NSLocalizedStringFromTableInBundle(@"Checking for updates...", nil, [NSBundle bundleForClass:[self class]], @"Checking for updates...")];
 	[statusField setHidden: NO];
 	
 	[installButton setEnabled: NO];
@@ -100,10 +100,10 @@
 	if (updated && ![[self window] isVisible]) {
 		[self showWindow: self];
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = NSLocalizedString(@"Zoom found updates to some of the installed plugins", @"Zoom found updates to some of the installed plugins");
-		alert.informativeText = NSLocalizedString(@"Zoom found plug-in updates info", @"Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.");
-		[alert addButtonWithTitle: NSLocalizedString(@"Install Update Plug-in Now", @"Install Now")];
-		[alert addButtonWithTitle: NSLocalizedString(@"Install Update Plug-in Later", @"Later")];
+		alert.messageText = NSLocalizedStringFromTableInBundle(@"Zoom found updates to some of the installed plugins", nil, [NSBundle bundleForClass:[self class]], @"Zoom found updates to some of the installed plugins");
+		alert.informativeText = NSLocalizedStringWithDefaultValue(@"Zoom found plug-in updates info", nil, [NSBundle bundleForClass:[self class]], @"Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.", @"Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.");
+		[alert addButtonWithTitle: NSLocalizedStringFromTableInBundle(@"Install Update Plug-in Now", nil, [NSBundle bundleForClass:[self class]], @"Install Now")];
+		[alert addButtonWithTitle: NSLocalizedStringFromTableInBundle(@"Install Update Plug-in Later", nil, [NSBundle bundleForClass:[self class]], @"Later")];
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode == NSAlertFirstButtonReturn) {
 				[self installUpdates: self];
@@ -118,7 +118,7 @@
 	[pluginProgress setMinValue: 0];
 	[pluginProgress setMaxValue: 100];
 	
-	[statusField setStringValue: NSLocalizedString(@"Downloading updates...", @"Downloading updates…")];
+	[statusField setStringValue: NSLocalizedStringFromTableInBundle(@"Downloading updates...", nil, [NSBundle bundleForClass:[self class]], @"Downloading updates…")];
 	[statusField setHidden: NO];
 	
 	[installButton setEnabled: NO];
@@ -148,10 +148,10 @@
 - (void) needsRestart {
 	[self showWindow: self];
 	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = NSLocalizedString(@"You must restart Zoom to complete the update", @"You must restart Zoom to complete the update");
-	alert.informativeText = NSLocalizedString(@"Restart Zoom Plug-in update", @"Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom.");
-	[alert addButtonWithTitle: NSLocalizedString(@"Restart Now", @"Restart Now")];
-	[alert addButtonWithTitle: NSLocalizedString(@"Install Update Plug-in Later", @"Later")];
+	alert.messageText = NSLocalizedStringFromTableInBundle(@"You must restart Zoom to complete the update", nil, [NSBundle bundleForClass:[self class]], @"You must restart Zoom to complete the update");
+	alert.informativeText = NSLocalizedStringWithDefaultValue(@"Restart Zoom Plug-in update", nil, [NSBundle bundleForClass:[self class]], @"Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom.", @"Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom.");
+	[alert addButtonWithTitle: NSLocalizedStringFromTableInBundle(@"Restart Now", nil, [NSBundle bundleForClass:[self class]], @"Restart Now")];
+	[alert addButtonWithTitle: NSLocalizedStringFromTableInBundle(@"Install Update Plug-in Later", nil, [NSBundle bundleForClass:[self class]], @"Later")];
 	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 		if (returnCode == NSAlertFirstButtonReturn) {
 			[self restartZoom];

@@ -227,9 +227,9 @@
 	if (savedGameURL && !canOpenSaveGames && !shownSaveGameWarning) {
 		shownSaveGameWarning = YES;
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = NSLocalizedString(@"This interpreter is unable to load saved states", @"This interpreter is unable to load saved states");
-		alert.informativeText = NSLocalizedString(@"Interpreter can't load save games info", @"Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.");
-		[alert addButtonWithTitle: NSLocalizedString(@"Continue", @"Continue")];
+		alert.messageText = NSLocalizedStringFromTableInBundle(@"This interpreter is unable to load saved states", nil, [NSBundle bundleForClass:[ZoomGlkWindowController class]], @"This interpreter is unable to load saved states");
+		alert.informativeText = NSLocalizedStringFromTableInBundle(@"Interpreter can't load save games info", nil, [NSBundle bundleForClass:[ZoomGlkWindowController class]], @"Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.");
+		[alert addButtonWithTitle: NSLocalizedStringFromTableInBundle(@"Continue", nil, [NSBundle bundleForClass:[ZoomGlkWindowController class]], @"Continue")];
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			//Do nothing
 		}];
@@ -462,12 +462,12 @@
 		//BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
 		NSString* msg;
 		
-		msg = NSLocalizedString(@"Finish game question info", @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.");
+		msg = NSLocalizedStringWithDefaultValue(@"Finish game question info", nil, [NSBundle bundleForClass:[ZoomGlkWindowController class]], @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.", @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.");
 		NSAlert *alert = [[NSAlert alloc] init];
-		alert.messageText = NSLocalizedString(@"Finish the game?", @"Finish the game?");
+		alert.messageText = NSLocalizedStringFromTableInBundle(@"Finish the game?", nil, [NSBundle bundleForClass:[ZoomGlkWindowController class]], @"Finish the game?");
 		alert.informativeText = msg;
-		[alert addButtonWithTitle: NSLocalizedString(@"Finish", @"Finish")];
-		[alert addButtonWithTitle: NSLocalizedString(@"Continue playing", @"Continue playing")];
+		[alert addButtonWithTitle: NSLocalizedStringFromTableInBundle(@"Finish", nil, [NSBundle bundleForClass:[ZoomGlkWindowController class]], @"Finish")];
+		[alert addButtonWithTitle: NSLocalizedStringFromTableInBundle(@"Continue playing", nil, [NSBundle bundleForClass:[ZoomGlkWindowController class]], @"Continue playing")];
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode == NSAlertFirstButtonReturn) {
 				// Close the window
@@ -594,7 +594,7 @@
 	
 	if (returnCode == NSModalResponseOK) {
 		// TODO: preview
-		id<GlkFileRef> saveRef = [ZoomGlkSaveRef createRefWithPlugIn: [[self document] plugIn]
+		id<GlkFileRef> saveRef = [ZoomGlkSaveRef createRefWithPlugIn: [(ZoomGlkDocument*)[self document] plugIn]
 															 saveURL: [panel URL]];
 		if ([saveRef isKindOfClass:[ZoomGlkSaveRef class]]) {
 			[(ZoomGlkSaveRef*)saveRef setSkein: skein];
