@@ -336,7 +336,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 
 		// Start the tasks
 		do {
-			if let subtasks = subtasks {
+			if let subtasks {
 				for sub in subtasks {
 					try sub.run()
 				}
@@ -433,7 +433,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 	}
 	
 	public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-		if let error = error {
+		if let error {
 			try? FileManager.default.removeItem(at: tmpFile!)
 			tmpFile = nil
 			

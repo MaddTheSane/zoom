@@ -266,7 +266,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dark grey"
+            "value" : "Dark gray"
           }
         },
         "en-GB" : {
@@ -300,7 +300,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Light grey"
+            "value" : "Light gray"
           }
         },
         "en-GB" : {
@@ -334,7 +334,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Medium grey"
+            "value" : "Medium gray"
           }
         },
         "en-GB" : {

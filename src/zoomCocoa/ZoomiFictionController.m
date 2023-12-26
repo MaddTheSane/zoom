@@ -1275,6 +1275,14 @@ static NSArray<NSString*>* blorbFileTypes;
 			int coverPictureNumber = [story coverPicture];
 			
 			ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: filename error: NULL];
+			if (!decodedFile) {
+				//Maybe an external blorb has an image?
+				NSString *blorbFilename = [story objectForKey:@"ResourceFilename"];
+				if (blorbFilename) {
+					NSURL *blorbURL = [NSURL fileURLWithPath:blorbFilename];
+					decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: blorbURL error: NULL];
+				}
+			}
 			
 			// Try to retrieve the frontispiece tag (overrides metadata if present)
 			NSData* front = [decodedFile dataForChunkWithType: @"Fspc"];
