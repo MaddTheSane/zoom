@@ -2241,8 +2241,8 @@ static NSArray<NSString*>* blorbFileTypes;
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = NSLocalizedString(@"Some story descriptions are already in the database", @"Some story descriptions are already in the database");
 		alert.informativeText = NSLocalizedString(@"Metabase Replacement Info", @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?");
-		[alert addButtonWithTitle: NSLocalizedString(@"Use new", @"Use new")];
-		[alert addButtonWithTitle: NSLocalizedString(@"Keep old", @"Keep old")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Use new", @"Use new descriptions")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Keep old", @"Keep old descriptions")];
 		alert.alertStyle = NSAlertStyleInformational;
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			if (returnCode != NSAlertFirstButtonReturn) return;

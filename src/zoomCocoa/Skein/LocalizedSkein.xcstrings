@@ -253,6 +253,12 @@
             "state" : "translated",
             "value" : "Unlock this Branch"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このブランチのロックを解除する"
+          }
         }
       }
     }

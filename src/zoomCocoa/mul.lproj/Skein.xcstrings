@@ -16,6 +16,12 @@
             "state" : "translated",
             "value" : "Skein"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "かせ"
+          }
         }
       }
     }

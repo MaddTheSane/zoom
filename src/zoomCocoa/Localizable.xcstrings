@@ -16,6 +16,12 @@
             "state" : "translated",
             "value" : "[ The game has finished ]"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[ゲームは終了しました]"
+          }
         }
       }
     },
@@ -32,6 +38,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "[ The Zoom interpreter has quit unexpectedly ]"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[ズームインタプリタが予期せず終了しました]"
           }
         }
       }
@@ -50,6 +62,12 @@
             "state" : "translated",
             "value" : "[More…]"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[もっと...]"
+          }
         }
       }
     },
@@ -60,6 +78,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ (finished)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%@(完了)"
           }
         }
       }
@@ -78,6 +102,12 @@
             "state" : "translated",
             "value" : "%1$@ (restored from %2$@)"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%1$@（%2$@から復元）"
+          }
         }
       }
     },
@@ -95,6 +125,12 @@
             "state" : "translated",
             "value" : "%@ does not contain a valid ‘save.qut’ file"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%@には有効な「save.qut」ファイルが含まれていません"
+          }
         }
       }
     },
@@ -105,6 +141,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ is not a valid Quetzal file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%@は有効なQuetzalファイルではありません"
           }
         }
       }
@@ -117,6 +159,12 @@
             "state" : "translated",
             "value" : "An autosave file exists for this game"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このゲームの自動保存ファイルが存在します"
+          }
         }
       }
     },
@@ -127,6 +175,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Are you sure you want to delete these games?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "これらのゲームを削除してもよろしいですか？"
           }
         }
       }
@@ -139,6 +193,12 @@
             "state" : "translated",
             "value" : "Are you sure you want to delete this game?"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このゲームを削除してもよろしいですか？"
+          }
         }
       }
     },
@@ -150,6 +210,12 @@
             "state" : "translated",
             "value" : "Are you sure you want to delete this saved game?"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "この保存したゲームを削除してもよろしいですか？"
+          }
         }
       }
     },
@@ -160,6 +226,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Are you sure?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "確かですか？"
           }
         }
       }
@@ -178,6 +250,12 @@
             "state" : "translated",
             "value" : "This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このゲームには自動保存ファイルが関連付けられています。新しいゲームを開始すると、このファイルが上書きされます。"
+          }
         }
       }
     },
@@ -188,6 +266,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "中止する"
           }
         }
       }
@@ -206,6 +290,12 @@
             "state" : "translated",
             "value" : "Checking for updates…"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アップデートをチェック中..."
+          }
         }
       }
     },
@@ -222,6 +312,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Black"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "黒"
           }
         }
       }
@@ -240,6 +336,12 @@
             "state" : "translated",
             "value" : "Blue"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "青"
+          }
         }
       }
     },
@@ -256,6 +358,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cyan"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シアン"
           }
         }
       }
@@ -274,6 +382,12 @@
             "state" : "translated",
             "value" : "Dark grey"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ダークグレー"
+          }
         }
       }
     },
@@ -290,6 +404,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Green"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "緑"
           }
         }
       }
@@ -308,6 +428,12 @@
             "state" : "translated",
             "value" : "Light grey"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ライトグレー"
+          }
         }
       }
     },
@@ -324,6 +450,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Magenta"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "マゼンタ"
           }
         }
       }
@@ -342,6 +474,12 @@
             "state" : "translated",
             "value" : "Medium grey"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ミディアムグレー"
+          }
         }
       }
     },
@@ -358,6 +496,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Red"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "赤"
           }
         }
       }
@@ -376,6 +520,12 @@
             "state" : "translated",
             "value" : "Unused colour"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "未使用の色"
+          }
         }
       }
     },
@@ -392,6 +542,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "White"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "白"
           }
         }
       }
@@ -410,6 +566,12 @@
             "state" : "translated",
             "value" : "Yellow"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "黄色"
+          }
         }
       }
     },
@@ -420,6 +582,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Contents do not look like a saved game"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "コンテンツは保存されたゲームのようには見えません"
           }
         }
       }
@@ -432,6 +600,12 @@
             "state" : "translated",
             "value" : "Continue"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "続ける"
+          }
         }
       }
     },
@@ -442,6 +616,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue playing"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "遊び続ける"
           }
         }
       }
@@ -454,6 +634,12 @@
             "state" : "translated",
             "value" : "Could not complete the download."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ダウンロードを完了できませんでした。"
+          }
         }
       }
     },
@@ -465,6 +651,12 @@
             "state" : "translated",
             "value" : "Could not download the plug-in"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "プラグインをダウンロードできませんでした"
+          }
         }
       }
     },
@@ -475,6 +667,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Could not install the plug-in"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "プラグインをインストールできませんでした"
           }
         }
       }
@@ -494,6 +692,12 @@
             "state" : "translated",
             "value" : "Delete"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "削除する"
+          }
         }
       }
     },
@@ -510,6 +714,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Don’t start new game"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新しいゲームを始めないでください"
           }
         }
       }
@@ -528,6 +738,12 @@
             "state" : "translated",
             "value" : "Downloading updates…"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アップデートをダウンロード中..."
+          }
         }
       }
     },
@@ -539,6 +755,12 @@
             "state" : "translated",
             "value" : "Drag a Blorb resource file here to change the resources for this game"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このゲームのリソースを変更するには、Blorbリソースファイルをここにドラッグしてください"
+          }
         }
       }
     },
@@ -549,6 +771,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Drag a Blorb resource file here to set it as the graphics/sound resources for this game"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Blorbリソースファイルをここにドラッグして、このゲームのグラフィック/サウンドリソースとして設定してください"
           }
         }
       }
@@ -567,10 +795,17 @@
             "state" : "translated",
             "value" : "Fatal error"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "フェイタルエラー"
+          }
         }
       }
     },
     "Fatal Error Stop" : {
+      "comment" : "Button shown with Fatal Error shows up on screen",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -584,6 +819,12 @@
             "state" : "translated",
             "value" : "Stop"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "止まる"
+          }
         }
       }
     },
@@ -594,6 +835,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "File does not exist"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイルは存在しません"
           }
         }
       }
@@ -606,6 +853,12 @@
             "state" : "translated",
             "value" : "File has the wrong extension (%@)"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイルの拡張子が間違っています (%@)"
+          }
         }
       }
     },
@@ -617,6 +870,12 @@
             "state" : "translated",
             "value" : "File is not a directory"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイルはディレクトリではありません"
+          }
         }
       }
     },
@@ -627,6 +886,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finish"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "終わる"
           }
         }
       }
@@ -645,6 +910,12 @@
             "state" : "translated",
             "value" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "この窓にはまだ物語が流れています。節約せずに終わらせたいのは確かですか？ゲームの現状は失われます。"
+          }
         }
       }
     },
@@ -655,6 +926,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finish the game?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲームを終わらせますか？"
           }
         }
       }
@@ -673,6 +950,12 @@
             "state" : "translated",
             "value" : "Game library not found"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲームライブラリが見つかりません"
+          }
         }
       }
     },
@@ -689,6 +972,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Go to label…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ラベルに行く..."
           }
         }
       }
@@ -707,6 +996,12 @@
             "state" : "translated",
             "value" : "Group directory not found"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "グループディレクトリが見つかりません"
+          }
         }
       }
     },
@@ -718,6 +1013,12 @@
             "state" : "translated",
             "value" : "IFDB has reported a problem with this game"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "IFDBはこのゲームに問題があると報告しました"
+          }
         }
       }
     },
@@ -728,6 +1029,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Install plugin"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "プラグインをインストールする"
           }
         }
       }
@@ -746,6 +1053,12 @@
             "state" : "translated",
             "value" : "Later"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "後で"
+          }
         }
       }
     },
@@ -762,6 +1075,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Install Now"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "今すぐインストール"
           }
         }
       }
@@ -780,6 +1099,12 @@
             "state" : "translated",
             "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story’s own restore function to request that it load the state that you selected."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このストーリーのインタプリタの設計に制限があるため、Zoomは保存された状態ファイルの読み込みを要求できません。\n\nストーリー独自の復元機能を使用して、選択した状態のロードを要求する必要があります。"
+          }
         }
       }
     },
@@ -790,6 +1115,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invalid save game"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "無効なセーブゲーム"
           }
         }
       }
@@ -807,6 +1138,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This does not look like a valid Zoom save game - it's possible it has moved, or you've saved something that looks like a save game but isn't. %@."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "これは有効なZoomセーブゲームのようには見えません - 移動した可能性があるか、セーブゲームのように見えるがそうでないものを保存した可能性があります。%@。"
           }
         }
       }
@@ -826,11 +1163,17 @@
             "state" : "translated",
             "value" : "Keep"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲームを続ける"
+          }
         }
       }
     },
     "Keep old" : {
-      "comment" : "Keep old",
+      "comment" : "Keep old descriptions",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -842,6 +1185,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keep Old"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "古いままにする"
           }
         }
       }
@@ -860,6 +1209,12 @@
             "state" : "translated",
             "value" : "This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このメタデータファイルには、データベースにすでに存在するいくつかのストーリーファイルの説明が含まれています。古い説明を使い続けますか、それとも新しい説明に切り替えますか？"
+          }
         }
       }
     },
@@ -870,6 +1225,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Multiple games selected"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "複数のゲームが選択されました"
           }
         }
       }
@@ -888,6 +1249,12 @@
             "state" : "translated",
             "value" : "In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\nPlug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "選択したストーリーファイルを再生するには、Zoomは新しいプラグインをダウンロードしてインストールする必要があります。このプラグインをインストールする場合は、ストーリーを再生する前にZoomを再起動する必要があります。\n\nプラグインには、特定のインタラクティブフィクションを実行するために必要なインタプリタプログラムが含まれています。ZoomはZ-Code、HUGO、TADS、Glulxフォーマットをサポートしていますが、新しいプラグインを追加することで新しいフォーマットを再生することができます。"
+          }
         }
       }
     },
@@ -898,6 +1265,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No game selected"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲームが選択されていません"
           }
         }
       }
@@ -917,6 +1290,12 @@
             "state" : "translated",
             "value" : "No notes available"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "メモはありません"
+          }
         }
       }
     },
@@ -927,6 +1306,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Not a valid Quetzal file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "有効なケツァルファイルではありません"
           }
         }
       }
@@ -939,6 +1324,12 @@
             "state" : "translated",
             "value" : "Not a valid Zoom savegame package"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "有効なZoomセーブゲームパッケージではありません"
+          }
         }
       }
     },
@@ -949,6 +1340,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open Story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "オープンストーリー"
           }
         }
       }
@@ -967,6 +1364,12 @@
             "state" : "translated",
             "value" : "Colour"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "カラー"
+          }
         }
       }
     },
@@ -983,6 +1386,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Display"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ディスプレイ"
           }
         }
       }
@@ -1001,6 +1410,12 @@
             "state" : "translated",
             "value" : "Fonts"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "フォント"
+          }
         }
       }
     },
@@ -1017,6 +1432,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Game"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲーム"
           }
         }
       }
@@ -1035,6 +1456,12 @@
             "state" : "translated",
             "value" : "General"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "一般的な"
+          }
         }
       }
     },
@@ -1052,6 +1479,12 @@
             "state" : "translated",
             "value" : "Typography"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "植字術"
+          }
         }
       }
     },
@@ -1062,6 +1495,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Problems were encountered while loading this game"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このゲームの読み込み中に問題が発生しました"
           }
         }
       }
@@ -1080,6 +1519,12 @@
             "state" : "translated",
             "value" : "Rating"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "評価"
+          }
         }
       }
     },
@@ -1096,6 +1541,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restart Now"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "今すぐ再起動する"
           }
         }
       }
@@ -1114,6 +1565,12 @@
             "state" : "translated",
             "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは、インタプリタプラグインのアップデートをインストールしました。アップデートを完了するには、Zoomを再起動する必要があります。"
+          }
         }
       }
     },
@@ -1124,6 +1581,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Some story descriptions are already in the database"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "いくつかのストーリーの説明はすでにデータベースにあります"
           }
         }
       }
@@ -1142,6 +1605,12 @@
             "state" : "translated",
             "value" : "Start new game"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新しいゲームを始める"
+          }
         }
       }
     },
@@ -1153,6 +1622,12 @@
             "state" : "translated",
             "value" : "The download did not contain any story files"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ダウンロードにはストーリーファイルが含まれていませんでした"
+          }
         }
       }
     },
@@ -1163,6 +1638,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "この窓にはまだ物語が流れています。本当にそれを終わらせたいですか?ゲームの現在の状態は自動的に保存されます。"
           }
         }
       }
@@ -1181,6 +1662,12 @@
             "state" : "translated",
             "value" : "This interpreter is unable to load saved states"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このインタプリタは保存された状態を読み込めません"
+          }
         }
       }
     },
@@ -1192,6 +1679,12 @@
             "state" : "translated",
             "value" : "Unable to find story file"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ストーリーファイルが見つかりません"
+          }
         }
       }
     },
@@ -1201,6 +1694,12 @@
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Unable to load metadata"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Unable to load metadata"
           }
         }
@@ -1214,11 +1713,17 @@
             "state" : "translated",
             "value" : "Unable to load saved screen state"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "保存した画面の状態を読み込めません"
+          }
         }
       }
     },
     "Use new" : {
-      "comment" : "Use new",
+      "comment" : "Use new descriptions",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1230,6 +1735,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use New"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新しいものを使う"
           }
         }
       }
@@ -1248,6 +1759,12 @@
             "state" : "translated",
             "value" : "Warning"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "警告"
+          }
         }
       }
     },
@@ -1264,6 +1781,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Warning: %1$@ is a file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "警告：%1$@はファイルです"
           }
         }
       }
@@ -1282,6 +1805,12 @@
             "state" : "translated",
             "value" : "You must restart Zoom to complete the update"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アップデートを完了するには、Zoomを再起動する必要があります"
+          }
         }
       }
     },
@@ -1292,6 +1821,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom cannot download this type of file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズームはこのタイプのファイルをダウンロードできません"
           }
         }
       }
@@ -1310,6 +1845,12 @@
             "state" : "translated",
             "value" : "You have clicked on a download link that goes to a type of file that Zoom does not know how to handle. This could be because the file is a compressed file in a format that Zoom does not understand, or it could be because you have not installed the plug-in for this file type.\n\nYou can check for new plugins by using the 'Check for Updates' option in the Zoom menu.\n\nType %@"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomが処理方法を知らない種類のファイルに行くダウンロードリンクをクリックしました。これは、ファイルがZoomが理解できない形式の圧縮ファイルであるか、このファイルタイプのプラグインをインストールしていない可能性があります。\n\nズームメニューの「更新の確認」オプションを使用して、新しいプラグインを確認できます。\n\n「%@」と入力します"
+          }
         }
       }
     },
@@ -1320,6 +1861,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom cannot find this story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズームはこの物語を見つけることができません"
           }
         }
       }
@@ -1338,6 +1885,12 @@
             "state" : "translated",
             "value" : "Zoom does not know where a valid story file for ‘%@’ is and so is unable to load it"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズームは「%@」の有効なストーリーファイルがどこにあるかわからないため、読み込むことができません"
+          }
         }
       }
     },
@@ -1349,6 +1902,12 @@
             "state" : "translated",
             "value" : "Zoom encountered an error (%@) while trying to load an iFiction file."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは、iFictionファイルをロードしようとしているときにエラー(%@ )を発生しました。"
+          }
         }
       }
     },
@@ -1359,6 +1918,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom encountered an error while trying to load an iFiction file."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは、iFictionファイルをロードしようとしているときにエラーが発生しました。"
           }
         }
       }
@@ -1377,6 +1942,12 @@
             "state" : "translated",
             "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは、インストールされているプラグインのいくつかにいくつかのアップデートを見つけました。これらを今すぐインストールして、インタプリタを最新バージョンに更新できます。"
+          }
         }
       }
     },
@@ -1393,6 +1964,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom found updates to some of the installed plugins"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズームは、インストールされているプラグインの一部の更新を発見しました"
           }
         }
       }
@@ -1411,6 +1988,12 @@
             "state" : "translated",
             "value" : "Zoom is unable to load a valid story file for ‘%1$@’ (tried ‘%2$@’)"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは「%1$@」の有効なストーリーファイルを読み込めません（「%2$@」を試しました）"
+          }
         }
       }
     },
@@ -1421,6 +2004,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom needs to download a new plug-in in order play this story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは、このストーリーを再生するために新しいプラグインをダウンロードする必要があります"
           }
         }
       }
@@ -1433,6 +2022,12 @@
             "state" : "translated",
             "value" : "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomはファイルを正常にダウンロードしましたが、現在インストールされているプラグインで再生できるストーリーファイルを見つけることができませんでした。"
+          }
         }
       }
     },
@@ -1442,13 +2037,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed."
+            "value" : "Zoom successfully downloaded a plugin update file, but was unable to locate it after the download had completed."
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zoom succesfully downloaded a plugin update file, but was unable to locate it after the download had completed."
+            "value" : "Zoom successfully downloaded a plugin update file, but was unable to locate it after the download had completed."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomはプラグインの更新ファイルを正常にダウンロードしましたが、ダウンロードが完了した後は見つかりませんでした。"
           }
         }
       }
@@ -1467,6 +2068,12 @@
             "state" : "translated",
             "value" : "Zoom was expecting to find the story file for %1$@ at %2$@, but it is no longer there. You will need to locate the story in the Finder and load it manually."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoomは%2$@で%1$@のストーリーファイルを見つけることを期待していましたが、もうありません。Finderでストーリーを見つけて、手動で読み込む必要があります。"
+          }
         }
       }
     },
@@ -1483,6 +2090,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom was unable to find the saved screen state for ‘%@’, and so is unable to start it"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズームは「%@」の保存された画面状態を見つけることができなかったため、起動できませんでした"
           }
         }
       }

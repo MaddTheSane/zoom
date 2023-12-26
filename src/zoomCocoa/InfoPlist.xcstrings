@@ -38,6 +38,12 @@
             "state" : "translated",
             "value" : "Blorb resource file"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Blorbリソースファイル"
+          }
         }
       }
     },
@@ -114,6 +120,12 @@
             "state" : "translated",
             "value" : "iFiction Metadata"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "iFictionメタデータ"
+          }
         }
       }
     },
@@ -123,6 +135,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Interactive Fiction signpost file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "インタラクティブフィクションの標識ファイル"
           }
         }
       }
@@ -194,6 +212,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blorb resource file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Blorbリソースファイル"
           }
         }
       }
@@ -297,6 +321,12 @@
             "state" : "translated",
             "value" : "iFiction Metadata"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "iFictionメタデータ"
+          }
         }
       }
     },
@@ -313,6 +343,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Interactive Fiction signpost file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "インタラクティブフィクションの標識ファイル"
           }
         }
       }
@@ -350,6 +386,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Skein XML file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "かせ XMLファイル"
           }
         }
       }
@@ -398,6 +440,12 @@
             "state" : "translated",
             "value" : "Zoom savegame"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズーム保存されたゲーム"
+          }
         }
       }
     },
@@ -415,6 +463,12 @@
             "state" : "translated",
             "value" : "Skein XML file"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "かせ XMLファイル"
+          }
         }
       }
     },
@@ -431,6 +485,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom savegame"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズーム保存されたゲーム"
           }
         }
       }
@@ -451,6 +511,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom savegame"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズーム保存されたゲーム"
           }
         }
       }
