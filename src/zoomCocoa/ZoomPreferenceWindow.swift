@@ -18,42 +18,42 @@ private let colourSettingsItemName = NSToolbarItem.Identifier("colourSettings")
 private let typographicSettingsItemName = NSToolbarItem.Identifier("typographicSettings")
 private let generalSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: generalSettingsItemName)
-	toRet.label = NSLocalizedString("Preferences: General", comment: "General")
+	toRet.label = NSLocalizedString("Preferences: General", value: "General", comment: "General Preferences panel")
 	toRet.image = NSImage(named: "Settings/general")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let gameSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: gameSettingsItemName)
-	toRet.label = NSLocalizedString("Preferences: Game", comment: "Game")
+	toRet.label = NSLocalizedString("Preferences: Game", value: "Game", comment: "Game Preferences panel")
 	toRet.image = NSImage(named: "Settings/game")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let displaySettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: displaySettingsItemName)
-	toRet.label = NSLocalizedString("Preferences: Display", comment: "Display")
+	toRet.label = NSLocalizedString("Preferences: Display", value: "Display", comment: "Display Preferences panel")
 	toRet.image = NSImage(named: "Settings/display")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let fontSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: fontSettingsItemName)
-	toRet.label = NSLocalizedString("Preferences: Fonts", comment: "Fonts")
+	toRet.label = NSLocalizedString("Preferences: Fonts", value: "Fonts", comment: "Fonts Preferences panel")
 	toRet.image = NSImage(named: "Settings/font")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let colourSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: colourSettingsItemName)
-	toRet.label = NSLocalizedString("Preferences: Colour", comment: "Colour")
+	toRet.label = NSLocalizedString("Preferences: Colour", value: "Color", comment: "Color Preferences panel")
 	toRet.image = NSImage(named: NSImage.colorPanelName)
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
 private let typographicSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: typographicSettingsItemName)
-	toRet.label = NSLocalizedString("Preferences: Typography", comment: "Typography")
+	toRet.label = NSLocalizedString("Preferences: Typography", value: "Typography", comment: "Typography Preference panel")
 	toRet.image = NSImage(named: "Settings/typographic")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
@@ -349,13 +349,13 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 		case 7:
 			return NSLocalizedString("Color White", comment: "White");
 		case 8:
-			return NSLocalizedString("Color Light grey", comment: "Light grey");
+			return NSLocalizedString("Color Light grey", value: "Light gray", comment: "Light grey");
 		case 9:
-			return NSLocalizedString("Color Medium grey", comment: "Medium grey");
+			return NSLocalizedString("Color Medium grey", value: "Medium gray", comment: "Medium grey");
 		case 10:
-			return NSLocalizedString("Color Dark grey", comment: "Dark grey");
+			return NSLocalizedString("Color Dark grey", value: "Dark gray", comment: "Dark grey");
 		default:
-			return NSLocalizedString("Color Unused colour", comment: "Unused colour")
+			return NSLocalizedString("Color Unused colour", value: "Unused colour", comment: "This Color value should not be seen. If a useer is seeing this, something has gone wrong.")
 		}
 	}
 	

@@ -363,7 +363,7 @@
       }
     },
     "Color Unused colour" : {
-      "comment" : "Unused colour",
+      "comment" : "This Color value should not be seen. If a useer is seeing this, something has gone wrong.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -954,7 +954,7 @@
       }
     },
     "Preferences: Colour" : {
-      "comment" : "Colour",
+      "comment" : "Color Preferences panel",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -971,7 +971,7 @@
       }
     },
     "Preferences: Display" : {
-      "comment" : "Display",
+      "comment" : "Display Preferences panel",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -988,7 +988,7 @@
       }
     },
     "Preferences: Fonts" : {
-      "comment" : "Fonts",
+      "comment" : "Fonts Preferences panel",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1005,7 +1005,7 @@
       }
     },
     "Preferences: Game" : {
-      "comment" : "Game",
+      "comment" : "Game Preferences panel",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1022,7 +1022,7 @@
       }
     },
     "Preferences: General" : {
-      "comment" : "General",
+      "comment" : "General Preferences panel",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1039,7 +1039,7 @@
       }
     },
     "Preferences: Typography" : {
-      "comment" : "Typography",
+      "comment" : "Typography Preference panel",
       "localizations" : {
         "en" : {
           "stringUnit" : {
