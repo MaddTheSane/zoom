@@ -49,6 +49,12 @@
             "state" : "translated",
             "value" : "Genre"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "親切な"
+          }
         }
       }
     },
@@ -65,6 +71,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Game genre"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲームのジャンル"
           }
         }
       }
@@ -118,6 +130,12 @@
             "state" : "translated",
             "value" : "Teaser"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "難問"
+          }
         }
       }
     },
@@ -136,6 +154,12 @@
             "state" : "translated",
             "value" : "Teaser"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "難問"
+          }
         }
       }
     },
@@ -153,6 +177,12 @@
             "state" : "translated",
             "value" : "Year"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "年"
+          }
         }
       }
     },
@@ -169,6 +199,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Release year"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "リリース年"
           }
         }
       }

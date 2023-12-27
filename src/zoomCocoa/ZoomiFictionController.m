@@ -684,7 +684,7 @@ static NSArray<NSString*>* blorbFileTypes;
 		// Autosave file exists - show alert sheet
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = NSLocalizedString(@"An autosave file exists for this game", @"An autosave file exists for this game");
-		alert.informativeText = NSLocalizedString(@"Autosaves Exist Info", @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.");
+		alert.informativeText = NSLocalizedStringWithDefaultValue(@"Autosaves Exist Info", nil, [NSBundle mainBundle], @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.", @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.");
 		[alert addButtonWithTitle: NSLocalizedString(@"Don't start new game", @"Don't start new game")];
 		NSButton *desButton = [alert addButtonWithTitle: NSLocalizedString(@"Start new game", @"Start new game")];
 		if (@available(macOS 11.0, *)) {

@@ -16,6 +16,12 @@
             "state" : "translated",
             "value" : "Story Information"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ストーリー情報"
+          }
         }
       }
     },
@@ -51,6 +57,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Comments"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "コメント"
           }
         }
       }
@@ -538,6 +550,12 @@
             "state" : "translated",
             "value" : "Year of first publication"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "最初の出版年"
+          }
         }
       }
     },
@@ -573,6 +591,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Headline"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "見出し"
           }
         }
       }

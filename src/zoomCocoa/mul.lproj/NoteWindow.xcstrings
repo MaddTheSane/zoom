@@ -5,6 +5,12 @@
       "comment" : "Class = \"NSWindow\"; title = \"Notes\"; ObjectID = \"7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Notizen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -12,6 +18,12 @@
           }
         },
         "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes"

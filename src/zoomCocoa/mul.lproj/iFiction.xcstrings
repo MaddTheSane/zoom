@@ -34,6 +34,12 @@
             "state" : "translated",
             "value" : "Adds a new story to the browser"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ブラウザに新しいストーリーを追加します"
+          }
         }
       }
     },
@@ -51,6 +57,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Starts the selected story from the beginning"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "選択したストーリーを最初から開始します"
           }
         }
       }
@@ -70,6 +82,12 @@
             "state" : "translated",
             "value" : "Continues a story from the last autosave point"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "最後の自動保存ポイントからのストーリーを続けます"
+          }
         }
       }
     },
@@ -88,6 +106,12 @@
             "state" : "translated",
             "value" : "Shows the game information window"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲーム情報ウィンドウを表示します"
+          }
         }
       }
     },
@@ -105,6 +129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Headline"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "見出し"
           }
         }
       }
@@ -159,6 +189,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Author"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "著者"
           }
         }
       }
@@ -268,6 +304,12 @@
             "state" : "translated",
             "value" : "Headline"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "見出し"
+          }
         }
       }
     },
@@ -285,6 +327,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Author"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "著者"
           }
         }
       }
@@ -376,6 +424,12 @@
             "state" : "translated",
             "value" : "Story name"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ストーリー名"
+          }
         }
       }
     },
@@ -430,6 +484,12 @@
             "state" : "translated",
             "value" : "Headline"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "見出し"
+          }
         }
       }
     },
@@ -447,6 +507,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Author"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "著者"
           }
         }
       }
@@ -538,6 +604,12 @@
             "state" : "translated",
             "value" : "Reveal in Finder"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Finderで明らかにする"
+          }
         }
       }
     },
@@ -555,6 +627,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reveal in Finder"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Finderで明らかにする"
           }
         }
       }
@@ -574,6 +652,12 @@
             "state" : "translated",
             "value" : "Save Metadata"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "メタデータを保存する"
+          }
         }
       }
     },
@@ -591,6 +675,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cover Art"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "カバーアート"
           }
         }
       }
@@ -682,6 +772,12 @@
             "state" : "translated",
             "value" : "Author"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "著者"
+          }
         }
       }
     },
@@ -699,6 +795,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Backwards"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "後ろ向きに"
           }
         }
       }
@@ -736,6 +838,12 @@
             "state" : "translated",
             "value" : "Backwards"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "後ろ向きに"
+          }
         }
       }
     },
@@ -753,6 +861,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Forwards"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "フォワード"
           }
         }
       }
@@ -772,6 +886,12 @@
             "state" : "translated",
             "value" : "Home"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ホーム"
+          }
         }
       }
     },
@@ -790,6 +910,12 @@
             "state" : "translated",
             "value" : "Find More"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "もっと探す"
+          }
         }
       }
     },
@@ -807,6 +933,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Story Browser"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ストーリーブラウザ"
           }
         }
       }
@@ -844,6 +976,12 @@
             "state" : "translated",
             "value" : "Saves"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "セーブ"
+          }
         }
       }
     },
@@ -861,6 +999,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Filters"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "フィルター"
           }
         }
       }
@@ -880,6 +1024,12 @@
             "state" : "translated",
             "value" : "Information"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "情報の"
+          }
         }
       }
     },
@@ -897,6 +1047,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rating"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "評価"
           }
         }
       }
