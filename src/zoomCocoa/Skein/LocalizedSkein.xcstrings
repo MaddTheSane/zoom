@@ -345,6 +345,18 @@
           }
         }
       }
+    },
+    "ZoomSkein: Failed to find root 'Skein' element" : {
+      "comment" : "ZoomSkein: Failed to find root 'Skein' element"
+    },
+    "ZoomSkein: Failed to parse skein XML data" : {
+      "comment" : "ZoomSkein: Failed to parse skein XML data"
+    },
+    "ZoomSkein: No root node" : {
+      "comment" : "ZoomSkein: No root node"
+    },
+    "ZoomSkein: No root node ID specified" : {
+      "comment" : "ZoomSkein: No root node ID specified"
     }
   },
   "version" : "1.0"

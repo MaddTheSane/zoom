@@ -191,7 +191,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 		if (error) {
 			NSMutableDictionary *errDict = [@{
 				NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to parse skein XML data",
-				NSLocalizedDescriptionKey: @"ZoomSkein: Failed to parse skein XML data"
+				NSLocalizedDescriptionKey: NSLocalizedStringFromTableInBundle(@"ZoomSkein: Failed to parse skein XML data", @"LocalizedSkein", [NSBundle bundleForClass:[self class]], @"ZoomSkein: Failed to parse skein XML data")
 			} mutableCopy];
 			if (tmpError) {
 				errDict[NSUnderlyingErrorKey] = tmpError;
@@ -217,7 +217,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 		if (error) {
 			NSMutableDictionary *errDict = [@{
 				NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to parse skein XML data",
-				NSLocalizedDescriptionKey: @"ZoomSkein: Failed to parse skein XML data",
+				NSLocalizedDescriptionKey: NSLocalizedStringFromTableInBundle(@"ZoomSkein: Failed to parse skein XML data", @"LocalizedSkein", [NSBundle bundleForClass:[self class]], @"ZoomSkein: Failed to parse skein XML data"),
 				NSURLErrorKey: url
 			} mutableCopy];
 			if (tmpError) {
@@ -245,7 +245,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 											code: ZoomSkeinXMLErrorNoRootSkein
 										userInfo: @{
 				NSDebugDescriptionErrorKey: @"ZoomSkein: Failed to find root 'Skein' element",
-				NSLocalizedDescriptionKey: @"ZoomSkein: Failed to find root 'Skein' element"
+				NSLocalizedDescriptionKey: NSLocalizedStringFromTableInBundle(@"ZoomSkein: Failed to find root 'Skein' element", @"LocalizedSkein", [NSBundle bundleForClass:[self class]], @"ZoomSkein: Failed to find root 'Skein' element")
 			}];
 		}
 
@@ -271,7 +271,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 											code: ZoomSkeinXMLErrorNoRootNodeID
 										userInfo: @{
 				NSDebugDescriptionErrorKey: @"ZoomSkein: No root node ID specified",
-				NSLocalizedDescriptionKey: @"ZoomSkein: No root node ID specified"
+				NSLocalizedDescriptionKey: NSLocalizedStringFromTableInBundle(@"ZoomSkein: No root node ID specified", @"LocalizedSkein", [NSBundle bundleForClass:[self class]], @"ZoomSkein: No root node ID specified")
 			}];
 		}
 		return NO;
@@ -428,7 +428,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 											code: ZoomSkeinXMLErrorNoRootNode
 										userInfo: @{
 				NSDebugDescriptionErrorKey: @"ZoomSkein: No root node",
-				NSLocalizedDescriptionKey: @"ZoomSkein: No root node"
+				NSLocalizedDescriptionKey: NSLocalizedStringFromTableInBundle(@"ZoomSkein: No root node", @"LocalizedSkein", [NSBundle bundleForClass:[self class]], @"ZoomSkein: No root node")
 			}];
 		}
 		NSLog(@"ZoomSkein: No root node");
