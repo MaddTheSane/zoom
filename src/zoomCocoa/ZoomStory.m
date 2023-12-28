@@ -579,7 +579,7 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	[metadata lock];
 	
 	id newKey = [self newKeyForOld: key];
-	IFChar* value = IFMB_GetValue(story, [newKey UTF8String]);
+	unichar* value = IFMB_GetValue(story, [newKey UTF8String]);
 	
 	if (value != nil) {
 		int len = IFMB_StrLen(value);
@@ -631,14 +631,14 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	
 	[metadata lock];
 	
-	IFChar* metaValue = nil;
+	unichar* metaValue = nil;
 	
-	if (value != nil) {
-		metaValue = malloc(sizeof(IFChar)*([value length]+1));
+	if (value != nil) @autoreleasepool {
+		NSData *rawDat = [value dataUsingEncoding:NSUTF16LittleEndianStringEncoding];
 		
-		[value getCharacters: metaValue];
+		metaValue = calloc((rawDat.length / 2) + 1, sizeof(IFChar));
 		
-		metaValue[[value length]] = 0;
+		[rawDat getBytes:metaValue length:rawDat.length];
 	}
 	
 	IFMB_SetValue(story, [[self newKeyForOld: key] UTF8String], metaValue);

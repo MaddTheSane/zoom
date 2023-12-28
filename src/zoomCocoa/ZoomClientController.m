@@ -210,7 +210,7 @@
 		if (![[NSFileManager defaultManager] fileExistsAtPath: saveDir
 												  isDirectory: &isDir]) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: saveDir
-										   withIntermediateDirectories: NO
+										   withIntermediateDirectories: YES
 															attributes: nil
 																 error: NULL]) {
 				// Couldn't create the directory
