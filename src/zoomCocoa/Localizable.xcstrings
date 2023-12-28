@@ -595,7 +595,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "黄色"
+            "value" : "黄"
           }
         }
       }
@@ -919,7 +919,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "ファイルの拡張子が間違っています (%@)"
+            "value" : "ファイルの拡張子が間違っています（%@）"
           }
         }
       }

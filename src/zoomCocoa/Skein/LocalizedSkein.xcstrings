@@ -347,16 +347,72 @@
       }
     },
     "ZoomSkein: Failed to find root 'Skein' element" : {
-      "comment" : "ZoomSkein: Failed to find root 'Skein' element"
+      "comment" : "ZoomSkein: Failed to find root 'Skein' element",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ZoomSkein: Failed to find root 'Skein' element"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZoomSkein: ルート「Skein」要素が見つかりません"
+          }
+        }
+      }
     },
     "ZoomSkein: Failed to parse skein XML data" : {
-      "comment" : "ZoomSkein: Failed to parse skein XML data"
+      "comment" : "ZoomSkein: Failed to parse skein XML data",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ZoomSkein: Failed to parse skein XML data"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZoomSkein: かせXMLデータの解析に失敗しました"
+          }
+        }
+      }
     },
     "ZoomSkein: No root node" : {
-      "comment" : "ZoomSkein: No root node"
+      "comment" : "ZoomSkein: No root node",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ZoomSkein: No root node"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZoomSkein: ルートノードなし"
+          }
+        }
+      }
     },
     "ZoomSkein: No root node ID specified" : {
-      "comment" : "ZoomSkein: No root node ID specified"
+      "comment" : "ZoomSkein: No root node ID specified",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ZoomSkein: No root node ID specified"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZoomSkein: ルートノードIDが指定されていません"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

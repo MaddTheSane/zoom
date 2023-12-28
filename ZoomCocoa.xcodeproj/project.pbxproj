@@ -3753,12 +3753,12 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
+				Base,
 				en,
 				ja,
 				fr,
 				de,
 				"en-GB",
-				Base,
 			);
 			mainGroup = 4B1E3F47050F7AD000A8E303;
 			packageReferences = (

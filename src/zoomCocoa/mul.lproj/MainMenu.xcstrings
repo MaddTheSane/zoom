@@ -796,6 +796,12 @@
             "state" : "translated",
             "value" : "Undo"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アンドゥ"
+          }
         }
       }
     },
@@ -868,6 +874,12 @@
             "state" : "translated",
             "value" : "Speech"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "スピーチ"
+          }
         }
       }
     },
@@ -885,6 +897,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Speech"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "スピーチ"
           }
         }
       }
@@ -921,6 +939,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Redo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "リドゥー"
           }
         }
       }
@@ -1204,6 +1228,12 @@
             "state" : "translated",
             "value" : "Font"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "フォント"
+          }
         }
       }
     },
@@ -1258,6 +1288,12 @@
             "state" : "translated",
             "value" : "Copy Style"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "コピースタイル"
+          }
         }
       }
     },
@@ -1275,6 +1311,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kern"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字詰め"
           }
         }
       }
@@ -1474,6 +1516,12 @@
             "state" : "translated",
             "value" : "Ligature"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "結紮"
+          }
         }
       }
     },
@@ -1527,6 +1575,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kern"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字詰め"
           }
         }
       }
@@ -1924,6 +1978,12 @@
             "state" : "translated",
             "value" : "Skein"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "かせ"
+          }
         }
       }
     },
@@ -2001,6 +2061,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save Skein…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "かせを保存..."
           }
         }
       }

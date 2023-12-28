@@ -3,16 +3,34 @@
   "strings" : {
     "Adrift Story" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adrift Story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Adrift Story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "漂流物語"
           }
         }
       }
     },
     "AGT Dollar Story" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AGT Dollar Story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -23,6 +41,12 @@
     },
     "AGT Story" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AGT Story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33,6 +57,12 @@
     },
     "Blorb resource file" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blorb resource file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -85,6 +115,12 @@
     },
     "Glulx Story" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glulx Story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -95,26 +131,56 @@
     },
     "Hugo Debuggable Game" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hugo Debuggable Game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hugo Debuggable Game"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ヒューゴのデバッグ可能なゲーム"
           }
         }
       }
     },
     "Hugo Story" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hugo Story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hugo Story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ヒューゴの物語"
           }
         }
       }
     },
     "iFiction Metadata" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iFiction Metadata"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -131,6 +197,12 @@
     },
     "Interactive Fiction signpost file" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interactive Fiction signpost file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -147,6 +219,12 @@
     },
     "Legacy Quest CAS file" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legacy Quest CAS file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -157,6 +235,12 @@
     },
     "Legacy Quest source file" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legacy Quest source file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -287,6 +371,12 @@
             "state" : "translated",
             "value" : "Hugo Story"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ヒューゴの物語"
+          }
         }
       }
     },
@@ -303,6 +393,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hugo Debuggable Game"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ヒューゴのデバッグ可能なゲーム"
           }
         }
       }
@@ -372,6 +468,12 @@
     },
     "Quetzal Saved Game" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quetzal Saved Game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -382,6 +484,12 @@
     },
     "Skein XML file" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skein XML file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -398,6 +506,12 @@
     },
     "TADS 2 Game" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TADS 2 Game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -408,6 +522,12 @@
     },
     "TADS 3 Executable" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TADS 3 Executable"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -418,6 +538,12 @@
     },
     "TADS Executable" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TADS Executable"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -497,6 +623,12 @@
     },
     "ZCode story" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ZCode story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -507,6 +639,12 @@
     },
     "Zoom savegame" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom savegame"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
