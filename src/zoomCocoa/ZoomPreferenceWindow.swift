@@ -255,7 +255,6 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	
 	/// Setting the pane that's being displayed
 	@objc fileprivate func switchToPane(_ sender: NSToolbarItem) {
-
 		let itemToViewDictionary = [generalSettingsItem: generalSettingsView,
 									   gameSettingsItem: gameSettingsView,
 									displaySettingsItem: displaySettingsView,

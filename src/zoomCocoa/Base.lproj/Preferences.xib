@@ -809,7 +809,7 @@
                     <rect key="frame" x="20" y="61" width="287" height="203"/>
                     <clipView key="contentView" id="H2f-eZ-aMj">
                         <rect key="frame" x="1" y="1" width="285" height="201"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" headerView="500" id="40" userLabel="Color Table">
                                 <rect key="frame" x="0.0" y="0.0" width="285" height="178"/>
