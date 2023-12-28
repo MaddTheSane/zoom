@@ -169,7 +169,7 @@ NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Duplicate ID", @"ZoomError
 		metadata = IFMB_Create();
 		IF_ReadIfiction(metadata, [xmlData bytes], [xmlData length]);
 		dataLock = [[NSLock alloc] init];
-		dataLock.name = @"Zoom Metadata Lock";
+		dataLock.name = [NSString stringWithFormat:@"Zoom Metadata Lock %p", self];
 		
 #if 0
 		if (metadata->numberOfErrors > 0) {

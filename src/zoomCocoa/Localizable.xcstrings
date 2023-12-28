@@ -74,6 +74,12 @@
     "%@ (finished)" : {
       "comment" : "Game finished window title formatter",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (finished)"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -137,6 +143,12 @@
     "%@ is not a valid Quetzal file" : {
       "comment" : "%@ is not a valid Quetzal file",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is not a valid Quetzal file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -154,6 +166,12 @@
     "An autosave file exists for this game" : {
       "comment" : "An autosave file exists for this game",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An autosave file exists for this game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -171,6 +189,12 @@
     "Are you sure you want to delete these games?" : {
       "comment" : "Are you sure you want to delete these games?",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete these games?"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -188,6 +212,12 @@
     "Are you sure you want to delete this game?" : {
       "comment" : "Are you sure you want to delete this game?",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this game?"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -205,6 +235,12 @@
     "Are you sure you want to delete this saved game?" : {
       "comment" : "Are you sure you want to delete this saved game?",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this saved game?"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -222,6 +258,12 @@
     "Are you sure?" : {
       "comment" : "Are you sure?",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure?"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -262,6 +304,12 @@
     "Cancel" : {
       "comment" : "Cancel",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -555,6 +603,12 @@
     "Contents do not look like a saved game" : {
       "comment" : "Contents do not look like a saved game",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contents do not look like a saved game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -572,6 +626,12 @@
     "Continue" : {
       "comment" : "Continue",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -589,6 +649,12 @@
     "Continue playing" : {
       "comment" : "Continue playing",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue playing"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -606,6 +672,12 @@
     "Could not complete the download." : {
       "comment" : "Could not complete the download.",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not complete the download."
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -623,6 +695,12 @@
     "Could not download the plug-in" : {
       "comment" : "Could not download the plug-in",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not download the plug-in"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -640,6 +718,12 @@
     "Could not install the plug-in" : {
       "comment" : "Could not install the plug-in",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not install the plug-in"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -704,6 +788,12 @@
     "Drag a Blorb resource file here to change the resources for this game" : {
       "comment" : "Drag a Blorb resource file here to change the resources for this game",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag a Blorb resource file here to change the resources for this game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -721,6 +811,12 @@
     "Drag a Blorb resource file here to set it as the graphics/sound resources for this game" : {
       "comment" : "Drag a Blorb resource file here to set it as the graphics/sound resources for this game",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag a Blorb resource file here to set it as the graphics/sound resources for this game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -785,6 +881,12 @@
     "File does not exist" : {
       "comment" : "File does not exist",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File does not exist"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -802,6 +904,12 @@
     "File has the wrong extension (%@)" : {
       "comment" : "File has the wrong extension (%@)",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File has the wrong extension (%@)"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -819,6 +927,12 @@
     "File is not a directory" : {
       "comment" : "File is not a directory",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File is not a directory"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -836,6 +950,12 @@
     "Finish" : {
       "comment" : "Finish",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -876,6 +996,12 @@
     "Finish the game?" : {
       "comment" : "Finish the game?",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish the game?"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -962,6 +1088,12 @@
     "IFDB has reported a problem with this game" : {
       "comment" : "IFDB has reported a problem with this game",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IFDB has reported a problem with this game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -979,6 +1111,12 @@
     "Install plugin" : {
       "comment" : "Install plugin",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install plugin"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -996,6 +1134,12 @@
     "Invalid save game" : {
       "comment" : "Invalid save game",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid save game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1106,6 +1250,12 @@
     "Multiple games selected" : {
       "comment" : "Multiple games selected",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multiple games selected"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1146,6 +1296,12 @@
     "No game selected" : {
       "comment" : "No game selected",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No game selected"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1163,6 +1319,12 @@
     "Not a valid Quetzal file" : {
       "comment" : "Not a valid Quetzal file",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a valid Quetzal file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1180,6 +1342,12 @@
     "Not a valid Zoom savegame package" : {
       "comment" : "Not a valid Zoom savegame package",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a valid Zoom savegame package"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1197,6 +1365,12 @@
     "Open Story" : {
       "comment" : "Open Story",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1352,6 +1526,12 @@
     "Problems were encountered while loading this game" : {
       "comment" : "Problems were encountered while loading this game",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problems were encountered while loading this game"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1392,6 +1572,12 @@
     "Some story descriptions are already in the database" : {
       "comment" : "Some story descriptions are already in the database",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some story descriptions are already in the database"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1432,6 +1618,12 @@
     "The download did not contain any story files" : {
       "comment" : "The download did not contain any story files",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The download did not contain any story files"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1449,6 +1641,12 @@
     "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved." : {
       "comment" : "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved."
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1466,6 +1664,12 @@
     "Unable to find story file" : {
       "comment" : "Unable to find story file",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find story file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1483,6 +1687,12 @@
     "Unable to load metadata" : {
       "comment" : "Unable to load metadata",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to load metadata"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1500,6 +1710,12 @@
     "Unable to load saved screen state" : {
       "comment" : "Unable to load saved screen state",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to load saved screen state"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1586,6 +1802,12 @@
     "Zoom cannot download this type of file" : {
       "comment" : "Zoom cannot download this type of file",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom cannot download this type of file"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1626,6 +1848,12 @@
     "Zoom cannot find this story" : {
       "comment" : "Zoom cannot find this story",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom cannot find this story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1666,6 +1894,12 @@
     "Zoom encountered an error (%@) while trying to load an iFiction file." : {
       "comment" : "Zoom encountered an error (%@) while trying to load an iFiction file.",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom encountered an error (%@) while trying to load an iFiction file."
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1683,6 +1917,12 @@
     "Zoom encountered an error while trying to load an iFiction file." : {
       "comment" : "Zoom encountered an error while trying to load an iFiction file.",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom encountered an error while trying to load an iFiction file."
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1723,6 +1963,12 @@
     "Zoom needs to download a new plug-in in order play this story" : {
       "comment" : "Zoom needs to download a new plug-in in order play this story",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom needs to download a new plug-in in order play this story"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1740,6 +1986,12 @@
     "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins." : {
       "comment" : "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins.",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom successfully downloaded the file, but was unable to find any story files that can be played by the currently installed plugins."
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",

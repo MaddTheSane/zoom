@@ -34,6 +34,12 @@
             "state" : "translated",
             "value" : "Window"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ウィンドウ"
+          }
         }
       }
     },
@@ -69,6 +75,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Window"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ウィンドウ"
           }
         }
       }
@@ -141,6 +153,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "About Zoom"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ズームについて"
           }
         }
       }
@@ -232,6 +250,12 @@
             "state" : "translated",
             "value" : "File"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイル"
+          }
         }
       }
     },
@@ -249,6 +273,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "File"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイル"
           }
         }
       }
@@ -268,6 +298,12 @@
             "state" : "translated",
             "value" : "Help"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "助ける"
+          }
         }
       }
     },
@@ -285,6 +321,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Help"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "助ける"
           }
         }
       }
@@ -308,7 +350,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "ズームヘルプ"
+            "value" : "ズーム助ける"
           }
         }
       }
@@ -730,6 +772,12 @@
             "state" : "translated",
             "value" : "Edit"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "編集"
+          }
         }
       }
     },
@@ -910,6 +958,12 @@
             "state" : "translated",
             "value" : "Edit"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "編集"
+          }
         }
       }
     },
@@ -1024,6 +1078,12 @@
             "state" : "translated",
             "value" : "Story"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "物語"
+          }
         }
       }
     },
@@ -1041,6 +1101,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "物語"
           }
         }
       }
@@ -1095,6 +1161,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Story Information"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ストーリー情報"
           }
         }
       }

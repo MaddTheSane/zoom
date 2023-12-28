@@ -2237,10 +2237,11 @@ static NSArray<NSString*>* blorbFileTypes;
 	NSArray<ZoomStory*>* replacements = [self mergeiFictionFromMetabase: newData];
 	
 	// If there's anything to query about, ask!
+	// TODO: allow more finely-grained selectin of which ones to replace?
 	if ([replacements count] > 0) {
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = NSLocalizedString(@"Some story descriptions are already in the database", @"Some story descriptions are already in the database");
-		alert.informativeText = NSLocalizedString(@"Metabase Replacement Info", @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?");
+		alert.informativeText = NSLocalizedStringWithDefaultValue(@"Metabase Replacement Info", nil, [NSBundle mainBundle], @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?", @"This metadata file contains descriptions for some story files that already exist in the database. Do you want to keep using the old descriptions or switch to the new ones?");
 		[alert addButtonWithTitle: NSLocalizedString(@"Use new", @"Use new descriptions")];
 		[alert addButtonWithTitle: NSLocalizedString(@"Keep old", @"Keep old descriptions")];
 		alert.alertStyle = NSAlertStyleInformational;
@@ -2908,7 +2909,7 @@ static NSArray<NSString*>* blorbFileTypes;
 			
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = NSLocalizedString(@"Zoom needs to download a new plug-in in order play this story", @"Zoom needs to download a new plug-in in order play this story");
-			alert.informativeText = NSLocalizedString(@"Need plug-in Download info", @"Tell the user that a plug-in needs to be downloaded to play this game.");
+			alert.informativeText = NSLocalizedStringWithDefaultValue(@"Need plug-in Download info", nil, [NSBundle mainBundle], @"In order to play the story file you have selected, Zoom needs to download and install a new plug-in. If you choose to install this plug-in, Zoom will need to restart before the story can be played.\n\nPlug-ins contain interpreter programs necessary to run certain interactive fiction. Zoom comes with support for Z-Code, HUGO, TADS and Glulx formats but is capable of playing new formats by adding new plug-ins.", @"Tell the user that a plug-in needs to be downloaded to play this game.");
 			[alert addButtonWithTitle: NSLocalizedString(@"Install plugin", @"Install plugin")];
 			[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 			[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {

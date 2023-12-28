@@ -118,7 +118,7 @@ class ImportExtension: CSImportExtension {
 		// zarf rating
 		//
 		do {
-			let zarfString: String?
+			let zarfString: NSString?
 			switch story.zarfian {
 			case .merciful:
 				zarfString = "Merciful"
@@ -136,7 +136,7 @@ class ImportExtension: CSImportExtension {
 				zarfString = nil
 			}
 			if let zarfString, let crueltyKey = CSCustomAttributeKey(keyName: "public_zcode_cruelty") {
-				attributes.setValue(zarfString as NSString, forCustomKey: crueltyKey)
+				attributes.setValue(zarfString, forCustomKey: crueltyKey)
 			}
 		}
 		
