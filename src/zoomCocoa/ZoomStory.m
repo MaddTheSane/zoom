@@ -633,7 +633,7 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	
 	unichar* metaValue = nil;
 	
-	if (value != nil) @autoreleasepool {
+	if (value != nil) {
 		NSData *rawDat = [value dataUsingEncoding:NSUTF16LittleEndianStringEncoding];
 		
 		metaValue = calloc((rawDat.length / 2) + 1, sizeof(IFChar));
