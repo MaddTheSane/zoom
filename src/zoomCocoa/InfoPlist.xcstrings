@@ -36,6 +36,12 @@
             "state" : "translated",
             "value" : "AGT Dollar Story"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "AGTダラーストーリー"
+          }
         }
       }
     },
@@ -51,6 +57,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AGT Story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AGTストーリー"
           }
         }
       }
@@ -110,6 +122,12 @@
             "state" : "translated",
             "value" : "Zoom"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom"
+          }
         }
       }
     },
@@ -125,6 +143,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Glulx Story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "グルックス・ストーリー"
           }
         }
       }
@@ -230,6 +254,12 @@
             "state" : "translated",
             "value" : "Legacy Quest CAS file"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "レガシークエストCASファイル"
+          }
         }
       }
     },
@@ -245,6 +275,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Legacy Quest source file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "レガシークエストのソースファイル"
           }
         }
       }
@@ -263,6 +299,12 @@
             "state" : "translated",
             "value" : "TADS 2 Game"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "TADS 2ゲーム"
+          }
         }
       }
     },
@@ -279,6 +321,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TADS 3 Executable"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "TADS 3 実行可能"
           }
         }
       }
@@ -320,6 +368,12 @@
             "state" : "translated",
             "value" : "Glulx Story"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "グルックス・ストーリー"
+          }
         }
       }
     },
@@ -353,6 +407,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Glulx Story"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "グルックス・ストーリー"
           }
         }
       }
@@ -479,6 +539,12 @@
             "state" : "translated",
             "value" : "Quetzal Saved Game"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ケツァルセーブドゲーム"
+          }
         }
       }
     },
@@ -517,6 +583,12 @@
             "state" : "translated",
             "value" : "TADS 2 Game"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "TADS 2ゲーム"
+          }
         }
       }
     },
@@ -533,6 +605,12 @@
             "state" : "translated",
             "value" : "TADS 3 Executable"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "TADS 3 実行可能"
+          }
         }
       }
     },
@@ -548,6 +626,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TADS Executable"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "TADS 実行可能"
           }
         }
       }

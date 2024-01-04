@@ -758,8 +758,7 @@ typedef unsigned char IFMDByte;
 	return self;
 }
 
-+ (BOOL)supportsSecureCoding
-{
++ (BOOL)supportsSecureCoding {
 	return YES;
 }
 

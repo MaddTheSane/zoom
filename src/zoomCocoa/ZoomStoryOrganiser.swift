@@ -108,14 +108,14 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				NSLog("someStoryHasChanged: called with a non-story object (too many spoons?)")
 				return // Unlikely but possible. If I'm a spoon, that is.
 			}
-			guard let strongSelf = self else {
+			guard let self else {
 				return
 			}
 			
 			// De and requeue this to be done next time through the run loop
 			// (stops this from being performed multiple times when many story parameters are updated together)
-			RunLoop.current.cancelPerform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: strongSelf, argument: story)
-			RunLoop.current.perform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: strongSelf, argument: story, order: 128, modes: [.default, .modalPanel])
+			RunLoop.current.cancelPerform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: self, argument: story)
+			RunLoop.current.perform(#selector(ZoomStoryOrganiser.finishChanging(_:)), target: self, argument: story, order: 128, modes: [.default, .modalPanel])
 		})
 		checkTimer = Timer(timeInterval: 10, target: self, selector: #selector(self.checkOrganizerChanged(_:)), userInfo: nil, repeats: true)
 		checkTimer.tolerance = 5

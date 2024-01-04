@@ -32,10 +32,6 @@
 	return @[@"org.tads.tads2-game", @"gam", @"'TADG'"];
 }
 
-+ (NSArray<UTType *> *)supportedContentTypes {
-	return @[[UTType importedTypeWithIdentifier:@"org.tads.tads2-game"]];
-}
-
 + (BOOL)canRunURL:(NSURL *)path
 {
 	NSString* extn = [[path pathExtension] lowercaseString];

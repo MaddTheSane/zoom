@@ -437,7 +437,7 @@
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to find story file", @"Unable to find story file"),
-				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat: NSLocalizedString(@"Zoom is unable to load a valid story file for '%@' (tried '%@')", @"Zoom is unable to load a valid story file for '%@' (tried '%@')"), [[wrapper filename] lastPathComponent], gameFile],
+				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat: NSLocalizedString(@"Zoom is unable to load a valid story file for '%1$@' (tried '%2$@')", @"Zoom is unable to load a valid story file for '%1$@' (tried '%2$@')"), [[wrapper filename] lastPathComponent], gameFile],
 				NSUnderlyingErrorKey: underlying,
 				NSURLErrorDomain: gameFile
 			}];
