@@ -192,7 +192,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 }
 
 - (bycopy NSString*) errorMessage {
-    return _lastError.localizedDescription ?: @"";
+    return _lastError.localizedDescription;
 }
 
 - (off_t) fileSize {
@@ -387,7 +387,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
 }
 
 - (bycopy NSString*) errorMessage {
-    return @"";
+    return nil;
 }
 
 - (off_t) fileSize {

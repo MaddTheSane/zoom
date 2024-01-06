@@ -59,7 +59,7 @@ NS_SWIFT_NAME(ZMachineProtocol)
 - (void) loadStoryFile: (in bycopy NSData*) storyFile;
 
 /// Restoring game state (returns \c nil if successful)
-- (bycopy NSString*) restoreSaveState: (in bycopy NSData*) gameSave;
+- (nullable bycopy NSString*) restoreSaveState: (in bycopy NSData*) gameSave;
 
 // Running
 - (oneway void) startRunningInDisplay: (in byref id<ZDisplay>) display;
@@ -136,7 +136,7 @@ NS_SWIFT_NAME(ZFileProtocol)
 
 @property (readonly) BOOL sufferedError;
 - (nullable bycopy NSString*)    errorMessage;
-@property (readonly, copy) NSString *errorMessage;
+@property (readonly, copy, nullable) NSString *errorMessage;
 
 @property (readonly) off_t fileSize;
 @property (readonly) BOOL endOfFile;
