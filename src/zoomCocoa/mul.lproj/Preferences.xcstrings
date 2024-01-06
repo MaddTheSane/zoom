@@ -5,6 +5,12 @@
       "comment" : "Class = \"NSWindow\"; title = \"Preferences\"; ObjectID = \"6\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Präferenzen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -15,6 +21,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preferences"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Préférences"
           }
         },
         "ja" : {
@@ -29,6 +41,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Non-fatal errors will be displayed while playing game\"; ObjectID = \"10\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nicht tödliche Fehler werden während des Spiels angezeigt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -39,6 +57,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Non-fatal errors will be displayed while playing game"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Des erreurs non fatales seront affichées pendant le jeu"
           }
         },
         "ja" : {
@@ -53,6 +77,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Any warning message will be treated as a fatal error\"; ObjectID = \"11\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Jede Warnmeldung wird als schwerwiegender Fehler behandelt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -63,6 +93,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Any warning message will be treated as a fatal error"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tout message d'avertissement sera traité comme une erreur fatale"
           }
         },
         "ja" : {
@@ -77,6 +113,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Game text will be spoken out loud\"; ObjectID = \"14\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spieltext wird laut gesprochen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -87,6 +129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Game text will be spoken out loud"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Le texte du jeu sera prononcé à haute voix"
           }
         },
         "ja" : {
@@ -101,6 +149,12 @@
       "comment" : "Class = \"NSTextField\"; ibShadowedToolTip = \"Set this to change the interpreter revision reported to games. Most games just report this at the start and make no further use of it.\"; ObjectID = \"25\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Stellen Sie dies ein, um die Interpreterrevision zu ändern, die den Spielen gemeldet wird. Die meisten Spiele melden dies einfach zu Beginn und nutzen es nicht weiter."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -111,6 +165,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Set this to change the interpreter revision reported to games. Most games just report this at the start and make no further use of it."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Définissez ceci pour modifier la révision de l'interprète signalée aux jeux. La plupart des jeux ne font que le signaler au début et ne l'utilisent plus."
           }
         },
         "ja" : {
@@ -125,6 +185,12 @@
       "comment" : "Class = \"NSTableColumn\"; headerCell.title = \"Font\"; ObjectID = \"33\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Machen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -135,6 +201,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Font"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Police de caractères"
           }
         },
         "ja" : {
@@ -149,6 +221,12 @@
       "comment" : "Class = \"NSTableColumn\"; headerCell.title = \"Style\"; ObjectID = \"35\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schriftstil"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -156,6 +234,12 @@
           }
         },
         "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Style"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Style"
@@ -172,6 +256,12 @@
     "41.headerCell.title" : {
       "comment" : "Class = \"NSTableColumn\"; headerCell.title = \"Color\"; ObjectID = \"41\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Farbe"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -182,6 +272,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Colour"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couleur"
           }
         },
         "ja" : {
@@ -195,6 +291,12 @@
     "43.headerCell.title" : {
       "comment" : "Class = \"NSTableColumn\"; headerCell.title = \"Color name\"; ObjectID = \"43\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Farbname"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -205,6 +307,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Colour name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom de la couleur"
           }
         },
         "ja" : {
@@ -219,6 +327,12 @@
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behavior of many Infocom games.\"; ObjectID = \"48\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Legt den Interpretertyp fest, der dem Spiel gemeldet wird. Die meisten modernen Spiele ignorieren diese Einstellung, aber dies kann das Verhalten vieler Infocom-Spiele ändern."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -229,6 +343,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of many Infocom games."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Définit le type d'interprète signalé au jeu. La plupart des jeux modernes ignorent ce paramètre, mais cela peut changer le comportement de nombreux jeux Infocom."
           }
         },
         "ja" : {
@@ -524,6 +644,12 @@
     "78.ibShadowedToolTip" : {
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Zoom will keep games organized in a separate folder\"; ObjectID = \"78\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoom hält Spiele in einem separaten Ordner organisiert"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -534,6 +660,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom will keep games organised in a separate folder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoom gardera les jeux organisés dans un dossier séparé"
           }
         },
         "ja" : {
@@ -548,6 +680,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Autosave games will be created, so you can close and resume a game without having to save it first\"; ObjectID = \"83\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Autosave-Spiele werden erstellt, so dass Sie ein Spiel schließen und fortsetzen können, ohne es zuerst speichern zu müssen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -558,6 +696,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Autosave games will be created, so you can close and resume a game without having to save it first"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Des jeux de sauvegarde automatique seront créés, afin que vous puissiez fermer et reprendre un jeu sans avoir à l'enregistrer au préalable."
           }
         },
         "ja" : {
@@ -571,6 +715,12 @@
     "85.title" : {
       "comment" : "Class = \"NSBox\"; title = \"Keep games organized in\"; ObjectID = \"85\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Halten Sie die Spiele organisiert in"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -581,6 +731,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keep games organised in"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gardez les jeux organisés dans"
           }
         },
         "ja" : {
@@ -594,6 +750,12 @@
     "90.ibShadowedToolTip" : {
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Use this to change the directory that games and their data are kept in. You will need to have 'Keep games organized' turned on to make use of this.\"; ObjectID = \"90\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Verwenden Sie dies, um das Verzeichnis zu ändern, in dem Spiele und ihre Daten aufbewahrt werden. Sie müssen \"Spiele organisiert halten\" aktiviert haben, um dies zu nutzen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -604,6 +766,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use this to change the directory that games and their data are kept in. You will need to have 'Keep games organised' turned on to make use of this."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Utilisez-le pour modifier le répertoire dans lequel les jeux et leurs données sont conservés. Vous devrez avoir \"Garder les jeux organisés\" activé pour en faire usage."
           }
         },
         "ja" : {
@@ -635,6 +803,12 @@
     "106.ibShadowedToolTip" : {
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Cause Zoom to reorganize its games. Any game with resources that are not currently kept organized will be copied to the appropriate directory. You will need 'Keep games organized' turned on to use this option.\"; ObjectID = \"106\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cause Zoom, um seine Spiele neu zu organisieren. Jedes Spiel mit Ressourcen, die derzeit nicht organisiert sind, wird in das entsprechende Verzeichnis kopiert. Sie müssen \"Spiele organisiert halten\" aktiviert haben, um diese Option zu verwenden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -645,6 +819,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cause Zoom to reorganise its games. Any game with resources that are not currently kept organised will be copied to the appropriate directory. You will need 'Keep games organised' turned on to use this option."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Faire en sorte que Zoom réorganise ses jeux. Tout jeu avec des ressources qui ne sont pas actuellement organisées sera copié dans le répertoire approprié. Vous aurez besoin de « Garder les jeux organisés » activé pour utiliser cette option."
           }
         },
         "ja" : {
@@ -659,6 +839,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Reset the 'organization' directory back to its default value.\"; ObjectID = \"116\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Setzen Sie das Verzeichnis \"Organisation\" auf seinen Standardwert zurück."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -669,6 +855,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset the 'organisation' directory back to its default value."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réinitialisez le répertoire « organisation » à sa valeur par défaut."
           }
         },
         "ja" : {
@@ -683,6 +875,12 @@
       "comment" : "Class = \"NSTabViewItem\"; label = \"Advanced\"; ObjectID = \"120\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fortgeschritten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -693,6 +891,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Advanced"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Avancé"
           }
         },
         "ja" : {
@@ -707,6 +911,12 @@
       "comment" : "Class = \"NSTabViewItem\"; label = \"Simple\"; ObjectID = \"121\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Einfach"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -714,6 +924,12 @@
           }
         },
         "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simple"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Simple"
@@ -722,7 +938,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Simple"
+            "value" : "単純な"
           }
         }
       }
@@ -731,6 +947,12 @@
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The proportional font is the font usually used for the main text from the story.\"; ObjectID = \"127\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Die proportionale Schriftart ist die Schriftart, die normalerweise für den Haupttext aus der Geschichte verwendet wird."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -741,6 +963,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The proportional font is the font usually used for the main text from the story."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "La police proportionnelle est la police habituellement utilisée pour le texte principal de l'histoire."
           }
         },
         "ja" : {
@@ -827,6 +1055,12 @@
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The fixed pitch font is usually used for the status bar that a story displays. This font must be a monospace font.\"; ObjectID = \"133\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Die Schriftart für die feste Tonhöhe wird normalerweise für die Statusleiste verwendet, die eine Geschichte anzeigt. Diese Schriftart muss eine Monospace-Schriftart sein."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -837,6 +1071,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The fixed pitch font is usually used for the status bar that a story displays. This font must be a monospace font."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "La police de hauteur fixe est généralement utilisée pour la barre d'état affichée par une histoire. Cette police doit être une police monospace."
           }
         },
         "ja" : {
@@ -923,6 +1163,12 @@
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The 'symbolic' font is the font used for the runes and graphics in Beyond Zork.\"; ObjectID = \"138\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Die \"symbolische\" Schriftart ist die Schriftart, die für die Runen und Grafiken in Beyond Zork verwendet wird."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -933,6 +1179,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The 'symbolic' font is the font used for the runes and graphics in Beyond Zork."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "La police « symbolique » est la police utilisée pour les runes et les graphiques dans Beyond Zork."
           }
         },
         "ja" : {
@@ -1019,6 +1271,12 @@
       "comment" : "Class = \"NSSlider\"; ibShadowedToolTip = \"If you find that Zoom becomes sluggish after long sessions, adjust this slider to change the amount of text Zoom buffers in the story window. The default value, 'Everything' buffers everything back to the last time the story cleared the screen.\"; ObjectID = \"148\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Wenn Sie feststellen, dass Zoom nach langen Sitzungen träge wird, passen Sie diesen Schieberegler an, um die Menge der Text-Zoom-Puffer im Story-Fenster zu ändern. Der Standardwert \"Alles\" puffert alles bis zum letzten Mal zurück, als die Geschichte den Bildschirm gelöscht hat."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1029,6 +1287,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you find that Zoom becomes sluggish after long sessions, adjust this slider to change the amount of text Zoom buffers in the story window. The default value, 'Everything' buffers everything back to the last time the story cleared the screen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Si vous trouvez que Zoom devient lent après de longues sessions, ajustez ce curseur pour modifier la quantité de tampons de zoom de texte dans la fenêtre de l'histoire. La valeur par défaut, « Tout », remet tout en mémoire tampon jusqu'à la dernière fois que l'histoire a effacé l'écran."
           }
         },
         "ja" : {
@@ -1043,6 +1307,12 @@
       "comment" : "Class = \"NSSlider\"; ibShadowedToolTip = \"Adjust this slider to set the size of the font used by Zoom.\"; ObjectID = \"161\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Passen Sie diesen Schieberegler an, um die Größe der von Zoom verwendeten Schriftart festzulegen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1053,6 +1323,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Adjust this slider to set the size of the font used by Zoom."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ajustez ce curseur pour définir la taille de la police utilisée par Zoom."
           }
         },
         "ja" : {
@@ -1067,6 +1343,12 @@
       "comment" : "Class = \"NSTextField\"; ibShadowedToolTip = \"This displays a preview of your settings.\"; ObjectID = \"168\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dies zeigt eine Vorschau Ihrer Einstellungen an."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1077,6 +1359,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This displays a preview of your settings."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cela affiche un aperçu de vos paramètres."
           }
         },
         "ja" : {
@@ -1091,6 +1379,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"If this is unchecked, Zoom will not ask for confirmation when you close a running story.\"; ObjectID = \"186\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Wenn dies deaktiviert ist, wird Zoom nicht um Bestätigung bitten, wenn Sie eine laufende Geschichte schließen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1101,6 +1395,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If this is unchecked, Zoom will not ask for confirmation when you close a running story."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Si cela n'est pas coché, Zoom ne demandera pas de confirmation lorsque vous fermez une histoire en cours d'exécution."
           }
         },
         "ja" : {
@@ -1115,6 +1415,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Check this option to tell Zoom to add margins to any text windows it creates. This can improve the appearance of the display.\"; ObjectID = \"191\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aktivieren Sie diese Option, um Zoom anzuweisen, allen von er erstellten Textfenstern Ränder hinzuzufügen. Dies kann das Erscheinungsbild des Displays verbessern."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1125,6 +1431,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Check this option to tell Zoom to add margins to any text windows it creates. This can improve the appearance of the display."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cochez cette option pour dire à Zoom d'ajouter des marges à toutes les fenêtres de texte qu'il crée. Cela peut améliorer l'apparence de l'écran."
           }
         },
         "ja" : {
@@ -1139,6 +1451,12 @@
       "comment" : "Class = \"NSSlider\"; ibShadowedToolTip = \"Drag the slider to the right to increase the width of the margins that Zoom will use\"; ObjectID = \"194\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ziehen Sie den Schieberegler nach rechts, um die Breite der Ränder zu vergrößern, die Zoom verwenden wird"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1149,6 +1467,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Drag the slider to the right to increase the width of the margins that Zoom will use"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Faites glisser le curseur vers la droite pour augmenter la largeur des marges que Zoom utilisera"
           }
         },
         "ja" : {
@@ -1163,6 +1487,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\"; ObjectID = \"198\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aktivieren Sie diese Option, um Zoom anzuweisen, Bildschirmschriftarten zu verwenden, sofern verfügbar. Dies sind Bitmap-Versionen von Schriftarten, deren Abstand geändert wurde, um sie auf einem Gerät mit niedriger Auflösung wie einem Bildschirm besser anzuzeigen. Wenn Sie diese Option ausschalten, werden Schriftarten genauer gerendert, kann aber die Anzahl der Andeuungsartefakte erhöhen und die Lesbarkeit verringern."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1173,6 +1503,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cochez cette option pour indiquer à Zoom d'utiliser les polices d'écran lorsqu'elles sont disponibles. Il s'agit de versions bitmap de polices dont l'espacement est modifié pour mieux s'afficher sur un appareil à basse résolution tel qu'un écran. La désactivation de cette option entraînera un rendu plus précis des polices, mais peut augmenter le nombre d'artefacts d'insinuation, ce qui réduira la lisibilité."
           }
         },
         "ja" : {
@@ -1187,6 +1523,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Turn this option on to instruct Zoom to hyphenate text wherever possible. Note that some types of game may not support hyphenation.\"; ObjectID = \"199\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aktivieren Sie diese Option, um Zoom anzuweisen, Text nach Möglichkeit zu binden. Beachten Sie, dass einige Arten von Spielen das Bindestrich möglicherweise nicht unterstützen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1197,6 +1539,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn this option on to instruct Zoom to hyphenate text wherever possible. Note that some types of game may not support hyphenation."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Activez cette option pour demander à Zoom de traiter d'union le texte dans la mesure du possible. Notez que certains types de jeux peuvent ne pas prendre en charge la césure."
           }
         },
         "ja" : {
@@ -1211,6 +1559,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Show a double line between the windows opened by a story\"; ObjectID = \"233\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zeigen Sie eine doppelte Linie zwischen den Fenstern, die durch eine Geschichte geöffnet werden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1221,6 +1575,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show a double line between the windows opened by a story"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Montrer une double ligne entre les fenêtres ouvertes par une histoire"
           }
         },
         "ja" : {
@@ -1234,6 +1594,12 @@
     "241.ibShadowedToolTip" : {
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The default colour to use for text produced by the story.\"; ObjectID = \"241\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Die Standardfarbe, die für den von der Geschichte produzierten Text verwendet werden sord."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1244,6 +1610,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The default colour to use for text produced by the story."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "La couleur par défaut à utiliser pour le texte produit par l'histoire."
           }
         },
         "ja" : {
@@ -1329,6 +1701,12 @@
     "247.ibShadowedToolTip" : {
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The colour that will be used for the window background by default\"; ObjectID = \"247\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Die Farbe, die standardmäßig für den Fensterhintergrund verwendet wird"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1339,6 +1717,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The colour that will be used for the window background by default"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "La couleur qui sera utilisée pour l'arrière-plan de la fenêtre par défaut"
           }
         },
         "ja" : {
@@ -1425,6 +1809,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Turn this option on to use kerning when displaying game text. This will move character sequences like 'AV' closer together so there does not appear to be a space between them.\"; ObjectID = \"316\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aktivieren Sie diese Option, um Kerning bei der Anzeige von Spieltext zu verwenden. Dies bringt Zeichensequenzen wie \"AV\" näher zusammen, so dass es keinen Abstand zwischen ihnen zu geben scheint."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1435,6 +1825,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn this option on to use kerning when displaying game text. This will move character sequences like 'AV' closer together so there does not appear to be a space between them."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Activez cette option pour utiliser le crénage lors de l'affichage du texte du jeu. Cela rapprochera les séquences de caractères comme \"AV\" de sorte qu'il ne semble pas y avoir d'espace entre elles."
           }
         },
         "ja" : {
@@ -1449,6 +1845,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Turn this option on to enable the display of ligatures in the game text. These are alternative characters displayed for common sequences such as 'fi' in English. Turning this option off does not affect mandatory ligatures found in languages such as Arabic.\"; ObjectID = \"317\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aktivieren Sie diese Option, um die Anzeige von Ligaturen im Spieltext zu aktivieren. Dies sind alternative Zeichen, die für gängige Sequenzen wie \"fi\" auf Englisch angezeigt werden. Das Ausschalten dieser Option hat keinen Einfluss auf obligatorische Ligaturen, die in Sprachen wie Arabisch gefunden werden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1459,6 +1861,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn this option on to enable the display of ligatures in the game text. These are alternative characters displayed for common sequences such as 'fi' in English. Turning this option off does not affect mandatory ligatures found in languages such as Arabic."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Activez cette option pour activer l'affichage des ligatures dans le texte du jeu. Ce sont des caractères alternatifs affichés pour les séquences communes telles que \"fi\" en anglais. La désactivation de cette option n'affecte pas les ligatures obligatoires trouvées dans des langues telles que l'arabe."
           }
         },
         "ja" : {
@@ -1473,6 +1881,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"If a game has supplied a cover picture, then it will be briefly displayed while the game is loading\"; ObjectID = \"328\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Wenn ein Spiel ein Titelbild geliefert hat, wird es kurz angezeigt, während das Spiel geladen wird"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1483,6 +1897,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If a game has supplied a cover picture, then it will be briefly displayed while the game is loading"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Si un jeu a fourni une image de couverture, elle sera brièvement affichée pendant le chargement du jeu."
           }
         },
         "ja" : {
@@ -1515,6 +1935,12 @@
       "comment" : "Class = \"NSMenuItem\"; title = \"Git (fastest)\"; ObjectID = \"403\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Git (am schnellsten)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1525,6 +1951,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Git (fastest)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Git (le plus rapide)"
           }
         },
         "ja" : {
@@ -1539,6 +1971,12 @@
       "comment" : "Class = \"NSMenuItem\"; title = \"Glulxe\"; ObjectID = \"404\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glulxe"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1546,6 +1984,12 @@
           }
         },
         "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glulxe"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Glulxe"
@@ -1563,6 +2007,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Display warnings\"; ObjectID = \"441\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Warnungen anzeigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1573,6 +2023,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Display warnings"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Afficher les avertissements"
           }
         },
         "ja" : {
@@ -1587,6 +2043,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Warnings are fatal\"; ObjectID = \"442\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Warnungen sind tödlich"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1597,6 +2059,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Warnings are fatal"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Les avertissements sont mortels"
           }
         },
         "ja" : {
@@ -1611,6 +2079,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Speak game text\"; ObjectID = \"443\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spieltext sprechen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1621,6 +2095,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Speak game text"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Parler le texte du jeu"
           }
         },
         "ja" : {
@@ -1634,6 +2114,12 @@
     "444.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Keep games organized\"; ObjectID = \"444\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spiele organisieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1644,6 +2130,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keep games organised"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gardez les jeux organisés"
           }
         },
         "ja" : {
@@ -1658,6 +2150,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Autosave\"; ObjectID = \"445\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Autosave"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1667,6 +2165,12 @@
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Autosave"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Autosave"
           }
         }
@@ -1676,6 +2180,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Amount of scrollback to retain:\"; ObjectID = \"447\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzahl der zu behaltenden Scrollbacks:"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1686,6 +2196,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Amount of scrollback to retain:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Quantité de défilement à conserver :"
           }
         },
         "ja" : {
@@ -1700,6 +2216,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Minimum\"; ObjectID = \"448\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1718,6 +2240,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Everything\"; ObjectID = \"449\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Alles"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1742,6 +2270,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Ask for confirmation when closing a story\"; ObjectID = \"450\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bitten Sie um Bestätigung, wenn Sie eine Geschichte schließen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1752,6 +2286,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ask for confirmation when closing a story"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Demandez confirmation lors de la clôture d'une histoire"
           }
         },
         "ja" : {
@@ -1766,6 +2306,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Check for updates on startup\"; ObjectID = \"451\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Überprüfen Sie nach Updates beim Start"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1790,6 +2336,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Z-Code Interpreter:\"; ObjectID = \"454\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z-Code-Interpreter:"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1800,6 +2352,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Z-Code Interpreter:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Interprète de code Z :"
           }
         },
         "ja" : {
@@ -1814,6 +2372,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Revision:\"; ObjectID = \"455\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revision:"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1824,6 +2388,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Revision:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Révision :"
           }
         }
       }
@@ -1832,6 +2402,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Change…\"; ObjectID = \"456\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Veränderung..."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1842,6 +2418,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Change…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Changement..."
           }
         },
         "ja" : {
@@ -1855,6 +2437,12 @@
     "457.title" : {
       "comment" : "Class = \"NSButtonCell\"; title = \"Reorganize now\"; ObjectID = \"457\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Jetzt neu organisieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1866,6 +2454,12 @@
             "state" : "translated",
             "value" : "Reorganise now"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réorganiser maintenant"
+          }
         }
       }
     },
@@ -1873,6 +2467,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Reset directory\"; ObjectID = \"458\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Verzeichnis zurücksetzen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1883,6 +2483,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset directory"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réinitialiser le répertoire"
           }
         },
         "ja" : {
@@ -1897,6 +2503,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Glulx Interpreter:\"; ObjectID = \"459\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Glulx-Dolmetscher:"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1907,6 +2519,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Glulx Interpreter:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Interprète Glulx :"
           }
         },
         "ja" : {
@@ -1921,6 +2539,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Proportional font\"; ObjectID = \"461\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Proportionale Schriftart"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1931,6 +2555,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Proportional font"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Police proportionnelle"
           }
         },
         "ja" : {
@@ -1945,6 +2575,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Fixed-pitch font\"; ObjectID = \"462\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schriftart mit fester Pitch"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1955,6 +2591,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fixed-pitch font"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Police à pas fixe"
           }
         },
         "ja" : {
@@ -1969,6 +2611,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"\\\"Symbolic\\\" font\"; ObjectID = \"463\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"Symbolische\" Schriftart"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1979,6 +2627,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"Symbolic\" font"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Police \"symbolique\""
           }
         },
         "ja" : {
@@ -1993,6 +2647,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"The other font styles will be automatically generated from the base fonts you select here. If you want a fine-grained control over the fonts that Zoom will use, use the 'Advanced' tab.\"; ObjectID = \"467\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Die anderen Schriftstile werden automatisch aus den Basisschriften generiert, die Sie hier auswählen. Wenn Sie eine feinkörnige Kontrolle über die Schriftarten wünschen, die Zoom verwenden wird, verwenden Sie die Registerkarte \"Erweitert\"."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2003,6 +2663,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The other font styles will be automatically generated from the base fonts you select here. If you want a fine-grained control over the fonts that Zoom will use, use the 'Advanced' tab."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Les autres styles de police seront automatiquement générés à partir des polices de base que vous sélectionnez ici. Si vous voulez un contrôle fin sur les polices que Zoom utilisera, utilisez l'onglet « Avancé »."
           }
         },
         "ja" : {
@@ -2017,6 +2683,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Font size\"; ObjectID = \"468\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schriftgröße"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2027,6 +2699,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Font size"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Taille de la police"
           }
         },
         "ja" : {
@@ -2113,6 +2791,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Transparency:\"; ObjectID = \"475\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Transparenz:"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2123,6 +2807,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Transparency:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Transparence :"
           }
         },
         "ja" : {
@@ -2137,6 +2827,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Show Margins\"; ObjectID = \"476\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ränder anzeigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2147,6 +2843,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Margins"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Afficher les marges"
           }
         },
         "ja" : {
@@ -2161,6 +2863,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Narrow margins\"; ObjectID = \"478\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schmale Ränder"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2171,6 +2879,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Narrow margins"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Marges étroites"
           }
         },
         "ja" : {
@@ -2185,6 +2899,12 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Wide margins\"; ObjectID = \"479\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Breite Ränder"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2195,6 +2915,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wide margins"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Larges marges"
           }
         },
         "ja" : {
@@ -2209,6 +2935,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Use screen fonts\"; ObjectID = \"480\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Verwenden Sie Bildschirmschriften"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2219,6 +2951,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use screen fonts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Utiliser des polices d'écran"
           }
         },
         "ja" : {
@@ -2233,6 +2971,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Use hyphenation\"; ObjectID = \"481\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Verwenden Sie die Silbentrennung"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2243,6 +2987,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use hyphenation"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Utiliser la césure"
           }
         },
         "ja" : {
@@ -2257,6 +3007,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Enable kerning\"; ObjectID = \"482\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kerning aktivieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2267,6 +3023,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enable kerning"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Activer le crénage"
           }
         },
         "ja" : {
@@ -2281,6 +3043,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Display ligatures\"; ObjectID = \"483\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ligaturen anzeigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2291,6 +3059,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Display ligatures"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ligatures d'affichage"
           }
         },
         "ja" : {
@@ -2305,6 +3079,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Show interpreter window borders\"; ObjectID = \"484\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fensterränder des Interpreten anzeigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2328,6 +3108,12 @@
     "486.title" : {
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Default text colour\"; ObjectID = \"486\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Standard-Textfarbe"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2338,6 +3124,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Default text colour"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Couleur du texte par défaut"
           }
         },
         "ja" : {
@@ -2351,6 +3143,12 @@
     "488.title" : {
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Default background colour\"; ObjectID = \"488\";",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Standard-Hintergrundfarbe"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2361,6 +3159,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Default background colour"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Couleur d'arrière-plan par défaut"
           }
         },
         "ja" : {
@@ -2375,6 +3179,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Show cover picture when game starts\"; ObjectID = \"489\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Titelbild anzeigen, wenn das Spiel beginnt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2385,6 +3195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show cover picture when game starts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Afficher l'image de couverture lorsque le jeu commence"
           }
         },
         "ja" : {
@@ -2399,6 +3215,12 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Use Custom Colors\"; ObjectID = \"aEQ-cK-dLn\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Verwenden Sie benutzerdefinierte Farben"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2411,10 +3233,34 @@
             "value" : "Use Custom Colours"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Utiliser des couleurs personnalisées"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "カスタムカラーを使用する"
+          }
+        }
+      }
+    },
+    "eJQ-yV-bcq.ibShadowedToolTip" : {
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Enable this option to use and select custom interpreter colors.\"; ObjectID = \"eJQ-yV-bcq\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enable this option to use and select custom interpreter colors."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable this option to use and select custom interpreter colours."
           }
         }
       }

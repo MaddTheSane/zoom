@@ -867,7 +867,7 @@
                         <outlet property="nextKeyView" destination="101" id="285"/>
                     </connections>
                 </scrollView>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eJQ-yV-bcq">
+                <button toolTip="Enable this option to use and select custom interpreter colors." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eJQ-yV-bcq">
                     <rect key="frame" x="18" y="271" width="143" height="18"/>
                     <buttonCell key="cell" type="check" title="Use Custom Colors" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aEQ-cK-dLn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

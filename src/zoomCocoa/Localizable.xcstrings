@@ -1,94 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "[ The game has finished ]" : {
-      "comment" : "Found in ZoomView",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "[ Das Spiel ist beendet ]"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[ The game has finished ]"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[ The game has finished ]"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "[ゲームは終了しました]"
-          }
-        }
-      }
-    },
-    "[ The Zoom interpreter has quit unexpectedly ]" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "[ Der Zoom-Dolmetscher hat unerwartet aufgehört ]"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[ The Zoom interpreter has quit unexpectedly ]"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[ The Zoom interpreter has quit unexpectedly ]"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "[ズームインタプリタが予期せず終了しました]"
-          }
-        }
-      }
-    },
-    "[More...]" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[Mehr...]"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[More…]"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[More…]"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "[もっと...]"
-          }
-        }
-      }
-    },
     "%@ (finished)" : {
       "comment" : "Game finished window title formatter",
       "localizations" : {
@@ -1001,65 +913,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Blorbリソースファイルをここにドラッグして、このゲームのグラフィック/サウンドリソースとして設定してください"
-          }
-        }
-      }
-    },
-    "Fatal error" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Schwerwiegender Fehler"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fatal error"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fatal error"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "フェイタルエラー"
-          }
-        }
-      }
-    },
-    "Fatal Error Stop" : {
-      "comment" : "Button shown with Fatal Error shows up on screen",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pause"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stop"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stop"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "止まる"
           }
         }
       }
@@ -2007,29 +1860,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "新しいものを使う"
-          }
-        }
-      }
-    },
-    "Warning" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warning"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warning"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "警告"
           }
         }
       }

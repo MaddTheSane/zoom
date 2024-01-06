@@ -1798,9 +1798,9 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
     [notifyStyle setForegroundColour: 7];
     [notifyStyle setBackgroundColour: 1];
 
-    NSString* finishString = NSLocalizedString(@"[ The game has finished ]", @"[ The game has finished ]");
+    NSString* finishString = NSLocalizedStringFromTableInBundle(@"[ The game has finished ]", nil, [NSBundle bundleForClass:[ZoomView class]], @"[ The game has finished ]");
     if ([zoomTask terminationStatus] != 0) {
-        finishString = NSLocalizedString(@"[ The Zoom interpreter has quit unexpectedly ]", @"[ The Zoom interpreter has quit unexpectedly ]");
+        finishString = NSLocalizedStringFromTableInBundle(@"[ The Zoom interpreter has quit unexpectedly ]", nil, [NSBundle bundleForClass:[ZoomView class]], @"[ The Zoom interpreter has quit unexpectedly ]");
     } else {
 		if (lastAutosave != nil) {
 			lastAutosave = nil;
@@ -2275,7 +2275,7 @@ static UTType *getZoomSaveType(void) {
 		if ([lowerWindows count] <= 0) {
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.alertStyle = NSAlertStyleInformational;
-			alert.messageText = NSLocalizedString(@"Warning", @"Warning");
+			alert.messageText = NSLocalizedStringFromTableInBundle(@"Warning", nil, [NSBundle bundleForClass:[ZoomView class]], @"Warning");
 			alert.informativeText = warning;
 			[alert beginSheetModalForWindow:self.window completionHandler:^(__unused NSModalResponse returnCode) {
 				// do nothing
@@ -2299,9 +2299,9 @@ static UTType *getZoomSaveType(void) {
 - (void) displayFatalError: (in bycopy NSString*) error {
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.alertStyle = NSAlertStyleCritical;
-	alert.messageText = NSLocalizedString(@"Fatal error", @"Fatal error");
+	alert.messageText = NSLocalizedStringFromTableInBundle(@"Fatal error", nil, [NSBundle bundleForClass:[ZoomView class]], @"Fatal error");
 	alert.informativeText = error;
-	[alert addButtonWithTitle: NSLocalizedString(@"Fatal Error Stop", @"Stop")];
+	[alert addButtonWithTitle: NSLocalizedStringWithDefaultValue(@"Fatal Error Stop", nil, [NSBundle bundleForClass:[ZoomView class]], @"Stop", @"Stop")];
 	[alert beginSheetModalForWindow:self.window completionHandler:^(__unused NSModalResponse returnCode) {
 		// do nothing
 	}];

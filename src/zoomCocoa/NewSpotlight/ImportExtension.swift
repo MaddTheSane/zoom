@@ -45,12 +45,12 @@ private let zoomConfigDirectory: URL? = {
 	}
 }()
 
-private func loadMetadataFromBlorb(at url: URL, lookingFor identifier: ZoomStoryID) -> ZoomStory? {
-	guard let blorb = try? ZoomBlorbFile(contentsOf: url),
-		  let data = blorb.dataForChunk(withType: "IFmd"),
-		  let meta = try? ZoomMetadata(data: data) else {
+private func loadMetadataFromBlorb(at url: URL, lookingFor identifier: ZoomStoryID) throws -> ZoomStory? {
+	let blorb = try ZoomBlorbFile(contentsOf: url)
+	guard let data = blorb.dataForChunk(withType: "IFmd") else {
 		return nil
 	}
+	let meta = try ZoomMetadata(data: data)
 	
 	return meta.findStory(identifier)
 }
@@ -63,7 +63,7 @@ class ImportExtension: CSImportExtension {
 		let story_id = try ZoomStoryID(zCodeFileAt: forFileAt)
 		var story = findStory(with: story_id)
 		if story == nil {
-			story = loadMetadataFromBlorb(at: forFileAt, lookingFor: story_id)
+			story = try loadMetadataFromBlorb(at: forFileAt, lookingFor: story_id)
 		}
 		guard let story else {
 			throw CocoaError(.fileReadCorruptFile)

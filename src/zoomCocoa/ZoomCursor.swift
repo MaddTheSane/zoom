@@ -140,8 +140,8 @@ class ZoomCursor: NSObject {
 		// Only send the message if our visibility has changed
 		let nowVisible = self.isVisible
 		let nowActive = self.activeStyle
-		if (nowActive == lastActive &&
-			nowVisible == lastVisible) {
+		if nowActive == lastActive,
+		   nowVisible == lastVisible {
 			return
 		}
 		
@@ -170,11 +170,11 @@ class ZoomCursor: NSObject {
 	/// Cursor blinks on/off
 	@objc(blinking) public var isBlinking: Bool {
 		didSet {
-			if (isBlinking == false) {
+			if isBlinking == false {
 				blink = true
 				ZCblunk()
 				
-				if let flasher = flasher {
+				if let flasher {
 					flasher.invalidate()
 					self.flasher = nil
 				}

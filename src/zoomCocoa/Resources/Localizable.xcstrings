@@ -1,0 +1,108 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "[ The game has finished ]" : {
+      "comment" : "[ The game has finished ]",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[ The game has finished ]"
+          }
+        }
+      }
+    },
+    "[ The Zoom interpreter has quit unexpectedly ]" : {
+      "comment" : "[ The Zoom interpreter has quit unexpectedly ]",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[ The Zoom interpreter has quit unexpectedly ]"
+          }
+        }
+      }
+    },
+    "[More...]" : {
+      "comment" : "[More…]",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[More…]"
+          }
+        }
+      }
+    },
+    "Fatal error" : {
+      "comment" : "Fatal error",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fatal error"
+          }
+        }
+      }
+    },
+    "Fatal Error Stop" : {
+      "comment" : "Stop",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        }
+      }
+    },
+    "Warning" : {
+      "comment" : "Warning",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning"
+          }
+        }
+      }
+    },
+    "ZoomBlorbErrorNoFORMBlock.description" : {
+      "comment" : "No FORM block found in blorb.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No FORM block found in blorb."
+          }
+        }
+      }
+    },
+    "ZoomBlorbErrorTooSmall.description" : {
+      "comment" : "File is too small to be a blorb file.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "File is too small to be a blorb file."
+          }
+        }
+      }
+    },
+    "ZoomBlorbErrorUnexpectedEOF.description" : {
+      "comment" : "Unexpected end of file.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unexpected end of file."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

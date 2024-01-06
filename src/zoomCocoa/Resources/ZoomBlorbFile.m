@@ -42,6 +42,39 @@ static inline unsigned int Int4(const unsigned char* bytes) {
 	return (bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|(bytes[3]<<0);
 }
 
++ (void)initialize {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[NSError setUserInfoValueProviderForDomain:ZoomBlorbErrorDomain provider:^id _Nullable(NSError * _Nonnull err, NSErrorUserInfoKey  _Nonnull userInfoKey) {
+			switch ((ZoomBlorbError)err.code) {
+				case ZoomBlorbErrorTooSmall:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return NSLocalizedStringWithDefaultValue(@"ZoomBlorbErrorTooSmall.description", nil, [NSBundle bundleForClass:[self class]], @"File is too small to be a blorb file.", @"File is too small to be a blorb file.");
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"File is too small to be a blorb file.";
+					}
+					break;
+				case ZoomBlorbErrorNoFORMBlock:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return NSLocalizedStringWithDefaultValue(@"ZoomBlorbErrorNoFORMBlock.description", nil, [NSBundle bundleForClass:[self class]], @"No FORM block found in blorb.", @"No FORM block found in blorb.");
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"No FORM block found in blorb.";
+					}
+					break;
+				case ZoomBlorbErrorUnexpectedEOF:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return NSLocalizedStringWithDefaultValue(@"ZoomBlorbErrorUnexpectedEOF.description", nil, [NSBundle bundleForClass:[self class]], @"Unexpected end of file.", @"Unexpected end of file.");
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"Unexpected end of file.";
+					}
+
+					break;
+			}
+			return nil;
+		}];
+	});
+}
+
 #pragma mark - Testing files
 
 + (BOOL) dataIsBlorbFile: (NSData*) data {

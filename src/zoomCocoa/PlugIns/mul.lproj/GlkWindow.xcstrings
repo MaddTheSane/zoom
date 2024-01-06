@@ -5,6 +5,12 @@
       "comment" : "Class = \"NSWindow\"; title = \"Window\"; ObjectID = \"23\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fenster"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -15,6 +21,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Window"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fenêtre"
           }
         },
         "ja" : {
@@ -29,6 +41,12 @@
       "comment" : "Class = \"NSWindow\"; title = \"Log messages from Glk\"; ObjectID = \"r65-cc-M67\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nachrichten von Glk protokoll"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -39,6 +57,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Log messages from Glk"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Enregistrer les messages de Glk"
           }
         },
         "ja" : {
