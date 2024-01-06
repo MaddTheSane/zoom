@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // More information from the main Zoom application
 //! Sets the preferred directory to put savegames into
-- (void) setPreferredSaveDirectoryURL: (NSURL*) dir;
+- (void) setPreferredSaveDirectoryURL: (null_unspecified NSURL*) dir;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 

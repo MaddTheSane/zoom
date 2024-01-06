@@ -2064,6 +2064,7 @@ debug_compare_variable (sc_gameref_t from, sc_gameref_t with, sc_int variable)
   const sc_var_setref_t from_var = from->vars;
   const sc_var_setref_t with_var = with->vars;
   sc_vartype_t vt_key[3], vt_rvalue, vt_rvalue2;
+  vt_rvalue2.integer = 0;
   const sc_char *name;
   sc_int var_type, var_type2;
   sc_bool equal = FALSE;

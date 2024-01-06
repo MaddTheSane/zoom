@@ -213,7 +213,7 @@ NS_ENUM(NSInteger) {
 	[shadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.6]];
 		
 	// The title text
-	NSMutableAttributedString *headerString = [[NSMutableAttributedString alloc] initWithString:@"Title"];
+	NSMutableAttributedString *headerString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Title", @"Title")];
 	NSRange range = NSMakeRange(0, [headerString length]);
 	[headerString addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:11.0] range:range];
 	[headerString addAttribute:NSShadowAttributeName value:shadow range:range];

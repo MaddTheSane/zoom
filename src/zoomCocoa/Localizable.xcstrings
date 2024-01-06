@@ -1766,6 +1766,23 @@
         }
       }
     },
+    "Title" : {
+      "comment" : "Title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
+          }
+        }
+      }
+    },
     "Unable to find story file" : {
       "comment" : "Unable to find story file",
       "localizations" : {

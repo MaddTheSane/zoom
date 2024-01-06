@@ -780,6 +780,7 @@ prop_get_child_count (sc_prop_setref_t bundle,
                       const sc_char *format, const sc_vartype_t vt_key[])
 {
   sc_vartype_t vt_rvalue;
+  vt_rvalue.integer = 0;
   assert (format[0] == PROP_INTEGER);
 
   if (!prop_get (bundle, format, &vt_rvalue, vt_key))

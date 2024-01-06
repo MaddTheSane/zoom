@@ -1592,6 +1592,7 @@ sc_int
 var_get_integer (sc_var_setref_t vars, const sc_char *name)
 {
   sc_vartype_t vt_rvalue;
+  vt_rvalue.integer = 0;
   sc_int type;
   assert (var_is_valid (vars));
 
@@ -1626,6 +1627,7 @@ const sc_char *
 var_get_string (sc_var_setref_t vars, const sc_char *name)
 {
   sc_vartype_t vt_rvalue;
+  vt_rvalue.string = NULL;
   sc_int type;
   assert (var_is_valid (vars));
 

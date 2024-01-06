@@ -30,7 +30,7 @@
 #pragma mark - Initialising
 
 - (id) initWithData: (NSData*) data {
-	return self = [self initWithData: data error: NULL];
+	return [self initWithData: data error: NULL];
 }
 
 - (id) initWithData: (NSData*) data error: (NSError**) error {

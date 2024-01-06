@@ -225,6 +225,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
 																   error: NULL];
 				filename = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: ident].path;
+				fileURL = [NSURL fileURLWithPath:filename];
+			} else {
+				// Yeah, we shouldn't be getting here...
+				return NO;
 			}
 			
 			// ... we've managed to load this file with the given plug-in, so display it

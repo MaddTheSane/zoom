@@ -681,7 +681,10 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 	
 	@objc(directoryForIdent:create:)
-	@MainActor func directory(for ident: ZoomStoryID, create: Bool) -> URL? {
+	@MainActor func directory(for ident: ZoomStoryID!, create: Bool) -> URL? {
+		guard let ident else {
+			return nil
+		}
 		var confDir: URL? = nil
 		
 		// If there is a directory in the preferences, then that's the directory to use
@@ -843,7 +846,10 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 
 	@objc(URLForIdent:)
-	@MainActor func urlFor(_ ident: ZoomStoryID) -> URL? {
+	@MainActor func urlFor(_ ident: ZoomStoryID!) -> URL? {
+		guard let ident else {
+			return nil
+		}
 		return storyLock.withLock {
 			guard let storyIdx = stories.firstIndex(where: {$0.fileID == ident}) else {
 				return nil
