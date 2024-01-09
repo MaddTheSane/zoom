@@ -266,10 +266,10 @@ static inline unsigned int Int4(const unsigned char* bytes) {
 }
 
 - (NSData*) dataForChunk: (NSDictionary<NSString*,id>*) chunk {
-	if (![chunk isKindOfClass: [NSDictionary class]]) return nil;
-	if (!file) return nil;
-	if (![[chunk objectForKey: ZoomBlorbOffset] isKindOfClass: [NSNumber class]]) return nil;
-	if (![[chunk objectForKey: ZoomBlorbLength] isKindOfClass: [NSNumber class]]) return nil;
+	if (![chunk isKindOfClass: [NSDictionary class]]) { return nil; }
+	if (!file) { return nil; }
+	if (![[chunk objectForKey: ZoomBlorbOffset] isKindOfClass: [NSNumber class]]) { return nil; }
+	if (![[chunk objectForKey: ZoomBlorbLength] isKindOfClass: [NSNumber class]]) { return nil; }
 	
 	NSDictionary<NSString*,NSNumber*>* cD = chunk;
 	
@@ -345,11 +345,17 @@ static inline unsigned int Int4(const unsigned char* bytes) {
 }
 
 - (void) parseResolutionChunk {
-	if (resolution != nil) return;
+	if (resolution != nil) {
+		return;
+	}
 	
 	NSData* resData = [self dataForChunkWithType: @"Reso"];
-	if (resData == nil) return;
-	if ([resData length] < 24) return;
+	if (resData == nil) {
+		return;
+	}
+	if ([resData length] < 24) {
+		return;
+	}
 	
 	const unsigned char* data = [resData bytes];
 	
@@ -393,9 +399,13 @@ static inline unsigned int Int4(const unsigned char* bytes) {
 
 - (BOOL) containsImageWithNumber: (int) num {
 	if (!resourceIndex) {
-		if (![self parseResourceIndex]) return NO;
+		if (![self parseResourceIndex]) {
+			return NO;
+		}
 	}
-	if (!resourceIndex) return NO;
+	if (!resourceIndex) {
+		return NO;
+	}
 	
 	return 
 		[locationsToBlocks objectForKey: 
@@ -405,9 +415,13 @@ static inline unsigned int Int4(const unsigned char* bytes) {
 
 - (BOOL) containsSoundWithNumber: (int) num {
 	if (!resourceIndex) {
-		if (![self parseResourceIndex]) return NO;
+		if (![self parseResourceIndex]) {
+			return NO;
+		}
 	}
-	if (!resourceIndex) return NO;
+	if (!resourceIndex) {
+		return NO;
+	}
 	
 	return
 		[locationsToBlocks objectForKey:
@@ -424,9 +438,13 @@ static inline unsigned int Int4(const unsigned char* bytes) {
 - (NSData*) imageDataWithNumber: (int) num {
 	// Get the index	
 	if (!resourceIndex) {
-		if (![self parseResourceIndex]) return nil;
+		if (![self parseResourceIndex]) {
+			return nil;
+		}
 	}
-	if (!resourceIndex) return nil;
+	if (!resourceIndex) {
+		return nil;
+	}
 	
 	// Get the resource
 	return [self dataForChunk: 
@@ -474,7 +492,9 @@ static inline unsigned int Int4(const unsigned char* bytes) {
 
 - (NSData*) adaptPng: (NSData*) png
 		 withPalette: (NSData*) newPalette {
-	if (newPalette == nil) return png;
+	if (newPalette == nil) {
+		return png;
+	}
 	
 	NSMutableData* newPng = [png mutableCopy];
 
@@ -492,8 +512,8 @@ static inline unsigned int Int4(const unsigned char* bytes) {
 			NSUInteger newLen = [newPalette length];
 			
 			newLen -= 4;
-			lenBlock[0] = (unsigned char)(newLen>>24); lenBlock[1] = (unsigned char)(newLen>>16);
-			lenBlock[2] = (unsigned char)(newLen>>8); lenBlock[3] = (unsigned char)(newLen>>0);
+			lenBlock[0] = (unsigned char)((newLen>>24) & 0xFF); lenBlock[1] = (unsigned char)((newLen>>16) & 0xFF);
+			lenBlock[2] = (unsigned char)((newLen>>8) & 0xFF); lenBlock[3] = (unsigned char)((newLen>>0) & 0xFF );
 			[newPng replaceBytesInRange: NSMakeRange(pos, 4)
 							  withBytes: lenBlock];
 			
@@ -578,7 +598,9 @@ static const int cacheUpperLimit = 64;
 				NSDictionary* thisEntry = oldestEntries[x];
 				unsigned int usage = [thisEntry[@"usageNumber"] unsignedIntValue];
 				
-				if (usage > thisUsage) break;
+				if (usage > thisUsage) {
+					break;
+				}
 			}
 			
 			[oldestEntries insertObject: entry
@@ -628,7 +650,9 @@ static const int cacheUpperLimit = 64;
 		[[resourceIndex objectForKey: @"Pict"] objectForKey: 
 			@(num)]];
 	
-	if (imageBlock == nil) return NSZeroSize;
+	if (imageBlock == nil) {
+		return NSZeroSize;
+	}
 	
 	NSString* type = [imageBlock objectForKey: ZoomBlorbID];
 	
@@ -645,7 +669,9 @@ static const int cacheUpperLimit = 64;
 		}
 	} else {
 		NSImage* img = [self imageWithNumber: num];
-		if (img == nil) return NSZeroSize;
+		if (img == nil) {
+			return NSZeroSize;
+		}
 		result = [img size];
 	}
 	
@@ -659,10 +685,11 @@ static const int cacheUpperLimit = 64;
 	erf1 = pixmapSize.width / stdSize.width;
 	erf2 = pixmapSize.height / stdSize.height;
 	
-	if (erf1 < erf2)
+	if (erf1 < erf2) {
 		erf = erf1;
-	else
+	} else {
 		erf = erf2;
+	}
 	
 	double minRatio = [[resData objectForKey: @"minRatio"] doubleValue];
 	double maxRatio = [[resData objectForKey: @"maxRatio"] doubleValue];

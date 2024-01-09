@@ -64,20 +64,24 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 			gameDataURL = nil;
 		}
 
-		if (userDataURL)
+		if (userDataURL) {
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: userDataURL error: NULL]];
-		else
+		} else {
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
+		}
 
-		if (gameDataURL)
+		if (gameDataURL) {
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithContentsOfURL: gameDataURL error: NULL]];
-		else
+		} else {
 			[gameIndices addObject: [[ZoomMetadata alloc] init]];
+		}
 		
-		if (infocomData)
+		if (infocomData) {
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: infocomData error: NULL]];
-		if (archiveData)
+		}
+		if (archiveData) {
 			[gameIndices addObject: [[ZoomMetadata alloc] initWithData: archiveData error: NULL]];
+		}
 	}
 	
 	return self;
@@ -315,7 +319,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	 */
 #endif
 	
-	// Load the leopard extensions if we're running on the right version of OS X
+	// Load the leopard extensions: we're always running above the needed version of macOS
     leopard = [[ZoomLeopard alloc] init];
 	
 	// Ensure the shared plugin controller is created
