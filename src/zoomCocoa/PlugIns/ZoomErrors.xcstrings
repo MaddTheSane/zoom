@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "No original sourceURL was set when created." : {
+      "comment" : "No original source URL was set when created.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ZoomMetadata wasn't created referencing a file."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZoomMetadata wasn't created referencing a file."
+          }
+        }
+      }
+    },
     "ZoomMetadataError Duplicate ID" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -197,6 +214,12 @@
             "state" : "translated",
             "value" : "Z-code version is greater than 8."
           }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z-code version is greater than 8."
+          }
         }
       }
     },
@@ -226,6 +249,12 @@
             "state" : "translated",
             "value" : "File is less than 64 bytes."
           }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File is less than 64 bytes."
+          }
         }
       }
     },
@@ -251,6 +280,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find a Glulx chunk in the specified blorb."
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unable to find a Glulx chunk in the specified blorb."
@@ -297,6 +332,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find a z-code chunk in the specified blorb."
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unable to find a z-code chunk in the specified blorb."

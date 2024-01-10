@@ -35,6 +35,7 @@ NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Format", @"ZoomErr
 NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Mismatched Formats", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"Story and identification data specify different formats", @"Story and identification data specify different formats");
 NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Stories Share IDs", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"Two stories have the same ID", @"Two stories have the same ID");
 NSLocalizedStringWithDefaultValue(@"ZoomMetadataError Duplicate ID", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"One story contains the same ID twice", @"One story contains the same ID twice");
+NSLocalizedStringWithDefaultValue(@"No original sourceURL was set when created.", @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], @"ZoomMetadata wasn't created referencing a file.", @"No original source URL was set when created.");
 
 #endif
 
@@ -356,7 +357,7 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 	if (filename == nil) {
 		if (error) {
 			*error = [NSError errorWithDomain:NSOSStatusErrorDomain code:paramErr
-									 userInfo:@{NSLocalizedDescriptionKey: @"No original sourceURL was set when created.",
+									 userInfo:@{NSLocalizedDescriptionKey: ZoomLocalizedStringWithDefaultValue(@"No original sourceURL was set when created.", @"ZoomMetadata wasn't created referencing a file.", @"No original sourceURL was set when created."),
 												NSDebugDescriptionErrorKey: @"No original sourceURL was set when created."}];
 		}
 		return NO;
