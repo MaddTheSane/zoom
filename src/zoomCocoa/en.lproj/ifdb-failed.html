@@ -36,9 +36,10 @@
 		<script language="JavaScript">
 			function ErrorMessage() {
 				try {
-					var errorMessage = window.Errors;
-					if (errorMessage == null) return "Zoom is not running";
-					return errorMessage.LastError();
+					var promise = window.webkit.messageHandlers.lastError.postMessage("getError");
+					await p;
+					if (p == null) return "Zoom is not running";
+					return p;
 				} catch (e) {
 					return "Zoom is not running";
 				}

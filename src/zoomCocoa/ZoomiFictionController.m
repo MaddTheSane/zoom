@@ -295,6 +295,11 @@ NS_ENUM(NSInteger) {
 }
 
 - (void)awakeFromNib {
+	if (@available(macOS 11.0, *)) {
+		WKWebViewConfiguration *config = ifdbView.configuration;
+		WKUserContentController *usrContent = config.userContentController;
+		[usrContent addScriptMessageHandlerWithReply:self contentWorld:[WKContentWorld pageWorld] name:@"lastError"];
+	}
 }
 
 - (void) windowDidLoad {

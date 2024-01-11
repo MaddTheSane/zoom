@@ -137,6 +137,14 @@ extension ZoomiFictionController: WKNavigationDelegate {
 			progressIndicator.startAnimation(self)
 		}
 	}
-	
-	// TODO: Revive ZoomJSError functionality. Maybe use WKUserScript?
+}
+
+@available(macOS 11.0, *)
+extension ZoomiFictionController: WKScriptMessageHandlerWithReply {
+	public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) async -> (Any?, String?) {
+		if (message.body as AnyObject).isEqual("getError" as NSString)  {
+			return (lastError?.lastError ?? "Unknown error!", nil)
+		}
+		return (nil, "Unknown message body received!")
+	}
 }

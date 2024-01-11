@@ -46,7 +46,6 @@ private let zoomConfigDirectory: URL? = {
 
 
 public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
-	
 	private func providePreviewForBabel(at fileURL: URL) throws -> QLPreviewReply {
 		guard fileURL.isFileURL else {
 			throw CocoaError(.fileReadUnsupportedScheme, userInfo: [NSURLErrorKey: fileURL])
