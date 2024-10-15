@@ -17,7 +17,19 @@
       "scale" : "1x"
     },
     {
+      "filename" : "Skein-annotation-badupscale@2x.png",
       "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "left" : 30,
+          "right" : 30
+        },
+        "center" : {
+          "mode" : "tile",
+          "width" : 2
+        },
+        "mode" : "3-part-horizontal"
+      },
       "scale" : "2x"
     },
     {
