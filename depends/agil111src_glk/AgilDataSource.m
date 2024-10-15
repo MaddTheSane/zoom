@@ -108,9 +108,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
     //Write data
   } else {
     CFDataRef cfDat = CreateGIFFromFLICPath(urlPath.fileSystemRepresentation, false);
-    NSData *dat = CFBridgingRelease(cfDat);
-    cfDat = NULL;
-    return [dat copy];
+    return [CFBridgingRelease(cfDat) copy];
   }
   
   return nil;

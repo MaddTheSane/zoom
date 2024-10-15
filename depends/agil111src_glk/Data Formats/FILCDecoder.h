@@ -8,6 +8,7 @@
 #ifndef FILCDecoder_hpp
 #define FILCDecoder_hpp
 
+#include <stdbool.h>
 #include <CoreFoundation/CoreFoundation.h>
 
 #ifdef __cplusplus
