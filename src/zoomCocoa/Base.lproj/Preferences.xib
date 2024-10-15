@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -56,7 +56,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="180" y="198" width="426" height="384"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="300" height="200"/>
             <view key="contentView" id="5">
                 <rect key="frame" x="0.0" y="0.0" width="426" height="384"/>
@@ -243,7 +243,7 @@
                     <rect key="frame" x="192" y="204" width="182" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="Git (fastest)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="403" id="460">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="402">
                             <items>
                                 <menuItem title="Git (fastest)" state="on" id="403"/>
@@ -382,7 +382,7 @@
                     <string key="toolTip">Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behavior of many Infocom games.</string>
                     <popUpButtonCell key="cell" type="push" title="3 - Macintosh" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="49" id="453">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="50">
                             <items>
                                 <menuItem title="1 - DECSystem-20" id="51"/>
@@ -502,7 +502,7 @@
                                         <rect key="frame" x="17" y="300" width="320" height="25"/>
                                         <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="130" id="464">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" title="OtherViews" id="128">
                                                 <items>
                                                     <menuItem title="Item1" state="on" id="130"/>
@@ -520,7 +520,7 @@
                                         <rect key="frame" x="17" y="259" width="320" height="25"/>
                                         <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="136" id="465">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" title="OtherViews" id="134">
                                                 <items>
                                                     <menuItem title="Item1" state="on" id="136"/>
@@ -538,7 +538,7 @@
                                         <rect key="frame" x="17" y="218" width="320" height="25"/>
                                         <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="141" id="466">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" title="OtherViews" id="139">
                                                 <items>
                                                     <menuItem title="Item1" state="on" id="141"/>
@@ -649,6 +649,7 @@
                                     <constraint firstItem="144" firstAttribute="trailing" secondItem="166" secondAttribute="trailing" id="ZZZ-0L-ZJN"/>
                                     <constraint firstItem="124" firstAttribute="leading" secondItem="123" secondAttribute="leading" constant="22" id="Zgw-UZ-IsI"/>
                                     <constraint firstItem="160" firstAttribute="leading" secondItem="123" secondAttribute="leading" constant="19" id="agf-Qh-0co"/>
+                                    <constraint firstItem="161" firstAttribute="centerX" secondItem="123" secondAttribute="centerX" id="b0P-iL-iJf"/>
                                     <constraint firstItem="165" firstAttribute="centerX" secondItem="166" secondAttribute="centerX" id="bql-7H-9VT"/>
                                     <constraint firstItem="143" firstAttribute="top" secondItem="168" secondAttribute="bottom" constant="8" symbolic="YES" id="bts-gE-gbU"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="126" secondAttribute="trailing" constant="20" symbolic="YES" id="dEp-FA-8eW"/>
@@ -1048,7 +1049,7 @@
                     <rect key="frame" x="17" y="75" width="234" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="249" id="487">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="248">
                             <items>
                                 <menuItem title="Item1" state="on" id="249"/>
@@ -1074,7 +1075,7 @@
                     <rect key="frame" x="17" y="118" width="234" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="243" id="485">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="242">
                             <items>
                                 <menuItem title="Item1" state="on" id="243"/>

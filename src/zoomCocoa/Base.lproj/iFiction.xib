@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="23094"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,7 +49,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="284" y="145" width="584" height="384"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="584" height="384"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="584" height="384"/>
@@ -67,7 +67,7 @@
                             <outlet property="nextKeyView" destination="62" id="307"/>
                         </connections>
                     </button>
-                    <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51">
+                    <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51">
                         <rect key="frame" x="188" y="15" width="208" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="208" id="fa8-CB-6IT"/>
@@ -97,15 +97,15 @@
                     </button>
                     <button toolTip="Continues a story from the last autosave point" translatesAutoresizingMaskIntoConstraints="NO" id="64" userLabel="Continue">
                         <rect key="frame" x="74" y="11" width="25" height="31"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="25" id="1vr-4k-nx8"/>
-                            <constraint firstAttribute="height" constant="25" id="6Gb-kn-3NW"/>
-                        </constraints>
                         <buttonCell key="cell" type="recessed" bezelStyle="recessed" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="377">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                             <imageReference key="image" image="arrow.counterclockwise.circle.fill" catalog="system" symbolScale="medium"/>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="1vr-4k-nx8"/>
+                            <constraint firstAttribute="height" constant="25" id="6Gb-kn-3NW"/>
+                        </constraints>
                         <connections>
                             <action selector="restoreAutosave:" target="-2" id="88"/>
                             <outlet property="nextKeyView" destination="51" id="309"/>
@@ -433,7 +433,7 @@ Cg
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="253" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="138" width="570" height="22"/>
                                                 <subviews>
-                                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="318">
+                                                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="318">
                                                         <rect key="frame" x="6" y="2" width="65" height="18"/>
                                                         <buttonCell key="cell" type="inline" title="Find More" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="380">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -814,7 +814,7 @@ Cg
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="193" y="91" width="513" height="429"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="199">
                 <rect key="frame" x="0.0" y="0.0" width="513" height="429"/>
@@ -852,7 +852,7 @@ Cg
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="326" customClass="FadeView" customModule="Zoom" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="351" width="568" height="22"/>
                                 <subviews>
-                                    <button hidden="YES" verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="348">
+                                    <button hidden="YES" imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="348">
                                         <rect key="frame" x="76" y="2" width="51" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Play" bezelStyle="inline" image="play.fill" catalog="system" imagePosition="left" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="387">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -863,7 +863,7 @@ Cg
                                             <outlet property="nextKeyView" destination="327" id="366"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="347" userLabel="Home">
+                                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="347" userLabel="Home">
                                         <rect key="frame" x="44" y="2" width="22" height="18"/>
                                         <buttonCell key="cell" type="inline" bezelStyle="inline" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="386">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -876,37 +876,37 @@ Cg
                                             <outlet property="nextKeyView" destination="348" id="365"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="346" userLabel="Forward">
+                                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="346" userLabel="Forward">
                                         <rect key="frame" x="22" y="2" width="16" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="tVb-X6-xR3"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSGoRightTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="385">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="16" id="tVb-X6-xR3"/>
+                                        </constraints>
                                         <accessibility description="Forwards"/>
                                         <connections>
                                             <action selector="goForward:" target="332" id="Ovb-qd-i0s"/>
                                             <outlet property="nextKeyView" destination="347" id="364"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="345" userLabel="Back">
+                                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="345" userLabel="Back">
                                         <rect key="frame" x="5" y="2" width="16" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="AQh-0j-Ewc"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSGoLeftTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="384">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="16" id="AQh-0j-Ewc"/>
+                                        </constraints>
                                         <accessibility description="Backwards"/>
                                         <connections>
                                             <action selector="goBack:" target="332" id="dzS-kG-PGP"/>
                                             <outlet property="nextKeyView" destination="346" id="363"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="327">
+                                    <button imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="327">
                                         <rect key="frame" x="475" y="2" width="88" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Story Browser" bezelStyle="inline" alignment="center" controlSize="small" borderStyle="border" inset="2" id="383">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
