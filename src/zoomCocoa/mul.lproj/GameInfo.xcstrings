@@ -355,24 +355,6 @@
         }
       }
     },
-    "127.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"127\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OtherViews"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OtherViews"
-          }
-        }
-      }
-    },
     "128.title" : {
       "comment" : "Class = \"NSMenuItem\"; title = \"Unrated\"; ObjectID = \"128\";",
       "extractionState" : "extracted_with_value",

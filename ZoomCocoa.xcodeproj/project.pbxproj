@@ -12,7 +12,6 @@
 		4B0D80DC0AC590A4003E8CCA /* ZoomFlipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0D80DA0AC590A4003E8CCA /* ZoomFlipView.m */; };
 		4B123ECA0C9C636200CA3374 /* ZoomPlugInManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B123EC80C9C636200CA3374 /* ZoomPlugInManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B123ECB0C9C636200CA3374 /* ZoomPlugInManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B123EC90C9C636200CA3374 /* ZoomPlugInManager.m */; };
-		4B1242CE0CAE8D1800CA3374 /* PluginManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B1242CD0CAE8D1800CA3374 /* PluginManager.xib */; };
 		4B1242D80CAE93D600CA3374 /* ZoomPlugInController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1242D60CAE93D600CA3374 /* ZoomPlugInController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B1242D90CAE93D600CA3374 /* ZoomPlugInController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1242D70CAE93D600CA3374 /* ZoomPlugInController.m */; };
 		4B1243050CAE964400CA3374 /* ZoomPlugInCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1243030CAE964400CA3374 /* ZoomPlugInCell.h */; };
@@ -234,6 +233,7 @@
 		55132C4128FFEA41007C87B6 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		55132C4228FFEA41007C87B6 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		55132C4728FFEA8D007C87B6 /* zoom-game.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F46050FB21C00A8E303 /* zoom-game.icns */; };
+		551522D62CBE46C1008BA283 /* PluginManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551522D52CBE46C1008BA283 /* PluginManager.xib */; };
 		551736202B493AA600D05CC8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5517361F2B493AA600D05CC8 /* Localizable.xcstrings */; };
 		551E27D426F8464A007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
@@ -1235,7 +1235,6 @@
 		4B0D80DA0AC590A4003E8CCA /* ZoomFlipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomFlipView.m; sourceTree = "<group>"; };
 		4B123EC80C9C636200CA3374 /* ZoomPlugInManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomPlugInManager.h; sourceTree = "<group>"; };
 		4B123EC90C9C636200CA3374 /* ZoomPlugInManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomPlugInManager.m; sourceTree = "<group>"; };
-		4B1242CD0CAE8D1800CA3374 /* PluginManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PluginManager.xib; sourceTree = "<group>"; };
 		4B1242D60CAE93D600CA3374 /* ZoomPlugInController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomPlugInController.h; sourceTree = "<group>"; };
 		4B1242D70CAE93D600CA3374 /* ZoomPlugInController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomPlugInController.m; sourceTree = "<group>"; };
 		4B1243030CAE964400CA3374 /* ZoomPlugInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomPlugInCell.h; sourceTree = "<group>"; };
@@ -1493,6 +1492,8 @@
 		55132C3428FFE9AB007C87B6 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		55132C3928FFE9AB007C87B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55132C3A28FFE9AB007C87B6 /* ZoomNewQL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZoomNewQL.entitlements; sourceTree = "<group>"; };
+		551522D42CBE46C1008BA283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PluginManager.xib; sourceTree = "<group>"; };
+		551522D72CBE46C1008BA283 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/PluginManager.xcstrings; sourceTree = "<group>"; };
 		5517361F2B493AA600D05CC8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		55244202297006350071E081 /* VOCConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VOCConverter.h; sourceTree = "<group>"; };
 		55244203297006350071E081 /* VOCConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VOCConverter.m; sourceTree = "<group>"; };
@@ -1599,7 +1600,7 @@
 		5576A03F2B2A546D00A1D8FC /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/iFiction.xcstrings; sourceTree = "<group>"; };
 		5576A0402B2A546D00A1D8FC /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Skein.xcstrings; sourceTree = "<group>"; };
 		5576A0412B2A546D00A1D8FC /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		5576A0432B2A546E00A1D8FC /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = PlugIns/mul.lproj/GlkWindow.xcstrings; sourceTree = "<group>"; };
+		5576A0432B2A546E00A1D8FC /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/GlkWindow.xcstrings; sourceTree = "<group>"; };
 		558DF645272D3759004682BF /* ZoomiFictionController+WebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomiFictionController+WebKit.swift"; sourceTree = "<group>"; };
 		559122EB276497B0001C4C95 /* os_zoom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = os_zoom.m; sourceTree = "<group>"; };
 		559122F92766AF73001C4C95 /* ZoomPreferenceWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomPreferenceWindow.swift; sourceTree = "<group>"; };
@@ -1744,7 +1745,7 @@
 		55DA68822739C96E0007990A /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "en-GB"; path = "en-GB.lproj/IFDB-connecting.png"; sourceTree = "<group>"; };
 		55DA68832739C96E0007990A /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "en-GB"; path = "en-GB.lproj/ifdb-loading.html"; sourceTree = "<group>"; };
 		55DA68842739C96E0007990A /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "en-GB"; path = "en-GB.lproj/Credits.rtf"; sourceTree = "<group>"; };
-		55DA688A2739D1000007990A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = PlugIns/Base.lproj/GlkWindow.xib; sourceTree = "<group>"; };
+		55DA688A2739D1000007990A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GlkWindow.xib; sourceTree = "<group>"; };
 		55DA688B2739D1000007990A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/iFiction.xib; sourceTree = "<group>"; };
 		55DA68942739D1850007990A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
 		55DA689B2739D19E0007990A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -2928,7 +2929,7 @@
 				55DA68892739D0D80007990A /* iFiction.xib */,
 				55A2EBA7273C86660006340C /* Skein.xib */,
 				55A2EBA0273C86500006340C /* NoteWindow.xib */,
-				4B1242CD0CAE8D1800CA3374 /* PluginManager.xib */,
+				551522D52CBE46C1008BA283 /* PluginManager.xib */,
 			);
 			name = xibs;
 			sourceTree = "<group>";
@@ -3996,7 +3997,7 @@
 				4BB8C1C208C249F400D7D334 /* infocom.iFiction in Resources */,
 				4BB8C1DF08C249F400D7D334 /* archive.iFiction in Resources */,
 				5576A0322B2A546D00A1D8FC /* InfoPlist.xcstrings in Resources */,
-				4B1242CE0CAE8D1800CA3374 /* PluginManager.xib in Resources */,
+				551522D62CBE46C1008BA283 /* PluginManager.xib in Resources */,
 				4B840A450CBECCE60071F3B3 /* IFDB-connecting.png in Resources */,
 				5576A0372B2A546D00A1D8FC /* Localizable.xcstrings in Resources */,
 				4B840A460CBECCE60071F3B3 /* ifdb-loading.html in Resources */,
@@ -4890,6 +4891,7 @@
 				5576A0432B2A546E00A1D8FC /* mul */,
 			);
 			name = GlkWindow.xib;
+			path = PlugIns;
 			sourceTree = "<group>";
 		};
 		4B840A390CBECC690071F3B3 /* IFDB-connecting.png */ = {
@@ -4926,6 +4928,15 @@
 				55DA68812739C96D0007990A /* en-GB */,
 			);
 			name = "ifdb-failed.html";
+			sourceTree = "<group>";
+		};
+		551522D52CBE46C1008BA283 /* PluginManager.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				551522D42CBE46C1008BA283 /* Base */,
+				551522D72CBE46C1008BA283 /* mul */,
+			);
+			name = PluginManager.xib;
 			sourceTree = "<group>";
 		};
 		55A2EB94273C6DCA0006340C /* GameInfo.xib */ = {

@@ -1,0 +1,54 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "5.title" : {
+      "comment" : "Class = \"NSWindow\"; title = \"Plug-ins for Zoom\"; ObjectID = \"5\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plug-ins for Zoom"
+          }
+        }
+      }
+    },
+    "30.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Install\"; ObjectID = \"30\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install"
+          }
+        }
+      }
+    },
+    "31.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Downloading…\"; ObjectID = \"31\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Downloading…"
+          }
+        }
+      }
+    },
+    "32.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Check for updates\"; ObjectID = \"32\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Check for updates"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

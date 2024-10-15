@@ -85,24 +85,6 @@
         }
       }
     },
-    "29.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"MainMenu\"; ObjectID = \"29\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "MainMenu"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MainMenu"
-          }
-        }
-      }
-    },
     "56.title" : {
       "comment" : "Class = \"NSMenuItem\"; title = \"Zoom\"; ObjectID = \"56\";",
       "extractionState" : "extracted_with_value",
@@ -2183,6 +2165,12 @@
       "comment" : "Class = \"NSMenuItem\"; title = \"Show In Finder\"; ObjectID = \"YsZ-TG-0vH\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Im Finder Anzeigen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",

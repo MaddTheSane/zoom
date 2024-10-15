@@ -288,6 +288,12 @@
     "Interpreter can't load save games info" : {
       "comment" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aufgrund einer Einschränkung im Design des Interpreters für diese Story kann Zoom nicht auffordern, eine gespeicherte Statusdatei zu laden.\n\nSie müssen die eigene Wiederherstellungsfunktion der Story verwenden, um anzufordern, dass der von Ihnen ausgewählte Zustand geladen wird."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -443,6 +449,12 @@
     "This interpreter is unable to load saved states" : {
       "comment" : "This interpreter is unable to load saved states",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dieser Interpreter kann keine gespeicherten Zustände laden"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",

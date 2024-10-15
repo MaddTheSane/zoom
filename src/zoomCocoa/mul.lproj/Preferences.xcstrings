@@ -383,24 +383,6 @@
         }
       }
     },
-    "50.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"50\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OtherViews"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OtherViews"
-          }
-        }
-      }
-    },
     "51.title" : {
       "comment" : "Class = \"NSMenuItem\"; title = \"1 - DECSystem-20\"; ObjectID = \"51\";",
       "extractionState" : "extracted_with_value",
@@ -979,78 +961,6 @@
         }
       }
     },
-    "128.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"128\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OtherViews"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OtherViews"
-          }
-        }
-      }
-    },
-    "129.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"129\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item2"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item2"
-          }
-        }
-      }
-    },
-    "130.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"130\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item1"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item1"
-          }
-        }
-      }
-    },
-    "131.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"131\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item3"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item3"
-          }
-        }
-      }
-    },
     "133.ibShadowedToolTip" : {
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The fixed pitch font is usually used for the status bar that a story displays. This font must be a monospace font.\"; ObjectID = \"133\";",
       "extractionState" : "extracted_with_value",
@@ -1087,78 +997,6 @@
         }
       }
     },
-    "134.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"134\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OtherViews"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OtherViews"
-          }
-        }
-      }
-    },
-    "135.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"135\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item2"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item2"
-          }
-        }
-      }
-    },
-    "136.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"136\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item1"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item1"
-          }
-        }
-      }
-    },
-    "137.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"137\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item3"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item3"
-          }
-        }
-      }
-    },
     "138.ibShadowedToolTip" : {
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The 'symbolic' font is the font used for the runes and graphics in Beyond Zork.\"; ObjectID = \"138\";",
       "extractionState" : "extracted_with_value",
@@ -1191,78 +1029,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "「シンボリック」フォントは、Beyond Zorkのルーンとグラフィックに使用されるフォントです。"
-          }
-        }
-      }
-    },
-    "139.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"139\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OtherViews"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OtherViews"
-          }
-        }
-      }
-    },
-    "140.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"140\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item2"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item2"
-          }
-        }
-      }
-    },
-    "141.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"141\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item1"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item1"
-          }
-        }
-      }
-    },
-    "142.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"142\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item3"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item3"
           }
         }
       }
@@ -1626,78 +1392,6 @@
         }
       }
     },
-    "242.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"242\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OtherViews"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OtherViews"
-          }
-        }
-      }
-    },
-    "243.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"243\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item1"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item1"
-          }
-        }
-      }
-    },
-    "244.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"244\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item2"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item2"
-          }
-        }
-      }
-    },
-    "245.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"245\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item3"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item3"
-          }
-        }
-      }
-    },
     "247.ibShadowedToolTip" : {
       "comment" : "Class = \"NSPopUpButton\"; ibShadowedToolTip = \"The colour that will be used for the window background by default\"; ObjectID = \"247\";",
       "localizations" : {
@@ -1729,78 +1423,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "デフォルトでウィンドウの背景に使用される色"
-          }
-        }
-      }
-    },
-    "248.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"248\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OtherViews"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OtherViews"
-          }
-        }
-      }
-    },
-    "249.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item1\"; ObjectID = \"249\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item1"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item1"
-          }
-        }
-      }
-    },
-    "250.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item2\"; ObjectID = \"250\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item2"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item2"
-          }
-        }
-      }
-    },
-    "251.title" : {
-      "comment" : "Class = \"NSMenuItem\"; title = \"Item3\"; ObjectID = \"251\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Item3"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item3"
           }
         }
       }
@@ -1909,24 +1531,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "ゲームがカバー画像を提供している場合は、ゲームの読み込み中に簡単に表示されます。"
-          }
-        }
-      }
-    },
-    "402.title" : {
-      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"402\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OtherViews"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OtherViews"
           }
         }
       }
