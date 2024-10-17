@@ -13,7 +13,7 @@
 #ifndef TADS_H
 #define TADS_H
 
-#include <ZoomPlugins/treaty.h>
+#include "treaty.h"
 
 #ifdef __cplusplus
 extern "C" {

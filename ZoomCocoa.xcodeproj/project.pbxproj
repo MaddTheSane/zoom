@@ -234,6 +234,7 @@
 		55132C4228FFEA41007C87B6 /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
 		55132C4728FFEA8D007C87B6 /* zoom-game.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF3F46050FB21C00A8E303 /* zoom-game.icns */; };
 		551522D62CBE46C1008BA283 /* PluginManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551522D52CBE46C1008BA283 /* PluginManager.xib */; };
+		551522F02CBF2F21008BA283 /* MUCConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 551522EF2CBF2F21008BA283 /* MUCConverter.m */; };
 		551736202B493AA600D05CC8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5517361F2B493AA600D05CC8 /* Localizable.xcstrings */; };
 		551E27D426F8464A007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		551E27D726F84673007204E1 /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
@@ -1494,6 +1495,8 @@
 		55132C3A28FFE9AB007C87B6 /* ZoomNewQL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZoomNewQL.entitlements; sourceTree = "<group>"; };
 		551522D42CBE46C1008BA283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PluginManager.xib; sourceTree = "<group>"; };
 		551522D72CBE46C1008BA283 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/PluginManager.xcstrings; sourceTree = "<group>"; };
+		551522EF2CBF2F21008BA283 /* MUCConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUCConverter.m; sourceTree = "<group>"; };
+		551522F12CBF2F2E008BA283 /* MUCConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCConverter.h; sourceTree = "<group>"; };
 		5517361F2B493AA600D05CC8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		55244202297006350071E081 /* VOCConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VOCConverter.h; sourceTree = "<group>"; };
 		55244203297006350071E081 /* VOCConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VOCConverter.m; sourceTree = "<group>"; };
@@ -2643,6 +2646,8 @@
 				55E4787C2967FFD00017646D /* PCXDecoder.m */,
 				55244202297006350071E081 /* VOCConverter.h */,
 				55244203297006350071E081 /* VOCConverter.m */,
+				551522F12CBF2F2E008BA283 /* MUCConverter.h */,
+				551522EF2CBF2F21008BA283 /* MUCConverter.m */,
 			);
 			indentWidth = 4;
 			path = "Data Formats";
@@ -4395,6 +4400,7 @@
 				55368B04272A04B300740A0A /* agtread.c in Sources */,
 				55368B17272A054800740A0A /* parser.c in Sources */,
 				5551384B29678A9C002BAAAC /* AgilDataSource.m in Sources */,
+				551522F02CBF2F21008BA283 /* MUCConverter.m in Sources */,
 				55368B1A272A056800740A0A /* runverb.c in Sources */,
 				55368B0D272A04E200740A0A /* filename.c in Sources */,
 				55368B1D272A058900740A0A /* agil.c in Sources */,
@@ -5328,7 +5334,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_MODULE_VERIFIER = NO;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5343,7 +5349,6 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x2e000000,
@@ -5367,7 +5372,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_MODULE_VERIFIER = NO;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5381,7 +5386,6 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x2e000000,

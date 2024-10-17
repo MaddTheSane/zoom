@@ -11,6 +11,7 @@
 #import "PCXDecoder.h"
 #include "FILCDecoder.h"
 #include "VOCConverter.h"
+#import "MUCConverter.h"
 #include "glk.h"
 #import <GlkClient/cocoaglk.h>
 
@@ -131,7 +132,6 @@ static int decodeImageFormat(glui32 image, int *cmd)
 
   switch (smode) {
     case 0: //.muc
-      // TODO: read/convert MUC files. Description follows (from porting.txt)
       /*
        Songs are stored in the MUC file format:
          The file format includes no header, but is a collection of
@@ -141,8 +141,15 @@ static int decodeImageFormat(glui32 image, int *cmd)
        time of the tone (in milliseconds); and a delay between tones (also in
        milliseconds).
        */
-      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .MUC files right now!", urlPath.path]);
-      return nil;
+    {
+      NSError *err = nil;
+      NSData *toRet = MUCToRiff(urlPath, &err);
+      if (!toRet) {
+        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: .MUC coversion failed with error: %@", urlPath.path, err.localizedDescription]);
+        return nil;
+      }
+      return toRet;
+    }
       break;
       
     case 1: //.voc
