@@ -54,7 +54,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="537" height="378"/>
                         <clipView key="contentView" drawsBackground="NO" id="Fdb-O0-x77">
                             <rect key="frame" x="1" y="1" width="535" height="376"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="19">
                                     <rect key="frame" x="0.0" y="0.0" width="535" height="376"/>
