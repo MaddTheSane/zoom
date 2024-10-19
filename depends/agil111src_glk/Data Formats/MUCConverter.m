@@ -7,6 +7,7 @@
 
 #import "MUCConverter.h"
 #import <AVFAudio/AVFAudio.h>
+#include <AudioToolbox/AudioToolbox.h>
 
 
 /*
@@ -74,13 +75,31 @@ static NSArray<AGILMUCEntry*> *mucDecode(NSURL *theFile, NSError *__autoreleasin
 	return toRetValues;
 }
 
+static NSURL *tempAIFFURL(void)
+{
+	const char template[] = "/tmp/myfileXXXXXX.aiff";
+	char fname[PATH_MAX];
+	strcpy(fname, template);		/* Copy template */
+	int fd = mkstemp(fname);		/* Create and open temp file */
+	close(fd);						/* We only need the name
+									 * This might not be secure, but it'll work for now */
+	
+	return [NSURL fileURLWithFileSystemRepresentation:fname isDirectory:NO relativeToURL:nil];
+}
+
 NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
+	// Get file path for temporary file first!
+	NSURL *theURL = tempAIFFURL();
+	
+	//Part 1: audio generation
+	{
 	NSArray<AGILMUCEntry*> *entries = mucDecode(theFile, outError);
 	if (!entries) {
 		return nil;
 	}
 	static const double sampleRate = 11025;
-	AVAudioFormat *format = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16 sampleRate:sampleRate channels:1 interleaved:NO];
+	static const float amplitude = 0.5;
+	AVAudioFormat *format = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32 sampleRate:sampleRate channels:1 interleaved:NO];
 
 	NSTimeInterval estimated = 0;
 	for (AGILMUCEntry* entry in entries) {
@@ -95,8 +114,47 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 		}
 		return nil;
 	}
+		float *const  *channelsData = buffer.floatChannelData;
+		float *theChannelData = *channelsData;
+		
+		NSInteger currentSample = 0;
+		for (AGILMUCEntry *entry in entries) {
+			float angularFrequency = entry.frequency * 2 * M_PI;
+			// Generate and store the sequential samples representing the sine wave of the tone
+			for (NSInteger i = currentSample; i < currentSample + ((int)(entry.toneTime) * sampleRate / 1000); currentSample++)  {
+				float waveComponent = sinf(i * angularFrequency / sampleRate);
+				theChannelData[i] = waveComponent * amplitude;
+			}
+			currentSample += (((int)(entry.toneTime) + entry.toneDelay) * (int)(sampleRate)) / 1000;
+		}
+		
+		// It doesn't look like AVFAudio has a way to create an audio format in memory:
+		// it has to be saved to a file first.
+		AVAudioFile *outFile = [[AVAudioFile alloc]
+								initForWriting:theURL
+								settings:@{AVAudioFileTypeKey: @(kAudioFileAIFCType),
+										   AVLinearPCMBitDepthKey: @16,
+										   AVLinearPCMIsFloatKey: @NO,
+										   AVFormatIDKey: @(kAudioFormatLinearPCM),
+										   AVSampleRateKey: @11025,
+										   AVNumberOfChannelsKey: @1}
+								error:outError];
+		if (!outFile) {
+			return nil;
+		}
+		if (![outFile writeFromBuffer:buffer error:outError]) {
+			return nil;
+		}
+		// Close the file.
+		if (@available(macOS 15.0, *)) {
+			[outFile close];
+		}
+		// Deallocating outFile should close it on earlier versions of macOS.
+		outFile = nil;
+	}
 	
-	return nil;
+	// Part 2: read the created file
+	return [[NSData alloc] initWithContentsOfURL:theURL options:0 error:outError];
 }
 
 
