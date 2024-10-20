@@ -155,7 +155,13 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 	}
 	
 	// Part 2: read the created file
-	return [[NSData alloc] initWithContentsOfURL:theURL options:0 error:outError];
+	NSData *aiffData = [[NSData alloc] initWithContentsOfURL:theURL options:0 error:outError];
+	if (!aiffData) {
+		[[NSFileManager defaultManager] removeItemAtURL:theURL error:NULL];
+		return nil;
+	}
+	[[NSFileManager defaultManager] removeItemAtURL:theURL error:NULL];
+	return aiffData;
 }
 
 
