@@ -97,7 +97,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 	if (!entries) {
 		return nil;
 	}
-	static const double sampleRate = 11025;
+	static const double sampleRate = 8000;
 	static const float amplitude = 0.5;
 	AVAudioFormat *format = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32 sampleRate:sampleRate channels:1 interleaved:NO];
 
@@ -120,8 +120,9 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 		NSInteger currentSample = 0;
 		for (AGILMUCEntry *entry in entries) {
 			float angularFrequency = entry.frequency * 2 * M_PI;
+			NSInteger endSample = currentSample + ((int)(entry.toneTime) * sampleRate / 1000);
 			// Generate and store the sequential samples representing the sine wave of the tone
-			for (NSInteger i = currentSample; i < currentSample + ((int)(entry.toneTime) * sampleRate / 1000); currentSample++)  {
+			for (NSInteger i = currentSample; i < endSample; currentSample++)  {
 				float waveComponent = sinf(i * angularFrequency / sampleRate);
 				theChannelData[i] = waveComponent * amplitude;
 			}
@@ -136,7 +137,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 										   AVLinearPCMBitDepthKey: @16,
 										   AVLinearPCMIsFloatKey: @NO,
 										   AVFormatIDKey: @(kAudioFormatLinearPCM),
-										   AVSampleRateKey: @11025,
+										   AVSampleRateKey: @8000,
 										   AVNumberOfChannelsKey: @1}
 								error:outError];
 		if (!outFile) {
