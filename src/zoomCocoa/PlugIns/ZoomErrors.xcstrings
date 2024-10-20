@@ -12,7 +12,7 @@
         },
         "en-GB" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "ZoomMetadata wasn't created referencing a file."
           }
         }

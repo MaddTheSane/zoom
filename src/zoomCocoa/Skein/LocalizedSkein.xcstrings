@@ -442,13 +442,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ZoomSkein: Failed to find root 'Skein' element"
+            "value" : "Failed to find root 'Skein' element"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "ZoomSkein: ルート「Skein」要素が見つかりません"
+            "value" : "ルート「Skein」要素が見つかりません"
           }
         }
       }
@@ -459,13 +459,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ZoomSkein: Failed to parse skein XML data"
+            "value" : "Failed to parse skein XML data"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "ZoomSkein: かせXMLデータの解析に失敗しました"
+            "value" : "かせXMLデータの解析に失敗しました"
           }
         }
       }
@@ -476,13 +476,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ZoomSkein: No root node"
+            "value" : "No root node"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "ZoomSkein: ルートノードなし"
+            "value" : "ルートノードなし"
           }
         }
       }
@@ -493,13 +493,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ZoomSkein: No root node ID specified"
+            "value" : "No root node ID specified"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "ZoomSkein: ルートノードIDが指定されていません"
+            "value" : "ルートノードIDが指定されていません"
           }
         }
       }

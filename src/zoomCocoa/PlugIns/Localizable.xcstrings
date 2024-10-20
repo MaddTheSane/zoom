@@ -27,6 +27,12 @@
     "Continue" : {
       "comment" : "Continue",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -44,6 +50,12 @@
     "Continue playing" : {
       "comment" : "Continue playing",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue playing"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -61,6 +73,12 @@
     "Could not download" : {
       "comment" : "Could not download",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not download"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -101,6 +119,12 @@
     "Download failed" : {
       "comment" : "Download failed",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download failed"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -118,6 +142,12 @@
     "Downloading update" : {
       "comment" : "Downloading update",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloading update"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -209,6 +239,12 @@
     "Finish the game?" : {
       "comment" : "Finish the game?",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish the game?"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -254,6 +290,12 @@
     "Installation failed" : {
       "comment" : "Installation failed",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installation failed"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -387,6 +429,12 @@
     "Ready to install" : {
       "comment" : "Ready to install",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready to install"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -404,6 +452,12 @@
     "Restart Now" : {
       "comment" : "Restart Now",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart Now"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -415,6 +469,12 @@
     "Restart required" : {
       "comment" : "Restart required",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart required"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -455,6 +515,12 @@
             "value" : "Dieser Interpreter kann keine gespeicherten Zustände laden"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This interpreter is unable to load saved states"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -489,6 +555,12 @@
     "Update available" : {
       "comment" : "Update available",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update available"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -506,10 +578,16 @@
     "Update available to v%@" : {
       "comment" : "Update available to version value",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update available to version %@"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Update available to v%@"
+            "value" : "Update available to version %@"
           }
         },
         "ja" : {
@@ -523,6 +601,12 @@
     "You must restart Zoom to complete the update" : {
       "comment" : "You must restart Zoom to complete the update",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must restart Zoom to complete the update"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -551,6 +635,12 @@
     "Zoom found updates to some of the installed plugins" : {
       "comment" : "Zoom found updates to some of the installed plugins",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom found updates to some of the installed plugins"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",

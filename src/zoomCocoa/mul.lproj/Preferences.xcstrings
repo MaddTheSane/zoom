@@ -1250,7 +1250,7 @@
       }
     },
     "198.ibShadowedToolTip" : {
-      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\"; ObjectID = \"198\";",
+      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\\n\\nNote that screen fonts have been deprecated for a long time: leave this off.\"; ObjectID = \"198\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -1262,13 +1262,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability."
+            "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\n\nNote that screen fonts have been deprecated for a long time: leave this off."
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability."
+            "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\n\nNote that screen fonts have been deprecated for a long time: leave this off."
           }
         },
         "fr" : {

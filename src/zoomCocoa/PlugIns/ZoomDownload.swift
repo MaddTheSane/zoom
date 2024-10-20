@@ -10,8 +10,13 @@ import CryptoKit
 import ZoomPlugIns.ZoomDownload
 
 private var localDownloadDirectory: URL = {
-	let tempDir = NSTemporaryDirectory()
-	var downloadDir = URL(fileURLWithPath: tempDir)
+	var downloadDir: URL
+	if #available(macOSApplicationExtension 13.0, *) {
+		downloadDir = URL.temporaryDirectory
+	} else {
+		let tempDir = NSTemporaryDirectory()
+		downloadDir = URL(fileURLWithPath: tempDir)
+	}
 	downloadDir.appendPathComponent("Zoom-Downloads-\(getpid())")
 
 	return downloadDir
