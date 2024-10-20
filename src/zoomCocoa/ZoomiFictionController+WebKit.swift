@@ -139,7 +139,6 @@ extension ZoomiFictionController: WKNavigationDelegate {
 	}
 }
 
-@available(macOS 11.0, *)
 extension ZoomiFictionController: WKScriptMessageHandlerWithReply {
 	public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) async -> (Any?, String?) {
 		if (message.body as AnyObject).isEqual("getError" as NSString)  {

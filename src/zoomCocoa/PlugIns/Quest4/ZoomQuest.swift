@@ -78,7 +78,6 @@ final public class Quest: ZoomGlkPlugIn {
 		return ["uk.co.textadventures.asl", "uk.co.textadventures.cas"] + extensions
 	}
 	
-	@available(macOS 11.0, *)
 	public override class var supportedContentTypes: [UTType] {
 		return [UTType(importedAs: "uk.co.textadventures.asl"), UTType(importedAs: "uk.co.textadventures.cas")]
 	}

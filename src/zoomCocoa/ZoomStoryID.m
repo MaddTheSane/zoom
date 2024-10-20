@@ -260,7 +260,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 		if ([data length] < 64) {
 			// This file is too short to be a Z-Code file
 			if (outError) {
-				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: @{NSURLErrorKey: zcodeFile}];
 			}
 			return nil;
 		}
@@ -282,7 +282,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			data = [blorbFile dataForChunkWithType: @"ZCOD"];
 			if (data == nil) {
 				if (outError) {
-					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoZCodeChunk userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoZCodeChunk userInfo: @{NSURLErrorKey: zcodeFile}];
 				}
 				return nil;
 			}
@@ -290,7 +290,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
 				if (outError) {
-					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: @{NSURLErrorKey: zcodeFile}];
 				}
 				return nil;
 			}
@@ -303,7 +303,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 		if (bytes[0] > 8) {
 			// This cannot be a Z-Code file
 			if (outError) {
-				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorBadZCodeVersion userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorBadZCodeVersion userInfo: @{NSURLErrorKey: zcodeFile}];
 			}
 			return nil;
 		}
@@ -365,7 +365,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 		
 		if (ident == nil) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoIdentGenerated userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoIdentGenerated userInfo: @{NSURLErrorKey: zcodeFile}];
 			}
 			return nil;
 		}
@@ -391,7 +391,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 		if ([data length] < 64) {
 			// This file is too short to be a Glulx file
 			if (outError) {
-				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: @{NSURLErrorKey: glulxFile}];
 			}
 			return nil;
 		}
@@ -412,7 +412,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			data = [blorbFile dataForChunkWithType: @"GLUL"];
 			if (data == nil) {
 				if (outError) {
-					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoGlulxChunk userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoGlulxChunk userInfo: @{NSURLErrorKey: glulxFile}];
 				}
 				return nil;
 			}
@@ -420,7 +420,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			if ([data length] < 64) {
 				// This file is too short to be a Z-Code file
 				if (outError) {
-					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: @{NSURLErrorKey: glulxFile}];
 				}
 				return nil;
 			}
@@ -433,14 +433,14 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			
 			if ([data length] < 64) {
 				if (outError) {
-					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: nil];
+					*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorFileTooSmall userInfo: @{NSURLErrorKey: glulxFile}];
 				}
 				return nil;
 			}
 		} else {
 			// Not a Glulx file
 			if (outError) {
-				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: nil];
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadCorruptFileError userInfo: @{NSURLErrorKey: glulxFile}];
 			}
 			return nil;
 		}
@@ -513,7 +513,7 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 		}
 		if (ident == nil) {
 			if (outError) {
-				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoIdentGenerated userInfo: nil];
+				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorNoIdentGenerated userInfo: @{NSURLErrorKey: glulxFile}];
 			}
 			return nil;
 		}

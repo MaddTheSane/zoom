@@ -59,7 +59,6 @@ final public class AGT: ZoomGlkPlugIn {
 		return ["public.agt", "agx", "'AGTS'"]
 	}
 	
-	@available(macOS 11.0, *)
 	public override class var supportedContentTypes: [UTType] {
 		return [UTType(importedAs: "public.agt")]
 	}

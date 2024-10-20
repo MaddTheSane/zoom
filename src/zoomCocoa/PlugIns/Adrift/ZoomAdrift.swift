@@ -33,7 +33,6 @@ final public class Adrift: ZoomGlkPlugIn {
 		return ["public.adrift", "taf"]
 	}
 	
-	@available(macOS 11.0, *)
 	public override class var supportedContentTypes: [UTType] {
 		return [UTType(importedAs: "public.adrift")]
 	}

@@ -84,7 +84,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 
 - (NSArray<NSString*>*)pluginSupportedFileTypes;
 
-- (NSArray<UTType*>*)pluginSupportedContentTypes API_AVAILABLE(macos(11.0));
+- (NSArray<UTType*>*)pluginSupportedContentTypes;
 
 @end
 

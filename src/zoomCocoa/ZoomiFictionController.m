@@ -295,11 +295,10 @@ NS_ENUM(NSInteger) {
 }
 
 - (void)awakeFromNib {
-	if (@available(macOS 11.0, *)) {
 		WKWebViewConfiguration *config = ifdbView.configuration;
 		WKUserContentController *usrContent = config.userContentController;
 		[usrContent addScriptMessageHandlerWithReply:self contentWorld:[WKContentWorld pageWorld] name:@"lastError"];
-	}
+	[super awakeFromNib];
 }
 
 - (void) windowDidLoad {
@@ -613,17 +612,10 @@ static NSArray<NSString*>* blorbFileTypes;
 	[storiesToAdd setCanChooseDirectories: YES];
 	[storiesToAdd setCanChooseFiles: YES];
 	[storiesToAdd setDelegate: self];
-	if (@available(macOS 11.0, *)) {
 		NSArray* fileTypes = @[[UTType importedTypeWithIdentifier:@"public.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb.glulx"], [UTType importedTypeWithIdentifier:@"public.blorb.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb"]];
 		NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedContentTypes];
 		fileTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
 		storiesToAdd.allowedContentTypes = fileTypes;
-	} else {
-		NSArray* fileTypes = @[@"public.zcode", @"public.blorb.glulx", @"public.blorb.zcode", @"public.blorb"];
-		NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedFileTypes];
-		fileTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
-		storiesToAdd.allowedFileTypes = fileTypes;
-	}
 	
 	NSURL* path = [[NSUserDefaults standardUserDefaults] URLForKey: addDirectory];
 	storiesToAdd.directoryURL = path;
@@ -692,9 +684,7 @@ static NSArray<NSString*>* blorbFileTypes;
 		alert.informativeText = NSLocalizedStringWithDefaultValue(@"Autosaves Exist Info", nil, [NSBundle mainBundle], @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.", @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.");
 		[alert addButtonWithTitle: NSLocalizedString(@"Don't start new game", @"Don't start new game")];
 		NSButton *desButton = [alert addButtonWithTitle: NSLocalizedString(@"Start new game", @"Start new game")];
-		if (@available(macOS 11.0, *)) {
-			desButton.hasDestructiveAction = YES;
-		}
+		desButton.hasDestructiveAction = YES;
 		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 			[self autosaveAlertFinished:alert.window returnCode:returnCode];
 		}];
@@ -2107,9 +2097,7 @@ static NSArray<NSString*>* blorbFileTypes;
 	alert.messageText = NSLocalizedString(@"Are you sure?", @"Are you sure?");
 	alert.informativeText = request;
 	NSButton *delButton = [alert addButtonWithTitle: NSLocalizedStringWithDefaultValue(@"Delete Game", @"Localizable", [NSBundle mainBundle], @"Delete", @"Delete")];
-	if (@available(macOS 11.0, *)) {
-		delButton.hasDestructiveAction = YES;
-	}
+	delButton.hasDestructiveAction = YES;
 	[alert addButtonWithTitle:NSLocalizedStringWithDefaultValue(@"Keep Game", @"Localizable", [NSBundle mainBundle], @"Keep", @"Keep")].keyEquivalent = @"\1B";
 	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 		if (returnCode != NSAlertFirstButtonReturn) return;
@@ -2272,11 +2260,7 @@ static NSArray<NSString*>* blorbFileTypes;
 - (IBAction) saveMetadata: (id) sender {
 	NSSavePanel* panel = [NSSavePanel savePanel];
 	
-	if (@available(macOS 11.0, *)) {
-		panel.allowedContentTypes = @[[UTType importedTypeWithIdentifier:@"public.ifiction"]];
-	} else {
-		panel.allowedFileTypes = @[@"iFiction"];
-	}
+	panel.allowedContentTypes = @[[UTType importedTypeWithIdentifier:@"public.ifiction"]];
 	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomiFictionSavePath"];
 	if (directory) {
 		panel.directoryURL = directory;

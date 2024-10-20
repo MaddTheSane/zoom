@@ -259,17 +259,12 @@ static NSString* stringOrEmpty(NSString* str) {
 
 - (IBAction)chooseResourceFile:(id)sender {
 	NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-	NSArray* filetypes = @[@"blb", @"blorb"];
 	
 	[openPanel setAllowsMultipleSelection: NO];
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setCanChooseFiles: YES];
 	[openPanel setDelegate: self];
-	if (@available(macOS 11.0, *)) {
-		openPanel.allowedContentTypes = @[[UTType importedTypeWithIdentifier:@"public.blorb"]];
-	} else {
-		openPanel.allowedFileTypes = filetypes;
-	}
+	openPanel.allowedContentTypes = @[[UTType importedTypeWithIdentifier:@"public.blorb"]];
 	
 	NSString* directory = nil;
 	if ([self resourceFilename] != nil) {
