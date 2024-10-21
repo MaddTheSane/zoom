@@ -138,7 +138,14 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 			if (![self readTrueColorPCXWithError:outErr]) {
 				return nil;
 			}
+		} else {
+			if (outErr) {
+				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: url, NSLocalizedFailureReasonErrorKey: @"Unsupported PCX format."}];
+			}
+			return nil;
 		}
+		[fileHandle closeFile];
+		fileHandle = nil;
 	}
 	return self;
 }
@@ -154,11 +161,6 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	return NO;
 }
 
-/* for the 24 bit demuxing */
-#define PLANE_RED   ( 0 )
-#define PLANE_GREEN ( 1 )
-#define PLANE_BLUE  ( 2 )
-
 - (BOOL)readTrueColorPCXWithError:(NSError**)outError
 {
 	unsigned char *planes[5] = {NULL};
@@ -170,13 +172,14 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	planes[2] = malloc(planeLength);
 	unsigned char *bufr = calloc(pcxHeader.colorPlanes, planeLength);
 	{
+		int ourFd = fileHandle.fileDescriptor;
 		[fileHandle seekToFileOffset:128];
 		// Read data
 		unsigned char *bpos = bufr;
 		int chr, cnt;
 		const size_t bufrSize = pcxHeader.colorPlanes * planeLength;
 		for (size_t l = 0; l < bufrSize; ) {  /* increment by cnt below */
-			if (EOF == encgetc(&chr, &cnt, fileHandle.fileDescriptor)) {
+			if (EOF == encgetc(&chr, &cnt, ourFd)) {
 				break;
 			}
 			
@@ -193,23 +196,21 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	int pcx_pos = image_pos = 0;
 	for (int y = 0; y < yFull; y++) {
 		set_aside = image_pos; /* since they're muxed weird
-								* TODO: ...but is it muxed weird to our benefit?*/
+								* TODO: ...but is it muxed weird to our benefit?
+								* .. turns out no :( */
 		for (int p = 0; p < pcxHeader.colorPlanes ; p++) {
 			image_pos = set_aside;
 			for (int x = 0; x < pcxHeader.colorPlaneBytes; x++) {
-				/* the width might be different than 'bytesPerLine */
-				if (x < xFull) {
-					planes[p][image_pos] = bufr[pcx_pos];
-					
-					image_pos++;
-				}
+				planes[p][image_pos] = bufr[pcx_pos];
+				
+				image_pos++;
 				pcx_pos++;
 			}
 		}
 	}
 	free(bufr);
 	
-	imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:YES colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:xFull bitsPerPixel:0];
+	imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:YES colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:pcxHeader.colorPlaneBytes bitsPerPixel:0];
 	// free memory
 	free(planes[0]); planes[0] = NULL;
 	free(planes[1]); planes[1] = NULL;
