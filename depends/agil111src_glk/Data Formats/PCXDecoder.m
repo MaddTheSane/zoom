@@ -6,6 +6,7 @@
 //
 
 #import "PCXDecoder.h"
+#import <AppKit/AppKit.h>
 
 NSErrorDomain const PCXDecoderErrorDomain = @"com.github.MaddTheSane.AGT.PCXErrors";
 
@@ -14,7 +15,7 @@ typedef NS_ENUM(uint8_t, PCXVersion) {
   PCXVersionModifiableEGA = 2,
   PCXVersionNoPalette,
   PCXVersionWindows,
-  PCXVersionTrueColor
+	PCXVersionLaterWindows
 };
 
 typedef NS_ENUM(uint8_t, PCXEncoding) {
@@ -25,6 +26,25 @@ typedef NS_ENUM(uint8_t, PCXEncoding) {
 typedef NS_ENUM(uint16_t, PCXPaletteInfo) {
   PCXPaletteInfoColorBW = 1,
   PCXPaletteInfoGrayscale = 2
+};
+
+/*! This procedure reads one encoded block from the image file and stores a
+count and data byte.
+
+ \return result:  0 = valid data stored, \c EOF = out of data in file
+ \param pbyt where to place data
+ \param pcnt where to place count
+ \param fid image file handle
+ */
+static int encgetc(int *pbyt, int *pcnt, int fid);
+
+static const uint8_t PCX_defaultPalette[48] = {
+	0x00, 0x00, 0x00,    0x00, 0x00, 0x80,    0x00, 0x80, 0x00,
+	0x00, 0x80, 0x80,    0x80, 0x00, 0x00,    0x80, 0x00, 0x80,
+	0x80, 0x80, 0x00,    0x80, 0x80, 0x80,    0xc0, 0xc0, 0xc0,
+	0x00, 0x00, 0xff,    0x00, 0xff, 0x00,    0x00, 0xff, 0xff,
+	0xff, 0x00, 0x00,    0xff, 0x00, 0xff,    0xff, 0xff, 0x00,
+	0xff, 0xff, 0xff
 };
 
 struct PCXHeader {
@@ -58,7 +78,7 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
     }
     return NO;
   }
-  if (header->version != PCXVersionFixedEGA && header->version != PCXVersionModifiableEGA && header->version != PCXVersionNoPalette && header->version != PCXVersionWindows && header->version != PCXVersionTrueColor) {
+  if (header->version != PCXVersionFixedEGA && header->version != PCXVersionModifiableEGA && header->version != PCXVersionNoPalette && header->version != PCXVersionWindows && header->version != PCXVersionLaterWindows) {
     if (outErr) {
       *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnknownVersion userInfo: nil];
     }
@@ -86,6 +106,7 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 @implementation PCXDecoder {
   NSFileHandle *fileHandle;
   struct PCXHeader pcxHeader;
+	NSBitmapImageRep *imageRep;
 }
 
 - (instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr
@@ -101,7 +122,7 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
     }
     if (hand.length != 128) {
       if (outErr) {
-        *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnexpectedEOF userInfo: nil];
+		  *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnexpectedEOF userInfo: @{NSURLErrorKey: url}];
       }
       return nil;
     }
@@ -116,4 +137,50 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
   return self;
 }
 
+- (BOOL)readEGAPCXWithFixedPalette:(BOOL)fixed error:(NSError**)outError
+{
+	uint8_t thePalette[48];
+	if (fixed) {
+		memcpy(thePalette, PCX_defaultPalette, sizeof(PCX_defaultPalette));
+	} else {
+		memcpy(thePalette, pcxHeader.egaPalette, sizeof(PCX_defaultPalette));
+	}
+	return NO;
+}
+
+- (BOOL)readTrueColorPCXWithError:(NSError**)outError
+{
+	return NO;
+	unsigned char *planes[5] = {NULL};
+	
+	imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes pixelsWide:pcxHeader.yMax pixelsHigh:pcxHeader.xMax bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:YES colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
+}
+
+- (NSData *)TIFFRepresentation
+{
+	return [imageRep TIFFRepresentation];
+}
+
 @end
+
+int encgetc(int *pbyt, int *pcnt, int fid)
+{
+	int i;
+	uint8_t val;
+	*pcnt = 1;        /* assume a "run" length of one */
+	ssize_t readSize = read(fid, &val, sizeof(val));
+	if (readSize <= 0) {
+		return EOF;
+	}
+	i = val;
+	if (0xC0 == (0xC0 & i)) {
+		*pcnt = 0x3F & i;
+		readSize = read(fid, &val, sizeof(val));
+		if (readSize <= 0) {
+			return EOF;
+		}
+		i = val;
+	}
+	*pbyt = i;
+	return 0;
+}

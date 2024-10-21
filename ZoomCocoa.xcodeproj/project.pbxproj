@@ -2615,12 +2615,12 @@
 			children = (
 				55E478A22968CD660017646D /* FILCDecoder.h */,
 				55E478A12968CD660017646D /* FILCDecoder.cpp */,
+				551522F12CBF2F2E008BA283 /* MUCConverter.h */,
+				551522EF2CBF2F21008BA283 /* MUCConverter.m */,
 				55E4787B2967FFD00017646D /* PCXDecoder.h */,
 				55E4787C2967FFD00017646D /* PCXDecoder.m */,
 				55244202297006350071E081 /* VOCConverter.h */,
 				55244203297006350071E081 /* VOCConverter.m */,
-				551522F12CBF2F2E008BA283 /* MUCConverter.h */,
-				551522EF2CBF2F21008BA283 /* MUCConverter.m */,
 			);
 			indentWidth = 4;
 			path = "Data Formats";

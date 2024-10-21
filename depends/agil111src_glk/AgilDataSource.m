@@ -107,6 +107,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
     }
     //Decode PCX
     //Write data
+    return [pcxData TIFFRepresentation];
   } else {
     CFDataRef cfDat = CreateGIFFromFLICPath(urlPath.fileSystemRepresentation, false);
     return [CFBridgingRelease(cfDat) copy];
