@@ -13,21 +13,21 @@
 NSErrorDomain const PCXDecoderErrorDomain = @"com.github.MaddTheSane.AGT.PCXErrors";
 
 typedef NS_ENUM(uint8_t, PCXVersion) {
-  PCXVersionFixedEGA = 0,
-  PCXVersionModifiableEGA = 2,
-  PCXVersionNoPalette,
-  PCXVersionWindows,
+	PCXVersionFixedEGA = 0,
+	PCXVersionModifiableEGA = 2,
+	PCXVersionNoPalette,
+	PCXVersionWindows,
 	PCXVersionLaterWindows
 };
 
 typedef NS_ENUM(uint8_t, PCXEncoding) {
-  PCXEncodingNone = 0,
-  PCXEncodingRLE = 1
+	PCXEncodingNone = 0,
+	PCXEncodingRLE = 1
 };
 
 typedef NS_ENUM(uint16_t, PCXPaletteInfo) {
-  PCXPaletteInfoColorBW = 1,
-  PCXPaletteInfoGrayscale = 2
+	PCXPaletteInfoColorBW = 1,
+	PCXPaletteInfoGrayscale = 2
 };
 
 /*! This procedure reads one encoded block from the image file and stores a
@@ -80,19 +80,19 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 		}
 		return NO;
 	}
-  if (header->version != PCXVersionFixedEGA && header->version != PCXVersionModifiableEGA && header->version != PCXVersionNoPalette && header->version != PCXVersionWindows && header->version != PCXVersionLaterWindows) {
-    if (outErr) {
-      *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnknownVersion userInfo: nil];
-    }
-    return NO;
-  }
-  if (header->encoding != PCXEncodingNone && header->encoding != PCXEncodingRLE) {
-    if (outErr) {
-      *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
-    }
-    return NO;
-  }
-  
+	if (header->version != PCXVersionFixedEGA && header->version != PCXVersionModifiableEGA && header->version != PCXVersionNoPalette && header->version != PCXVersionWindows && header->version != PCXVersionLaterWindows) {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnknownVersion userInfo: nil];
+		}
+		return NO;
+	}
+	if (header->encoding != PCXEncodingNone && header->encoding != PCXEncodingRLE) {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
+		}
+		return NO;
+	}
+	
 	if (header->paletteMode != PCXPaletteInfoColorBW && header->paletteMode != PCXPaletteInfoGrayscale) {
 		if (outErr) {
 			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
@@ -112,35 +112,35 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 - (instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr
 {
 	if (self = [super init]) {
-    fileHandle = [NSFileHandle fileHandleForReadingFromURL:url error:outErr];
-    if (!fileHandle) {
-      return nil;
-    }
+		fileHandle = [NSFileHandle fileHandleForReadingFromURL:url error:outErr];
+		if (!fileHandle) {
+			return nil;
+		}
 		NSData *hand = [fileHandle readDataUpToLength:sizeof(struct PCXHeader) error:outErr];
 		if (!hand) {
 			return nil;
 		}
-    if (hand.length != 128) {
-      if (outErr) {
-		  *outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnexpectedEOF userInfo: @{NSURLErrorKey: url}];
-      }
-      return nil;
-    }
-    // TODO: byte-swap? This assumes a Little Endian architecture.
-    [hand getBytes:&pcxHeader length:sizeof(struct PCXHeader)];
-    
-    if (!verifyHeader(&pcxHeader, outErr)) {
-      return nil;
-    }
-	  
+		if (hand.length != 128) {
+			if (outErr) {
+				*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnexpectedEOF userInfo: @{NSURLErrorKey: url}];
+			}
+			return nil;
+		}
+		// TODO: byte-swap? This assumes a Little Endian architecture.
+		[hand getBytes:&pcxHeader length:sizeof(struct PCXHeader)];
+		
+		if (!verifyHeader(&pcxHeader, outErr)) {
+			return nil;
+		}
+		
 		// Handle 24-bit images
 		if (pcxHeader.version == PCXVersionLaterWindows && pcxHeader.colorPlanes == 3) {
 			if (![self readTrueColorPCXWithError:outErr]) {
 				return nil;
 			}
 		}
-  }
-  return self;
+	}
+	return self;
 }
 
 - (BOOL)readEGAPCXWithFixedPalette:(BOOL)fixed error:(NSError**)outError
