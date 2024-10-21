@@ -192,23 +192,14 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	int set_aside, image_pos;
 	int pcx_pos = image_pos = 0;
 	for (int y = 0; y < yFull; y++) {
-		set_aside = image_pos; /* since they're muxed weird */
+		set_aside = image_pos; /* since they're muxed weird
+								* TODO: ...but is it muxed weird to our benefit?*/
 		for (int p = 0; p < pcxHeader.colorPlanes ; p++) {
 			image_pos = set_aside;
 			for (int x = 0; x < pcxHeader.colorPlaneBytes; x++) {
 				/* the width might be different than 'bytesPerLine */
 				if (x < xFull) {
-					if (p == PLANE_RED) {
-						planes[0][image_pos] = bufr[pcx_pos];
-					}
-					
-					if (p == PLANE_GREEN) {
-						planes[1][image_pos] = bufr[pcx_pos];
-					}
-					
-					if (p == PLANE_BLUE) {
-						planes[2][image_pos] = bufr[pcx_pos];
-					}
+					planes[p][image_pos] = bufr[pcx_pos];
 					
 					image_pos++;
 				}
