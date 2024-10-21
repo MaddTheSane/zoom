@@ -319,6 +319,9 @@
 		55687B1F29A0B5510005E1AE /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		55687B2E29A0BD2A0005E1AE /* ZpTadsThree.m in Sources */ = {isa = PBXBuildFile; fileRef = 55687B2D29A0BB460005E1AE /* ZpTadsThree.m */; };
 		55687B2F29A0BD3C0005E1AE /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
+		5571D30E2CC71271004709D1 /* PCXTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 5571D30D2CC71271004709D1 /* PCXTester.m */; };
+		5571D30F2CC712D3004709D1 /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
+		5571D3102CC71ABD004709D1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
 		5576A0322B2A546D00A1D8FC /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5576A0312B2A546D00A1D8FC /* InfoPlist.xcstrings */; };
 		5576A0342B2A546D00A1D8FC /* LocalizedSkein.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5576A0332B2A546D00A1D8FC /* LocalizedSkein.xcstrings */; };
 		5576A0372B2A546D00A1D8FC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5576A0362B2A546D00A1D8FC /* Localizable.xcstrings */; };
@@ -1590,6 +1593,8 @@
 		55687B2929A0BABC0005E1AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55687B2C29A0BB450005E1AE /* ZpTadsThree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZpTadsThree.h; sourceTree = "<group>"; };
 		55687B2D29A0BB460005E1AE /* ZpTadsThree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZpTadsThree.m; sourceTree = "<group>"; };
+		5571D3062CC71256004709D1 /* PCXTester */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PCXTester; sourceTree = BUILT_PRODUCTS_DIR; };
+		5571D30D2CC71271004709D1 /* PCXTester.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PCXTester.m; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		5576A0252B2A546D00A1D8FC /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/MainMenu.xcstrings; sourceTree = "<group>"; };
 		5576A0312B2A546D00A1D8FC /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -1956,6 +1961,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5571D3032CC71256004709D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5571D3102CC71ABD004709D1 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5591DC012916367C00BF6F6F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2116,6 +2129,7 @@
 				55E478872968CCD10017646D /* libflic.a */,
 				55687B1429A0B3E30005E1AE /* Tads2.zoomPlugin */,
 				55687B2429A0BAA40005E1AE /* Tads3.zoomPlugin */,
+				5571D3062CC71256004709D1 /* PCXTester */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2619,6 +2633,7 @@
 				551522EF2CBF2F21008BA283 /* MUCConverter.m */,
 				55E4787B2967FFD00017646D /* PCXDecoder.h */,
 				55E4787C2967FFD00017646D /* PCXDecoder.m */,
+				5571D30D2CC71271004709D1 /* PCXTester.m */,
 				55244202297006350071E081 /* VOCConverter.h */,
 				55244203297006350071E081 /* VOCConverter.m */,
 			);
@@ -3552,6 +3567,24 @@
 			productReference = 55687B2429A0BAA40005E1AE /* Tads3.zoomPlugin */;
 			productType = "com.apple.product-type.bundle";
 		};
+		5571D3052CC71256004709D1 /* PCXTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5571D30A2CC71256004709D1 /* Build configuration list for PBXNativeTarget "PCXTester" */;
+			buildPhases = (
+				5571D3022CC71256004709D1 /* Sources */,
+				5571D3032CC71256004709D1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PCXTester;
+			packageProductDependencies = (
+			);
+			productName = PCXTester;
+			productReference = 5571D3062CC71256004709D1 /* PCXTester */;
+			productType = "com.apple.product-type.tool";
+		};
 		5591DC032916367C00BF6F6F /* heglk */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5591DC082916367D00BF6F6F /* Build configuration list for PBXNativeTarget "heglk" */;
@@ -3742,6 +3775,9 @@
 					55687B2329A0BAA40005E1AE = {
 						CreatedOnToolsVersion = 14.2;
 					};
+					5571D3052CC71256004709D1 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					5591DC032916367C00BF6F6F = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -3831,6 +3867,7 @@
 				55E478862968CCD00017646D /* flic */,
 				55687B1329A0B3E30005E1AE /* Tads2 */,
 				55687B2329A0BAA40005E1AE /* Tads3 */,
+				5571D3052CC71256004709D1 /* PCXTester */,
 			);
 		};
 /* End PBXProject section */
@@ -4452,6 +4489,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				55687B2E29A0BD2A0005E1AE /* ZpTadsThree.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571D3022CC71256004709D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5571D30F2CC712D3004709D1 /* PCXDecoder.m in Sources */,
+				5571D30E2CC71271004709D1 /* PCXTester.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6126,6 +6172,35 @@
 			};
 			name = Release;
 		};
+		5571D30B2CC71256004709D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5571D30C2CC71256004709D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		5591DC092916367D00BF6F6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6670,6 +6745,15 @@
 			buildConfigurations = (
 				55687B2629A0BAA50005E1AE /* Debug */,
 				55687B2729A0BAA50005E1AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5571D30A2CC71256004709D1 /* Build configuration list for PBXNativeTarget "PCXTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5571D30B2CC71256004709D1 /* Debug */,
+				5571D30C2CC71256004709D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
