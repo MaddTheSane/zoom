@@ -456,27 +456,10 @@ NS_ENUM(NSInteger) {
 
 #pragma mark - Panel actions
 
-#ifndef __MAC_11_0
-#define __MAC_11_0          110000
-#endif
-
-#if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_11_0
 static NSArray<NSString*> * const ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
 static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
-#else
-static NSArray<NSString*>* ZComFileTypes;
-static NSArray<NSString*>* blorbFileTypes;
-#endif
 
 - (void) addURLs: (NSArray<NSURL*> *)filenames {
-#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		ZComFileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb"];
-		blorbFileTypes = @[@"blorb", @"zblorb", @"blb", @"zlb", @"gblorb", @"glb"];
-	});
-#endif
-
 	// Add all the files we can
 	NSMutableArray<NSURL*> *selectedFiles = [filenames mutableCopy];
 	

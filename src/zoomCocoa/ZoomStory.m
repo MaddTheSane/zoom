@@ -23,10 +23,6 @@ static NSString* const ZoomStoryExtraMetadata = @"ZoomStoryExtraMetadata";
 
 NSString* const ZoomStoryExtraMetadataChangedNotification = @"ZoomStoryExtraMetadataChangedNotification";
 
-#ifndef __MAC_11_0
-#define __MAC_11_0          110000
-#endif
-
 static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 	if (![url checkResourceIsReachableAndReturnError: NULL]) {
 		return NO;
@@ -56,30 +52,19 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 
 + (NSString*) nameForKey: (NSString*) key {
 	// FIXME: internationalisation (this FIXME applies to most of Zoom, which is why it hasn't happened yet)
-#define DICT @{@"title": @"Title", \
-@"headline": @"Headline", \
-@"author": @"Author", \
-@"genre": @"Genre", \
-@"group": @"Group", \
-@"year": @"Year", \
-@"zarfian": @"Zarfian rating", \
-@"teaser": @"Teaser", \
-@"comment": @"Comments", \
-@"rating": @"My Rating", \
-@"description": @"Description", \
-@"coverpicture": @"Cover picture number"}
-	
-#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
-	static NSDictionary* keyNameDict = nil;
-	static dispatch_once_t onceToken;
-	
-	dispatch_once(&onceToken, ^{
-		keyNameDict = DICT;
-	});
-#else
-	static NSDictionary* const keyNameDict = DICT;
-#endif
-#undef DICT
+	static NSDictionary<NSString*,NSString*>* const keyNameDict =
+	@{@"title": @"Title",
+	  @"headline": @"Headline",
+	  @"author": @"Author",
+	  @"genre": @"Genre",
+	  @"group": @"Group",
+	  @"year": @"Year",
+	  @"zarfian": @"Zarfian rating",
+	  @"teaser": @"Teaser",
+	  @"comment": @"Comments",
+	  @"rating": @"My Rating",
+	  @"description": @"Description",
+	  @"coverpicture": @"Cover picture number"};
 	
 	return [keyNameDict objectForKey: key];
 }
@@ -531,30 +516,19 @@ static inline BOOL urlIsAvailable(NSURL *url, BOOL *isDirectory) {
 }
 
 - (NSString*) newKeyForOld: (NSString*) key {
-#define DICT @{@"title": @"bibliographic.title", \
-@"headline": @"bibliographic.headline", \
-@"author": @"bibliographic.author", \
-@"genre": @"bibliographic.genre", \
-@"group": @"bibliographic.group", \
-@"year": @"bibliographic.firstpublished", \
-@"zarfian": @"bibliographic.forgiveness", \
-@"teaser": @"zoom.teaser", \
-@"comment": @"zoom.comment", \
-@"rating": @"zoom.rating", \
-@"description": @"bibliographic.description", \
-@"coverpicture": @"zcode.coverpicture"}
-	
-#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_11_0
-	static NSDictionary* newForOldDict = nil;
-	static dispatch_once_t onceToken;
-	
-	dispatch_once(&onceToken, ^{
-		newForOldDict = DICT;
-	});
-#else
-	static NSDictionary* const newForOldDict = DICT;
-#endif
-#undef DICT
+	static NSDictionary<NSString*, NSString*>* const newForOldDict =
+	@{@"title": @"bibliographic.title",
+	  @"headline": @"bibliographic.headline",
+	  @"author": @"bibliographic.author",
+	  @"genre": @"bibliographic.genre",
+	  @"group": @"bibliographic.group",
+	  @"year": @"bibliographic.firstpublished",
+	  @"zarfian": @"bibliographic.forgiveness",
+	  @"teaser": @"zoom.teaser",
+	  @"comment": @"zoom.comment",
+	  @"rating": @"zoom.rating",
+	  @"description": @"bibliographic.description",
+	  @"coverpicture": @"zcode.coverpicture"};
 	NSString *result = newForOldDict[key];
 	if (result) {
 		return result;
