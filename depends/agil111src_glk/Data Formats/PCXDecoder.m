@@ -52,7 +52,7 @@ static const uint8_t PCX_defaultPalette[48] = {
 	0xff, 0xff, 0xff
 };
 
-struct PCXHeader {
+typedef struct PCXHeader {
 	uint8_t magic; // = 0x0A
 	PCXVersion version;
 	PCXEncoding encoding;
@@ -71,9 +71,9 @@ struct PCXHeader {
 	uint16_t horizRes;
 	uint16_t vertRes;
 	char reserved2[54];
-};
+} PCXHeader;
 
-static_assert(sizeof(struct PCXHeader) == 128, "Check alignment!");
+static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 
 static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 {
@@ -109,7 +109,7 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 
 @implementation PCXDecoder {
 	NSFileHandle *fileHandle;
-	struct PCXHeader pcxHeader;
+	PCXHeader pcxHeader;
 	NSBitmapImageRep *imageRep;
 }
 
@@ -240,7 +240,8 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	const unsigned char *bufr = rawPCX.bytes;
 	{
 		const unsigned char *palette = data.bytes;
-		unsigned char *imageDat = malloc(3 * yFull * xFull);
+		NSMutableData *imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
+		unsigned char *imageDat = imageNSDat.mutableBytes;
 		int pcx_pos, image_pos;
 		pcx_pos = image_pos = 0;
 		for (int y = 0; y < yFull; y++) {
@@ -255,8 +256,14 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 				pcx_pos++;
 			}
 		}
-		imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:&imageDat pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:xFull*3 bitsPerPixel:0];
-		free(imageDat);
+		imageDat = NULL;
+		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
+		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
+		CGDataProviderRelease(imgProvider);
+		CGColorSpaceRelease(colorSpace);
+		imageRep = [[NSBitmapImageRep alloc] initWithCGImage:img];
+		CGImageRelease(img);
 	}
 	
 	return YES;
