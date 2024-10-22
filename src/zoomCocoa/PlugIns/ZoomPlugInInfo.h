@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 @class ZoomDownload;
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(int, ZoomPlugInStatus) {
 	/// Installed plugin
 	ZoomPlugInInstalled NS_SWIFT_NAME(installed),
@@ -39,9 +41,9 @@ typedef NS_ENUM(int, ZoomPlugInStatus) {
 
 // Initialisation
 /// Initialise with an existing plugin bundle
-- (instancetype) initWithBundleFilename: (NSString*) bundle;
+- (nullable instancetype) initWithBundleFilename: (NSString*) bundle;
 /// Initialise with the contents of a particular plist dictionary
-- (instancetype) initFromPList: (NSDictionary<NSString*, id>*) plist;
+- (nullable instancetype) initFromPList: (nullable NSDictionary<NSString*, id>*) plist;
 
 // Retrieving the information
 /// The name of this plugin
@@ -55,22 +57,24 @@ typedef NS_ENUM(int, ZoomPlugInStatus) {
 /// The version of the interpreter in the plugin
 @property (readonly, copy) NSString *interpreterVersion;
 /// The image that represents this plugin
-@property (readonly, copy) NSImage *image;
+@property (nullable, readonly, copy) NSImage *image;
 /// Where this plugin is located
-@property (readonly, strong) NSURL *location;
+@property (nullable, readonly, strong) NSURL *location;
 /// The URL for updates to this plugin
-@property (readonly, strong) NSURL *updateUrl;
+@property (nullable, readonly, strong) NSURL *updateUrl;
 /// The status for this plugin
 @property ZoomPlugInStatus status;
 /// The MD5 for the archive containing the plugin
-@property (readonly, copy) NSData *md5;
+@property (nullable, readonly, copy) NSData *md5;
 /// Updates the status for this plugin
 - (void) setStatus: (ZoomPlugInStatus) status;
 
 /// The plugin info for any known updates to this plugin
-@property (strong) ZoomPlugInInfo *updateInfo;
+@property (nullable, strong) ZoomPlugInInfo *updateInfo;
 
 /// The download for the update for this plugin
-@property (strong) ZoomDownload *download;
+@property (nullable, strong) ZoomDownload *download;
 
 @end
+
+NS_ASSUME_NONNULL_END
