@@ -169,6 +169,35 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	return NO;
 }
 
+- (NSData*)readRawDataReturningXFull:(int*)xFull yFull:(int*)yFull
+{
+	*yFull = 1 + pcxHeader.yMax - pcxHeader.yMin;
+	*xFull = 1 + pcxHeader.xMax - pcxHeader.xMin;
+	const size_t planeLength = pcxHeader.colorPlaneBytes * (*xFull);
+	NSMutableData *data = [[NSMutableData alloc] initWithLength:pcxHeader.colorPlanes * planeLength];
+	{
+		[fileHandle seekToFileOffset:128];
+		int ourFd = fileHandle.fileDescriptor;
+		// Read data
+		unsigned char *bpos = data.mutableBytes;
+		int chr, cnt;
+		const size_t bufrSize = pcxHeader.colorPlanes * planeLength;
+		for (size_t l = 0; l < bufrSize; ) {  /* increment by cnt below */
+			if (EOF == encgetc(&chr, &cnt, ourFd)) {
+				break;
+			}
+			
+			for (int i = 0; i < cnt; i++) {
+				*bpos++ = chr;
+			}
+			
+			l += cnt;
+		}
+	}
+
+	return [data copy];
+}
+
 - (BOOL)readVGAPCXWithError:(NSError**)outError
 {
 	/* first seek to the end of the file -769 */
@@ -206,29 +235,9 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 		}
 		return NO;
 	}
-	int yFull = 1 + pcxHeader.yMax - pcxHeader.yMin;
-	int xFull = 1 + pcxHeader.xMax - pcxHeader.xMin;
-	const size_t planeLength = pcxHeader.colorPlaneBytes * xFull;
-	unsigned char *bufr = calloc(pcxHeader.colorPlanes, planeLength);
-	{
-		[fileHandle seekToFileOffset:128];
-		int ourFd = fileHandle.fileDescriptor;
-		// Read data
-		unsigned char *bpos = bufr;
-		int chr, cnt;
-		const size_t bufrSize = pcxHeader.colorPlanes * planeLength;
-		for (size_t l = 0; l < bufrSize; ) {  /* increment by cnt below */
-			if (EOF == encgetc(&chr, &cnt, ourFd)) {
-				break;
-			}
-			
-			for (int i = 0; i < cnt; i++) {
-				*bpos++ = chr;
-			}
-			
-			l += cnt;
-		}
-	}
+	int yFull, xFull;
+	NSData *rawPCX = [self readRawDataReturningXFull:&xFull yFull:&yFull];
+	const unsigned char *bufr = rawPCX.bytes;
 	{
 		const unsigned char *palette = data.bytes;
 		unsigned char *imageDat = malloc(3 * yFull * xFull);
@@ -246,8 +255,6 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 				pcx_pos++;
 			}
 		}
-		free(bufr);
-
 		imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:&imageDat pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:xFull*3 bitsPerPixel:0];
 		free(imageDat);
 	}
@@ -258,32 +265,13 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 - (BOOL)readTrueColorPCXWithError:(NSError**)outError
 {
 	unsigned char *planes[5] = {NULL};
-	int yFull = 1 + pcxHeader.yMax - pcxHeader.yMin;
-	int xFull = 1 + pcxHeader.xMax - pcxHeader.xMin;
+	int yFull, xFull;
+	NSData *rawPCX = [self readRawDataReturningXFull:&xFull yFull:&yFull];
+	const unsigned char *bufr = rawPCX.bytes;
 	const size_t planeLength = pcxHeader.colorPlaneBytes * xFull;
 	planes[0] = malloc(planeLength);
 	planes[1] = malloc(planeLength);
 	planes[2] = malloc(planeLength);
-	unsigned char *bufr = calloc(pcxHeader.colorPlanes, planeLength);
-	{
-		[fileHandle seekToFileOffset:128];
-		int ourFd = fileHandle.fileDescriptor;
-		// Read data
-		unsigned char *bpos = bufr;
-		int chr, cnt;
-		const size_t bufrSize = pcxHeader.colorPlanes * planeLength;
-		for (size_t l = 0; l < bufrSize; ) {  /* increment by cnt below */
-			if (EOF == encgetc(&chr, &cnt, ourFd)) {
-				break;
-			}
-			
-			for (int i = 0; i < cnt; i++) {
-				*bpos++ = chr;
-			}
-			
-			l += cnt;
-		}
-	}
 
 	/* set up data */
 	int set_aside, image_pos;
@@ -302,7 +290,6 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 			}
 		}
 	}
-	free(bufr);
 	
 	imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:YES colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:pcxHeader.colorPlaneBytes bitsPerPixel:0];
 	// free memory
