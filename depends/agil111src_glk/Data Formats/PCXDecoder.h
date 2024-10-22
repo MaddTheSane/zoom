@@ -16,7 +16,8 @@ typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
   PCXDecoderUnknownVersion,
   PCXDecoderBadEncoding,
   PCXDecoderUnknownPalette,
-  PCXDecoderUnexpectedEOF
+	PCXDecoderUnexpectedEOF,
+	PCXDecoderNoVGAPalette
 };
 
 

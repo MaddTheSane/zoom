@@ -12,6 +12,8 @@
 
 NSErrorDomain const PCXDecoderErrorDomain = @"com.github.MaddTheSane.AGT.PCXErrors";
 
+#define PCXVGAPaletteMagic 12
+
 typedef NS_ENUM(uint8_t, PCXVersion) {
 	PCXVersionFixedEGA = 0,
 	PCXVersionModifiableEGA = 2,
@@ -26,6 +28,7 @@ typedef NS_ENUM(uint8_t, PCXEncoding) {
 };
 
 typedef NS_ENUM(uint16_t, PCXPaletteInfo) {
+	PCXPaletteInfoInvalid = 0,
 	PCXPaletteInfoColorBW = 1,
 	PCXPaletteInfoGrayscale = 2
 };
@@ -93,12 +96,13 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 		return NO;
 	}
 	
-	if (header->paletteMode != PCXPaletteInfoColorBW && header->paletteMode != PCXPaletteInfoGrayscale) {
-		if (outErr) {
-			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
-		}
-		return NO;
-	}
+	// Some PCX files don't honor this...
+//	if (header->paletteMode != PCXPaletteInfoColorBW && header->paletteMode != PCXPaletteInfoGrayscale) {
+//		if (outErr) {
+//			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
+//		}
+//		return NO;
+//	}
 	
 	return YES;
 }
@@ -138,6 +142,10 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 			if (![self readTrueColorPCXWithError:outErr]) {
 				return nil;
 			}
+		} else if (pcxHeader.colorPlanes == 1 && pcxHeader.bitsPerPlane == 8) {
+			if (![self readVGAPCXWithError:outErr]) {
+				return nil;
+			}
 		} else {
 			if (outErr) {
 				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: url, NSLocalizedFailureReasonErrorKey: @"Unsupported PCX format."}];
@@ -161,6 +169,92 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	return NO;
 }
 
+- (BOOL)readVGAPCXWithError:(NSError**)outError
+{
+	/* first seek to the end of the file -769 */
+	unsigned long long offset = 0;
+	if (![fileHandle seekToEndReturningOffset:&offset error:outError]) {
+		return NO;
+	}
+	if (![fileHandle seekToOffset:offset-769 error:outError]) {
+		return NO;
+	}
+	NSData *data = [fileHandle readDataUpToLength:1 error:outError];
+	if (!data) {
+		return NO;
+	}
+	if (data.length != 1) {
+		if (outError) {
+			*outError = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderUnexpectedEOF userInfo:nil];
+		}
+		return NO;
+	}
+	int checkbyte = *((uint8_t*)data.bytes);
+	if (checkbyte != PCXVGAPaletteMagic) {
+		if (outError) {
+			*outError = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderNoVGAPalette userInfo:nil];
+		}
+		return NO;
+	}
+	data = [fileHandle readDataUpToLength:768 error:outError];
+	if (!data) {
+		return NO;
+	}
+	if (data.length != 768) {
+		if (outError) {
+			*outError = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderUnexpectedEOF userInfo:nil];
+		}
+		return NO;
+	}
+	int yFull = 1 + pcxHeader.yMax - pcxHeader.yMin;
+	int xFull = 1 + pcxHeader.xMax - pcxHeader.xMin;
+	const size_t planeLength = pcxHeader.colorPlaneBytes * xFull;
+	unsigned char *bufr = calloc(pcxHeader.colorPlanes, planeLength);
+	{
+		[fileHandle seekToFileOffset:128];
+		int ourFd = fileHandle.fileDescriptor;
+		// Read data
+		unsigned char *bpos = bufr;
+		int chr, cnt;
+		const size_t bufrSize = pcxHeader.colorPlanes * planeLength;
+		for (size_t l = 0; l < bufrSize; ) {  /* increment by cnt below */
+			if (EOF == encgetc(&chr, &cnt, ourFd)) {
+				break;
+			}
+			
+			for (int i = 0; i < cnt; i++) {
+				*bpos++ = chr;
+			}
+			
+			l += cnt;
+		}
+	}
+	{
+		const unsigned char *palette = data.bytes;
+		unsigned char *imageDat = malloc(3 * yFull * xFull);
+		int pcx_pos, image_pos;
+		pcx_pos = image_pos = 0;
+		for (int y = 0; y < yFull; y++) {
+			for (int x = 0; x < pcxHeader.colorPlaneBytes; x++) {
+				/* the width might be different than 'bytesPerLine */
+				if (x < xFull) {
+					imageDat[image_pos * 3 + 0] = palette[bufr[pcx_pos] * 3 + 0];
+					imageDat[image_pos * 3 + 1] = palette[bufr[pcx_pos] * 3 + 1];
+					imageDat[image_pos * 3 + 2] = palette[bufr[pcx_pos] * 3 + 2];
+					image_pos++;
+				}
+				pcx_pos++;
+			}
+		}
+		free(bufr);
+
+		imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:&imageDat pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:xFull*3 bitsPerPixel:0];
+		free(imageDat);
+	}
+	
+	return YES;
+}
+
 - (BOOL)readTrueColorPCXWithError:(NSError**)outError
 {
 	unsigned char *planes[5] = {NULL};
@@ -172,8 +266,8 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	planes[2] = malloc(planeLength);
 	unsigned char *bufr = calloc(pcxHeader.colorPlanes, planeLength);
 	{
-		int ourFd = fileHandle.fileDescriptor;
 		[fileHandle seekToFileOffset:128];
+		int ourFd = fileHandle.fileDescriptor;
 		// Read data
 		unsigned char *bpos = bufr;
 		int chr, cnt;
