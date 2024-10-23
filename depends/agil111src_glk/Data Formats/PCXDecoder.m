@@ -4,7 +4,7 @@
 //
 //  Created by C.W. Betts on 1/6/23.
 //
-// contains code scrounged around the internet, including from UberPaint.
+// contains code scrounged around the internet, including from UberPaint and NetPBM.
 //
 
 #import "PCXDecoder.h"
@@ -14,11 +14,18 @@ NSErrorDomain const PCXDecoderErrorDomain = @"com.github.MaddTheSane.AGT.PCXErro
 
 #define PCXVGAPaletteMagic 12
 
+//! PCX Version
 typedef NS_ENUM(uint8_t, PCXVersion) {
+	//! PC Paintbrush 2.5
 	PCXVersionFixedEGA = 0,
+	//! PC Paintbrush 2.8 w/palette
 	PCXVersionModifiableEGA = 2,
+	//! PC Paintbrush 2.8 w/out palette
 	PCXVersionNoPalette,
+	//! PC Paintbrush for Windows
 	PCXVersionWindows,
+	//! PC Paintbrush 3.0, IV, IV Plus,
+	//! and Publishers Paintbrush
 	PCXVersionLaterWindows
 };
 
@@ -53,23 +60,41 @@ static const uint8_t PCX_defaultPalette[48] = {
 };
 
 typedef struct PCXHeader {
+	//! Zsoft ID byte
 	uint8_t magic; // = 0x0A
+	//! Version, see \c PCXVersion for values.
 	PCXVersion version;
+	//! Encoding (PCX run-length encoding)
 	PCXEncoding encoding;
+	//! Bits/pixel (each plane)
 	uint8_t bitsPerPlane;
+	//! Image dimension Xmin
 	uint16_t xMin;
+	//! Image dimension Ymin
 	uint16_t yMin;
+	//! Image dimension Xmax
 	uint16_t xMax;
+	//! Image dimensions Ymax
 	uint16_t yMax;
+	//! Horizontal Res.
 	uint16_t horizDPI;
+	//! Vertical Res.
 	uint16_t vertDPI;
+	//! Header palette
 	uint8_t egaPalette[48];
+	//! unused, for future use?
 	char reserved;
+	//! number of planes
 	uint8_t colorPlanes;
+	//! bytes/line (memory needed for one plane of each horizontal line)
 	uint16_t colorPlaneBytes;
+	//! Header interpretation
 	PCXPaletteInfo paletteMode;
+	//! Video screen size (Horizontal)
 	uint16_t horizRes;
+	//! Video screen size (Vertical)
 	uint16_t vertRes;
+	//! unused, for future use?
 	char reserved2[54];
 } PCXHeader;
 
@@ -109,6 +134,7 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 
 @implementation PCXDecoder {
 	NSFileHandle *fileHandle;
+	NSURL *fileURL;
 	PCXHeader pcxHeader;
 	NSBitmapImageRep *imageRep;
 }
@@ -116,6 +142,7 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 - (instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr
 {
 	if (self = [super init]) {
+		fileURL = [url URLByResolvingSymlinksInPath];
 		fileHandle = [NSFileHandle fileHandleForReadingFromURL:url error:outErr];
 		if (!fileHandle) {
 			return nil;
@@ -146,6 +173,14 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 			if (![self readVGAPCXWithError:outErr]) {
 				return nil;
 			}
+		} else if (pcxHeader.colorPlanes == 4 && pcxHeader.bitsPerPlane == 1 && pcxHeader.version != PCXVersionNoPalette) {
+			if (![self readEGAPCXWithFixedPalette:NO error:outErr]) {
+				return nil;
+			}
+		} else if (pcxHeader.colorPlanes == 4 && pcxHeader.bitsPerPlane == 1 && pcxHeader.version == PCXVersionNoPalette) {
+			if (![self readEGAPCXWithFixedPalette:YES error:outErr]) {
+				return nil;
+			}
 		} else {
 			if (outErr) {
 				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: url, NSLocalizedFailureReasonErrorKey: @"Unsupported PCX format."}];
@@ -158,6 +193,105 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	return self;
 }
 
+//! Convert packed pixel format in bitplanes[] into 1 pixel per byte
+//! in pixels[].
+static void
+pcxUnpackPixels(unsigned char * const pixels,
+				const unsigned char * const bitplanes,
+				unsigned int    const bytesperline,
+				unsigned int    const planes,
+				unsigned int    const bitsperpixel)
+{
+	unsigned int i;
+	
+	if (planes != 1) {
+//		pm_error("can't handle packed pixels with more than 1 plane" );
+	}
+	
+	for (i = 0; i < bytesperline; ++i) {
+		unsigned int const bits = bitplanes[i];
+		
+		switch (bitsperpixel) {
+			case 4:
+				pixels[2*i + 0] = (bits >> 4) & 0x0f;
+				pixels[2*i + 1] = (bits     ) & 0x0f;
+				break;
+			case 2:
+				pixels[i*4 + 0] = (bits >> 6) & 0x03;
+				pixels[i*4 + 1] = (bits >> 4) & 0x03;
+				pixels[i*4 + 2] = (bits >> 2) & 0x03;
+				pixels[i*4 + 3] = (bits     ) & 0x03;
+				break;
+			case 1:
+				pixels[i*8 + 0]  = ((bits & 0x80) != 0);
+				pixels[i*8 + 1]  = ((bits & 0x40) != 0);
+				pixels[i*8 + 2]  = ((bits & 0x20) != 0);
+				pixels[i*8 + 3]  = ((bits & 0x10) != 0);
+				pixels[i*8 + 4]  = ((bits & 0x08) != 0);
+				pixels[i*8 + 5]  = ((bits & 0x04) != 0);
+				pixels[i*8 + 6]  = ((bits & 0x02) != 0);
+				pixels[i*8 + 7]  = ((bits & 0x01) != 0);
+				break;
+			default:
+//				pm_error("pcxUnpackPixels - can't handle %u bits per pixel",
+//						 bitsperpixel);
+				break;
+		}
+	}
+}
+
+//! Convert multi-plane format into 1 pixel per byte.
+static void
+pcxPlanesToPixels(unsigned char * const pixels,
+				  const unsigned char * const bitPlanes,
+				  unsigned int    const bytesPerLine,
+				  unsigned int    const planes,
+				  unsigned int    const bitsPerPixel)
+{
+	unsigned int const pixelCt = bytesPerLine * 8;
+	
+	unsigned int bitPlanesIdx;
+	/* Index into 'bitPlanes' of next byte to unpack */
+	
+	unsigned int  i;
+	
+	if (planes > 4) {
+//		pm_error("can't handle more than 4 planes");
+	}
+	if (bitsPerPixel != 1) {
+//		pm_error("can't handle more than 1 bit per pixel");
+	}
+	
+	/* Clear the pixel buffer - initial value */
+	for (i = 0; i < pixelCt; ++i) {
+		pixels[i] = 0;
+	}
+	
+	bitPlanesIdx = 0;  /* initial value */
+	
+	for (i = 0; i < planes; ++i) {
+		unsigned int const pixbit = (1 << i);
+		
+		unsigned int pixelIdx;
+		/* Index into 'pixels' of next pixel to output */
+		
+		unsigned int j;
+		
+		for (j = 0, pixelIdx = 0; j < bytesPerLine; ++j) {
+			unsigned int const bits = bitPlanes[bitPlanesIdx++];
+			
+			unsigned int mask;
+			
+			for (mask = 0x80; mask != 0; mask >>= 1) {
+				if (bits & mask) {
+					pixels[pixelIdx] |= pixbit;
+				}
+				++pixelIdx;
+			}
+		}
+	}
+}
+
 - (BOOL)readEGAPCXWithFixedPalette:(BOOL)fixed error:(NSError**)outError
 {
 	uint8_t thePalette[48];
@@ -166,7 +300,47 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	} else {
 		memcpy(thePalette, pcxHeader.egaPalette, sizeof(PCX_defaultPalette));
 	}
-	return NO;
+	int xFull, yFull;
+	NSData *dat = [self readRawDataReturningXFull:&xFull yFull:&yFull];
+	uint8_t *bufr = malloc(xFull * yFull);
+	if (pcxHeader.colorPlanes == 1) {
+		for (int i = 0; i < yFull; i++) {
+			pcxUnpackPixels(&bufr[xFull * i], dat.bytes + pcxHeader.colorPlanes * pcxHeader.colorPlaneBytes * i, pcxHeader.colorPlaneBytes, pcxHeader.colorPlanes, pcxHeader.bitsPerPlane);
+		}
+	} else {
+		for (int i = 0; i < yFull; i++) {
+			pcxPlanesToPixels(&bufr[xFull * i], &dat.bytes[pcxHeader.colorPlanes * pcxHeader.colorPlaneBytes * i], pcxHeader.colorPlaneBytes, pcxHeader.colorPlanes, pcxHeader.bitsPerPlane);
+		}
+	}
+	
+	{
+		NSMutableData *imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
+		unsigned char *imageDat = imageNSDat.mutableBytes;
+		int pcx_pos, image_pos;
+		pcx_pos = image_pos = 0;
+		for (int y = 0; y < yFull; y++) {
+			for (int x = 0; x < xFull; x++) {
+				imageDat[image_pos * 3 + 0] = thePalette[bufr[pcx_pos] * 3 + 0];
+				imageDat[image_pos * 3 + 1] = thePalette[bufr[pcx_pos] * 3 + 1];
+				imageDat[image_pos * 3 + 2] = thePalette[bufr[pcx_pos] * 3 + 2];
+				image_pos++;
+				pcx_pos++;
+			}
+		}
+		dat = nil;
+		free(bufr);
+		imageDat = NULL;
+		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
+		imageNSDat = nil;
+		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
+		CGDataProviderRelease(imgProvider);
+		CGColorSpaceRelease(colorSpace);
+		imageRep = [[NSBitmapImageRep alloc] initWithCGImage:img];
+		CGImageRelease(img);
+	}
+	
+	return YES;
 }
 
 - (NSData*)readRawDataReturningXFull:(int*)xFull yFull:(int*)yFull
@@ -257,7 +431,10 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 			}
 		}
 		imageDat = NULL;
+		bufr = NULL;
+		rawPCX = nil;
 		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
+		imageNSDat = nil;
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
 		CGDataProviderRelease(imgProvider);
