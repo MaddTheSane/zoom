@@ -100,38 +100,6 @@ typedef struct PCXHeader {
 
 static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 
-static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
-{
-	if (header->magic != 0x0A) {
-		if (outErr) {
-			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderInvalidMagic userInfo: nil];
-		}
-		return NO;
-	}
-	if (header->version != PCXVersionFixedEGA && header->version != PCXVersionModifiableEGA && header->version != PCXVersionNoPalette && header->version != PCXVersionWindows && header->version != PCXVersionLaterWindows) {
-		if (outErr) {
-			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnknownVersion userInfo: nil];
-		}
-		return NO;
-	}
-	if (header->encoding != PCXEncodingNone && header->encoding != PCXEncodingRLE) {
-		if (outErr) {
-			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
-		}
-		return NO;
-	}
-	
-	// Some PCX files don't honor this...
-//	if (header->paletteMode != PCXPaletteInfoColorBW && header->paletteMode != PCXPaletteInfoGrayscale) {
-//		if (outErr) {
-//			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: nil];
-//		}
-//		return NO;
-//	}
-	
-	return YES;
-}
-
 @implementation PCXDecoder {
 	NSFileHandle *fileHandle;
 	NSURL *fileURL;
@@ -139,10 +107,89 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 	NSBitmapImageRep *imageRep;
 }
 
++ (void)initialize
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[NSError setUserInfoValueProviderForDomain:PCXDecoderErrorDomain provider:^id _Nullable(NSError * _Nonnull err, NSErrorUserInfoKey  _Nonnull userInfoKey) {
+			switch ((PCXDecoderErrors)err.code) {
+				case PCXDecoderInvalidMagic:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"File is not PCX, magic number invalid.";
+					}
+					break;
+					
+				case PCXDecoderUnknownVersion:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"Unknown PCX version number.";
+					}
+					break;
+					
+				case PCXDecoderBadEncoding:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"Unknown PCX version encoding.";
+					}
+					break;
+					
+				case PCXDecoderUnknownPalette:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"Unknown PCX palette value.";
+					}
+					break;
+					
+				case PCXDecoderUnexpectedEOF:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"Unexpected end of file, possibly truncaded?";
+					}
+					break;
+					
+				case PCXDecoderNoVGAPalette:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return @"The VGA palette was not found.";
+					}
+					break;
+			}
+			return nil;
+		}];
+	});
+}
+
+- (BOOL)verifyHeaderWithError:(NSError **)outErr
+{
+	if (pcxHeader.magic != 0x0A) {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderInvalidMagic userInfo: @{NSURLErrorKey: fileURL}];
+		}
+		return NO;
+	}
+	if (pcxHeader.version != PCXVersionFixedEGA && pcxHeader.version != PCXVersionModifiableEGA && pcxHeader.version != PCXVersionNoPalette && pcxHeader.version != PCXVersionWindows && pcxHeader.version != PCXVersionLaterWindows) {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnknownVersion userInfo: @{NSURLErrorKey: fileURL}];
+		}
+		return NO;
+	}
+	if (pcxHeader.encoding != PCXEncodingNone && pcxHeader.encoding != PCXEncodingRLE) {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: @{NSURLErrorKey: fileURL}];
+		}
+		return NO;
+	}
+	
+	// Some PCX files don't honor this...
+//	if (pcxHeader.paletteMode != PCXPaletteInfoColorBW && pcxHeader.paletteMode != PCXPaletteInfoGrayscale) {
+//		if (outErr) {
+//			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderBadEncoding userInfo: @{NSURLErrorKey: fileURL}];
+//		}
+//		return NO;
+//	}
+	
+	return YES;
+}
+
 - (instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr
 {
 	if (self = [super init]) {
-		fileURL = [url URLByResolvingSymlinksInPath];
+		fileURL = url;
 		fileHandle = [NSFileHandle fileHandleForReadingFromURL:url error:outErr];
 		if (!fileHandle) {
 			return nil;
@@ -160,7 +207,7 @@ static BOOL verifyHeader(const struct PCXHeader *header, NSError **outErr)
 		// TODO: byte-swap? This assumes a Little Endian architecture.
 		[hand getBytes:&pcxHeader length:sizeof(struct PCXHeader)];
 		
-		if (!verifyHeader(&pcxHeader, outErr)) {
+		if (![self verifyHeaderWithError:outErr]) {
 			return nil;
 		}
 		
@@ -395,7 +442,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	int checkbyte = *((uint8_t*)data.bytes);
 	if (checkbyte != PCXVGAPaletteMagic) {
 		if (outError) {
-			*outError = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderNoVGAPalette userInfo:nil];
+			*outError = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderNoVGAPalette userInfo:@{NSURLErrorKey: fileURL}];
 		}
 		return NO;
 	}
@@ -405,7 +452,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	}
 	if (data.length != 768) {
 		if (outError) {
-			*outError = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderUnexpectedEOF userInfo:nil];
+			*outError = [NSError errorWithDomain:PCXDecoderErrorDomain code:PCXDecoderUnexpectedEOF userInfo:@{NSURLErrorKey: fileURL}];
 		}
 		return NO;
 	}
@@ -462,7 +509,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	int pcx_pos = image_pos = 0;
 	for (int y = 0; y < yFull; y++) {
 		set_aside = image_pos; /* since they're muxed weird
-								* TODO: ...but is it muxed weird to our benefit?
+								* ...but is it muxed weird to our benefit?
 								* .. turns out no :( */
 		for (int p = 0; p < pcxHeader.colorPlanes ; p++) {
 			image_pos = set_aside;
