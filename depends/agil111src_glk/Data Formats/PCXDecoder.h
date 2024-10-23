@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSErrorDomain const PCXDecoderErrorDomain;
 typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
-  PCXDecoderInvalidMagic,
-  PCXDecoderUnknownVersion,
-  PCXDecoderBadEncoding,
-  PCXDecoderUnknownPalette,
+	PCXDecoderInvalidMagic,
+	PCXDecoderUnknownVersion,
+	PCXDecoderBadEncoding,
+	PCXDecoderUnknownPalette,
 	PCXDecoderUnexpectedEOF,
 	PCXDecoderNoVGAPalette
 };
