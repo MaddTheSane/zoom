@@ -104,7 +104,7 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 	NSFileHandle *fileHandle;
 	NSURL *fileURL;
 	PCXHeader pcxHeader;
-	NSBitmapImageRep *imageRep;
+	NSData *imageRep;
 }
 
 + (void)initialize
@@ -360,8 +360,9 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		}
 	}
 	
+	NSMutableData *imageNSDat;
 	{
-		NSMutableData *imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
+		imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
 		unsigned char *imageDat = imageNSDat.mutableBytes;
 		int pcx_pos, image_pos;
 		pcx_pos = image_pos = 0;
@@ -377,14 +378,23 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		dat = nil;
 		free(bufr);
 		imageDat = NULL;
+	}
+	
+	{
 		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
 		imageNSDat = nil;
-		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
 		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
 		CGDataProviderRelease(imgProvider);
 		CGColorSpaceRelease(colorSpace);
-		imageRep = [[NSBitmapImageRep alloc] initWithCGImage:img];
+		NSMutableData *mutDat = [[NSMutableData alloc] init];
+		CGImageDestinationRef dst = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)mutDat, kUTTypeGIF, 1, NULL);
+		CGImageDestinationAddImage(dst, img, NULL);
 		CGImageRelease(img);
+		CGImageDestinationFinalize(dst);
+		CFRelease(dst);
+		
+		imageRep = [mutDat copy];
 	}
 	
 	return YES;
@@ -457,11 +467,12 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		return NO;
 	}
 	int yFull, xFull;
-	NSData *rawPCX = [self readRawDataReturningXFull:&xFull yFull:&yFull];
-	const unsigned char *bufr = rawPCX.bytes;
+	NSMutableData *imageNSDat;
 	{
+		NSData *rawPCX = [self readRawDataReturningXFull:&xFull yFull:&yFull];
+		const unsigned char *bufr = rawPCX.bytes;
 		const unsigned char *palette = data.bytes;
-		NSMutableData *imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
+		imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
 		unsigned char *imageDat = imageNSDat.mutableBytes;
 		int pcx_pos, image_pos;
 		pcx_pos = image_pos = 0;
@@ -480,14 +491,23 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		imageDat = NULL;
 		bufr = NULL;
 		rawPCX = nil;
+	}
+	
+	{
 		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
 		imageNSDat = nil;
-		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
 		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
 		CGDataProviderRelease(imgProvider);
 		CGColorSpaceRelease(colorSpace);
-		imageRep = [[NSBitmapImageRep alloc] initWithCGImage:img];
+		NSMutableData *mutDat = [[NSMutableData alloc] init];
+		CGImageDestinationRef dst = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)mutDat, kUTTypePNG, 1, NULL);
+		CGImageDestinationAddImage(dst, img, NULL);
 		CGImageRelease(img);
+		CGImageDestinationFinalize(dst);
+		CFRelease(dst);
+		
+		imageRep = [mutDat copy];
 	}
 	
 	return YES;
@@ -522,7 +542,9 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		}
 	}
 	
-	imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:YES colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:pcxHeader.colorPlaneBytes bitsPerPixel:0];
+	NSBitmapImageRep *imgRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:YES colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:pcxHeader.colorPlaneBytes bitsPerPixel:0];
+	imgRep = [imgRep bitmapImageRepByRetaggingWithColorSpace:[NSColorSpace sRGBColorSpace]];
+	imageRep = [imgRep TIFFRepresentation];
 	// free memory
 	free(planes[0]); planes[0] = NULL;
 	free(planes[1]); planes[1] = NULL;
@@ -531,9 +553,9 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	return YES;
 }
 
-- (NSData *)TIFFRepresentation
+- (NSData *)dataRepresentation
 {
-	return [imageRep TIFFRepresentation];
+	return imageRep;
 }
 
 @end

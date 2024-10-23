@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 			return EXIT_FAILURE;
 		}
 		NSURL *outURL = [theURL.URLByDeletingPathExtension URLByAppendingPathExtension:@"tiff"];
-		NSData *dat = [aDec TIFFRepresentation];
+		NSData *dat = [aDec dataRepresentation];
 		[dat writeToURL:outURL atomically:YES];
 	}
 	
