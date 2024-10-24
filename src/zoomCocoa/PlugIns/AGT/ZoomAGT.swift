@@ -141,8 +141,22 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	// MARK: - ZoomStoryConverter protocol
 	
 	public static func convertStoryFile(at url: URL) async throws -> URL {
-		
-		throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: [NSURLErrorKey: url])
+		let ourBundle = Bundle(for: AGT.self)
+		guard let agtURL = ourBundle.url(forAuxiliaryExecutable: "agt2agx") else {
+			throw CocoaError(.fileReadNoSuchFile, userInfo: [NSURLErrorKey: ourBundle.bundleURL.appendingPathComponent("Contents/MacOS/agt2agx")])
+		}
+		var outFile = url
+		outFile.deletePathExtension()
+		outFile.appendPathExtension("agx")
+		let convertProcess = Process()
+		convertProcess.executableURL = agtURL
+		convertProcess.arguments = ["-o", outFile.path, url.path]
+		try convertProcess.run()
+		convertProcess.waitUntilExit()
+		guard convertProcess.terminationStatus == 0 else {
+			throw CocoaError(.fileReadCorruptFile, userInfo: [NSURLErrorKey: url])
+		}
+		return outFile
 	}
 
 	public static func canConvert(_ path: URL) -> Bool {
