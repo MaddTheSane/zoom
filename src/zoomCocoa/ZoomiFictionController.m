@@ -644,7 +644,7 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 			NSLog(@"Couldn't find anything at %@ (looking for IFID: %@)", filename, [self selectedStoryID]);
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = NSLocalizedString(@"Zoom cannot find this story", @"Zoom cannot find this story");
-			alert.informativeText = [NSString localizedStringWithFormat:@"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.",
+			alert.informativeText = [NSString localizedStringWithFormat:NSLocalizedString(@"Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually.", @"File is missing, look for it in the Finder."),
 									 [[self selectedStory] title], filename];
 			[alert addButtonWithTitle: NSLocalizedString(@"Cancel", @"Cancel")];
 			[alert beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse returnCode) {

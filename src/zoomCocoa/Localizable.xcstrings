@@ -294,6 +294,12 @@
     "Cancel" : {
       "comment" : "Cancel",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Abbrechen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1238,6 +1244,12 @@
     "Invalid save game Info %@" : {
       "comment" : "Tell user that it couldn't load save game. %@ is the localized reason why.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dies sieht nicht nach einem gültigen Zoom-Speicherspiel aus - es ist möglich, dass es verschoben wurde oder Sie etwas gespeichert haben, das wie ein Speicherspiel aussieht, es aber nicht ist. %@."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",

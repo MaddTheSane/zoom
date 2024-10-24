@@ -9,6 +9,12 @@
             "state" : "translated",
             "value" : "[ The game has finished ]"
           }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[ The game has finished ]"
+          }
         }
       }
     },
@@ -16,6 +22,12 @@
       "comment" : "[ The Zoom interpreter has quit unexpectedly ]",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[ The Zoom interpreter has quit unexpectedly ]"
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "[ The Zoom interpreter has quit unexpectedly ]"
@@ -31,6 +43,12 @@
             "state" : "translated",
             "value" : "[More…]"
           }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[More…]"
+          }
         }
       }
     },
@@ -38,6 +56,12 @@
       "comment" : "Fatal error",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fatal error"
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fatal error"
@@ -53,6 +77,12 @@
             "state" : "translated",
             "value" : "Stop"
           }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
         }
       }
     },
@@ -60,6 +90,12 @@
       "comment" : "Warning",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning"
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Warning"
@@ -76,6 +112,12 @@
             "state" : "new",
             "value" : "No FORM block found in blorb."
           }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No FORM block found in blorb."
+          }
         }
       }
     },
@@ -88,6 +130,12 @@
             "state" : "new",
             "value" : "File is too small to be a blorb file."
           }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File is too small to be a blorb file."
+          }
         }
       }
     },
@@ -98,6 +146,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "Unexpected end of file."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "Unexpected end of file."
           }
         }
