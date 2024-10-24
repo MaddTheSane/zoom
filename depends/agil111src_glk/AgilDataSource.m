@@ -29,7 +29,7 @@ static FILE *linopen(const char *name, const char *ext)
 #define GFX_EXT_CNT 17
 /* The extension indicates the video mode the picture was intended
    to be viewed in. */
-static const char *gfxext[GFX_EXT_CNT]={".pcx",
+static const char *const gfxext[GFX_EXT_CNT]={".pcx",
           ".p06", /* 640x200x2 */
           ".p40",".p41",".p42",".p43", /* 320x200x4 */
           ".p13", /* 320x200x16 */
@@ -41,7 +41,7 @@ static const char *gfxext[GFX_EXT_CNT]={".pcx",
 
 #define SND_EXT_CNT 4
 // FIXME: Are there more possible formats?
-static const char *sndext[SND_EXT_CNT]={".muc",
+static const char *const sndext[SND_EXT_CNT]={".muc",
           ".voc",
           ".mid",
           ".cmf"};

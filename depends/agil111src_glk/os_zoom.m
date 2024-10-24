@@ -412,6 +412,7 @@ gagt_debug (const char *function, const char *format, ...)
 void
 agt_tone (int hz, int ms)
 {
+  //TODO: send this to glksound somehow.
   gagt_debug ("agt_tone", "hz=%d, ms=%d", hz, ms);
 }
 
@@ -6877,13 +6878,13 @@ static int gagt_agility_running = FALSE;
  * want it to call glk_exit(), but it's hard to achieve.  There are three
  * basic approaches possible, and all have drawbacks:
  *
- *   o #define exit to gagt_something, and provide the gagt_something()
+ *   - #define exit to gagt_something, and provide the gagt_something()
  *     function.  This type of macro definition is portable for the most
  *     part, but tramples the code badly, and messes up the build of the
  *     non-interpreter "support" binaries.
- *   o Use ld's --wrap to wrapper exit.  This only works with Linux's linker
+ *   - Use ld's --wrap to wrapper exit.  This only works with Linux's linker
  *     and so isn't at all portable.
- *   o Register an exit handler with atexit(), and try to cope in it after
+ *   - Register an exit handler with atexit(), and try to cope in it after
  *     exit() has been called.
  *
  * Here we try the last of these.  The one sticky part of it is that in our
