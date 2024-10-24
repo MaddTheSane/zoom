@@ -66,7 +66,7 @@ class ImportExtension: CSImportExtension {
 			story = try loadMetadataFromBlorb(at: forFileAt, lookingFor: story_id)
 		}
 		guard let story else {
-			throw CocoaError(.fileReadCorruptFile)
+			throw CocoaError(.fileReadCorruptFile, userInfo: [NSURLErrorKey: forFileAt])
 		}
 		
 		attributes.identifier = story_id.description
@@ -104,7 +104,7 @@ class ImportExtension: CSImportExtension {
 		//
 		let year = story.year
 		if year != 0, let genreKey = CSCustomAttributeKey(keyName: "public_zcode_year") {
-			attributes.setValue(year as NSNumber, forCustomKey: genreKey)
+			attributes.setValue(NSNumber(value: year), forCustomKey: genreKey)
 		}
 		
 		//
@@ -160,7 +160,7 @@ class ImportExtension: CSImportExtension {
 		//
 		let rating = story.rating
 		if rating != -1 {
-			attributes.rating = rating as NSNumber
+			attributes.rating = NSNumber(value: rating)
 		}
     }
 }

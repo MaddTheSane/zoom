@@ -332,21 +332,21 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	private func colorName(at index: Int) -> String {
 		switch index {
 		case 0:
-			return NSLocalizedString("Color Black", comment: "Black");
+			return NSLocalizedString("Color Black", value: "Black", comment: "Black");
 		case 1:
-			return NSLocalizedString("Color Red", comment: "Red");
+			return NSLocalizedString("Color Red", value: "Red", comment: "Red");
 		case 2:
-			return NSLocalizedString("Color Green", comment: "Green");
+			return NSLocalizedString("Color Green", value: "Green", comment: "Green");
 		case 3:
-			return NSLocalizedString("Color Yellow", comment: "Yellow");
+			return NSLocalizedString("Color Yellow", value: "Yellow", comment: "Yellow");
 		case 4:
-			return NSLocalizedString("Color Blue", comment: "Blue");
+			return NSLocalizedString("Color Blue", value: "Blue", comment: "Blue");
 		case 5:
-			return NSLocalizedString("Color Magenta", comment: "Magenta");
+			return NSLocalizedString("Color Magenta", value: "Magenta", comment: "Magenta");
 		case 6:
-			return NSLocalizedString("Color Cyan", comment: "Cyan");
+			return NSLocalizedString("Color Cyan", value: "Cyan", comment: "Cyan");
 		case 7:
-			return NSLocalizedString("Color White", comment: "White");
+			return NSLocalizedString("Color White", value: "White", comment: "White");
 		case 8:
 			return NSLocalizedString("Color Light grey", value: "Light gray", comment: "Light grey");
 		case 9:

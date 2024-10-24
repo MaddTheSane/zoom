@@ -508,7 +508,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			}
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				prefs[coloursKey] = newValue
 			} else {
 				prefs.removeValue(forKey: coloursKey)
