@@ -67,7 +67,7 @@ static NSArray<AGILMUCEntry*> *mucDecode(NSURL *theFile, NSError *__autoreleasin
 		NSData *testDat = [hand readDataUpToLength:sizeof(MUCEntry) error:outError];
 		MUCEntry entry;
 		if (testDat.length != 6) {
-			continue;
+			break;
 		}
 		[testDat getBytes:&entry length:sizeof(entry)];
 		[toRetValues addObject:[[AGILMUCEntry alloc] initWithEntry:entry]];
