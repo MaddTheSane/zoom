@@ -97,7 +97,6 @@ NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft)
 	return orderedSet.array;
 }
 
-
 + (NSArray<UTType *> *)supportedContentTypes {
 	// Construct UTTypes from supportedFileTypes, since the plug-in subclass doesn't support it
 	NSArray<NSString*> *sft = [self supportedFileTypes];

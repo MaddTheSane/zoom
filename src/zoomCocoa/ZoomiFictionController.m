@@ -467,7 +467,7 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 	while([selectedFiles count] > 0) @autoreleasepool {
 		BOOL isDir;
 		
-		NSURL *filename = [selectedFiles objectAtIndex:0];
+		NSURL *filename = selectedFiles.firstObject;
 
 		isDir = NO;
 		urlIsAvailableAndIsDirectory(filename, &isDir, NULL, NULL, NULL);

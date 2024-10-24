@@ -6061,6 +6061,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"GLK=1",
+					"__unix=1",
+					"$(inherited)",
+					"UNIX=1",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6080,6 +6086,12 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"GLK=1",
+					"__unix=1",
+					"$(inherited)",
+					"UNIX=1",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
