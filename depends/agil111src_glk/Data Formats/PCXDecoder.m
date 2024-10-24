@@ -100,11 +100,14 @@ typedef struct PCXHeader {
 
 static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 
+@interface PCXDecoder ()
+@property (readwrite, copy, nullable) NSData *dataRepresentation;
+@end
+
 @implementation PCXDecoder {
 	NSFileHandle *fileHandle;
 	NSURL *fileURL;
 	PCXHeader pcxHeader;
-	NSData *imageRep;
 }
 
 + (void)initialize
@@ -194,7 +197,7 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 		if (!fileHandle) {
 			return nil;
 		}
-		NSData *hand = [fileHandle readDataUpToLength:sizeof(struct PCXHeader) error:outErr];
+		NSData *hand = [fileHandle readDataUpToLength:sizeof(PCXHeader) error:outErr];
 		if (!hand) {
 			return nil;
 		}
@@ -359,6 +362,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 			pcxPlanesToPixels(&bufr[xFull * i], &dat.bytes[pcxHeader.colorPlanes * pcxHeader.colorPlaneBytes * i], pcxHeader.colorPlaneBytes, pcxHeader.colorPlanes, pcxHeader.bitsPerPlane);
 		}
 	}
+	dat = nil;
 	
 	NSMutableData *imageNSDat;
 	{
@@ -375,8 +379,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 				pcx_pos++;
 			}
 		}
-		dat = nil;
-		free(bufr);
+		free(bufr); bufr = NULL;
 		imageDat = NULL;
 	}
 	
@@ -394,7 +397,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		CGImageDestinationFinalize(dst);
 		CFRelease(dst);
 		
-		imageRep = [mutDat copy];
+		self.dataRepresentation = mutDat;
 	}
 	
 	return YES;
@@ -415,6 +418,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		const size_t bufrSize = pcxHeader.colorPlanes * planeLength;
 		for (size_t l = 0; l < bufrSize; ) {  /* increment by cnt below */
 			if (EOF == encgetc(&chr, &cnt, ourFd)) {
+				data.length = l;
 				break;
 			}
 			
@@ -488,9 +492,6 @@ pcxPlanesToPixels(unsigned char * const pixels,
 				pcx_pos++;
 			}
 		}
-		imageDat = NULL;
-		bufr = NULL;
-		rawPCX = nil;
 	}
 	
 	{
@@ -507,7 +508,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		CGImageDestinationFinalize(dst);
 		CFRelease(dst);
 		
-		imageRep = [mutDat copy];
+		self.dataRepresentation = mutDat;
 	}
 	
 	return YES;
@@ -544,7 +545,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	
 	NSBitmapImageRep *imgRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:YES colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:pcxHeader.colorPlaneBytes bitsPerPixel:0];
 	imgRep = [imgRep bitmapImageRepByRetaggingWithColorSpace:[NSColorSpace sRGBColorSpace]];
-	imageRep = [imgRep TIFFRepresentation];
+	self.dataRepresentation = [imgRep TIFFRepresentation];
 	// free memory
 	free(planes[0]); planes[0] = NULL;
 	free(planes[1]); planes[1] = NULL;
@@ -553,10 +554,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	return YES;
 }
 
-- (NSData *)dataRepresentation
-{
-	return imageRep;
-}
+@synthesize dataRepresentation;
 
 @end
 

@@ -25,7 +25,7 @@ typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
 
 - (nullable instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr;
 
-- (nullable NSData*)dataRepresentation;
+@property (readonly, copy, nullable) NSData *dataRepresentation;
 
 @end
 
