@@ -10,6 +10,7 @@
 #import "ZoomPlugIn.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
+extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 
 @implementation ZoomPlugIn {
 @private
@@ -55,9 +56,8 @@
 	return @[];
 }
 
-+ (NSArray<UTType *> *)supportedContentTypes {
-	// Construct UTTypes from supportedFileTypes, since the plug-in subclass doesn't support it
-	NSArray<NSString*> *sft = [self supportedFileTypes];
+NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft)
+{
 	// Ordered set to prevent duplicates, as well as to keep the order
 	NSMutableOrderedSet<UTType*> *orderedSet = [[NSMutableOrderedSet alloc] initWithCapacity:sft.count];
 	for (NSString *ident in sft) {
@@ -95,6 +95,13 @@
 		}
 	}
 	return orderedSet.array;
+}
+
+
++ (NSArray<UTType *> *)supportedContentTypes {
+	// Construct UTTypes from supportedFileTypes, since the plug-in subclass doesn't support it
+	NSArray<NSString*> *sft = [self supportedFileTypes];
+	return ZoomContentTypesFromTypes(sft);
 }
 
 #pragma mark - Designated initialiser

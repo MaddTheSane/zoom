@@ -13,6 +13,8 @@
 
 NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
 
+extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
+
 @implementation ZoomPlugInManager {
 	/// The plugin lock
 	NSLock* pluginLock;
@@ -255,6 +257,31 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	return nil;
 }
 
+- (Class) converterForURL: (NSURL*) fileName {
+#if VERBOSITY >= 3
+	NSLog(@"= Seeking a plugin for %@", filename);
+#endif
+	
+	[self loadPlugIns];
+	
+	for (Class pluginClass in pluginClasses) {
+		if (![pluginClass conformsToProtocol:@protocol(ZoomStoryConverter)]) {
+			continue;
+		}
+		if ([pluginClass canConvertURL: fileName]) {
+#if VERBOSITY >=3
+			NSLog(@"= Found %@", [pluginClass description]);
+#endif
+			return pluginClass;
+		}
+	}
+	
+#if VERBOSITY >= 3
+	NSLog(@"= No plugins found (will try z-code)", filename);
+#endif
+	return nil;
+}
+
 - (ZoomPlugIn*) instanceForURL: (NSURL*) filename{
 	[pluginLock lock];
 	
@@ -312,14 +339,25 @@ NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformatio
 	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 6];
 	for (Class plugClass in pluginClasses) {
 		[utis addObjectsFromArray: [plugClass supportedFileTypes]];
+		if ([plugClass conformsToProtocol:@protocol(ZoomStoryConverter)]) {
+			[utis addObjectsFromArray: [plugClass supportedConverterFileTypes]];
+		}
 	}
 	return [utis copy];
 }
 
 - (NSArray<UTType*>*)pluginSupportedContentTypes {
-	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2 + 4];
+	NSMutableArray<UTType *> *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2 + 4];
 	for (Class plugClass in pluginClasses) {
 		[utis addObjectsFromArray: [plugClass supportedContentTypes]];
+		if ([plugClass conformsToProtocol:@protocol(ZoomStoryConverter)]) {
+			if ([plugClass respondsToSelector:@selector(supportedConverterContentTypes)]) {
+				[utis addObjectsFromArray: [plugClass supportedConverterContentTypes]];
+			} else {
+				NSArray *importerFileTypes = [plugClass supportedConverterFileTypes];
+				[utis addObjectsFromArray:ZoomContentTypesFromTypes(importerFileTypes)];
+			}
+		}
 	}
 	return [utis copy];
 }

@@ -11,6 +11,7 @@ import Cocoa
 import ZoomPlugIns.ZoomPlugIn
 import ZoomPlugIns.ZoomPlugIn.Glk
 import ZoomPlugIns.ZoomBabel
+import ZoomPlugIns.ZoomStoryConverter
 import ZoomPlugIns
 import UniformTypeIdentifiers
 
@@ -42,7 +43,7 @@ private func read_agt_int(_ sf: Data) -> Int32 {
 }
 
 
-final public class AGT: ZoomGlkPlugIn {
+final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	public override class var pluginVersion: String {
 		return (Bundle(for: AGT.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String)!
 	}
@@ -135,5 +136,24 @@ final public class AGT: ZoomGlkPlugIn {
 	public override var coverImage: NSImage? {
 		let babel = ZoomBabel(url: gameURL)
 		return babel.coverImage()
+	}
+	
+	// MARK: - ZoomStoryConverter protocol
+	
+	public static func convertStoryFile(at url: URL) async throws -> URL {
+		
+		throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: [NSURLErrorKey: url])
+	}
+
+	public static func canConvert(_ path: URL) -> Bool {
+		return supportedConverterFileTypes.contains(path.pathExtension.lowercased())
+	}
+	
+	public static var supportedConverterFileTypes: [String] {
+		return ["d$$"]
+	}
+	
+	public static var supportedConverterContentTypes: [UTType] {
+		return [UTType(importedAs: "public.ddollardollar")]
 	}
 }

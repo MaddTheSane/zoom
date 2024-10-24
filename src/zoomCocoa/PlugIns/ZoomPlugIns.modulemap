@@ -101,6 +101,12 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
+	explicit module ZoomStoryConverter {
+		requires objc
+		header "ZoomStoryConverter.h"
+		export *
+	}
+	
 	module ZoomResourceDrop {
 		requires objc
 		header "ZoomResourceDrop.h"

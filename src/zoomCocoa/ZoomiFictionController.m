@@ -18,6 +18,7 @@
 #import "ZoomAppDelegate.h"
 #import <ZoomPlugIns/ZoomGameInfoController.h>
 #import <ZoomPlugIns/ZoomNotesController.h>
+#import <ZoomPlugIns/ZoomStoryConverter.h>
 #import "ZoomClient.h"
 #import <ZoomPlugIns/ZoomPlugInManager.h>
 #import <ZoomPlugIns/ZoomPlugInController.h>
@@ -510,6 +511,18 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
 																   error: NULL];
 			}
+		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] converterForURL:filename])) {
+			[plugin convertStoryFileAtURL:filename completionHandler:^(NSURL *newURL, NSError *anyError) {
+				if (!newURL) {
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[self presentError:anyError];
+					});
+					return;
+				}
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[self addURLs:@[newURL]];
+				});
+			}];
 		}
 
 		[selectedFiles removeObjectAtIndex:0];
@@ -543,6 +556,12 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 	
 	// Show files that have a valid plugin
 	Class pluginClass = [[ZoomPlugInManager sharedPlugInManager] plugInForURL: url];
+	
+	if (pluginClass != nil) {
+		return YES;
+	}
+	
+	pluginClass = [[ZoomPlugInManager sharedPlugInManager] converterForURL: url];
 	
 	if (pluginClass != nil) {
 		return YES;
@@ -597,8 +616,7 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 	[storiesToAdd setDelegate: self];
 		NSArray* fileTypes = @[[UTType importedTypeWithIdentifier:@"public.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb.glulx"], [UTType importedTypeWithIdentifier:@"public.blorb.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb"]];
 		NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedContentTypes];
-		fileTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
-		storiesToAdd.allowedContentTypes = fileTypes;
+	storiesToAdd.allowedContentTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
 	
 	NSURL* path = [[NSUserDefaults standardUserDefaults] URLForKey: addDirectory];
 	storiesToAdd.directoryURL = path;

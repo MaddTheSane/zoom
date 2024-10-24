@@ -314,7 +314,6 @@
 		554A4541291CC25300C090C3 /* Hugo.plugin in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 5591DC1E29163EB400BF6F6F /* Hugo.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5551384B29678A9C002BAAAC /* AgilDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551384A29678A9C002BAAAC /* AgilDataSource.m */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
-		555BCB84295D1332002E569F /* agt2agx in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368B00272A046400740A0A /* agt2agx */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55687B1C29A0B4B80005E1AE /* ZpTadsTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 55687B1B29A0B4B80005E1AE /* ZpTadsTwo.m */; };
 		55687B1F29A0B5510005E1AE /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
 		55687B2E29A0BD2A0005E1AE /* ZpTadsThree.m in Sources */ = {isa = PBXBuildFile; fileRef = 55687B2D29A0BB460005E1AE /* ZpTadsThree.m */; };
@@ -322,6 +321,8 @@
 		5571D30E2CC71271004709D1 /* PCXTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 5571D30D2CC71271004709D1 /* PCXTester.m */; };
 		5571D30F2CC712D3004709D1 /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
 		5571D3102CC71ABD004709D1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
+		5571D3132CC9CBEE004709D1 /* agt2agx in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368B00272A046400740A0A /* agt2agx */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5571D3172CC9CD8A004709D1 /* ZoomStoryConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5571D3162CC9CD71004709D1 /* ZoomStoryConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5576A0322B2A546D00A1D8FC /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5576A0312B2A546D00A1D8FC /* InfoPlist.xcstrings */; };
 		5576A0342B2A546D00A1D8FC /* LocalizedSkein.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5576A0332B2A546D00A1D8FC /* LocalizedSkein.xcstrings */; };
 		5576A0372B2A546D00A1D8FC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5576A0362B2A546D00A1D8FC /* Localizable.xcstrings */; };
@@ -853,13 +854,6 @@
 			remoteGlobalIDString = 55C6BB36204DED96001AE7E5;
 			remoteInfo = SwiftGlk;
 		};
-		555BCB81295D1308002E569F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 55368AEA272A046400740A0A;
-			remoteInfo = agt2agx;
-		};
 		55687B1D29A0B4CC0005E1AE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
@@ -873,6 +867,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
 			remoteInfo = ZoomPlugIns;
+		};
+		5571D3112CC9CB95004709D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B39C92A08EEF63400BA5E90;
+			remoteInfo = ZoomMetadataImporter;
+		};
+		5571D3142CC9CBF6004709D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55368AEA272A046400740A0A;
+			remoteInfo = agt2agx;
 		};
 		5591DC0D291637AA00BF6F6F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1172,6 +1180,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				5571D3132CC9CBEE004709D1 /* agt2agx in CopyFiles */,
 				55368B11272A052A00740A0A /* agil in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1182,7 +1191,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				555BCB84295D1332002E569F /* agt2agx in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1595,6 +1603,7 @@
 		55687B2D29A0BB460005E1AE /* ZpTadsThree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZpTadsThree.m; sourceTree = "<group>"; };
 		5571D3062CC71256004709D1 /* PCXTester */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PCXTester; sourceTree = BUILT_PRODUCTS_DIR; };
 		5571D30D2CC71271004709D1 /* PCXTester.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PCXTester.m; sourceTree = "<group>"; };
+		5571D3162CC9CD71004709D1 /* ZoomStoryConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomStoryConverter.h; sourceTree = "<group>"; };
 		5572C0C526FC004D00EAFA5B /* Zoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		5576A0252B2A546D00A1D8FC /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/MainMenu.xcstrings; sourceTree = "<group>"; };
 		5576A0312B2A546D00A1D8FC /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -2646,6 +2655,7 @@
 			isa = PBXGroup;
 			children = (
 				553C83662712382B002782C0 /* Resources */,
+				5571D3162CC9CD71004709D1 /* ZoomStoryConverter.h */,
 				4B7CB0780936294B00F3B8F6 /* ZoomPlugIn.h */,
 				4B7CB0790936294B00F3B8F6 /* ZoomPlugIn.m */,
 				4B7CB1AF0936345D00F3B8F6 /* ZoomGlkPlugIn.h */,
@@ -3112,6 +3122,7 @@
 				4B71AB6209E300FF00E27876 /* ifmetaxml.h in Headers */,
 				4B152CE20B46CBEB008CC1EF /* ZoomGameInfoController.h in Headers */,
 				4B152D2F0B46D2F9008CC1EF /* ZoomNotesController.h in Headers */,
+				5571D3172CC9CD8A004709D1 /* ZoomStoryConverter.h in Headers */,
 				4BE175940B792BD80094B73D /* ZoomWindowThatCanBecomeKey.h in Headers */,
 				4B3E766C0BA2D47300661FE8 /* ZoomBabel.h in Headers */,
 				4B3E76DD0BA2DF8E00661FE8 /* ZoomResourceDrop.h in Headers */,
@@ -3324,9 +3335,9 @@
 				4BB8C1E008C249F400D7D334 /* Sources */,
 				4BB8C1F708C249F400D7D334 /* Frameworks */,
 				4B39CA0408EEF8C600BA5E90 /* Copy Metadata importer */,
+				4BA375E60CD3CC1500C7B1D4 /* Copy QuickLook plugins */,
 				4B36C45C0955ED3F00874F9F /* Copy Plug-ins */,
 				4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */,
-				4BA375E60CD3CC1500C7B1D4 /* Copy QuickLook plugins */,
 				555BCB83295D1328002E569F /* CopyFiles */,
 			);
 			buildRules = (
@@ -3334,7 +3345,7 @@
 				4B51A95108FAC71400232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
-				555BCB82295D1308002E569F /* PBXTargetDependency */,
+				5571D3122CC9CB95004709D1 /* PBXTargetDependency */,
 				554A4540291CC23700C090C3 /* PBXTargetDependency */,
 				55FF5B46275A265F000B0D21 /* PBXTargetDependency */,
 				55368B7D272CA88D00740A0A /* PBXTargetDependency */,
@@ -3486,6 +3497,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5571D3152CC9CBF6004709D1 /* PBXTargetDependency */,
 				55368B14272A053600740A0A /* PBXTargetDependency */,
 				55368A89272A035E00740A0A /* PBXTargetDependency */,
 				55368A8B272A035E00740A0A /* PBXTargetDependency */,
@@ -4813,11 +4825,6 @@
 			target = 5591DC1D29163EB400BF6F6F /* Hugo */;
 			targetProxy = 554A453F291CC23700C090C3 /* PBXContainerItemProxy */;
 		};
-		555BCB82295D1308002E569F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 55368AEA272A046400740A0A /* agt2agx */;
-			targetProxy = 555BCB81295D1308002E569F /* PBXContainerItemProxy */;
-		};
 		55687B1E29A0B4CC0005E1AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
@@ -4827,6 +4834,16 @@
 			isa = PBXTargetDependency;
 			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
 			targetProxy = 55687B2A29A0BB390005E1AE /* PBXContainerItemProxy */;
+		};
+		5571D3122CC9CB95004709D1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B39C92A08EEF63400BA5E90 /* ZoomMetadataImporter */;
+			targetProxy = 5571D3112CC9CB95004709D1 /* PBXContainerItemProxy */;
+		};
+		5571D3152CC9CBF6004709D1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55368AEA272A046400740A0A /* agt2agx */;
+			targetProxy = 5571D3142CC9CBF6004709D1 /* PBXContainerItemProxy */;
 		};
 		5591DC0E291637AA00BF6F6F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

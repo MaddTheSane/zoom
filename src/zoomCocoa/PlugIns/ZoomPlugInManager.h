@@ -10,6 +10,7 @@
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
 #import <ZoomPlugIns/ZoomDownload.h>
+#import <ZoomPlugIns/ZoomStoryConverter.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,9 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 - (nullable Class) plugInForURL: (NSURL*) fileName NS_REFINED_FOR_SWIFT;
 /// Gets a plug-in instance for the specified URL
 - (nullable __kindof ZoomPlugIn*) instanceForURL: (NSURL*) filename;
+
+/// Gets a plug-in converter instance for the specified URL
+- (nullable Class<ZoomStoryConverter>) converterForURL: (NSURL*) fileName;
 
 //// The loaded plugin bundles
 - (NSArray<NSBundle*>*) pluginBundles;
