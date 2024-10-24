@@ -122,7 +122,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 			float angularFrequency = entry.frequency * 2 * M_PI;
 			NSInteger endSample = currentSample + ((int)(entry.toneTime) * sampleRate / 1000);
 			// Generate and store the sequential samples representing the sine wave of the tone
-			for (NSInteger i = currentSample; i < endSample; currentSample++)  {
+			for (NSInteger i = currentSample; i < endSample; i++)  {
 				float waveComponent = sinf(i * angularFrequency / sampleRate);
 				theChannelData[i] = waveComponent * amplitude;
 			}
