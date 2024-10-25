@@ -1557,11 +1557,14 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
 											   forKey: ZoomSkeinTranscriptURLDefaultsKey];
 		
+		NSError *err;
 		// Save the data
-		[data writeToURL: [panel URL]
-			  atomically: YES
-				encoding: NSUTF8StringEncoding
-				   error: NULL];
+		if (![data writeToURL: [panel URL]
+				   atomically: YES
+					 encoding: NSUTF8StringEncoding
+						error: &err]) {
+			[self presentError:err];
+		}
 	}];
 }
 

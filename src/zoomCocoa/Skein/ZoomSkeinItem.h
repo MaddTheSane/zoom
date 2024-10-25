@@ -28,13 +28,13 @@ typedef NS_ENUM(NSInteger, ZoomSkeinComparison) {
 
 #pragma mark Skein item notifications
 /// One skein item is being replaced by another
-extern NSNotificationName const ZoomSkeinItemIsBeingReplaced;
+extern NSNotificationName const ZoomSkeinItemIsBeingReplaced NS_SWIFT_NAME(ZoomSkeinItem.isBeingReplaced);
 /// A skein item is being removed from the tree (may be associated with the previous)
-extern NSNotificationName const ZoomSkeinItemHasBeenRemovedFromTree;
+extern NSNotificationName const ZoomSkeinItemHasBeenRemovedFromTree NS_SWIFT_NAME(ZoomSkeinItem.hasBeenRemovedFromTree);
 /// A skein item has been changed in some way
-extern NSNotificationName const ZoomSkeinItemHasChanged;
+extern NSNotificationName const ZoomSkeinItemHasChanged NS_SWIFT_NAME(ZoomSkeinItem.hasChanged);
 /// A skein item has gained a new child item
-extern NSNotificationName const ZoomSkeinItemHasNewChild;
+extern NSNotificationName const ZoomSkeinItemHasNewChild NS_SWIFT_NAME(ZoomSkeinItem.hasNewChild);
 
 #pragma mark Skein item notification dictionary keys
 /// Item the operation applies to
@@ -51,6 +51,8 @@ extern NSString* const ZoomSIChild;
 
 #pragma mark Initialisation
 + (instancetype) skeinItemWithCommand: (nullable NSString*) command;
+
+- (instancetype) init;
 
 - (instancetype) initWithCommand: (nullable NSString*) command;
 - (instancetype) initWithCommand: (nullable NSString*) command identifier: (NSUUID*) uuid NS_DESIGNATED_INITIALIZER;

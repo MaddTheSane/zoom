@@ -188,14 +188,14 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 #endif
 	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: pluginPath error: NULL] objectEnumerator];
 	
-	NSString* plugin;
-	for (plugin in pluginEnum) {
+	for (NSString* plugin in pluginEnum) {
+		NSString *pathExt = [[plugin pathExtension] lowercaseString];
 #if VERBOSITY >= 2
 		NSLog(@"= Found file: %@", plugin);
 #endif
-		if ([[[plugin pathExtension] lowercaseString] isEqualToString: @"bundle"]
-			|| [[[plugin pathExtension] lowercaseString] isEqualToString: @"plugin"]
-			|| [[[plugin pathExtension] lowercaseString] isEqualToString: @"zoomplugin"]) {
+		if ([pathExt isEqualToString: @"bundle"]
+			|| [pathExt isEqualToString: @"plugin"]
+			|| [pathExt isEqualToString: @"zoomplugin"]) {
 			NSString* pluginBundlePath = [pluginPath stringByAppendingPathComponent: plugin];
 			[self loadPlugIn: pluginBundlePath];
 		}

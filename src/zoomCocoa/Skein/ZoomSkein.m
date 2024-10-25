@@ -296,7 +296,7 @@ NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	NSArray* items = [self annotations];
 	
 	[button addItemWithTitle: [[NSBundle mainBundle] localizedStringForKey: @"Go to label..."
-																	 value: @"Go to label..."
+																	 value: @"Go to label…"
 																	 table: nil]];
 	[button addItemsWithTitles: items];
 }
