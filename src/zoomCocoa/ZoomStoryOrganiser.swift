@@ -321,7 +321,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		if !toRemove.isEmpty {
-			stories.remove(indexes: toRemove)
+			stories.remove(atOffsets: toRemove)
 		}
 		
 		let bookData = try? filename.bookmarkData(options: [.securityScopeAllowOnlyReadAccess])
@@ -1482,28 +1482,4 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		
 		return nil
 	 }
-}
-
-
-extension Array {
-	// Code taken from https://stackoverflow.com/a/50835467/1975001
-	/// Removes objects at indexes that are in the specified `IndexSet`.
-	/// - parameter indexes: the index set containing the indexes of objects that will be removed
-	@inlinable mutating func remove(indexes: IndexSet) {
-		guard var i = indexes.first, i < count else {
-			return
-		}
-		var j = index(after: i)
-		var k = indexes.integerGreaterThan(i) ?? endIndex
-		while j != endIndex {
-			if k != j {
-				swapAt(i, j)
-				formIndex(after: &i)
-			} else {
-				k = indexes.integerGreaterThan(k) ?? endIndex
-			}
-			formIndex(after: &j)
-		}
-		removeSubrange(i...)
-	}
 }

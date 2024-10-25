@@ -1329,7 +1329,7 @@
 		4B36C4670955EDB600874F9F /* ZoomGlulxe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomGlulxe.h; sourceTree = "<group>"; };
 		4B36C4680955EDB600874F9F /* ZoomGlulxe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlulxe.m; sourceTree = "<group>"; };
 		4B39C92B08EEF63400BA5E90 /* ZoomMetadataImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoomMetadataImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B39C92C08EEF63400BA5E90 /* ZoomMetadataImporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ZoomMetadataImporter-Info.plist"; path = "../../../ZoomMetadataImporter-Info.plist"; sourceTree = "<group>"; };
+		4B39C92C08EEF63400BA5E90 /* ZoomMetadataImporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ZoomMetadataImporter-Info.plist"; sourceTree = "<group>"; };
 		4B39C94008EEF75600BA5E90 /* MetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetadataImporter.h; sourceTree = "<group>"; };
 		4B39C94108EEF75600BA5E90 /* MetadataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetadataImporter.m; sourceTree = "<group>"; };
 		4B39C94208EEF75600BA5E90 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
@@ -1414,7 +1414,7 @@
 		4BB8BED408B785B200D7D334 /* ifmetabase.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ifmetabase.c; sourceTree = "<group>"; };
 		4BB8C0E908C2452F00D7D334 /* Builder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Builder; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB8C16A08C2497700D7D334 /* ZoomServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ZoomServer; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BB8C20708C249F400D7D334 /* Info-Zoom__Upgraded_.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Zoom__Upgraded_.plist"; sourceTree = "<group>"; };
+		4BB8C20708C249F400D7D334 /* Info-Zoom.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Zoom.plist"; sourceTree = "<group>"; };
 		4BB8C20808C249F400D7D334 /* Zoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BC3B03506AE8563008FCD35 /* ZoomSkeinLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinLayout.h; sourceTree = "<group>"; };
 		4BC3B03606AE8563008FCD35 /* ZoomSkeinLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinLayout.m; sourceTree = "<group>"; };
@@ -1439,7 +1439,7 @@
 		4BCF3F5E050FBAAF00A8E303 /* v6display.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = v6display.c; sourceTree = "<group>"; };
 		4BCF3F5F050FBAAF00A8E303 /* v6display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v6display.h; sourceTree = "<group>"; };
 		4BCF3F62050FBB3F00A8E303 /* image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image.h; sourceTree = "<group>"; };
-		4BD274C408701E6700C1AE15 /* Info-ZoomView__Upgraded_.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-ZoomView__Upgraded_.plist"; sourceTree = "<group>"; };
+		4BD274C408701E6700C1AE15 /* Info-ZoomView.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-ZoomView.plist"; sourceTree = "<group>"; };
 		4BD274C508701E6800C1AE15 /* ZoomView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZoomView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BD79A8F0BA2C9AA002C82B2 /* babel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = babel; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BD79A980BA2CABF002C82B2 /* babel_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = babel_handler.h; sourceTree = "<group>"; };
@@ -2092,10 +2092,6 @@
 				55368A87272A00DE00740A0A /* Dependencies */,
 				4B1E3F5F050F7B8100A8E303 /* Frameworks */,
 				4B1E3F55050F7B0E00A8E303 /* Products */,
-				4BD274C408701E6700C1AE15 /* Info-ZoomView__Upgraded_.plist */,
-				4BB8C20708C249F400D7D334 /* Info-Zoom__Upgraded_.plist */,
-				4B7CB08209362A3B00F3B8F6 /* ZoomPlugIns-Info.plist */,
-				4B7286E70CD3CAFF0079D89B /* ZoomSaveQuickLook-Info.plist */,
 				55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */,
 				55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */,
 				55FF5B1D275A262C000B0D21 /* Vorbis.xcodeproj */,
@@ -2193,30 +2189,30 @@
 		4B1E3F88050F7CF100A8E303 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				4B1E3F91050F7D5200A8E303 /* blorb.c */,
 				4B1E3F99050F7D5200A8E303 /* blorb.h */,
-				4BE447BA0510E0E000A8E303 /* display.c */,
+				4B1E3F91050F7D5200A8E303 /* blorb.c */,
 				4BCF3F2D050F8ECD00A8E303 /* display.h */,
-				4B1E3F8F050F7D5200A8E303 /* file.c */,
+				4BE447BA0510E0E000A8E303 /* display.c */,
 				4B1E3F9A050F7D5200A8E303 /* file.h */,
-				4B1E3F94050F7D5200A8E303 /* font3.c */,
+				4B1E3F8F050F7D5200A8E303 /* file.c */,
 				4B1E3F8B050F7D5200A8E303 /* font3.h */,
-				4B1E3F90050F7D5200A8E303 /* hash.c */,
+				4B1E3F94050F7D5200A8E303 /* font3.c */,
 				4B1E3F9B050F7D5200A8E303 /* hash.h */,
+				4B1E3F90050F7D5200A8E303 /* hash.c */,
 				4B1E3F89050F7D5200A8E303 /* iff.c */,
 				4BCF3F62050FBB3F00A8E303 /* image.h */,
 				4B1E3F8C050F7D5200A8E303 /* main.c */,
-				4B1E3F95050F7D5200A8E303 /* menu.c */,
 				4B1E3F98050F7D5200A8E303 /* menu.h */,
-				4B1E3F8E050F7D5200A8E303 /* options.c */,
+				4B1E3F95050F7D5200A8E303 /* menu.c */,
 				4B1E3F97050F7D5200A8E303 /* options.h */,
+				4B1E3F8E050F7D5200A8E303 /* options.c */,
+				4B1E3F8A050F7D5200A8E303 /* rc.h */,
+				4B1E3F92050F7D5200A8E303 /* rc.c */,
 				4B1E3F96050F7D5200A8E303 /* rc_lex.l */,
 				4B1E3F8D050F7D5200A8E303 /* rc_parse.y */,
-				4B1E3F92050F7D5200A8E303 /* rc.c */,
-				4B1E3F8A050F7D5200A8E303 /* rc.h */,
 				4B1E3F93050F7D5200A8E303 /* rcp.h */,
-				4BCF3F5E050FBAAF00A8E303 /* v6display.c */,
 				4BCF3F5F050FBAAF00A8E303 /* v6display.h */,
+				4BCF3F5E050FBAAF00A8E303 /* v6display.c */,
 			);
 			indentWidth = 2;
 			name = Support;
@@ -2227,24 +2223,24 @@
 		4B1E3FAF050F7D8900A8E303 /* Interpreter */ = {
 			isa = PBXGroup;
 			children = (
-				4B1E3FB7050F7DE200A8E303 /* debug.c */,
 				4B1E3FB0050F7DE200A8E303 /* debug.h */,
+				4B1E3FB7050F7DE200A8E303 /* debug.c */,
 				4B1E3FB6050F7DE200A8E303 /* eval.y */,
-				4B1E3FC0050F7DE200A8E303 /* interp.c */,
 				4B1E3FBF050F7DE200A8E303 /* interp.h */,
-				4B1E3FBD050F7DE200A8E303 /* random.c */,
+				4B1E3FC0050F7DE200A8E303 /* interp.c */,
 				4B1E3FBE050F7DE200A8E303 /* random.h */,
+				4B1E3FBD050F7DE200A8E303 /* random.c */,
 				55B524FA27C6E1A800370DAA /* sound.h */,
-				4B1E3FB3050F7DE200A8E303 /* state.c */,
 				4B1E3FB8050F7DE200A8E303 /* state.h */,
-				4B1E3FBC050F7DE200A8E303 /* stream.c */,
+				4B1E3FB3050F7DE200A8E303 /* state.c */,
 				4B1E3FBB050F7DE200A8E303 /* stream.h */,
-				4B1E3FB5050F7DE200A8E303 /* tokenise.c */,
+				4B1E3FBC050F7DE200A8E303 /* stream.c */,
 				4B1E3FB4050F7DE200A8E303 /* tokenise.h */,
-				4B1E3FB9050F7DE200A8E303 /* zmachine.c */,
+				4B1E3FB5050F7DE200A8E303 /* tokenise.c */,
 				4B1E3FB1050F7DE200A8E303 /* zmachine.h */,
-				4B1E3FBA050F7DE200A8E303 /* zscii.c */,
+				4B1E3FB9050F7DE200A8E303 /* zmachine.c */,
 				4B1E3FB2050F7DE200A8E303 /* zscii.h */,
+				4B1E3FBA050F7DE200A8E303 /* zscii.c */,
 			);
 			indentWidth = 2;
 			name = Interpreter;
@@ -2322,8 +2318,9 @@
 		4B7286BE0CD3B99C0079D89B /* QuickLook */ = {
 			isa = PBXGroup;
 			children = (
-				4BA377DA0CD3D01000C7B1D4 /* GenerateThumbnailForURL.m */,
+				4B7286E70CD3CAFF0079D89B /* ZoomSaveQuickLook-Info.plist */,
 				4BA377DB0CD3D01000C7B1D4 /* GeneratePreviewForURL.m */,
+				4BA377DA0CD3D01000C7B1D4 /* GenerateThumbnailForURL.m */,
 				4BA377D70CD3CFF700C7B1D4 /* ZoomSaveQuickLook.c */,
 			);
 			name = QuickLook;
@@ -2463,6 +2460,7 @@
 		4BCF3F42050FB1D800A8E303 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4BB8C20708C249F400D7D334 /* Info-Zoom.plist */,
 				55BB926E2048D7FB00AB4B5B /* xibs */,
 				55BB92552048CCFE00AB4B5B /* ifdbWeb */,
 				55BB926F2048D8D900AB4B5B /* Media.xcassets */,
@@ -2561,6 +2559,7 @@
 		4BDFA4E80535E9DE00A8E303 /* ZoomView */ = {
 			isa = PBXGroup;
 			children = (
+				4BD274C408701E6700C1AE15 /* Info-ZoomView.plist */,
 				55BD63052803C12900CDEA64 /* ZoomSound */,
 				552A037F2049E74B00A4ECAA /* ZoomView.modulemap */,
 				4B4D512006E3894F007FAD2B /* ZoomConnector.h */,
@@ -2599,15 +2598,15 @@
 		4BECA7FF05B19B98006840BA /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				4B8CE6F30AD95A3A008235D2 /* md5.h */,
-				4B8CE6F20AD95A3A008235D2 /* md5.c */,
-				4BECA81B05B19CFB006840BA /* ifmetadata.h */,
-				4BECA80005B19BE1006840BA /* ifmetadata.c */,
-				4B87BA7109C9AAE1005D6722 /* ifmetabase-internal.h */,
 				4BB8BED308B785B200D7D334 /* ifmetabase.h */,
 				4BB8BED408B785B200D7D334 /* ifmetabase.c */,
+				4B87BA7109C9AAE1005D6722 /* ifmetabase-internal.h */,
+				4BECA81B05B19CFB006840BA /* ifmetadata.h */,
+				4BECA80005B19BE1006840BA /* ifmetadata.c */,
 				4B71AB5E09E300EF00E27876 /* ifmetaxml.h */,
 				4B71AB5F09E300EF00E27876 /* ifmetaxml.c */,
+				4B8CE6F30AD95A3A008235D2 /* md5.h */,
+				4B8CE6F20AD95A3A008235D2 /* md5.c */,
 			);
 			name = Metadata;
 			sourceTree = "<group>";
@@ -2806,10 +2805,11 @@
 		553C83662712382B002782C0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */,
+				5576A0412B2A546D00A1D8FC /* Localizable.xcstrings */,
 				4B7CB0740936278500F3B8F6 /* README */,
 				5576A03D2B2A546D00A1D8FC /* ZoomErrors.xcstrings */,
-				5576A0412B2A546D00A1D8FC /* Localizable.xcstrings */,
+				552A03802049E7FE00A4ECAA /* ZoomPlugIns.modulemap */,
+				4B7CB08209362A3B00F3B8F6 /* ZoomPlugIns-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -5328,7 +5328,8 @@
 					HAVE_COREFOUNDATION,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ZoomMetadataImporter-Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "src/zoomCocoa/Spotlight/ZoomMetadataImporter-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../../../../Frameworks";
 				MARKETING_VERSION = 1.4.1;
 				OTHER_CFLAGS = "-DXMLCALL=";
@@ -5353,7 +5354,8 @@
 					HAVE_COREFOUNDATION,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ZoomMetadataImporter-Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "src/zoomCocoa/Spotlight/ZoomMetadataImporter-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../../../../Frameworks";
 				MARKETING_VERSION = 1.4.1;
 				OTHER_CFLAGS = "-DXMLCALL=";
@@ -5370,7 +5372,8 @@
 				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				INFOPLIST_FILE = "ZoomSaveQuickLook-Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "src/zoomCocoa/Leopard/ZoomSaveQuickLook-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../../../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.save.quicklook;
@@ -5385,7 +5388,8 @@
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				INFOPLIST_FILE = "ZoomSaveQuickLook-Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "src/zoomCocoa/Leopard/ZoomSaveQuickLook-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../../../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.save.quicklook;
@@ -5413,7 +5417,8 @@
 					HAVE_COREFOUNDATION,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "src/zoomCocoa/PlugIns/ZoomPlugIns-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -5450,7 +5455,8 @@
 					HAVE_COREFOUNDATION,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ZoomPlugIns-Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "src/zoomCocoa/PlugIns/ZoomPlugIns-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -5582,7 +5588,7 @@
 					"$(inherited)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
+				INFOPLIST_FILE = "src/zoomCocoa/Info-Zoom.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -5609,7 +5615,7 @@
 					"$(inherited)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
+				INFOPLIST_FILE = "src/zoomCocoa/Info-Zoom.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -5645,8 +5651,9 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectBuilder/etc\"";
-				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
+				INFOPLIST_FILE = "src/zoomCocoa/Info-ZoomView.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -5688,8 +5695,9 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ProjectBuilder/etc\"";
-				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
+				INFOPLIST_FILE = "src/zoomCocoa/Info-ZoomView.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
