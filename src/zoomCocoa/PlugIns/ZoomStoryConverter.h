@@ -14,11 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class UTType;
 
+/// Protocol for files that need conversion before the plug-in can actually use them.
+///
+/// For convenience sake, make the class that implements this protocol be a subclass of `ZoomPlugIn`.
 @protocol ZoomStoryConverter <NSObject>
 
 /// Convert a file to a usable format.
 /// \param url The file to import.
-/// \param handler The handler.
+/// \param handler The handler. \c newURL is a new URL after the conversion was successful or \c nil on failure.
+/// If \c newURL is \c nil then \c error needs to be populated.
 + (void)convertStoryFileAtURL:(NSURL*)url completionHandler:(void(^)(NSURL *__nullable newURL, NSError*__nullable error))handler;
 
 /// \c YES if the specified file URL is one that the plugin can convert
