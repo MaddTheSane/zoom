@@ -44,7 +44,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 /// Gets a plug-in converter instance for the specified URL
 - (nullable Class<ZoomStoryConverter>) converterForURL: (NSURL*) fileName;
 
-//// The loaded plugin bundles
+/// The loaded plugin bundles
 - (NSArray<NSBundle*>*) pluginBundles;
 /// Array of strings indicating the names of the loaded plugins
 - (NSArray<NSString*>*) loadedPlugIns;
@@ -55,7 +55,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 	 isNewerThan: (NSString*) newVerison;
 
 // Installing new plugins
-//// Indicates that this object has been finished with and any files should be deleted
+/// Indicates that this object has been finished with and any files should be deleted
 - (void) finishedWithObject;
 
 /// Request that all known updates and new plugins be downloaded

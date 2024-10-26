@@ -301,7 +301,7 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 }
 
 - (NSArray*) pluginBundles {
-	return pluginBundles;
+	return [pluginBundles copy];
 }
 
 - (NSArray*) loadedPlugIns {
@@ -312,7 +312,7 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 	return [pluginsToVersions objectForKey: plugin];
 }
 
-- (NSArray*) arrayForVersion: (NSString*) version {
+- (NSArray<NSString*>*) arrayForVersion: (NSString*) version {
 	return [version componentsSeparatedByString:@"."];
 }
 

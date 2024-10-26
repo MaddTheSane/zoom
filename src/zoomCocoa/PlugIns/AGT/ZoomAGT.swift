@@ -108,17 +108,28 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 		}
 		
 		/* Read the position of the game desciption block */
-		file.seek(toFileOffset: 32)
-		var datVar = file.readData(ofLength: 4)
-		let l = read_agt_int(datVar)
-		let extent = file.seekToEndOfFile()
-		guard extent >= l + 6 else {
+		do {
+			try file.seek(toOffset: 32)
+		} catch {
 			return nil
 		}
-		file.seek(toFileOffset: UInt64(l))
-		datVar = file.readData(ofLength: 6)
-		let gameVersion = read_agt_short(datVar)
-		let game_sig = read_agt_int(datVar.advanced(by: 2))
+		guard let datVar = try? file.read(upToCount: 4), datVar.count == 4 else {
+			return nil
+		}
+		let l = read_agt_int(datVar)
+		guard let extent = try? file.seekToEnd(), extent >= l + 6 else {
+			return nil
+		}
+		do {
+			try file.seek(toOffset: UInt64(l))
+		} catch {
+			return nil
+		}
+		guard let datVar2 = try? file.read(upToCount: 6), datVar2.count == 6 else {
+			return nil
+		}
+		let gameVersion = read_agt_short(datVar2)
+		let game_sig = read_agt_int(datVar2.advanced(by: 2))
 		let output = String(format: "AGT-%05d-%08X", gameVersion, game_sig)
 
 		return ZoomStoryID(idString: output)
@@ -160,12 +171,12 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	}
 
 	public static func canConvert(_ path: URL) -> Bool {
-		return supportedConverterFileTypes.contains(path.pathExtension.lowercased())
+		return supportedExtensions.contains(path.pathExtension.lowercased())
 	}
 	
-	public static var supportedConverterFileTypes: [String] {
-		return ["d$$"]
-	}
+	private static let supportedExtensions = ["d$$"]
+	
+	public static let supportedConverterFileTypes = ["public.ddollardollar"] + supportedExtensions
 	
 	public static var supportedConverterContentTypes: [UTType] {
 		return [UTType(importedAs: "public.ddollardollar")]
