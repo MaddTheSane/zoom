@@ -7428,7 +7428,9 @@ gagt_unicode_to_cp (const glui32 *from_string, unsigned char *to_string)
 
 #endif
 
+#ifdef DEBUG
 #define DEBUG_BELLS_AND_WHISTLES
+#endif
 
 /* Warning for fontcmd, pictcmd, musiccmd:
   These all extract filenames from fontlist, pictlist, pixlist, songlist.
@@ -7503,7 +7505,8 @@ void pictcmd(int cmd,int pict)
    return;
 }
 
-
+static schanid_t chanid;
+static int repeat_song;
 
 int musiccmd(int cmd,int song)
 /* For cmd=1 or 2, the name of the song is songlist[song]
@@ -7523,8 +7526,45 @@ int musiccmd(int cmd,int song)
 {
   if (cmd==8) {
     sound_on=1;
+    if (!chanid) {
+      chanid = glk_schannel_create(0);
+    }
   } else if (cmd==9) {
+    glk_schannel_destroy(chanid);
+    chanid = NULL;
     sound_on=0;
+  }
+  if (cmd==-2) return sound_on ? -1 : 0;
+  if (cmd==3) {
+    repeat_song=0;
+    return 0;
+  }
+  if (cmd==7) {
+    /* Stop song */
+    glk_schannel_stop(chanid);
+    /* Do clean-up */
+    glk_schannel_destroy(chanid);
+    return 0;
+  }
+  if (cmd==2) {
+    repeat_song=1;
+  }
+  if (cmd==1 || cmd==2) {
+    /* Start song playing */
+    // TODO: handle repeating songs somehow.
+    glk_schannel_play(chanid, song);
+  }
+  if (cmd==4) {
+    /* Stop song */
+    glk_schannel_stop(chanid);
+  }
+  if (cmd==5) {
+    /* Suspend song */
+    glk_schannel_pause(chanid);
+  }
+  if (cmd==6) {
+    /* Resume song */
+    glk_schannel_unpause(chanid);
   }
 #ifdef DEBUG_BELLS_AND_WHISTLES
   switch (cmd) {
