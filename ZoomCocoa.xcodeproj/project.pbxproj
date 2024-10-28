@@ -226,6 +226,7 @@
 		5508EBC02CCF0B4100F6E090 /* magnetic in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5508EBA52CCF0A5E00F6E090 /* magnetic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5508EBC12CCF0ED300F6E090 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
 		5508EBC22CCF0F3B00F6E090 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
+		5508EC742CCF339D00F6E090 /* Magnetic Scrolls.zoomPlugin in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 5508EB992CCF057D00F6E090 /* Magnetic Scrolls.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		550DD3C62796B191001BD77E /* ZoomPlugInManagerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */; };
 		55101A5A290D06D9003CED21 /* ImportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55101A59290D06D9003CED21 /* ImportExtension.swift */; };
 		55101A5F290D06D9003CED21 /* ZoomNewSpotlight.appex in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 55101A57290D06D9003CED21 /* ZoomNewSpotlight.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -699,6 +700,20 @@
 			remoteGlobalIDString = 4B51AA5507E877C900576AB9;
 			remoteInfo = GlkClient;
 		};
+		5508EC702CCF337D00F6E090 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 552CEF1027152BDA009D87A5;
+			remoteInfo = glkmain;
+		};
+		5508EC722CCF338C00F6E090 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5508EB982CCF057D00F6E090;
+			remoteInfo = "Magnetic Scrolls";
+		};
 		55101A5D290D06D9003CED21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
@@ -1107,6 +1122,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				5508EC742CCF339D00F6E090 /* Magnetic Scrolls.zoomPlugin in Copy Plug-ins */,
 				554A4541291CC25300C090C3 /* Hugo.plugin in Copy Plug-ins */,
 				55A319C9290138F200ABAAA2 /* ZoomThumbnailer.appex in Copy Plug-ins */,
 				55C673C4278BADCD005A7A21 /* JACL.zoomPlugin in Copy Plug-ins */,
@@ -1547,7 +1563,7 @@
 		5508EB7E2CCF04D600F6E090 /* xtractpc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = xtractpc.c; sourceTree = "<group>"; };
 		5508EB802CCF04D600F6E090 /* glk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glk.c; sourceTree = "<group>"; };
 		5508EB812CCF04D600F6E090 /* glk_readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = glk_readme.txt; sourceTree = "<group>"; };
-		5508EB822CCF04D600F6E090 /* magnetic.hdr */ = {isa = PBXFileReference; lastKnownFileType = text; path = magnetic.hdr; sourceTree = "<group>"; };
+		5508EB822CCF04D600F6E090 /* magnetic.hdr */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = magnetic.hdr; sourceTree = "<group>"; };
 		5508EB832CCF04D600F6E090 /* Makefile.glk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.glk; sourceTree = "<group>"; };
 		5508EB852CCF04D600F6E090 /* Corrupt.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Corrupt.rec; sourceTree = "<group>"; };
 		5508EB862CCF04D600F6E090 /* Fish.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Fish.rec; sourceTree = "<group>"; };
@@ -3510,6 +3526,7 @@
 				4B51A95108FAC71400232D0B /* PBXBuildRule */,
 			);
 			dependencies = (
+				5508EC732CCF338C00F6E090 /* PBXTargetDependency */,
 				5571D3122CC9CB95004709D1 /* PBXTargetDependency */,
 				554A4540291CC23700C090C3 /* PBXTargetDependency */,
 				55FF5B46275A265F000B0D21 /* PBXTargetDependency */,
@@ -3606,6 +3623,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5508EC712CCF337D00F6E090 /* PBXTargetDependency */,
 				5508EBBE2CCF0B1C00F6E090 /* PBXTargetDependency */,
 			);
 			name = magnetic;
@@ -4963,6 +4981,16 @@
 			isa = PBXTargetDependency;
 			name = GlkClient;
 			targetProxy = 5508EBBD2CCF0B1C00F6E090 /* PBXContainerItemProxy */;
+		};
+		5508EC712CCF337D00F6E090 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = glkmain;
+			targetProxy = 5508EC702CCF337D00F6E090 /* PBXContainerItemProxy */;
+		};
+		5508EC732CCF338C00F6E090 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5508EB982CCF057D00F6E090 /* Magnetic Scrolls */;
+			targetProxy = 5508EC722CCF338C00F6E090 /* PBXContainerItemProxy */;
 		};
 		55101A5E290D06D9003CED21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
