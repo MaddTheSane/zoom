@@ -285,6 +285,22 @@
         }
       }
     },
+    "Magnetic Scroll Story" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magnetic Scroll Story"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magnetic Scroll Story"
+          }
+        }
+      }
+    },
     "org.tads.tads2-game" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -505,6 +521,23 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "インタラクティブフィクションの標識ファイル"
+          }
+        }
+      }
+    },
+    "public.magnetic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magnetic Scroll Story"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magnetic Scroll Story"
           }
         }
       }
