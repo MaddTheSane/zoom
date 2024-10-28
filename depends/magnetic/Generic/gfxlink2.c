@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #if defined(__MSDOS__) && defined(__BORLANDC__)
 extern unsigned _stklen = 0x1000;

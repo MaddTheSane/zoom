@@ -195,7 +195,7 @@ type32 write_file(type8ptr buffer, type32 sz, FILE *fp) {
 #endif
 }
 
-main(int argc, char **argv) {
+int main(int argc, char **argv) {
 	type32 m1,m2,s1,s2,dc,sz,i,sum;
 	type32 info[6][9]={
 		{ 0, 35, 1, 2, 3, NL, 0x0b400, 0x3fb0, 0x09528f1 }, /* The Pawn */

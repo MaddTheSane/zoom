@@ -38,6 +38,7 @@
 #endif
 #ifdef __GNUC__
 #include <sys/stat.h>
+#include <unistd.h>
 #endif
 #ifndef S_IRUSR
 #define S_IRUSR 0400
