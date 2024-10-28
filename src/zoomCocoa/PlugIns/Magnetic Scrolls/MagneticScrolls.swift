@@ -170,22 +170,23 @@ public class MagneticScrolls: ZoomGlkPlugIn {
 	}
 
 	public override func defaultMetadata() throws -> ZoomStory {
-		guard let id = idForStory()?.idString,
+		guard let id = idForStory(),
+			  let idStr = id.idString,
 			  let entry = manifest.first(where: { mi in
-				  mi.ifid.caseInsensitiveCompare(id) == .orderedSame
+				  mi.ifid.caseInsensitiveCompare(idStr) == .orderedSame
 			  }) else {
 			return try super.defaultMetadata()
 		}
 		
-		let babel = ZoomBabel(url: gameURL)
-		guard let meta = babel.metadata() else {
+		let meta = ZoomMetadata()
+		guard let story = meta.findOrCreateStory(id) else {
 			return try super.defaultMetadata()
 		}
 		
-		meta.title = entry.title
-		meta.year = entry.year
-		meta.author = entry.author
+		story.title = entry.title
+		story.year = entry.year
+		story.author = entry.author
 		
-		return meta
+		return story
 	}
 }
