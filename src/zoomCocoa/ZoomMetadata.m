@@ -246,12 +246,14 @@ NSLocalizedStringWithDefaultValue(@"No original sourceURL was set when created."
 	if (ident == nil || [ident ident] == NULL) {
 		return nil;
 	}
-	BOOL contains = IFMB_ContainsStoryWithId(metadata, [ident ident]);
-	if (!contains) {
-		return nil;
-	}
 	
 	[dataLock lock];
+	
+	BOOL contains = IFMB_ContainsStoryWithId(metadata, [ident ident]);
+	if (!contains) {
+		[dataLock unlock];
+		return nil;
+	}
 	
 	IFStory story = IFMB_GetStoryWithId(metadata, [ident ident]);
 	
@@ -301,7 +303,7 @@ NSLocalizedStringWithDefaultValue(@"No original sourceURL was set when created."
 	}
 	IFMB_FreeStoryIterator(iter);
 	
-	return res;
+	return [res copy];
 }
 
 #pragma mark - Storing information

@@ -278,19 +278,11 @@
 	[self maybeStartView];
 }
 
-- (void) setSaveGameURL: (NSURL*) path {
-	// Set the saved game path
-	savedGameURL = [path copy];
-}
+@synthesize saveGameURL=savedGameURL;
+@synthesize canOpenSaveGame=canOpenSaveGames;
+@synthesize needsPathPassedToTask=needsPathPassedToTask;
 
-- (void) setCanOpenSaveGame: (BOOL) newCanOpenSaveGame {
-	canOpenSaveGames = newCanOpenSaveGame;
-}
-
-- (void)setNeedsPathPassedToTask:(BOOL)needsPath {
-	needsPathPassedToTask = needsPath;
-}
-
+@synthesize inputFileURL=inputURL;
 - (void) setInputFileURL: (NSURL*) newPath {
 	// Set the input path
 	inputURL = [newPath copy];

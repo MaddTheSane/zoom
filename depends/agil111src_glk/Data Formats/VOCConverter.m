@@ -40,7 +40,7 @@ typedef NS_ENUM(uint16_t, VOCFormat) {
 NSData * _Nullable convertVOCToRIFF(NSURL *filePath, NSError *_Nullable __autoreleasing*  _Nullable error)
 {
 	if (error) {
-		*error = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:nil];
+		*error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSURLErrorKey: filePath}];
 	}
 	return nil;
 }

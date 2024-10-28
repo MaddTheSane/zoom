@@ -66,16 +66,18 @@
 //! Selects which GlkClient executable to run
 - (void) setClientPath: (NSString*) clientPath;
 //! The file that should be passed to the client as the file to run
-- (void) setInputFileURL: (NSURL*) inputPath;
+@property (nonatomic, copy) NSURL *inputFileURL;
 //! The logo to display instead of the 'CocoaGlk' logo
 - (void) setLogo: (NSImage*) logo;
 //! The .glksave saved game file URL that this controller should load on startup
+@property (copy) NSURL *saveGameURL;
 - (void) setSaveGameURL: (NSURL*) path;
 //! Set to \c YES if the plugin knows how to open save games
-- (void) setCanOpenSaveGame: (BOOL) canOpenSaveGame;
+@property BOOL canOpenSaveGame;
 //! Set to \c YES if the plugin \b needs the path of the game file passed at launch
-- (void) setNeedsPathPassedToTask: (BOOL) needsPath;
+@property BOOL needsPathPassedToTask;
 
+//! The logo to display instead of the 'CocoaGlk' logo
 @property (copy) NSImage *logo;
 
 @end

@@ -157,7 +157,7 @@
 		NSImage* originalImage = [[NSWorkspace sharedWorkspace] iconForFileType: @"glksave"];
 		NSImage* newImage = [[NSImage alloc] initWithSize: NSMakeSize(128, 128)];
 		
-		// Pick the 128x128 representation of the original
+		// Pick the 128x128 representation of the original, TODO: update to 512 px.
 		NSEnumerator<NSImageRep*>* originalImageRepEnum = [[originalImage representations] objectEnumerator];
 		NSImageRep* rep;
 		for (rep in originalImageRepEnum) {
