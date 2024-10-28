@@ -220,6 +220,12 @@
 		4BF02D200C4A8141006FC32E /* ZoomGlkSaveRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BF02D1E0C4A8141006FC32E /* ZoomGlkSaveRef.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BF02D210C4A8141006FC32E /* ZoomGlkSaveRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */; };
 		5502A687275C42D00066927C /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
+		5508EBA02CCF073100F6E090 /* MagneticScrolls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5508EB9F2CCF073100F6E090 /* MagneticScrolls.swift */; };
+		5508EBAC2CCF0A8700F6E090 /* emu.c in Sources */ = {isa = PBXBuildFile; fileRef = 5508EB722CCF04D600F6E090 /* emu.c */; };
+		5508EBB32CCF0A8700F6E090 /* glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 5508EB802CCF04D600F6E090 /* glk.c */; };
+		5508EBC02CCF0B4100F6E090 /* magnetic in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5508EBA52CCF0A5E00F6E090 /* magnetic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5508EBC12CCF0ED300F6E090 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
+		5508EBC22CCF0F3B00F6E090 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
 		550DD3C62796B191001BD77E /* ZoomPlugInManagerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */; };
 		55101A5A290D06D9003CED21 /* ImportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55101A59290D06D9003CED21 /* ImportExtension.swift */; };
 		55101A5F290D06D9003CED21 /* ZoomNewSpotlight.appex in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 55101A57290D06D9003CED21 /* ZoomNewSpotlight.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -671,6 +677,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4BF085290E166E8300DB5C6B;
 			remoteInfo = GlkSound;
+		};
+		5508EBB72CCF0AF000F6E090 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5508EBA42CCF0A5E00F6E090;
+			remoteInfo = magnetic;
+		};
+		5508EBBB2CCF0AFA00F6E090 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B7CB08009362A3B00F3B8F6;
+			remoteInfo = ZoomPlugIns;
+		};
+		5508EBBD2CCF0B1C00F6E090 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B7CB1B7093634DD00F3B8F6 /* CocoaGlk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B51AA5507E877C900576AB9;
+			remoteInfo = GlkClient;
 		};
 		55101A5D290D06D9003CED21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1153,6 +1180,16 @@
 			name = "Copy frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5508EBBF2CCF0B3100F6E090 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				5508EBC02CCF0B4100F6E090 /* magnetic in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		552CF02627176CED009D87A5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1494,6 +1531,42 @@
 		4BF02D1F0C4A8141006FC32E /* ZoomGlkSaveRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomGlkSaveRef.m; sourceTree = "<group>"; };
 		4BF1576306BAD034001A3C27 /* ZoomBlorbFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomBlorbFile.h; sourceTree = "<group>"; };
 		4BF1576406BAD034001A3C27 /* ZoomBlorbFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomBlorbFile.m; sourceTree = "<group>"; };
+		5508EB712CCF04D600F6E090 /* defs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = defs.h; sourceTree = "<group>"; };
+		5508EB722CCF04D600F6E090 /* emu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = emu.c; sourceTree = "<group>"; };
+		5508EB732CCF04D600F6E090 /* games.txt */ = {isa = PBXFileReference; lastKnownFileType = text; lineEnding = 2; path = games.txt; sourceTree = "<group>"; };
+		5508EB742CCF04D600F6E090 /* gfxlink.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = gfxlink.c; sourceTree = "<group>"; };
+		5508EB752CCF04D600F6E090 /* gfxlink2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = gfxlink2.c; sourceTree = "<group>"; };
+		5508EB762CCF04D600F6E090 /* hintlink.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = hintlink.c; sourceTree = "<group>"; };
+		5508EB772CCF04D600F6E090 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = main.c; sourceTree = "<group>"; };
+		5508EB782CCF04D600F6E090 /* myth.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = myth.c; sourceTree = "<group>"; };
+		5508EB792CCF04D600F6E090 /* passwd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = passwd.c; sourceTree = "<group>"; };
+		5508EB7A2CCF04D600F6E090 /* sndlink.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = sndlink.c; sourceTree = "<group>"; };
+		5508EB7B2CCF04D600F6E090 /* tech.txt */ = {isa = PBXFileReference; lastKnownFileType = text; lineEnding = 2; path = tech.txt; sourceTree = "<group>"; };
+		5508EB7C2CCF04D600F6E090 /* xtract64.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = xtract64.c; sourceTree = "<group>"; };
+		5508EB7D2CCF04D600F6E090 /* xtractmw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = xtractmw.c; sourceTree = "<group>"; };
+		5508EB7E2CCF04D600F6E090 /* xtractpc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = xtractpc.c; sourceTree = "<group>"; };
+		5508EB802CCF04D600F6E090 /* glk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glk.c; sourceTree = "<group>"; };
+		5508EB812CCF04D600F6E090 /* glk_readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = glk_readme.txt; sourceTree = "<group>"; };
+		5508EB822CCF04D600F6E090 /* magnetic.hdr */ = {isa = PBXFileReference; lastKnownFileType = text; path = magnetic.hdr; sourceTree = "<group>"; };
+		5508EB832CCF04D600F6E090 /* Makefile.glk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.glk; sourceTree = "<group>"; };
+		5508EB852CCF04D600F6E090 /* Corrupt.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Corrupt.rec; sourceTree = "<group>"; };
+		5508EB862CCF04D600F6E090 /* Fish.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Fish.rec; sourceTree = "<group>"; };
+		5508EB872CCF04D600F6E090 /* Fish103.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Fish103.rec; sourceTree = "<group>"; };
+		5508EB882CCF04D600F6E090 /* FishColl.rec */ = {isa = PBXFileReference; explicitFileType = text; path = FishColl.rec; sourceTree = "<group>"; };
+		5508EB892CCF04D600F6E090 /* Guild.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Guild.rec; sourceTree = "<group>"; };
+		5508EB8A2CCF04D600F6E090 /* GuildColl.rec */ = {isa = PBXFileReference; explicitFileType = text; path = GuildColl.rec; sourceTree = "<group>"; };
+		5508EB8B2CCF04D600F6E090 /* Jinxter.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Jinxter.rec; sourceTree = "<group>"; };
+		5508EB8C2CCF04D600F6E090 /* Jinxter13.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Jinxter13.rec; sourceTree = "<group>"; };
+		5508EB8D2CCF04D600F6E090 /* JinxterBug.rec */ = {isa = PBXFileReference; explicitFileType = text; path = JinxterBug.rec; sourceTree = "<group>"; };
+		5508EB8E2CCF04D600F6E090 /* Myth.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Myth.rec; sourceTree = "<group>"; };
+		5508EB8F2CCF04D600F6E090 /* Pawn.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Pawn.rec; sourceTree = "<group>"; };
+		5508EB902CCF04D600F6E090 /* Wonder.rec */ = {isa = PBXFileReference; explicitFileType = text; path = Wonder.rec; sourceTree = "<group>"; };
+		5508EB922CCF04D600F6E090 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		5508EB932CCF04D600F6E090 /* MakeDist.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = MakeDist.bat; sourceTree = "<group>"; };
+		5508EB992CCF057D00F6E090 /* Magnetic Scrolls.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Magnetic Scrolls.zoomPlugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5508EB9E2CCF05C700F6E090 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5508EB9F2CCF073100F6E090 /* MagneticScrolls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticScrolls.swift; sourceTree = "<group>"; };
+		5508EBA52CCF0A5E00F6E090 /* magnetic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = magnetic; sourceTree = BUILT_PRODUCTS_DIR; };
 		550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPlugInManagerSwift.swift; sourceTree = "<group>"; };
 		55101A57290D06D9003CED21 /* ZoomNewSpotlight.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ZoomNewSpotlight.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55101A59290D06D9003CED21 /* ImportExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExtension.swift; sourceTree = "<group>"; };
@@ -1896,6 +1969,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5508EB962CCF057D00F6E090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5508EBA22CCF0A5E00F6E090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5508EBC22CCF0F3B00F6E090 /* libglkmain.a in Frameworks */,
+				5508EBC12CCF0ED300F6E090 /* GlkClient.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55101A54290D06D9003CED21 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2135,6 +2224,8 @@
 				55687B1429A0B3E30005E1AE /* Tads2.zoomPlugin */,
 				55687B2429A0BAA40005E1AE /* Tads3.zoomPlugin */,
 				5571D3062CC71256004709D1 /* PCXTester */,
+				5508EB992CCF057D00F6E090 /* Magnetic Scrolls.zoomPlugin */,
+				5508EBA52CCF0A5E00F6E090 /* magnetic */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2337,6 +2428,7 @@
 				552CF02127168593009D87A5 /* Adrift */,
 				55BE4AE7270998B100100A7D /* Quest4 */,
 				55BC111C2786D04B00369EBE /* JACL */,
+				5508EB9D2CCF059300F6E090 /* Magnetic Scrolls */,
 				4B36C44F0955ECDD00874F9F /* Glulxe */,
 			);
 			path = PlugIns;
@@ -2612,6 +2704,78 @@
 			sourceTree = "<group>";
 			usesTabs = 1;
 		};
+		5508EB7F2CCF04D600F6E090 /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				5508EB712CCF04D600F6E090 /* defs.h */,
+				5508EB722CCF04D600F6E090 /* emu.c */,
+				5508EB732CCF04D600F6E090 /* games.txt */,
+				5508EB742CCF04D600F6E090 /* gfxlink.c */,
+				5508EB752CCF04D600F6E090 /* gfxlink2.c */,
+				5508EB762CCF04D600F6E090 /* hintlink.c */,
+				5508EB772CCF04D600F6E090 /* main.c */,
+				5508EB782CCF04D600F6E090 /* myth.c */,
+				5508EB792CCF04D600F6E090 /* passwd.c */,
+				5508EB7A2CCF04D600F6E090 /* sndlink.c */,
+				5508EB7B2CCF04D600F6E090 /* tech.txt */,
+				5508EB7C2CCF04D600F6E090 /* xtract64.c */,
+				5508EB7D2CCF04D600F6E090 /* xtractmw.c */,
+				5508EB7E2CCF04D600F6E090 /* xtractpc.c */,
+			);
+			path = Generic;
+			sourceTree = "<group>";
+		};
+		5508EB842CCF04D600F6E090 /* Glk */ = {
+			isa = PBXGroup;
+			children = (
+				5508EB802CCF04D600F6E090 /* glk.c */,
+				5508EB812CCF04D600F6E090 /* glk_readme.txt */,
+				5508EB822CCF04D600F6E090 /* magnetic.hdr */,
+				5508EB832CCF04D600F6E090 /* Makefile.glk */,
+			);
+			path = Glk;
+			sourceTree = "<group>";
+		};
+		5508EB912CCF04D600F6E090 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				5508EB852CCF04D600F6E090 /* Corrupt.rec */,
+				5508EB862CCF04D600F6E090 /* Fish.rec */,
+				5508EB872CCF04D600F6E090 /* Fish103.rec */,
+				5508EB882CCF04D600F6E090 /* FishColl.rec */,
+				5508EB892CCF04D600F6E090 /* Guild.rec */,
+				5508EB8A2CCF04D600F6E090 /* GuildColl.rec */,
+				5508EB8B2CCF04D600F6E090 /* Jinxter.rec */,
+				5508EB8C2CCF04D600F6E090 /* Jinxter13.rec */,
+				5508EB8D2CCF04D600F6E090 /* JinxterBug.rec */,
+				5508EB8E2CCF04D600F6E090 /* Myth.rec */,
+				5508EB8F2CCF04D600F6E090 /* Pawn.rec */,
+				5508EB902CCF04D600F6E090 /* Wonder.rec */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
+		5508EB942CCF04D600F6E090 /* magnetic */ = {
+			isa = PBXGroup;
+			children = (
+				5508EB922CCF04D600F6E090 /* COPYING */,
+				5508EB7F2CCF04D600F6E090 /* Generic */,
+				5508EB842CCF04D600F6E090 /* Glk */,
+				5508EB932CCF04D600F6E090 /* MakeDist.bat */,
+				5508EB912CCF04D600F6E090 /* Scripts */,
+			);
+			path = magnetic;
+			sourceTree = "<group>";
+		};
+		5508EB9D2CCF059300F6E090 /* Magnetic Scrolls */ = {
+			isa = PBXGroup;
+			children = (
+				5508EB9E2CCF05C700F6E090 /* Info.plist */,
+				5508EB9F2CCF073100F6E090 /* MagneticScrolls.swift */,
+			);
+			path = "Magnetic Scrolls";
+			sourceTree = "<group>";
+		};
 		55101A58290D06D9003CED21 /* NewSpotlight */ = {
 			isa = PBXGroup;
 			children = (
@@ -2737,6 +2901,7 @@
 		55368A87272A00DE00740A0A /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				5508EB942CCF04D600F6E090 /* magnetic */,
 				55368AA7272A044A00740A0A /* agil111src_glk */,
 				4BD79A8A0BA2C95A002C82B2 /* babel */,
 				55BA3BD327253B21007F6C82 /* geas */,
@@ -3409,6 +3574,47 @@
 			productReference = 4BD79A8F0BA2C9AA002C82B2 /* babel */;
 			productType = "com.apple.product-type.tool";
 		};
+		5508EB982CCF057D00F6E090 /* Magnetic Scrolls */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5508EB9A2CCF057D00F6E090 /* Build configuration list for PBXNativeTarget "Magnetic Scrolls" */;
+			buildPhases = (
+				5508EB952CCF057D00F6E090 /* Sources */,
+				5508EB962CCF057D00F6E090 /* Frameworks */,
+				5508EB972CCF057D00F6E090 /* Resources */,
+				5508EBBF2CCF0B3100F6E090 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5508EBBC2CCF0AFA00F6E090 /* PBXTargetDependency */,
+				5508EBB82CCF0AF000F6E090 /* PBXTargetDependency */,
+			);
+			name = "Magnetic Scrolls";
+			packageProductDependencies = (
+			);
+			productName = "Magnetic Scrolls";
+			productReference = 5508EB992CCF057D00F6E090 /* Magnetic Scrolls.zoomPlugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+		5508EBA42CCF0A5E00F6E090 /* magnetic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5508EBA92CCF0A5E00F6E090 /* Build configuration list for PBXNativeTarget "magnetic" */;
+			buildPhases = (
+				5508EBA12CCF0A5E00F6E090 /* Sources */,
+				5508EBA22CCF0A5E00F6E090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5508EBBE2CCF0B1C00F6E090 /* PBXTargetDependency */,
+			);
+			name = magnetic;
+			packageProductDependencies = (
+			);
+			productName = magnetic;
+			productReference = 5508EBA52CCF0A5E00F6E090 /* magnetic */;
+			productType = "com.apple.product-type.tool";
+		};
 		55101A56290D06D9003CED21 /* ZoomNewSpotlight */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55101A60290D06D9003CED21 /* Build configuration list for PBXNativeTarget "ZoomNewSpotlight" */;
@@ -3768,6 +3974,13 @@
 					4BD2747808701E6700C1AE15 = {
 						LastSwiftMigration = 1300;
 					};
+					5508EB982CCF057D00F6E090 = {
+						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
+					};
+					5508EBA42CCF0A5E00F6E090 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					55101A56290D06D9003CED21 = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -3880,6 +4093,8 @@
 				55687B1329A0B3E30005E1AE /* Tads2 */,
 				55687B2329A0BAA40005E1AE /* Tads3 */,
 				5571D3052CC71256004709D1 /* PCXTester */,
+				5508EB982CCF057D00F6E090 /* Magnetic Scrolls */,
+				5508EBA42CCF0A5E00F6E090 /* magnetic */,
 			);
 		};
 /* End PBXProject section */
@@ -4077,6 +4292,13 @@
 				55BD081921B8C16800A8DD5F /* Skein.xcassets in Resources */,
 				551736202B493AA600D05CC8 /* Localizable.xcstrings in Resources */,
 				4BD2749108701E6700C1AE15 /* Credits.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5508EB972CCF057D00F6E090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4378,6 +4600,23 @@
 				4BD79AF00BA2CC06002C82B2 /* babel_multi_functions.c in Sources */,
 				4BD79AF10BA2CC06002C82B2 /* babel_story_functions.c in Sources */,
 				4BD79AF30BA2CC13002C82B2 /* babel.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5508EB952CCF057D00F6E090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5508EBA02CCF073100F6E090 /* MagneticScrolls.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5508EBA12CCF0A5E00F6E090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5508EBAC2CCF0A8700F6E090 /* emu.c in Sources */,
+				5508EBB32CCF0A8700F6E090 /* glk.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4709,6 +4948,21 @@
 			isa = PBXTargetDependency;
 			name = GlkSound;
 			targetProxy = 5502A67B275C42B30066927C /* PBXContainerItemProxy */;
+		};
+		5508EBB82CCF0AF000F6E090 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5508EBA42CCF0A5E00F6E090 /* magnetic */;
+			targetProxy = 5508EBB72CCF0AF000F6E090 /* PBXContainerItemProxy */;
+		};
+		5508EBBC2CCF0AFA00F6E090 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B7CB08009362A3B00F3B8F6 /* ZoomPlugIns */;
+			targetProxy = 5508EBBB2CCF0AFA00F6E090 /* PBXContainerItemProxy */;
+		};
+		5508EBBE2CCF0B1C00F6E090 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GlkClient;
+			targetProxy = 5508EBBD2CCF0B1C00F6E090 /* PBXContainerItemProxy */;
 		};
 		55101A5E290D06D9003CED21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5746,6 +6000,107 @@
 			};
 			name = Release;
 		};
+		5508EB9B2CCF057D00F6E090 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__unix__=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "src/zoomCocoa/PlugIns/Magnetic Scrolls/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).MagneticScrolls";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.Magnetic-Scrolls";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Debug;
+		};
+		5508EB9C2CCF057D00F6E090 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__unix__=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "src/zoomCocoa/PlugIns/Magnetic Scrolls/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).MagneticScrolls";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.Magnetic-Scrolls";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				WRAPPER_EXTENSION = zoomPlugin;
+			};
+			name = Release;
+		};
+		5508EBAA2CCF0A5E00F6E090 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__unix__=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5508EBAB2CCF0A5E00F6E090 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__unix__=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		55101A61290D06D9003CED21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6701,6 +7056,24 @@
 			buildConfigurations = (
 				4BD79A920BA2C9C9002C82B2 /* Debug */,
 				4BD79A930BA2C9C9002C82B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5508EB9A2CCF057D00F6E090 /* Build configuration list for PBXNativeTarget "Magnetic Scrolls" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5508EB9B2CCF057D00F6E090 /* Debug */,
+				5508EB9C2CCF057D00F6E090 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5508EBA92CCF0A5E00F6E090 /* Build configuration list for PBXNativeTarget "magnetic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5508EBAA2CCF0A5E00F6E090 /* Debug */,
+				5508EBAB2CCF0A5E00F6E090 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
