@@ -562,7 +562,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="zcode"</string>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -885,6 +885,23 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>iFiction</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Magnetic Scroll Story</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.magnetic</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>mag</string>
 				</array>
 			</dict>
 		</dict>

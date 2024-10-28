@@ -132,7 +132,7 @@ public class MagneticScrolls: ZoomGlkPlugIn {
 	}
 
 	public override class var supportedFileTypes: [String] {
-		return ["public.magnetic-scroll", "mag"]
+		return ["public.magnetic", "mag"]
 	}
 
 	public override class func canRun(_ fileURL: URL) -> Bool {

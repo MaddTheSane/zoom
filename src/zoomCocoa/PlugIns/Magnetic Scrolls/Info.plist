@@ -10,14 +10,14 @@
 				<string>mag</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Magnetic Scroll</string>
+			<string>Magnetic Scroll Story</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.magnetic-scroll</string>
+				<string>public.magnetic</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -34,9 +34,9 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Magnetic Scroll</string>
+			<string>Magnetic Scroll Story</string>
 			<key>UTTypeIdentifier</key>
-			<string>public.magnetic-scroll</string>
+			<string>public.magnetic</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
