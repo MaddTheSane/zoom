@@ -227,9 +227,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 		toolbar.displayMode = .iconAndLabel
 		toolbar.allowsUserCustomization = false
 		window?.toolbar = toolbar
-		if #available(macOS 11.0, *) {
-			window?.toolbarStyle = .preference
-		}
+		window?.toolbarStyle = .preference
 		
 		window?.setContentSize(generalSettingsView.frame.size)
 		self.window?.contentView = generalSettingsView

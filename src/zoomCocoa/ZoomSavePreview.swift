@@ -58,9 +58,7 @@ class SavePreview : NSView {
 		alert.messageText = NSLocalizedString("Are you sure?", comment: "Are you sure?")
 		alert.informativeText = NSLocalizedString("Are you sure you want to delete this saved game?", comment: "Are you sure you want to delete this saved game?")
 		let desButton = alert.addButton(withTitle: NSLocalizedString("Delete Game", value: "Delete", comment: "Delete"))
-		if #available(macOS 11.0, *) {
-			desButton.hasDestructiveAction = true
-		}
+		desButton.hasDestructiveAction = true
 		alert.addButton(withTitle: NSLocalizedString("Keep Game", value: "Keep", comment: "Keep"))
 		alert.beginSheetModal(for: window!) { returnCode in
 			guard returnCode == .alertFirstButtonReturn else {

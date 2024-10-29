@@ -643,13 +643,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No root node ID specified"
+            "value" : "No root node ID in the loaded skein"
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No root node ID specified"
+            "value" : "No root node ID in the loaded skein"
           }
         },
         "fr" : {

@@ -305,8 +305,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 			// UUID generation failure means old-style, pointer-derived xml.
 			newItem = [[ZoomSkeinItem alloc] initWithCommand: @"- PLACEHOLDER -"];
 		}
-		[itemDictionary setObject: newItem
-						   forKey: itemNodeId];
+		itemDictionary[itemNodeId] = newItem;
 	}
 	
 	// Item dictionary II: fill in the node data

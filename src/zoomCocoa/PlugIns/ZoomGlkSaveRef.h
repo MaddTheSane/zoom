@@ -35,10 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 //! Sets the delegate for this object (the delegate is retained)
 @property (strong, nullable) id<ZoomGlkSaveRefDelegate> delegate;
 
-//! An array of strings that can be used for the preview for this file
+//! An array of strings that can be used for the preview for this file.
 - (void) setPreview: (NSArray<NSString*>*) preview;
-//! Sets the skein that will be saved with this reference
-//! Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file
+//! Sets the skein that will be saved with this reference.
+//!
+//! Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file.
 @property (retain, nullable) ZoomSkein *skein;
 
 @end
