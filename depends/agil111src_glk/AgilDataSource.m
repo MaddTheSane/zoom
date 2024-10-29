@@ -77,7 +77,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
   } else if (cmd == 2) {
     pictname = pixlist[pict];
   } else if (cmd == 3) {
-    pictname = hold_fc->gamename;
+    pictname = hold_fc->shortname;
   } else {
     return nil;
   }
@@ -90,13 +90,13 @@ static int decodeImageFormat(glui32 image, int *cmd)
   if (pcxfile==NULL) return nil;
   fclose(pcxfile);
   NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
-  NSString *fileName = [@(pictname) stringByAppendingPathExtension:@(gfxext[gmode])];
+  NSString *fileName = [@(pictname) stringByAppendingString:@(gfxext[gmode])];
   NSURL *urlPath = [gameDir URLByAppendingPathComponent:fileName];
 
   if (gmode <= 11 && gmode >= 14) {
     // NSImage can be used to load these files!
     return [NSData dataWithContentsOfURL:urlPath];
-  } else if (gmode > 11) {
+  } else if (gmode < 11) {
     NSError *tmpError;
     //Load PCX
     PCXDecoder *pcxData = [[PCXDecoder alloc] initWithFileAtURL:urlPath error:&tmpError];

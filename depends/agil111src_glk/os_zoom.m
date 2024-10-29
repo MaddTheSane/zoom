@@ -1044,7 +1044,7 @@ gagt_status_update (void)
              * We don't (yet) have a status line.  Perhaps we're at the
              * very start of a game.  Print a standard message.
              */
-            glk_put_string ("Glk AGiliTy version 1.1.1");
+            glk_put_string ("Glk AGiliTy version 1.1.2");
           }
       } else
 #endif
@@ -1070,7 +1070,7 @@ gagt_status_update (void)
            * We don't (yet) have a status line.  Perhaps we're at the
            * very start of a game.  Print a standard message.
            */
-          glk_put_string ("Glk AGiliTy version 1.1.1");
+          glk_put_string ("Glk AGiliTy version 1.1.2");
         }
 
       glk_set_window (gagt_main_window);
