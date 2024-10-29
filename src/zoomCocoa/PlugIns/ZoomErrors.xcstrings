@@ -1,9 +1,86 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "IFMBStringID was not present or was not a string." : {
+      "comment" : "IFMBStringID was not present or was not a string.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "IFMBStringID war nicht vorhanden oder war keine Zeichenfolge."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IFMBStringID was not present or was not a string."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IFMBStringID was not present or was not a string."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "IFMBStringID n'était pas présent ou n'était pas une chaîne."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "IFMBStringIDは存在しないか、文字列ではありませんでした。"
+          }
+        }
+      }
+    },
+    "Invalid ZoomStoryID version." : {
+      "comment" : "Invalid legacy ZoomStoryID version.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ungültige ältere ZoomStoryID-Version."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Invalid legacy ZoomStoryID version."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid legacy ZoomStoryID version."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Version héritée de ZoomStoryID non valide."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "無効なレガシーZoomStoryIDバージョン。"
+          }
+        }
+      }
+    },
     "No original sourceURL was set when created." : {
       "comment" : "No original source URL was set when created.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZoomMetadata wurde nicht unter Bezugnahme auf eine Datei erstellt."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14,6 +91,53 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ZoomMetadata wasn't created referencing a file."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZoomMetadata n'a pas été créé en faisant référence à un fichier."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZoomMetadataはファイルを参照して作成されていません。"
+          }
+        }
+      }
+    },
+    "Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2 for legacy coding)." : {
+      "comment" : "Invalid Legacy ZoomStoryID version description.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Versucht, eine ZoomStoryID der Version %i zu laden (diese Version von Zoom unterstützt nur die Versionen 1 und 2 für die Legacy-Codierung)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2 for legacy coding)."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2 for legacy coding)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "J'ai essayé de charger une version %i ZoomStoryID (cette version de Zoom ne prend en charge que les versions 1 et 2 pour le codage hérité)."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "バージョン%iのZoomStoryIDを読み込もうとしました（このバージョンのZoomは、レガシーコーディングのバージョン1と2のみをサポートしています）。"
           }
         }
       }
@@ -21,6 +145,12 @@
     "ZoomMetadataError Duplicate ID" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Eine Geschichte enthält die gleiche ID zweimal"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -31,6 +161,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "One story contains the same ID twice"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Une histoire contient le même identifiant deux fois"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "1つのストーリーに同じIDが2回含まれています"
           }
         }
       }
@@ -38,6 +180,12 @@
     "ZoomMetadataError Mismatched Formats" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Story- und Identifikationsdaten geben unterschiedliche Formate an"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -48,6 +196,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Story and identification data specify different formats"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Les données d'histoire et d'identification spécifient différents formats"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ストーリーと識別データは異なる形式を指定します"
           }
         }
       }
@@ -55,6 +215,12 @@
     "ZoomMetadataError Not IF Index" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kein Index gefunden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -65,6 +231,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No index found"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aucun index trouvé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "インデックスが見つかりません"
           }
         }
       }
@@ -73,6 +251,12 @@
       "comment" : "File is not in XML format",
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Datei ist nicht im XML-Format"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -83,6 +267,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "File is not in XML format"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Le fichier n'est pas au format XML"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイルはXML形式ではありません"
           }
         }
       }
@@ -90,6 +286,12 @@
     "ZoomMetadataError Programmer Is A Spoon" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ein Fehler, der nicht hätte passieren dürfen, ist passiert"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -100,6 +302,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "An error that should not have happened, happened"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Une erreur qui n'aurait pas dû se produire, s'est produite"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "起こるべきではなかったエラーが起こった"
           }
         }
       }
@@ -107,6 +321,12 @@
     "ZoomMetadataError Stories Share IDs" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zwei Geschichten haben die gleiche ID"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -117,6 +337,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Two stories have the same ID"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Deux histoires ont le même identifiant"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "2つのストーリーは同じIDを持っています"
           }
         }
       }
@@ -124,6 +356,12 @@
     "ZoomMetadataError Unknown Format" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Unbekanntes Story-Format"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -134,6 +372,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unknown story format"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Format d'histoire inconnu"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "未知のストーリー形式"
           }
         }
       }
@@ -141,6 +391,12 @@
     "ZoomMetadataError Unknown Tag" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ungültiges iFiction-Tag in der Datei gefunden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -151,6 +407,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invalid iFiction tag encountered in file"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Étiquette iFiction invalide rencontrée dans le fichier"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイルに無効なiFictionタグが検出されました"
           }
         }
       }
@@ -158,6 +426,12 @@
     "ZoomMetadataError Unknown Version" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Unbekannte iFiction-Versionsnummer"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -168,6 +442,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unknown iFiction version number"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Numéro de version iFiction inconnu"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "未知のiFictionバージョン番号"
           }
         }
       }
@@ -175,6 +461,12 @@
     "ZoomMetadataError XML" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "XML-Parsing-Fehler"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -185,6 +477,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "XML parsing error"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Erreur d'analyse XML"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "XML解析エラー"
           }
         }
       }
@@ -192,6 +496,12 @@
     "ZoomStoryIDErrorBadZCodeVersion.description" : {
       "comment" : "Z-code version is greater than 8",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Datei hat eine schlechte z-Code-Version"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -202,6 +512,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "File has a bad z-code version"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Le fichier a une mauvaise version du code z"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイルには悪いzコードバージョンがあります"
           }
         }
       }
@@ -210,6 +532,12 @@
       "comment" : "Z-code version is greater than 8.",
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Z-Code-Version ist größer als 8."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -220,6 +548,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Z-code version is greater than 8."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "La version Z-code est supérieure à 8."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zコードのバージョンは8より大きい。"
           }
         }
       }
@@ -227,6 +567,12 @@
     "ZoomStoryIDErrorFileTooSmall.description" : {
       "comment" : "File is less than 64 bytes",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Die Datei ist zu klein, um sie zu identifizieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -237,6 +583,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "File is too small to identify"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Le fichier est trop petit pour être identifié"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイルが小さすぎて識別できない"
           }
         }
       }
@@ -245,6 +603,12 @@
       "comment" : "File is less than 64 bytes",
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Die Datei ist weniger als 64 Bytes."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -255,6 +619,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "File is less than 64 bytes."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Le fichier est inférieur à 64 octets."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファイルは64バイト未満です。"
           }
         }
       }
@@ -262,6 +638,12 @@
     "ZoomStoryIDErrorNoGlulxChunk.description" : {
       "comment" : "Unable to find Glulx chunk in blorb",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Glulx-Chunk kann nicht gefunden werden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -272,6 +654,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unable to find Glulx chunk"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Incapable de trouver le morceau Glulx"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Glulxチャンクが見つかりません"
           }
         }
       }
@@ -280,6 +674,12 @@
       "comment" : "Unable to find a Glulx chunk in the specified blorb.",
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Es kann nicht möglich sein, einen Glulx-Chunk im angegebenen Blob zu finden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -290,6 +690,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unable to find a Glulx chunk in the specified blorb."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Incapable de trouver un morceau Glulx dans le blobb spécifié."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "指定された blorb で Glulx チャンクが見つかりません。"
           }
         }
       }
@@ -297,6 +709,12 @@
     "ZoomStoryIDErrorNoIdentGenerated.description" : {
       "comment" : "IFID was not generated",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "IFID wurde nicht generiert"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -307,6 +725,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "IFID was not generated"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "L'IFID n'a pas été généré"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "IFIDが生成されませんでした"
           }
         }
       }
@@ -314,6 +744,12 @@
     "ZoomStoryIDErrorNoZCodeChunk.description" : {
       "comment" : "Unable to find z-code chunk in blorb",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Z-Code-Chunk konnte nicht gefunden werden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -324,6 +760,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unable to find z-code chunk"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Incapable de trouver le morceau de code z"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zコードチャンクが見つかりません"
           }
         }
       }
@@ -332,6 +780,12 @@
       "comment" : "Unable to find z-code chunk in the specified blorb.",
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ein Z-Code-Chunk im angegebenen Blob konnte nicht gefunden werden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -342,6 +796,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unable to find a z-code chunk in the specified blorb."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ne peut pas trouver un morceau de code z dans le blobb spécifié."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "指定されたブロブでzコードチャンクが見つかりません。"
           }
         }
       }

@@ -661,7 +661,7 @@ typedef unsigned char IFMDByte;
 		if (decoder.allowsKeyedCoding) {
 			NSString* idString = (NSString*)[decoder decodeObjectOfClass:[NSString class] forKey:@"IFMBStringID"];
 			if (!idString) {
-				[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderValueNotFoundError userInfo:@{NSLocalizedDescriptionKey: @"IFMBStringID was not present or was not a string.", NSDebugDescriptionErrorKey: @"IFMBStringID was not present or was not a string."}]];
+				[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderValueNotFoundError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringWithDefaultValue(@"IFMBStringID was not present or was not a string.", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"IFMBStringID was not present or was not a string.", @"IFMBStringID was not present or was not a string."), NSDebugDescriptionErrorKey: @"IFMBStringID was not present or was not a string."}]];
 				return nil;
 			}
 			
@@ -735,7 +735,7 @@ typedef unsigned char IFMDByte;
 			} else if (version == 2) {
 				NSString* idString = (NSString*)[decoder decodeObject];
 				if (![idString isKindOfClass:[NSString class]]) {
-					[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderValueNotFoundError userInfo:@{NSLocalizedDescriptionKey: @"IFMBStringID was not present or was not a string.", NSDebugDescriptionErrorKey: @"IFMBStringID was not present or was not a string."}]];
+					[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderValueNotFoundError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringWithDefaultValue(@"IFMBStringID was not present or was not a string.", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"IFMBStringID was not present or was not a string.", @"IFMBStringID was not present or was not a string."), NSDebugDescriptionErrorKey: @"IFMBStringID was not present or was not a string."}]];
 					return nil;
 				}
 				
@@ -744,7 +744,7 @@ typedef unsigned char IFMDByte;
 			} else {
 				// Only v1 and v2 decodes supported ATM
 				
-				[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderReadCorruptError userInfo:@{NSLocalizedDescriptionKey: @"Invalid ZoomStoryID version.", NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2 for legacy coding).", version]}]];
+				[decoder failWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderReadCorruptError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringWithDefaultValue(@"Invalid ZoomStoryID version.", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"Invalid legacy ZoomStoryID version.", @"Invalid legacy ZoomStoryID version."), NSLocalizedFailureReasonErrorKey: [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2 for legacy coding).", @"ZoomErrors", [NSBundle bundleForClass:[self class]], @"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2 for legacy coding).", @"Invalid Legacy ZoomStoryID version description."), version]}]];
 				NSLog(@"Tried to load a version %i ZoomStoryID (this version of Zoom supports only versions 1 and 2)", version);
 				
 				return nil;

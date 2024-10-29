@@ -22,6 +22,12 @@
             "value" : "Add Label"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ajouter une étiquette"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -49,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add New"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ajouter un nouveau"
           }
         },
         "ja" : {
@@ -80,6 +92,12 @@
             "value" : "Delete"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Supprimer"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -107,6 +125,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete all Below"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Supprimer tout ci-dessous"
           }
         },
         "ja" : {
@@ -138,6 +162,12 @@
             "value" : "Delete all in Thread"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Supprimer tout dans Thread"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -165,6 +195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit Label"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Modifier l'étiquette"
           }
         },
         "ja" : {
@@ -196,6 +232,12 @@
             "value" : "Insert Knot"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Insérer le nœud"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -223,6 +265,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lock"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cadenas"
           }
         },
         "ja" : {
@@ -254,6 +302,12 @@
             "value" : "Lock this Thread"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Verrouillez ce fil"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -281,6 +335,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New Thread"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nouveau fil"
           }
         },
         "ja" : {
@@ -312,6 +372,12 @@
             "value" : "Play to Here"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Jouer ici"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -339,6 +405,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save Transcript to Here…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Enregistrer la transcription ici..."
           }
         },
         "ja" : {
@@ -370,6 +442,12 @@
             "value" : "Show in Transcript"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Afficher dans la transcription"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -397,6 +475,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unlock"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Libérer"
           }
         },
         "ja" : {
@@ -428,6 +512,12 @@
             "value" : "Unlock this Branch"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Déverrouillez cette branche"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -439,10 +529,28 @@
     "ZoomSkein: Failed to find root 'Skein' element" : {
       "comment" : "ZoomSkein: Failed to find root 'Skein' element",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Das Root-Element 'Skein' konnte nicht gefunden werden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Failed to find root 'Skein' element"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to find root 'Skein' element"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aucun identifiant de nœud racine spécifié"
           }
         },
         "ja" : {
@@ -456,10 +564,28 @@
     "ZoomSkein: Failed to parse skein XML data" : {
       "comment" : "ZoomSkein: Failed to parse skein XML data",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fehler beim Parsen von Skein-XML-Daten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Failed to parse skein XML data"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to parse skein XML data"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Échec de l'analyse des données XML de l'écheveau"
           }
         },
         "ja" : {
@@ -473,10 +599,28 @@
     "ZoomSkein: No root node" : {
       "comment" : "ZoomSkein: No root node",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kein Root-Node"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No root node"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No root node"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pas de nœud racine"
           }
         },
         "ja" : {
@@ -490,10 +634,28 @@
     "ZoomSkein: No root node ID specified" : {
       "comment" : "ZoomSkein: No root node ID specified",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Keine Root-Node-ID angegeben"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No root node ID specified"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No root node ID specified"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aucun identifiant de nœud racine spécifié"
           }
         },
         "ja" : {
