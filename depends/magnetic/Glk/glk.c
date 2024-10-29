@@ -44,6 +44,7 @@
 #include <string.h>
 #include <limits.h>
 #include <stddef.h>
+#include <stdbool.h>
 
 #include "defs.h"
 
@@ -55,10 +56,10 @@
  * normally from stdio.h or one of it's cousins.
  */
 #ifndef FALSE
-# define FALSE 0
+# define FALSE false
 #endif
 #ifndef TRUE
-# define TRUE (!FALSE)
+# define TRUE true
 #endif
 
 
@@ -94,15 +95,15 @@ static strid_t gms_transcript_stream = NULL,
 static strid_t gms_readlog_stream = NULL;
 
 /*! Note about whether graphics is possible, or not. */
-static int gms_graphics_possible = TRUE;
+static bool gms_graphics_possible = TRUE;
 
 /*! Options that may be turned off or set by command line flags. */
-static int gms_graphics_enabled = TRUE;
+static bool gms_graphics_enabled = TRUE;
 static enum {
   GAMMA_OFF, GAMMA_NORMAL, GAMMA_HIGH
 }
 gms_gamma_mode = GAMMA_NORMAL;
-static int gms_animation_enabled = TRUE,
+static bool gms_animation_enabled = TRUE,
            gms_prompt_enabled = TRUE,
            gms_abbreviations_enabled = TRUE,
            gms_commands_enabled = TRUE;
@@ -312,7 +313,7 @@ static const glui32 GMS_CRC_POLYNOMIAL = 0xedb88320;
 static glui32
 gms_get_buffer_crc (const void *void_buffer, size_t length)
 {
-  static int is_initialized = FALSE;
+  static bool is_initialized = FALSE;
   static glui32 crc_table[UCHAR_MAX + 1];
 
   const char *buffer = (const char *) void_buffer;
@@ -333,7 +334,7 @@ gms_get_buffer_crc (const void *void_buffer, size_t length)
           crc_table[index] = crc;
         }
 
-      is_initialized = TRUE;
+      is_initialized = true;
 
       /* CRC lookup table self-test, after is_initialized set -- recursion. */
       assert (gms_get_buffer_crc ("123456789", 9) == 0xcbf43926);
@@ -537,7 +538,7 @@ typedef const struct gms_gamma_s
 {
   const char * const level;      /*!< Gamma correction level. */
   const unsigned char table[8];  /*!< Color lookup table. */
-  const int is_corrected;        /*!< Flag if non-linear. */
+  const bool is_corrected;       /*!< Flag if non-linear. */
 } gms_gamma_t;
 typedef gms_gamma_t *gms_gammaref_t;
 
@@ -670,19 +671,19 @@ static type8 *gms_graphics_bitmap = NULL;
 static type16 gms_graphics_width = 0,
               gms_graphics_height = 0,
               gms_graphics_palette[GMS_PALETTE_SIZE]; /* = { 0, ... }; */
-static type8 gms_graphics_animated = FALSE;
+static bool gms_graphics_animated = FALSE;
 static type32 gms_graphics_picture = 0;
 
 /**
  * Flags set on new picture, and on resize or arrange events, and a flag
  * to indicate whether background repaint is stopped or active.
  */
-static int gms_graphics_new_picture = FALSE,
+static bool gms_graphics_new_picture = FALSE,
            gms_graphics_repaint = FALSE,
            gms_graphics_active = FALSE;
 
 /*! Flag to try to monitor the state of interpreter graphics. */
-static int gms_graphics_interpreter = FALSE;
+static bool gms_graphics_interpreter = FALSE;
 
 /**
  * Pointer to the two graphics buffers, one the off-screen representation
@@ -713,7 +714,7 @@ static int gms_graphics_color_count = GMS_PALETTE_SIZE;
  * If it's not open, open the graphics window.  Returns `TRUE` if graphics
  * was successfully started, or already on.
  */
-static int
+static bool
 gms_graphics_open (void)
 {
   if (!gms_graphics_window)
@@ -779,7 +780,7 @@ gms_graphics_stop (void)
 /**
  * Return `TRUE` if graphics are currently being displayed, `FALSE` otherwise.
  */
-static int
+static bool
 gms_graphics_are_displayed (void)
 {
   return gms_graphics_window != NULL;
@@ -956,7 +957,7 @@ gms_graphics_combine_color (gms_rgbref_t rgb_color)
 static int
 gms_graphics_color_luminance (gms_rgbref_t rgb_color)
 {
-  static int is_initialized = FALSE;
+  static bool is_initialized = FALSE;
   static int weighting = 0;
 
   long luminance;
@@ -1004,7 +1005,8 @@ static long
 gms_graphics_contrast_variance (type16 palette[],
                                 int color_usage[], gms_gammaref_t gamma)
 {
-  int index, count, has_black, mean;
+  int index, count, mean;
+  bool has_black;
   long sum;
   int contrast[GMS_PALETTE_SIZE];
   int luminance[GMS_PALETTE_SIZE + 1];  /* Luminance for each color,
@@ -1132,7 +1134,7 @@ static gms_gammaref_t
 gms_graphics_select_gamma (type8 bitmap[], type16 width, type16 height,
                            type16 palette[])
 {
-  static int is_initialized = FALSE;
+  static bool is_initialized = FALSE;
   static gms_gammaref_t linear_gamma = NULL;
 
   int color_usage[GMS_PALETTE_SIZE];
@@ -1455,7 +1457,7 @@ gms_graphics_apply_animation_frame (type8 bitmap[],
  * It returns `FALSE` if at the end of animations, `TRUE` if more animations
  * remain.
  */
-static int
+static bool
 gms_graphics_animate (type8 off_screen[], type16 width, type16 height)
 {
   struct ms_position *positions;
@@ -1507,7 +1509,7 @@ gms_graphics_animate (type8 off_screen[], type16 width, type16 height)
  * the most complex shapes first, we help to minimize the number of fill
  * regions needed to render the complete picture.
  */
-static int
+static bool
 gms_graphics_is_vertex (type8 off_screen[], type16 width, type16 height,
                         int x, int y)
 {
@@ -1869,7 +1871,7 @@ gms_graphics_timeout (void)
   static int layers[GMS_PALETTE_SIZE];       /* Assigned image layers */
   static long layer_usage[GMS_PALETTE_SIZE]; /* Image layer occupancies */
 
-  static int deferred_repaint = FALSE;       /* Local delayed repaint flag */
+  static bool deferred_repaint = FALSE;      /* Local delayed repaint flag */
   static int ignore_counter;                 /* Count of calls ignored */
 
   static int x_offset, y_offset;             /* Point plot offsets */
@@ -2354,7 +2356,7 @@ ms_showpic (type32 picture, type8 mode)
  * Return `TRUE` if the graphics module data is loaded with a usable picture,
  * `FALSE` if there is no picture available to display.
  */
-static int
+static bool
 gms_graphics_picture_is_available (void)
 {
   return gms_graphics_bitmap != NULL;
@@ -2366,7 +2368,7 @@ gms_graphics_picture_is_available (void)
  * picture.  The function returns `FALSE` if no picture is loaded, otherwise
  * `TRUE`, with picture details in the return arguments.
  */
-static int
+static bool
 gms_graphics_get_picture_details (int *width, int *height, int *is_animated)
 {
   if (gms_graphics_picture_is_available ())
@@ -2397,7 +2399,7 @@ gms_graphics_get_picture_details (int *width, int *height, int *is_animated)
  * very small chance that it might win the race, in which case out-of-date
  * gamma and color count values are returned.
  */
-static int
+static bool
 gms_graphics_get_rendering_details (const char **gamma, int *color_count,
                                     int *is_active)
 {
@@ -2436,7 +2438,7 @@ gms_graphics_get_rendering_details (const char **gamma, int *color_count,
  * Return `TRUE` if it looks like interpreter graphics are turned on, `FALSE`
  * otherwise.
  */
-static int
+static bool
 gms_graphics_interpreter_enabled (void)
 {
   return gms_graphics_interpreter;
@@ -2693,7 +2695,7 @@ gms_status_redraw (void)
  * Flag for if the user entered "help" as their last input, or if hints have
  * been silenced as a result of already using a Glk command.
  */
-static int gms_help_requested = FALSE,
+static bool gms_help_requested = FALSE,
            gms_help_hints_silenced = FALSE;
 
 /**
@@ -2709,7 +2711,7 @@ static int gms_output_allocation = 0,
  * Flag to indicate if the last buffer flushed looked like it ended in a
  * ">" prompt.
  */
-static int gms_output_prompt = FALSE;
+static bool gms_output_prompt = FALSE;
 
 
 /**
@@ -2756,7 +2758,7 @@ gms_output_provide_help_hint (void)
  * Once called, the flag is reset to `FALSE`, and requires more game output
  * to set it again.
  */
-static int
+static bool
 gms_game_prompted (void)
 {
   int result;
@@ -3177,7 +3179,7 @@ gms_get_hint_topic (const struct ms_hint hints[], type16 node)
  * The function creates two hints windows -- a text grid on top, for menus,
  * and a text buffer below for hints.
  */
-static int
+static bool
 gms_hint_open (void)
 {
   if (!gms_hint_menu_window)
@@ -3236,7 +3238,7 @@ gms_hint_close (void)
  * Return `TRUE` if hints windows are available.  If they're not, the hints
  * system will need to use alternative output methods.
  */
-static int
+static bool
 gms_hint_windows_available (void)
 {
   return (gms_hint_menu_window && gms_hint_text_window);
@@ -3803,7 +3805,7 @@ gms_hint_handle (const struct ms_hint hints[],
 type8
 ms_showhints (struct ms_hint * hints)
 {
-  static int is_initialized = FALSE;
+  static bool is_initialized = FALSE;
   static glui32 current_crc = 0;
 
   type16 hint_count;
@@ -3921,6 +3923,7 @@ gms_hints_cleanup (void)
 
 void ms_playmusic(type8 * midi_data, type32 length, type16 tempo)
 {
+  // TODO: implement somehow...
 }
 
 
@@ -4687,8 +4690,8 @@ typedef const struct gms_command_s
 {
   const char * const command;                     /*!< Glk subcommand. */
   void (* const handler) (const char *argument);  /*!< Subcommand handler. */
-  const int takes_argument;                       /*!< Argument flag. */
-  const int undo_return;                          /*!< "Undo" return value. */
+  const bool takes_argument;                      /*!< Argument flag. */
+  const bool undo_return;                         /*!< "Undo" return value. */
 } gms_command_t;
 typedef gms_command_t *gms_commandref_t;
 
@@ -4948,8 +4951,8 @@ gms_command_help (const char *command)
  * On unambiguous returns, it will also set the value for `undo_command` to the
  * table undo return value.
  */
-static int
-gms_command_escape (const char *string, int *undo_command)
+static bool
+gms_command_escape (const char *string, bool *undo_command)
 {
   int posn;
   char *string_copy, *command, *argument;
@@ -5058,7 +5061,7 @@ gms_command_escape (const char *string, int *undo_command)
  * more convenient for the player, since it's the same behavior that most
  * other IF systems have.  It returns `TRUE` if "undo" found, `FALSE` otherwise.
  */
-static int
+static bool
 gms_command_undo_special (const char *string)
 {
   int posn, end;
@@ -5094,8 +5097,8 @@ gms_command_undo_special (const char *string)
 enum { GMS_INPUTBUFFER_LENGTH = 256 };
 static char gms_input_buffer[GMS_INPUTBUFFER_LENGTH];
 static int gms_input_length = 0,
-           gms_input_cursor = 0,
-           gms_undo_notification = FALSE;
+           gms_input_cursor = 0;
+static bool gms_undo_notification = FALSE;
 
 /*! Table of single-character command abbreviations. */
 typedef const struct gms_abbreviation_s
@@ -5392,7 +5395,7 @@ ms_getchar (type8 trans)
  * Print a confirmation prompt, and read a single input character, taking
  * only [YyNn] input.  If the character is 'Y' or 'y', return TRUE.
  */
-static int
+static bool
 gms_confirm (const char *prompt)
 {
   event_t event;
@@ -5802,7 +5805,7 @@ gms_establish_filenames (char *name, char **text, char **graphics, char **hints)
  * handle options.  The second is called from `glk_main()`, and does the real
  * work of running the game.
  */
-static int
+static bool
 gms_startup_code (int argc, char *argv[])
 {
   int argv_index;
@@ -6095,7 +6098,7 @@ gms_main (void)
  * Safety flags, to ensure we always get startup before main, and that
  * we only get a call to main once.
  */
-static int gms_startup_called = FALSE,
+static bool gms_startup_called = FALSE,
            gms_main_called = FALSE;
 
 /**
