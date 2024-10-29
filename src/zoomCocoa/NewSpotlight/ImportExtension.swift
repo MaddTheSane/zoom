@@ -118,18 +118,34 @@ class ImportExtension: CSImportExtension {
 		// zarf rating
 		//
 		do {
-			let zarfString: NSString?
+			// TODO: better way of doing this? Load it from strings files?
+			let zarfString: CSLocalizedString?
 			switch story.zarfian {
 			case .merciful:
-				zarfString = "Merciful"
+				zarfString = CSLocalizedString(localizedStrings: ["en": "Merciful",
+																  "fr": "Miséricordieux",
+																  "de": "Gnädig",
+																  "ja": "慈悲深い"])
 			case .polite:
-				zarfString = "Polite"
+				zarfString = CSLocalizedString(localizedStrings: ["en": "Polite",
+																  "fr": "Poli",
+																  "de": "Höflich",
+																  "ja": "礼儀正しい"])
 			case .tough:
-				zarfString = "Tough"
+				zarfString = CSLocalizedString(localizedStrings: ["en": "Tough",
+																  "fr": "Dur",
+																  "de": "Schläger",
+																  "ja": "厳しい"])
 			case .nasty:
-				zarfString = "Nasty"
+				zarfString = CSLocalizedString(localizedStrings: ["en": "Nasty",
+																  "fr": "Méchant",
+																  "de": "Böse",
+																  "ja": "意地の悪い"])
 			case .cruel:
-				zarfString = "Cruel"
+				zarfString = CSLocalizedString(localizedStrings: ["en": "Cruel",
+																  "fr": "Cruel",
+																  "de": "Grausam",
+																  "ja": "残酷な"])
 			case .unrated:
 				fallthrough
 			@unknown default:

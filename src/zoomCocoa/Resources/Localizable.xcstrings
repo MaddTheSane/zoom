@@ -15,6 +15,12 @@
             "state" : "translated",
             "value" : "[ The game has finished ]"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[ Le jeu est terminé ]"
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "[ The Zoom interpreter has quit unexpectedly ]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[ L'interprète Zoom s'est arrêté de manière inattendue ]"
           }
         }
       }
@@ -49,6 +61,12 @@
             "state" : "translated",
             "value" : "[More…]"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Plus...]"
+          }
         }
       }
     },
@@ -65,6 +83,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fatal error"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Erreur fatale"
           }
         }
       }
@@ -83,6 +107,12 @@
             "state" : "translated",
             "value" : "Stop"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Arrêter"
+          }
         }
       }
     },
@@ -99,6 +129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Warning"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Avertissement"
           }
         }
       }
@@ -118,6 +154,12 @@
             "state" : "translated",
             "value" : "No FORM block found in blorb."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aucun bloc FORM trouvé dans blorb."
+          }
         }
       }
     },
@@ -136,6 +178,12 @@
             "state" : "translated",
             "value" : "File is too small to be a blorb file."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Le fichier est trop petit pour être un fichier blorb."
+          }
         }
       }
     },
@@ -153,6 +201,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unexpected end of file."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fin inattendue du fichier."
           }
         }
       }
