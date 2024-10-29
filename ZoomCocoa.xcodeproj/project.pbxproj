@@ -1561,7 +1561,7 @@
 		5508EB7C2CCF04D600F6E090 /* xtract64.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = xtract64.c; sourceTree = "<group>"; };
 		5508EB7D2CCF04D600F6E090 /* xtractmw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = xtractmw.c; sourceTree = "<group>"; };
 		5508EB7E2CCF04D600F6E090 /* xtractpc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = xtractpc.c; sourceTree = "<group>"; };
-		5508EB802CCF04D600F6E090 /* glk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glk.c; sourceTree = "<group>"; };
+		5508EB802CCF04D600F6E090 /* glk.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = glk.c; sourceTree = "<group>"; usesTabs = 0; };
 		5508EB812CCF04D600F6E090 /* glk_readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = glk_readme.txt; sourceTree = "<group>"; };
 		5508EB822CCF04D600F6E090 /* magnetic.hdr */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = magnetic.hdr; sourceTree = "<group>"; };
 		5508EB832CCF04D600F6E090 /* Makefile.glk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.glk; sourceTree = "<group>"; };
@@ -6048,7 +6048,6 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).MagneticScrolls";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.Magnetic-Scrolls";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6081,7 +6080,6 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).MagneticScrolls";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.Magnetic-Scrolls";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6105,7 +6103,6 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -6124,7 +6121,6 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/depends/CocoaGlk/GlkClient";
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -62,14 +62,15 @@
 #endif
 
 
+#pragma mark - Module variables, miscellaneous other stuff -
 /*---------------------------------------------------------------------*/
 /*  Module variables, miscellaneous other stuff                        */
 /*---------------------------------------------------------------------*/
 
-/* Glk Magnetic Scrolls port version number. */
+/*! Glk Magnetic Scrolls port version number. */
 static const glui32 GMS_PORT_VERSION = 0x00010601;
 
-/*
+/*!
  * We use a maximum of five Glk windows, one for status, one for pictures,
  * two for hints, and one for everything else.  The status and pictures
  * windows may be NULL, depending on user selections and the capabilities
@@ -82,20 +83,20 @@ static winid_t gms_main_window = NULL,
                gms_hint_menu_window = NULL,
                gms_hint_text_window = NULL;
 
-/*
- * Transcript stream and input log.  These are NULL if there is no current
+/*!
+ * Transcript stream and input log.  These are `NULL` if there is no current
  * collection of these strings.
  */
 static strid_t gms_transcript_stream = NULL,
                gms_inputlog_stream = NULL;
 
-/* Input read log stream, for reading back an input log. */
+/*! Input read log stream, for reading back an input log. */
 static strid_t gms_readlog_stream = NULL;
 
-/* Note about whether graphics is possible, or not. */
+/*! Note about whether graphics is possible, or not. */
 static int gms_graphics_possible = TRUE;
 
-/* Options that may be turned off or set by command line flags. */
+/*! Options that may be turned off or set by command line flags. */
 static int gms_graphics_enabled = TRUE;
 static enum {
   GAMMA_OFF, GAMMA_NORMAL, GAMMA_HIGH
@@ -106,20 +107,19 @@ static int gms_animation_enabled = TRUE,
            gms_abbreviations_enabled = TRUE,
            gms_commands_enabled = TRUE;
 
-/* Magnetic Scrolls standard input prompt string. */
+/*! Magnetic Scrolls standard input prompt string. */
 static const char * const GMS_INPUT_PROMPT = ">";
 
-/* Forward declaration of event wait function. */
+/*! Forward declaration of event wait function. */
 static void gms_event_wait (glui32 wait_type, event_t * event);
 
 
+#pragma mark - Glk port utility functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port utility functions                                         */
 /*---------------------------------------------------------------------*/
 
-/*
- * gms_fatal()
- *
+/**
  * Fatal error handler.  The function returns, expecting the caller to
  * abort() or otherwise handle the error.
  */
@@ -166,11 +166,8 @@ gms_fatal (const char *string)
 }
 
 
-/*
- * gms_malloc()
- * gms_realloc()
- *
- * Non-failing malloc and realloc; call gms_fatal and exit if memory
+/**
+ * Non-failing `malloc`; call `gms_fatal` and exit if memory
  * allocation fails.
  */
 static void *
@@ -188,6 +185,10 @@ gms_malloc (size_t size)
   return pointer;
 }
 
+/**
+ * Non-failing `realloc`; call `gms_fatal` and exit if memory
+ * allocation fails.
+ */
 static void *
 gms_realloc (void *ptr, size_t size)
 {
@@ -204,11 +205,8 @@ gms_realloc (void *ptr, size_t size)
 }
 
 
-/*
- * gms_strncasecmp()
- * gms_strcasecmp()
- *
- * Strncasecmp and strcasecmp are not ANSI functions, so here are local
+/**
+ * `strncasecmp` are not ANSI functions, so here are local
  * definitions to do the same jobs.
  */
 static int
@@ -228,6 +226,10 @@ gms_strncasecmp (const char *s1, const char *s2, size_t n)
   return 0;
 }
 
+/**
+ * `strcasecmp` are not ANSI functions, so here are local
+ * definitions to do the same jobs.
+ */
 static int
 gms_strcasecmp (const char *s1, const char *s2)
 {
@@ -245,6 +247,7 @@ gms_strcasecmp (const char *s1, const char *s2)
 }
 
 
+#pragma mark - Glk port stub graphics functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port stub graphics functions                                   */
 /*---------------------------------------------------------------------*/
@@ -292,17 +295,16 @@ glk_window_set_background_color (winid_t win, glui32 color)
 #endif
 
 
+#pragma mark - Glk port CRC functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port CRC functions                                             */
 /*---------------------------------------------------------------------*/
 
-/* CRC table initialization polynomial. */
+/*! CRC table initialization polynomial. */
 static const glui32 GMS_CRC_POLYNOMIAL = 0xedb88320;
 
 
-/*
- * gms_get_buffer_crc()
- *
+/**
  * Return the CRC of the bytes in buffer[0..length-1].
  *
  * This algorithm is taken from the PNG specification, version 1.0.
@@ -348,11 +350,12 @@ gms_get_buffer_crc (const void *void_buffer, size_t length)
 }
 
 
+#pragma mark - Glk port game identification data and identification functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port game identification data and identification functions     */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * The game's name, suitable for printing out on a status line, or other
  * location where game information is relevant.  Set on game startup, by
  * identifying the game from its text file header.
@@ -360,15 +363,15 @@ gms_get_buffer_crc (const void *void_buffer, size_t length)
 static const char *gms_gameid_game_name = NULL;
 
 
-/*
- * The following game database is built from Generic/games.txt, and is used
+/**
+ * The following game database is built from *Generic/games.txt*, and is used
  * to identify the game being run.  Magnetic Scrolls games don't generally
  * supply a status line, so this data can be used instead.
  */
-typedef const struct {
-  const type32 undo_size;   /* Header word at offset 0x22 */
-  const type32 undo_pc;     /* Header word at offset 0x26 */
-  const char * const name;  /* Game title and platform */
+typedef const struct gms_game_table_s {
+  const type32 undo_size;   /*!< Header word at offset 0x22 */
+  const type32 undo_pc;     /*!< Header word at offset 0x26 */
+  const char * const name;  /*!< Game title and platform */
 } gms_game_table_t;
 typedef gms_game_table_t *gms_game_tableref_t;
 
@@ -417,9 +420,7 @@ static gms_game_table_t GMS_GAME_TABLE[] = {
 };
 
 
-/*
- * gms_gameid_lookup_game()
- *
+/**
  * Look up and return the game table entry given a game's undo size and
  * undo pc values.  Returns the entry, or NULL if not found.
  */
@@ -438,9 +439,7 @@ gms_gameid_lookup_game (type32 undo_size, type32 undo_pc)
 }
 
 
-/*
- * gms_gameid_read_uint32()
- *
+/**
  * Endian-safe unsigned 32 bit integer read from game text file.  Returns
  * 0 on error, a known unused table value.
  */
@@ -458,9 +457,7 @@ gms_gameid_read_uint32 (int offset, FILE *stream)
 }
 
 
-/*
- * gms_gameid_identify_game()
- *
+/**
  * Identify a game from its text file header, and cache the game's name for
  * later queries.  Sets the cache to NULL if not found.
  */
@@ -490,10 +487,8 @@ gms_gameid_identify_game (const char *text_file)
 }
 
 
-/*
- * gms_gameid_get_game_name()
- *
- * Return the name of the game, or NULL if not identifiable.
+/**
+ * Return the name of the game, or `NULL` if not identifiable.
  */
 static const char *
 gms_gameid_get_game_name (void)
@@ -502,11 +497,12 @@ gms_gameid_get_game_name (void)
 }
 
 
+#pragma mark - Glk port picture functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port picture functions                                         */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Color conversions lookup tables, and a word about gamma corrections.
  *
  * When uncorrected, some game pictures can look dark (Corruption, Won-
@@ -524,6 +520,7 @@ gms_gameid_get_game_name (void)
  *
  * Here's an AWK script to create the gamma table:
  *
+ * ```
  * BEGIN { max=255.0; step=max/7.0
  *         for (gamma=0.9; gamma<=2.7; gamma+=0.05) {
  *             printf "  {\"%2.2f\", {0, ", gamma
@@ -534,13 +531,13 @@ gms_gameid_get_game_name (void)
  *             printf "}, "
  *             printf "%s },\n", (gamma>0.99 && gamma<1.01) ? "FALSE" : "TRUE "
  *         } }
- *
+ * ```
  */
-typedef const struct
+typedef const struct gms_gamma_s
 {
-  const char * const level;      /* Gamma correction level. */
-  const unsigned char table[8];  /* Color lookup table. */
-  const int is_corrected;        /* Flag if non-linear. */
+  const char * const level;      /*!< Gamma correction level. */
+  const unsigned char table[8];  /*!< Color lookup table. */
+  const int is_corrected;        /*!< Flag if non-linear. */
 } gms_gamma_t;
 typedef gms_gamma_t *gms_gammaref_t;
 
@@ -585,14 +582,14 @@ static gms_gamma_t GMS_GAMMA_TABLE[] = {
   {NULL,   {0,   0,   0,   0,   0,   0,   0,   0}, FALSE}
 };
 
-/* R,G,B color triple definition. */
-typedef struct
+/*! R,G,B color triple definition. */
+typedef struct gms_rgb_s
 {
   int red, green, blue;
 } gms_rgb_t;
 typedef gms_rgb_t *gms_rgbref_t;
 
-/*
+/**
  * Weighting values for calculating the luminance of a color.  There are
  * two commonly used sets of values for these -- 299,587,114, taken from
  * NTSC (Never The Same Color) 1953 standards, and 212,716,72, which is the
@@ -601,7 +598,7 @@ typedef gms_rgb_t *gms_rgbref_t;
  */
 static const gms_rgb_t GMS_LUMINANCE_WEIGHTS = { 299, 587, 114 };
 
-/*
+/**
  * Maximum number of regions to consider in a single repaint pass.  A
  * couple of hundred seems to strike the right balance between not too
  * sluggardly picture updates, and responsiveness to input during graphics
@@ -609,7 +606,7 @@ static const gms_rgb_t GMS_LUMINANCE_WEIGHTS = { 299, 587, 114 };
  */
 static const int GMS_REPAINT_LIMIT = 256;
 
-/*
+/**
  * Graphics timeout; we like an update call after this period (ms).  In
  * practice, this timeout may actually be shorter than the time taken
  * to reach the limit on repaint regions, but because Glk guarantees that
@@ -628,7 +625,7 @@ static const int GMS_REPAINT_LIMIT = 256;
  */
 static const glui32 GMS_GRAPHICS_TIMEOUT = 50;
 
-/*
+/**
  * Count of timeouts to wait in between animation paints, and to wait on
  * repaint request.  Waiting for 2 timeouts of around 50ms, gets us to the
  * 100ms recommended animation frame rate.  Waiting after a repaint smooths
@@ -639,13 +636,13 @@ static const glui32 GMS_GRAPHICS_TIMEOUT = 50;
 static const int GMS_GRAPHICS_ANIMATION_WAIT = 2,
                  GMS_GRAPHICS_REPAINT_WAIT = 10;
 
-/* Pixel size multiplier for image size scaling. */
+/*! Pixel size multiplier for image size scaling. */
 static const int GMS_GRAPHICS_PIXEL = 2;
 
-/* Proportion of the display to use for graphics. */
+/*! Proportion of the display to use for graphics. */
 static const glui32 GMS_GRAPHICS_PROPORTION = 60;
 
-/*
+/**
  * Border and shading control.  For cases where we can't detect the back-
  * ground color of the main window, there's a default, white, background.
  * Bordering is black, with a 1 pixel border, 2 pixel shading, and 8 steps
@@ -657,7 +654,7 @@ static const int GMS_GRAPHICS_BORDER = 1,
                  GMS_GRAPHICS_SHADING = 2,
                  GMS_GRAPHICS_SHADE_STEPS = 8;
 
-/*
+/**
  * Guaranteed unused pixel value.  This value is used to fill the on-screen
  * buffer on new pictures or repaints, resulting in a full paint of all
  * pixels since no off-screen, real picture, pixel will match it.
@@ -676,7 +673,7 @@ static type16 gms_graphics_width = 0,
 static type8 gms_graphics_animated = FALSE;
 static type32 gms_graphics_picture = 0;
 
-/*
+/**
  * Flags set on new picture, and on resize or arrange events, and a flag
  * to indicate whether background repaint is stopped or active.
  */
@@ -684,10 +681,10 @@ static int gms_graphics_new_picture = FALSE,
            gms_graphics_repaint = FALSE,
            gms_graphics_active = FALSE;
 
-/* Flag to try to monitor the state of interpreter graphics. */
+/*! Flag to try to monitor the state of interpreter graphics. */
 static int gms_graphics_interpreter = FALSE;
 
-/*
+/**
  * Pointer to the two graphics buffers, one the off-screen representation
  * of pixels, and the other tracking on-screen data.  These are temporary
  * graphics malloc'ed memory, and should be free'd on exit.
@@ -695,16 +692,16 @@ static int gms_graphics_interpreter = FALSE;
 static type8 *gms_graphics_off_screen = NULL,
              *gms_graphics_on_screen = NULL;
 
-/*
+/**
  * Pointer to the current active gamma table entry.  Because of the way
- * it's queried, this may not be NULL, otherwise we risk a race, with
+ * it's queried, this may not be `NULL`, otherwise we risk a race, with
  * admittedly a very low probability, with the updater.  So, it's init-
  * ialized instead to the gamma table.  The real value in use is inserted
  * on the first picture update timeout call for a new picture.
  */
 static gms_gammaref_t gms_graphics_current_gamma = GMS_GAMMA_TABLE;
 
-/*
+/**
  * The number of colors used in the palette by the current picture.  This
  * value is also at risk of a race with the updater, so it too has a mild
  * lie for a default value.
@@ -712,10 +709,8 @@ static gms_gammaref_t gms_graphics_current_gamma = GMS_GAMMA_TABLE;
 static int gms_graphics_color_count = GMS_PALETTE_SIZE;
 
 
-/*
- * gms_graphics_open()
- *
- * If it's not open, open the graphics window.  Returns TRUE if graphics
+/**
+ * If it's not open, open the graphics window.  Returns `TRUE` if graphics
  * was successfully started, or already on.
  */
 static int
@@ -734,10 +729,8 @@ gms_graphics_open (void)
 }
 
 
-/*
- * gms_graphics_close()
- *
- * If open, close the graphics window and set back to NULL.
+/**
+ * If open, close the graphics window and set back to `NULL`.
  */
 static void
 gms_graphics_close (void)
@@ -750,9 +743,7 @@ gms_graphics_close (void)
 }
 
 
-/*
- * gms_graphics_start()
- *
+/**
  * If graphics enabled, start any background picture update processing.
  */
 static void
@@ -770,9 +761,7 @@ gms_graphics_start (void)
 }
 
 
-/*
- * gms_graphics_stop()
- *
+/**
  * Stop any background picture update processing.
  */
 static void
@@ -787,10 +776,8 @@ gms_graphics_stop (void)
 }
 
 
-/*
- * gms_graphics_are_displayed()
- *
- * Return TRUE if graphics are currently being displayed, FALSE otherwise.
+/**
+ * Return `TRUE` if graphics are currently being displayed, `FALSE` otherwise.
  */
 static int
 gms_graphics_are_displayed (void)
@@ -799,9 +786,7 @@ gms_graphics_are_displayed (void)
 }
 
 
-/*
- * gms_graphics_paint()
- *
+/**
  * Set up a complete repaint of the current picture in the graphics window.
  * This function should be called on the appropriate Glk window resize and
  * arrange events.
@@ -818,9 +803,7 @@ gms_graphics_paint (void)
 }
 
 
-/*
- * gms_graphics_restart()
- *
+/**
  * Restart graphics as if the current picture is a new picture.  This
  * function should be called whenever graphics is re-enabled after being
  * disabled, on change of gamma color correction policy, and on change
@@ -869,19 +852,17 @@ gms_graphics_restart (void)
 }
 
 
-/*
- * gms_graphics_count_colors()
- *
+/**
  * Analyze an image, and return the usage count of each palette color, and
- * an overall count of how many colors out of the palette are used.  NULL
+ * an overall count of how many colors out of the palette are used.  `NULL`
  * arguments indicate no interest in the return value.
  */
 static void
 gms_graphics_count_colors (type8 bitmap[], type16 width, type16 height,
-                           int *color_count, long color_usage[])
+                           int *color_count, int color_usage[])
 {
   int x, y, count;
-  long usage[GMS_PALETTE_SIZE], index_row;
+  int usage[GMS_PALETTE_SIZE], index_row;
   assert (bitmap);
 
   /*
@@ -915,14 +896,9 @@ gms_graphics_count_colors (type8 bitmap[], type16 width, type16 height,
 }
 
 
-/*
- * gms_graphics_game_to_rgb_color()
- * gms_graphics_split_color()
- * gms_graphics_combine_color()
- * gms_graphics_color_luminance()
- *
+/**
  * General graphics helper functions, to convert between Magnetic Scrolls
- * and RGB color representations, and between RGB and Glk glui32 color
+ * and RGB color representations, and between RGB and Glk `glui32` color
  * representations, and to calculate color luminance.
  */
 static void
@@ -942,6 +918,11 @@ gms_graphics_game_to_rgb_color (type16 color, gms_gammaref_t gamma,
   rgb_color->blue  = gamma->table[(color & 0x007)];
 }
 
+/**
+ * General graphics helper functions, to convert between Magnetic Scrolls
+ * and RGB color representations, and between RGB and Glk `glui32` color
+ * representations, and to calculate color luminance.
+ */
 static void
 gms_graphics_split_color (glui32 color, gms_rgbref_t rgb_color)
 {
@@ -952,6 +933,11 @@ gms_graphics_split_color (glui32 color, gms_rgbref_t rgb_color)
   rgb_color->blue  = color & 0xff;
 }
 
+/**
+ * General graphics helper functions, to convert between Magnetic Scrolls
+ * and RGB color representations, and between RGB and Glk `glui32` color
+ * representations, and to calculate color luminance.
+ */
 static glui32
 gms_graphics_combine_color (gms_rgbref_t rgb_color)
 {
@@ -962,6 +948,11 @@ gms_graphics_combine_color (gms_rgbref_t rgb_color)
   return color;
 }
 
+/**
+ * General graphics helper functions, to convert between Magnetic Scrolls
+ * and RGB color representations, and between RGB and Glk `glui32` color
+ * representations, and to calculate color luminance.
+ */
 static int
 gms_graphics_color_luminance (gms_rgbref_t rgb_color)
 {
@@ -989,10 +980,7 @@ gms_graphics_color_luminance (gms_rgbref_t rgb_color)
 }
 
 
-/*
- * gms_graphics_compare_luminance()
- * gms_graphics_constrast_variance()
- *
+/**
  * Calculate the contrast variance of the given palette and color usage, at
  * the given gamma correction level.  Helper functions for automatic gamma
  * correction.
@@ -1001,15 +989,20 @@ static int
 gms_graphics_compare_luminance (const void *void_first,
                                 const void *void_second)
 {
-  long first = *(long *) void_first;
-  long second = *(long *) void_second;
+  int first = *(int *) void_first;
+  int second = *(int *) void_second;
 
   return first > second ? 1 : second > first ? -1 : 0;
 }
 
+/**
+ * Calculate the contrast variance of the given palette and color usage, at
+ * the given gamma correction level.  Helper functions for automatic gamma
+ * correction.
+ */
 static long
 gms_graphics_contrast_variance (type16 palette[],
-                                long color_usage[], gms_gammaref_t gamma)
+                                int color_usage[], gms_gammaref_t gamma)
 {
   int index, count, has_black, mean;
   long sum;
@@ -1071,9 +1064,7 @@ gms_graphics_contrast_variance (type16 palette[],
 }
 
 
-/*
- * gms_graphics_equal_contrast_gamma()
- *
+/**
  * Try to find a gamma correction for the given palette and color usage that
  * gives relatively equal contrast among the displayed colors.
  *
@@ -1091,7 +1082,7 @@ gms_graphics_contrast_variance (type16 palette[],
  * photographs, though.
  */
 static gms_gammaref_t
-gms_graphics_equal_contrast_gamma (type16 palette[], long color_usage[])
+gms_graphics_equal_contrast_gamma (type16 palette[], int color_usage[])
 {
   gms_gammaref_t gamma, result;
   long lowest_variance;
@@ -1124,9 +1115,7 @@ gms_graphics_equal_contrast_gamma (type16 palette[], long color_usage[])
 }
 
 
-/*
- * gms_graphics_select_gamma()
- *
+/**
  * Select a suitable gamma for the picture, based on the current gamma mode.
  *
  * The function returns either the linear gamma, a gamma value half way
@@ -1146,7 +1135,7 @@ gms_graphics_select_gamma (type8 bitmap[], type16 width, type16 height,
   static int is_initialized = FALSE;
   static gms_gammaref_t linear_gamma = NULL;
 
-  long color_usage[GMS_PALETTE_SIZE];
+  int color_usage[GMS_PALETTE_SIZE];
   int color_count;
   gms_gammaref_t contrast_gamma;
 
@@ -1202,9 +1191,7 @@ gms_graphics_select_gamma (type8 bitmap[], type16 width, type16 height,
 }
 
 
-/*
- * gms_graphics_clear_and_border()
- *
+/**
  * Clear the graphics window, and border and shade the area where the
  * picture is going to be rendered.  This attempts a small raised effect
  * for the picture, in keeping with modern trends.
@@ -1317,9 +1304,7 @@ gms_graphics_clear_and_border (winid_t glk_window, int x_offset, int y_offset,
 }
 
 
-/*
- * gms_graphics_convert_palette()
- *
+/**
  * Convert a Magnetic Scrolls color palette to a Glk one, using the given
  * gamma corrections.
  */
@@ -1344,9 +1329,7 @@ gms_graphics_convert_palette (type16 ms_palette[], gms_gammaref_t gamma,
 }
 
 
-/*
- * gms_graphics_position_picture()
- *
+/**
  * Given a picture width and height, return the x and y offsets to center
  * this picture in the current graphics window.
  */
@@ -1370,14 +1353,12 @@ gms_graphics_position_picture (winid_t glk_window,
 }
 
 
-/*
- * gms_graphics_apply_animation_frame()
- *
+/**
  * Apply a single animation frame to the given off-screen image buffer, using
  * the frame bitmap, width, height and mask, the off-screen buffer, and the
  * width and height of the main picture.
  *
- * Note that 'mask' may be NULL, implying that no frame pixel is transparent.
+ * Note that 'mask' may be `NULL`, implying that no frame pixel is transparent.
  */
 static void
 gms_graphics_apply_animation_frame (type8 bitmap[],
@@ -1466,14 +1447,12 @@ gms_graphics_apply_animation_frame (type8 bitmap[],
 }
 
 
-/*
- * gms_graphics_animate()
- *
+/**
  * This function finds and applies the next set of animation frames to the
  * given off-screen image buffer.  It's handed the width and height of the
  * main picture, and the off-screen buffer.
  *
- * It returns FALSE if at the end of animations, TRUE if more animations
+ * It returns `FALSE` if at the end of animations, `TRUE` if more animations
  * remain.
  */
 static int
@@ -1517,10 +1496,8 @@ gms_graphics_animate (type8 off_screen[], type16 width, type16 height)
 }
 
 
-/*
- * gms_graphics_is_vertex()
- *
- * Given a point, return TRUE if that point is the vertex of a fillable
+/**
+ * Given a point, return `TRUE` if that point is the vertex of a fillable
  * region.  This is a helper function for layering pictures.  When assign-
  * ing layers, we want to weight the colors that have the most complex
  * shapes, or the largest count of isolated areas, heavier than simpler
@@ -1565,10 +1542,13 @@ gms_graphics_is_vertex (type8 off_screen[], type16 width, type16 height,
 }
 
 
-/*
- * gms_graphics_compare_layering_inverted()
- * gms_graphics_assign_layers()
- *
+typedef struct gms_layering_s {
+  long complexity;  /*!< Count of vertices for this color. */
+  long usage;       /*!< Color usage count. */
+  int color;        /*!< Color index into palette. */
+} gms_layering_t;
+
+/**
  * Given two sets of image bitmaps, and a palette, this function will
  * assign layers palette colors.
  *
@@ -1592,12 +1572,6 @@ gms_graphics_is_vertex (type8 off_screen[], type16 width, type16 height,
  * it's permitted to include not-yet-validated higher levels.  This helps
  * minimize the amount of Glk areas fills needed to render a picture.
  */
-typedef struct {
-  long complexity;  /* Count of vertices for this color. */
-  long usage;       /* Color usage count. */
-  int color;        /* Color index into palette. */
-} gms_layering_t;
-
 static int
 gms_graphics_compare_layering_inverted (const void *void_first,
                                         const void *void_second)
@@ -1619,6 +1593,30 @@ gms_graphics_compare_layering_inverted (const void *void_first,
          first->usage > second->usage ? -1 : 0;
 }
 
+/**
+ * Given two sets of image bitmaps, and a palette, this function will
+ * assign layers palette colors.
+ *
+ * Layers are assigned by first counting the number of vertices in the
+ * color plane, to get a measure of the complexity of shapes displayed in
+ * this color, and also the raw number of times each palette color is
+ * used.  This is then sorted, so that layers are assigned to colors, with
+ * the lowest layer being the color with the most complex shapes, and
+ * within this (or where the count of vertices is zero, as it could be
+ * in some animation frames) the most used color.
+ *
+ * The function compares pixels in the two image bitmaps given, these
+ * being the off-screen and on-screen buffers, and generates counts only
+ * where these bitmaps differ.  This ensures that only pixels not yet
+ * painted are included in layering.
+ *
+ * As well as assigning layers, this function returns a set of layer usage
+ * flags, to help the rendering loop to terminate as early as possible.
+ *
+ * By painting lower layers first, the paint can take in larger areas if
+ * it's permitted to include not-yet-validated higher levels.  This helps
+ * minimize the amount of Glk areas fills needed to render a picture.
+ */
 static void
 gms_graphics_assign_layers (type8 off_screen[], type8 on_screen[],
                             type16 width, type16 height,
@@ -1682,9 +1680,7 @@ gms_graphics_assign_layers (type8 off_screen[], type8 on_screen[],
 }
 
 
-/*
- * gms_graphics_paint_region()
- *
+/**
  * This is a partially optimized point plot.  Given a point in the graphics
  * bitmap, it tries to extend the point to a color region, and fill a number
  * of pixels in a single Glk rectangle fill.  The goal here is to reduce the
@@ -1851,9 +1847,7 @@ gms_graphics_paint_everything (winid_t glk_window,
 	}
 }
 
-/*
- * gms_graphics_timeout()
- *
+/**
  * This is a background function, called on Glk timeouts.  Its job is to
  * repaint some of the current graphics image.  On successive calls, it
  * does a part of the repaint, then yields to other processing.  This is
@@ -2233,9 +2227,7 @@ gms_graphics_timeout (void)
 }
 
 
-/*
- * ms_showpic()
- *
+/**
  * Called by the main interpreter when it wants us to display a picture.
  * The function gets the picture bitmap, palette, and dimensions, and
  * saves them, and the picture id, in module variables for the background
@@ -2358,11 +2350,9 @@ ms_showpic (type32 picture, type8 mode)
 }
 
 
-/*
- * gms_graphics_picture_is_available()
- *
- * Return TRUE if the graphics module data is loaded with a usable picture,
- * FALSE if there is no picture available to display.
+/**
+ * Return `TRUE` if the graphics module data is loaded with a usable picture,
+ * `FALSE` if there is no picture available to display.
  */
 static int
 gms_graphics_picture_is_available (void)
@@ -2371,12 +2361,10 @@ gms_graphics_picture_is_available (void)
 }
 
 
-/*
- * gms_graphics_get_picture_details()
- *
+/**
  * Return the width, height, and animation flag of the currently loaded
- * picture.  The function returns FALSE if no picture is loaded, otherwise
- * TRUE, with picture details in the return arguments.
+ * picture.  The function returns `FALSE` if no picture is loaded, otherwise
+ * `TRUE`, with picture details in the return arguments.
  */
 static int
 gms_graphics_get_picture_details (int *width, int *height, int *is_animated)
@@ -2397,13 +2385,11 @@ gms_graphics_get_picture_details (int *width, int *height, int *is_animated)
 }
 
 
-/*
- * gms_graphics_get_rendering_details()
- *
+/**
  * Returns the current level of applied gamma correction, as a string, the
  * count of colors in the picture, and a flag indicating if graphics is
- * active (busy).  The function return FALSE if graphics is not enabled or
- * if not being displayed, otherwise TRUE with the gamma, color count, and
+ * active (busy).  The function return `FALSE` if graphics is not enabled or
+ * if not being displayed, otherwise `TRUE` with the gamma, color count, and
  * active flag in the return arguments.
  *
  * This function races with the graphics timeout, as it returns information
@@ -2446,10 +2432,8 @@ gms_graphics_get_rendering_details (const char **gamma, int *color_count,
 }
 
 
-/*
- * gms_graphics_interpreter_enabled()
- *
- * Return TRUE if it looks like interpreter graphics are turned on, FALSE
+/**
+ * Return `TRUE` if it looks like interpreter graphics are turned on, `FALSE`
  * otherwise.
  */
 static int
@@ -2459,9 +2443,7 @@ gms_graphics_interpreter_enabled (void)
 }
 
 
-/*
- * gms_graphics_cleanup()
- *
+/**
  * Free memory resources allocated by graphics functions.  Called on game
  * end.
  */
@@ -2480,6 +2462,7 @@ gms_graphics_cleanup (void)
 }
 
 
+#pragma mark - Glk port status line functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port status line functions                                     */
 /*---------------------------------------------------------------------*/
@@ -2496,13 +2479,11 @@ enum { GMS_STATBUFFER_LENGTH = 1024 };
 static char gms_status_buffer[GMS_STATBUFFER_LENGTH];
 static int gms_status_length = 0;
 
-/* Default width used for non-windowing Glk status lines. */
+/*! Default width used for non-windowing Glk status lines. */
 static const int GMS_DEFAULT_STATUS_WIDTH = 74;
 
 
-/*
- * ms_statuschar()
- *
+/**
  * Receive one status character from the interpreter.  Characters are
  * buffered internally, and on CR, the buffer is copied to the main static
  * status buffer for use by the status line printing function.
@@ -2533,9 +2514,7 @@ ms_statuschar (type8 c)
 }
 
 
-/*
- * gms_status_update()
- *
+/**
  * Update the information in the status window with the current contents of
  * the completed status line buffer, or a default string if no completed
  * status line.
@@ -2596,9 +2575,7 @@ gms_status_update (void)
 }
 
 
-/*
- * gms_status_print()
- *
+/**
  * Print the current contents of the completed status line buffer out in the
  * main window, if it has changed since the last call.  This is for non-
  * windowing Glk libraries.
@@ -2662,9 +2639,7 @@ gms_status_print (void)
 }
 
 
-/*
- * gms_status_notify()
- *
+/**
  * Front end function for updating status.  Either updates the status window
  * or prints the status line to the main window.
  */
@@ -2678,9 +2653,7 @@ gms_status_notify (void)
 }
 
 
-/*
- * gms_status_redraw()
- *
+/**
  * Redraw the contents of any status window with the buffered status string.
  * This function should be called on the appropriate Glk window resize and
  * arrange events.
@@ -2711,18 +2684,19 @@ gms_status_redraw (void)
 }
 
 
+#pragma mark - Glk port output functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port output functions                                          */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Flag for if the user entered "help" as their last input, or if hints have
  * been silenced as a result of already using a Glk command.
  */
 static int gms_help_requested = FALSE,
            gms_help_hints_silenced = FALSE;
 
-/*
+/**
  * Output buffer.  We receive characters one at a time, and it's a bit
  * more efficient for everyone if we buffer them, and output a complete
  * string on a flush call.
@@ -2731,18 +2705,14 @@ static char *gms_output_buffer = NULL;
 static int gms_output_allocation = 0,
            gms_output_length = 0;
 
-/*
+/**
  * Flag to indicate if the last buffer flushed looked like it ended in a
  * ">" prompt.
  */
 static int gms_output_prompt = FALSE;
 
 
-/*
- * gms_output_register_help_request()
- * gms_output_silence_help_hints()
- * gms_output_provide_help_hint()
- *
+/**
  * Register a request for help, and print a note of how to get Glk command
  * help from the interpreter unless silenced.
  */
@@ -2752,12 +2722,20 @@ gms_output_register_help_request (void)
   gms_help_requested = TRUE;
 }
 
+/**
+ * Register a request for help, and print a note of how to get Glk command
+ * help from the interpreter unless silenced.
+ */
 static void
 gms_output_silence_help_hints (void)
 {
   gms_help_hints_silenced = TRUE;
 }
 
+/**
+ * Register a request for help, and print a note of how to get Glk command
+ * help from the interpreter unless silenced.
+ */
 static void
 gms_output_provide_help_hint (void)
 {
@@ -2773,11 +2751,9 @@ gms_output_provide_help_hint (void)
 }
 
 
-/*
- * gms_game_prompted()
- *
- * Return TRUE if the last game output appears to have been a ">" prompt.
- * Once called, the flag is reset to FALSE, and requires more game output
+/**
+ * Return `TRUE` if the last game output appears to have been a ">" prompt.
+ * Once called, the flag is reset to `FALSE`, and requires more game output
  * to set it again.
  */
 static int
@@ -2792,9 +2768,7 @@ gms_game_prompted (void)
 }
 
 
-/*
- * gms_detect_game_prompt()
- *
+/**
  * See if the last non-newline-terminated line in the output buffer seems
  * to be a prompt, and set the game prompted flag if it does, otherwise
  * clear it.
@@ -2822,10 +2796,8 @@ gms_detect_game_prompt (void)
 }
 
 
-/*
- * gms_output_delete()
- *
- * Delete all buffered output text.  Free all malloc'ed buffer memory, and
+/**
+ * Delete all buffered output text.  Free all `malloc`'ed buffer memory, and
  * return the buffer variables to their initial values.
  */
 static void
@@ -2837,9 +2809,7 @@ gms_output_delete (void)
 }
 
 
-/*
- * gms_output_flush()
- *
+/**
  * Flush any buffered output text to the Glk main window, and clear the
  * buffer.
  */
@@ -2882,9 +2852,7 @@ gms_output_flush (void)
 }
 
 
-/*
- * ms_putchar()
- *
+/**
  * Buffer a character for eventual printing to the main window.
  */
 void
@@ -2920,16 +2888,7 @@ ms_putchar (type8 c)
 }
 
 
-/*
- * gms_styled_string()
- * gms_styled_char()
- * gms_standout_string()
- * gms_standout_char()
- * gms_normal_string()
- * gms_normal_char()
- * gms_header_string()
- * gms_banner_string()
- *
+/**
  * Convenience functions to print strings in assorted styles.  A standout
  * string is one that hints that it's from the interpreter, not the game.
  */
@@ -2943,6 +2902,10 @@ gms_styled_string (glui32 style, const char *message)
   glk_set_style (style_Normal);
 }
 
+/**
+ * Convenience functions to print strings in assorted styles.  A standout
+ * string is one that hints that it's from the interpreter, not the game.
+ */
 static void
 gms_styled_char (glui32 style, char c)
 {
@@ -2953,36 +2916,60 @@ gms_styled_char (glui32 style, char c)
   gms_styled_string (style, buffer);
 }
 
+/**
+ * Convenience functions to print strings in assorted styles.  A standout
+ * string is one that hints that it's from the interpreter, not the game.
+ */
 static void
 gms_standout_string (const char *message)
 {
   gms_styled_string (style_Emphasized, message);
 }
 
+/**
+ * Convenience functions to print strings in assorted styles.  A standout
+ * string is one that hints that it's from the interpreter, not the game.
+ */
 static void
 gms_standout_char (char c)
 {
   gms_styled_char (style_Emphasized, c);
 }
 
+/**
+ * Convenience functions to print strings in assorted styles.  A standout
+ * string is one that hints that it's from the interpreter, not the game.
+ */
 static void
 gms_normal_string (const char *message)
 {
   gms_styled_string (style_Normal, message);
 }
 
+/**
+ * Convenience functions to print strings in assorted styles.  A standout
+ * string is one that hints that it's from the interpreter, not the game.
+ */
 static void
 gms_normal_char (char c)
 {
   gms_styled_char (style_Normal, c);
 }
 
+/**
+ * Convenience functions to print strings in assorted styles.  A standout
+ * string is one that hints that it's from the interpreter, not the game.
+ */
 static void
 gms_header_string (const char *message)
 {
   gms_styled_string (style_Header, message);
 }
 
+/**
+ * Convenience functions to print strings in assorted styles.  A standout
+ * string is one that hints that it's from the interpreter, not the game.
+ */
 static void
 gms_banner_string (const char *message)
 {
@@ -2990,9 +2977,7 @@ gms_banner_string (const char *message)
 }
 
 
-/*
- * ms_fatal()
- *
+/**
  * Handle fatal interpreter error message.
  */
 void
@@ -3006,14 +2991,12 @@ ms_fatal (type8s * string)
 }
 
 
-/*
- * ms_flush()
- *
+/**
  * Handle a core interpreter call to flush the output buffer.  Because Glk
- * only flushes its buffers and displays text on glk_select(), we can ignore
- * these calls as long as we call gms_output_flush() when reading line input.
+ * only flushes its buffers and displays text on `glk_select()`, we can ignore
+ * these calls as long as we call `gms_output_flush()` when reading line input.
  *
- * Taking ms_flush() at face value can cause game text to appear before status
+ * Taking `ms_flush()` at face value can cause game text to appear before status
  * line text where we are working with a non-windowing Glk, so it's best
  * ignored where we can.
  */
@@ -3023,6 +3006,7 @@ ms_flush (void)
 }
 
 
+#pragma mark - Glk port hint functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port hint functions                                            */
 /*---------------------------------------------------------------------*/
@@ -3033,34 +3017,34 @@ enum {
   GMS_HINT_TYPE_TEXT = 2
 };
 
-/* Success and fail return codes from hint functions. */
+/** Success and fail return codes from hint functions. */
 static const type8 GMS_HINT_SUCCESS = 1,
                    GMS_HINT_ERROR = 0;
 
-/* Default window sizes for non-windowing Glk libraries. */
+/** Default window sizes for non-windowing Glk libraries. */
 static const glui32 GMS_HINT_DEFAULT_WIDTH = 72,
                     GMS_HINT_DEFAULT_HEIGHT = 25;
 
-/*
+/**
  * Special hint nodes indicating the root hint node, and a value to signal
  * quit from hints subsystem.
  */
 static const type16 GMS_HINT_ROOT_NODE = 0,
                     GMS_HINTS_DONE = USHRT_MAX;
 
-/* Generic hint topic for the root hints node. */
+/*! Generic hint topic for the root hints node. */
 static const char * const GMS_GENERIC_TOPIC = "Hints Menu";
 
-/*
+/**
  * Note of the interpreter's hints array.  Note that keeping its address
  * like this assumes that it's either static or heap in the interpreter.
  */
 static struct ms_hint *gms_hints = NULL;
 
-/* Details of the current hint node on display from the hints array. */
+/*! Details of the current hint node on display from the hints array. */
 static type16 gms_current_hint_node = 0;
 
-/*
+/**
  * Array of cursors for each hint.  The cursor indicates the current hint
  * position in a folder, and the last hint shown in text hints.  Space
  * is allocated as needed for a given set of hints, and needs to be freed
@@ -3069,9 +3053,7 @@ static type16 gms_current_hint_node = 0;
 static int *gms_hint_cursor = NULL;
 
 
-/*
- * gms_get_hint_max_node()
- *
+/**
  * Return the maximum hint node referred to by the tree under the given node.
  * The result is the largest index found, or node, if greater.  Because the
  * interpreter doesn't supply it, we need to uncover it the hard way.  The
@@ -3122,11 +3104,9 @@ gms_get_hint_max_node (const struct ms_hint hints[], type16 node)
 }
 
 
-/*
- * gms_get_hint_content()
- *
+/**
  * Return the content string for a given hint number within a given node.
- * This counts over 'number' ASCII NULs in the node's content, returning
+ * This counts over 'number' ASCII `NUL`s in the node's content, returning
  * the address of the string located this way.
  */
 static const char *
@@ -3148,9 +3128,7 @@ gms_get_hint_content (const struct ms_hint hints[], type16 node, int number)
 }
 
 
-/*
- * gms_get_hint_topic()
- *
+/**
  * Return the topic string for a given hint node.  This is found by searching
  * the parent node for a link to the node handed in.  For the root node, the
  * string is defaulted, since the root node has no parent.
@@ -3192,10 +3170,8 @@ gms_get_hint_topic (const struct ms_hint hints[], type16 node)
 }
 
 
-/*
- * gms_hint_open()
- *
- * If not already open, open the hints windows.  Returns TRUE if the windows
+/**
+ * If not already open, open the hints windows.  Returns `TRUE` if the windows
  * opened, or were already open.
  *
  * The function creates two hints windows -- a text grid on top, for menus,
@@ -3238,9 +3214,7 @@ gms_hint_open (void)
 }
 
 
-/*
- * gms_hint_close()
- *
+/**
  * If open, close the hints windows.
  */
 static void
@@ -3258,10 +3232,8 @@ gms_hint_close (void)
 }
 
 
-/*
- * gms_hint_windows_available()
- *
- * Return TRUE if hints windows are available.  If they're not, the hints
+/**
+ * Return `TRUE` if hints windows are available.  If they're not, the hints
  * system will need to use alternative output methods.
  */
 static int
@@ -3271,14 +3243,7 @@ gms_hint_windows_available (void)
 }
 
 
-/*
- * gms_hint_menu_print()
- * gms_hint_menu_header()
- * gms_hint_menu_justify()
- * gms_hint_text_print()
- * gms_hint_menutext_done()
- * gms_hint_menutext_start()
- *
+/**
  * Output functions for writing hints.  These functions will write to hints
  * windows where available, and to the main window where not.  When writing
  * to hints windows, they also take care not to line wrap in the menu window.
@@ -3355,6 +3320,12 @@ gms_hint_menu_print (int line, int column, const char *string,
     }
 }
 
+/**
+ * Output functions for writing hints.  These functions will write to hints
+ * windows where available, and to the main window where not.  When writing
+ * to hints windows, they also take care not to line wrap in the menu window.
+ * Limited formatting is available.
+ */
 static void
 gms_hint_menu_header (int line, const char *string,
                       glui32 width, glui32 height)
@@ -3368,6 +3339,12 @@ gms_hint_menu_header (int line, const char *string,
   gms_hint_menu_print (line, posn, string, width, height);
 }
 
+/**
+ * Output functions for writing hints.  These functions will write to hints
+ * windows where available, and to the main window where not.  When writing
+ * to hints windows, they also take care not to line wrap in the menu window.
+ * Limited formatting is available.
+ */
 static void
 gms_hint_menu_justify (int line,
                        const char *left_string, const char *right_string,
@@ -3385,6 +3362,12 @@ gms_hint_menu_justify (int line,
   gms_hint_menu_print (line, posn, right_string, width, height);
 }
 
+/**
+ * Output functions for writing hints.  These functions will write to hints
+ * windows where available, and to the main window where not.  When writing
+ * to hints windows, they also take care not to line wrap in the menu window.
+ * Limited formatting is available.
+ */
 static void
 gms_hint_text_print (const char *string)
 {
@@ -3400,6 +3383,12 @@ gms_hint_text_print (const char *string)
     gms_normal_string (string);
 }
 
+/**
+ * Output functions for writing hints.  These functions will write to hints
+ * windows where available, and to the main window where not.  When writing
+ * to hints windows, they also take care not to line wrap in the menu window.
+ * Limited formatting is available.
+ */
 static void
 gms_hint_menutext_start (void)
 {
@@ -3419,6 +3408,12 @@ gms_hint_menutext_start (void)
     }
 }
 
+/**
+ * Output functions for writing hints.  These functions will write to hints
+ * windows where available, and to the main window where not.  When writing
+ * to hints windows, they also take care not to line wrap in the menu window.
+ * Limited formatting is available.
+ */
 static void
 gms_hint_menutext_done (void)
 {
@@ -3435,9 +3430,7 @@ gms_hint_menutext_done (void)
 }
 
 
-/*
- * gms_hint_menutext_char_event()
- *
+/**
  * Request and return a character event from the hints windows.  In practice,
  * this means either of the hints windows if available, or the main window
  * if not.
@@ -3467,9 +3460,7 @@ gms_hint_menutext_char_event (event_t * event)
 }
 
 
-/*
- * gms_hint_arrange_windows()
- *
+/**
  * Arrange the hints windows so that the hint menu window has the requested
  * number of lines.  Returns the actual hint menu window width and height,
  * or defaults if no hints windows are available.
@@ -3508,9 +3499,7 @@ gms_hint_arrange_windows (int requested_lines, glui32 * width, glui32 * height)
 }
 
 
-/*
- * gms_hint_display_folder()
- *
+/**
  * Update the hints windows for the given folder hint node.
  */
 static void
@@ -3567,9 +3556,7 @@ gms_hint_display_folder (const struct ms_hint hints[],
 }
 
 
-/*
- * gms_hint_display_text()
- *
+/**
  * Update the hints windows for the given text hint node.
  */
 static void
@@ -3615,9 +3602,7 @@ gms_hint_display_text (const struct ms_hint hints[],
 }
 
 
-/*
- * gms_hint_display()
- *
+/**
  * Display the given hint using the appropriate display function.
  */
 static void
@@ -3643,9 +3628,7 @@ gms_hint_display (const struct ms_hint hints[],
 }
 
 
-/*
- * gms_hint_handle_folder()
- *
+/**
  * Handle a Glk keycode for the given folder hint.  Return the next node to
  * handle, or the special end-hints on Quit at the root node.
  */
@@ -3721,9 +3704,7 @@ gms_hint_handle_folder (const struct ms_hint hints[],
 }
 
 
-/*
- * gms_hint_handle_text()
- *
+/**
  * Handle a Glk keycode for the given text hint.  Return the next node to
  * handle.
  */
@@ -3777,9 +3758,7 @@ gms_hint_handle_text (const struct ms_hint hints[],
 }
 
 
-/*
- * gms_hint_handle()
- *
+/**
  * Handle a Glk keycode for the given hint using the appropriate handler
  * function.  Return the next node to handle.
  */
@@ -3810,9 +3789,7 @@ gms_hint_handle (const struct ms_hint hints[],
 }
 
 
-/*
- * ms_showhints()
- *
+/**
  * Start game hints.  These are modal, though there's no overriding Glk
  * reason why.  It's just that this matches the way they're implemented by
  * most Inform games.  This may not be the best way of doing help, but at
@@ -3908,9 +3885,7 @@ ms_showhints (struct ms_hint * hints)
 }
 
 
-/*
- * gms_hint_redraw()
- *
+/**
  * Update the hints windows for the current hint.  This function should be
  * called from the event handler on resize events, to repaint the hints
  * display.  It does nothing if no hints windows have been opened, since
@@ -3929,9 +3904,7 @@ gms_hint_redraw (void)
 }
 
 
-/*
- * gms_hints_cleanup()
- *
+/**
  * Free memory resources allocated by hints functions.  Called on game
  * end.
  */
@@ -3951,13 +3924,12 @@ void ms_playmusic(type8 * midi_data, type32 length, type16 tempo)
 }
 
 
+#pragma mark - Glk command escape functions -
 /*---------------------------------------------------------------------*/
 /*  Glk command escape functions                                       */
 /*---------------------------------------------------------------------*/
 
-/*
- * gms_command_undo()
- *
+/**
  * Stub function for the undo command.  The real work is to return the
  * undo code to the input functions.
  */
@@ -3968,9 +3940,7 @@ gms_command_undo (const char *argument)
 }
 
 
-/*
- * gms_command_script()
- *
+/**
  * Turn game output scripting (logging) on and off.
  */
 static void
@@ -4045,9 +4015,7 @@ gms_command_script (const char *argument)
 }
 
 
-/*
- * gms_command_inputlog()
- *
+/**
  * Turn game input logging on and off.
  */
 static void
@@ -4118,9 +4086,7 @@ gms_command_inputlog (const char *argument)
 }
 
 
-/*
- * gms_command_readlog()
- *
+/**
  * Set the game input log, to read input from a file.
  */
 static void
@@ -4197,9 +4163,7 @@ gms_command_readlog (const char *argument)
 }
 
 
-/*
- * gms_command_abbreviations()
- *
+/**
  * Turn abbreviation expansions on and off.
  */
 static void
@@ -4249,9 +4213,7 @@ gms_command_abbreviations (const char *argument)
 }
 
 
-/*
- * gms_command_graphics()
- *
+/**
  * Enable or disable graphics more permanently than is done by the main
  * interpreter.  Also, print out a few brief details about the graphics
  * state of the program.
@@ -4388,9 +4350,7 @@ gms_command_graphics (const char *argument)
 }
 
 
-/*
- * gms_command_gamma()
- *
+/**
  * Enable or disable picture gamma corrections.
  */
 static void
@@ -4485,9 +4445,7 @@ gms_command_gamma (const char *argument)
 }
 
 
-/*
- * gms_command_animations()
- *
+/**
  * Enable or disable picture animations.
  */
 static void
@@ -4564,9 +4522,7 @@ gms_command_animations (const char *argument)
 }
 
 
-/*
- * gms_command_prompts()
- *
+/**
  * Turn the extra "> " prompt output on and off.
  */
 static void
@@ -4619,10 +4575,7 @@ gms_command_prompts (const char *argument)
 }
 
 
-/*
- * gms_command_print_version_number()
- * gms_command_version()
- *
+/**
  * Print out the Glk library version number.
  */
 static void
@@ -4637,6 +4590,9 @@ gms_command_print_version_number (glui32 version)
   gms_normal_string (buffer);
 }
 
+/**
+ * Print out the Glk library version number.
+ */
 static void
 gms_command_version (const char *argument)
 {
@@ -4654,9 +4610,7 @@ gms_command_version (const char *argument)
 }
 
 
-/*
- * gms_command_commands()
- *
+/**
  * Turn command escapes off.  Once off, there's no way to turn them back on.
  * Commands must be on already to enter this function.
  */
@@ -4694,9 +4648,7 @@ gms_command_commands (const char *argument)
 }
 
 
-/*
- * gms_command_license()
- *
+/**
  * Print licensing terms.
  */
 static void
@@ -4730,13 +4682,13 @@ gms_command_license (const char *argument)
 }
 
 
-/* Glk subcommands and handler functions. */
-typedef const struct
+/*! Glk subcommands and handler functions. */
+typedef const struct gms_command_s
 {
-  const char * const command;                     /* Glk subcommand. */
-  void (* const handler) (const char *argument);  /* Subcommand handler. */
-  const int takes_argument;                       /* Argument flag. */
-  const int undo_return;                          /* "Undo" return value. */
+  const char * const command;                     /*!< Glk subcommand. */
+  void (* const handler) (const char *argument);  /*!< Subcommand handler. */
+  const int takes_argument;                       /*!< Argument flag. */
+  const int undo_return;                          /*!< "Undo" return value. */
 } gms_command_t;
 typedef gms_command_t *gms_commandref_t;
 
@@ -4762,9 +4714,7 @@ static gms_command_t GMS_COMMAND_TABLE[] = {
 };
 
 
-/*
- * gms_command_summary()
- *
+/**
  * Report all current Glk settings.
  */
 static void
@@ -4790,9 +4740,7 @@ gms_command_summary (const char *argument)
 }
 
 
-/*
- * gms_command_help()
- *
+/**
  * Document the available Glk commands.
  */
 static void
@@ -4993,13 +4941,11 @@ gms_command_help (const char *command)
 }
 
 
-/*
- * gms_command_escape()
- *
+/**
  * This function is handed each input line.  If the line contains a specific
- * Glk port command, handle it and return TRUE, otherwise return FALSE.
+ * Glk port command, handle it and return `TRUE`, otherwise return `FALSE`.
  *
- * On unambiguous returns, it will also set the value for undo_command to the
+ * On unambiguous returns, it will also set the value for `undo_command` to the
  * table undo return value.
  */
 static int
@@ -5106,13 +5052,11 @@ gms_command_escape (const char *string, int *undo_command)
 }
 
 
-/*
- * gms_command_undo_special()
- *
+/**
  * This function makes a special case of the input line containing the single
  * word "undo", treating it as if it is "glk undo".  This makes life a bit
  * more convenient for the player, since it's the same behavior that most
- * other IF systems have.  It returns TRUE if "undo" found, FALSE otherwise.
+ * other IF systems have.  It returns `TRUE` if "undo" found, `FALSE` otherwise.
  */
 static int
 gms_command_undo_special (const char *string)
@@ -5137,6 +5081,7 @@ gms_command_undo_special (const char *string)
 }
 
 
+#pragma mark - Glk port input functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port input functions                                           */
 /*---------------------------------------------------------------------*/
@@ -5152,15 +5097,15 @@ static int gms_input_length = 0,
            gms_input_cursor = 0,
            gms_undo_notification = FALSE;
 
-/* Table of single-character command abbreviations. */
-typedef const struct
+/*! Table of single-character command abbreviations. */
+typedef const struct gms_abbreviation_s
 {
-  const char abbreviation;       /* Abbreviation character. */
-  const char * const expansion;  /* Expansion string. */
+  const char abbreviation;       /*!< Abbreviation character. */
+  const char * const expansion;  /*!< Expansion string. */
 } gms_abbreviation_t;
 typedef gms_abbreviation_t *gms_abbreviationref_t;
 
-static gms_abbreviation_t GMS_ABBREVIATIONS[] = {
+static const gms_abbreviation_t GMS_ABBREVIATIONS[] = {
   {'c', "close"},    {'g', "again"},  {'i', "inventory"},
   {'k', "attack"},   {'l', "look"},   {'p', "open"},
   {'q', "quit"},     {'r', "drop"},   {'t', "take"},
@@ -5169,9 +5114,7 @@ static gms_abbreviation_t GMS_ABBREVIATIONS[] = {
 };
 
 
-/*
- * gms_expand_abbreviations()
- *
+/**
  * Expand a few common one-character abbreviations commonly found in other
  * game systems, but not always normal in Magnetic Scrolls games.
  */
@@ -5224,9 +5167,7 @@ gms_expand_abbreviations (char *buffer, int size)
 }
 
 
-/*
- * gms_buffer_input
- *
+/**
  * Read and buffer a line of input.  If there is an input log active, then
  * data is taken by reading this first.  Otherwise, the function gets a
  * line from Glk.
@@ -5406,9 +5347,7 @@ gms_buffer_input (void)
 }
 
 
-/*
- * ms_getchar()
- *
+/**
  * Return the single next character to the interpreter.  This function
  * extracts characters from the input buffer until empty, when it then
  * tries to buffer more data.
@@ -5449,9 +5388,7 @@ ms_getchar (type8 trans)
 }
 
 
-/*
- * gms_confirm()
- *
+/**
  * Print a confirmation prompt, and read a single input character, taking
  * only [YyNn] input.  If the character is 'Y' or 'y', return TRUE.
  */
@@ -5490,13 +5427,12 @@ gms_confirm (const char *prompt)
 }
 
 
+#pragma mark - Glk port event functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port event functions                                           */
 /*---------------------------------------------------------------------*/
 
-/*
- * gms_event_wait()
- *
+/**
  * Process Glk events until one of the expected type arrives.  Return
  * the event of that type.
  */
@@ -5529,19 +5465,17 @@ gms_event_wait (glui32 wait_type, event_t * event)
 }
 
 
+#pragma mark - Glk port file functions -
 /*---------------------------------------------------------------------*/
 /*  Glk port file functions                                            */
 /*---------------------------------------------------------------------*/
 
-/* Success and fail return codes from file functions. */
+/*! Success and fail return codes from file functions. */
 static const type8 GMS_FILE_SUCCESS = 0,
                    GMS_FILE_ERROR = 1;
 
 
-/*
- * ms_save_file ()
- * ms_load_file ()
- *
+/**
  * Save the current game state to a file, and load a game state.
  */
 type8
@@ -5617,6 +5551,9 @@ ms_save_file (type8s * name, type8 * ptr, type16 size)
   return GMS_FILE_SUCCESS;
 }
 
+/**
+ * Save the current game state to a file, and load a game state.
+ */
 type8
 ms_load_file (type8s * name, type8 * ptr, type16 size)
 {
@@ -5686,18 +5623,16 @@ ms_load_file (type8s * name, type8 * ptr, type16 size)
 }
 
 
+#pragma mark - Functions intercepted by link-time wrappers -
 /*---------------------------------------------------------------------*/
 /*  Functions intercepted by link-time wrappers                        */
 /*---------------------------------------------------------------------*/
 
-/*
- * __wrap_toupper()
- * __wrap_tolower()
- *
- * Wrapper functions around toupper() and tolower().  The Linux linker's
- * --wrap option will convert calls to mumble() to __wrap_mumble() if we
+/**
+ * Wrapper functions around `toupper()` and `tolower()`.  The Linux linker's
+ * --wrap option will convert calls to mumble() to `__wrap_mumble()` if we
  * give it the right options.  We'll use this feature to translate all
- * toupper() and tolower() calls in the interpreter code into calls to
+ * `toupper()` and `tolower()` calls in the interpreter code into calls to
  * Glk's versions of these functions.
  *
  * It's not critical that we do this.  If a linker, say a non-Linux one,
@@ -5723,21 +5658,20 @@ __wrap_tolower (int ch)
 }
 
 
+#pragma mark - main() and options parsing -
 /*---------------------------------------------------------------------*/
 /*  main() and options parsing                                         */
 /*---------------------------------------------------------------------*/
 
-/*
- * The following values need to be passed between the startup_code and main
+/**
+ * The following values need to be passed between the `startup_code` and main
  * functions.
  */
 static char *gms_gamefile = NULL,      /* Name of game file. */
             *gms_game_message = NULL;  /* Error message. */
 
 
-/*
- * gms_establish_filenames()
- *
+/**
  * Given a game name, try to establish three filenames from it - the main game
  * text file, the (optional) graphics data file, and the (optional) hints
  * file.  Given an input "file" X, the function looks for X.MAG or X.mag for
@@ -5745,9 +5679,9 @@ static char *gms_gamefile = NULL,      /* Name of game file. */
  * If the input file already ends with .MAG, .GFX, or .HNT, the extension
  * is stripped first.
  *
- * The function returns NULL for filenames not available.  It's not fatal if
- * the graphics filename or hints filename is NULL, but it is if the main game
- * filename is NULL.  Filenames are malloc'ed, and need to be freed by the
+ * The function returns `NULL` for filenames not available.  It's not fatal if
+ * the graphics filename or hints filename is `NULL`, but it is if the main game
+ * filename is `NULL`.  Filenames are `malloc`'ed, and need to be freed by the
  * caller.
  */
 static void
@@ -5862,13 +5796,10 @@ gms_establish_filenames (char *name, char **text, char **graphics, char **hints)
 }
 
 
-/*
- * gms_startup_code()
- * gms_main()
- *
- * Together, these functions take the place of the original main().  The
- * first one is called from glkunix_startup_code(), to parse and generally
- * handle options.  The second is called from glk_main(), and does the real
+/**
+ * Together, these functions take the place of the original `main()`.  The
+ * first one is called from `glkunix_startup_code()`, to parse and generally
+ * handle options.  The second is called from `glk_main()`, and does the real
  * work of running the game.
  */
 static int
@@ -5948,6 +5879,12 @@ gms_startup_code (int argc, char *argv[])
   return TRUE;
 }
 
+/**
+ * Together, these functions take the place of the original `main()`.  The
+ * first one is called from `glkunix_startup_code()`, to parse and generally
+ * handle options.  The second is called from `glk_main()`, and does the real
+ * work of running the game.
+ */
 static void
 gms_main (void)
 {
@@ -6038,7 +5975,7 @@ gms_main (void)
                                        1, wintype_TextGrid, 0);
 
   /* Seed the random number generator. */
-  ms_seed (time (NULL));
+  ms_seed (time (NULL) & 0xFFFFFFFF);
 
   /*
    * Load the game.  If no graphics are possible, then passing the NULL to
@@ -6149,20 +6086,19 @@ gms_main (void)
 }
 
 
+#pragma mark - Linkage between Glk entry/exit calls and the Magnetic interpreter -
 /*---------------------------------------------------------------------*/
 /*  Linkage between Glk entry/exit calls and the Magnetic interpreter  */
 /*---------------------------------------------------------------------*/
 
-/*
+/**
  * Safety flags, to ensure we always get startup before main, and that
  * we only get a call to main once.
  */
 static int gms_startup_called = FALSE,
            gms_main_called = FALSE;
 
-/*
- * glk_main()
- *
+/**
  * Main entry point for Glk.  Here, all startup is done, and we call our
  * function to run the game.
  */
@@ -6177,6 +6113,7 @@ glk_main (void)
 }
 
 
+#pragma mark - Glk linkage relevant only to the UNIX platform -
 /*---------------------------------------------------------------------*/
 /*  Glk linkage relevant only to the UNIX platform                     */
 /*---------------------------------------------------------------------*/
@@ -6184,7 +6121,7 @@ glk_main (void)
 
 #include "glkstart.h"
 
-/*
+/**
  * Glk arguments for UNIX versions of the Glk interpreter.
  */
 glkunix_argumentlist_t glkunix_arguments[] = {
@@ -6206,11 +6143,9 @@ glkunix_argumentlist_t glkunix_arguments[] = {
 };
 
 
-/*
- * glkunix_startup_code()
- *
+/**
  * Startup entry point for UNIX versions of Glk interpreter.  Glk will
- * call glkunix_startup_code() to pass in arguments.  On startup, we call
+ * call `glkunix_startup_code()` to pass in arguments.  On startup, we call
  * our function to parse arguments and generally set stuff up.
  */
 int
@@ -6231,81 +6166,3 @@ glkunix_startup_code (glkunix_startup_t * data)
   return gms_startup_code (data->argc, data->argv);
 }
 #endif /* _unix */
-
-
-/*---------------------------------------------------------------------*/
-/*  Glk linkage relevant only to the Mac platform                      */
-/*---------------------------------------------------------------------*/
-#if TARGET_OS_MAC
-
-#include "macglk_startup.h"
-
-static strid_t gms_mac_gamefile = NULL;
-static short gms_savedVRefNum = 0;
-static long gms_savedDirID = 0;
-
-
-/*
- * gms_mac_whenselected()
- * gms_mac_whenbuiltin()
- * macglk_startup_code()
- *
- * Startup entry points for Mac versions of Glk interpreter.  Glk will call
- * macglk_startup_code() for details on what to do when the application is
- * selected.  On selection, an argv[] vector is built, and passed to the
- * normal interpreter startup code, after which, Glk will call glk_main().
- */
-static Boolean
-gms_mac_whenselected (FSSpec * file, OSType filetype)
-{
-  static char *argv[2];
-  assert (!gms_startup_called);
-  gms_startup_called = TRUE;
-
-  /* Set the WD to where the file is, so later fopens work. */
-  if (HGetVol (0, &gms_savedVRefNum, &gms_savedDirID) != 0)
-    {
-      gms_fatal ("GLK: HGetVol failed");
-      return FALSE;
-    }
-  if (HSetVol (0, file->vRefNum, file->parID) != 0);
-    {
-      gms_fatal ("GLK: HSetVol failed");
-      return FALSE;
-    }
-
-  /* Put a CString version of the PString name into argv[1]. */
-  argv[1] = gms_malloc (file->name[0] + 1);
-  BlockMoveData (file->name + 1, argv[1], file->name[0]);
-  argv[1][file->name[0]] = '\0';
-  argv[2] = NULL;
-
-  return gms_startup_code (2, argv);
-}
-
-static Boolean
-gms_mac_whenbuiltin (void)
-{
-  /* Not implemented yet. */
-  return TRUE;
-}
-
-Boolean
-macglk_startup_code (macglk_startup_t * data)
-{
-  static OSType gms_mac_gamefile_types[] = { 'MaSc' };
-
-  data->startup_model = macglk_model_ChooseOrBuiltIn;
-  data->app_creator = 'cAGL';
-  data->gamefile_types = gms_mac_gamefile_types;
-  data->num_gamefile_types = sizeof (gms_mac_gamefile_types)
-                             / sizeof (*gms_mac_gamefile_types);
-  data->savefile_type = 'BINA';
-  data->datafile_type = 0x3f3f3f3f;
-  data->gamefile = &gms_mac_gamefile;
-  data->when_selected = gms_mac_whenselected;
-  data->when_builtin = gms_mac_whenbuiltin;
-  /* macglk_setprefs(); */
-  return TRUE;
-}
-#endif /* TARGET_OS_MAC */
