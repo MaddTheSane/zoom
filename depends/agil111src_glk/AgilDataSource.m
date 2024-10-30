@@ -89,28 +89,30 @@ static int decodeImageFormat(glui32 image, int *cmd)
   }
   if (pcxfile==NULL) return nil;
   fclose(pcxfile);
-  NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
-  NSString *fileName = [@(pictname) stringByAppendingString:@(gfxext[gmode])];
-  NSURL *urlPath = [gameDir URLByAppendingPathComponent:fileName];
-
-  if (gmode <= 11 && gmode >= 14) {
-    // NSImage can be used to load these files!
-    return [NSData dataWithContentsOfURL:urlPath];
-  } else if (gmode < 11) {
-    NSError *tmpError;
-    //Load PCX
-    PCXDecoder *pcxData = [[PCXDecoder alloc] initWithFileAtURL:urlPath error:&tmpError];
-    if (!pcxData) {
-      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: PCX conversion failed: %@", urlPath.path, tmpError.localizedDescription]);
-
-      return nil;
+  @autoreleasepool {
+    NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
+    NSString *fileName = [@(pictname) stringByAppendingString:@(gfxext[gmode])];
+    NSURL *urlPath = [gameDir URLByAppendingPathComponent:fileName];
+    
+    if (gmode <= 11 && gmode >= 14) {
+      // NSImage can be used to load these files!
+      return [NSData dataWithContentsOfURL:urlPath];
+    } else if (gmode < 11) {
+      NSError *tmpError;
+      //Load PCX
+      PCXDecoder *pcxData = [[PCXDecoder alloc] initWithFileAtURL:urlPath error:&tmpError];
+      if (!pcxData) {
+        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: PCX conversion failed: %@", urlPath.path, tmpError.localizedDescription]);
+        
+        return nil;
+      }
+      //Decode PCX
+      //Write data
+      return [pcxData dataRepresentation];
+    } else {
+      CFDataRef cfDat = CreateGIFFromFLICPath(urlPath.fileSystemRepresentation, false);
+      return [CFBridgingRelease(cfDat) copy];
     }
-    //Decode PCX
-    //Write data
-    return [pcxData dataRepresentation];
-  } else {
-    CFDataRef cfDat = CreateGIFFromFLICPath(urlPath.fileSystemRepresentation, false);
-    return [CFBridgingRelease(cfDat) copy];
   }
   
   return nil;
@@ -127,58 +129,60 @@ static int decodeImageFormat(glui32 image, int *cmd)
   if (sndfile==NULL) return nil;
   fclose(sndfile);
   
-  NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
-  NSString *fileName = [@(sndname) stringByAppendingPathExtension:@(sndext[smode])];
-  NSURL *urlPath = [gameDir URLByAppendingPathComponent:fileName];
-
-  switch (smode) {
-    case 0: //.muc
-      /*
-       Songs are stored in the MUC file format:
+  @autoreleasepool {
+    NSURL *gameDir = [NSURL fileURLWithFileSystemRepresentation:hold_fc->path isDirectory:YES relativeToURL:nil];
+    NSString *fileName = [@(sndname) stringByAppendingString:@(sndext[smode])];
+    NSURL *urlPath = [gameDir URLByAppendingPathComponent:fileName];
+    
+    switch (smode) {
+      case 0: //.muc
+        /*
+         Songs are stored in the MUC file format:
          The file format includes no header, but is a collection of
-       six-byte records. Each record consists of three unsigned 16-bit
-       numbers (stored little-endian like all numbers under AGT: the least
-       significant byte comes first): the frequency (in Hertz); the length of
-       time of the tone (in milliseconds); and a delay between tones (also in
-       milliseconds).
-       */
-    {
-      NSError *err = nil;
-      NSData *toRet = MUCToRiff(urlPath, &err);
-      if (!toRet) {
-        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: .MUC coversion failed with error: %@", urlPath.path, err.localizedDescription]);
+         six-byte records. Each record consists of three unsigned 16-bit
+         numbers (stored little-endian like all numbers under AGT: the least
+         significant byte comes first): the frequency (in Hertz); the length of
+         time of the tone (in milliseconds); and a delay between tones (also in
+         milliseconds).
+         */
+      {
+        NSError *err = nil;
+        NSData *toRet = MUCToRiff(urlPath, &err);
+        if (!toRet) {
+          cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: .MUC coversion failed with error: %@", urlPath.path, err.localizedDescription]);
+          return nil;
+        }
+        return toRet;
+      }
+        break;
+        
+      case 1: //.voc
+        //TODO: read/convert Creative Voice files.
+      {
+        NSError *tmpErr;
+        NSData *toRet = convertVOCToRIFF(urlPath, &tmpErr);
+        if (!toRet) {
+          cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: Creative Voice conversion failed: %@", urlPath.path, tmpErr.localizedDescription]);
+        }
+        return toRet;
+      }
+        break;
+        
+      case 2: //.mid
+        // SFBAudioEngine can at least handle MIDI files.
+        return [NSData dataWithContentsOfURL:urlPath];
+        break;
+        
+      case 3: //.cmf
+        //TODO: read/convert Creative Music Format?
+        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .cmf files right now!", urlPath.path]);
         return nil;
-      }
-      return toRet;
+        break;
+        
+      default:
+        return nil;
+        break;
     }
-      break;
-      
-    case 1: //.voc
-      //TODO: read/convert Creative Voice files.
-    {
-      NSError *tmpErr;
-      NSData *toRet = convertVOCToRIFF(urlPath, &tmpErr);
-      if (!toRet) {
-        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: Creative Voice conversion failed: %@", urlPath.path, tmpErr.localizedDescription]);
-      }
-      return toRet;
-    }
-      break;
-      
-    case 2: //.mid
-      // SFBAudioEngine can at least handle MIDI files.
-      return [NSData dataWithContentsOfURL:urlPath];
-      break;
-      
-    case 3: //.cmf
-      //TODO: read/convert Creative Music Format?
-      cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .cmf files right now!", urlPath.path]);
-      return nil;
-      break;
-      
-    default:
-      return nil;
-      break;
   }
 
   return nil;
