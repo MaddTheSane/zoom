@@ -340,7 +340,7 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 	for (Class plugClass in pluginClasses) {
 		[utis addObjectsFromArray: [plugClass supportedFileTypes]];
 		if ([plugClass conformsToProtocol:@protocol(ZoomStoryConverter)]) {
-			[utis addObjectsFromArray: [plugClass supportedConverterFileTypes]];
+			[utis addObjectsFromArray: [(Class<ZoomStoryConverter>)plugClass supportedConverterFileTypes]];
 		}
 	}
 	return [utis copy];
@@ -351,10 +351,11 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 	for (Class plugClass in pluginClasses) {
 		[utis addObjectsFromArray: [plugClass supportedContentTypes]];
 		if ([plugClass conformsToProtocol:@protocol(ZoomStoryConverter)]) {
-			if ([plugClass respondsToSelector:@selector(supportedConverterContentTypes)]) {
-				[utis addObjectsFromArray: [plugClass supportedConverterContentTypes]];
+			Class<ZoomStoryConverter> convClass = plugClass;
+			if ([convClass respondsToSelector:@selector(supportedConverterContentTypes)]) {
+				[utis addObjectsFromArray: [convClass supportedConverterContentTypes]];
 			} else {
-				NSArray *importerFileTypes = [plugClass supportedConverterFileTypes];
+				NSArray *importerFileTypes = [convClass supportedConverterFileTypes];
 				[utis addObjectsFromArray:ZoomContentTypesFromTypes(importerFileTypes)];
 			}
 		}

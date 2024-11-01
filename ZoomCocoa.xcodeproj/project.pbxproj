@@ -320,6 +320,7 @@
 		553D13E5273234A400D1F2B4 /* ZoomSkeinInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */; };
 		554A4541291CC25300C090C3 /* Hugo.plugin in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 5591DC1E29163EB400BF6F6F /* Hugo.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5551384B29678A9C002BAAAC /* AgilDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551384A29678A9C002BAAAC /* AgilDataSource.m */; };
+		5552DA5D2CD452B600BA6559 /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		55687B1C29A0B4B80005E1AE /* ZpTadsTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 55687B1B29A0B4B80005E1AE /* ZpTadsTwo.m */; };
 		55687B1F29A0B5510005E1AE /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
@@ -1681,6 +1682,7 @@
 		553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinInternal.h; sourceTree = "<group>"; };
 		5551384929678A9C002BAAAC /* AgilDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgilDataSource.h; sourceTree = "<group>"; };
 		5551384A29678A9C002BAAAC /* AgilDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgilDataSource.m; sourceTree = "<group>"; };
+		5552DA512CD4525200BA6559 /* AGT_bridging_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGT_bridging_header.h; sourceTree = "<group>"; };
 		5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinWeb.h; sourceTree = "<group>"; };
 		55687B1429A0B3E30005E1AE /* Tads2.zoomPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tads2.zoomPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		55687B1929A0B4270005E1AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2933,6 +2935,7 @@
 		55368AA3272A03B600740A0A /* AGT */ = {
 			isa = PBXGroup;
 			children = (
+				5552DA512CD4525200BA6559 /* AGT_bridging_header.h */,
 				55368AA4272A03C700740A0A /* Info.plist */,
 				55368AA5272A03C700740A0A /* ZoomAGT.swift */,
 			);
@@ -4696,6 +4699,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5552DA5D2CD452B600BA6559 /* PCXDecoder.m in Sources */,
 				55368AA6272A03F600740A0A /* ZoomAGT.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6353,6 +6357,7 @@
 				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = src/zoomCocoa/PlugIns/AGT/AGT_bridging_header.h;
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = zoomPlugin;
 			};
@@ -6383,6 +6388,7 @@
 				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = src/zoomCocoa/PlugIns/AGT/AGT_bridging_header.h;
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = zoomPlugin;
 			};

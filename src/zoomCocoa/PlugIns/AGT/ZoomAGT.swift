@@ -15,11 +15,7 @@ import ZoomPlugIns.ZoomStoryConverter
 import ZoomPlugIns
 import UniformTypeIdentifiers
 
-private let AGX_MAGIC: Data = {
-	let preDat: [UInt8] = [0x58, 0xC7, 0xC1, 0x51]
-	
-	return Data(preDat)
-}()
+private let AGX_MAGIC = Data([0x58, 0xC7, 0xC1, 0x51])
 
 /* Helper functions to unencode integers from AGT source */
 private func read_agt_short(_ sf: Data) -> Int16 {
@@ -40,6 +36,15 @@ private func read_agt_int(_ sf: Data) -> Int32 {
 	return preRet
 }
 
+private let imgExts = [
+	"pcx",
+	"p06", /* 640x200x2 */
+	"p40","p41","p42","p43", /* 320x200x4 */
+	"p13", /* 320x200x16 */
+	"p19", /* 320x200x256 */
+	"p14","p16", /* 640x200x16, 640x350x16   */
+	"p18", /* 640x480x16 */
+	"gif","png","bmp","jpg", "jpeg"]
 
 final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	public override class var pluginVersion: String {
@@ -143,6 +148,28 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	}
 	
 	public override var coverImage: NSImage? {
+		let imageBase = gameURL.deletingPathExtension()
+		
+		for (i, ext) in imgExts.enumerated().reversed() {
+			let theOut = imageBase.appendingPathExtension(ext)
+			if FileManager.default.fileExists(atPath: theOut.path) {
+				if i < 11 {
+					do {
+						let dec = try PCXDecoder(fileAt: theOut)
+						if let imgData = dec.dataRepresentation,
+						   let image = NSImage(data: imgData) {
+							return image
+						}
+					} catch {
+						NSLog("PCX conversion failed: \(error)")
+					}
+				} else {
+					if let image = NSImage(contentsOf: theOut) {
+						return image
+					}
+				}
+			}
+		}
 		let babel = ZoomBabel(url: gameURL)
 		return babel.coverImage()
 	}
