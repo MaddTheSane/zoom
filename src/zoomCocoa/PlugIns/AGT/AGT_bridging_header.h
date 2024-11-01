@@ -6,3 +6,4 @@
 //
 
 #import "PCXDecoder.h"
+#include "FILCDecoder.h"

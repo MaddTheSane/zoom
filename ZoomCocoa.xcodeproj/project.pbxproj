@@ -295,7 +295,7 @@
 		55368B0D272A04E200740A0A /* filename.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB5272A044A00740A0A /* filename.c */; };
 		55368B0E272A04E300740A0A /* filename.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AB5272A044A00740A0A /* filename.c */; };
 		55368B0F272A04FD00740A0A /* interface.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AAC272A044A00740A0A /* interface.c */; };
-		55368B11272A052A00740A0A /* agil in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368AE9272A045800740A0A /* agil */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55368B11272A052A00740A0A /* agil in Copy Tools */ = {isa = PBXBuildFile; fileRef = 55368AE9272A045800740A0A /* agil */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55368B17272A054800740A0A /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ACF272A044A00740A0A /* parser.c */; };
 		55368B18272A054C00740A0A /* savegame.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368ACA272A044A00740A0A /* savegame.c */; };
 		55368B19272A055000740A0A /* metacommand.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368AC5272A044A00740A0A /* metacommand.c */; };
@@ -321,6 +321,8 @@
 		554A4541291CC25300C090C3 /* Hugo.plugin in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 5591DC1E29163EB400BF6F6F /* Hugo.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5551384B29678A9C002BAAAC /* AgilDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551384A29678A9C002BAAAC /* AgilDataSource.m */; };
 		5552DA5D2CD452B600BA6559 /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
+		5552DA5E2CD4BE0000BA6559 /* FILCDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E478A12968CD660017646D /* FILCDecoder.cpp */; };
+		5552DA5F2CD4C0DC00BA6559 /* libflic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E478872968CCD10017646D /* libflic.a */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		55687B1C29A0B4B80005E1AE /* ZpTadsTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 55687B1B29A0B4B80005E1AE /* ZpTadsTwo.m */; };
 		55687B1F29A0B5510005E1AE /* ZoomPlugIns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB08109362A3B00F3B8F6 /* ZoomPlugIns.framework */; };
@@ -329,7 +331,7 @@
 		5571D30E2CC71271004709D1 /* PCXTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 5571D30D2CC71271004709D1 /* PCXTester.m */; };
 		5571D30F2CC712D3004709D1 /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
 		5571D3102CC71ABD004709D1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1E3F60050F7BA000A8E303 /* Cocoa.framework */; };
-		5571D3132CC9CBEE004709D1 /* agt2agx in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55368B00272A046400740A0A /* agt2agx */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5571D3132CC9CBEE004709D1 /* agt2agx in Copy Tools */ = {isa = PBXBuildFile; fileRef = 55368B00272A046400740A0A /* agt2agx */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5571D3172CC9CD8A004709D1 /* ZoomStoryConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5571D3162CC9CD71004709D1 /* ZoomStoryConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5576A0322B2A546D00A1D8FC /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5576A0312B2A546D00A1D8FC /* InfoPlist.xcstrings */; };
 		5576A0342B2A546D00A1D8FC /* LocalizedSkein.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5576A0332B2A546D00A1D8FC /* LocalizedSkein.xcstrings */; };
@@ -1228,15 +1230,16 @@
 			name = "Copy ZoomServer";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		55368A96272A035E00740A0A /* CopyFiles */ = {
+		55368A96272A035E00740A0A /* Copy Tools */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				5571D3132CC9CBEE004709D1 /* agt2agx in CopyFiles */,
-				55368B11272A052A00740A0A /* agil in CopyFiles */,
+				5571D3132CC9CBEE004709D1 /* agt2agx in Copy Tools */,
+				55368B11272A052A00740A0A /* agil in Copy Tools */,
 			);
+			name = "Copy Tools";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		555BCB83295D1328002E569F /* CopyFiles */ = {
@@ -2041,6 +2044,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5552DA5F2CD4C0DC00BA6559 /* libflic.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3719,7 +3723,7 @@
 				55368A8F272A035E00740A0A /* Sources */,
 				55368A91272A035E00740A0A /* Frameworks */,
 				55368A92272A035E00740A0A /* Resources */,
-				55368A96272A035E00740A0A /* CopyFiles */,
+				55368A96272A035E00740A0A /* Copy Tools */,
 			);
 			buildRules = (
 			);
@@ -4699,6 +4703,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5552DA5E2CD4BE0000BA6559 /* FILCDecoder.cpp in Sources */,
 				5552DA5D2CD452B600BA6559 /* PCXDecoder.m in Sources */,
 				55368AA6272A03F600740A0A /* ZoomAGT.swift in Sources */,
 			);
