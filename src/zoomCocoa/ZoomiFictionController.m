@@ -1342,6 +1342,26 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 					if (![rep isKindOfClass:[NSBitmapImageRep class]]) {
 						continue;
 					}
+					CFStringRef uttype = CGImageGetUTType(rep.CGImage);
+					if (CFEqual(uttype, kUTTypeGIF)) {
+						NSData *imgData = [rep representationUsingType:NSBitmapImageFileTypeGIF properties:@{}];
+						if (imgData) {
+							NSURL *gifURL = [imagesURL URLByAppendingPathComponent:sanitizedID conformingToType:UTTypeGIF];
+							if ([imgData writeToURL:gifURL atomically:YES]) {
+								success = YES;
+								break;
+							}
+						}
+					} else if (CFEqual(uttype, kUTTypeJPEG)) {
+						NSData *imgData = [rep representationUsingType:NSBitmapImageFileTypeJPEG properties:@{}];
+						if (imgData) {
+							NSURL *gifURL = [imagesURL URLByAppendingPathComponent:sanitizedID conformingToType:UTTypeJPEG];
+							if ([imgData writeToURL:gifURL atomically:YES]) {
+								success = YES;
+								break;
+							}
+						}
+					}
 					
 					NSData *imgData = [rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
 					if (imgData) {
