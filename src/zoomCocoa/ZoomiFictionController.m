@@ -1203,6 +1203,18 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 	}
 }
 
+static NSArray<NSString*> *const imageExtensions = @[@"png", @"jpeg", @"jpg", @"tif", @"tiff", @"gif"];
+/// Makes sure we don't get passed `/` or `:`
+static NSString *sanitizeID(ZoomStoryID* ident)
+{
+	NSString *stringID = ident.description;
+	NSRange range;
+	if ((range=[stringID rangeOfString:@"://"]).location != NSNotFound) {
+		return [stringID substringFromIndex:NSMaxRange(range)];
+	}
+	return stringID;
+}
+
 - (void) configureFromMainTableSelection {
 	ZoomStoryOrganiser* org = [ZoomStoryOrganiser sharedStoryOrganiser];
 
@@ -1264,50 +1276,87 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 		[resourceDrop setEnabled: YES];
 		
 		// Set up the cover picture
-		NSURL* filename = [org URLForIdent: ident];
-		ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForURL: filename];
-		if (plugin == nil) {
-			// If there's no plugin, try loading the file as a blorb
-			int coverPictureNumber = [story coverPicture];
-			
-			ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: filename error: NULL];
-			if (!decodedFile) {
-				//Maybe an external blorb has an image?
-				NSString *blorbFilename = [story objectForKey:@"ResourceFilename"];
-				if (blorbFilename) {
-					NSURL *blorbURL = [NSURL fileURLWithPath:blorbFilename];
-					decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: blorbURL error: NULL];
+		NSURL *imagesURL = ZoomStoryOrganiser.imagesURL;
+		NSString *sanitizedID = sanitizeID(ident);
+		{
+			NSURL *findURL;
+			for (NSString *ext in imageExtensions) {
+				findURL = [[imagesURL URLByAppendingPathComponent:sanitizedID] URLByAppendingPathExtension:ext];
+				if ([findURL checkResourceIsReachableAndReturnError:NULL]) {
+					break;
 				}
 			}
-			
-			// Try to retrieve the frontispiece tag (overrides metadata if present)
-			NSData* front = [decodedFile dataForChunkWithType: @"Fspc"];
-			if (front != nil && [front length] >= 4) {
-				const unsigned char* fpc = [front bytes];
+			coverPicture = [[NSImage alloc] initWithContentsOfURL:findURL];
+		}
+		if (coverPicture == nil) {
+			NSURL* filename = [org URLForIdent: ident];
+			ZoomPlugIn* plugin = [[ZoomPlugInManager sharedPlugInManager] instanceForURL: filename];
+			if (plugin == nil) {
+				// If there's no plugin, try loading the file as a blorb
+				int coverPictureNumber = [story coverPicture];
 				
-				coverPictureNumber = (((int)fpc[0])<<24)|(((int)fpc[1])<<16)|(((int)fpc[2])<<8)|(((int)fpc[3])<<0);
-			}
-			
-			if (coverPictureNumber >= 0) {			
-				// Attempt to retrieve the cover picture image
-				if (decodedFile != nil) {
-					NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
+				ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: filename error: NULL];
+				if (!decodedFile) {
+					//Maybe an external blorb has an image?
+					NSString *blorbFilename = [story objectForKey:@"ResourceFilename"];
+					if (blorbFilename) {
+						NSURL *blorbURL = [NSURL fileURLWithPath:blorbFilename];
+						decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: blorbURL error: NULL];
+					}
+				}
+				
+				// Try to retrieve the frontispiece tag (overrides metadata if present)
+				NSData* front = [decodedFile dataForChunkWithType: @"Fspc"];
+				if (front != nil && [front length] >= 4) {
+					const unsigned char* fpc = [front bytes];
 					
-					if (coverPictureData) {
-						coverPicture = [[NSImage alloc] initWithData: coverPictureData];
+					coverPictureNumber = (((int)fpc[0])<<24)|(((int)fpc[1])<<16)|(((int)fpc[2])<<8)|(((int)fpc[3])<<0);
+				}
+				
+				if (coverPictureNumber >= 0) {
+					// Attempt to retrieve the cover picture image
+					if (decodedFile != nil) {
+						NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
 						
-						// Sometimes the image size and pixel size do not match up
-						NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
-						NSSize pixSize = NSMakeSize([coverRep pixelsWide], [coverRep pixelsHigh]);
-						
-						if (!NSEqualSizes(pixSize, [coverPicture size])) {
-							[coverPicture setSize: pixSize];
+						if (coverPictureData) {
+							coverPicture = [[NSImage alloc] initWithData: coverPictureData];
+							
+							// Sometimes the image size and pixel size do not match up
+							NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
+							NSSize pixSize = NSMakeSize([coverRep pixelsWide], [coverRep pixelsHigh]);
+							
+							if (!NSEqualSizes(pixSize, [coverPicture size])) {
+								[coverPicture setSize: pixSize];
+							}
 						}
 					}
 				}
+			} else {
+				coverPicture = [plugin coverImage];
 			}
-		} else {
-			coverPicture = [plugin coverImage];
+			//Save the image
+			if (coverPicture) {
+				NSURL *findURL = [[imagesURL URLByAppendingPathComponent:sanitizedID] URLByAppendingPathExtension:@"png"];
+				BOOL success = NO;
+				for (NSBitmapImageRep *rep in coverPicture.representations) {
+					if (![rep isKindOfClass:[NSBitmapImageRep class]]) {
+						continue;
+					}
+					
+					NSData *imgData = [rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+					if (imgData) {
+						[imgData writeToURL:findURL atomically:YES];
+						success = YES;
+						break;
+					}
+				}
+				if (!success) {
+					NSData *tiffData = [coverPicture TIFFRepresentation];
+					NSBitmapImageRep *imgRep = [[NSBitmapImageRep alloc] initWithData:tiffData];
+					NSData *imgData = [imgRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+					[imgData writeToURL:findURL atomically:YES];
+				}
+			}
 		}
 	} else {
 		if ([[self window] isMainWindow] && [[ZoomGameInfoController sharedGameInfoController] infoOwner] == self) {

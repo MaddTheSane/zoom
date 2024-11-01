@@ -35,7 +35,13 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 #pragma mark - Initialisation
 + (void) initialization {
-	
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NSURL *imagesURL = ZoomStoryOrganiser.imagesURL;
+		if (![imagesURL checkResourceIsReachableAndReturnError:NULL]) {
+			[[NSFileManager defaultManager] createDirectoryAtURL:imagesURL withIntermediateDirectories:YES attributes:nil error:NULL];
+		}
+	});
 }
 
 - (id) init {
@@ -393,6 +399,10 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 
 - (NSArray*) gameIndices {
 	return [gameIndices copy];
+}
+
+- (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)app {
+	return YES;
 }
 
 - (ZoomStory*) findStory: (ZoomStoryID*) gameID {

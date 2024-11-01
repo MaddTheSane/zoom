@@ -158,6 +158,12 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		return saveURL
 	}()
 	
+	static let imagesURL: URL = {
+		var saveURL = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectoryURL!
+		saveURL.appendPathComponent("Images", isDirectory: true)
+		return saveURL
+	}()
+	
 	@MainActor func load() throws {
 		let dat = try Data(contentsOf: ZoomStoryOrganiser.libraryPath)
 		let decoder = JSONDecoder()
