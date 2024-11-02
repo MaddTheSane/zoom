@@ -27,7 +27,7 @@ char *_get_story(char *ifid, char *from)
  if (ifid)
    if (babel_treaty(GET_STORY_FILE_IFID_SEL,buf,512)<=0 ||
        !strstr(buf,ifid)) { babel_release(); return NULL; }
- l=babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL,0, NULL);
+ l=babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL,0, 0);
  if (l<=0) { babel_release(); return NULL; }
  md=(char *)malloc(l);
  if (!md)  { babel_release(); return NULL; }
@@ -56,7 +56,7 @@ char *get_story_cover(char *ifid, char *from)
  if (!babel_init(from)) return NULL;
  if (babel_treaty(GET_STORY_FILE_IFID_SEL,buf,512)<=0 ||
        (ifid && !strstr(buf,ifid))) { babel_release(); return NULL; }
- l=babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL,0, NULL);
+ l=babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL,0, 0);
  if (l<=0) { babel_release(); return NULL; }
  md=(char *)malloc(l);
  if (!md)  { babel_release(); return NULL; }

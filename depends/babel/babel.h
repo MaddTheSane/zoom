@@ -15,7 +15,7 @@
  *
  */
 
-#define BABEL_VERSION "0.5"
+#define BABEL_VERSION "0.7"
 
 #include "treaty.h"
 #include "babel_handler.h"
@@ -24,6 +24,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+extern int show_warnings;
 
 /* Functions from babel_story_functions.c
  *
