@@ -84,7 +84,7 @@ static NSURL *tempAIFFURL(void)
 	close(fd);						/* We only need the name
 									 * This might not be secure, but it'll work for now */
 	
-	return [NSURL fileURLWithFileSystemRepresentation:fname isDirectory:NO relativeToURL:nil];
+	return [[NSURL fileURLWithFileSystemRepresentation:fname isDirectory:NO relativeToURL:nil] URLByResolvingSymlinksInPath];
 }
 
 NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
@@ -129,6 +129,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 			currentSample += (((int)(entry.toneTime) + entry.toneDelay) * (int)(sampleRate)) / 1000;
 		}
 		
+		// Part 2: create AIFF data
 		// It doesn't look like AVFAudio has a way to create an audio format in memory:
 		// it has to be saved to a file first.
 		AVAudioFile *outFile = [[AVAudioFile alloc]
@@ -154,7 +155,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 		outFile = nil;
 	}
 	
-	// Part 2: read the created file
+	// Part 3: read the created file
 	NSData *aiffData = [[NSData alloc] initWithContentsOfURL:theURL options:0 error:outError];
 	[[NSFileManager defaultManager] removeItemAtURL:theURL error:NULL];
 	return aiffData;

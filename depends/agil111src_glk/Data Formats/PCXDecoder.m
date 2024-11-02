@@ -43,7 +43,7 @@ typedef NS_ENUM(uint16_t, PCXPaletteInfo) {
 /*! This procedure reads one encoded block from the image file and stores a
 count and data byte.
 
- \return result:  0 = valid data stored, \c EOF = out of data in file
+ \return result: `0` = valid data stored, `EOF` = out of data in file
  \param pbyt where to place data
  \param pcnt where to place count
  \param fid image file handle

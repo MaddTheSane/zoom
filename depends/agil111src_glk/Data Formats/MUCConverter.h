@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-extern NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError);
+extern NSData *_Nullable MUCToRiff(NSURL *_Nonnull theFile, NSError * _Nullable __autoreleasing* _Nullable outError);
 
 #ifdef __cplusplus
 }
