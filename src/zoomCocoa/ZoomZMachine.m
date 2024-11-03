@@ -474,7 +474,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 		[description appendFormat: @"%i", signedValue];
 	}
 	
-	return description;
+	return [description copy];
 }
 
 - (void) loadDebugSymbolsFromFile: (NSString*) symbolFile

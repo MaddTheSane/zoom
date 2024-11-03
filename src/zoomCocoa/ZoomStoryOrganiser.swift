@@ -268,7 +268,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			}
 			return nil
 		}()
-		let oldURLID: (NSCopying & NSSecureCoding & NSObjectProtocol)? = {
+		let oldURLID: (any NSCopying & NSSecureCoding & NSObjectProtocol)? = {
 			guard let oldURL = oldURL,
 			   let resVals = try? oldURL.resourceValues(forKeys: [.fileResourceIdentifierKey]),
 			   let theID = resVals.fileResourceIdentifier else {
@@ -744,7 +744,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		NSLog("Ideal location is %@", idealDir?.path ?? "(nil)")
 #endif
 
-		guard let idealDir = idealDir else {
+		guard let idealDir else {
 #if DEVELOPMENT_BUILD
 			NSLog("...which isn't a real path!")
 #endif

@@ -58,7 +58,7 @@ NS_SWIFT_NAME(ZMachineProtocol)
 // Setup
 - (void) loadStoryFile: (in bycopy NSData*) storyFile;
 
-/// Restoring game state (returns \c nil if successful)
+/// Restoring game state (returns `nil` if successful)
 - (nullable bycopy NSString*) restoreSaveState: (in bycopy NSData*) gameSave;
 
 // Running
@@ -68,7 +68,8 @@ NS_SWIFT_NAME(ZMachineProtocol)
 - (oneway void) inputText: (in bycopy NSString*) text;
 - (oneway void) inputTerminatedWithCharacter: (unsigned int) termChar;
 - (oneway void) inputMouseAtPositionX: (int) x
-                                    Y: (int) y;
+                                    Y: (int) y
+NS_SWIFT_NAME(inputMouseAtPosition(x:y:));
 
 - (void) displaySizeHasChanged;
 

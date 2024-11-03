@@ -16,22 +16,22 @@
 //!
 @interface ZoomTextToSpeech : NSObject<GlkAutomation, ZoomViewOutputReceiver>
 
-//! \c YES if this should speak immediately, \c NO if only on request
+//! `YES` if this should speak immediately, `NO` if only on request.
 @property (getter=isImmediate) BOOL immediate;
-//! Repeats the last text spoken by this object
+//! Repeats the last text spoken by this object.
 - (void) speakLastText;
-//! Speaks the specified text
+//! Speaks the specified text.
 - (void) speak: (NSString*) text;
-//! Stops speaking
+//! Stops speaking.
 - (void) beQuiet;
 
-//! Sets the skein this object should use
+//! Sets the skein this object should use.
 @property (strong) ZoomSkein *skein;
-//! Speaks one move behind (if a skein is set)
+//! Speaks one move behind (if a skein is set).
 - (void) speakPreviousMove;
-//! Speaks one move ahead
+//! Speaks one move ahead (if a skein is set)..
 - (void) speakNextMove;
-//! Resets the number of moves for the previous/next move
+//! Resets the number of moves for the previous/next move.
 - (void) resetMoves;
 
 @end
