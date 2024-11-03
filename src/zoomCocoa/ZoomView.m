@@ -3166,6 +3166,9 @@ static UTType *getZoomSaveType(void) {
 	return textToSpeechReceiver;
 }
 
+// TODO: Sound is currently not implemented in Zoom proper.
+#if 0
+
 #pragma mark - Sound
 
 - (void) setUpSound {
@@ -3202,6 +3205,8 @@ static UTType *getZoomSaveType(void) {
 				   repeats: (int) repeatCount {
 	[sound setUpSoundChannel: chan atVolume: vol repeats: repeatCount];
 }
+
+#endif
 
 #pragma mark - Accessibility
 
