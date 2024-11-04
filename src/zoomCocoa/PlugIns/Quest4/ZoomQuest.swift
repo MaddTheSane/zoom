@@ -104,7 +104,7 @@ final public class Quest: ZoomGlkPlugIn {
 			fileString = lines.joined(separator: "\n")
 			
 		default:
-			throw NSError(domain: NSOSStatusErrorDomain, code: paramErr, userInfo: [NSURLErrorKey: gameURL])
+			throw CocoaError(.fileReadCorruptFile, userInfo: [NSURLErrorKey: gameURL])
 		}
 		let meta = ZoomMetadata()
 		guard let story = meta.findOrCreateStory(id) else {
