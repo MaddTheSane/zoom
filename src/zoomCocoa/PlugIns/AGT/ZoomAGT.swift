@@ -206,6 +206,7 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	}
 
 	public static func canConvert(_ path: URL) -> Bool {
+		// TODO: more testing?
 		return supportedExtensions.contains(path.pathExtension.lowercased())
 	}
 	

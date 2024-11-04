@@ -167,8 +167,7 @@ private func isCompatibleAdriftFile(at url: URL) -> Bool {
 	var buf = data.subdata(in: 0 ..< 7).map { val in
 		return rng.translate(byte: val)
 	}
-	let bufDat = Data(buf)
-	guard bufDat == versionData else {
+	guard versionData.elementsEqual(buf) else {
 		return false
 	}
 	_=rng.translate(byte: 0)

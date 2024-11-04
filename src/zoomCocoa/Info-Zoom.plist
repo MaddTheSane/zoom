@@ -661,7 +661,7 @@
 				<key>UTTypeIconBadgeName</key>
 				<string>HUGO</string>
 				<key>UTTypeIconText</key>
-				<string>Hugo</string>
+				<string>Debug</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.hugo.debug</string>

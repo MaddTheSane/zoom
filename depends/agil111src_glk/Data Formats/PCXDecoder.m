@@ -62,7 +62,7 @@ static const uint8_t PCX_defaultPalette[48] = {
 typedef struct PCXHeader {
 	//! Zsoft ID byte
 	uint8_t magic; // = 0x0A
-	//! Version, see \c PCXVersion for values.
+	//! Version, see `PCXVersion` for values.
 	PCXVersion version;
 	//! Encoding (PCX run-length encoding)
 	PCXEncoding encoding;
@@ -117,37 +117,37 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 		[NSError setUserInfoValueProviderForDomain:PCXDecoderErrorDomain provider:^id _Nullable(NSError * _Nonnull err, NSErrorUserInfoKey  _Nonnull userInfoKey) {
 			switch ((PCXDecoderErrors)err.code) {
 				case PCXDecoderInvalidMagic:
-					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey] || [userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
 						return @"File is not PCX, magic number invalid.";
 					}
 					break;
 					
 				case PCXDecoderUnknownVersion:
-					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey] || [userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
 						return @"Unknown PCX version number.";
 					}
 					break;
 					
 				case PCXDecoderBadEncoding:
-					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey] || [userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
 						return @"Unknown PCX version encoding.";
 					}
 					break;
 					
 				case PCXDecoderUnknownPalette:
-					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey] || [userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
 						return @"Unknown PCX palette value.";
 					}
 					break;
 					
 				case PCXDecoderUnexpectedEOF:
-					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey] || [userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
 						return @"Unexpected end of file, possibly truncaded?";
 					}
 					break;
 					
 				case PCXDecoderNoVGAPalette:
-					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey] || [userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
 						return @"The VGA palette was not found.";
 					}
 					break;
@@ -380,7 +380,6 @@ pcxPlanesToPixels(unsigned char * const pixels,
 			}
 		}
 		free(bufr); bufr = NULL;
-		imageDat = NULL;
 	}
 	
 	{

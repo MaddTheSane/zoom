@@ -99,16 +99,15 @@ static int decodeImageFormat(glui32 image, int *cmd)
       return [NSData dataWithContentsOfURL:urlPath];
     } else if (gmode < 11) {
       NSError *tmpError;
-      //Load PCX
+      // Load and decode PCX
       PCXDecoder *pcxData = [[PCXDecoder alloc] initWithFileAtURL:urlPath error:&tmpError];
       if (!pcxData) {
         cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: PCX conversion failed: %@", urlPath.path, tmpError.localizedDescription]);
         
         return nil;
       }
-      //Decode PCX
       //Write data
-      return [pcxData dataRepresentation];
+      return pcxData.dataRepresentation;
     } else {
       CFDataRef cfDat = CreateGIFFromFLICPath(urlPath.fileSystemRepresentation, false);
       return [CFBridgingRelease(cfDat) copy];

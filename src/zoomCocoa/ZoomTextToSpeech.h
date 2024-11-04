@@ -29,7 +29,7 @@
 @property (strong) ZoomSkein *skein;
 //! Speaks one move behind (if a skein is set).
 - (void) speakPreviousMove;
-//! Speaks one move ahead (if a skein is set)..
+//! Speaks one move ahead (if a skein is set).
 - (void) speakNextMove;
 //! Resets the number of moves for the previous/next move.
 - (void) resetMoves;
