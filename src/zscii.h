@@ -40,7 +40,7 @@ extern void		pack_zscii            (unsigned int* string,
 					       int packlen);
 extern void		zscii_install_alphabet(void);
 
-extern int* zscii_unicode;
+extern const int* zscii_unicode;
 
 static inline unsigned char zscii_get_char(unsigned int unichar) {
     /* Function that converts a unicode character to a ZSCII one */

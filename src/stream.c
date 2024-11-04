@@ -38,8 +38,8 @@ static int  buflen    = 0;
 static int  bufpos    = 0;
 static int* buffer = NULL;
 
-extern int* zscii_unicode;
-extern int  zscii_unicode_table[];
+extern const int* zscii_unicode;
+extern const int  zscii_unicode_table[];
 
 static void prints_reformat_width(int len)
 {

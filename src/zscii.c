@@ -53,7 +53,7 @@ static unsigned int* convert_table[3] = { alpha_a, alpha_b, alpha_c };
 /* Table that maps alphabet + character to ZSCII character */
 static unsigned int** convert = convert_table;
 
-int  zscii_unicode_table[256] =
+const int  zscii_unicode_table[256] =
 {
 	0x3f,0x3f,0x3f,0x3f, 0x3f,0x3f,0x3f,0x3f, /* 000-007 */
 	0x3f,0x09,0x0a,0x20, 0x3f,0x0a,0x3f,0x3f, /* 008-015 */
@@ -90,7 +90,7 @@ int  zscii_unicode_table[256] =
 };
 
 /* Table that maps (8-bit) ZSCII to unicode */
-int* zscii_unicode = zscii_unicode_table;
+const int* zscii_unicode = zscii_unicode_table;
 
 #ifdef DEBUG
 char* zscii_to_ascii(ZByte* string, int* len)
@@ -384,7 +384,7 @@ onward:
  *
  * A packlen of 6 gives us v3 format, and 9 gives us v5
  */
-static unsigned char zscii_table[256] =
+static const unsigned char zscii_table[256] =
 {
 	0x00,0x00,0x00,0x00, 0x00,0x00,0x00,0x00, /* 8 */
 	0x00,0x00,0xc7,0x00, 0x00,0x00,0x00,0x00, /* 16 */
@@ -422,7 +422,7 @@ static unsigned char zscii_table[256] =
 };
 
 /* Table that maps 8-bit characters to packed characters. Lower 6 bits are the characters, the other bits are the alphabet */
-static unsigned char* zscii = zscii_table;
+static const unsigned char* zscii = zscii_table;
 
 void pack_zscii(unsigned int* string, int strlen, ZByte* packed, int packlen)
 {
