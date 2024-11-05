@@ -425,17 +425,17 @@ agt_tone (int hz, int ms)
 int
 agt_rand (int a, int b)
 {
-  static int is_initialized = FALSE;
+  static dispatch_once_t is_initialized;
 
   int result;
 
-  if (!is_initialized)
-    {
+  dispatch_once (&is_initialized,
+    ^{
       srand (stable_random ? 6 : (time (0) & 0xffffffff));
 
-      is_initialized = TRUE;
       gagt_debug ("agt_rand", "[initialized]");
     }
+  );
 
   result = a + (rand () >> 2) % (b - a + 1);
   gagt_debug ("agt_rand", "a=%d, b=%d -> %d", a, b, result);
@@ -773,15 +773,15 @@ static gagt_char_t GAGT_CHAR_TABLE[] = {
 static void
 gagt_cp_to_iso (const unsigned char *from_string, unsigned char *to_string)
 {
-  static int is_initialized = FALSE;
+  static dispatch_once_t is_initialized;
   static unsigned char table[UCHAR_MAX + 1];
 
   int index;
   unsigned char cp437, iso8859_1;
   assert (from_string && to_string);
 
-  if (!is_initialized)
-    {
+  dispatch_once (&is_initialized,
+    ^{
       gagt_charref_t entry;
 
       /*
@@ -792,20 +792,19 @@ gagt_cp_to_iso (const unsigned char *from_string, unsigned char *to_string)
        */
       for (entry = GAGT_CHAR_TABLE; entry->cp437; entry++)
         {
-          cp437 = entry->cp437;
-          iso8859_1 = entry->iso8859_1;
+          unsigned char cp437 = entry->cp437;
+          unsigned char iso8859_1 = entry->iso8859_1;
 
           assert (cp437 < 0x20 || (cp437 > SCHAR_MAX && cp437 <= UCHAR_MAX));
           table[cp437] = iso8859_1;
         }
-      for (index = 0; index <= SCHAR_MAX; index++)
+      for (int index = 0; index <= SCHAR_MAX; index++)
         {
           if (table[index] == 0)
             table[index] = index;
         }
-
-      is_initialized = TRUE;
     }
+  );
 
   for (index = 0; from_string[index] != '\0'; index++)
     {
@@ -828,15 +827,15 @@ gagt_cp_to_iso (const unsigned char *from_string, unsigned char *to_string)
 static void
 gagt_iso_to_cp (const unsigned char *from_string, unsigned char *to_string)
 {
-  static int is_initialized = FALSE;
+  static dispatch_once_t is_initialized;
   static unsigned char table[UCHAR_MAX + 1];
 
   int index;
   unsigned char iso8859_1, cp437;
   assert (from_string && to_string);
 
-  if (!is_initialized)
-    {
+  dispatch_once (&is_initialized,
+    ^{
       gagt_charref_t entry;
 
       /*
@@ -854,18 +853,19 @@ gagt_iso_to_cp (const unsigned char *from_string, unsigned char *to_string)
        */
       for (entry = GAGT_CHAR_TABLE; entry->iso8859_1; entry++)
         {
-          cp437 = entry->cp437;
-          iso8859_1 = entry->iso8859_1;
+          unsigned char cp437 = entry->cp437;
+          unsigned char iso8859_1 = entry->iso8859_1;
 
           assert (iso8859_1 <= UCHAR_MAX);
           if (table[iso8859_1] == 0)
             table[iso8859_1] = cp437;
         }
-      for (index = 0; index <= SCHAR_MAX; index++)
-        table[index] = index;
-
-      is_initialized = TRUE;
+      for (int index = 0; index <= SCHAR_MAX; index++)
+        {
+          table[index] = index;
+        }
     }
+  );
 
   for (index = 0; from_string[index] != '\0'; index++)
     {
@@ -1453,10 +1453,10 @@ gagt_coerce_fixed_font (int coerce)
  * can be encoded into a byte array that parallels the output strings that
  * we buffer from the interpreter.
  */
-static unsigned char
+static GAGT_PACKED_OPTIONS
 gagt_pack_attributes (const gagt_attrset_t * attribute_set, int coerced)
 {
-  unsigned char packed;
+  GAGT_PACKED_OPTIONS packed;
   assert (attribute_set);
 
   /* Set the initial result to be color; these are the low bits. */
@@ -1483,7 +1483,7 @@ gagt_pack_attributes (const gagt_attrset_t * attribute_set, int coerced)
  * text attributes that were current at the time of packing.
  */
 static void
-gagt_unpack_attributes (unsigned char packed, gagt_attrset_t * attribute_set)
+gagt_unpack_attributes (GAGT_PACKED_OPTIONS packed, gagt_attrset_t * attribute_set)
 {
   assert (attribute_set);
 
@@ -1500,7 +1500,7 @@ gagt_unpack_attributes (unsigned char packed, gagt_attrset_t * attribute_set)
  * Pack the current color and text rendering attributes into a single byte,
  * and return it.
  */
-static unsigned char
+static GAGT_PACKED_OPTIONS
 gagt_pack_current_attributes (void)
 {
   return gagt_pack_attributes (&gagt_current_attribute_set, gagt_coerced_fixed);
@@ -1777,13 +1777,13 @@ static const unsigned int GAGT_LINE_MAGIC = 0x5bc14482;
  * null terminator -- not needed since we retain length.
  */
 typedef struct gagt_string_s {
-  unsigned char *data;        /*!< Buffered character data. */
+  unsigned char *data;              /*!< Buffered character data. */
 #ifdef GLK_MODULE_UNICODE
-  glui32 *unicode;     /*!< Buffered Unicode data. */
+  glui32 *unicode;                  /*!< Buffered Unicode data. */
 #endif
-  unsigned char *attributes;  /*!< Parallel character attributes, packed. */
-  int allocation;             /*!< Bytes allocated to each of the above. */
-  int length;                 /*!< Amount of data actually buffered. */
+  GAGT_PACKED_OPTIONS *attributes;  /*!< Parallel character attributes, packed. */
+  int allocation;                   /*!< Bytes allocated to each of the above. */
+  int length;                       /*!< Amount of data actually buffered. */
 } gagt_string_t;
 typedef gagt_string_t * gagt_stringref_t;
 
@@ -1837,7 +1837,7 @@ static gagt_string_t gagt_current_buffer = { NULL, NULL, 0, 0 };
  */
 static void
 gagt_string_append (gagt_stringref_t buffer, const char *string,
-                    unsigned char packed_attributes)
+                    GAGT_PACKED_OPTIONS packed_attributes)
 {
   int length, bytes;
 
@@ -1867,7 +1867,7 @@ gagt_string_append (gagt_stringref_t buffer, const char *string,
 #ifdef GLK_MODULE_UNICODE
 static void
 gagt_string_append_uni (gagt_stringref_t buffer, glui32 *string,
-                    unsigned char packed_attributes)
+                        GAGT_PACKED_OPTIONS packed_attributes)
 {
   int length, bytes;
 
@@ -2023,8 +2023,6 @@ gagt_is_string_hyphenated (const gagt_stringref_t buffer)
 
 
 /**
- * gagt_output_delete()
- *
  * Delete all buffered page and line text.  Free all malloc'ed buffer memory,
  * and return the buffer variables to their initial values.
  */
@@ -2051,10 +2049,8 @@ gagt_output_delete (void)
 
 
 /**
- * agt_puts()
- *
  * Buffer the string passed in into our current single line buffer.  The
- * function converts to ISO 8859 Latin-1 encoding before buffering.
+ * function converts to ISO 8859 Latin-1 encoding (or Unicode, if supported) before buffering.
  */
 void
 agt_puts (const char *cp_string)
@@ -2064,7 +2060,7 @@ agt_puts (const char *cp_string)
   if (!BATCH_MODE)
     {
       char *iso_string;
-      unsigned char packed;
+      GAGT_PACKED_OPTIONS packed;
       int length;
 #ifdef GLK_MODULE_UNICODE
       glui32 *uni_string;
@@ -2105,8 +2101,6 @@ agt_puts (const char *cp_string)
 
 
 /**
- * agt_newline()
- *
  * Accept a newline to the main window.  Our job here is to append the
  * current line buffer to the page buffer, and clear the line buffer to
  * begin accepting new text.
@@ -2158,14 +2152,8 @@ agt_newline (void)
 
 
 /**
- * gagt_get_first_page_line()
- * gagt_get_next_page_line()
- * gagt_get_prior_page_line()
- *
- * Iterator functions for the page buffer.  These functions return the first
- * line from the page buffer, the next line, or the previous line, given a
- * line, respectively.  They return \c NULL if no lines, or no more lines, are
- * available.
+ * Iterator function for the page buffer.  This function return the first
+ * line from the page buffer.  Returns `NULL` if no lines are available.
  */
 static gagt_lineref_t
 gagt_get_first_page_line (void)
@@ -2177,6 +2165,12 @@ gagt_get_first_page_line (void)
   return line;
 }
 
+/**
+ * Iterator function for the page buffer.  This function return the next
+ * line from the page buffer given a
+ * line.  Returns `NULL` if no lines, or no more lines, are
+ * available.
+ */
 static gagt_lineref_t
 gagt_get_next_page_line (const gagt_lineref_t line)
 {
@@ -2188,6 +2182,12 @@ gagt_get_next_page_line (const gagt_lineref_t line)
   return next_line;
 }
 
+/**
+ * Iterator function for the page buffer.  These functions return the previous
+ * line from the page buffer given a
+ * line.  Returns `NULL` if no lines, or no more lines, are
+ * available.
+ */
 static gagt_lineref_t
 gagt_get_prior_page_line (const gagt_lineref_t line)
 {
@@ -2236,8 +2236,6 @@ static gagt_paragraphref_t gagt_paragraphs_head = NULL,
                            gagt_paragraphs_tail = NULL;
 
 /**
- * gagt_paragraphs_delete()
- *
  * Delete paragraphs held in the list.  This function doesn't delete the
  * page buffer lines, just the paragraphs describing the page.
  */
@@ -2260,10 +2258,8 @@ gagt_paragraphs_delete (void)
 
 
 /**
- * gagt_find_paragraph_start()
- *
  * Find and return the next non-blank line in the page buffer, given a start
- * point.  Returns NULL if there are no more blank lines.
+ * point.  Returns `NULL` if there are no more blank lines.
  */
 static gagt_lineref_t
 gagt_find_paragraph_start (const gagt_lineref_t begin)
@@ -2297,8 +2293,8 @@ gagt_find_paragraph_start (const gagt_lineref_t begin)
  * the point where indentation returns to the reference indentation, or
  * the next blank line.
  *
- * Indentation reference can be -1, indicating that only the next blank
- * line will end the paragraph.  Indentation references less than 1 are
+ * Indentation reference can be *-1*, indicating that only the next blank
+ * line will end the paragraph.  Indentation references less than *1* are
  * also ignored.
  */
 static gagt_lineref_t
@@ -2335,8 +2331,6 @@ gagt_find_blank_line_block_end (const gagt_lineref_t begin)
 
 
 /**
- * gagt_find_paragraph_end()
- *
  * Find and return the apparent end of a paragraph from the page buffer,
  * given a start point.  The function attempts to recognize paragraphs by
  * the "shape" of indentation.
@@ -2455,8 +2449,6 @@ gagt_find_paragraph_end (const gagt_lineref_t first_line)
 
 
 /**
- * gagt_paragraph_page()
- *
  * This function breaks the page buffer into what appear to be paragraphs,
  * based on observations of indentation and blank separator lines.
  */
@@ -2520,10 +2512,7 @@ gagt_paragraph_page (void)
 
 
 /**
- * gagt_get_first_paragraph()
- * gagt_get_next_paragraph()
- *
- * Iterator functions for the paragraphs list.
+ * Iterator function for the paragraphs list.
  */
 static gagt_paragraphref_t
 gagt_get_first_paragraph (void)
@@ -2535,6 +2524,9 @@ gagt_get_first_paragraph (void)
   return paragraph;
 }
 
+/**
+ * Iterator function for the paragraphs list.
+ */
 static gagt_paragraphref_t
 gagt_get_next_paragraph (const gagt_paragraphref_t paragraph)
 {
@@ -2556,9 +2548,9 @@ gagt_get_next_paragraph (const gagt_paragraphref_t paragraph)
  * paragraph-based view of the page buffer.
  *
  * The functions find the first line of a given paragraph; given a line,
- * the next line in the same paragraph, or NULL if line is the last para-
+ * the next line in the same paragraph, or `NULL` if line is the last para-
  * graph line (or the last line in the page buffer); and given a line,
- * the previous line in the same paragraph, or NULL if line is the first
+ * the previous line in the same paragraph, or `NULL` if line is the first
  * paragraph line (or the first line in the page buffer).
  */
 static gagt_lineref_t
@@ -2598,8 +2590,6 @@ gagt_get_prior_paragraph_line (const gagt_lineref_t line)
 
 
 /**
- * gagt_get_paragraph_line_count()
- *
  * Return the count of lines contained in the paragraph.
  */
 static int
@@ -2627,13 +2617,13 @@ static const char * const GAGT_COMMON_PUNCTUATION = ".!?";
 
 
 /**
- * gagt_line_is_standout()
+ * Return `TRUE` if a page buffer line appears to contain "standout" text.
  *
- * Return TRUE if a page buffer line appears to contain "standout" text.
  * This is one of:
- *    - a line where all characters have some form of AGT text attribute
+ * - a line where all characters have some form of AGT text attribute
  *      set (blinking, fixed width font, or emphasis),
- *    - a line where each alphabetical character is uppercase.
+ * - a line where each alphabetical character is uppercase.
+ *
  * Typically, this describes room and other miscellaneous header lines.
  */
 static int
@@ -2691,7 +2681,7 @@ gagt_line_is_standout (const gagt_lineref_t line)
  * gagt_set_font_hint_fixed_width()
  *
  * Helpers for assigning font hints.  Font hints have strengths, and these
- * functions ensure that gagt_assign_paragraph_font_hints() only increases
+ * functions ensure that `gagt_assign_paragraph_font_hints()` only increases
  * strengths, and doesn't need to worry about checking before setting.  In
  * the case of newline, the function also adds standout to the font hint if
  * appropriate.
@@ -2734,8 +2724,6 @@ gagt_set_font_hint_fixed_width (gagt_lineref_t line)
 
 
 /**
- * gagt_assign_paragraph_font_hints()
- *
  * For a given paragraph in the page buffer, this function looks at the text
  * style used, and assigns a font hint value to each line.  Font hints
  * indicate whether the line probably requires fixed width font, or may be
@@ -2746,7 +2734,7 @@ gagt_set_font_hint_fixed_width (gagt_lineref_t line)
 static void
 gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
 {
-  static int is_initialized = FALSE;
+  static dispatch_once_t is_initialized;
   static int threshold[UCHAR_MAX + 1];
 
   gagt_lineref_t line, first_line;
@@ -2754,8 +2742,8 @@ gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
   assert (paragraph);
 
   /* On first call, set up the table on punctuation run thresholds. */
-  if (!is_initialized)
-    {
+  dispatch_once (&is_initialized,
+    ^{
       int character;
 
       for (character = 0; character <= UCHAR_MAX; character++)
@@ -2771,9 +2759,8 @@ gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
                                      ? GAGT_COMMON_THRESHOLD : GAGT_THRESHOLD;
             }
         }
-
-      is_initialized = TRUE;
     }
+  );
 
   /*
    * Note the first paragraph line.  This value is commonly used, and under
@@ -3116,9 +3103,6 @@ gagt_assign_paragraph_font_hints (const gagt_paragraphref_t paragraph)
 
 
 /**
- * gagt_assign_font_hints()
- *
- *
  * Sets a font hint for each line of each page buffer paragraph that is not
  * a special paragraph.
  */
@@ -3272,9 +3256,9 @@ static gagt_special_t GAGT_SPECIALS[] = {
  * gagt_compare_special_line()
  * gagt_compare_special_paragraph()
  *
- * Helpers for gagt_find_equivalent_special().  Compare line data case-
+ * Helpers for `gagt_find_equivalent_special()`.  Compare line data case-
  * insensitively, taking care to use lengths rather than relying on line
- * buffer data being \c NUL terminated (which it's not); and iterate a complete
+ * buffer data being `NUL` terminated (which it's not); and iterate a complete
  * special paragraph comparison.
  */
 static int
@@ -3329,10 +3313,8 @@ gagt_compare_special_paragraph (const gagt_specialref_t special,
 
 
 /**
- * gagt_find_equivalent_special()
- *
  * Given a paragraph, see if it matches any of the special ones set up in
- * our array.  Returns the special, or NULL if no match.
+ * our array.  Returns the special, or `NULL` if no match.
  */
 static gagt_specialref_t
 gagt_find_equivalent_special (gagt_paragraphref_t paragraph)
@@ -3355,8 +3337,6 @@ gagt_find_equivalent_special (gagt_paragraphref_t paragraph)
 
 
 /**
- * gagt_mark_specials()
- *
  * Search for and mark any lines that match special paragraphs.
  */
 static void
@@ -3407,8 +3387,6 @@ gagt_mark_specials (void)
 
 
 /**
- * gagt_display_special()
- *
  * Display the replacement text for the specified special table entry.  The
  * current Glk style in force is passed in; we return the Glk style in force
  * after we've done.
@@ -3530,8 +3508,6 @@ gagt_display_provide_help_hint (glui32 current_style)
 
 
 /**
- * gagt_display_text_element()
- *
  * Display an element of a buffer string using matching packed attributes.
  * The currently set Glk style is supplied, and the function returns the
  * new currently set Glk style.
@@ -3646,8 +3622,6 @@ gagt_display_text_element_uni (const glui32 *string, const unsigned char *attrib
 
 
 /**
- * gagt_display_line()
- *
  * Display a page buffer line, starting in the current Glk style, and
  * returning the new current Glk style.
  *
@@ -3700,8 +3674,6 @@ gagt_display_line (const gagt_lineref_t line, glui32 current_style,
 
 
 /**
- * gagt_display_hinted_line()
- *
  * Display a page buffer line, starting in the current Glk style, and
  * returning the new current Glk style.  The function uses the font hints
  * from the line, and receives the font hint of the prior line.
@@ -3771,8 +3743,6 @@ gagt_display_hinted_line (const gagt_lineref_t line, glui32 current_style,
 
 
 /**
- * gagt_display_auto()
- *
  * Display buffered output text to the Glk main window using a bunch of
  * occasionally rather dodgy heuristics to try to automatically set a suitable
  * font for the way the text is structured, while replacing special paragraphs
@@ -3854,8 +3824,6 @@ gagt_display_auto (void)
 
 
 /**
- * gagt_display_manual()
- *
  * Display buffered output text in the Glk main window, with either a fixed
  * width or a proportional font.
  */
@@ -3912,8 +3880,6 @@ gagt_display_manual (int fixed_width)
 
 
 /**
- * gagt_display_debug()
- *
  * Display the analyzed page buffer in a form that shows all of its gory
  * detail.
  */
@@ -3972,8 +3938,6 @@ gagt_display_debug (void)
 
 
 /**
- * gagt_output_flush()
- *
  * Flush any buffered output text to the Glk main window, and clear the
  * buffer ready for new output text.  The function concerns itself with
  * both the page buffer and any unterminated line in the line buffer.
@@ -4025,8 +3989,6 @@ gagt_output_flush (void)
 
 
 /**
- * agt_clrscr()
- *
  * Clear the main playing area window.  Although there may be little point
  * in flushing (rather than emptying) the buffers, nevertheless that is
  * what we do.
@@ -4194,8 +4156,6 @@ static int gagt_delays_suspended = FALSE;
 
 
 /**
- * agt_delay()
- *
  * Delay for the specified number of seconds.  The delay can be canceled
  * by a user keypress.
  */
@@ -4274,10 +4234,8 @@ agt_delay (int seconds)
 
 
 /**
- * gagt_delay_resume()
- *
- * Unsuspend delays.  This function should be called by \c agt_input() and
- * \c agt_getkey() , to re-enable delays when the interpreter next requests
+ * Unsuspend delays.  This function should be called by `agt_input()` and
+ * `agt_getkey()`, to re-enable delays when the interpreter next requests
  * user input.
  */
 static void
@@ -6572,9 +6530,7 @@ static int gagt_clean_exit_test = FALSE;
 
 
 /**
- * gagt_parse_option()
- *
- * Glk-ified version of AGiliTy's parse_options() function.  In practice,
+ * Glk-ified version of AGiliTy's `parse_options()` function.  In practice,
  * because Glk has got to them first, most options that come in here are
  * probably going to be single-character ones, since this is what we told
  * Glk in the arguments structure above.  The Glk font control and other
@@ -7383,7 +7339,7 @@ static const NSStringEncoding DosLatinUSEncoding = 2147484672;
 
 /**
  * Convert a string from code page 437 into UTF-32.  The input and
- * output buffers may \b not be one and the same.
+ * output buffers may **not** be one and the same.
  */
 static void
 gagt_cp_to_utf (const unsigned char *from_string, glui32 *to_string)
@@ -7442,8 +7398,7 @@ static void
 gagt_unicode_to_cp (const glui32 *from_string, unsigned char *to_string)
 {
   @autoreleasepool {
-    int from_len;
-    for (from_len=0; from_string[from_len] != 0; from_len++);
+    int from_len = (int)strlen_u(from_string);
     NSString *nsStr = cocoaglk_string_from_uni_buf(from_string, from_len);
     NSData *convStr = [nsStr dataUsingEncoding: DosLatinUSEncoding allowLossyConversion: YES];
     [convStr getBytes: to_string length: MIN(convStr.length, from_len)];
