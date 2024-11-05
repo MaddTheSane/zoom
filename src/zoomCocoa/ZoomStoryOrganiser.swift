@@ -103,7 +103,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	
 	override init() {
 		super.init()
-		dataChangedNotificationObject = NotificationCenter.default.addObserver(forName: .ZoomStoryDataHasChanged, object: nil, queue: nil, using: { [weak self] noti in
+		dataChangedNotificationObject = NotificationCenter.default.addObserver(forName: ZoomStory.dataHasChangedNotification, object: nil, queue: nil, using: { [weak self] noti in
 			guard let story = noti.object as? ZoomStory else {
 				NSLog("someStoryHasChanged: called with a non-story object (too many spoons?)")
 				return // Unlikely but possible. If I'm a spoon, that is.
@@ -214,10 +214,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			do {
 				storyId = try NSKeyedUnarchiver.unarchivedObject(ofClass: ZoomStoryID.self, from: dat)
 			} catch { }
-			if storyId == nil {
-				if let newID = NSUnarchiver.unarchiveObject(with: dat) as? ZoomStoryID {
-					return newID
-				}
+			guard let storyId else {
+				return NSUnarchiver.unarchiveObject(with: dat) as? ZoomStoryID
 			}
 			
 			return storyId
@@ -269,7 +267,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			return nil
 		}()
 		let oldURLID: (any NSCopying & NSSecureCoding & NSObjectProtocol)? = {
-			guard let oldURL = oldURL,
+			guard let oldURL,
 			   let resVals = try? oldURL.resourceValues(forKeys: [.fileResourceIdentifierKey]),
 			   let theID = resVals.fileResourceIdentifier else {
 				return nil
@@ -917,7 +915,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 #endif
 			
 			// Copy to a standard directory, change the filename we're using
-			filename = filename.standardizedFileURL
+			filename = filename.standardizedFileURL.resolvingSymlinksInPath()
 			
 			let fileDir = directory(for: ident, create: true)
 			var destFile = fileDir?.appendingPathComponent(oldFilename.lastPathComponent)
@@ -927,7 +925,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			NSLog("... best directory %@ (file will be %@)", fileDir?.path ?? "(nil)", destFile?.path ?? "(nil)")
 #endif
 			
-			if filename != destFile, let destFile = destFile {
+			if filename != destFile, let destFile {
 				var moved = false
 				if filename.path.lowercased() == destFile.path.lowercased() {
 					// *LIKELY* that these are in fact the same file with different case names
