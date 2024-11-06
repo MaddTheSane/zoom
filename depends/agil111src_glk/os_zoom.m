@@ -7475,7 +7475,7 @@ void pictcmd(int cmd,int pict)
    3=show startup picture <gamename>.P..
   */
 {
-  glk_image_draw(gagt_main_window, encodeImageFormat(cmd, pict), imagealign_InlineCenter, 0);
+  glk_image_draw(gagt_main_window, encodeImageFormat(cmd, pict), imagealign_InlineUp, 0);
 
 #ifdef DEBUG_BELLS_AND_WHISTLES
   if (cmd==1) bnw_report("Showing picture",pictlist,pict);
@@ -7519,10 +7519,12 @@ int musiccmd(int cmd,int song)
     return 0;
   }
   if (cmd==7) {
-    /* Stop song */
-    glk_schannel_stop(gagt_sound_channel);
-    /* Do clean-up */
-    glk_schannel_destroy(gagt_sound_channel);
+    if (gagt_sound_channel) {
+      /* Stop song */
+      glk_schannel_stop(gagt_sound_channel);
+      /* Do clean-up */
+      glk_schannel_destroy(gagt_sound_channel);
+    }
     return 0;
   }
   if (cmd==2) {
