@@ -7,7 +7,7 @@
 
 import Cocoa
 
-@objc public enum GlulxInterpreter : Int {
+@objc public enum GlulxInterpreter : Int, Sendable {
 	@objc(GlulxGit) case git = 0
 	@objc(GlulxGlulxe) case glulxe = 1
 }
@@ -618,7 +618,11 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			let fonts = fonts
 			let mgr = NSFontManager.shared
 			let newFonts = fonts.map { font in
-				mgr.convert(font, toSize: newValue)
+				if #available(macOS 10.15, macOSApplicationExtension 10.15, *) {
+					return font.withSize(newValue)
+				} else {
+					return mgr.convert(font, toSize: newValue)
+				}
 			}
 			self.fonts = newFonts
 		}
@@ -638,6 +642,8 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
+	/// macOS no longer uses screen fonts: this will most likely have no effect on
+	/// recent OS releases.
 	open var useScreenFonts: Bool {
 		get {
 			let result: Bool? = prefLock.withLock({

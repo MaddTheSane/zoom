@@ -27,7 +27,7 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 	NSMutableDictionary<NSString*,NSString*>* pluginsToVersions;
 	
 	/// Information about all plugins known about by this object (including those that live elsewhere)
-	NSMutableArray* pluginInformation;
+	NSMutableArray<ZoomPlugInInfo*>* pluginInformation;
 	
 	/// The path of the last plugin we retrieved a plist for
 	NSString* lastPlistPlugin;
@@ -252,14 +252,14 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 	}
 	
 #if VERBOSITY >= 3
-	NSLog(@"= No plugins found (will try z-code)", filename);
+	NSLog(@"= No plugins found for %@ (will try z-code)", filename);
 #endif
 	return nil;
 }
 
 - (Class) converterForURL: (NSURL*) fileName {
 #if VERBOSITY >= 3
-	NSLog(@"= Seeking a plugin for %@", filename);
+	NSLog(@"= Seeking an converter for %@", filename);
 #endif
 	
 	[self loadPlugIns];
@@ -277,7 +277,7 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 	}
 	
 #if VERBOSITY >= 3
-	NSLog(@"= No plugins found (will try z-code)", filename);
+	NSLog(@"= No converter found for %@", filename);
 #endif
 	return nil;
 }

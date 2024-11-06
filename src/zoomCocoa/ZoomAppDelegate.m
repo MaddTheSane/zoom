@@ -517,6 +517,13 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	if (pluginClass != nil) {
 		return YES;
 	}
+	
+	pluginClass = [ZoomPlugInManager.sharedPlugInManager converterForURL: url];
+	
+	if (pluginClass != nil) {
+		return YES;
+	}
+	
 	NSString *urlUTI;
 	if (![url getResourceValue:&urlUTI forKey:NSURLTypeIdentifierKey error:NULL]) {
 		urlUTI = CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.pathExtension, isDirectory ? kUTTypeDirectory : kUTTypeData));

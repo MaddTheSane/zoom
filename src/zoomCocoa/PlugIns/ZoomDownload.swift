@@ -320,7 +320,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 			return
 		}
 		
-		guard let tmpFile = tmpFile, (try? tmpFile.checkResourceIsReachable()) ?? false else {
+		guard let tmpFile, (try? tmpFile.checkResourceIsReachable()) ?? false else {
 			// Oops, the download file doesn't exist
 			failed(reason: "The downloaded file was deleted before it could be unarchived.")
 			return

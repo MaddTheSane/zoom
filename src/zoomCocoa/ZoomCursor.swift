@@ -152,7 +152,7 @@ class ZoomCursor: NSObject {
 		delegate?.blink?(self)
 	}
 	
-	func ZCblinky(_ timer: Timer) {
+	@objc private func ZCblinky(_ timer: Timer) {
 		if activeStyle {
 			blink = !blink
 		} else {
