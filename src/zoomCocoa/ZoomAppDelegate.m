@@ -234,8 +234,8 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 															withIdentity: ident
 																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
 																   error: NULL];
-				filename = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: ident].path;
-				fileURL = [NSURL fileURLWithPath:filename];
+				fileURL = [[ZoomStoryOrganiser sharedStoryOrganiser] URLForIdent: ident];
+				filename = fileURL.path;
 			} else {
 				// Yeah, we shouldn't be getting here...
 				return NO;

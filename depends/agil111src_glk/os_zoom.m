@@ -4265,14 +4265,20 @@ static int gagt_box_busy = FALSE,
  * with a box indent.
  */
 static void
-gagt_box_rule (int width)
+gagt_box_rule (int width, rbool top)
 {
   char *ruler;
 
   /* Write a +--...--+ ruler to delimit a box. */
   ruler = gagt_malloc (width + 2 + 1);
-  memset (ruler + 1, '-', width);
-  ruler[0] = ruler[width + 1] = '+';
+  memset (ruler + 1, 0xc4, width);
+  if (top) {
+    ruler[0] = 0xda;
+    ruler[width + 1] = 0xbf;
+  } else {
+    ruler[0] = 0xc0;
+    ruler[width + 1] = 0xd9;
+  }
   ruler[width + 2] = '\0';
   agt_puts (ruler);
   free (ruler);
@@ -4353,9 +4359,9 @@ agt_makebox (int width, int height, unsigned long flags)
   gagt_box_position (gagt_box_startx);
   if (gagt_box_flags & TB_BORDER)
     {
-      gagt_box_rule (gagt_box_width + 2);
+      gagt_box_rule (gagt_box_width + 2, TRUE);
       gagt_box_position (gagt_box_startx);
-      agt_puts ("| ");
+      agt_puts ("\xb3 ");
     }
 
   gagt_debug ("agt_makebox", "width=%d, height=%d, flags=0x%lx",
@@ -4370,9 +4376,9 @@ agt_qnewline (void)
   /* Write box characters for the current and next line. */
   if (gagt_box_flags & TB_BORDER)
     {
-      agt_puts (" |");
+      agt_puts (" \xb3");
       gagt_box_position (gagt_box_startx);
-      agt_puts ("| ");
+      agt_puts ("\xb3 ");
     }
   else
     gagt_box_position (gagt_box_startx);
@@ -4388,9 +4394,9 @@ agt_endbox (void)
   /* Finish off the current box. */
   if (gagt_box_flags & TB_BORDER)
     {
-      agt_puts (" |");
+      agt_puts (" \xb3");
       gagt_box_position (gagt_box_startx);
-      gagt_box_rule (gagt_box_width + 2);
+      gagt_box_rule (gagt_box_width + 2, FALSE);
     }
   agt_newline ();
 
