@@ -298,7 +298,9 @@ NSErrorDomain const ZoomStoryIDErrorDomain = @"uk.org.logicalshift.zoomview.stor
 			// Change to using the blorb data instead
 			bytes = [data bytes];
 			length = [data length];
-		} else if (bytes[0] > 8) {
+		}
+		
+		if (bytes[0] > 8) {
 			// This cannot be a Z-Code file
 			if (outError) {
 				*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain code: ZoomStoryIDErrorBadZCodeVersion userInfo: @{NSURLErrorKey: zcodeFile}];
