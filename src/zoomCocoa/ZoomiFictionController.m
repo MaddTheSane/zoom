@@ -154,7 +154,7 @@
 
 static ZoomiFictionController* sharedController = nil;
 
-static NSString*const addDirectory = @"ZoomiFictionControllerDefaultDirectory";
+static NSUserInterfaceItemIdentifier const openSaveIdentifier = @"ZoomiFictionControllerOpenSaveIdentifier";
 static NSString*const sortGroup    = @"ZoomiFictionControllerSortGroup";
 
 static NSString*const ZoomFieldAttribute = @"ZoomFieldAttribute";
@@ -187,9 +187,7 @@ NS_ENUM(NSInteger) {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		// Create user defaults
-		NSURL* docDir = [[NSFileManager defaultManager] URLForDirectory: NSDocumentDirectory inDomain: NSUserDomainMask appropriateForURL:nil create: NO error: NULL];
-		
-		[[NSUserDefaults standardUserDefaults] registerDefaults: @{addDirectory: docDir, sortGroup: @"group"}];
+		[[NSUserDefaults standardUserDefaults] registerDefaults: @{sortGroup: @"group"}];
 	});
 }
 
@@ -617,18 +615,12 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 		NSArray* fileTypes = @[[UTType importedTypeWithIdentifier:@"public.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb.glulx"], [UTType importedTypeWithIdentifier:@"public.blorb.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb"]];
 		NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedContentTypes];
 	storiesToAdd.allowedContentTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
-	
-	NSURL* path = [[NSUserDefaults standardUserDefaults] URLForKey: addDirectory];
-	storiesToAdd.directoryURL = path;
+	storiesToAdd.identifier = openSaveIdentifier;
 	
 	[storiesToAdd beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
 		if (result != NSModalResponseOK) {
 			return;
 		}
-		
-		// Store the defaults
-		[[NSUserDefaults standardUserDefaults] setURL: [storiesToAdd directoryURL]
-											   forKey: addDirectory];
 		
 		NSArray<NSURL*> * fileURLs = [storiesToAdd URLs];
 		[self addURLs:fileURLs];
