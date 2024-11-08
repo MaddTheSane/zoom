@@ -6,7 +6,7 @@
 //
 
 import CoreSpotlight
-import ZoomPlugIns
+@preconcurrency import ZoomPlugIns
 import ZoomPlugIns.ifmetabase
 import ZoomPlugIns.ZoomMetadata
 import ZoomPlugIns.ZoomStory
