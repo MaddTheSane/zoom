@@ -45,27 +45,11 @@ final public class Quest: ZoomGlkPlugIn {
 		guard extensions.contains(url.pathExtension.lowercased()) else {
 			return false
 		}
-		guard (try? url.checkResourceIsReachable()) ?? false else {
-			return true
-		}
-		
-		guard let hand = try? FileHandle(forReadingFrom: url) else {
+		guard (try? url.checkResourceIsReachable()) ?? false,
+			  let hand = try? FileHandle(forReadingFrom: url),
+			  let datToTest = try? hand.read(upToCount: 7),
+			  datToTest.count == 7 else {
 			return false
-		}
-		
-		var datToTest: Data
-		
-		if #available(macOS 10.15.4, *) {
-			guard let outDat = try? hand.read(upToCount: 7), outDat.count == 7 else {
-				return false
-			}
-			datToTest = outDat
-		} else {
-			let outDat = hand.readData(ofLength: 7)
-			guard outDat.count == 7 else {
-				return false
-			}
-			datToTest = outDat
 		}
 		if datToTest == casHeader {
 			return true
