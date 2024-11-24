@@ -64,7 +64,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 - (BOOL) installPlugIn: (NSString*) pluginBundle;
 /// Causes Zoom to finish updating any plugins after a restart
 - (void) finishUpdatingPlugins;
-/// \c YES if a restart is required
+/// `YES` if a restart is required
 @property (readonly) BOOL restartRequired;
 
 /// Retrieves the plist dictionary for the specified plugin bundle
@@ -79,7 +79,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 - (nullable NSString*) versionForBundle: (NSString*) pluginBundle;
 
 // Getting information about plugins
-/// Array of \c ZoomPlugInInfo objects containing the information about all the plugins known about by this object
+/// Array of `ZoomPlugInInfo` objects containing the information about all the plugins known about by this object
 @property (nonatomic, readonly, copy) NSArray<ZoomPlugInInfo*> *informationForPlugins;
 /// Performs a check for updates operation on the specified URLs
 - (void) checkForUpdatesFromURLs: (NSArray<NSURL*>*) urls;

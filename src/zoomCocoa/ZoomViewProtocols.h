@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 //! Retrieve the next command
 - (nullable NSString*) nextCommand;
 
-//! Return \c YES if you want to turn off \b More... prompts
+//! Return `YES` if you want to turn off **More...** prompts
 @property (nonatomic, readonly) BOOL disableMorePrompt;
 
 @end

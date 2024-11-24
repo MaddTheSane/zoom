@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 //! The error contained in this signpost (or nil)
 @property (readonly, copy, nullable) NSString *errorMessage;
 
-//! Returns a serialized NSData object for this signpost (can be passed back to initWithData: to reload the signpost later)
+//! Returns a serialized `NSData` object for this signpost (can be passed back to `-initWithData:` to reload the signpost later)
 - (NSData*) data;
 
 @end

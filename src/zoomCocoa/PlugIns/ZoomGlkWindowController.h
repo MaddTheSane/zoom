@@ -33,9 +33,9 @@
 	NSURL* inputURL;
 	//! The .glksave folder to load
 	NSURL* savedGameURL;
-	//! YES if the plugin will actually load the save game
+	//! `YES` if the plugin will actually load the save game
 	BOOL canOpenSaveGames;
-	//! YES if the sheet to warn about the fact that this plugin can't load games has been shown
+	//! `YES` if the sheet to warn about the fact that this plugin can't load games has been shown
 	BOOL shownSaveGameWarning;
 	//! The logo that we're going to show
 	NSImage* logo;
@@ -45,7 +45,7 @@
 	ZoomTextToSpeech* tts;
 	
 	BOOL running;
-	//! \c YES if the user has OKed closing the game while it's still running
+	//! `YES` if the user has OKed closing the game while it's still running
 	BOOL closeConfirmed;
 	
 	BOOL needsPathPassedToTask;
@@ -72,9 +72,9 @@
 //! The .glksave saved game file URL that this controller should load on startup
 @property (copy) NSURL *saveGameURL;
 - (void) setSaveGameURL: (NSURL*) path;
-//! Set to \c YES if the plugin knows how to open save games
+//! Set to `YES` if the plugin knows how to open save games
 @property BOOL canOpenSaveGame;
-//! Set to \c YES if the plugin \b needs the path of the game file passed at launch
+//! Set to `YES` if the plugin **needs** the path of the game file passed at launch
 @property BOOL needsPathPassedToTask;
 
 //! The logo to display instead of the 'CocoaGlk' logo

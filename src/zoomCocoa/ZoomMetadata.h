@@ -43,26 +43,26 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 //!
 //! Call one of the convenience initializers instead!
 //! \param xmlData The raw XML data.
-//! \param fname File URL of the data in \c xmlData .
-//! \param error Error value, populated on failure (returned nil).
+//! \param fname File URL of the data in `xmlData`. May be `nil`.
+//! \param error Error value, populated on failure (returned `nil`).
 - (nullable instancetype) initWithData: (NSData*) xmlData
 							   fileURL: (nullable NSURL*) fname
 								 error: (NSError**) error NS_DESIGNATED_INITIALIZER;
 
 
-//! Gets data from \c filename , then calls \c initWithData:fileURL:error:
+//! Gets data from `filename`, then calls `-initWithData:fileURL:error:`.
 //!
 //! \param filename File URL of the data to parse.
-//! \param outError Error value, populated on failure (returned nil).
+//! \param outError Error value, populated on failure (returned `nil`).
 - (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 
-//! Will be \c nil if created without a URL.
+//! Will be `nil` if created without a URL.
 @property (readonly, copy, nullable) NSURL *sourceURL;
 
 //! Calls initWithData:fileURL:error:
 //!
 //! \param xmlData The raw XML data.
-//! \param outError Error value, populated on failure (returned nil).
+//! \param outError Error value, populated on failure (returned `nil`).
 - (nullable instancetype) initWithData: (NSData*) xmlData error: (NSError**) outError;
 
 // Thread safety [called by ZoomStory]

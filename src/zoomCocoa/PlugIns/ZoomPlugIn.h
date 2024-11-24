@@ -36,34 +36,35 @@ NS_ASSUME_NONNULL_BEGIN
 //! The author of this plugin
 @property (class, readonly, copy) NSString *pluginAuthor;
 
-/// \c YES if this plugin can load savegames as well as game files
+/// `YES` if this plugin can load savegames as well as game files.
 @property (class, readonly) BOOL canLoadSavegames;
 
-/// \c YES if the plug-in requires the path of the file to be passed as an argument.
+/// `YES` if the plug-in requires the path of the file to be passed as an argument.
 ///
 /// This might be needed if, for example, the client hasn't been ported to use CocoaGlk, or
-/// it is non-trivial to do so. Default is \c NO .
+/// it is non-trivial to do so. Default is `NO`.
 @property (class, readonly) BOOL needsPathPassedToTask;
 
-/// \c YES if the specified file URL is one that the plugin can run.
+/// `YES` if the specified file URL is one that the plugin can run.
 ///
 /// Take into account if there's no actual file: If the file doesn't exist, check the file extension.
 + (BOOL) canRunURL: (NSURL*) path;
 
-/// Return an array of file types that an \c NSOpenPanel can select from.
+/// Return an array of file types that an `NSOpenPanel` can select from.
 ///
-/// This may be UTIs, file extensions, or OSTypes (Created by \c NSFileTypeForHFSTypeCode or similar).
+/// This may be UTIs, file extensions, or OSTypes (Created by `NSFileTypeForHFSTypeCode()` or similar).
 @property (class, readonly, copy) NSArray<NSString*> *supportedFileTypes;
 
-/// Return an array of content types that an \c NSOpenPanel can select from.
+/// Return an array of content types that an `NSOpenPanel` can select from.
 ///
 /// If your plug-in doesn't implement this method, the default implemention takes the
-/// class property \c supportedFileTypes and creates <code>UTType</code>s from the
+/// class property `+supportedFileTypes` and creates `UTType`s from the
 /// parsed extensions, UTIs, and OSTypes.
-/// \note Unless the type identifiers are present in Zoom's \b Info.plist or declared by another application,
-/// <code>+[UTType typeWithIdentifier:]</code> \e will fail and <code>+[UTType importedTypeWithIdentifier:]</code>
-/// will complain. The best way to handle this is to \e not implement this class property and instead
-/// let the default implementation create them from your own \c supportedFileTypes .
+///
+/// Unless the type identifiers are present in Zoom's **Info.plist** or declared by another application,
+/// `+[UTType typeWithIdentifier:]` *will* fail and `+[UTType importedTypeWithIdentifier:]`
+/// will complain. The best way to handle this is to *not* implement this class property and instead
+/// let the default implementation create them from your own `+supportedFileTypes` .
 @property (class, readonly, copy) NSArray<UTType*> *supportedContentTypes;
 
 // Designated initialiser

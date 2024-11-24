@@ -303,6 +303,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 			newItem = [[ZoomSkeinItem alloc] initWithCommand: @"- PLACEHOLDER -" identifier: uuid];
 		} else {
 			// UUID generation failure means old-style, pointer-derived xml.
+			// The created Skein item will generate a new UUID, for saving.
 			newItem = [[ZoomSkeinItem alloc] initWithCommand: @"- PLACEHOLDER -"];
 		}
 		itemDictionary[itemNodeId] = newItem;
