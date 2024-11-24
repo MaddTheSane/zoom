@@ -7530,6 +7530,7 @@ int musiccmd(int cmd,int song)
       glk_schannel_stop(gagt_sound_channel);
       /* Do clean-up */
       glk_schannel_destroy(gagt_sound_channel);
+      gagt_sound_channel = NULL;
     }
     return 0;
   }
