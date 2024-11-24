@@ -612,8 +612,8 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 	[storiesToAdd setCanChooseDirectories: YES];
 	[storiesToAdd setCanChooseFiles: YES];
 	[storiesToAdd setDelegate: self];
-		NSArray* fileTypes = @[[UTType importedTypeWithIdentifier:@"public.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb.glulx"], [UTType importedTypeWithIdentifier:@"public.blorb.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb"]];
-		NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedContentTypes];
+	NSArray* fileTypes = @[[UTType importedTypeWithIdentifier:@"public.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb.glulx"], [UTType importedTypeWithIdentifier:@"public.blorb.zcode"], [UTType importedTypeWithIdentifier:@"public.blorb"]];
+	NSArray *plugFiles = [[ZoomPlugInManager sharedPlugInManager] pluginSupportedContentTypes];
 	storiesToAdd.allowedContentTypes = [fileTypes arrayByAddingObjectsFromArray: plugFiles];
 	storiesToAdd.identifier = openSaveIdentifier;
 	
