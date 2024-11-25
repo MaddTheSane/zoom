@@ -11,7 +11,7 @@ import ZoomPlugIns.ZoomPlugIn
 
 extension ZoomPlugInManager {
 	/// Gets the plugin for the specified URL.
-	/// - parameter filename: URL to a story file.
+	/// - parameter fileName: URL to a story file.
 	/// - returns: A plug-in class that can read the specified URL, or `nil` if
 	/// there's no plug-in that can.
 	public func plugIn(for fileName: URL) -> ZoomPlugIn.Type? {

@@ -22,6 +22,28 @@ static NSString* const xmlChars      = @"xmlChars";
 static NSString* const xmlElement    = @"xmlElement";
 static NSString* const xmlCharData   = @"xmlCharData";
 
+#ifndef YESSTR
+#define YESSTR @"YES"
+#define NOSTR  @"NO"
+#endif
+
+#define ZoomSkeinActiveNodeKey	@"activeNode"
+#define ZoomSkeinGeneratorKey	@"generator"
+#define ZoomSkeinItemKey		@"item"
+#define ZoomSkeinNodeIdKey		@"nodeId"
+#define ZoomSkeinCommandKey		@"command"
+#define ZoomSkeinResultKey		@"result"
+#define ZoomSkeinAnotationKey	@"annotation"
+#define ZoomSkeinCommentaryKey	@"commentary"
+#define ZoomSkeinPlayedKey		@"played"
+#define ZoomSkeinChangedKey		@"changed"
+#define ZoomSkeinTemporaryKey	@"temporary"
+#define ZoomSkeinScoreKey		@"score"
+#define ZoomSkeinChildKey		@"child"
+#define ZoomSkeinChildrenKey	@"children"
+#define ZoomSkeinRootNodeKey	@"rootNode"
+#define ZoomSkeinGeneratorDefaultValue	@"Zoom"
+
 typedef NSDictionary<NSString*,id> SkeinXMLElement;
 
 @interface ZoomSkeinXMLInput : NSObject <NSXMLParserDelegate> {
@@ -107,7 +129,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	// All item fields are optional.
 	// Root item usually has the command '- start -'
 	
-	NSXMLElement *root = elementWithNameAndAttribute(@"Skein", @"rootNode", rootItem.nodeIdentifier.UUIDString);
+	NSXMLElement *root = elementWithNameAndAttribute(@"Skein", ZoomSkeinRootNodeKey, rootItem.nodeIdentifier.UUIDString);
 	[root addNamespace:[NSXMLNode namespaceWithName:@"" stringValue:@"http://www.logicalshift.org.uk/IF/Skein"]];
 	
 	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithKind: NSXMLDocumentKind options: NSXMLDocumentTidyXML | NSXMLNodePrettyPrint];
@@ -115,9 +137,9 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	xmlDoc.characterEncoding = @"UTF-8";
 	[xmlDoc setRootElement: root];
 	
-	[root addChild: elementWithNameAndValue(@"generator", @"Zoom", NO)];
+	[root addChild: elementWithNameAndValue(ZoomSkeinGeneratorKey, ZoomSkeinGeneratorDefaultValue, NO)];
 	if (self.activeItem) {
-		[root addChild: elementWithNameAndAttribute(@"activeNode", @"nodeId", self.activeItem.nodeIdentifier.UUIDString)];
+		[root addChild: elementWithNameAndAttribute(ZoomSkeinActiveNodeKey, ZoomSkeinNodeIdKey, self.activeItem.nodeIdentifier.UUIDString)];
 	}
 	
 	// Write items
@@ -132,35 +154,35 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 		[itemStack addObjectsFromArray: node.children.allObjects];
 		
 		// Generate the XML for this node
-		NSXMLElement *item = elementWithNameAndAttribute(@"item", @"nodeId", node.nodeIdentifier.UUIDString);
+		NSXMLElement *item = elementWithNameAndAttribute(ZoomSkeinItemKey, ZoomSkeinNodeIdKey, node.nodeIdentifier.UUIDString);
 		NSString *testString;
 		
 		testString = node.command;
 		if (testString) {
-			[item addChild: elementWithNameAndValue(@"command", testString, YES)];
+			[item addChild: elementWithNameAndValue(ZoomSkeinCommandKey, testString, YES)];
 		}
 		
 		testString = node.result;
 		if (testString) {
-			[item addChild: elementWithNameAndValue(@"result", testString, YES)];
+			[item addChild: elementWithNameAndValue(ZoomSkeinResultKey, testString, YES)];
 		}
 		
 		testString = node.annotation;
 		if (testString) {
-			[item addChild: elementWithNameAndValue(@"annotation", testString, YES)];
+			[item addChild: elementWithNameAndValue(ZoomSkeinAnotationKey, testString, YES)];
 		}
 		
 		testString = node.commentary;
 		if (testString) {
-			[item addChild: elementWithNameAndValue(@"commentary", testString, YES)];
+			[item addChild: elementWithNameAndValue(ZoomSkeinCommentaryKey, testString, YES)];
 		}
 		
-		[item addChild: elementWithNameAndValue(@"played", node.played ? @"YES" : @"NO", NO)];
-		[item addChild: elementWithNameAndValue(@"changed", node.changed ? @"YES" : @"NO", NO)];
+		[item addChild: elementWithNameAndValue(ZoomSkeinPlayedKey, node.played ? YESSTR : NOSTR, NO)];
+		[item addChild: elementWithNameAndValue(ZoomSkeinChangedKey, node.changed ? YESSTR : NOSTR, NO)];
 		
 		{
-			NSXMLElement *score = elementWithNameAndValue(@"temporary", node.temporary ? @"YES" : @"NO", NO);
-			addAttributeToElement(score, @"score", [@(node.temporaryScore) stringValue]);
+			NSXMLElement *score = elementWithNameAndValue(ZoomSkeinTemporaryKey, node.temporary ? YESSTR : NOSTR, NO);
+			addAttributeToElement(score, ZoomSkeinScoreKey, [@(node.temporaryScore) stringValue]);
 			[item addChild: score];
 		}
 		
@@ -168,9 +190,9 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 			NSMutableArray *children = [NSMutableArray arrayWithCapacity: node.children.count];
 			
 			for (ZoomSkeinItem *childItem in node.children) {
-				[children addObject: elementWithNameAndAttribute(@"child", @"nodeId", childItem.nodeIdentifier.UUIDString)];
+				[children addObject: elementWithNameAndAttribute(ZoomSkeinChildKey, ZoomSkeinNodeIdKey, childItem.nodeIdentifier.UUIDString)];
 			}
-			[item addChild: [NSXMLNode elementWithName: @"children" children: children attributes:nil]];
+			[item addChild: [NSXMLNode elementWithName: ZoomSkeinChildrenKey children: children attributes:nil]];
 		}
 		[root addChild:item];
 	}
@@ -254,13 +276,13 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	
 	// Header fields
 	NSString* rootNodeId = [inputParser attributeValueForElement: skein
-														withName: @"rootNode"];
+														withName: ZoomSkeinRootNodeKey];
 	NSString* generator = [inputParser innerTextForElement: [inputParser childForElement: skein
-																				withName: @"generator"]];
+																				withName: ZoomSkeinGeneratorKey]];
 	NSString* activeNode = [inputParser attributeValueForElement: [inputParser childForElement: skein
-																					  withName: @"activeNode"]
-														withName: @"nodeId"];
-	if (![generator isEqualToString: @"Zoom"]) {
+																					  withName: ZoomSkeinActiveNodeKey]
+														withName: ZoomSkeinNodeIdKey];
+	if (![generator isEqualToString: ZoomSkeinGeneratorDefaultValue]) {
 		NSLog(@"ZoomSkein: XML file generated by %@", generator);
 	}
 	
@@ -285,11 +307,11 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	NSMutableDictionary* itemDictionary = [NSMutableDictionary dictionary];
 	
 	NSArray<SkeinXMLElement*>* items = [inputParser childrenForElement: skein
-															  withName: @"item"];
+															  withName: ZoomSkeinItemKey];
 	
 	for (SkeinXMLElement* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
-															withName: @"nodeId"];
+															withName: ZoomSkeinNodeIdKey];
 		
 		if (itemNodeId == nil) {
 			NSLog(@"ZoomSkein: Warning - found item with no ID");
@@ -312,7 +334,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	// Item dictionary II: fill in the node data
 	for (SkeinXMLElement* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
-															withName: @"nodeId"];
+															withName: ZoomSkeinNodeIdKey];
 		
 		if (itemNodeId == nil) {
 			continue;
@@ -337,22 +359,22 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 		
 		// Item info
 		NSString* command = [inputParser innerTextForElement: [inputParser childForElement: item
-																				  withName: @"command"]];
+																				  withName: ZoomSkeinCommandKey]];
 		NSString* result = [inputParser innerTextForElement: [inputParser childForElement: item
-																				 withName: @"result"]];
+																				 withName: ZoomSkeinResultKey]];
 		NSString* annotation = [inputParser innerTextForElement: [inputParser childForElement: item
-																					 withName: @"annotation"]];
+																					 withName: ZoomSkeinAnotationKey]];
 		NSString* commentary = [inputParser innerTextForElement: [inputParser childForElement: item
-																					 withName: @"commentary"]];
+																					 withName: ZoomSkeinCommentaryKey]];
 		BOOL played = [[inputParser innerTextForElement: [inputParser childForElement: item
-																			 withName: @"played"]] isEqualToString: @"YES"];
+																			 withName: ZoomSkeinPlayedKey]] isEqualToString: YESSTR];
 		BOOL changed = [[inputParser innerTextForElement: [inputParser childForElement: item
-																			  withName: @"changed"]] isEqualToString: @"YES"];
+																			  withName: ZoomSkeinChangedKey]] isEqualToString: YESSTR];
 		BOOL temporary = [[inputParser innerTextForElement: [inputParser childForElement: item
-																				withName: @"temporary"]] isEqualToString: @"YES"];
+																				withName: ZoomSkeinTemporaryKey]] isEqualToString: YESSTR];
 		int  tempVal = [[inputParser attributeValueForElement: [inputParser childForElement: item
-																				   withName: @"temporary"]
-													 withName: @"score"] intValue];
+																				   withName: ZoomSkeinTemporaryKey]
+													 withName: ZoomSkeinScoreKey] intValue];
 		
 		if (command == nil) {
 			NSLog(@"ZoomSkein: Warning: item with no command found");
@@ -373,7 +395,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	// Item dictionary III: fill in the item children
 	for (SkeinXMLElement* item in items) {
 		NSString* itemNodeId = [inputParser attributeValueForElement: item
-															withName: @"nodeId"];
+															withName: ZoomSkeinNodeIdKey];
 		
 		if (itemNodeId == nil) {
 			continue;
@@ -398,11 +420,11 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 
 		// Item children
 		NSArray* itemKids =[inputParser childrenForElement: [inputParser childForElement: item
-																				withName: @"children"]
-												  withName: @"child"];
+																				withName: ZoomSkeinChildrenKey]
+												  withName: ZoomSkeinChildKey];
 		for (SkeinXMLElement* child in itemKids) {
 			NSString* kidNodeId = [inputParser attributeValueForElement: child
-															   withName: @"nodeId"];
+															   withName: ZoomSkeinNodeIdKey];
 			if (kidNodeId == nil) {
 				NSLog(@"ZoomSkein: Warning: Child item with no node id");
 				continue;
