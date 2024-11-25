@@ -44,12 +44,12 @@ typedef NS_ERROR_ENUM(ZoomStoryIDErrorDomain, ZoomStoryIDError) {
 
 - (nullable instancetype)initWithCoder:(NSCoder *)coder;
 
-/// Will be \c nil if the IFID type is a \a null .
+/// Will be `nil` if the IFID type is a *null*.
 @property (readonly, copy, nullable) NSString *IDString;
 
 @end
 
-//! Set to \c YES to prevent the plug-in manager from looking at plug-ins.
+//! Set to `YES` to prevent the plug-in manager from looking at plug-ins.
 extern BOOL ZoomIsSpotlightIndexing;
 
 NS_ASSUME_NONNULL_END

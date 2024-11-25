@@ -80,15 +80,15 @@ static Boolean GetMetadataForFile(void *thisInterface,
 	@autoreleasepool {
 		ZoomIsSpotlightIndexing = YES;
 		NSMutableDictionary *nsAttribs = (__bridge NSMutableDictionary *)(attributes);
-	/* Pull any available metadata from the file at the specified path */
-	/* Return the attribute keys and attribute values in the dict */
-	/* Return TRUE if successful, FALSE if there was no data provided */
-
-    Boolean success = NO;
-
-	// Get the story from the metadata database
+		/* Pull any available metadata from the file at the specified path */
+		/* Return the attribute keys and attribute values in the dict */
+		/* Return TRUE if successful, FALSE if there was no data provided */
+		
+		Boolean success = NO;
+		
+		// Get the story from the metadata database
 		ZoomStoryID * story_id = [[ZoomStoryID alloc] initWithZCodeFileAtURL: [NSURL fileURLWithPath: (__bridge NSString*)pathToFile] error: NULL];
-	ZoomStory * story = FindStory( story_id );
+		ZoomStory * story = FindStory( story_id );
 		if (!story) {
 			return NO;
 		}
@@ -101,132 +101,120 @@ static Boolean GetMetadataForFile(void *thisInterface,
 	// title
 	//
 	
-	NSString * title = [story title];
-	if( title )
-	{
-		[nsAttribs setObject:title forKey:(NSString *)kMDItemTitle];
-	}
+		NSString * title = [story title];
+		if (title) {
+			[nsAttribs setObject:title forKey:(NSString *)kMDItemTitle];
+		}
 
 	//
 	// headline
 	//
 	
-	NSString * headline = [story headline];
-	if( headline )
-	{
-		[nsAttribs setObject:headline forKey:(NSString *)kMDItemHeadline];
-	}
+		NSString * headline = [story headline];
+		if (headline) {
+			[nsAttribs setObject:headline forKey:(NSString *)kMDItemHeadline];
+		}
 	
 	//
 	// author
 	//
 	
-	NSString * author = [story author];
-	if( author )
-	{
-		[nsAttribs setObject:@[author] forKey:(NSString *)kMDItemAuthors];
-	}
+		NSString * author = [story author];
+		if (author) {
+			[nsAttribs setObject:@[author] forKey:(NSString *)kMDItemAuthors];
+		}
 
 	//
 	// genre
 	//
 	
-	NSString * genre = [story genre];
-	if( genre )
-	{
-		[nsAttribs setObject:genre forKey:@"public_zcode_genre"];
-	}
+		NSString * genre = [story genre];
+		if (genre) {
+			[nsAttribs setObject:genre forKey:@"public_zcode_genre"];
+		}
 
 	//
 	// year
 	//
-	
-	
-	int year = [story year];
-	if( year )
-	{
-		NSNumber * year_object = @(year);
-		[nsAttribs setObject:year_object forKey:@"public_zcode_year"];
-	}
-	
+		
+		int year = [story year];
+		if (year) {
+			NSNumber * year_object = @(year);
+			[nsAttribs setObject:year_object forKey:@"public_zcode_year"];
+		}
+		
 	//
 	// group
 	//
 	
-	NSString * group = [story group];
-	if( group )
-	{
-		[nsAttribs setObject:group forKey:(NSString *)@"public_zcode_group"];
-	}
+		NSString * group = [story group];
+		if (group) {
+			[nsAttribs setObject:group forKey:(NSString *)@"public_zcode_group"];
+		}
 
 	//
 	// zarf rating
 	//
 	
-	unsigned zarfian = [story zarfian];
-	NSString * zarf_string = nil;
-	switch( zarfian ) 
-	{
-		case IFMD_Merciful: 
-			zarf_string = @"Merciful";
-			break;
-			
-		case IFMD_Polite: 
-			zarf_string = @"Polite";
-			break;
-			
-		case IFMD_Tough:
-			zarf_string = @"Tough";
-			break;
-			
-		case IFMD_Nasty:
-			zarf_string = @"Nasty";
-			break;
-			
-		case IFMD_Cruel:
-			zarf_string = @"Cruel";
-			break;
-		
-		case IFMD_Unrated:	
-		default: 
-			break;
-	}
+		unsigned zarfian = [story zarfian];
+		NSString * zarf_string = nil;
+		switch (zarfian) {
+			case IFMD_Merciful:
+				zarf_string = @"Merciful";
+				break;
+				
+			case IFMD_Polite:
+				zarf_string = @"Polite";
+				break;
+				
+			case IFMD_Tough:
+				zarf_string = @"Tough";
+				break;
+				
+			case IFMD_Nasty:
+				zarf_string = @"Nasty";
+				break;
+				
+			case IFMD_Cruel:
+				zarf_string = @"Cruel";
+				break;
+				
+			case IFMD_Unrated:
+			default:
+				break;
+		}
 	
-	if( zarf_string )
-	{
-		[nsAttribs setObject:zarf_string forKey:@"public_zcode_cruelty"];
-	}
+		if (zarf_string) {
+			[nsAttribs setObject:zarf_string forKey:@"public_zcode_cruelty"];
+		}
 
 	//
 	// teaser
 	//
 	
-	NSString * teaser = [story teaser];
-	if( teaser )
-	{
-		[nsAttribs setObject:teaser forKey:@"public_zcode_teaser"];
-	}
+		NSString * teaser = [story teaser];
+		if (teaser) {
+			[nsAttribs setObject:teaser forKey:@"public_zcode_teaser"];
+		}
 
 	//
 	// comment
 	//
 	
-	NSString * comment = [story comment];
-	if( comment )
-	{
-		[nsAttribs setObject:comment forKey:(NSString *)kMDItemComment];
-	}
+		NSString * comment = [story comment];
+		if (comment) {
+			[nsAttribs setObject:comment forKey:(NSString *)kMDItemComment];
+		}
 
 	//
 	// rating
 	//
 	
-	float rating = [story rating];
-	if( rating != -1.0 )
-	{
-		NSNumber * rating_object = @(rating);
-		[nsAttribs setObject:rating_object forKey:(NSString *)kMDItemStarRating];
-	}
+		float rating = [story rating];
+		if (rating != -1.0) {
+			NSNumber * rating_object = @(rating);
+			[nsAttribs setObject:rating_object forKey:(NSString *)kMDItemStarRating];
+		}
 
 	//
 	// keywords
@@ -240,10 +228,10 @@ static Boolean GetMetadataForFile(void *thisInterface,
 //		[nsAttribs setObject:keywords forKey:(NSString *)kMDItemKeywords];
 //	}
 	
-	// return YES so that the attributes are imported
-	success=YES;
+		// return YES so that the attributes are imported
+		success=YES;
 		
-	return success;
+		return success;
 	}
 }
 
@@ -253,17 +241,16 @@ static Boolean GetMetadataForFile(void *thisInterface,
 
 ZoomStory * FindStory( ZoomStoryID * gameID ) 
 {
-	ZoomStory * story = nil;
-	
 	NSArray * game_indices = GetGameIndices();
 
 	for (ZoomMetadata * repository in game_indices) {
-		story = [repository findStory: gameID];
-		if( story ) 
-			break;
+		ZoomStory *story = [repository findStory: gameID];
+		if (story) {
+			return story;
+		}
 	}
 	
-	return story;
+	return nil;
 }
 
 // GetGameIndices
@@ -364,7 +351,7 @@ NSString * GetZoomConfigDirectory( void )
 //	typedefs
 // -----------------------------------------------------------------------------
 
-// The layout for an instance of MetaDataImporterPlugIn
+/// The layout for an instance of MetaDataImporterPlugIn
 typedef struct __MetadataImporterPluginType
 {
     MDImporterInterfaceStruct *	conduitInterface;
@@ -385,13 +372,8 @@ extern void *						MetadataImporterPluginFactory( CFAllocatorRef allocator, CFUU
 static ULONG						MetadataImporterPluginAddRef( void * thisInstance );
 static ULONG						MetadataImporterPluginRelease( void * thisInstance );
 
-// -----------------------------------------------------------------------------
-//	testInterfaceFtbl	definition
-// -----------------------------------------------------------------------------
-//	The TestInterface function table.
-//
-
-static MDImporterInterfaceStruct testInterfaceFtbl = 
+///	The TestInterface function table.
+static MDImporterInterfaceStruct testInterfaceFtbl =
 {
     NULL,
     MetadataImporterQueryInterface,
@@ -403,27 +385,23 @@ static MDImporterInterfaceStruct testInterfaceFtbl =
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 
-// -----------------------------------------------------------------------------
-//	AllocMetadataImporterPluginType
-// -----------------------------------------------------------------------------
-//	Utility function that allocates a new instance.
-//      You can do some initial setup for the importer here if you wish
-//      like allocating globals etc...
-//
-
+///	Utility function that allocates a new instance.
+///
+///	You can do some initial setup for the importer here if you wish
+///	like allocating globals etc...
 MetadataImporterPluginType * AllocMetadataImporterPluginType( CFUUIDRef inFactoryID )
 {
     MetadataImporterPluginType *theNewInstance;
 
-    theNewInstance = (MetadataImporterPluginType *)malloc( sizeof(MetadataImporterPluginType) );
+    theNewInstance = (MetadataImporterPluginType *)malloc(sizeof(MetadataImporterPluginType));
     memset( theNewInstance, 0, sizeof(MetadataImporterPluginType) );
 
 	// Point to the function table
     theNewInstance->conduitInterface = &testInterfaceFtbl;
 
     //  Retain and keep an open instance refcount for each factory.
-    theNewInstance->factoryID = CFRetain( inFactoryID );
-    CFPlugInAddInstanceForFactory( inFactoryID );
+    theNewInstance->factoryID = CFRetain(inFactoryID);
+    CFPlugInAddInstanceForFactory(inFactoryID);
 
     // This function returns the IUnknown interface so set the refCount to one.
     theNewInstance->refCount = 1;
@@ -431,42 +409,29 @@ MetadataImporterPluginType * AllocMetadataImporterPluginType( CFUUIDRef inFactor
     return theNewInstance;
 }
 
-// -----------------------------------------------------------------------------
-//	DeallocMetadataImporterPluginType
-// -----------------------------------------------------------------------------
-//	Utility function that deallocates the instance when
-//	the refCount goes to zero.
-//      In the current implementation importer interfaces are never deallocated
-//      but implement this as this might change in the future
-//
-
+///	Utility function that deallocates the instance when
+///	the refCount goes to zero.
+///
+///	In the current implementation importer interfaces are never deallocated
+///	but implement this as this might change in the future
 void DeallocMetadataImporterPluginType( MetadataImporterPluginType * thisInstance )
 {
     CFUUIDRef theFactoryID;
 
     theFactoryID = thisInstance->factoryID;
-    free( thisInstance );
-    if( theFactoryID )
-	{
-        CFPlugInRemoveInstanceForFactory( theFactoryID );
-        CFRelease( theFactoryID );
+    free(thisInstance);
+    if (theFactoryID) {
+        CFPlugInRemoveInstanceForFactory(theFactoryID);
+        CFRelease(theFactoryID);
     }
 }
 
-// -----------------------------------------------------------------------------
-//	MetadataImporterQueryInterface
-// -----------------------------------------------------------------------------
-//	Implementation of the IUnknown QueryInterface function.
-//
-
+///	Implementation of the IUnknown QueryInterface function.
 HRESULT MetadataImporterQueryInterface( void * thisInstance, REFIID iid, LPVOID *ppv )
 {
-    CFUUIDRef interfaceID;
+    CFUUIDRef interfaceID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, iid);
 
-    interfaceID = CFUUIDCreateFromUUIDBytes( kCFAllocatorDefault, iid );
-
-    if( CFEqual( interfaceID, kMDImporterInterfaceID ) )
-	{
+    if (CFEqual(interfaceID, kMDImporterInterfaceID)) {
 		// If the Right interface was requested, bump the ref count,
 		// set the ppv parameter equal to the instance, and
 		// return good status.
@@ -477,34 +442,25 @@ HRESULT MetadataImporterQueryInterface( void * thisInstance, REFIID iid, LPVOID 
         CFRelease( interfaceID );
 
         return S_OK;
-    }
-	else if( CFEqual( interfaceID, IUnknownUUID ) )
-	{
+    } else if (CFEqual(interfaceID, IUnknownUUID)) {
 		// If the IUnknown interface was requested, same as above.
 		((MetadataImporterPluginType*)thisInstance )->conduitInterface->AddRef( thisInstance );
 		*ppv = thisInstance;
 		CFRelease( interfaceID );
 		
 		return S_OK;
-	}
-	else
-	{
+	} else {
 		// Requested interface unknown, bail with error.
 		*ppv = NULL;
-		CFRelease( interfaceID );
+		CFRelease(interfaceID);
 		
 		return E_NOINTERFACE;
 	}
 }
 
-// -----------------------------------------------------------------------------
-//	MetadataImporterPluginAddRef
-// -----------------------------------------------------------------------------
-//	Implementation of reference counting for this type. Whenever an interface
-//	is requested, bump the refCount for the instance. NOTE: returning the
-//	refcount is a convention but is not required so don't rely on it.
-//
-
+///	Implementation of reference counting for this type. Whenever an interface
+///	is requested, bump the refCount for the instance. NOTE: returning the
+///	refcount is a convention but is not required so don't rely on it.
 ULONG MetadataImporterPluginAddRef( void *thisInstance )
 {
     ((MetadataImporterPluginType *)thisInstance )->refCount += 1;
@@ -512,34 +468,21 @@ ULONG MetadataImporterPluginAddRef( void *thisInstance )
     return ((MetadataImporterPluginType*) thisInstance)->refCount;
 }
 
-// -----------------------------------------------------------------------------
-// MetadataImporterPluginRelease
-// -----------------------------------------------------------------------------
-//	When an interface is released, decrement the refCount.
-//	If the refCount goes to zero, deallocate the instance.
-//
-
+///	When an interface is released, decrement the refCount.
+///	If the refCount goes to zero, deallocate the instance.
 ULONG MetadataImporterPluginRelease( void * thisInstance )
 {
     ((MetadataImporterPluginType*)thisInstance)->refCount -= 1;
 
-    if( ((MetadataImporterPluginType*)thisInstance)->refCount == 0 )
-	{
+    if (((MetadataImporterPluginType*)thisInstance)->refCount == 0) {
         DeallocMetadataImporterPluginType( (MetadataImporterPluginType*)thisInstance );
         return 0;
-    }
-	else
-	{
+    } else {
         return ((MetadataImporterPluginType*) thisInstance )->refCount;
     }
 }
 
-// -----------------------------------------------------------------------------
-//	MetadataImporterPluginFactory
-// -----------------------------------------------------------------------------
-//	Implementation of the factory function for this type.
-//
-
+///	Implementation of the factory function for this type.
 void * MetadataImporterPluginFactory( CFAllocatorRef allocator, CFUUIDRef typeID )
 {
     MetadataImporterPluginType *	result;
