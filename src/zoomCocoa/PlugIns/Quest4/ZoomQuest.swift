@@ -45,8 +45,11 @@ final public class Quest: ZoomGlkPlugIn {
 		guard extensions.contains(url.pathExtension.lowercased()) else {
 			return false
 		}
-		guard (try? url.checkResourceIsReachable()) ?? false,
-			  let hand = try? FileHandle(forReadingFrom: url),
+		guard (try? url.checkResourceIsReachable()) ?? false else {
+			return true
+		}
+	
+		guard let hand = try? FileHandle(forReadingFrom: url),
 			  let datToTest = try? hand.read(upToCount: 7),
 			  datToTest.count == 7 else {
 			return false
