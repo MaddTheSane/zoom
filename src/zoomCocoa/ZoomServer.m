@@ -48,6 +48,7 @@ int main(int argc, char** argv) {
 	
 	if (remoteConnection == nil) {
 		NSLog(@"Warning: unable to locate connection %@. Aborting.", connectionName);
+        abort();
 	}
 	
 	client = (id<ZClient>)[remoteConnection rootProxy];

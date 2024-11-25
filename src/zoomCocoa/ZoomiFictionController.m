@@ -1278,7 +1278,9 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 					break;
 				}
 			}
-			coverPicture = [[NSImage alloc] initWithContentsOfURL:findURL];
+			if (findURL) {
+				coverPicture = [[NSImage alloc] initWithContentsOfURL:findURL];
+			}
 		}
 		if (coverPicture == nil) {
 			NSURL* filename = [org URLForIdent: ident];

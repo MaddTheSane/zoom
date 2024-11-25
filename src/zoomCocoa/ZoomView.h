@@ -18,6 +18,8 @@
 #import <ZoomView/ZoomTextToSpeech.h>
 #import <ZoomView/ZoomViewProtocols.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_OPTIONS(unsigned int, ZFontStyle) {
 	ZFontStyleNone = 0,
 	ZFontStyleBold = 1,
@@ -52,8 +54,8 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 @property (nonatomic) CGFloat scaleFactor;
 
 // Specifying what to run
-- (void) runNewServer: (NSString*) serverName;
-@property (nonatomic, strong) id<ZMachine> zMachine;
+- (void) runNewServer: (nullable NSString*) serverName;
+@property (nullable, nonatomic, strong) id<ZMachine> zMachine;
 
 // Scrolling, more prompt
 - (void) scrollToEnd;
@@ -67,7 +69,13 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 - (void) retileUpperWindowIfRequired;
 
 // Formatting a string
+/// Strings come from Zoom's server formatted with `ZStyle`s rather than
+/// actual styles (so that the interface can choose it's own formatting).
+/// So we need this to translate those styles into 'real' ones.
 - (NSDictionary<NSAttributedStringKey,id>*) attributesForStyle: (ZStyle*) style;
+/// Strings come from Zoom's server formatted with `ZStyle`s rather than
+/// actual styles (so that the interface can choose its own formatting).
+/// So we need this to translate those styles into 'real' ones.
 - (NSAttributedString*) formatZString: (NSString*) zString
                             withStyle: (ZStyle*) style;
 
@@ -79,12 +87,13 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 @property (weak) id<ZWindow> focusedView;
 
 // Dealing with the history
-- (NSString*) lastHistoryItem;
-- (NSString*) nextHistoryItem;
+- (nullable NSString*) lastHistoryItem;
+- (nullable NSString*) nextHistoryItem;
 
 // Fonts, colours, etc
-- (NSFont*) fontWithStyle: (ZFontStyle) style NS_DEPRECATED_WITH_REPLACEMENT_MAC("-fontFromStyle:", 10.2, 10.15);
-- (NSFont*) fontFromStyle: (ZFontStyle) style;
+/// @deprecated Use `-fontFromStyle:` instead.
+- (null_unspecified NSFont*) fontWithStyle: (ZFontStyle) style NS_DEPRECATED_WITH_REPLACEMENT_MAC("-fontFromStyle:", 10.2, 10.15);
+- (nullable NSFont*) fontFromStyle: (ZFontStyle) style;
 - (NSColor*) foregroundColourForStyle: (ZStyle*) style;
 - (NSColor*) backgroundColourForStyle: (ZStyle*) style;
 
@@ -110,7 +119,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 
 // Setting/updating preferences
 - (void) setPreferences: (ZoomPreferences*) prefs;
-@property (nonatomic, strong) ZoomPreferences *preferences;
+@property (nullable, nonatomic, strong) ZoomPreferences *preferences;
 - (void) preferencesHaveChanged: (NSNotification*)noti;
 
 - (void) reformatWindow;
@@ -137,19 +146,19 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 - (void) orWaitingForInput;
 - (void) orInterpreterRestart;
 
-@property (nonatomic, readonly, strong) ZoomTextToSpeech *textToSpeech;
+@property (nonatomic, null_resettable, readonly, strong) ZoomTextToSpeech *textToSpeech;
 
 // Input sources (nil = default, window input source)
-@property (nonatomic, strong) id<ZoomViewInputSource> inputSource;
+@property (nonatomic, strong, nullable) id<ZoomViewInputSource> inputSource;
 - (void) removeInputSource: (id<ZoomViewInputSource>) source;
 
 //! Resources
-@property (strong) ZoomBlorbFile *resources;
+@property (nullable, strong) ZoomBlorbFile *resources;
 
 //! Terminating characters
-@property (copy) NSSet<NSNumber*> *terminatingCharacters;
+@property (nullable, copy) NSSet<NSNumber*> *terminatingCharacters;
 
-- (oneway void) setTerminatingCharacters: (in bycopy NSSet<NSNumber*>*) characters;
+- (oneway void) setTerminatingCharacters: (in nullable bycopy NSSet<NSNumber*>*) characters;
 
 
 - (void) endOfLineReached: (ZoomInputLine*) sender;
@@ -159,10 +168,10 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 @protocol ZoomViewDelegate <NSObject>
 @optional
 
-- (void) zMachineStarted: (id) sender;
-- (void) zMachineFinished: (id) sender;
+- (void) zMachineStarted: (nullable id) sender;
+- (void) zMachineFinished: (nullable id) sender;
 
-@property (nonatomic, readonly, copy) NSString *defaultSaveDirectory;
+@property (nullable, nonatomic, readonly, copy) NSString *defaultSaveDirectory;
 - (BOOL)      useSavePackage;
 - (void)      prepareSavePackage: (ZPackageFile*) file;
 - (BOOL)	  loadedSkeinData: (NSData*) skeinData error:(NSError**)error;
@@ -178,3 +187,5 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 - (void) inputSourceHasFinished: (id<ZoomViewInputSource>) inputSource;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -1335,9 +1335,6 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
 #pragma mark - Formatting, fonts, colours, etc
 
-/// Strings come from Zoom's server formatted with ZStyles rather than
-/// actual styles (so that the interface can choose it's own formatting).
-/// So we need this to translate those styles into 'real' ones.
 - (NSDictionary*) attributesForStyle: (ZStyle*) style {
     // Font
     NSFont* fontToUse = nil;
@@ -1384,10 +1381,6 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 
 - (NSAttributedString*) formatZString: (NSString*) zString
                             withStyle: (ZStyle*) style {
-    // Strings come from Zoom's server formatted with ZStyles rather than
-    // actual styles (so that the interface can choose it's own formatting).
-    // So we need this to translate those styles into 'real' ones.
-
     NSMutableAttributedString* result;
 
     // Generate the new attributes
@@ -2127,10 +2120,12 @@ static UTType *getZoomSaveType(void) {
 						previewWin = [self->upperWindows objectAtIndex: windowNumber];
 					}
 					
-					[f addData: [NSKeyedArchiver archivedDataWithRootObject: previewWin
-													  requiringSecureCoding: YES
-																	  error: NULL]
-				   forFilename: @"ZoomPreview.dat"];
+					if (previewWin) {
+						[f addData: [NSKeyedArchiver archivedDataWithRootObject: previewWin
+														  requiringSecureCoding: YES
+																		  error: NULL]
+					   forFilename: @"ZoomPreview.dat"];
+					}
 					[f addData: [NSKeyedArchiver archivedDataWithRootObject: self
 													  requiringSecureCoding: YES
 																	  error: NULL]
@@ -2509,7 +2504,7 @@ static UTType *getZoomSaveType(void) {
 
 - (void) restoreAutosaveFromCoder: (NSCoder*) decoder {
 	if (decoder.allowsKeyedCoding) {
-		NSDictionary* restored = [decoder decodeObjectForKey: @"SaveDataKey"];
+		NSDictionary* restored = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSDictionary class], [NSString class], [NSData class], [NSTextStorage class], [NSArray class], [ZoomUpperWindow class], [ZoomLowerWindow class], [ZoomPixmapWindow class], nil] forKey: @"SaveDataKey"];
 		
 		lastAutosave = [restored objectForKey: @"lastAutosave"];
 		upperWindows = [restored objectForKey: @"upperWindows"];
