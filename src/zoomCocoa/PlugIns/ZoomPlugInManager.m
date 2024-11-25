@@ -259,7 +259,7 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 
 - (Class) converterForURL: (NSURL*) fileName {
 #if VERBOSITY >= 3
-	NSLog(@"= Seeking an converter for %@", filename);
+	NSLog(@"= Seeking a converter for %@", filename);
 #endif
 	
 	[self loadPlugIns];
