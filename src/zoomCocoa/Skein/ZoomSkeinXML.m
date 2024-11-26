@@ -132,7 +132,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	NSXMLElement *root = elementWithNameAndAttribute(@"Skein", ZoomSkeinRootNodeKey, rootItem.nodeIdentifier.UUIDString);
 	[root addNamespace:[NSXMLNode namespaceWithName:@"" stringValue:@"http://www.logicalshift.org.uk/IF/Skein"]];
 	
-	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithKind: NSXMLDocumentKind options: NSXMLDocumentTidyXML | NSXMLNodePrettyPrint];
+	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithKind: NSXMLDocumentKind options: NSXMLDocumentTidyXML | NSXMLNodePrettyPrint | NSXMLNodePreserveWhitespace];
 	xmlDoc.version = @"1.0";
 	xmlDoc.characterEncoding = @"UTF-8";
 	[xmlDoc setRootElement: root];

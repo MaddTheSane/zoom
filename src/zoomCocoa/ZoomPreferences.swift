@@ -254,6 +254,8 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
  
 	// Getting preferences
  
+	/// Deprecated, use `+defaultOrganiserDirectoryURL` instead.
+	@available(macOS, introduced: 10.2, deprecated: 11.0, message: "Deprecated, use defaultOrganiserDirectoryURL instead")
 	open class var defaultOrganiserDirectory: String {
 		return defaultOrganiserDirectoryURL.path
 	}
@@ -488,7 +490,12 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
-	/// 13 colours
+	/// Returns 13 colours related to Zcode.
+	///
+	/// if `useUserColours` is `true`, the colours returned will be the same as `userColours`.
+	/// If `false`,  the colors will be pre-defined and capable of responding to dark mode.
+	///
+	/// If you want to change the user colors, use the `userColours` setter below.
 	open var colours: [NSColor]? {
 		get {
 			return prefLock.withLock {
@@ -500,7 +507,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
-	/// 13 colours
+	/// The 13 colours related to Zcode.
 	open var userColours: [NSColor]? {
 		get {
 			return prefLock.withLock {
@@ -517,6 +524,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
+	/// Set to `true` to use user-editable colors, or `false` to use the built-in colors.
 	open var useUserColours: Bool {
 		get {
 			return prefLock.withLock {

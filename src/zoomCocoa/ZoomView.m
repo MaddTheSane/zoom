@@ -2345,7 +2345,7 @@ static UTType *getZoomSaveType(void) {
 	} else {
 		[[textView layoutManager] setHyphenationFactor: [viewPrefs useHyphenation]?1:0];
 	}
-//	[[textView layoutManager] setUsesScreenFonts: [viewPrefs useScreenFonts]];
+	[[textView layoutManager] setUsesScreenFonts: [viewPrefs useScreenFonts]];
 	
 	if ([viewPrefs useKerning]) {
 		[textView useStandardKerning: self];

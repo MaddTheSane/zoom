@@ -68,8 +68,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 		
 		// Give up if the ID is still nil
 		guard let storyID else {
-			// TODO: Better error thrown
-			throw CocoaError(.featureUnsupported)
+			throw ZoomStoryIDError(.noIdentGenerated, userInfo: [NSURLErrorKey: fileURL])
 		}
 
 		// Try to load Zoom's built-in metadata if we can
@@ -81,7 +80,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 		// If there's no metadata returned, then give up
 		guard let story else {
 			// TODO: Better error thrown
-			throw CocoaError(.featureUnsupported)
+			throw CocoaError(.featureUnsupported, userInfo: [NSURLErrorKey: fileURL])
 		}
 		
 		// Generate an attributed string describing the story
