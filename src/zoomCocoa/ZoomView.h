@@ -131,6 +131,7 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 - (void) restoreSaveState: (NSData*) state;
+@property (readonly, nullable, copy) NSData *lastAutosave;
 
 // 'Manual' input
 @property NSPoint inputLinePos;

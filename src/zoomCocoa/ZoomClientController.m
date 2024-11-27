@@ -16,8 +16,8 @@
 #import <ZoomView/ZoomConnector.h>
 #import <ZoomPlugIns/ZoomWindowThatCanBecomeKey.h>
 #import "ZoomAppDelegate.h"
-@import ZoomPlugIns.Swift;
-@import ZoomView.Swift;
+#import <ZoomPlugIns/ZoomPlugIns-Swift.h>
+#import <ZoomView/ZoomView-Swift.h>
 #import "Zoom-Swift.h"
 
 @implementation ZoomClientController
@@ -479,6 +479,8 @@
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state
 {
 	[zoomView restoreAutosaveFromCoder: state];
+	//Hack: put save data into the document class, otherwise the autorestore won't go through.
+	[[self document] setSaveData: zoomView.lastAutosave];
 }
 
 - (IBAction) playInFullScreen: (id) sender {

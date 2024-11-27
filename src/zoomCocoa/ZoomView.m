@@ -446,7 +446,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	
 	[textScroller removeFromSuperview];
 	
-	if (delegate != nil && [delegate respondsToSelector: @selector(zoomViewIsNotResizable)]) {
+	if ([delegate respondsToSelector: @selector(zoomViewIsNotResizable)]) {
 		[delegate zoomViewIsNotResizable];
 	}
 	
@@ -586,7 +586,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	}
 	
 	// Deal with the input source
-	if (inputSource != nil && [inputSource respondsToSelector: @selector(nextCommand)]) {
+	if ([inputSource respondsToSelector: @selector(nextCommand)]) {
 		NSString* nextInput = [inputSource nextCommand];
 		
 		if (nextInput == nil) {
@@ -2510,9 +2510,10 @@ static UTType *getZoomSaveType(void) {
 		}
 		
 		lastAutosave = [restored objectForKey: @"lastAutosave"];
-		upperWindows = [restored objectForKey: @"upperWindows"];
-		lowerWindows = [restored objectForKey: @"lowerWindows"];
-		commandHistory = [restored objectForKey: @"commandHistory"];
+		upperWindows = [[restored objectForKey: @"upperWindows"] mutableCopy];
+		lowerWindows = [[restored objectForKey: @"lowerWindows"] mutableCopy];
+		commandHistory = [[restored objectForKey: @"commandHistory"] mutableCopy];
+		pixmapWindow = [restored objectForKey: @"pixmapWindow"];
 		
 		NSTextStorage* storage = [restored objectForKey: @"textStorage"];
 		
@@ -2550,6 +2551,7 @@ static UTType *getZoomSaveType(void) {
 			upperWindows = [restored objectForKey: @"upperWindows"];
 			lowerWindows = [restored objectForKey: @"lowerWindows"];
 			commandHistory = [restored objectForKey: @"commandHistory"];
+			pixmapWindow = [restored objectForKey: @"pixmapWindow"];
 			
 			NSTextStorage* storage = [restored objectForKey: @"textStorage"];
 			
@@ -2759,6 +2761,8 @@ static UTType *getZoomSaveType(void) {
 	[self scrollToEnd];
 	inputPos = [[textView textStorage] length];
 }
+
+@synthesize lastAutosave;
 
 #pragma mark - Debugging
 - (void) hitBreakpointAtCounter: (int) pc {

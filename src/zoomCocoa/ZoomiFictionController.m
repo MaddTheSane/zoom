@@ -2325,10 +2325,7 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 	NSSavePanel* panel = [NSSavePanel savePanel];
 	
 	panel.allowedContentTypes = @[[UTType importedTypeWithIdentifier:@"public.ifiction"]];
-	NSURL* directory = [[NSUserDefaults standardUserDefaults] URLForKey: @"ZoomiFictionSavePath"];
-	if (directory) {
-		panel.directoryURL = directory;
-	}
+	panel.identifier = @"ZoomiFictionSavePanel";
 	[panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
 		if (result != NSModalResponseOK) return;
 		
@@ -2357,10 +2354,6 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 			//TODO: present BETTER error on failure.
 			[NSApp presentError:saveErr];
 		}
-		
-		// Store any preference changes
-		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
-											   forKey: @"ZoomiFictionSavePath"];
 	}];
 }
 
