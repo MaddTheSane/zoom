@@ -105,7 +105,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		let finalScaling = CATransform3DIdentity
 		let popScaling   = CATransform3DScale(CATransform3DIdentity, 1.1, 1.1, 1.1)
 		
-		popAnimation.keyPath		= "transform";
+		popAnimation.keyPath		= "transform"
 		popAnimation.fromValue		= NSValue(caTransform3D: finalScaling)
 		popAnimation.toValue		= NSValue(caTransform3D: popScaling)
 		popAnimation.duration		= seconds * 0.2
@@ -116,7 +116,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		
 		let popBackAnimation = CABasicAnimation()
 		
-		popBackAnimation.keyPath		= "transform";
+		popBackAnimation.keyPath		= "transform"
 		popBackAnimation.fromValue		= NSValue(caTransform3D: popScaling)
 		popBackAnimation.toValue		= NSValue(caTransform3D: startScaling)
 		popBackAnimation.duration		= seconds * 0.8
@@ -128,9 +128,9 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		// Create a fade-in animation
 		let fadeAnimation = CABasicAnimation()
 		
-		fadeAnimation.keyPath		= "opacity";
-		fadeAnimation.fromValue		= 1.0 as NSNumber;
-		fadeAnimation.toValue		= 0.0 as NSNumber
+		fadeAnimation.keyPath		= "opacity"
+		fadeAnimation.fromValue		= NSNumber(value: 1.0)
+		fadeAnimation.toValue		= NSNumber(value: 0.0)
 		fadeAnimation.repeatCount	= 1
 		fadeAnimation.timingFunction = CAMediaTimingFunction(name:  .easeInEaseOut)
 		fadeAnimation.duration		= seconds

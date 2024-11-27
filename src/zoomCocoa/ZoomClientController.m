@@ -471,15 +471,15 @@
 	[zoomView setScaleFactor: 1.0];
 }
 
-//- (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state
-//{
-//	[zoomView createAutosaveDataWithCoder: state];
-//}
-//
-//- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state
-//{
-//	[zoomView restoreAutosaveFromCoder:state];
-//}
+- (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state
+{
+	[zoomView createAutosaveDataWithCoder: state];
+}
+
+- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state
+{
+	[zoomView restoreAutosaveFromCoder: state];
+}
 
 - (IBAction) playInFullScreen: (id) sender {
 	[self.window toggleFullScreen:sender];

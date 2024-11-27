@@ -104,7 +104,7 @@
 		if (outError) {
 			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
 											code: NSFileReadCorruptFileError
-										userInfo: nil];
+										userInfo: @{}];
 		}
 		return NO;
 	}
@@ -345,7 +345,7 @@
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: NSLocalizedString(@"Not a valid Zoom savegame package", @"Not a valid Zoom savegame package"),
-				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]]
+				NSLocalizedFailureReasonErrorKey: [NSString localizedStringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]]
 			}];
 		}
 		return NO;
@@ -382,10 +382,10 @@
 		// Not a valid zoomSave file
 		if (!isSingleFile) {
 			msg = NSLocalizedString(@"Not a valid Zoom savegame package", @"Not a valid Zoom savegame package");
-			info = [NSString stringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]];
+			info = [NSString localizedStringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]];
 		} else {
 			msg = NSLocalizedString(@"Not a valid Quetzal file", @"Not a valid Quetzal file");
-			info = [NSString stringWithFormat: NSLocalizedString(@"%@ is not a valid Quetzal file", @"%@ is not a valid Quetzal file"), [[wrapper filename] lastPathComponent]];
+			info = [NSString localizedStringWithFormat: NSLocalizedString(@"%@ is not a valid Quetzal file", @"%@ is not a valid Quetzal file"), [[wrapper filename] lastPathComponent]];
 		}
 		
 		if (outError) {
@@ -424,7 +424,7 @@
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to find story file", @"Unable to find story file"),
-				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"Zoom does not know where a valid story file for '%@' is and so is unable to load it", @"Zoom does not know where a valid story file for '%@' is and so is unable to load it"), [[wrapper filename] lastPathComponent]]
+				NSLocalizedFailureReasonErrorKey: [NSString localizedStringWithFormat: NSLocalizedString(@"Zoom does not know where a valid story file for '%@' is and so is unable to load it", @"Zoom does not know where a valid story file for '%@' is and so is unable to load it"), [[wrapper filename] lastPathComponent]]
 			}];
 		}
 		return NO;
@@ -474,7 +474,7 @@
 		if (outError) {
 			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
 				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to load saved screen state", @"Unable to load saved screen state"),
-				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", @"Zoom was unable to find the saved screen state for '%@', and so is unable to start it"), [[wrapper filename] lastPathComponent]]
+				NSLocalizedFailureReasonErrorKey: [NSString localizedStringWithFormat: NSLocalizedString(@"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", @"Zoom was unable to find the saved screen state for '%@', and so is unable to start it"), [[wrapper filename] lastPathComponent]]
 			}];
 		}
 		return NO;

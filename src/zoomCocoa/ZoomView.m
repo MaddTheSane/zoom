@@ -2505,6 +2505,9 @@ static UTType *getZoomSaveType(void) {
 - (void) restoreAutosaveFromCoder: (NSCoder*) decoder {
 	if (decoder.allowsKeyedCoding) {
 		NSDictionary* restored = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSDictionary class], [NSString class], [NSData class], [NSTextStorage class], [NSArray class], [ZoomUpperWindow class], [ZoomLowerWindow class], [ZoomPixmapWindow class], nil] forKey: @"SaveDataKey"];
+		if (!restored) {
+			return;
+		}
 		
 		lastAutosave = [restored objectForKey: @"lastAutosave"];
 		upperWindows = [restored objectForKey: @"upperWindows"];
