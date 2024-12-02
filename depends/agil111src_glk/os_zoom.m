@@ -111,6 +111,9 @@
 /*  Module variables, miscellaneous externals not in header files      */
 /*---------------------------------------------------------------------*/
 
+static void
+gagt_debug (const char *function, const char *format, ...) __printflike(2, 3);
+
 /* Glk AGiliTy port version number. */
 static const glui32 GAGT_PORT_VERSION = 0x00010701;
 
@@ -403,9 +406,7 @@ gagt_debug (const char *function, const char *format, ...)
 /*---------------------------------------------------------------------*/
 
 /**
- * agt_tone()
- *
- * Produce a hz-Hertz sound for ms milliseconds.
+ * Produce a *hz*-Hertz sound for *ms* milliseconds.
  */
 void
 agt_tone (int hz, int ms)
@@ -416,11 +417,9 @@ agt_tone (int hz, int ms)
 
 
 /**
- * agt_rand()
- *
  * Return random number from a to b inclusive.  The random number generator
- * is seeded on the first call, to a reproducible sequence if stable_random,
- * otherwise using time().
+ * is seeded on the first call, to a reproducible sequence if `stable_random`,
+ * otherwise using `time()`.
  */
 int
 agt_rand (int a, int b)
