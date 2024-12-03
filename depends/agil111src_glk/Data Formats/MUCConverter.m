@@ -70,6 +70,9 @@ static NSArray<AGILMUCEntry*> *mucDecode(NSURL *theFile, NSError *__autoreleasin
 			break;
 		}
 		[testDat getBytes:&entry length:sizeof(entry)];
+		entry.frequency = OSSwapLittleToHostInt16(entry.frequency);
+		entry.toneDelay = OSSwapLittleToHostInt16(entry.toneDelay);
+		entry.toneTime = OSSwapLittleToHostInt16(entry.toneTime);
 		[toRetValues addObject:[[AGILMUCEntry alloc] initWithEntry:entry]];
 	}
 	return toRetValues;
