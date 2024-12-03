@@ -44,6 +44,9 @@ private let showBordersKey = "ShowBorders"
 private let showGlkBordersKey = "ShowGlkBorders"
 private let showCoverPictureKey = "ShowCoverPicture"
 
+private let soundOnKey = "SoundOn"
+private let soundVolumeKey = "SoundVolume"
+
 private let defaultFonts: [NSFont] = {
 	let defaultFontName = "Gill Sans"
 	let fixedFontName = "Courier New"
@@ -196,6 +199,9 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		prefs[backgroundColourKey] = 7
 		prefs[showBordersKey] = true
 		prefs[showGlkBordersKey] = true
+		
+		prefs[soundOnKey] = true
+		prefs[soundVolumeKey] = 100
 	}
  
 	public init(dictionary preferences: [String : Any]) {
@@ -831,7 +837,32 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			preferencesHaveChanged()
 		}
 	}
+	
+	open var soudEnabled: Bool {
+		get {
+			let result: Bool? = prefLock.withLock({
+				return prefs[soundOnKey] as? Bool
+			})
+			
+			return result ?? false
+		}
+		set {
+			prefs[soundOnKey] = newValue
+		}
+	}
 
+	open var soundVolume: Int32 {
+		get {
+			let result: Int32? = prefLock.withLock({
+				return prefs[soundVolumeKey] as? Int32
+			})
+			
+			return result ?? 0
+		}
+		set {
+			prefs[soundVolumeKey] = newValue
+		}
+	}
  
 	/// The dictionary
 	open var dictionary: [String : Any] {
