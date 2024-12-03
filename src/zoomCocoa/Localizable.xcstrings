@@ -1605,6 +1605,18 @@
         }
       }
     },
+    "Preferences: Sounds" : {
+      "comment" : "Sounds Preference panel",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sounds"
+          }
+        }
+      }
+    },
     "Preferences: Typography" : {
       "comment" : "Typography Preference panel",
       "localizations" : {

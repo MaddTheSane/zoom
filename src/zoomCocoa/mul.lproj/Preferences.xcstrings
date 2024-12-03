@@ -2868,6 +2868,18 @@
           }
         }
       }
+    },
+    "jes-ve-1Pp.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Enable Sound\"; ObjectID = \"jes-ve-1Pp\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enable Sound"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23094" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23094"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,6 +39,7 @@
                 <outlet property="scrollbackLength" destination="148" id="158"/>
                 <outlet property="showCoverPicture" destination="328" id="330"/>
                 <outlet property="showMargins" destination="191" id="204"/>
+                <outlet property="soundsSettingsView" destination="N5W-GK-RRN" id="Sd3-ny-de3"/>
                 <outlet property="speakGameText" destination="14" id="63"/>
                 <outlet property="symbolicFont" destination="138" id="171"/>
                 <outlet property="transparencySlider" destination="101" id="104"/>
@@ -686,7 +687,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="342"/>
                                         <clipView key="contentView" id="FJN-wJ-7kj">
                                             <rect key="frame" x="1" y="1" width="351" height="340"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" headerView="497" id="34" userLabel="Font Table">
                                                     <rect key="frame" x="0.0" y="0.0" width="351" height="317"/>
@@ -1134,5 +1135,20 @@ Note that screen fonts have been deprecated for a long time: leave this off.</st
             <point key="canvasLocation" x="14" y="356"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="333" userLabel="Shared Defaults"/>
+        <customView id="N5W-GK-RRN" userLabel="Sound settings">
+            <rect key="frame" x="0.0" y="0.0" width="334" height="167"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gl2-qe-cA2">
+                    <rect key="frame" x="18" y="130" width="110" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Enable Sound" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="jes-ve-1Pp">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="14" y="356"/>
+        </customView>
     </objects>
 </document>

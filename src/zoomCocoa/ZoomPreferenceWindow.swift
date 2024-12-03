@@ -16,6 +16,7 @@ private let displaySettingsItemName = NSToolbarItem.Identifier("displaySettings"
 private let fontSettingsItemName = NSToolbarItem.Identifier("fontSettings")
 private let colourSettingsItemName = NSToolbarItem.Identifier("colourSettings")
 private let typographicSettingsItemName = NSToolbarItem.Identifier("typographicSettings")
+private let soundsSettingsItemName = NSToolbarItem.Identifier("soundsSettings")
 private let generalSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: generalSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: General", value: "General", comment: "General Preferences panel")
@@ -58,6 +59,13 @@ private let typographicSettingsItem: NSToolbarItem = {
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
+private let soundsSettingsItem: NSToolbarItem = {
+	let toRet = NSToolbarItem(itemIdentifier: soundsSettingsItemName)
+	toRet.label = NSLocalizedString("Preferences: Sounds", value: "Sounds", comment: "Sounds Preference panel")
+	toRet.image = NSImage(named: "Settings/sound")
+	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
+	return toRet
+}()
 
 
 private
@@ -66,7 +74,8 @@ let itemDictionary = [generalSettingsItemName: generalSettingsItem,
 					  displaySettingsItemName: displaySettingsItem,
 						 fontSettingsItemName: fontSettingsItem,
 					   colourSettingsItemName: colourSettingsItem,
-				  typographicSettingsItemName: typographicSettingsItem]
+				  typographicSettingsItemName: typographicSettingsItem,
+					   soundsSettingsItemName: soundsSettingsItem]
 
 /// Constructs a menu of fonts
 ///
@@ -113,6 +122,7 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	@IBOutlet weak var colourSettingsView: NSView!
 	@IBOutlet weak var typographicalSettingsView: NSView!
 	@IBOutlet weak var displaySettingsView: NSView!
+	@IBOutlet weak var soundsSettingsView: NSView!
 	
 	// The settings controls themselves
 	@IBOutlet weak var displayWarnings: NSButton!
@@ -258,7 +268,8 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 									displaySettingsItem: displaySettingsView,
 									   fontSettingsItem: fontSettingsView,
 									 colourSettingsItem: colourSettingsView,
-								typographicSettingsItem: typographicalSettingsView]
+								typographicSettingsItem: typographicalSettingsView,
+									 soundsSettingsItem: soundsSettingsView]
 
 		let preferencePane = itemToViewDictionary[sender]!!
 		guard window?.contentView != preferencePane else {
@@ -283,15 +294,15 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	}
 	
 	func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-		[generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, .flexibleSpace]
+		[generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, soundsSettingsItemName, .flexibleSpace]
 	}
 	
 	func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-		return [.flexibleSpace, generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, .flexibleSpace]
+		return [.flexibleSpace, generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, typographicSettingsItemName, colourSettingsItemName, soundsSettingsItemName, .flexibleSpace]
 	}
 	
 	func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-		return [generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, colourSettingsItemName, typographicSettingsItemName]
+		return [generalSettingsItemName, gameSettingsItemName, displaySettingsItemName, fontSettingsItemName, colourSettingsItemName, typographicSettingsItemName, soundsSettingsItemName]
 	}
 
 	// MARK: - Setting the preferences that we're editing
