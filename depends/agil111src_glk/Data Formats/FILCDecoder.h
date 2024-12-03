@@ -15,8 +15,13 @@
 extern "C" {
 #endif
 
-extern CFDataRef CreateGIFFromFLICData(CFDataRef fliDat, bool crunch) CF_RETURNS_RETAINED;
-extern CFDataRef CreateGIFFromFLICPath(const char *fliDat, bool crunch) CF_RETURNS_RETAINED;
+CF_ASSUME_NONNULL_BEGIN
+
+extern CFDataRef _Nullable CreateGIFFromFLICData(CFDataRef fliDat, bool crunch) CF_RETURNS_RETAINED;
+extern CFDataRef _Nullable CreateGIFFromFLICPath(const char *fliDat, bool crunch) CF_RETURNS_RETAINED;
+extern CFDataRef _Nullable CreateGIFFromFLICFileURL(CFURLRef fliDat, bool crunch) CF_RETURNS_RETAINED;
+
+CF_ASSUME_NONNULL_END
 
 #ifdef __cplusplus
 }

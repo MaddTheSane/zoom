@@ -165,12 +165,9 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 						NSLog("PCX conversion failed: \(error)")
 					}
 				} else if i > 16 {
-					if let gifData = theOut.withUnsafeFileSystemRepresentation({ ubp in
-						return CreateGIFFromFLICPath(ubp, true) as NSData?
-					}) {
-						if let image = NSImage(data: Data(gifData)) {
-							return image
-						}
+					if let gifData = CreateGIFFromFLICFileURL(theOut as NSURL, true) as Data?,
+					   let image = NSImage(data: gifData) {
+						return image
 					}
 				
 				} else {

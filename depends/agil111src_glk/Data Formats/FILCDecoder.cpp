@@ -144,6 +144,16 @@ CFDataRef CreateGIFFromFLICData(CFDataRef fliDat, bool crunch)
   }
 }
 
+CFDataRef CreateGIFFromFLICFileURL(CFURLRef fliDat, bool crunch)
+{
+	char path[MAXPATHLEN];
+	Boolean success = ::CFURLGetFileSystemRepresentation(fliDat, TRUE, (UInt8*)path, sizeof(path));
+	if (!success) {
+		return NULL;
+	}
+	return CreateGIFFromFLICPath(path, crunch);
+}
+
 CFDataRef CreateGIFFromFLICPath(const char *fliDat, bool crunch)
 {
   CFDataRef toRet;
