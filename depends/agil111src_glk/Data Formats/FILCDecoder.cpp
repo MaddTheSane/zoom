@@ -72,6 +72,9 @@ void CFDataFileInterface::seek(size_t absPos)
 
 uint8_t CFDataFileInterface::read8()
 {
+	if (position >= CFDataGetLength(fileData)) {
+		return 0;
+	}
   uint8_t simpleBuffer;
   CFDataGetBytes(fileData, CFRangeMake(position, 1), &simpleBuffer);
   position += 1;
