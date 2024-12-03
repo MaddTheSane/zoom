@@ -1139,16 +1139,29 @@ Note that screen fonts have been deprecated for a long time: leave this off.</st
             <rect key="frame" x="0.0" y="0.0" width="334" height="167"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gl2-qe-cA2">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gl2-qe-cA2">
                     <rect key="frame" x="18" y="130" width="110" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Enable Sound" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="jes-ve-1Pp">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
+                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sjC-i2-zec">
+                    <rect key="frame" x="18" y="97" width="298" height="28"/>
+                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="eOf-fJ-XJO">
+                        <font key="font" size="12" name="Helvetica"/>
+                    </sliderCell>
+                </slider>
             </subviews>
-            <point key="canvasLocation" x="14" y="356"/>
+            <constraints>
+                <constraint firstItem="sjC-i2-zec" firstAttribute="top" secondItem="gl2-qe-cA2" secondAttribute="bottom" constant="8" symbolic="YES" id="IZB-qw-tgV"/>
+                <constraint firstAttribute="trailing" secondItem="sjC-i2-zec" secondAttribute="trailing" constant="20" symbolic="YES" id="Mkb-pY-Zq4"/>
+                <constraint firstItem="gl2-qe-cA2" firstAttribute="top" secondItem="N5W-GK-RRN" secondAttribute="top" constant="20" symbolic="YES" id="TUY-tC-2U9"/>
+                <constraint firstItem="sjC-i2-zec" firstAttribute="leading" secondItem="N5W-GK-RRN" secondAttribute="leading" constant="20" symbolic="YES" id="ZZG-r0-TUZ"/>
+                <constraint firstItem="gl2-qe-cA2" firstAttribute="leading" secondItem="N5W-GK-RRN" secondAttribute="leading" constant="20" symbolic="YES" id="iS3-pN-BDg"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gl2-qe-cA2" secondAttribute="trailing" constant="20" symbolic="YES" id="qkw-nL-o36"/>
+            </constraints>
+            <point key="canvasLocation" x="214" y="495.5"/>
         </customView>
     </objects>
 </document>

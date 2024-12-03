@@ -2855,6 +2855,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Enable this option to use and select custom interpreter colors.\"; ObjectID = \"eJQ-yV-bcq\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aktivieren Sie diese Option, um benutzerdefinierte Interpreterfarben zu verwenden und auszuwählen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -2866,6 +2872,18 @@
             "state" : "translated",
             "value" : "Enable this option to use and select custom interpreter colours."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Activez cette option pour utiliser et sélectionner des couleurs d'interpréteur personnalisées."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "このオプションを有効にして、カスタムインタプリタの色を使用して選択します。"
+          }
         }
       }
     },
@@ -2873,10 +2891,34 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Enable Sound\"; ObjectID = \"jes-ve-1Pp\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ton aktivieren"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Enable Sound"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable Sound"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Activer le son"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "サウンドを有効にする"
           }
         }
       }
