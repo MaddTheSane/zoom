@@ -243,8 +243,8 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 	return self;
 }
 
-//! Convert packed pixel format in bitplanes[] into 1 pixel per byte
-//! in pixels[].
+//! Convert packed pixel format in `bitplanes[]` into 1 pixel per byte
+//! in `pixels[]`.
 static void
 pcxUnpackPixels(unsigned char * const pixels,
 				const unsigned char * const bitplanes,
@@ -255,6 +255,7 @@ pcxUnpackPixels(unsigned char * const pixels,
 	unsigned int i;
 	
 	if (planes != 1) {
+		return;
 //		pm_error("can't handle packed pixels with more than 1 plane" );
 	}
 	
@@ -283,6 +284,7 @@ pcxUnpackPixels(unsigned char * const pixels,
 				pixels[i*8 + 7]  = ((bits & 0x01) != 0);
 				break;
 			default:
+				return;
 //				pm_error("pcxUnpackPixels - can't handle %u bits per pixel",
 //						 bitsperpixel);
 				break;
@@ -306,9 +308,11 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	unsigned int  i;
 	
 	if (planes > 4) {
+		return;
 //		pm_error("can't handle more than 4 planes");
 	}
 	if (bitsPerPixel != 1) {
+		return;
 //		pm_error("can't handle more than 1 bit per pixel");
 	}
 	

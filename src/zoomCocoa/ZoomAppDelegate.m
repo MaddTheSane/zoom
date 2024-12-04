@@ -230,7 +230,7 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 					}
 				}
 				
-				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: [NSURL fileURLWithPath:filename]
+				[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: fileURL
 															withIdentity: ident
 																organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
 																   error: NULL];
