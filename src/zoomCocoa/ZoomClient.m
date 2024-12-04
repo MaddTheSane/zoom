@@ -244,14 +244,14 @@
 	
 	NSURL* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: storyId
 																				  create: NO];
-	NSString* autosaveFile = [autosaveDir URLByAppendingPathComponent: @"autosave.zoomauto"].path;
+	NSURL* autosaveFile = [autosaveDir URLByAppendingPathComponent: @"autosave.zoomauto"];
 	
-	if (![[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
+	if (![autosaveFile checkResourceIsReachableAndReturnError: NULL]) {
 		autosaveData = nil;
 		return;
 	}
 	
-	autosaveData = [NSData dataWithContentsOfFile: autosaveFile];
+	autosaveData = [NSData dataWithContentsOfURL: autosaveFile];
 }
 
 - (BOOL) checkResourceFile: (NSString*) file {

@@ -629,7 +629,7 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 
 - (void) autosaveAlertFinished: (NSWindow *)alert 
 					returnCode: (NSModalResponse)returnCode {
-	if (returnCode == NSAlertSecondButtonReturn) {
+	if (returnCode == NSAlertThirdButtonReturn) {
 		NSString* filename = [self selectedFilename];
 		
 		if (![[NSFileManager defaultManager] fileExistsAtPath: filename]) {
@@ -656,6 +656,8 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 			 
 			[self configureFromMainTableSelection];
 		}
+	} else if (returnCode == NSAlertFirstButtonReturn) {
+		[self restoreAutosave: nil];
 	}
 }
 
@@ -675,6 +677,7 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 		NSAlert *alert = [[NSAlert alloc] init];
 		alert.messageText = NSLocalizedString(@"An autosave file exists for this game", @"An autosave file exists for this game");
 		alert.informativeText = NSLocalizedStringWithDefaultValue(@"Autosaves Exist Info", nil, [NSBundle mainBundle], @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.", @"This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten.");
+		[alert addButtonWithTitle: NSLocalizedString(@"Continue Autosaved Game", @"Continue Saved Game")];
 		[alert addButtonWithTitle: NSLocalizedString(@"Don't start new game", @"Don't start new game")];
 		NSButton *desButton = [alert addButtonWithTitle: NSLocalizedString(@"Start new game", @"Start new game")];
 		desButton.hasDestructiveAction = YES;
@@ -684,7 +687,7 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 	} else {
 		// Fake alert sheet OK
 		[self autosaveAlertFinished: nil
-						 returnCode: NSAlertSecondButtonReturn];
+						 returnCode: NSAlertThirdButtonReturn];
 	}
 }
 
@@ -2160,9 +2163,9 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = NSLocalizedString(@"Are you sure?", @"Are you sure?");
 	alert.informativeText = request;
-	NSButton *delButton = [alert addButtonWithTitle: NSLocalizedStringWithDefaultValue(@"Delete Game", @"Localizable", [NSBundle mainBundle], @"Delete", @"Delete")];
+	NSButton *delButton = [alert addButtonWithTitle: NSLocalizedStringWithDefaultValue(@"Delete Game", nil, [NSBundle mainBundle], @"Delete", @"Delete")];
 	delButton.hasDestructiveAction = YES;
-	[alert addButtonWithTitle:NSLocalizedStringWithDefaultValue(@"Keep Game", @"Localizable", [NSBundle mainBundle], @"Keep", @"Keep")].keyEquivalent = @"\1B";
+	[alert addButtonWithTitle:NSLocalizedStringWithDefaultValue(@"Keep Game", nil, [NSBundle mainBundle], @"Keep", @"Keep")].keyEquivalent = @"\1B";
 	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
 		if (returnCode != NSAlertFirstButtonReturn) return;
 		

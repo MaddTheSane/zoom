@@ -341,6 +341,12 @@
             "value" : "Black"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noir"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -368,6 +374,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blue"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bleu"
           }
         },
         "ja" : {
@@ -399,6 +411,12 @@
             "value" : "Cyan"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cyan"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -408,7 +426,7 @@
       }
     },
     "Color Dark grey" : {
-      "comment" : "Dark grey",
+      "comment" : "Dark Grey",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -419,13 +437,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dark gray"
+            "value" : "Dark Gray"
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dark grey"
+            "value" : "Dark Grey"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gris Foncé"
           }
         },
         "ja" : {
@@ -457,6 +481,12 @@
             "value" : "Green"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vert"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -466,7 +496,7 @@
       }
     },
     "Color Light grey" : {
-      "comment" : "Light grey",
+      "comment" : "Light Grey",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -477,13 +507,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Light gray"
+            "value" : "Light Gray"
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Light grey"
+            "value" : "Light Grey"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gris Clair"
           }
         },
         "ja" : {
@@ -515,6 +551,12 @@
             "value" : "Magenta"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magenta"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -524,7 +566,7 @@
       }
     },
     "Color Medium grey" : {
-      "comment" : "Medium grey",
+      "comment" : "Medium Grey",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -535,13 +577,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Medium gray"
+            "value" : "Medium Gray"
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Medium grey"
+            "value" : "Medium Grey"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gris Moyen"
           }
         },
         "ja" : {
@@ -573,6 +621,12 @@
             "value" : "Red"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rouge"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -582,7 +636,7 @@
       }
     },
     "Color Unused colour" : {
-      "comment" : "This Color value should not be seen. If a useer is seeing this, something has gone wrong.",
+      "comment" : "This color value should not be seen. If a user is seeing this, something has gone wrong.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -593,13 +647,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unused color"
+            "value" : "Unused Color"
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unused colour"
+            "value" : "Unused Colour"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Couleur inutilisée"
           }
         },
         "ja" : {
@@ -714,19 +774,60 @@
         }
       }
     },
-    "Continue playing" : {
-      "comment" : "Continue playing",
+    "Continue Autosaved Game" : {
+      "comment" : "Continue Saved Game",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Automatisch gespeichertes Spiel fortsetzen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Continue playing"
+            "value" : "Continue Autosaved Game"
           }
         },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Continue playing"
+            "value" : "Continue Autosaved Game"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Continuer le jeu enregistré automatiquement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "自動保存されたゲームを続ける"
+          }
+        }
+      }
+    },
+    "Continue playing" : {
+      "comment" : "Continue playing",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Weiterspielen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue Playing"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue Playing"
           }
         },
         "ja" : {

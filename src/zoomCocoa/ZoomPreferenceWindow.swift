@@ -357,13 +357,13 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 		case 7:
 			return NSLocalizedString("Color White", value: "White", comment: "White");
 		case 8:
-			return NSLocalizedString("Color Light grey", value: "Light gray", comment: "Light grey");
+			return NSLocalizedString("Color Light grey", value: "Light Gray", comment: "Light Grey");
 		case 9:
-			return NSLocalizedString("Color Medium grey", value: "Medium gray", comment: "Medium grey");
+			return NSLocalizedString("Color Medium grey", value: "Medium Gray", comment: "Medium Grey");
 		case 10:
-			return NSLocalizedString("Color Dark grey", value: "Dark gray", comment: "Dark grey");
+			return NSLocalizedString("Color Dark grey", value: "Dark Gray", comment: "Dark Grey");
 		default:
-			return NSLocalizedString("Color Unused colour", value: "Unused colour", comment: "This Color value should not be seen. If a useer is seeing this, something has gone wrong.")
+			return NSLocalizedString("Color Unused colour", value: "Unused Colour", comment: "This color value should not be seen. If a user is seeing this, something has gone wrong.")
 		}
 	}
 	

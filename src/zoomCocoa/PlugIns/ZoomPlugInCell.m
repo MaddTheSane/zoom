@@ -240,7 +240,7 @@
 			break;
 	}
 	if (statusText) {
-		result = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"Plug-in Paren (%@, %@)", nil, [NSBundle bundleForClass:[self class]], @"%1$@ (%2$@)", @"Parantheses around status (#2) with name (#1)"), result, statusText];
+		result = [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"Plug-in Paren (%@, %@)", nil, [NSBundle bundleForClass:[self class]], @"%1$@ (%2$@)", @"Parantheses around status (#2) with name (#1)"), result, statusText];
 	}
 	
 	return result;
