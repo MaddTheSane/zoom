@@ -2,7 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "Add Label" : {
-      "extractionState" : "manual",
+      "comment" : "Add Label",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -37,7 +37,7 @@
       }
     },
     "Add New" : {
-      "extractionState" : "manual",
+      "comment" : "Add New",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -72,7 +72,7 @@
       }
     },
     "Delete" : {
-      "extractionState" : "manual",
+      "comment" : "Delete",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -107,7 +107,7 @@
       }
     },
     "Delete all Below" : {
-      "extractionState" : "manual",
+      "comment" : "Delete all Below",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -142,7 +142,7 @@
       }
     },
     "Delete all in Thread" : {
-      "extractionState" : "manual",
+      "comment" : "Delete all in Thread",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -177,7 +177,7 @@
       }
     },
     "Edit Label" : {
-      "extractionState" : "manual",
+      "comment" : "Edit Label",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -212,7 +212,7 @@
       }
     },
     "Insert Knot" : {
-      "extractionState" : "manual",
+      "comment" : "Insert Knot",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -247,7 +247,7 @@
       }
     },
     "Lock" : {
-      "extractionState" : "manual",
+      "comment" : "Lock",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -282,7 +282,7 @@
       }
     },
     "Lock this Thread" : {
-      "extractionState" : "manual",
+      "comment" : "Lock this Thread",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -317,7 +317,7 @@
       }
     },
     "New Thread" : {
-      "extractionState" : "manual",
+      "comment" : "New Thread",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -352,7 +352,7 @@
       }
     },
     "Play to Here" : {
-      "extractionState" : "manual",
+      "comment" : "Play to Here",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -387,7 +387,7 @@
       }
     },
     "Save Transcript to Here..." : {
-      "extractionState" : "manual",
+      "comment" : "Save Transcript to Here...",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -422,7 +422,7 @@
       }
     },
     "Show in Transcript" : {
-      "extractionState" : "manual",
+      "comment" : "Show in Transcript",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -457,7 +457,7 @@
       }
     },
     "Unlock" : {
-      "extractionState" : "manual",
+      "comment" : "Unlock",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -492,7 +492,7 @@
       }
     },
     "Unlock this Branch" : {
-      "extractionState" : "manual",
+      "comment" : "Unlock this Branch",
       "localizations" : {
         "de" : {
           "stringUnit" : {

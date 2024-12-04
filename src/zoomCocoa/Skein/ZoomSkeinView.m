@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, ZSVbutton)
 };
 
 NSString* const ZoomSkeinItemPboardType = @"uk.org.logicalshift.zoom.skein.item";
-NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
+NSString* const ZoomSkeinTranscriptSaveIdentifier = @"ZoomTranscriptSave id";
 
 // Our sooper sekrit interface
 @interface ZoomSkeinView()
@@ -1277,7 +1277,6 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 
 - (NSMenu *)menuForEvent:(NSEvent *)event {
 	NSBundle *ourBundle = [NSBundle bundleForClass: [self class]];
-#define LocalizedSkeinString(key1, comment1) NSLocalizedStringFromTableInBundle(key1, @"LocalizedSkein", ourBundle, comment1)
 	// Find which item that the mouse is over
 	NSPoint pointInView = [event locationInWindow];
 	pointInView = [self convertPoint: pointInView fromView: nil];
@@ -1290,7 +1289,7 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	
 	// Add menu items for the standard actions
 	
-	[contextMenu addItemWithTitle: LocalizedSkeinString(@"Play to Here", @"Play to Here")
+	[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Play to Here", @"LocalizedSkein", ourBundle, @"Play to Here")
 						   action: @selector(playToHere:)
 					keyEquivalent: @""];
 	
@@ -1302,9 +1301,9 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 		needSep = YES;
 		NSString *newTitle;
 		if (hasLabel) {
-			newTitle = LocalizedSkeinString(@"Edit Label", @"Edit Label");
+			newTitle = NSLocalizedStringFromTableInBundle(@"Edit Label", @"LocalizedSkein", ourBundle, @"Edit Label");
 		} else {
-			newTitle = LocalizedSkeinString(@"Add Label", @"Add Label");
+			newTitle = NSLocalizedStringFromTableInBundle(@"Add Label", @"LocalizedSkein", ourBundle, @"Add Label");
 		}
 		[contextMenu addItemWithTitle: newTitle
 							   action: @selector(addAnnotation:)
@@ -1312,17 +1311,17 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	}
 	if ([delegate respondsToSelector: @selector(transcriptToPoint:)]) {
 		needSep = YES;
-		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Show in Transcript", @"Show in Transcript")
+		[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Show in Transcript", @"LocalizedSkein", ourBundle, @"Show in Transcript")
 							   action: @selector(showInTranscript:)
 						keyEquivalent: @""];
 	}
 	if ([contextItem parent] != nil) {
 		needSep = YES;
 		
-		[contextMenu addItemWithTitle: contextItem.temporary ? LocalizedSkeinString(@"Lock", @"Lock") : LocalizedSkeinString(@"Unlock", @"Unlock")
+		[contextMenu addItemWithTitle: contextItem.temporary ? NSLocalizedStringFromTableInBundle(@"Lock", @"LocalizedSkein", ourBundle, @"Lock") : NSLocalizedStringFromTableInBundle(@"Unlock", @"LocalizedSkein", ourBundle, @"Unlock")
 							   action: @selector(toggleLock:)
 						keyEquivalent: @""];
-		[contextMenu addItemWithTitle: contextItem.temporary ? LocalizedSkeinString(@"Lock this Thread", @"Lock this Thread") : LocalizedSkeinString(@"Unlock this Branch", @"Unlock this Branch")
+		[contextMenu addItemWithTitle: contextItem.temporary ? NSLocalizedStringFromTableInBundle(@"Lock this Thread", @"LocalizedSkein", ourBundle, @"Lock this Thread") : NSLocalizedStringFromTableInBundle(@"Unlock this Branch", @"LocalizedSkein", ourBundle, @"Unlock this Branch")
 							   action: @selector(toggleLockBranch:)
 						keyEquivalent: @""];
 	}
@@ -1330,38 +1329,38 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	if (needSep) [contextMenu addItem: [NSMenuItem separatorItem]];
 
 	if ([[contextItem children] count] > 0) {
-		[contextMenu addItemWithTitle: LocalizedSkeinString(@"New Thread", @"New Thread")
+		[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"New Thread", @"LocalizedSkein", ourBundle, @"New Thread")
 							   action: @selector(addNewBranch:)
 						keyEquivalent: @""];
 	} else {
-		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Add New", @"Add New")
+		[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Add New", @"LocalizedSkein", ourBundle, @"Add New")
 							   action: @selector(addNewBranch:)
 						keyEquivalent: @""];
 	}
 
 	if ([contextItem parent] != nil) {
-		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Insert Knot", @"Insert Knot")
+		[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Insert Knot", @"LocalizedSkein", ourBundle, @"Insert Knot")
 							   action: @selector(insertItem:)
 						keyEquivalent: @""];
 		if ([[contextItem children] count] > 0) {
-			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete", @"Delete")
+			[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Delete", @"LocalizedSkein", ourBundle, @"Delete")
 								   action: @selector(deleteOneItem:)
 							keyEquivalent: @""];
-			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete all Below", @"Delete all Below")
+			[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Delete all Below", @"LocalizedSkein", ourBundle, @"Delete all Below")
 								   action: @selector(deleteItem:)
 							keyEquivalent: @""];
 		} else {
-			[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete", @"Delete")
+			[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Delete", @"LocalizedSkein", ourBundle, @"Delete")
 								   action: @selector(deleteItem:)
 							keyEquivalent: @""];
 		}
-		[contextMenu addItemWithTitle: LocalizedSkeinString(@"Delete all in Thread", @"Delete all in Thread")
+		[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Delete all in Thread", @"LocalizedSkein", ourBundle, @"Delete all in Thread")
 							   action: @selector(deleteBranch:)
 						keyEquivalent: @""];
 	}
 	
 	[contextMenu addItem: [NSMenuItem separatorItem]];
-	[contextMenu addItemWithTitle: LocalizedSkeinString(@"Save Transcript to Here...", @"Save Transcript to Here...")
+	[contextMenu addItemWithTitle: NSLocalizedStringFromTableInBundle(@"Save Transcript to Here...", @"LocalizedSkein", ourBundle, @"Save Transcript to Here...")
 						   action: @selector(saveTranscript:)
 					keyEquivalent: @""];
 	
@@ -1531,31 +1530,16 @@ NSString* const ZoomSkeinTranscriptURLDefaultsKey = @"ZoomTranscriptPath";
 	if ([self window] == nil) return;
 	
 	NSSavePanel* panel = [NSSavePanel savePanel];
+	panel.identifier = ZoomSkeinTranscriptSaveIdentifier;
 	if (@available(macOS 11.0, *)) {
 		panel.allowedContentTypes = @[UTTypePlainText];
 	} else {
 		panel.allowedFileTypes = @[(NSString*)kUTTypePlainText];
 	}
 	
-	NSURL* directory = nil;
-	if (directory == nil) {
-		directory = [[NSUserDefaults standardUserDefaults] URLForKey: ZoomSkeinTranscriptURLDefaultsKey];
-	}
-	if (directory == nil) {
-		directory = [NSURL fileURLWithPath: NSHomeDirectory()];
-	}
-	
-	if (directory) {
-		panel.directoryURL = directory;
-	}
-	
 	NSString *data = [skein transcriptToPoint: contextItem];
 	[panel beginSheetModalForWindow: self.window completionHandler: ^(NSModalResponse result) {
 		if (result != NSModalResponseOK) return;
-		
-		// Remember the directory we last saved in
-		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
-											   forKey: ZoomSkeinTranscriptURLDefaultsKey];
 		
 		NSError *err;
 		// Save the data

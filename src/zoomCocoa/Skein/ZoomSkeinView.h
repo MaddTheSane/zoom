@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ZoomSkeinViewDelegate;
 
 extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinItem);
-extern NSString * const ZoomSkeinTranscriptURLDefaultsKey;
+extern NSUserInterfaceItemIdentifier const ZoomSkeinTranscriptSaveIdentifier;
 
 @interface ZoomSkeinView : NSView <NSTextViewDelegate, NSDraggingDestination, NSDraggingSource, NSControlTextEditingDelegate> {
 	BOOL skeinNeedsLayout;
