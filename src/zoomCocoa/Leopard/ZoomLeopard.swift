@@ -11,11 +11,11 @@ import QuartzCore
 ///
 /// Implementation of the ZoomLeopard protocol
 ///
-class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
+class ZoomLeopard: NSObject, @preconcurrency ZoomLeopardProtocol, CAAnimationDelegate {
 	
 	private var willFinish = [(animation: CAAnimation, callback: () -> Void)]()
 	
-	func prepareToAnimate(_ view: NSView, in layer: CALayer?) {
+	@MainActor func prepareToAnimate(_ view: NSView, in layer: CALayer?) {
 		for subview in view.subviews {
 			prepareToAnimate(subview, in: nil)
 		}
@@ -31,14 +31,14 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		view.layer?.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
 	}
 	
-	func prepareToAnimate(_ view: NSView) {
+	@MainActor func prepareToAnimate(_ view: NSView) {
 		let viewLayer = CALayer()
 		viewLayer.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
 		
 		prepareToAnimate(view, in: viewLayer)
 	}
 	
-	func pop(_ view: NSView, duration seconds: TimeInterval, finished: (()->Void)?) {
+	@MainActor func pop(_ view: NSView, duration seconds: TimeInterval, finished: (()->Void)?) {
 		// Set up the layers for this view
 		prepareToAnimate(view)
 		
@@ -94,7 +94,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		}
 	}
 
-	func popOutView(_ view: NSView, duration seconds: TimeInterval, finished: (()->Void)?) {
+	@MainActor func popOutView(_ view: NSView, duration seconds: TimeInterval, finished: (()->Void)?) {
 		// Set up the layers for this view
 		prepareToAnimate(view)
 		
@@ -151,7 +151,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		}
 	}
 	
-	func clearLayers(for view: NSView) {
+	@MainActor func clearLayers(for view: NSView) {
 		if view.wantsLayer {
 			view.wantsLayer = false
 		}
@@ -166,7 +166,7 @@ class ZoomLeopard: NSObject, ZoomLeopardProtocol, CAAnimationDelegate {
 		}
 	}
 	
-	func removeLayer(for view: NSView) {
+	@MainActor func removeLayer(for view: NSView) {
 		view.wantsLayer = false
 	}
 	

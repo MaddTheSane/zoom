@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ZoomPlugIns
+@preconcurrency import ZoomPlugIns
 import ZoomPlugIns.ZoomStoryID
 import ZoomPlugIns.ZoomPlugInManager
 import ZoomPlugIns.ZoomPlugIn
@@ -20,7 +20,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 
 /// The story organiser is used to store story locations and identifications
 /// (mainly to build up the iFiction window).
-@objcMembers class ZoomStoryOrganiser: NSObject {
+@objcMembers final class ZoomStoryOrganiser: NSObject, Sendable {
 	// TODO: migrate to CoreData/Swift Data
 
 	@nonobjc @inlinable public class var changedNotification: NSNotification.Name {
@@ -60,7 +60,6 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			let ifmbString = try values.decode(String.self, forKey: .ifdbStringID)
 			fileID = ZoomStoryID(idString: ifmbString)
 			bookmarkData = try values.decodeIfPresent(Data.self, forKey: .bookmarkData)
-			try? update()
 		}
 		
 		init(url: URL, bookmarkData: Data? = nil, fileID: ZoomStoryID) {
@@ -101,7 +100,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		return toRet
 	}()
 	
-	override init() {
+	@MainActor override init() {
 		super.init()
 		dataChangedNotificationObject = NotificationCenter.default.addObserver(forName: ZoomStory.dataHasChangedNotification, object: nil, queue: nil, using: { [weak self] noti in
 			guard let story = noti.object as? ZoomStory else {
@@ -146,19 +145,23 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	//MARK: -
 	
 	@MainActor private func organiserChanged() {
-		try? save()
+		do {
+			try save()
+		} catch {
+			NSApplication.shared.presentError(error)
+		}
 		
 		NotificationCenter.default.post(name: ZoomStoryOrganiser.changedNotification, object: self)
 		organizerChanged = false
 	}
 	
-	private static let libraryPath: URL = {
+	@MainActor private static let libraryPath: URL = {
 		var saveURL = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectoryURL!
 		saveURL.appendPathComponent("Library.json", isDirectory: false)
 		return saveURL
 	}()
 	
-	static let imagesURL: URL = {
+	@MainActor static let imagesURL: URL = {
 		var saveURL = (NSApp.delegate as! ZoomAppDelegate).zoomConfigDirectoryURL!
 		saveURL.appendPathComponent("Images", isDirectory: true)
 		return saveURL
@@ -191,10 +194,10 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		toRet.name = "Zoom Story Lock"
 		return toRet
 	}()
-	private var dataChangedNotificationObject: NSObjectProtocol! = nil
-	private var alreadyOrganising = false
-	private var organizerChanged = false
-	private var checkTimer: Timer! = nil
+	@MainActor private var dataChangedNotificationObject: NSObjectProtocol! = nil
+	@MainActor private var alreadyOrganising = false
+	@MainActor private var organizerChanged = false
+	@MainActor private var checkTimer: Timer! = nil
 	
 	@MainActor func setOrganiserChanged() {
 		organizerChanged = true
@@ -1042,7 +1045,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 	}
 	
-	func organiseAllStories() {
+	@MainActor func organiseAllStories() {
 		guard !alreadyOrganising else {
 			NSLog("ZoomStoryOrganiser: organiseAllStories called while Zoom was already in the process of organising")
 			return
@@ -1204,6 +1207,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 	}
 	
 	private func organiserThread() async {
+		let ourFM = FileManager()
 		await startedActing()
 		
 		let gameStorageDirectory = await MainActor.run { () -> URL in
@@ -1344,12 +1348,14 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				} else {
 					NSLog("Organiser: Creating group directory at %@", groupDirectory.path)
 					do {
-						try FileManager.default.createDirectory(at: groupDirectory, withIntermediateDirectories: false, attributes: nil)
+						try ourFM.createDirectory(at: groupDirectory, withIntermediateDirectories: false, attributes: nil)
 					} catch {
 						// strerror & co aren't thread-safe so we can't safely retrieve the actual error number
 						NSLog("Organiser: Failed to create directory at %@, returned %@", groupDirectory.path, error.localizedDescription)
+						DispatchQueue.main.async {
+							NSApplication.shared.presentError(error)
+						}
 						continue
-
 					}
 				}
 			}
@@ -1367,7 +1373,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 					
 					// Work out where to put the game (duplicates might exist)
 					repeat {
-						if (count == 0) {
+						if count == 0 {
 							titleDirectory = groupDirectory.appendingPathComponent(expectedDir, isDirectory: true)
 						} else {
 							titleDirectory = groupDirectory.appendingPathComponent("\(expectedDir) \(count)", isDirectory: true)
@@ -1398,7 +1404,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 					// Move the game to its new home
 					NSLog("Organiser: Moving %@ to %@", oldDirectory.path, titleDirectory!.path)
 					do {
-						try FileManager.default.moveItem(at: oldDirectory, to: titleDirectory!)
+						try ourFM.moveItem(at: oldDirectory, to: titleDirectory!)
 					} catch {
 						NSLog("Organiser: Failed to move %@ to %@ (rename failed)", oldDirectory.path, titleDirectory!.path)
 						return nil
@@ -1424,9 +1430,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		// Not organising any more
-		storyLock.withLock {
-			alreadyOrganising = false
-		}
+		await MainActor.run(body: {
+			storyLock.withLock {
+				alreadyOrganising = false
+			}
+		})
 		
 		// Tidy up
 		await endedActing()

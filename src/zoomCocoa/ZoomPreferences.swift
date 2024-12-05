@@ -47,7 +47,7 @@ private let showCoverPictureKey = "ShowCoverPicture"
 private let soundOnKey = "SoundOn"
 private let soundVolumeKey = "SoundVolume"
 
-private let defaultFonts: [NSFont] = {
+nonisolated(unsafe) private let defaultFonts: [NSFont] = {
 	let defaultFontName = "Gill Sans"
 	let fixedFontName = "Courier New"
 	let mgr = NSFontManager.shared

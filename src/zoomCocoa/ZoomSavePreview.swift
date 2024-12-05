@@ -9,9 +9,9 @@ import Cocoa
 import ZoomView
 import ZoomView.ZoomUpperWindow
 
-private let saveHighlightInactive = NSImage(named: "saveHighlightInactive")!
-private let saveHighlightActive = NSImage(named: "saveHighlightActive")!
-private let saveBackground = NSImage(named: "saveBackground")!
+@MainActor private let saveHighlightInactive = NSImage(named: "saveHighlightInactive")!
+@MainActor private let saveHighlightActive = NSImage(named: "saveHighlightActive")!
+@MainActor private let saveBackground = NSImage(named: "saveBackground")!
 
 class SavePreview : NSView {
 	private(set) var fileURL: URL?

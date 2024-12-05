@@ -17,49 +17,49 @@ private let fontSettingsItemName = NSToolbarItem.Identifier("fontSettings")
 private let colourSettingsItemName = NSToolbarItem.Identifier("colourSettings")
 private let typographicSettingsItemName = NSToolbarItem.Identifier("typographicSettings")
 private let soundsSettingsItemName = NSToolbarItem.Identifier("soundsSettings")
-private let generalSettingsItem: NSToolbarItem = {
+@MainActor private let generalSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: generalSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: General", value: "General", comment: "General Preferences panel")
 	toRet.image = NSImage(named: "Settings/general")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
-private let gameSettingsItem: NSToolbarItem = {
+@MainActor private let gameSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: gameSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Game", value: "Game", comment: "Game Preferences panel")
 	toRet.image = NSImage(named: "Settings/game")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
-private let displaySettingsItem: NSToolbarItem = {
+@MainActor private let displaySettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: displaySettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Display", value: "Display", comment: "Display Preferences panel")
 	toRet.image = NSImage(named: "Settings/display")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
-private let fontSettingsItem: NSToolbarItem = {
+@MainActor private let fontSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: fontSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Fonts", value: "Fonts", comment: "Fonts Preferences panel")
 	toRet.image = NSImage(named: "Settings/font")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
-private let colourSettingsItem: NSToolbarItem = {
+@MainActor private let colourSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: colourSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Colour", value: "Color", comment: "Color Preferences panel")
 	toRet.image = NSImage(named: NSImage.colorPanelName)
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
-private let typographicSettingsItem: NSToolbarItem = {
+@MainActor private let typographicSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: typographicSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Typography", value: "Typography", comment: "Typography Preference panel")
 	toRet.image = NSImage(named: "Settings/typographic")
 	toRet.action = #selector(ZoomPreferenceWindow.switchToPane(_:))
 	return toRet
 }()
-private let soundsSettingsItem: NSToolbarItem = {
+@MainActor private let soundsSettingsItem: NSToolbarItem = {
 	let toRet = NSToolbarItem(itemIdentifier: soundsSettingsItemName)
 	toRet.label = NSLocalizedString("Preferences: Sounds", value: "Sounds", comment: "Sounds Preference panel")
 	toRet.image = NSImage(named: "Settings/sound")
@@ -68,7 +68,7 @@ private let soundsSettingsItem: NSToolbarItem = {
 }()
 
 
-private
+@MainActor private
 let itemDictionary = [generalSettingsItemName: generalSettingsItem,
 						 gameSettingsItemName: gameSettingsItem,
 					  displaySettingsItemName: displaySettingsItem,
