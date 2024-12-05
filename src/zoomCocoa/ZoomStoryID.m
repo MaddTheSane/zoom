@@ -764,7 +764,27 @@ typedef unsigned char IFMDByte;
 
 #pragma mark - Hashing/comparing
 - (NSUInteger) hash {
-	return [[self description] hash];
+	int count = 0;
+	IFID* storyIds = IFMB_SplitId(ident, &count);
+	if (storyIds == NULL) {
+		// Simple!
+		char* stringId = IFMB_IdToString(ident);
+		NSString* identString = [[NSString alloc] initWithBytesNoCopy: stringId length: strlen(stringId) encoding: NSUTF8StringEncoding freeWhenDone: YES];
+		
+		return [identString hash];
+	}
+	NSUInteger hash=0;
+	for (int ident = 0; ident < count; ident++) {
+		IFID theID = storyIds[ident];
+		char* stringId = IFMB_IdToString(theID);
+		NSString* identString = [[NSString alloc] initWithBytesNoCopy: stringId length: strlen(stringId) encoding: NSUTF8StringEncoding freeWhenDone: YES];
+		if (ident == 0) {
+			hash = identString.hash;
+		} else {
+			hash ^= identString.hash;
+		}
+	}
+	return hash;
 }
 
 - (BOOL) isEqual: (id)anObject {
