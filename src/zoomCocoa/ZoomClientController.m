@@ -273,7 +273,7 @@
 		[storyInfo setRating: [[sgIValues objectForKey: @"rating"] floatValue]];
 		
 		NSError *err;
-		if (![[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL]) {
+		if (![[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: &err]) {
 			[NSApp presentError:err];
 		}
 	}

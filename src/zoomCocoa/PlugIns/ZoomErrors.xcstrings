@@ -143,7 +143,7 @@
       }
     },
     "ZoomMetadataError Duplicate ID" : {
-      "extractionState" : "manual",
+      "comment" : "One story contains the same ID twice",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -178,7 +178,7 @@
       }
     },
     "ZoomMetadataError Mismatched Formats" : {
-      "extractionState" : "manual",
+      "comment" : "Story and identification data specify different formats",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -213,7 +213,7 @@
       }
     },
     "ZoomMetadataError Not IF Index" : {
-      "extractionState" : "manual",
+      "comment" : "No index found",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -249,7 +249,6 @@
     },
     "ZoomMetadataError Not XML" : {
       "comment" : "File is not in XML format",
-      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -284,7 +283,7 @@
       }
     },
     "ZoomMetadataError Programmer Is A Spoon" : {
-      "extractionState" : "manual",
+      "comment" : "Programmer is a spoon",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -319,7 +318,7 @@
       }
     },
     "ZoomMetadataError Stories Share IDs" : {
-      "extractionState" : "manual",
+      "comment" : "Two stories have the same ID",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -354,7 +353,7 @@
       }
     },
     "ZoomMetadataError Unknown Format" : {
-      "extractionState" : "manual",
+      "comment" : "Unknown story format",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -389,7 +388,7 @@
       }
     },
     "ZoomMetadataError Unknown Tag" : {
-      "extractionState" : "manual",
+      "comment" : "Invalid iFiction tag encountered in file",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -424,7 +423,7 @@
       }
     },
     "ZoomMetadataError Unknown Version" : {
-      "extractionState" : "manual",
+      "comment" : "Unknown iFiction version number",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -459,7 +458,7 @@
       }
     },
     "ZoomMetadataError XML" : {
-      "extractionState" : "manual",
+      "comment" : "XML parsing error",
       "localizations" : {
         "de" : {
           "stringUnit" : {

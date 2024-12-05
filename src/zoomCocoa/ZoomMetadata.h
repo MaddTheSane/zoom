@@ -70,7 +70,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 - (void) unlock;
 	
 // Information about the parse
-@property (readonly, copy) NSArray<NSString*> *errors;
+@property (readonly, copy) NSArray<NSError*> *errors;
 
 // Retrieving information
 - (BOOL) containsStoryWithIdent: (ZoomStoryID*) ident;
