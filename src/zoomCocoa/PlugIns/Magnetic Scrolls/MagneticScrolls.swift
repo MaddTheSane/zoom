@@ -110,7 +110,7 @@ private let manifest: [Maginfo] = [
 
 
 //TODO: implement ZoomStoryConverter
-public class MagneticScrolls: ZoomGlkPlugIn {
+public class MagneticScrolls: ZoomGlkPlugIn, ZoomStoryConverter {
 	public override class var pluginVersion: String {
 		return (Bundle(for: MagneticScrolls.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String)!
 	}
@@ -189,4 +189,20 @@ public class MagneticScrolls: ZoomGlkPlugIn {
 		
 		return story
 	}
+	
+	// MARK: - ZoomStoryConverter
+	
+	public static func convertStoryFile(at url: URL) async throws -> URL {
+		// TODO: Show up a window.
+		throw CocoaError(.featureUnsupported, userInfo: [NSURLErrorKey: url])
+	}
+	
+	public static func canConvert(_ path: URL) -> Bool {
+		if supportedConverterFileTypes.contains(path.pathExtension.lowercased()) {
+			return true
+		}
+		return false
+	}
+	
+	public static let supportedConverterFileTypes: [String] = ["rdf", "d64"]
 }

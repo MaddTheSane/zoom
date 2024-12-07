@@ -1120,7 +1120,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				// Retrieve info about the file
 				let storyID = aStory.fileID
 				let filename = aStory.url
-				let filenameComponents = filename.pathComponents
+				var filenameComponents = filename.pathComponents
 				// Do nothing if the file is definitely outside the organisation structure
 				guard filenameComponents.count > originalComponents.count + 1 else {
 					NSLog("WARNING: Not organising %@, as it doesn't appear to have been organised before", aStory.url.path)
@@ -1164,17 +1164,22 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 				// Work out what to move to where
 				let component = originalComponents.count
 				
-				var moveFrom: URL? = nil
-				var moveTo: URL? = nil
+				var moveFrom: URL? = lastStoryDirURL
+				var moveTo: URL? = newStoryDirectory
 				
 				while component < filenameComponents.count {
+					//FIXME: this can infinite loop! Look into possible fixes!
 					let componentToMove = filenameComponents[originalComponents.count]
 					
-					moveFrom = lastStoryDirURL.appendingPathComponent(componentToMove)
-					moveTo = newStoryDirectory.appendingPathComponent(componentToMove)
+					moveFrom?.appendPathComponent(componentToMove)
+					moveTo?.appendPathComponent(componentToMove)
+					
+					if let moveTo, !FileManager.default.fileExists(atPath: moveTo.path) {
+						break
+					}
 				}
 				
-				guard let moveFrom = moveFrom, let moveTo = moveTo else {
+				guard let moveFrom, let moveTo else {
 					continue
 				}
 				

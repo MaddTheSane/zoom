@@ -8,7 +8,7 @@
 // FIXME: Deprecations! WebDocumentRepresentation needs to be replaced.
 // = WebKit interface (b0rked: webkit doesn't really support this) =
 
-/// These classes are designed to allow a \c ZoomSkeinView to be embedded in a web view.
+/// These classes are designed to allow a `ZoomSkeinView` to be embedded in a web view.
 /// MIME type is application/x-zoom-skein
 @interface ZoomSkein(ZoomSkeinWebDocRepresentation) <WebDocumentRepresentation>
 @end

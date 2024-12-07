@@ -89,7 +89,7 @@ extern NSString* const ZoomSIChild;
 /// Whether or not this item has actually been played
 @property (nonatomic) BOOL played;
 /// Whether or not this item's result has changed since this was last played
-/// (Automagically updated by \c setResult: )
+/// (Automagically updated by `-setResult:`)
 @property (nonatomic) BOOL changed;
 
 - (void) setBranchTemporary: (BOOL) isTemporary;

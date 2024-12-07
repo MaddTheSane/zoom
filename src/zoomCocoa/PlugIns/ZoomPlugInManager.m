@@ -45,9 +45,9 @@ extern NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft);
 	/// The data returned for the last check for updates request
 	NSMutableData* checkData;
 	
-	/// Set to \c YES if a restart is required
+	/// Set to `YES` if a restart is required
 	BOOL restartRequired;
-	/// \c YES if we're downloading updates
+	/// `YES` if we're downloading updates
 	BOOL downloading;
 	/// The plug in that we're performing a download for
 	ZoomPlugInInfo* downloadInfo;

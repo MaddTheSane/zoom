@@ -132,7 +132,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	NSXMLElement *root = elementWithNameAndAttribute(@"Skein", ZoomSkeinRootNodeKey, rootItem.nodeIdentifier.UUIDString);
 	[root addNamespace:[NSXMLNode namespaceWithName:@"" stringValue:@"http://www.logicalshift.org.uk/IF/Skein"]];
 	
-	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithKind: NSXMLDocumentKind options: NSXMLDocumentTidyXML | NSXMLNodePrettyPrint | NSXMLNodePreserveWhitespace];
+	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithKind: NSXMLDocumentKind options: NSXMLDocumentTidyXML | NSXMLNodePrettyPrint];
 	xmlDoc.version = @"1.0";
 	xmlDoc.characterEncoding = @"UTF-8";
 	[xmlDoc setRootElement: root];
@@ -195,6 +195,11 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 			[item addChild: [NSXMLNode elementWithName: ZoomSkeinChildrenKey children: children attributes:nil]];
 		}
 		[root addChild:item];
+	}
+	
+	NSError *err;
+	if (![xmlDoc validateAndReturnError:&err]) {
+		NSLog(@"%@", err);
 	}
 	
 	return [xmlDoc XMLStringWithOptions: NSXMLNodePrettyPrint | NSXMLNodeCompactEmptyElement | NSXMLNodePreserveWhitespace];

@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// If you're using Swift, be prepared to have this called on the non-main thread if you implement this using `async`.
 + (void)convertStoryFileAtURL:(NSURL*)url completionHandler:(void(^)(NSURL *__nullable newURL, NSError*__nullable error))handler;
 
-/// `YES` if the specified file URL is one that the plugin can convert
+/// `YES` if the specified file URL is one that the plugin can convert.
 + (BOOL) canConvertURL: (NSURL*) path;
 
 /// Return an array of file types that an `NSOpenPanel` can select from.
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// **Note:** Unless the type identifiers are present in Zoom's **Info.plist** or declared by another application,
 /// `+[UTType typeWithIdentifier:]` *will* fail and `+[UTType importedTypeWithIdentifier:]`
 /// will complain. The best way to handle this is to *not* implement this class property and instead
-/// let ZoomPlugInManager create them from your own `+supportedFileTypes`.
+/// let ZoomPlugInManager create them from your own `+supportedConverterFileTypes`.
 @property (class, readonly, copy) NSArray<UTType*> *supportedConverterContentTypes;
 
 @end

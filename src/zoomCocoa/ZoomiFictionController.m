@@ -112,11 +112,11 @@
 	NSString*       sortColumn;
 	
 	// The browser
-	/// \c YES if the browser has been used
+	/// `YES` if the browser has been used
 	BOOL usedBrowser;
-	/// \c YES if the browser is being displayed
+	/// `YES` if the browser is being displayed
 	BOOL browserOn;
-	/// \c YES if we've turned on small fonts in the browser
+	/// `YES` if we've turned on small fonts in the browser
 	BOOL smallBrowser;
 	
 	/// The currently active download
@@ -134,9 +134,9 @@
 	NSString* installPlugin;
 	/// The active signpost file
 	ZoomSignPost* activeSignpost;
-	/// \c YES if we're trying to download an update list
+	/// `YES` if we're trying to download an update list
 	BOOL downloadUpdateList;
-	/// \c YES if we're trying to download a .zoomplugin file
+	/// `YES` if we're trying to download a .zoomplugin file
 	BOOL downloadPlugin;
 	
 	/// The last error to occur

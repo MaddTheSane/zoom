@@ -38,9 +38,9 @@
 /// The last error to occur
 @property (strong) ZoomJSError* lastError;
 
-/// \c YES if we're trying to download an update list
+/// `YES` if we're trying to download an update list
 @property BOOL downloadUpdateList;
-/// \c YES if we're trying to download a .zoomplugin file
+/// `YES` if we're trying to download a .zoomplugin file
 @property BOOL downloadPlugin;
 
 - (IBAction) addButtonPressed: (id) sender;

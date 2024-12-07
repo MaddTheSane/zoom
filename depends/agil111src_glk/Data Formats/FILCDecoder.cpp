@@ -25,7 +25,7 @@ public:
   
   CFDataFileInterface(CFDataRef data);
   ~CFDataFileInterface();
-  /// Returns \c true if we can read/write bytes from/into the file
+  /// Returns `true` if we can read/write bytes from/into the file
   virtual bool ok() const;
 
   /// Current position in the file

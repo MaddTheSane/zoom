@@ -442,7 +442,7 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 		  inWindow: (id<ZPixmapWindow>) win;
 
 // Unbuffering
-//! \c YES if the buffer has no data
+//! `YES` if the buffer has no data
 @property (readonly, getter=isEmpty) BOOL empty;
 //! Like blitting, only messier
 - (void) blat;
