@@ -20,22 +20,18 @@ private let AGX_MAGIC = Data([0x58, 0xC7, 0xC1, 0x51])
 /* Helper functions to unencode integers from AGT source */
 private func read_agt_short(_ sf: Data) -> Int16 {
 	precondition(sf.count >= 2)
-	let finalVal = sf.withUnsafeBytes { urbp in
-		urbp.withMemoryRebound(to: UInt16.self) { buffer in
-			buffer.baseAddress!.pointee.littleEndian
-		}
-	}
+	var finalVal = UInt16(sf[0])
+	finalVal |= UInt16(sf[1]) << 8
 	let preRet = Int16(bitPattern: finalVal)
 	return preRet
 }
 
 private func read_agt_int(_ sf: Data) -> Int32 {
 	precondition(sf.count >= 4)
-	let finalVal = sf.withUnsafeBytes { urbp in
-		urbp.withMemoryRebound(to: UInt32.self) { buffer in
-			buffer.baseAddress!.pointee.littleEndian
-		}
-	}
+	var finalVal = UInt32(sf[0])
+	finalVal |= UInt32(sf[1]) << 8
+	finalVal |= UInt32(sf[2]) << 16
+	finalVal |= UInt32(sf[3]) << 24
 	let preRet = Int32(bitPattern: finalVal)
 	return preRet
 }

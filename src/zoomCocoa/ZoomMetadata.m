@@ -343,13 +343,13 @@ static int fileHandleWrite(const char* bytes, int length, void* userData) {
 	return res;
 }
 
-- (BOOL)writeToSourceURLAtomically:(BOOL)flag error:(NSError *__autoreleasing  _Nullable *)error
+- (BOOL) writeToSourceURLAtomically:(BOOL)flag error:(NSError *__autoreleasing _Nullable *)error
 {
 	if (filename == nil) {
 		if (error) {
-			*error = [NSError errorWithDomain:NSOSStatusErrorDomain code:paramErr
-									 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringWithDefaultValue(@"No original sourceURL was set when created.", @"ZoomErrors", [NSBundle bundleForClass: [self class]], @"ZoomMetadata wasn't created referencing a file.", @"No original source URL was set when created."),
-												NSDebugDescriptionErrorKey: @"No original source URL was set when created."}];
+			*error = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadNoSuchFileError
+									 userInfo: @{NSLocalizedDescriptionKey: NSLocalizedStringWithDefaultValue(@"No original sourceURL was set when created.", @"ZoomErrors", [NSBundle bundleForClass: [self class]], @"ZoomMetadata wasn't created referencing a file.", @"No original source URL was set when created."),
+												 NSDebugDescriptionErrorKey: @"No original source URL was set when created."}];
 		}
 		return NO;
 	}
@@ -366,17 +366,27 @@ static int fileHandleWrite(const char* bytes, int length, void* userData) {
 								error: error];
 #else
 	// This does not honor the atomic property.
-	int fd = open(path.fileSystemRepresentation, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (fd == -1) {
-		if (error) {
-			*error = [NSError errorWithDomain: NSPOSIXErrorDomain
-										 code: errno
-									 userInfo: @{NSURLErrorKey: path}];
+	NSFileHandle *fh;
+	if (![path checkResourceIsReachableAndReturnError:NULL]) {
+		int fd = open(path.fileSystemRepresentation, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (fd == -1) {
+			if (error) {
+				*error = [NSError errorWithDomain: NSPOSIXErrorDomain
+											 code: errno
+										 userInfo: @{NSURLErrorKey: path}];
+			}
+			return NO;
 		}
-		return NO;
+		fh = [[NSFileHandle alloc] initWithFileDescriptor: fd
+										   closeOnDealloc: YES];
+	} else {
+		fh = [NSFileHandle fileHandleForWritingToURL: path
+											   error: error];
+		if (!fh) {
+			return nil;
+		}
 	}
-	NSFileHandle *fh = [[NSFileHandle alloc] initWithFileDescriptor: fd
-													 closeOnDealloc: YES];
+	
 	[dataLock lock];
 	
 	IF_WriteIfiction(metadata, fileHandleWrite, (__bridge void *)(fh));

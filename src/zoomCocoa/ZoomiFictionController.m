@@ -2543,7 +2543,10 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 	}
 
 	// Write any new metadata
-	[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
+	NSError *err;
+	if (![[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: &err]) {
+		[self presentError: err];
+	}
 	
 	signpostId = nil;
 }

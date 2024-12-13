@@ -305,7 +305,12 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			if theStory!.title == nil {
 				theStory!.title = filename.deletingPathExtension().lastPathComponent
 			}
-			try? (NSApp.delegate as! ZoomAppDelegate).userMetadata().writeToDefaultFile()
+			do {
+				try (NSApp.delegate as! ZoomAppDelegate).userMetadata().writeToDefaultFile()
+			} catch {
+				// just log it for now
+				NSLog("%@", (error as NSError))
+			}
 		}
 		
 		if let oldURLID,
@@ -357,7 +362,11 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			if delete {
 				let usrMeta = (NSApp.delegate as! ZoomAppDelegate).userMetadata()
 				usrMeta.removeStory(withIdent: ident)
-				try? usrMeta.writeToDefaultFile()
+				do {
+					try usrMeta.writeToDefaultFile()
+				} catch {
+					NSApp.presentError(error)
+				}
 			}
 		}
 		

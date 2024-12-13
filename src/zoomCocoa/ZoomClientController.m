@@ -274,7 +274,7 @@
 		
 		NSError *err;
 		if (![[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: &err]) {
-			[NSApp presentError:err];
+			[NSApp presentError: err];
 		}
 	}
 }

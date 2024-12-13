@@ -406,7 +406,10 @@
 		[storyInfo setZarfian: [[sgIValues objectForKey: @"zarfRating"] unsignedIntValue]];
 		[storyInfo setRating: [[sgIValues objectForKey: @"rating"] floatValue]];
 		
-		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: NULL];
+		NSError *err;
+		if (![[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFileWithError: &err]) {
+			[self presentError: err];
+		}
 	}
 }
 
