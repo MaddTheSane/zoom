@@ -55,9 +55,9 @@ private func loadMetadataFromBlorb(at url: URL, lookingFor identifier: ZoomStory
 	return meta.findStory(identifier)
 }
 
-class ImportExtension: CSImportExtension {
+public class ImportExtension: CSImportExtension {
     
-    override func update(_ attributes: CSSearchableItemAttributeSet, forFileAt: URL) throws {
+    public override func update(_ attributes: CSSearchableItemAttributeSet, forFileAt: URL) throws {
 		ZoomIsSpotlightIndexing = true
 		
 		let story_id = try ZoomStoryID(zCodeFileAt: forFileAt)

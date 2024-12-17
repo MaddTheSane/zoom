@@ -6170,7 +6170,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/NewSpotlight/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ZoomNewSpotlight;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "©2024 C.W. \"Madd the Sane\" Betts";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
@@ -6201,7 +6201,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/NewSpotlight/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ZoomNewSpotlight;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "©2024 C.W. \"Madd the Sane\" Betts";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
@@ -6227,7 +6227,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/ZoomNewSaveQL/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Zoom Save QL";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "©2024 C.W. \"Madd the Sane\" Betts";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
@@ -6256,7 +6256,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/ZoomNewSaveQL/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Zoom Save QL";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "©2024 C.W. \"Madd the Sane\" Betts";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
@@ -6750,7 +6750,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/ZoomThumbnailer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ZoomThumbnailer;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "©2024 C.W. \"Madd the Sane\" Betts";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
@@ -6778,7 +6778,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = src/zoomCocoa/ZoomThumbnailer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ZoomThumbnailer;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "©2024 C.W. \"Madd the Sane\" Betts";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",

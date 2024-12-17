@@ -9,8 +9,8 @@ import QuickLookThumbnailing
 import ZoomPlugIns
 import ZoomPlugIns.ZoomBabel
 
-class ThumbnailProvider: QLThumbnailProvider {
-	override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
+public class ThumbnailProvider: QLThumbnailProvider {
+	public override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
 		let url = request.fileURL
 		// Try to get the image via babel for this file
 		guard url.isFileURL else {

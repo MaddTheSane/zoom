@@ -105,8 +105,8 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 		}()
 		let ifidCont: AttributeContainer = {
 			let ifidAttr: [NSAttributedString.Key: Any] = [.font: ifidFont,
-															.foregroundColor: foreground,
-															.backgroundColor: background]
+														   .foregroundColor: foreground,
+														   .backgroundColor: background]
 			return try! AttributeContainer(ifidAttr, including: AttributeScopes.AppKitAttributes.self)
 		}()
 		let descrCont: AttributeContainer = {
@@ -161,7 +161,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			}
 		}
 
-		let reply = QLPreviewReply(contextSize: previewSize, isBitmap: false) { cgContext, reply in
+		return QLPreviewReply(contextSize: previewSize, isBitmap: false) { cgContext, reply in
 			if let title = story.title {
 				reply.title = title
 			}
@@ -196,8 +196,6 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			let descRect = NSRect(x: imageRect.size.width + 24, y: 8, width: (previewSize.width - previewSize.height) - 16, height: previewSize.height - 16)
 			nsDescription.draw(in: descRect)
 		}
-		
-		return reply
 	}
 	
 	public func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {

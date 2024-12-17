@@ -293,7 +293,7 @@ NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotific
     self = [super init];
 
     if (self) {
-        data = dt;
+        data = [dt copy];
         pos = 0;
     }
 
