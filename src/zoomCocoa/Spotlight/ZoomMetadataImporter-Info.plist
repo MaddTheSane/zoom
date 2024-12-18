@@ -40,7 +40,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
-				<string>uk.org.logicalshift.zoom</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ZCode story</string>
@@ -73,7 +72,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
-				<string>uk.org.logicalshift.zoom</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ZCode story</string>

@@ -211,7 +211,7 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	
 	public static let supportedConverterFileTypes = ["public.ddollardollar"] + supportedExtensions
 	
-	public static var supportedConverterContentTypes: [UTType] {
+	public static let supportedConverterContentTypes: [UTType] = {
 		return [UTType(importedAs: "public.ddollardollar")]
-	}
+	}()
 }

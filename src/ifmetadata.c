@@ -1172,6 +1172,7 @@ char* IFStrnCpyC(char* dst, const IFMDChar* src, size_t sz) {
 	return dst;
 }
 
+#if !defined(HAVE_COREFOUNDATION) || defined(HAVE_WCHAR_H)
 static unsigned short int* GetUTF16(const IFMDChar* src, int* len) {
 	int pos, dpos;
 	int alloc;
@@ -1199,6 +1200,7 @@ static unsigned short int* GetUTF16(const IFMDChar* src, int* len) {
 
     return res;
 }
+#endif
 
 #ifdef HAVE_WCHAR_H
 wchar_t* IFStrnCpyW(wchar_t* dst, const IFMDChar* src, size_t sz) {

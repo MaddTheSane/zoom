@@ -340,13 +340,13 @@
 			
 		case GlkLogError:
 			msgSize = 12;
-			msgColour = [NSColor systemRedColor];
+			msgColour = [NSColor systemYellowColor];
 			isBold = YES;
 			break;
 			
 		case GlkLogFatalError:
 			msgSize = 12;
-			msgColour = [NSColor systemOrangeColor];
+			msgColour = [NSColor systemRedColor];
 			isBold = YES;
 			break;
 	}

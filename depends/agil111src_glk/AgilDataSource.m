@@ -39,12 +39,16 @@ static const char *const gfxext[GFX_EXT_CNT]={".pcx",
           ".gif",".png",".bmp",".jpg",
           ".fli",".flc"};
 
-#define SND_EXT_CNT 4
+#define SND_EXT_CNT 8
 // FIXME: Are there more possible formats?
 static const char *const sndext[SND_EXT_CNT]={".muc",
-          ".voc",
-          ".mid",
-          ".cmf"};
+  ".voc",
+  ".mid",
+  ".cmf",
+  ".mp3",
+  ".aif",
+  ".aiff",
+  ".m4a"};
 
 static int decodeImageFormat(glui32 image, int *cmd)
 {
@@ -177,6 +181,16 @@ static int decodeImageFormat(glui32 image, int *cmd)
         cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .cmf files right now!", urlPath.path]);
         return nil;
         break;
+        
+        // non-standard formats!
+      case 4: //.mp3
+      case 5: //.aif
+      case 6: //.aiff
+      case 7: //.m4a
+        // SFBAudioEngine can handle these formats.
+        return [NSData dataWithContentsOfURL:urlPath];
+        break;
+
         
       default:
         return nil;

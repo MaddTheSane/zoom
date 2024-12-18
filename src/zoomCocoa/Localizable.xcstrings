@@ -1209,6 +1209,23 @@
         }
       }
     },
+    "Glk Error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glk Error"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glk Error"
+          }
+        }
+      }
+    },
     "Go to label..." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2026,6 +2043,23 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "新しいものを使う"
+          }
+        }
+      }
+    },
+    "Warning:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning:"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning:"
           }
         }
       }

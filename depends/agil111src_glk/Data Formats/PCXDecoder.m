@@ -209,6 +209,9 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 		}
 		// TODO: byte-swap? This assumes a Little Endian architecture.
 		[hand getBytes:&pcxHeader length:sizeof(struct PCXHeader)];
+#if __BIG_ENDIAN__
+#error byte-swap pcxHeader before building for big endian architectures.
+#endif
 		
 		if (![self verifyHeaderWithError:outErr]) {
 			return nil;
@@ -425,9 +428,8 @@ pcxPlanesToPixels(unsigned char * const pixels,
 				break;
 			}
 			
-			for (int i = 0; i < cnt; i++) {
-				*bpos++ = chr;
-			}
+			memset(bpos, chr, cnt);
+			bpos += cnt;
 			
 			l += cnt;
 		}
