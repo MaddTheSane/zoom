@@ -2145,11 +2145,7 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 	
 	NSString* request;
 	
-	if ([mainTableView numberOfSelectedRows] == 1) {
-		request = NSLocalizedString(@"Are you sure you want to delete this game?", @"Are you sure you want to delete this game?");
-	} else {
-		request = NSLocalizedString(@"Are you sure you want to delete these games?", @"Are you sure you want to delete these games?");
-	}
+	request = [NSString localizedStringWithFormat:NSLocalizedString(@"Are you sure you want to delete these %li games?", @"Are you sure you want to delete these (count) games?"), (long)[mainTableView numberOfSelectedRows]];
 	
 	// Maybe FIXME: we can display this as a sheet, but we can't display the 'delete save game?'
 	// dialog that way (it appears as a sheet in the drawer. You'd expect a drawer to be a child

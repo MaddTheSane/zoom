@@ -22,6 +22,12 @@
             "value" : "%@ (finished)"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%@ (Terminé)"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -49,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@ (restored from %2$@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%1$@ (Restauré de %2$@)"
           }
         },
         "ja" : {
@@ -146,60 +158,91 @@
         }
       }
     },
-    "Are you sure you want to delete these games?" : {
-      "comment" : "Are you sure you want to delete these games?",
+    "Are you sure you want to delete these %li games?" : {
+      "comment" : "Are you sure you want to delete these (count) games?",
       "localizations" : {
         "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sind Sie sicher, dass Sie diese Spiele löschen möchten?"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Sind Sie sicher, dass Sie dieses Spiel löschen möchten?"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Sind Sie sicher, dass Sie diese %li Spiele löschen möchten?"
+                }
+              }
+            }
           }
         },
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Are you sure you want to delete these games?"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Are you sure you want to delete this game?"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "Are you sure you want to delete these %li games?"
+                }
+              }
+            }
           }
         },
         "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Are you sure you want to delete these games?"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Are you sure you want to delete this game?"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Are you sure you want to delete these %li games?"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Êtes-vous sûr de vouloir supprimer ce jeu ?"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "Êtes-vous sûr de vouloir supprimer ces %li jeux ?"
+                }
+              }
+            }
           }
         },
         "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "これらのゲームを削除してもよろしいですか？"
-          }
-        }
-      }
-    },
-    "Are you sure you want to delete this game?" : {
-      "comment" : "Are you sure you want to delete this game?",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sind Sie sicher, dass Sie dieses Spiel löschen möchten?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Are you sure you want to delete this game?"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Are you sure you want to delete this game?"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "このゲームを削除してもよろしいですか？"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "needs_review",
+                  "value" : "これらの%liのゲームを削除してもよろしいですか？"
+                }
+              }
+            }
           }
         }
       }
@@ -223,6 +266,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Are you sure you want to delete this saved game?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Êtes-vous sûr de vouloir supprimer ce jeu enregistré ?"
           }
         },
         "ja" : {
@@ -254,6 +303,12 @@
             "value" : "Are you sure?"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Êtes-vous sûr ?"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -283,6 +338,12 @@
             "value" : "This game has an autosave file associated with it. Starting a new game will cause this file to be overwritten."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ce jeu est associé à un fichier d'enregistrement automatique. Le démarrage d'un nouveau jeu entraînera l'écrasation de ce fichier."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -310,6 +371,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Annuler"
           }
         },
         "ja" : {
@@ -691,6 +758,12 @@
             "value" : "White"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blanc"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -720,6 +793,12 @@
             "value" : "Yellow"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jaune"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -743,6 +822,12 @@
             "value" : "Contents do not look like a saved game"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Le contenu ne ressemble pas à un jeu enregistré"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -764,6 +849,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Continuer"
           }
         },
         "ja" : {
@@ -1072,6 +1163,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "File has the wrong extension (%@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le fichier a la mauvaise extension (%@)"
           }
         },
         "ja" : {
@@ -1805,29 +1902,6 @@
         }
       }
     },
-    "Rating" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rating"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rating"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "評価"
-          }
-        }
-      }
-    },
     "Some story descriptions are already in the database" : {
       "comment" : "Some story descriptions are already in the database",
       "localizations" : {
@@ -2060,35 +2134,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Warning:"
-          }
-        }
-      }
-    },
-    "Warning: %@ is a file" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warnung: %1$@ ist eine Datei"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warning: %1$@ is a file"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warning: %1$@ is a file"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "警告：%1$@はファイルです"
           }
         }
       }
