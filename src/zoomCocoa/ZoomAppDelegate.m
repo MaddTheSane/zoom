@@ -47,6 +47,14 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 	self = [super init];
 	
 	if (self) {
+		// Remove old default keys.
+		{
+			NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+			[ud removeObjectForKey:@"ZoomTranscriptPath"];
+			[ud removeObjectForKey:@"ZoomiFictionSavePath"];
+			[ud removeObjectForKey:@"ZoomiFictionControllerDefaultDirectory"];
+		}
+		
 		// Ensure the plugins are available
 		[[ZoomPlugInManager sharedPlugInManager] finishUpdatingPlugins];
 		
