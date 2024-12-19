@@ -23,13 +23,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 @objcMembers final class ZoomStoryOrganiser: NSObject, Sendable {
 	// TODO: migrate to CoreData/Swift Data
 
-	@nonobjc @inlinable public class var changedNotification: NSNotification.Name {
-		return .__ZoomStoryOrganiserChanged
-	}
+	public static let changedNotification = NSNotification.Name(rawValue: "ZoomStoryOrganiserChangedNotification") 
 
-	@nonobjc @inlinable public class var progressNotification: NSNotification.Name {
-		return .__ZoomStoryOrganiserProgress
-	}
+	public static let progressNotification = NSNotification.Name(rawValue: "ZoomStoryOrganiserProgressNotification")
 	
 	@MainActor private(set) var stories = [Object]()
 	@MainActor private var gameDirectories = [String: URL]()

@@ -22,7 +22,6 @@
 #import <ZoomPlugIns/ZoomPlugInController.h>
 #import <ZoomPlugIns/ZoomDownload.h>
 #import <ZoomPlugIns/ZoomPlugIns-Swift.h>
-#import "ZoomStoryOrganiser.h"
 #import <ZoomView/ZoomView-Swift.h>
 #import "Zoom-Swift.h"
 

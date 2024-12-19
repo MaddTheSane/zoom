@@ -2127,7 +2127,7 @@ static UTType *getZoomSaveType(void) {
 					   forFilename: @"ZoomPreview.dat"];
 					}
 					[f addData: [NSKeyedArchiver archivedDataWithRootObject: self
-													  requiringSecureCoding: YES
+													  requiringSecureCoding: NO
 																	  error: NULL]
 				   forFilename: @"ZoomStatus.dat"];
 					

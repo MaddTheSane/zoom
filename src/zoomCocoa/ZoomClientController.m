@@ -11,7 +11,6 @@
 #import "ZoomClientController.h"
 #import <ZoomPlugIns/ZoomGameInfoController.h>
 #import <ZoomPlugIns/ZoomNotesController.h>
-#import "ZoomStoryOrganiser.h"
 #import <ZoomView/ZoomSkeinController.h>
 #import <ZoomView/ZoomConnector.h>
 #import <ZoomPlugIns/ZoomWindowThatCanBecomeKey.h>

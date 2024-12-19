@@ -12,7 +12,6 @@
 #include <tgmath.h>
 
 #import "ZoomiFictionController.h"
-#import "ZoomStoryOrganiser.h"
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>
 #import "ZoomAppDelegate.h"
@@ -356,13 +355,13 @@ NS_ENUM(NSInteger) {
 	// Update the table when the story list changes
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(storyListChanged:)
-												 name: ZoomStoryOrganiserChangedNotification
+												 name: ZoomStoryOrganiser.changedNotification
 											   object: [ZoomStoryOrganiser sharedStoryOrganiser]];
 	
 	// Deal with progress indicator notifications
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(storyProgressChanged:)
-												 name: ZoomStoryOrganiserProgressNotification
+												 name: ZoomStoryOrganiser.progressNotification
 											   object: [ZoomStoryOrganiser sharedStoryOrganiser]];
 	
 	[self configureFromMainTableSelection];
