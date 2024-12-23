@@ -81,6 +81,10 @@ NSArray<UTType*>* ZoomContentTypesFromTypes(NSArray<NSString*> *sft)
 		} else if ([ident containsString:@"."]) {
 			// If it contains a period, it's probably a UTI.
 			UTType *type = [UTType typeWithIdentifier:ident];
+			// If just the identifier failed, try using the imported value.
+			if (type == nil) {
+				type = [UTType importedTypeWithIdentifier:ident];
+			}
 			//Because it might fail...
 			if (type != nil) {
 				[orderedSet addObject:type];
