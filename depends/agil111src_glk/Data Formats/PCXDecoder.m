@@ -82,7 +82,7 @@ typedef struct PCXHeader {
 	uint16_t vertDPI;
 	//! Header palette
 	uint8_t egaPalette[48];
-	//! unused, for future use?
+	//! Unused. For future use, or just padding?
 	char reserved;
 	//! number of planes
 	uint8_t colorPlanes;
@@ -210,7 +210,7 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 		// TODO: byte-swap? This assumes a Little Endian architecture.
 		[hand getBytes:&pcxHeader length:sizeof(struct PCXHeader)];
 #if __BIG_ENDIAN__
-#error byte-swap pcxHeader before building for big endian architectures.
+#error byte-swap pcxHeader before building for big endian architectures!
 #endif
 		
 		if (![self verifyHeaderWithError:outErr]) {

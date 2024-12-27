@@ -161,7 +161,7 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 	}
  
 	@objc(globalPreferences)
-	public static let global: ZoomPreferences = {
+	nonisolated(unsafe) public static let global: ZoomPreferences = {
 		_=firstRun
 		var toRet: ZoomPreferences
 		if let globalDict = UserDefaults.standard.dictionary(forKey: "ZoomGlobalPreferences") {

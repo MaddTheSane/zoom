@@ -80,7 +80,7 @@ static NSArray<AGILMUCEntry*> *mucDecode(NSURL *theFile, NSError *__autoreleasin
 
 static NSURL *tempAIFFURL(void)
 {
-	const char template[] = "/tmp/myfileXXXXXX.aiff";
+	static const char template[] = "/tmp/myfileXXXXXXXX.aiff";
 	char fname[PATH_MAX];
 	strcpy(fname, template);		/* Copy template */
 	int fd = mkstemp(fname);		/* Create and open temp file */
@@ -118,7 +118,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 		return nil;
 	}
 		float *const  *channelsData = buffer.floatChannelData;
-		float *theChannelData = *channelsData;
+		float *theChannelData = channelsData[0];
 		
 		NSInteger currentSample = 0;
 		for (AGILMUCEntry *entry in entries) {
