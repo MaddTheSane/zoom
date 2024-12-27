@@ -550,7 +550,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	
 	NSBitmapImageRep *imgRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes pixelsWide:xFull pixelsHigh:yFull bitsPerSample:8 samplesPerPixel:3 hasAlpha:NO isPlanar:YES colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:pcxHeader.colorPlaneBytes bitsPerPixel:0];
 	imgRep = [imgRep bitmapImageRepByRetaggingWithColorSpace:[NSColorSpace sRGBColorSpace]];
-	self.dataRepresentation = [imgRep TIFFRepresentation];
+	self.dataRepresentation = [imgRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}] ?: [imgRep TIFFRepresentation];
 	// free memory
 	free(planes[0]); planes[0] = NULL;
 	free(planes[1]); planes[1] = NULL;
