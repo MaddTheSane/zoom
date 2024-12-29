@@ -26,7 +26,7 @@ static FILE *linopen(const char *name, const char *ext)
   return f;
 }
 
-#define GFX_EXT_CNT 17
+#define GFX_EXT_CNT 20
 /* The extension indicates the video mode the picture was intended
    to be viewed in. */
 static const char *const gfxext[GFX_EXT_CNT]={".pcx",
@@ -36,8 +36,8 @@ static const char *const gfxext[GFX_EXT_CNT]={".pcx",
           ".p19", /* 320x200x256 */
           ".p14",".p16", /* 640x200x16, 640x350x16   */
           ".p18", /* 640x480x16 */
-          ".gif",".png",".bmp",".jpg",
-          ".fli",".flc"};
+          ".gif",".png",".bmp",".jpg",".jpeg",".jpe",
+          ".fli",".flc",".flic"};
 
 #define SND_EXT_CNT 8
 // FIXME: Are there more possible formats?
@@ -98,7 +98,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
     NSString *fileName = [@(pictname) stringByAppendingString:@(gfxext[gmode])];
     NSURL *urlPath = [gameDir URLByAppendingPathComponent:fileName];
     
-    if (gmode <= 11 && gmode >= 14) {
+    if (gmode <= 11 && gmode >= 16) {
       // NSImage can be used to load these files!
       return [NSData dataWithContentsOfURL:urlPath];
     } else if (gmode < 11) {

@@ -44,8 +44,8 @@ private let imgExts = [
 	"p19", /* 320x200x256 */
 	"p14","p16", /* 640x200x16, 640x350x16   */
 	"p18", /* 640x480x16 */
-	"gif","png","bmp","jpg", "jpeg",
-	"fli","flc"]
+	"gif","png","bmp","jpg","jpeg","jpe",
+	"fli","flc","flic"]
 
 final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	public override class var pluginVersion: String {
@@ -164,7 +164,7 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 					} catch {
 						NSLog("PCX conversion failed: \(error)")
 					}
-				} else if i > 16 {
+				} else if i > 17 {
 					if let gifData = CreateGIFFromFLICFileURL(theOut as NSURL, true) as Data?,
 					   let image = NSImage(data: gifData) {
 						return image
