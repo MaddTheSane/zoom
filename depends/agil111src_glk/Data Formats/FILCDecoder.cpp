@@ -12,6 +12,8 @@
 
 #include "flic.h"
 
+#pragma GCC visibility push(hidden)
+
 static CFDataRef CreateGIFFromFile(flic::FileInterface *file) CF_RETURNS_RETAINED;
 static CFDataRef CreateGIFFromFileCrunch(flic::FileInterface *file) CF_RETURNS_RETAINED;
 static CFDataRef createColorDataFromFrame(const flic::Frame& header) CF_RETURNS_RETAINED;
@@ -105,6 +107,8 @@ static CFDataRef createColorDataFromFrame(const flic::Frame& header)
   }
   return toRet;
 }
+
+#pragma GCC visibility pop
 
 static CFDataRef createDataFromBuffer(const flic::Frame &frame, const flic::Header &header)
 {

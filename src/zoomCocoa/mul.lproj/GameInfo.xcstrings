@@ -82,6 +82,12 @@
             "state" : "translated",
             "value" : "Fantasy"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファンタジー"
+          }
         }
       }
     },
