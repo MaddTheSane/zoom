@@ -265,7 +265,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="286" height="101"/>
                                                             <clipView key="contentView" drawsBackground="NO" id="g80-iA-Y0N">
                                                                 <rect key="frame" x="1" y="1" width="284" height="99"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="68">
                                                                         <rect key="frame" x="0.0" y="0.0" width="284" height="99"/>
@@ -331,7 +331,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="286" height="110"/>
                                                             <clipView key="contentView" drawsBackground="NO" id="Xv0-4q-qlf">
                                                                 <rect key="frame" x="1" y="1" width="284" height="108"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="64">
                                                                         <rect key="frame" x="0.0" y="50" width="284" height="108"/>

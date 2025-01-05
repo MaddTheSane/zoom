@@ -40,6 +40,12 @@
             "state" : "translated",
             "value" : "General"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "将軍"
+          }
         }
       }
     },
@@ -106,6 +112,12 @@
             "state" : "translated",
             "value" : "Science Fiction"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "サイエンスフィクション"
+          }
         }
       }
     },
@@ -125,7 +137,8 @@
             "value" : "Menu"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "87.title" : {
       "comment" : "Class = \"NSMenuItem\"; title = \"Mystery\"; ObjectID = \"87\";",
@@ -141,6 +154,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mystery"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "謎"
           }
         }
       }
@@ -160,6 +179,12 @@
             "state" : "translated",
             "value" : "Surreal"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "超現実的な"
+          }
         }
       }
     },
@@ -177,6 +202,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Parody"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "パロディ"
           }
         }
       }
@@ -196,6 +227,12 @@
             "state" : "translated",
             "value" : "Humour"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "フモール"
+          }
         }
       }
     },
@@ -213,6 +250,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Romance"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ロマンス"
           }
         }
       }
@@ -232,6 +275,12 @@
             "state" : "translated",
             "value" : "Horror"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "恐怖"
+          }
         }
       }
     },
@@ -249,6 +298,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fairy Tale"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "おとぎ話"
           }
         }
       }
@@ -268,6 +323,12 @@
             "state" : "translated",
             "value" : "Historical"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "歴史的な"
+          }
         }
       }
     },
@@ -285,6 +346,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Interpreter Abuse"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "通訳者の乱用"
           }
         }
       }
@@ -304,6 +371,12 @@
             "state" : "translated",
             "value" : "Arcade"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アーケード"
+          }
         }
       }
     },
@@ -321,6 +394,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ratings"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "評価"
           }
         }
       }
@@ -340,6 +419,12 @@
             "state" : "translated",
             "value" : "Polite"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "礼儀正しい"
+          }
         }
       }
     },
@@ -357,6 +442,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Merciful"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "慈悲深い"
           }
         }
       }
@@ -376,6 +467,12 @@
             "state" : "translated",
             "value" : "Unrated"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "観客指定を受けていない"
+          }
         }
       }
     },
@@ -393,6 +490,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tough"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "厳しい"
           }
         }
       }
@@ -412,6 +515,12 @@
             "state" : "translated",
             "value" : "Nasty"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "意地の悪い"
+          }
         }
       }
     },
@@ -429,6 +538,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cruel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "残酷な"
           }
         }
       }
@@ -448,6 +563,12 @@
             "state" : "translated",
             "value" : "Speed-IF"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "スピード-IF"
+          }
         }
       }
     },
@@ -465,6 +586,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blorb"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ブロブ"
           }
         }
       }
@@ -484,6 +611,12 @@
             "state" : "translated",
             "value" : "Contemporary Fiction"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "現代フィクション"
+          }
         }
       }
     },
@@ -502,6 +635,12 @@
             "state" : "translated",
             "value" : "Name"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "名"
+          }
         }
       }
     },
@@ -519,6 +658,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Author"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "著者"
           }
         }
       }
@@ -562,6 +707,12 @@
             "state" : "translated",
             "value" : "Group"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "グループ"
+          }
         }
       }
     },
@@ -604,6 +755,12 @@
             "state" : "translated",
             "value" : "Genre"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ジャンル"
+          }
         }
       }
     },
@@ -621,6 +778,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Teaser"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "難問"
           }
         }
       }
@@ -640,6 +803,12 @@
             "state" : "translated",
             "value" : "Comments"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "コメント"
+          }
         }
       }
     },
@@ -657,6 +826,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zarfian cruelty rating"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ザルフィアンの残酷さの評価"
           }
         }
       }
@@ -676,6 +851,12 @@
             "state" : "translated",
             "value" : "My rating"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "私の評価"
+          }
         }
       }
     },
@@ -693,6 +874,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Terrible"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ひどい"
           }
         }
       }
@@ -712,6 +899,12 @@
             "state" : "translated",
             "value" : "Excellent"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "すばらしい"
+          }
         }
       }
     },
@@ -728,6 +921,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choose…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "選ぶ..."
           }
         }
       }
@@ -747,6 +946,12 @@
             "state" : "translated",
             "value" : "Fantasy"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ファンタジー"
+          }
         }
       }
     },
@@ -764,6 +969,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Science Fiction"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "サイエンスフィクション"
           }
         }
       }
@@ -783,6 +994,12 @@
             "state" : "translated",
             "value" : "Horror"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "恐怖"
+          }
         }
       }
     },
@@ -800,6 +1017,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fairy Tale"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "おとぎ話"
           }
         }
       }
@@ -819,6 +1042,12 @@
             "state" : "translated",
             "value" : "Surreal"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "超現実的な"
+          }
         }
       }
     },
@@ -836,6 +1065,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Contemporary Fiction"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "現代フィクション"
           }
         }
       }
@@ -855,6 +1090,12 @@
             "state" : "translated",
             "value" : "Mystery"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "謎"
+          }
         }
       }
     },
@@ -872,6 +1113,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Romance"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ロマンス"
           }
         }
       }
@@ -891,6 +1138,12 @@
             "state" : "translated",
             "value" : "Historical"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "歴史的な"
+          }
         }
       }
     },
@@ -908,6 +1161,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Humour"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "フモール"
           }
         }
       }
@@ -927,6 +1186,12 @@
             "state" : "translated",
             "value" : "Parody"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "パロディ"
+          }
         }
       }
     },
@@ -944,6 +1209,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Speed-IF"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "スピード-IF"
           }
         }
       }
@@ -963,6 +1234,12 @@
             "state" : "translated",
             "value" : "Arcade"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "アーケード"
+          }
         }
       }
     },
@@ -980,6 +1257,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Interpreter Abuse"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "通訳者の乱用"
           }
         }
       }

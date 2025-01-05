@@ -154,7 +154,8 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 		for (i, ext) in imgExts.enumerated().reversed() {
 			let theOut = imageBase.appendingPathExtension(ext)
 			if FileManager.default.fileExists(atPath: theOut.path) {
-				if i < 11 {
+				switch i {
+				case 0 ..< 11:
 					do {
 						let dec = try PCXDecoder(fileAt: theOut)
 						if let imgData = dec.dataRepresentation,
@@ -164,13 +165,16 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 					} catch {
 						NSLog("PCX conversion failed: \(error)")
 					}
-				} else if i > 17 {
+					
+				case 17 ..< 20:
 					if let gifData = CreateGIFFromFLICFileURL(theOut as NSURL, true) as Data?,
 					   let image = NSImage(data: gifData) {
 						return image
 					}
-				
-				} else {
+					
+				case 11 ... 16:
+					fallthrough
+				default:
 					if let image = NSImage(contentsOf: theOut) {
 						return image
 					}

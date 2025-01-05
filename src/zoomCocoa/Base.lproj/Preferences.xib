@@ -93,7 +93,7 @@
                         <outlet property="nextKeyView" destination="148" id="269"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="151">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="151">
                     <rect key="frame" x="326" y="20" width="64" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="center" title="Everything" id="449">
                         <font key="font" metaFont="smallSystem"/>
@@ -101,7 +101,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="150">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="150">
                     <rect key="frame" x="20" y="20" width="56" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="center" title="Minimum" id="448">
                         <font key="font" metaFont="smallSystem"/>
@@ -109,7 +109,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="149">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="149">
                     <rect key="frame" x="17" y="73" width="376" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Amount of scrollback to retain:" id="447">
                         <font key="font" metaFont="system"/>
@@ -241,7 +241,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <popUpButton imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="400">
-                    <rect key="frame" x="192" y="204" width="182" height="25"/>
+                    <rect key="frame" x="144" y="204" width="230" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="Git (fastest)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="403" id="460">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="message"/>
@@ -257,8 +257,8 @@
                         <outlet property="nextKeyView" destination="48" id="406"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="398">
-                    <rect key="frame" x="18" y="211" width="107" height="16"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="398">
+                    <rect key="frame" x="18" y="211" width="123" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Glulx Interpreter:" id="459">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -362,15 +362,15 @@
                         </constraints>
                     </view>
                 </box>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="77">
-                    <rect key="frame" x="18" y="151" width="59" height="17"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="77">
+                    <rect key="frame" x="18" y="151" width="123" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Revision:" id="455">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="76">
                     <rect key="frame" x="18" y="181" width="123" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Z-Code Interpreter:" id="454">
                         <font key="font" metaFont="system"/>
@@ -379,7 +379,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton imageHugsTitle="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="48">
-                    <rect key="frame" x="192" y="174" width="182" height="25"/>
+                    <rect key="frame" x="144" y="174" width="230" height="25"/>
                     <string key="toolTip">Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behavior of many Infocom games.</string>
                     <popUpButtonCell key="cell" type="push" title="3 - Macintosh" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="49" id="453">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -400,16 +400,13 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="175" id="UpY-h3-9mK"/>
-                    </constraints>
                     <connections>
                         <action selector="interpreterChanged:" target="-2" id="74"/>
                         <outlet property="nextKeyView" destination="25" id="272"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="25">
-                    <rect key="frame" x="195" y="149" width="175" height="21"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="25">
+                    <rect key="frame" x="147" y="149" width="223" height="21"/>
                     <string key="toolTip">Set this to change the interpreter revision reported to games. Most games just report this at the start and make no further use of it.</string>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="452">
                         <font key="font" metaFont="system"/>
@@ -432,7 +429,7 @@
                 <constraint firstItem="107" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="116" secondAttribute="trailing" constant="8" symbolic="YES" id="Cmb-PY-c6d"/>
                 <constraint firstItem="25" firstAttribute="firstBaseline" secondItem="77" secondAttribute="firstBaseline" id="F7P-OD-fNA"/>
                 <constraint firstItem="400" firstAttribute="trailing" secondItem="48" secondAttribute="trailing" id="I5J-Qv-2i5"/>
-                <constraint firstItem="25" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="77" secondAttribute="trailing" constant="8" symbolic="YES" id="IBD-9T-QIz"/>
+                <constraint firstItem="25" firstAttribute="leading" secondItem="77" secondAttribute="trailing" constant="8" symbolic="YES" id="IBD-9T-QIz"/>
                 <constraint firstItem="89" firstAttribute="leading" secondItem="15" secondAttribute="leading" constant="268" id="ItM-ak-bLk"/>
                 <constraint firstItem="48" firstAttribute="leading" secondItem="25" secondAttribute="leading" id="JGI-bP-TrT"/>
                 <constraint firstItem="85" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="19" id="M0K-al-nGF"/>
@@ -443,8 +440,9 @@
                 <constraint firstItem="25" firstAttribute="top" secondItem="48" secondAttribute="bottom" constant="8" symbolic="YES" id="Ped-gf-DF3"/>
                 <constraint firstAttribute="bottom" secondItem="106" secondAttribute="bottom" constant="20" symbolic="YES" id="PfR-QW-a4F"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="77" secondAttribute="leading" id="Pim-hS-QNP"/>
+                <constraint firstItem="77" firstAttribute="trailing" secondItem="398" secondAttribute="trailing" id="TRj-6q-jlc"/>
                 <constraint firstItem="85" firstAttribute="top" secondItem="25" secondAttribute="bottom" constant="17" id="WbP-XL-gFu"/>
-                <constraint firstItem="48" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="8" symbolic="YES" id="XGq-4L-16O"/>
+                <constraint firstItem="76" firstAttribute="trailing" secondItem="398" secondAttribute="trailing" id="ZtU-P8-lv4"/>
                 <constraint firstItem="89" firstAttribute="leading" secondItem="85" secondAttribute="trailing" constant="8" symbolic="YES" id="cvY-kj-bWV"/>
                 <constraint firstItem="400" firstAttribute="firstBaseline" secondItem="398" secondAttribute="firstBaseline" id="dAR-7p-89g"/>
                 <constraint firstItem="400" firstAttribute="leading" secondItem="48" secondAttribute="leading" id="fwH-er-E75"/>
@@ -452,7 +450,6 @@
                 <constraint firstItem="48" firstAttribute="top" secondItem="400" secondAttribute="bottom" constant="10" symbolic="YES" id="maw-64-Faf"/>
                 <constraint firstItem="106" firstAttribute="top" secondItem="85" secondAttribute="bottom" constant="8" symbolic="YES" id="oQe-cu-T1z"/>
                 <constraint firstItem="48" firstAttribute="firstBaseline" secondItem="76" secondAttribute="firstBaseline" id="oSc-uJ-cyV"/>
-                <constraint firstItem="400" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="398" secondAttribute="trailing" constant="8" symbolic="YES" id="ptr-6x-ZUK"/>
                 <constraint firstAttribute="trailing" secondItem="25" secondAttribute="trailing" constant="20" symbolic="YES" id="qSC-nw-89q"/>
                 <constraint firstItem="400" firstAttribute="top" secondItem="15" secondAttribute="top" constant="19" id="u3L-La-v7T"/>
                 <constraint firstItem="106" firstAttribute="leading" secondItem="15" secondAttribute="leading" constant="20" symbolic="YES" id="vPm-ww-ZMc"/>
@@ -475,7 +472,7 @@
                                 <rect key="frame" x="10" y="33" width="353" height="342"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="124">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="124">
                                         <rect key="frame" x="20" y="326" width="79" height="11"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Proportional font" id="461">
                                             <font key="font" metaFont="miniSystem"/>
@@ -483,7 +480,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="125">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="125">
                                         <rect key="frame" x="20" y="285" width="75" height="11"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Fixed-pitch font" id="462">
                                             <font key="font" metaFont="miniSystem"/>
@@ -491,7 +488,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="126">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="126">
                                         <rect key="frame" x="20" y="244" width="74" height="11"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="&quot;Symbolic&quot; font" id="463">
                                             <font key="font" metaFont="miniSystem"/>
@@ -553,7 +550,7 @@
                                             <outlet property="nextKeyView" destination="161" id="279"/>
                                         </connections>
                                     </popUpButton>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="143">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="143">
                                         <rect key="frame" x="20" y="25" width="313" height="33"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" id="467">
                                             <font key="font" metaFont="miniSystem"/>
@@ -565,7 +562,7 @@
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="144">
                                         <rect key="frame" x="12" y="199" width="329" height="5"/>
                                     </box>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="160">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="160">
                                         <rect key="frame" x="17" y="179" width="44" height="11"/>
                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Font size" id="468">
                                             <font key="font" metaFont="miniSystem"/>
@@ -583,7 +580,7 @@
                                             <outlet property="nextKeyView" destination="119" id="280"/>
                                         </connections>
                                     </slider>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="163">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="163">
                                         <rect key="frame" x="296" y="125" width="37" height="16"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="36pt" id="470">
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -591,7 +588,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="164">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="164">
                                         <rect key="frame" x="20" y="125" width="29" height="16"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="9pt" id="471">
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -599,7 +596,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="165">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="165">
                                         <rect key="frame" x="159" y="125" width="35" height="16"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="12pt" id="472">
                                             <font key="font" usesAppearanceFont="YES"/>
@@ -610,7 +607,7 @@
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="166">
                                         <rect key="frame" x="12" y="114" width="329" height="5"/>
                                     </box>
-                                    <textField toolTip="This displays a preview of your settings." verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                                    <textField toolTip="This displays a preview of your settings." focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="168">
                                         <rect key="frame" x="20" y="66" width="313" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="AMQ-qt-F5c"/>
@@ -788,7 +785,7 @@
                                     <outlet property="nextKeyView" destination="42" id="291"/>
                                 </connections>
                             </slider>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="102">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="102">
                                 <rect key="frame" x="18" y="20" width="79" height="14"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Transparency:" id="475">
                                     <font key="font" metaFont="smallSystem"/>
@@ -955,7 +952,7 @@ Note that screen fonts have been deprecated for a long time: leave this off.</st
                         <outlet property="nextKeyView" destination="199" id="289"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="197">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="197">
                     <rect key="frame" x="274" y="139" width="76" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Wide margins" id="479">
                         <font key="font" metaFont="smallSystem"/>
@@ -963,7 +960,7 @@ Note that screen fonts have been deprecated for a long time: leave this off.</st
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="196">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="196">
                     <rect key="frame" x="20" y="139" width="87" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Narrow margins" id="478">
                         <font key="font" metaFont="smallSystem"/>
@@ -1040,7 +1037,7 @@ Note that screen fonts have been deprecated for a long time: leave this off.</st
                         <action selector="showCoverPictureChanged:" target="-2" id="331"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="252">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="252">
                     <rect key="frame" x="20" y="100" width="144" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default background colour" id="488">
                         <font key="font" metaFont="smallSystem"/>
@@ -1066,7 +1063,7 @@ Note that screen fonts have been deprecated for a long time: leave this off.</st
                         <outlet property="nextKeyView" destination="233" id="255"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="246">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="246">
                     <rect key="frame" x="20" y="143" width="102" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default text colour" id="486">
                         <font key="font" metaFont="smallSystem"/>
