@@ -61,6 +61,10 @@
 				<array>
 					<string>agx</string>
 				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-agt</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
