@@ -191,7 +191,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		return toRet
 	}()
 	@MainActor private var dataChangedNotificationObject: NSObjectProtocol! = nil
-	@MainActor private var alreadyOrganising = false
+	nonisolated(unsafe) private var alreadyOrganising = false
 	@MainActor private var organizerChanged = false
 	@MainActor private var checkTimer: Timer! = nil
 	
@@ -1440,11 +1440,9 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 		
 		// Not organising any more
-		await MainActor.run(body: {
-			storyLock.withLock {
-				alreadyOrganising = false
-			}
-		})
+		storyLock.withLock {
+			alreadyOrganising = false
+		}
 		
 		// Tidy up
 		await endedActing()
@@ -1467,26 +1465,23 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			coverPictureNumber = Int32(bitPattern: val)
 		}
 		
-		if coverPictureNumber >= 0 {
-			// Attempt to retrieve the cover picture image
-			guard let coverPictureData = decodedFile.imageData(withNumber: coverPictureNumber),
-				  let coverPicture = NSImage(data: coverPictureData) else {
-					  return nil
-				  }
-			
-			// Sometimes the image size and pixel size do not match up
-			let coverRep = coverPicture.representations.first!
-			let pixSize = NSSize(width: coverRep.pixelsWide, height: coverRep.pixelsHigh)
-			
-			if pixSize != .zero, // just in case it's a vector format. Not likely, but still possible.
-			   pixSize != coverPicture.size {
-				coverPicture.size = pixSize
-			}
-			
-			return coverPicture
+		guard coverPictureNumber >= 0,
+			  // Attempt to retrieve the cover picture image
+			  let coverPictureData = decodedFile.imageData(withNumber: coverPictureNumber),
+			  let coverPicture = NSImage(data: coverPictureData) else {
+			return nil
 		}
 		
-		return nil
+		// Sometimes the image size and pixel size do not match up
+		let coverRep = coverPicture.representations.first!
+		let pixSize = NSSize(width: coverRep.pixelsWide, height: coverRep.pixelsHigh)
+		
+		if pixSize != .zero, // just in case it's a vector format. Not likely, but still possible.
+		   pixSize != coverPicture.size {
+			coverPicture.size = pixSize
+		}
+		
+		return coverPicture
 	}
 
 	@objc(frontispieceForURL:)
