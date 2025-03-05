@@ -136,7 +136,7 @@
 - (void) blinkCursor: (__unused ZoomCursor*) sender {
 	// Draw the cursor
 	[self setNeedsDisplay: YES];
-	// [self setNeedsDisplayInRect: [cursor cursorRect]]; -- FAILS, for some reason the window does not get redrawn correctly
+	// [self setNeedsDisplayInRect: [cursor cursorRect]]; -- FIXME: FAILS, for some reason the window does not get redrawn correctly
 }
 
 - (void) setFlashCursor: (BOOL) flash {

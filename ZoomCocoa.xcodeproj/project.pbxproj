@@ -320,7 +320,7 @@
 		554A4541291CC25300C090C3 /* Hugo.plugin in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 5591DC1E29163EB400BF6F6F /* Hugo.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5551384B29678A9C002BAAAC /* AgilDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551384A29678A9C002BAAAC /* AgilDataSource.m */; };
 		5552DA5D2CD452B600BA6559 /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
-		5552DA5E2CD4BE0000BA6559 /* FILCDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E478A12968CD660017646D /* FILCDecoder.cpp */; };
+		5552DA5E2CD4BE0000BA6559 /* FILCDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55E478A12968CD660017646D /* FILCDecoder.mm */; };
 		5552DA5F2CD4C0DC00BA6559 /* libflic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E478872968CCD10017646D /* libflic.a */; };
 		5553B9AC270C2298004FBE3F /* ZoomSkeinWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5553B9A6270C2297004FBE3F /* ZoomSkeinWeb.h */; };
 		55687B1C29A0B4B80005E1AE /* ZpTadsTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 55687B1B29A0B4B80005E1AE /* ZpTadsTwo.m */; };
@@ -449,7 +449,7 @@
 		55E4789E2968CD0C0017646D /* decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E478982968CD0C0017646D /* decoder.cpp */; };
 		55E4789F2968CD0C0017646D /* flic.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E478992968CD0C0017646D /* flic.h */; };
 		55E478A02968CD0C0017646D /* encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E4789B2968CD0C0017646D /* encoder.cpp */; };
-		55E478A32968CD660017646D /* FILCDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E478A12968CD660017646D /* FILCDecoder.cpp */; };
+		55E478A32968CD660017646D /* FILCDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55E478A12968CD660017646D /* FILCDecoder.mm */; };
 		55EFEC4F25627335001E0823 /* glulxe-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B7CB1CB093634DD00F3B8F6 /* glulxe-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55EFEC5025627335001E0823 /* git-client in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BD093970FACAEEE001F7EF0 /* git-client */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55FF56852758C481000B0D21 /* GlkSound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF6A8C50E2D5F8800A9CD10 /* GlkSound.framework */; };
@@ -1870,7 +1870,7 @@
 		55E478992968CD0C0017646D /* flic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flic.h; sourceTree = "<group>"; };
 		55E4789A2968CD0C0017646D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		55E4789B2968CD0C0017646D /* encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encoder.cpp; sourceTree = "<group>"; };
-		55E478A12968CD660017646D /* FILCDecoder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FILCDecoder.cpp; sourceTree = "<group>"; };
+		55E478A12968CD660017646D /* FILCDecoder.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FILCDecoder.mm; sourceTree = "<group>"; };
 		55E478A22968CD660017646D /* FILCDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FILCDecoder.h; sourceTree = "<group>"; };
 		55FF5B14275A262C000B0D21 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		55FF5B1A275A262C000B0D21 /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = depends/CocoaGlk/GlkSound/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<group>"; };
@@ -2817,7 +2817,7 @@
 			isa = PBXGroup;
 			children = (
 				55E478A22968CD660017646D /* FILCDecoder.h */,
-				55E478A12968CD660017646D /* FILCDecoder.cpp */,
+				55E478A12968CD660017646D /* FILCDecoder.mm */,
 				551522F12CBF2F2E008BA283 /* MUCConverter.h */,
 				551522EF2CBF2F21008BA283 /* MUCConverter.m */,
 				55E4787B2967FFD00017646D /* PCXDecoder.h */,
@@ -3255,8 +3255,10 @@
 				55E478922968CD0C0017646D /* README.md */,
 				55E478912968CD0C0017646D /* stdio.cpp */,
 			);
+			indentWidth = 2;
 			path = libflic;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		55FF5B15275A262C000B0D21 /* Products */ = {
 			isa = PBXGroup;
@@ -4697,7 +4699,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5552DA5E2CD4BE0000BA6559 /* FILCDecoder.cpp in Sources */,
+				5552DA5E2CD4BE0000BA6559 /* FILCDecoder.mm in Sources */,
 				5552DA5D2CD452B600BA6559 /* PCXDecoder.m in Sources */,
 				55368AA6272A03F600740A0A /* ZoomAGT.swift in Sources */,
 			);
@@ -4707,7 +4709,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E478A32968CD660017646D /* FILCDecoder.cpp in Sources */,
+				55E478A32968CD660017646D /* FILCDecoder.mm in Sources */,
 				55368B0F272A04FD00740A0A /* interface.c in Sources */,
 				55368B19272A055000740A0A /* metacommand.c in Sources */,
 				55244204297006350071E081 /* VOCConverter.m in Sources */,
