@@ -64,7 +64,7 @@ class ZoomLeopard: NSObject, @preconcurrency ZoomLeopardProtocol, CAAnimationDel
 		popBackAnimation.toValue		= NSValue(caTransform3D: finalScaling)
 		popBackAnimation.duration		= seconds * 0.2
 		popBackAnimation.beginTime		= CACurrentMediaTime() + seconds * 0.8
-		popBackAnimation.repeatCount	= 1;
+		popBackAnimation.repeatCount	= 1
 		popBackAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 
 		// Create a fade-in animation
@@ -73,12 +73,12 @@ class ZoomLeopard: NSObject, @preconcurrency ZoomLeopardProtocol, CAAnimationDel
 		fadeAnimation.keyPath		= "opacity"
 		fadeAnimation.fromValue		= 0.0 as NSNumber
 		fadeAnimation.toValue		= 1.0 as NSNumber
-		fadeAnimation.repeatCount	= 1;
+		fadeAnimation.repeatCount	= 1
 		fadeAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		fadeAnimation.duration		= seconds * 0.5
 		fadeAnimation.fillMode		= .both
 		
-		popBackAnimation.delegate = self;
+		popBackAnimation.delegate = self
 
 		
 		// Animate the view's layer

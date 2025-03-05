@@ -23,6 +23,7 @@ typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
 
 @interface PCXDecoder : NSObject
 
+//! Initializes, parses, and decodes the passed-in URL, or returns `nil` and populates `outErr` on error.
 - (nullable instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr;
 
 @property (readonly, copy, nullable) NSData *dataRepresentation;

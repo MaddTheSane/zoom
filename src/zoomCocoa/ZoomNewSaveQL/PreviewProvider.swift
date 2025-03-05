@@ -178,7 +178,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 			}
 			
 			// Draw the image
-			var imageRect = NSRect(x: 8,y: 8, width: 0,height: 0);
+			var imageRect = NSRect(x: 8,y: 8, width: 0,height: 0)
 			if let image {
 				let imageSize = image.size
 				imageRect.size = NSSize(width: previewSize.height - 16, height: previewSize.height - 16)

@@ -236,7 +236,7 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 			}
 		} else {
 			if (outErr) {
-				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: url, NSLocalizedFailureReasonErrorKey: @"Unsupported PCX format."}];
+				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: url, NSLocalizedFailureReasonErrorKey: @"Unsupported or invalid PCX format."}];
 			}
 			return nil;
 		}
@@ -536,7 +536,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	for (int y = 0; y < yFull; y++) {
 		set_aside = image_pos; /* since they're muxed weird
 								* ...but is it muxed weird to our benefit?
-								* .. turns out no :( */
+								* ...turns out no :( */
 		for (int p = 0; p < pcxHeader.colorPlanes ; p++) {
 			image_pos = set_aside;
 			for (int x = 0; x < pcxHeader.colorPlaneBytes; x++) {
