@@ -124,16 +124,16 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 		
 		description.append(AttributedString("IFID: \(storyID.description)\n", attributes: ifidCont))
 		
-		if let author = story.author, author.count > 0 {
+		if let author = story.author, !author.isEmpty {
 			var publication = ""
 			if story.year > 0 {
 				publication = ", published \(story.year)"
 			}
 			description.append(AttributedString("by \(author)\(publication)\n", attributes: smallCont))
 		}
-		if let storDes = story.description, storDes.count > 0 {
+		if let storDes = story.description, !storDes.isEmpty {
 			description.append(AttributedString("\(storDes)\n", attributes: descrCont))
-		} else if let teaser = story.teaser, teaser.count > 0 {
+		} else if let teaser = story.teaser, !teaser.isEmpty {
 			description.append(AttributedString("\(teaser)\n", attributes: descrCont))
 		}
 		
@@ -303,7 +303,7 @@ public class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 				if let metadataURL = zoomConfigDirectory?.appendingPathComponent("metadata.iFiction"),
 				   let metadata = try? ZoomMetadata(contentsOf: metadataURL),
 				   let story = metadata.findStory(storyID),
-				   let title = story.title, title.count > 0 {
+				   let title = story.title, !title.isEmpty {
 					let titleAttr = AttributedString("Saved game from \(title)", attributes: titleAttributes)
 					result = titleAttr + newline + result
 				}
