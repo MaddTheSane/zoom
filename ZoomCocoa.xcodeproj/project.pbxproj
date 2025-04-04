@@ -6171,7 +6171,7 @@
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.ZoomNewSpotlight;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6202,7 +6202,7 @@
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.ZoomNewSpotlight;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6228,7 +6228,7 @@
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.ZoomNewSaveQL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -6257,7 +6257,7 @@
 					"$(inherited)",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.ZoomNewSaveQL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
