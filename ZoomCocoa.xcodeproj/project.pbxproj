@@ -318,6 +318,7 @@
 		553D13BF272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */; };
 		553D13E5273234A400D1F2B4 /* ZoomSkeinInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */; };
 		554A4541291CC25300C090C3 /* Hugo.plugin in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 5591DC1E29163EB400BF6F6F /* Hugo.plugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		554E4F662D9FB4CC00FF4FBF /* CASDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554E4F5A2D9FB4C500FF4FBF /* CASDecoder.swift */; };
 		5551384B29678A9C002BAAAC /* AgilDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5551384A29678A9C002BAAAC /* AgilDataSource.m */; };
 		5552DA5D2CD452B600BA6559 /* PCXDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4787C2967FFD00017646D /* PCXDecoder.m */; };
 		5552DA5E2CD4BE0000BA6559 /* FILCDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55E478A12968CD660017646D /* FILCDecoder.mm */; };
@@ -361,7 +362,6 @@
 		5591DC2D2916407100BF6F6F /* ZpHugo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5591DC2C2916407100BF6F6F /* ZpHugo.m */; };
 		5591DC4629179DF300BF6F6F /* hebuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 5591DBD32916355A00BF6F6F /* hebuffer.c */; };
 		559E68EC27406C8D0030C3DB /* ZoomPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */; };
-		559E68F42743253E0030C3DB /* ZoomCASDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E68F32743253E0030C3DB /* ZoomCASDecoder.m */; };
 		55A2EB92273C6DCA0006340C /* GameInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EB94273C6DCA0006340C /* GameInfo.xib */; };
 		55A2EB9E273C86500006340C /* NoteWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA0273C86500006340C /* NoteWindow.xib */; };
 		55A2EBA5273C86660006340C /* Skein.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A2EBA7273C86660006340C /* Skein.xib */; };
@@ -1680,6 +1680,7 @@
 		5538AE9F277C4EC100D8EE8A /* ZoomPreferencesConstant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomPreferencesConstant.m; sourceTree = "<group>"; };
 		553D13BE272FCE3900D1F2B4 /* ZoomProtocolLibrary.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = ZoomProtocolLibrary.tbd; sourceTree = "<group>"; };
 		553D13E4273234A400D1F2B4 /* ZoomSkeinInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinInternal.h; sourceTree = "<group>"; };
+		554E4F5A2D9FB4C500FF4FBF /* CASDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CASDecoder.swift; sourceTree = "<group>"; };
 		5551384929678A9C002BAAAC /* AgilDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgilDataSource.h; sourceTree = "<group>"; };
 		5551384A29678A9C002BAAAC /* AgilDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgilDataSource.m; sourceTree = "<group>"; };
 		5552DA512CD4525200BA6559 /* AGT_bridging_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGT_bridging_header.h; sourceTree = "<group>"; };
@@ -1745,9 +1746,6 @@
 		5591DC2B2916407100BF6F6F /* ZpHugo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZpHugo.h; sourceTree = "<group>"; };
 		5591DC2C2916407100BF6F6F /* ZpHugo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZpHugo.m; sourceTree = "<group>"; };
 		559E68EB27406C8D0030C3DB /* ZoomPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPreferences.swift; sourceTree = "<group>"; };
-		559E68F22743253D0030C3DB /* Quest4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Quest4-Bridging-Header.h"; sourceTree = "<group>"; };
-		559E68F32743253E0030C3DB /* ZoomCASDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomCASDecoder.m; sourceTree = "<group>"; };
-		559E68F52743254F0030C3DB /* ZoomCASDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomCASDecoder.h; sourceTree = "<group>"; };
 		55A2EB93273C6DCA0006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GameInfo.xib; sourceTree = "<group>"; };
 		55A2EB9F273C86500006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NoteWindow.xib; sourceTree = "<group>"; };
 		55A2EBA6273C86660006340C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Skein.xib; sourceTree = "<group>"; };
@@ -3235,9 +3233,7 @@
 			children = (
 				55BE4AF0270999B400100A7D /* Info.plist */,
 				55BE4AE8270998F600100A7D /* ZoomQuest.swift */,
-				559E68F52743254F0030C3DB /* ZoomCASDecoder.h */,
-				559E68F32743253E0030C3DB /* ZoomCASDecoder.m */,
-				559E68F22743253D0030C3DB /* Quest4-Bridging-Header.h */,
+				554E4F5A2D9FB4C500FF4FBF /* CASDecoder.swift */,
 			);
 			path = Quest4;
 			sourceTree = "<group>";
@@ -4860,7 +4856,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BE4AE9270998F600100A7D /* ZoomQuest.swift in Sources */,
-				559E68F42743253E0030C3DB /* ZoomCASDecoder.m in Sources */,
+				554E4F662D9FB4CC00FF4FBF /* CASDecoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6938,7 +6934,6 @@
 				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "src/zoomCocoa/PlugIns/Quest4/Quest4-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = zoomPlugin;
 			};
@@ -6969,7 +6964,6 @@
 				PRODUCT_MODULE_NAME = "Zoom$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "src/zoomCocoa/PlugIns/Quest4/Quest4-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = zoomPlugin;
 			};
