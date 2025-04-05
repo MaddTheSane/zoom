@@ -131,8 +131,7 @@ static CGImageRef createImageFromData(NSData *src1, const flic::Header &header)
 static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header)
 {
 	NSData *src1 = createDataFromBuffer(frame, header);
-	CGImageRef toRet = createImageFromData(src1, header);
-	return toRet;
+	return createImageFromData(src1, header);
 }
 
 CFDataRef CreateGIFFromFLICData(CFDataRef fliDat, bool crunch)
@@ -149,12 +148,14 @@ CFDataRef CreateGIFFromFLICData(CFDataRef fliDat, bool crunch)
 
 CFDataRef CreateGIFFromFLICFileURL(CFURLRef fliDat, bool crunch)
 {
+	@autoreleasepool {
 	NSURL *fliNSURL = (__bridge NSURL*)fliDat;
 	const char *path = fliNSURL.fileSystemRepresentation;
 	if (!path) {
 		return NULL;
 	}
 	return CreateGIFFromFLICPath(path, crunch);
+	}
 }
 
 CFDataRef CreateGIFFromFLICPath(const char *fliDat, bool crunch)
@@ -189,6 +190,7 @@ NSData *CreateGIFFromFile(flic::FileInterface *file)
 	NSMutableData *mutDat = [NSMutableData data];
 	CGImageDestinationRef dst = CGImageDestinationCreateWithData((CFMutableDataRef)mutDat, kUTTypeGIF, header.frames, NULL);
 	const NSTimeInterval delayTime = header.speed / 1000.0;
+	NSNumber *delayTimeNS = @(delayTime);
 	
 	for (int i=0; i<header.frames; ++i) {
 		if (!decoder.readFrame(frame)) {
@@ -197,10 +199,9 @@ NSData *CreateGIFFromFile(flic::FileInterface *file)
 		}
 		NSData *colors = createColorDataFromFrame(frame);
 		
-		NSDictionary *gifDictionary = @{(NSString*)kCGImagePropertyGIFImageColorMap: colors,
-										(NSString*)kCGImagePropertyGIFUnclampedDelayTime: @(delayTime)};
-		
-		NSDictionary *imgDictionary = @{(NSString*)kCGImagePropertyGIFDictionary: gifDictionary};
+		NSDictionary *imgDictionary = @{(NSString*)kCGImagePropertyGIFDictionary:
+											@{(NSString*)kCGImagePropertyGIFImageColorMap: colors,
+											  (NSString*)kCGImagePropertyGIFUnclampedDelayTime: delayTimeNS}};
 		
 		CGImageRef imageRef = createImageFromBuffer(frame, header);
 		CGImageDestinationAddImage(dst, imageRef, (CFDictionaryRef)imgDictionary);
@@ -216,13 +217,11 @@ NSData *CreateGIFFromFile(flic::FileInterface *file)
 NSArray *createImageAndInfoFromDataAndTime(NSData *src1, const flic::Frame &frame, const flic::Header &header, NSTimeInterval currentDelayTime)
 {
 	NSData *colors = createColorDataFromFrame(frame);
-	NSDictionary *gifDictionary = @{(NSString*)kCGImagePropertyGIFImageColorMap: colors,
-									(NSString*)kCGImagePropertyGIFUnclampedDelayTime: @(currentDelayTime)};
-	
-	NSDictionary *imgDictionary = @{(NSString*)kCGImagePropertyGIFDictionary: gifDictionary};
+	NSDictionary *imgDictionary = @{(NSString*)kCGImagePropertyGIFDictionary:
+										@{(NSString*)kCGImagePropertyGIFImageColorMap: colors,
+										  (NSString*)kCGImagePropertyGIFUnclampedDelayTime: @(currentDelayTime)}};
 	CGImageRef img = createImageFromData(src1, header);
-	NSArray *imgVal = @[CFBridgingRelease(img), imgDictionary];
-	return imgVal;
+	return @[CFBridgingRelease(img), imgDictionary];
 }
 
 NSData *CreateGIFFromFileCrunch(flic::FileInterface *file)
