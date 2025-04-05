@@ -21,7 +21,7 @@ static NSData *createColorDataFromFrame(const flic::Frame& header);
 static NSData *createDataFromBuffer(const flic::Frame &frame, const flic::Header &header);
 static CGImageRef createImageFromData(NSData *dat, const flic::Header &header) CF_RETURNS_RETAINED;
 static NSArray *createImageAndInfoFromDataAndTime(NSData *src1, const flic::Frame &frame, const flic::Header &header, NSTimeInterval interval);
-static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header) CF_RETURNS_RETAINED;
+static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header, NSData *palette) CF_RETURNS_RETAINED;
 
 class CFDataFileInterface final : public flic::FileInterface {
 public:
@@ -73,7 +73,7 @@ uint8_t CFDataFileInterface::read8()
 		return 0;
 	}
 	uint8_t simpleBuffer;
-	[fileData getBytes:&simpleBuffer length:1];
+	[fileData getBytes:&simpleBuffer range:NSMakeRange(position, 1)];
 	position += 1;
 	return simpleBuffer;
 }
@@ -128,10 +128,19 @@ static CGImageRef createImageFromData(NSData *src1, const flic::Header &header)
 	return toRet;
 }
 
-static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header)
+static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header, NSData *palette)
 {
-	NSData *src1 = createDataFromBuffer(frame, header);
-	return createImageFromData(src1, header);
+	CGColorSpaceRef baseRef = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+	CGColorSpaceRef clrSpace = CGColorSpaceCreateIndexed(baseRef, 255, (unsigned char*)palette.bytes);
+	CGColorSpaceRelease(baseRef);
+	NSData *ourData = [NSData dataWithBytes:frame.pixels length:header.width * header.height];
+	CGDataProviderRef src = CGDataProviderCreateWithCFData((__bridge CFDataRef)ourData);
+	
+	CGImageRef toRet = CGImageCreate(header.width, header.height, 8, 8, header.width, clrSpace, (CGBitmapInfo)kCGImageAlphaNone | kCGBitmapByteOrderDefault, src, NULL, false, kCGRenderingIntentDefault);
+	CGColorSpaceRelease(clrSpace);
+	CGDataProviderRelease(src);
+	
+	return toRet;
 }
 
 CFDataRef CreateGIFFromFLICData(CFDataRef fliDat, bool crunch)
@@ -203,7 +212,7 @@ NSData *CreateGIFFromFile(flic::FileInterface *file)
 											@{(NSString*)kCGImagePropertyGIFImageColorMap: colors,
 											  (NSString*)kCGImagePropertyGIFUnclampedDelayTime: delayTimeNS}};
 		
-		CGImageRef imageRef = createImageFromBuffer(frame, header);
+		CGImageRef imageRef = createImageFromBuffer(frame, header, colors);
 		CGImageDestinationAddImage(dst, imageRef, (CFDictionaryRef)imgDictionary);
 		CGImageRelease(imageRef);
 	}
