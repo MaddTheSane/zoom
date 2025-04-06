@@ -131,7 +131,7 @@ static CGImageRef createImageFromData(NSData *src1, const flic::Header &header)
 static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::Header &header, NSData *palette)
 {
 	CGColorSpaceRef baseRef = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-	CGColorSpaceRef clrSpace = CGColorSpaceCreateIndexed(baseRef, 255, (unsigned char*)palette.bytes);
+	CGColorSpaceRef clrSpace = CGColorSpaceCreateIndexed(baseRef, 255, (const unsigned char*)palette.bytes);
 	CGColorSpaceRelease(baseRef);
 	NSData *ourData = [NSData dataWithBytes:frame.pixels length:header.width * header.height];
 	CGDataProviderRef src = CGDataProviderCreateWithCFData((__bridge CFDataRef)ourData);
@@ -146,12 +146,15 @@ static CGImageRef createImageFromBuffer(const flic::Frame &frame, const flic::He
 CFDataRef CreateGIFFromFLICData(CFDataRef fliDat, bool crunch)
 {
 	@autoreleasepool {
-	CFDataFileInterface file((__bridge NSData*)fliDat);
+	CFDataRef toRet;
+	CFDataFileInterface *file = new CFDataFileInterface((__bridge NSData*)fliDat);
 	if (crunch) {
-		return (CFDataRef)CFBridgingRetain(CreateGIFFromFileCrunch(&file));
+		toRet = (CFDataRef)CFBridgingRetain(CreateGIFFromFileCrunch(file));
 	} else {
-		return (CFDataRef)CFBridgingRetain(CreateGIFFromFile(&file));
+		toRet = (CFDataRef)CFBridgingRetain(CreateGIFFromFile(file));
 	}
+	delete file;
+	return toRet;
 	}
 }
 
@@ -172,12 +175,13 @@ CFDataRef CreateGIFFromFLICPath(const char *fliDat, bool crunch)
 	@autoreleasepool {
 	CFDataRef toRet;
 	FILE *file1 = fopen(fliDat, "rb");
-	flic::StdioFileInterface file(file1);
+	flic::StdioFileInterface* file = new flic::StdioFileInterface(file1);
 	if (crunch) {
-		toRet = (CFDataRef)CFBridgingRetain(CreateGIFFromFileCrunch(&file));
+		toRet = (CFDataRef)CFBridgingRetain(CreateGIFFromFileCrunch(file));
 	} else {
-		toRet = (CFDataRef)CFBridgingRetain(CreateGIFFromFile(&file));
+		toRet = (CFDataRef)CFBridgingRetain(CreateGIFFromFile(file));
 	}
+	delete file;
 	fclose(file1);
 	return toRet;
 	}
@@ -220,7 +224,7 @@ NSData *CreateGIFFromFile(flic::FileInterface *file)
 	CGImageDestinationFinalize(dst);
 	CFRelease(dst);
 	
-	return mutDat;
+	return [mutDat copy];
 }
 
 NSArray *createImageAndInfoFromDataAndTime(NSData *src1, const flic::Frame &frame, const flic::Header &header, NSTimeInterval currentDelayTime)
@@ -295,5 +299,5 @@ NSData *CreateGIFFromFileCrunch(flic::FileInterface *file)
 	CGImageDestinationFinalize(dst);
 	CFRelease(dst);
 	
-	return mutDat;
+	return [mutDat copy];
 }
