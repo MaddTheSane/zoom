@@ -1428,7 +1428,9 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
     }
 	
 	// The foreground colour must have 100% alpha
-	res = [res colorWithAlphaComponent: 1.0];	
+	if ([res type] != NSColorTypeCatalog) {
+		res = [res colorWithAlphaComponent: 1.0];
+	}
     
     return res;
 }
