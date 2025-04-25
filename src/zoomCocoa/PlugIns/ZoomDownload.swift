@@ -11,13 +11,13 @@ import ZoomPlugIns.ZoomDownload
 
 private var localDownloadDirectory: URL = {
 	var downloadDir: URL
-	if #available(macOSApplicationExtension 13.0, *) {
+	if #available(macOSApplicationExtension 13.0, macOS 13.0, *) {
 		downloadDir = URL.temporaryDirectory
 	} else {
 		let tempDir = NSTemporaryDirectory()
 		downloadDir = URL(fileURLWithPath: tempDir)
 	}
-	downloadDir.appendPathComponent("Zoom-Downloads-\(getpid())")
+	downloadDir.appendPathComponent("Zoom-Downloads-\(getpid())", isDirectory: true)
 
 	return downloadDir
 }()
@@ -42,7 +42,7 @@ private func fullExtension(forFilename filename: String) -> String? {
 
 /// Class that handles the download and unarchiving of files, such as plugin updates
 @objcMembers
-public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate, URLSessionDownloadDelegate {
+final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate, URLSessionDownloadDelegate {
 	/// The download delegate
 	public weak var delegate: ZoomDownloadDelegate?
 	
@@ -144,18 +144,22 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 	}
 	
 	private func createDownloadDirectory() {
-		do {
-			let vals = try localDownloadDirectory.resourceValues(forKeys: [.isDirectoryKey])
-			if !(vals.isDirectory ?? false) {
-				var tmpDD = localDownloadDirectory
-				tmpDD.deleteLastPathComponent()
-				tmpDD.appendPathComponent("\(localDownloadDirectory.lastPathComponent)-1")
-				localDownloadDirectory = tmpDD
-				createDownloadDirectory()
+		let lastDD = localDownloadDirectory.lastPathComponent
+		var i = 0
+		repeat {
+			do {
+				let vals = try localDownloadDirectory.resourceValues(forKeys: [.isDirectoryKey])
+				if !(vals.isDirectory ?? false) {
+					var tmpDD = localDownloadDirectory
+					tmpDD.deleteLastPathComponent()
+					tmpDD.appendPathComponent("\(lastDD)-\(i)", isDirectory: true)
+					localDownloadDirectory = tmpDD
+				}
+				break
+			} catch {
 			}
-		} catch {
-			try? FileManager.default.createDirectory(at: localDownloadDirectory, withIntermediateDirectories: false, attributes: nil)
-		}
+		} while i > 2_000
+		try? FileManager.default.createDirectory(at: localDownloadDirectory, withIntermediateDirectories: false, attributes: nil)
 	}
 	
 	// MARK: - Status events
@@ -239,7 +243,7 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 		let pathExtension = filename.pathExtension.lowercased()
 		let withoutExtension = filename.deletingPathExtension()
 		let result = Process()
-		result.launchPath = "/usr/bin/env"
+		result.executableURL = URL(fileURLWithPath: "/usr/bin/env")
 		
 		switch pathExtension {
 		case "zip":
@@ -402,7 +406,8 @@ public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDelegate,
 
 		suggestedFilename = response.suggestedFilename
 		
-		if let suggestedFilename = suggestedFilename as NSString?, suggestedFilename.pathExtension == "txt" {
+		if let suggestedFilename = suggestedFilename as NSString?,
+		   suggestedFilename.pathExtension == "txt" {
 			// Some servers produce .zblorb.txt files, etc.
 			if (suggestedFilename.deletingPathExtension as NSString).pathExtension.count > 0 {
 				self.suggestedFilename = suggestedFilename.deletingPathExtension
