@@ -9,6 +9,7 @@
 #import "ZoomSkeinController.h"
 
 @implementation ZoomSkeinController
+@synthesize skeinView;
 
 + (ZoomSkeinController*) sharedSkeinController {
 	static ZoomSkeinController* cont = nil;

@@ -154,8 +154,9 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 					tmpDD.deleteLastPathComponent()
 					tmpDD.appendPathComponent("\(lastDD)-\(i)", isDirectory: true)
 					localDownloadDirectory = tmpDD
+				} else {
+					break
 				}
-				break
 			} catch {
 			}
 		} while i > 2_000

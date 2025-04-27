@@ -15,17 +15,17 @@
 
 @interface ZoomClient : NSDocument
 
-@property (readonly, retain) NSData *gameData;
-@property (readonly, retain) ZoomStory *storyInfo;
-@property (readonly, retain) ZoomStoryID *storyId;
-@property (readonly, retain) ZoomSkein *skein;
+@property (readonly, copy) NSData *gameData;
+@property (readonly, strong) ZoomStory *storyInfo;
+@property (readonly, strong) ZoomStoryID *storyId;
+@property (readonly, strong) ZoomSkein *skein;
 
 /// Restoring from an autosave
 - (void) loadDefaultAutosave;
-@property (retain) NSData *autosaveData;
+@property (copy) NSData *autosaveData;
 
 // Loading a zoomSave file
-@property (readonly, retain) ZoomView *defaultView;
+@property (readonly, strong) ZoomView *defaultView;
 @property (copy) NSData *saveData;
 
 /// Resources

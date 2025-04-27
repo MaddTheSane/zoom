@@ -97,14 +97,16 @@ static SpeechChannel channel = nil;
 
 // Notifications about events that have occured in the view (when using this automation object for output)
 
-- (void) receivedCharacters: (NSString*) characters					// Text has arrived at the specified text buffer window (from the game)
+/// Text has arrived at the specified text buffer window (from the game)
+- (void) receivedCharacters: (NSString*) characters
 					 window: (__unused int) windowNumber
 				   fromView: (__unused GlkView*) view {
 	[text appendString: @"\n\n"];
 	[text appendString: characters];
 }
 
-- (void) userTyped: (NSString*) userInput							// The user has typed the specified string into the specified window (which is any window that is waiting for input)
+/// The user has typed the specified string into the specified window (which is any window that is waiting for input)
+- (void) userTyped: (NSString*) userInput
 			window: (__unused int) windowNumber
 		 lineInput: (__unused BOOL) isLineInput
 		  fromView: (__unused GlkView*) view {

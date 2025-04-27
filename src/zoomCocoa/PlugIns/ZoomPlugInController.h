@@ -29,7 +29,7 @@
 
 // Initialisation
 //! The shared plugin controller window
-@property (class, readonly, retain) ZoomPlugInController *sharedPlugInController;
+@property (class, readonly, strong) ZoomPlugInController *sharedPlugInController;
 
 // Actions
 //! 'Install' button clicked

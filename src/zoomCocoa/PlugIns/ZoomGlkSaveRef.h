@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 //! Sets the skein that will be saved with this reference.
 //!
 //! Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file.
-@property (retain, nullable) ZoomSkein *skein;
+@property (strong, nullable) ZoomSkein *skein;
 
 @end
 

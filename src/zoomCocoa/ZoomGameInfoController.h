@@ -33,7 +33,7 @@
 	id infoOwner;
 }
 
-@property (class, readonly, retain) ZoomGameInfoController *sharedGameInfoController;
+@property (class, readonly, strong) ZoomGameInfoController *sharedGameInfoController;
 
 // Interface actions
 - (IBAction)selectGenre:(id)sender;
@@ -42,7 +42,7 @@
 - (IBAction)chooseResourceFile:(id)sender;
 
 // Setting up the game info window
-@property (nonatomic, retain) ZoomStory *gameInfo;
+@property (nonatomic, strong) ZoomStory *gameInfo;
 
 @property (strong) id infoOwner;
 

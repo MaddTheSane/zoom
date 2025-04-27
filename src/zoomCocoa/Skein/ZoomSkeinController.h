@@ -11,9 +11,8 @@
 #import <ZoomView/ZoomSkein.h>
 #import <ZoomView/ZoomSkeinView.h>
 
-@interface ZoomSkeinController : NSWindowController <ZoomSkeinViewDelegate> {
-	IBOutlet ZoomSkeinView* skeinView;
-}
+@interface ZoomSkeinController : NSWindowController <ZoomSkeinViewDelegate>
+@property (weak) IBOutlet ZoomSkeinView* skeinView;
 
 @property (class, readonly, strong) ZoomSkeinController *sharedSkeinController;
 

@@ -26,9 +26,9 @@ typedef NS_ENUM(int, IFSkeinPackingStyle) {
 @property CGFloat itemHeight;
 @property IFSkeinPackingStyle packingStyle;
 
-@property (retain) ZoomSkeinItem *rootItem;
-@property (nonatomic, retain) ZoomSkeinItem *activeItem;
-@property (retain) ZoomSkeinItem *selectedItem;
+@property (strong) ZoomSkeinItem *rootItem;
+@property (nonatomic, strong) ZoomSkeinItem *activeItem;
+@property (strong) ZoomSkeinItem *selectedItem;
 - (void) highlightSkeinLine: (ZoomSkeinItem*) itemOnLine;
 
 #pragma mark Performing the layout

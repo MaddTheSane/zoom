@@ -25,7 +25,7 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 @interface ZoomPlugInManager : NSObject<ZoomDownloadDelegate, NSURLSessionDataDelegate>
 
 /// The shared plug-in manager
-@property (class, readonly, retain) ZoomPlugInManager *sharedPlugInManager;
+@property (class, readonly, strong) ZoomPlugInManager *sharedPlugInManager;
 /// The plug-in installation directory
 @property (class, readonly, copy) NSString *plugInsPath;
 

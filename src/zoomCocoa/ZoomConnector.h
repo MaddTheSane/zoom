@@ -15,7 +15,7 @@
 @interface ZoomConnector : NSObject<ZClient>
 
 /// Retrieving the shared connector
-@property (class, readonly, retain) ZoomConnector *sharedConnector;
+@property (class, readonly, strong) ZoomConnector *sharedConnector;
 
 // Adding/removing views from the queue
 - (void) addViewWaitingForServer: (ZoomView*) view;
