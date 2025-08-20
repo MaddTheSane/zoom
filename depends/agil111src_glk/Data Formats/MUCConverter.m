@@ -80,7 +80,7 @@ static NSArray<AGILMUCEntry*> *mucDecode(NSURL *theFile, NSError *__autoreleasin
 
 static NSURL *tempAIFFURL(void)
 {
-	static const char template[] = "/tmp/myfileXXXXXXXX.aiff";
+	static const char template[] = "/tmp/myfileXXXXXXXX.m4a";
 	char fname[PATH_MAX];
 	strcpy(fname, template);		/* Copy template */
 	int fd = mkstemp(fname);		/* Create and open temp file */
@@ -100,7 +100,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 	if (!entries) {
 		return nil;
 	}
-	static const double sampleRate = 8000;
+	static const double sampleRate = 441000;
 	static const float amplitude = 0.5;
 	AVAudioFormat *format = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32 sampleRate:sampleRate channels:1 interleaved:NO];
 
@@ -137,11 +137,12 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 		// it has to be saved to a file first.
 		AVAudioFile *outFile = [[AVAudioFile alloc]
 								initForWriting:theURL
-								settings:@{AVAudioFileTypeKey: @(kAudioFileAIFCType),
+								settings:@{AVAudioFileTypeKey: @(kAudioFileM4AType),
 										   AVLinearPCMBitDepthKey: @16,
 										   AVLinearPCMIsFloatKey: @NO,
-										   AVFormatIDKey: @(kAudioFormatLinearPCM),
-										   AVSampleRateKey: @8000,
+										   AVFormatIDKey: @(kAudioFormatAC3),
+										   AVSampleRateKey: @441000,
+										   AVEncoderBitRateKey: @64000,
 										   AVNumberOfChannelsKey: @1}
 								error:outError];
 		if (!outFile) {
