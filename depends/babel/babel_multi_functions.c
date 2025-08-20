@@ -4,12 +4,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-    int chdir(const char *);
-    char *getcwd(char *, int);
+//    int chdir(const char *);
+//    char *getcwd(char *, int);
 #ifdef __cplusplus
 }
 #endif

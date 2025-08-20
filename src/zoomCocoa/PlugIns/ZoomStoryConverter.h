@@ -43,10 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// class property `+supportedConverterFileTypes` and creates `UTType`s from the
 /// parsed extensions, UTIs, and OSTypes.
 ///
-/// **Note:** Unless the type identifiers are present in Zoom's **Info.plist** or declared by another application,
+/// - Warning: Unless the type identifiers are present in Zoom's **Info.plist** or declared by another application,
 /// `+[UTType typeWithIdentifier:]` *will* fail and `+[UTType importedTypeWithIdentifier:]`
 /// will complain. The best way to handle this is to *not* implement this class property and instead
-/// let ZoomPlugInManager create them from your own `+supportedConverterFileTypes`.
+/// let ZoomPlugInManager create them from your own ``+supportedConverterFileTypes``.
 @property (class, readonly, copy) NSArray<UTType*> *supportedConverterContentTypes;
 
 @end
