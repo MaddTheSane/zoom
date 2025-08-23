@@ -107,36 +107,30 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	}
 	
 	public override func idForStory() -> ZoomStoryID? {
-		guard let file = try? FileHandle(forReadingFrom: gameURL) else {
-			return nil
-		}
-		
-		/* Read the position of the game desciption block */
 		do {
+			let file = try FileHandle(forReadingFrom: gameURL)
+			
+			/* Read the position of the game desciption block */
 			try file.seek(toOffset: 32)
-		} catch {
-			return nil
-		}
-		guard let datVar = try? file.read(upToCount: 4), datVar.count == 4 else {
-			return nil
-		}
-		let l = read_agt_int(datVar)
-		guard let extent = try? file.seekToEnd(), extent >= l + 6 else {
-			return nil
-		}
-		do {
+			guard let datVar = try file.read(upToCount: 4), datVar.count == 4 else {
+				return nil
+			}
+			let l = read_agt_int(datVar)
+			let extent = try file.seekToEnd()
+			guard extent >= l + 6 else {
+				return nil
+			}
 			try file.seek(toOffset: UInt64(l))
+			guard let datVar2 = try file.read(upToCount: 6), datVar2.count == 6 else {
+				return nil
+			}
+			let gameVersion = read_agt_short(datVar2)
+			let game_sig = read_agt_int(datVar2.advanced(by: 2))
+			let output = String(format: "AGT-%05d-%08X", gameVersion, game_sig)
+			return ZoomStoryID(idString: output)
 		} catch {
 			return nil
 		}
-		guard let datVar2 = try? file.read(upToCount: 6), datVar2.count == 6 else {
-			return nil
-		}
-		let gameVersion = read_agt_short(datVar2)
-		let game_sig = read_agt_int(datVar2.advanced(by: 2))
-		let output = String(format: "AGT-%05d-%08X", gameVersion, game_sig)
-
-		return ZoomStoryID(idString: output)
 	}
 
 	public override func defaultMetadata() throws -> ZoomStory {
