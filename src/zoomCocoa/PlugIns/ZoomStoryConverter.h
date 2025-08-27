@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Return an array of content types that an `NSOpenPanel` can select from.
 ///
 /// If your converter doesn't implement this method, ZoomPlugInManager will take the
-/// class property `+supportedConverterFileTypes` and creates `UTType`s from the
+/// class property ``+supportedConverterFileTypes`` and creates `UTType`s from the
 /// parsed extensions, UTIs, and OSTypes.
 ///
 /// - Warning: Unless the type identifiers are present in Zoom's **Info.plist** or declared by another application,

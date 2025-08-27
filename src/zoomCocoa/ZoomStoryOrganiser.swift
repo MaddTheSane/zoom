@@ -1216,7 +1216,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		}
 	}
 	
-	private func organiserThread() async {
+	@concurrent private func organiserThread() async {
 		let ourFM = FileManager()
 		await startedActing()
 		

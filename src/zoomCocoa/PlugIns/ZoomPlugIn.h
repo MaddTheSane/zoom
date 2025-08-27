@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// `YES` if the specified file URL is one that the plugin can run.
 ///
-/// Take into account if there's no actual file: If the file doesn't exist, check the file extension.
+/// A non-existant file might be sent: If the file doesn't exist, check the file extension only.
 + (BOOL) canRunURL: (NSURL*) path;
 
 /// Return an array of file types that an `NSOpenPanel` can select from.
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Return an array of content types that an `NSOpenPanel` can select from.
 ///
 /// If your plug-in doesn't implement this method, the default implemention takes the
-/// class property `+supportedFileTypes` and creates `UTType`s from the
+/// class property ``+supportedFileTypes`` and creates `UTType`s from the
 /// parsed extensions, UTIs, and OSTypes.
 ///
 /// - warning: Unless the type identifiers are present in Zoom's **Info.plist** or declared by another application,
