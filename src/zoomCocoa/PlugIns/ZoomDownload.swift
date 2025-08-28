@@ -111,6 +111,7 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 		
 		dataTask = session.dataTask(with: request)
 		dataTask?.taskDescription = "Zoom: Downloading \(url.lastPathComponent)"
+		dataTask?.resume()
 	}
 	
 	deinit {
@@ -159,8 +160,10 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 				}
 			} catch {
 			}
+			i += 1
 		} while i > 2_000
-		try? FileManager.default.createDirectory(at: localDownloadDirectory, withIntermediateDirectories: false, attributes: nil)
+		try? FileManager.default.createDirectory(at: localDownloadDirectory, withIntermediateDirectories: true, attributes: nil)
+		downloadDirectory = localDownloadDirectory
 	}
 	
 	// MARK: - Status events
@@ -192,7 +195,9 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 	private func failed(reason: String) {
 		finished()
 		
-		delegate?.downloadFailed?(self, reason: reason)
+		DispatchQueue.main.async {
+			self.delegate?.downloadFailed?(self, reason: reason)
+		}
 	}
 	
 	private func succeeded() {
@@ -202,7 +207,9 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 		task = nil
 		subtasks = nil
 		
-		delegate?.downloadComplete?(self)
+		DispatchQueue.main.async {
+			self.delegate?.downloadComplete?(self)
+		}
 	}
 	
 	// MARK: - The unarchiver
@@ -445,8 +452,10 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 	
 	public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
 		if let error {
-			try? FileManager.default.removeItem(at: tmpFile!)
-			tmpFile = nil
+			if let tmpFile1 = tmpFile {
+				try? FileManager.default.removeItem(at: tmpFile1)
+				tmpFile = nil
+			}
 			
 			NSLog("Download failed with error: \(error)")
 			
@@ -498,6 +507,7 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 	public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask) {
 		self.downloadTask = downloadTask
 		self.dataTask = nil
+		downloadTask.resume()
 	}
 	
 	public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
@@ -512,7 +522,9 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 		if expectedLength != 0 {
 			let proportion = Double(downloadedSoFar)/Double(expectedLength)
 			
-			delegate?.download?(self, completed: Float(proportion))
+			DispatchQueue.main.async {
+				self.delegate?.download?(self, completed: Float(proportion))
+			}
 		}
 	}
 	
