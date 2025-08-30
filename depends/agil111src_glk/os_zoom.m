@@ -5008,8 +5008,8 @@ gagt_command_print_version_number (glui32 version)
 {
   char buffer[64];
 
-  sprintf (buffer, "%u.%u.%u",
-           version >> 16, (version >> 8) & 0xff, version & 0xff);
+  snprintf (buffer, sizeof(buffer), "%u.%u.%u",
+            version >> 16, (version >> 8) & 0xff, version & 0xff);
   gagt_normal_string (buffer);
 }
 

@@ -78,7 +78,7 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 	
 	public override class func canRun(_ fileURL: URL) -> Bool {
 		guard ((try? fileURL.checkResourceIsReachable()) ?? false) else {
-			return fileURL.pathExtension.caseInsensitiveCompare("agt") == .orderedSame || fileURL.pathExtension.caseInsensitiveCompare("agx") == .orderedSame
+			return fileURL.pathExtension.caseInsensitiveCompare("agx") == .orderedSame
 		}
 		
 		do {

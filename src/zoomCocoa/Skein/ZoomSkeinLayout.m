@@ -156,7 +156,6 @@ static NSImage* unchangedDark, *activeDark;
 }
 
 @synthesize activeItem;
-
 @synthesize selectedItem;
 
 - (void) updateHighlightDetails {

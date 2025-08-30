@@ -883,7 +883,6 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 			newDict.removeValue(forKey: coloursKey)
 		}
 		
-		
 		return newDict
 	}
 
