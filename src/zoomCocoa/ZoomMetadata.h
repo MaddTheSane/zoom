@@ -50,7 +50,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 								 error: (NSError**) error NS_DESIGNATED_INITIALIZER;
 
 
-//! Gets data from `filename`, then calls `-initWithData:fileURL:error:`.
+//! Gets data from `filename`, then calls ``-initWithData:fileURL:error:``.
 //!
 //! \param filename File URL of the data to parse.
 //! \param outError Error value, populated on failure (returned `nil`).
