@@ -84,7 +84,12 @@
 																		 format: nil
 																		  error: error];
 		if (!plist) return NO;
-		if (![plist isKindOfClass: [NSDictionary class]]) return NO;
+		if (![plist isKindOfClass: [NSDictionary class]]) {
+			if (error) {
+				*error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{}];
+			}
+			return NO;
+		}
 		
 		ifids = [NSMutableArray arrayWithObject: [plist objectForKey: @"IFID"]];
 		interpreterDisplayName	= [[plist objectForKey: @"Interpreter"] copy];

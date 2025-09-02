@@ -260,8 +260,8 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 			return obj.fileID == ident
 		}
 		let oldURL: URL? = {
-			if let dupIdx = dupIDIdx {
-				return stories[dupIdx].url
+			if let dupIDIdx {
+				return stories[dupIDIdx].url
 			}
 			return nil
 		}()
@@ -418,7 +418,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 									}
 								}
 								
-								guard let gameFile = gameFile else {
+								guard let gameFile else {
 									continue
 								}
 								let urlData = try? gameFile.resourceValues(forKeys: [.fileResourceIdentifierKey]).fileResourceIdentifier

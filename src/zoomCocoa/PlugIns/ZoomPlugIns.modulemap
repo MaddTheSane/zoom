@@ -5,7 +5,7 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
-	explicit module ifmetadata {
+	module ifmetadata {
 		header "ifmetadata.h"
 		export *
 	}
@@ -59,7 +59,7 @@ framework module ZoomPlugIns {
 		requires objc
 		header "ZoomPlugIn.h"
 				
-		explicit module Glk {
+		module Glk {
 			header "ZoomGlkPlugIn.h"
 			
 			module Document {
@@ -83,7 +83,7 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
-	explicit module ZoomPlugInController {
+	module ZoomPlugInController {
 		requires objc
 		header "ZoomPlugInController.h"
 		export *
@@ -95,13 +95,13 @@ framework module ZoomPlugIns {
 		export *
 	}
 	
-	explicit module ZoomPlugInManager {
+	module ZoomPlugInManager {
 		requires objc
 		header "ZoomPlugInManager.h"
 		export *
 	}
 	
-	explicit module ZoomStoryConverter {
+	module ZoomStoryConverter {
 		requires objc
 		header "ZoomStoryConverter.h"
 		export *
