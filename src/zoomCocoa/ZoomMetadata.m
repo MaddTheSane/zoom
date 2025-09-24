@@ -360,12 +360,41 @@ static int fileHandleWrite(const char* bytes, int length, void* userData) {
 - (BOOL)    writeToURL: (NSURL*)path
 			atomically: (BOOL)flag
 				 error: (NSError**)error {
-#if 1
-	return [[self xmlData] writeToURL: path
-							  options: (flag ? NSDataWritingAtomic : 0)
-								error: error];
+	if (flag) {
+#if 0
+		static const char tmpNameTemplate[] = "/tmp/temp.XXXXXXX";
+		char tmpName[20];
+		strncpy(tmpName, tmpNameTemplate, strlen(tmpNameTemplate));
+		int tmpFD = mkstemp(tmpName);
+		if (tmpFD == -1) {
+			if (error) {
+				*error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:@{NSURLErrorKey: [NSURL fileURLWithFileSystemRepresentation:tmpName isDirectory:NO relativeToURL:nil]}];
+			}
+			return NO;
+		}
+		NSFileHandle *fh = [[NSFileHandle alloc] initWithFileDescriptor: tmpFD
+														 closeOnDealloc: YES];
+		[dataLock lock];
+		
+		IF_WriteIfiction(metadata, fileHandleWrite, (__bridge void *)(fh));
+		
+		[dataLock unlock];
+		
+		if (![fh closeAndReturnError: error]) {
+			return NO;
+		}
+		
+		NSURL *fromURL = [NSURL fileURLWithFileSystemRepresentation:tmpName isDirectory:NO relativeToURL:nil];
+		// Change the permissions to match non-atomic path
+		//TODO: We shouldn't need to do this...
+		[[NSFileManager defaultManager] setAttributes:@{NSFilePosixPermissions: @(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH),NSFileGroupOwnerAccountID:@(getgid())} ofItemAtPath:fromURL.path error:NULL];
+		return [[NSFileManager defaultManager] moveItemAtURL:fromURL toURL:path error:error];
 #else
-	// This does not honor the atomic property.
+		return [[self xmlData] writeToURL: path
+								  options: NSDataWritingAtomic
+									error: error];
+#endif
+	}
 	NSFileHandle *fh;
 	if (![path checkResourceIsReachableAndReturnError:NULL]) {
 		int fd = open(path.fileSystemRepresentation, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
@@ -394,7 +423,6 @@ static int fileHandleWrite(const char* bytes, int length, void* userData) {
 	[dataLock unlock];
 	
 	return [fh closeAndReturnError: error];
-#endif
 }
 
 - (BOOL) writeToDefaultFileWithError:(NSError *__autoreleasing *)outError {
