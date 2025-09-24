@@ -14,12 +14,12 @@ public class ThumbnailProvider: QLThumbnailProvider {
 		let url = request.fileURL
 		// Try to get the image via babel for this file
 		guard url.isFileURL else {
-			handler(nil, CocoaError(.fileReadUnsupportedScheme, userInfo: [NSURLErrorKey: url]))
+			handler(nil, QLThumbnailError(.requestInvalid, userInfo: [NSURLErrorKey: url]))
 			return
 		}
 		let babel = ZoomBabel(url: url)
 		guard let image = babel.coverImage() else {
-			handler(nil, QLThumbnailError(.requestInvalid, userInfo: [NSURLErrorKey: url]))
+			handler(nil, QLThumbnailError(.generationFailed, userInfo: [NSURLErrorKey: url]))
 			return
 		}
 		
