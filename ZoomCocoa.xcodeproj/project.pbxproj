@@ -5804,6 +5804,7 @@
 				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
 				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				PRODUCT_NAME = Builder;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -5821,6 +5822,7 @@
 				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
 				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				PRODUCT_NAME = Builder;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -5854,6 +5856,7 @@
 				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5888,6 +5891,7 @@
 				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
