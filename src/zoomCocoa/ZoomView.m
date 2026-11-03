@@ -2342,11 +2342,7 @@ static UTType *getZoomSaveType(void) {
 	[textToSpeechReceiver setImmediate: [viewPrefs speakGameText]];
 	
 	[textView setTextContainerInset: NSMakeSize([viewPrefs textMargin], [viewPrefs textMargin])]; 
-	if (@available(macOS 10.15, macOSApplicationExtension 10.15, *)) {
-		[[textView layoutManager] setUsesDefaultHyphenation: [viewPrefs useHyphenation]];
-	} else {
-		[[textView layoutManager] setHyphenationFactor: [viewPrefs useHyphenation]?1:0];
-	}
+	[[textView layoutManager] setUsesDefaultHyphenation: [viewPrefs useHyphenation]];
 	
 	if ([viewPrefs useKerning]) {
 		[textView useStandardKerning: self];
