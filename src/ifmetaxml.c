@@ -242,7 +242,7 @@ static IFChar* Xmdchar(const XML_Char* s, int len) {
 
 /* Error handling/reporting */
 
-char* IF_StringForError(IFXmlError errorCode) {
+const char* IF_StringForError(IFXmlError errorCode) {
 	switch (errorCode) {
 		case IFXmlNotIfiction: return "IFXmlNotIfiction";
 		case IFXmlNoVersionSupplied: return "IFXmlNoVersionSupplied";

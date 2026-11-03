@@ -2346,7 +2346,7 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 		// Save it!
 		NSError *saveErr = nil;
 		BOOL success = [newMetadata writeToURL: [panel URL]
-									atomically: YES
+									atomically: NO
 										 error: &saveErr];
 		if (!success) {
 			//TODO: present BETTER error on failure.

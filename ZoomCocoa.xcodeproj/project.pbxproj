@@ -5372,7 +5372,6 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = Interpreter;
 			};
 			name = Debug;
@@ -5393,7 +5392,6 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = Interpreter;
 			};
 			name = Release;
@@ -5460,7 +5458,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -5547,7 +5545,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -5800,9 +5798,6 @@
 					ProjectBuilder/etc,
 					build,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				PRODUCT_NAME = Builder;
 				SKIP_INSTALL = YES;
 			};
@@ -5818,9 +5813,6 @@
 					ProjectBuilder/etc,
 					build,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				PRODUCT_NAME = Builder;
 				SKIP_INSTALL = YES;
 			};
@@ -5851,9 +5843,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/src/zoomCocoa",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -5886,9 +5875,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/src/zoomCocoa",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64e]" = 11.5;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -5982,7 +5968,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
@@ -6027,7 +6012,6 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";

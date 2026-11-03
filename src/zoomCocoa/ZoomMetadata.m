@@ -150,7 +150,11 @@ NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.
 		metadata = IFMB_Create();
 		IF_ReadIfiction(metadata, [xmlData bytes], [xmlData length]);
 		dataLock = [[NSLock alloc] init];
-		dataLock.name = [NSString stringWithFormat:@"Zoom Metadata Lock %p", self];
+		if (filename) {
+			dataLock.name = [NSString stringWithFormat:@"Zoom Metadata Lock for %@", [filename.path stringByAbbreviatingWithTildeInPath]];
+		} else {
+			dataLock.name = [NSString stringWithFormat:@"Zoom Metadata Lock %p", self];
+		}
 		
 #if 0
 		if (metadata->numberOfErrors > 0) {
@@ -387,7 +391,7 @@ static int fileHandleWrite(const char* bytes, int length, void* userData) {
 		NSURL *fromURL = [NSURL fileURLWithFileSystemRepresentation:tmpName isDirectory:NO relativeToURL:nil];
 		// Change the permissions to match non-atomic path
 		//TODO: We shouldn't need to do this...
-		[[NSFileManager defaultManager] setAttributes:@{NSFilePosixPermissions: @(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH),NSFileGroupOwnerAccountID:@(getgid())} ofItemAtPath:fromURL.path error:NULL];
+		[[NSFileManager defaultManager] setAttributes:@{NSFilePosixPermissions: @(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH), NSFileGroupOwnerAccountID: @(getgid())} ofItemAtPath:fromURL.path error:NULL];
 		return [[NSFileManager defaultManager] moveItemAtURL:fromURL toURL:path error:error];
 #else
 		return [[self xmlData] writeToURL: path
