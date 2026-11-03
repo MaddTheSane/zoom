@@ -123,7 +123,6 @@
 	
 	// Set the typography options according to the Zoom preferences object
 	prefs.textMargin = zPrefs.textMargin;
-	prefs.useScreenFonts = zPrefs.useScreenFonts;
 	prefs.useHyphenation = zPrefs.useHyphenation;
 	prefs.useKerning = zPrefs.useKerning;
 	prefs.useLigatures = zPrefs.useLigatures;
