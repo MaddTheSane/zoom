@@ -5736,10 +5736,6 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x2e000000,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
 				SKIP_INSTALL = YES;
@@ -5775,10 +5771,6 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = src/zoomCocoa/PlugIns/ZoomPlugIns.modulemap;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x2e000000,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
 				SKIP_INSTALL = YES;
@@ -5971,10 +5963,6 @@
 				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoomview;
 				PRODUCT_NAME = ZoomView;
 				SKIP_INSTALL = YES;
@@ -6015,10 +6003,6 @@
 				MARKETING_VERSION = 2.1.5;
 				MODULEMAP_FILE = src/zoomCocoa/ZoomView.modulemap;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++17";
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoomview;
 				PRODUCT_NAME = ZoomView;
 				SKIP_INSTALL = YES;
