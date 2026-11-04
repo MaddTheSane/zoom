@@ -126,6 +126,8 @@ NSData * _Nullable convertVOCToRIFF(NSURL *filePath, NSError *_Nullable __autore
 		}
 	}
 	
+	// TODO: implement
+	
 	if (error) {
 		*error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSURLErrorKey: filePath}];
 	}
