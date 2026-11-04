@@ -140,7 +140,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 								settings:@{AVAudioFileTypeKey: @(kAudioFileM4AType),
 										   AVLinearPCMBitDepthKey: @16,
 										   AVLinearPCMIsFloatKey: @NO,
-										   AVFormatIDKey: @(kAudioFormatAC3),
+										   AVFormatIDKey: @(kAudioFormatMPEG4AAC),
 										   AVSampleRateKey: @441000,
 										   AVEncoderBitRateKey: @64000,
 										   AVNumberOfChannelsKey: @1}
