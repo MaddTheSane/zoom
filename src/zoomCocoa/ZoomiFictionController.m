@@ -511,6 +511,10 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 		} else if ((plugin = [[ZoomPlugInManager sharedPlugInManager] converterForURL:filename])) {
 			[plugin convertStoryFileAtURL:filename completionHandler:^(NSURL *newURL, NSError *anyError) {
 				if (!newURL) {
+					// Skip presenting the error if the user canceled the action.
+					if ([anyError.domain isEqualToString:NSCocoaErrorDomain] && anyError.code == NSUserCancelledError) {
+						return;
+					}
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[self presentError:anyError];
 					});
@@ -1021,7 +1025,9 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 		
 		NSString* filterItem1 = [thisStory objectForKey: filterKey1];
 		
-		if ([filterItem1 length] != 0 && [filterSet1 indexOfObject: filterItem1] == NSNotFound) [filterSet1 addObject: filterItem1];
+		if ([filterItem1 length] != 0 && [filterSet1 indexOfObject: filterItem1] == NSNotFound) {
+			[filterSet1 addObject: filterItem1];
+		}
 	}
 	
 	// Sort the first filter set
@@ -1037,7 +1043,9 @@ static NSArray<NSString*> * const blorbFileTypes = @[@"blorb", @"zblorb", @"blb"
 	for (ZoomStoryID* ident in storyList) {
 		ZoomStory* thisStory = [self storyForID: ident];
 		NSString* filterItem2 = [thisStory objectForKey: filterKey2];		
-		if ([filterItem2 length] != 0 && [filterSet2 indexOfObject: filterItem2] == NSNotFound) [filterSet2 addObject: filterItem2];
+		if ([filterItem2 length] != 0 && [filterSet2 indexOfObject: filterItem2] == NSNotFound) {
+			[filterSet2 addObject: filterItem2];
+		}
 	}
 	
 	[filterSet2 sortUsingSelector: @selector(caseInsensitiveCompare:)];
@@ -1393,9 +1401,15 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 		[resourceDrop setEnabled: NO];
 	}
 	
-	if (comment == nil) comment = @"";
-	if (teaser == nil) teaser = @"";
-	if (description == nil) description = @"";
+	if (comment == nil) {
+		comment = @"";
+	}
+	if (teaser == nil) {
+		teaser = @"";
+	}
+	if (description == nil) {
+		description = @"";
+	}
 	
 	// Set the game details
 	BOOL flipToDescription = NO;
@@ -2048,7 +2062,9 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 	[self queueStoryUpdate];
 }
 
--(void)textStorage:(NSTextStorage *)storage willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta
+-(void)textStorage:(NSTextStorage *)storage
+willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange
+	changeInLength:(NSInteger)delta
 {
 	if (storage == [gameDetailView textStorage]) {
 		// Get the edited range
@@ -2386,7 +2402,7 @@ static NSString *sanitizeID(ZoomStoryID* ident)
 #pragma mark - Handling downloads
 
 - (BOOL) canPlayFileAtURL: (NSURL*) filename {
-	NSArray* fileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", @"signpost"];
+	const NSArray<NSString *> * const fileTypes = @[@"z3", @"z4", @"z5", @"z6", @"z7", @"z8", @"blorb", @"zblorb", @"blb", @"zlb", @"signpost"];
 	NSString* extn = [[filename pathExtension] lowercaseString];
 	
 	if ([fileTypes containsObject: extn]) {
@@ -3059,15 +3075,15 @@ static unsigned int ValueForHexChar(int hex) {
 	
 	if (update == nil || ![update isKindOfClass: [NSDictionary class]]) {
 		// Not a valid update file
-		[self failedToInstallPlugin: @"The plugin update file that was download does not appear to contain a valid property list."];
+		[self failedToInstallPlugin: NSLocalizedString(@"The plugin update file that was download does not appear to contain a valid property list.", @"The plugin update file that was download does not appear to contain a valid property list.")];
 		return;
 	}
 	
 	// Find a plugin that matches the signpost
 	NSString* interpreter = [activeSignpost interpreterDisplayName];
 	if (!interpreter || ![interpreter isKindOfClass: [NSString class]]) {
-		[self failedToInstallPlugin: @"Oops, Zoom forgot which interpreter it was trying to install."];
-		return;		
+		[self failedToInstallPlugin: NSLocalizedString(@"Oops, Zoom forgot which interpreter it was trying to install.", @"Oops, Zoom forgot which interpreter it was trying to install.")];
+		return;
 	}
 	
 	NSEnumerator* pluginEnum = [[update allValues] objectEnumerator];
@@ -3089,7 +3105,7 @@ static unsigned int ValueForHexChar(int hex) {
 	}
 	
 	if (!pluginToInstall) {
-		[self failedToInstallPlugin: [NSString stringWithFormat: @"Zoom could not find a plugin for %@ at the specified site.", interpreter]];
+		[self failedToInstallPlugin: [NSString stringWithFormat: NSLocalizedString(@"Zoom could not find a plugin for %@ at the specified site.", @"Zoom could not find a plugin for %@ at the specified site."), interpreter]];
 		return;
 	}
 	
@@ -3098,8 +3114,8 @@ static unsigned int ValueForHexChar(int hex) {
 	NSString* md5raw = [pluginToInstall objectForKey: @"MD5"];
 	
 	if (!urlString || !md5raw || ![urlString isKindOfClass: [NSString class]] || ![md5raw isKindOfClass: [NSString class]]) {
-		[self failedToInstallPlugin: [NSString stringWithFormat: @"Zoom found a plugin for %@ at the specified site, but could not establish a URL to download it from.", interpreter]];
-		return;		
+		[self failedToInstallPlugin: [NSString stringWithFormat: NSLocalizedString(@"Zoom found a plugin for %@ at the specified site, but could not establish a URL to download it from.", @"Zoom found a plugin for %@ at the specified site, but could not establish a URL to download it from."), interpreter]];
+		return;
 	}
 	
 	// Build a digest from string values
@@ -3149,13 +3165,13 @@ static unsigned int ValueForHexChar(int hex) {
 		installed = YES;
 		
 		if (![[ZoomPlugInManager sharedPlugInManager] installPlugIn: [[downloadedPlugin downloadDirectory].path stringByAppendingPathComponent: path]]) {
-			[self failedToInstallPlugin: @"The plugin was successfully downloaded, but did not install correctly. This usually occurs because you do not have permission to modify the Zoom application."];
+			[self failedToInstallPlugin: NSLocalizedString(@"The plugin was successfully downloaded, but did not install correctly. This usually occurs because you do not have permission to modify the Zoom application.", @"The plugin was successfully downloaded, but did not install correctly. This usually occurs because you do not have permission to modify the Zoom application.")];
 			return;
 		}
 	}
 	
 	if (!installed) {
-		[self failedToInstallPlugin: @"No plugins were found in the file that was downloaded."];		
+		[self failedToInstallPlugin: NSLocalizedString(@"No plugins were found in the file that was downloaded.", @"No plugins were found in the file that was downloaded.")];
 	}
 	
 	// Restart if necessary

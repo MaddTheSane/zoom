@@ -1636,6 +1636,23 @@
         }
       }
     },
+    "No plugins were found in the file that was downloaded." : {
+      "comment" : "No plugins were found in the file that was downloaded.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No plugins were found in the file that was downloaded."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No plugins were found in the file that was downloaded."
+          }
+        }
+      }
+    },
     "Not a valid Quetzal file" : {
       "comment" : "Not a valid Quetzal file",
       "localizations" : {
@@ -1678,6 +1695,23 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "有効なZoomセーブゲームパッケージではありません"
+          }
+        }
+      }
+    },
+    "Oops, Zoom forgot which interpreter it was trying to install." : {
+      "comment" : "Oops, Zoom forgot which interpreter it was trying to install.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops, Zoom forgot which interpreter it was trying to install."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops, Zoom forgot which interpreter it was trying to install."
           }
         }
       }
@@ -1977,6 +2011,46 @@
         }
       }
     },
+    "The plugin update file that was download does not appear to contain a valid property list." : {
+      "comment" : "The plugin update file that was download does not appear to contain a valid property list.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The plugin update file that was download does not appear to contain a valid property list."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The plugin update file that was download does not appear to contain a valid property list."
+          }
+        }
+      }
+    },
+    "The plugin was successfully downloaded, but did not install correctly. This usually occurs because you do not have permission to modify the Zoom application." : {
+      "comment" : "The plugin was successfully downloaded, but did not install correctly. This usually occurs because you do not have permission to modify the Zoom application.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Das Plugin wurde erfolgreich heruntergeladen, wurde jedoch nicht korrekt installiert. Dies geschieht normalerweise, weil Sie keine Berechtigung haben, die Zoom-Anwendung zu ändern."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The plugin was successfully downloaded, but did not install correctly. This usually occurs because you do not have permission to modify the Zoom application."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The plugin was successfully downloaded, but did not install correctly. This usually occurs because you do not have permission to modify the Zoom application."
+          }
+        }
+      }
+    },
     "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved." : {
       "comment" : "There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.",
       "localizations" : {
@@ -2170,6 +2244,12 @@
     "Zoom cannot download this type of file Info: %@" : {
       "comment" : "Zoom cannot download this type of file Info, param is mime type or unknown",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sie haben auf einen Download-Link geklickt, der auf eine Art von Datei führt, die Zoom nicht verarbeiten kann. Dies könnte daran liegen, dass die Datei eine komprimierte Datei in einem Format ist, das Zoom nicht versteht, oder daran, dass Sie das Plug-in für diese Dateityp noch nicht installiert haben.\n\nSie können nach neuen Plug-ins suchen, indem Sie die Option „Auf Updates prüfen“ im Zoom-Menü verwenden.\n\nGeben Sie %@ ein."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2213,9 +2293,38 @@
         }
       }
     },
+    "Zoom could not find a plugin for %@ at the specified site." : {
+      "comment" : "Zoom could not find a plugin for %@ at the specified site.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoom konnte kein Plugin für %@ an der angegebenen Stelle finden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom could not find a plugin for %@ at the specified site."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom could not find a plugin for %@ at the specified site."
+          }
+        }
+      }
+    },
     "Zoom does not know where a valid story file for '%@' is and so is unable to load it" : {
       "comment" : "Zoom does not know where a valid story file for '%@' is and so is unable to load it",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoom weiß nicht, wo sich eine gültige Story-Datei für '%@' befindet, und kann sie daher nicht laden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2294,6 +2403,29 @@
         }
       }
     },
+    "Zoom found a plugin for %@ at the specified site, but could not establish a URL to download it from." : {
+      "comment" : "Zoom found a plugin for %@ at the specified site, but could not establish a URL to download it from.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoom hat ein Plugin für %@ an der angegebenen Website gefunden, konnte aber keine URL festlegen, von der es heruntergeladen werden kann."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom found a plugin for %@ at the specified site, but could not establish a URL to download it from."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom found a plugin for %@ at the specified site, but could not establish a URL to download it from."
+          }
+        }
+      }
+    },
     "Zoom is unable to load a valid story file for '%1$@' (tried '%2$@')" : {
       "comment" : "Zoom is unable to load a valid story file for '%1$@' (tried '%2$@')",
       "localizations" : {
@@ -2313,6 +2445,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom is unable to load a valid story file for ‘%1$@’ (tried ‘%2$@’)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoom ne parvient pas à charger un fichier d'histoire valide pour '%1$@' (a essayé '%2$@')"
           }
         },
         "ja" : {
@@ -2411,8 +2549,14 @@
       }
     },
     "Zoom was expecting to find the story file for %@ at %@, but it is no longer there. You will need to locate the story in the Finder and load it manually." : {
-      "extractionState" : "manual",
+      "comment" : "File is missing, look for it in the Finder.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoom erwartete, die Story-Datei für %1$@ bei %2$@ zu finden, aber sie ist nicht mehr dort. Sie müssen die Story im Finder finden und sie manuell laden."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2423,6 +2567,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom was expecting to find the story file for %1$@ at %2$@, but it is no longer there. You will need to locate the story in the Finder and load it manually."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zoom s'attendait à trouver le fichier de l'histoire pour %1$@ à %2$@, mais il n'est plus là. Vous devrez localiser l'histoire dans Finder et la charger manuellement."
           }
         },
         "ja" : {
