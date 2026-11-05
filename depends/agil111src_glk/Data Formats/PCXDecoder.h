@@ -17,14 +17,20 @@ typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
 	PCXDecoderBadEncoding,
 	PCXDecoderUnknownPalette,
 	PCXDecoderUnexpectedEOF,
-	PCXDecoderNoVGAPalette
+	PCXDecoderNoVGAPalette,
+	PCXDecoderAlreadyParsed
 };
 
 
 @interface PCXDecoder : NSObject
 
-//! Initializes, parses, and decodes the passed-in URL, or returns `nil` and populates `outErr` on error.
+//! Initializes and opens the passed-in URL, or returns `nil` and populates `outErr` on error.
 - (nullable instancetype)initWithFileAtURL:(NSURL*)url error:(NSError**)outErr;
+
+//! Parses and decodes the passed-in URL, or returns `NO` and populates `outErr` on error.
+//!
+//! The file handler is closed after this method returns.
+- (BOOL)parseWithError:(NSError**)outErr;
 
 @property (readonly, copy, nullable) NSData *dataRepresentation;
 

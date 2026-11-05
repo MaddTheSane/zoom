@@ -152,6 +152,7 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 				case 0 ..< 11:
 					do {
 						let dec = try PCXDecoder(fileAt: theOut)
+						try dec.parse()
 						if let imgData = dec.dataRepresentation,
 						   let image = NSImage(data: imgData) {
 							return image

@@ -151,6 +151,12 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 						return @"The VGA palette was not found.";
 					}
 					break;
+					
+				case PCXDecoderAlreadyParsed:
+					if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey] || [userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"The PCX was already parsed, or failed to parse.";
+					}
+					break;
 			}
 			return nil;
 		}];
@@ -197,53 +203,81 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 		if (!fileHandle) {
 			return nil;
 		}
-		NSData *hand = [fileHandle readDataUpToLength:sizeof(PCXHeader) error:outErr];
-		if (!hand) {
-			return nil;
+	}
+	return self;
+}
+
+- (BOOL)parseWithError:(NSError *__autoreleasing  _Nullable *)outErr
+{
+	if (fileHandle == nil) {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderAlreadyParsed userInfo: @{NSURLErrorKey: fileURL}];
 		}
-		if (hand.length != 128) {
-			if (outErr) {
-				*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnexpectedEOF userInfo: @{NSURLErrorKey: url}];
-			}
-			return nil;
+		return NO;
+	}
+	NSData *hand = [fileHandle readDataUpToLength:sizeof(PCXHeader) error:outErr];
+	if (!hand) {
+		[fileHandle closeAndReturnError:NULL];
+		fileHandle = nil;
+		return NO;
+	}
+	if (hand.length != 128) {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain: PCXDecoderErrorDomain code: PCXDecoderUnexpectedEOF userInfo: @{NSURLErrorKey: fileURL}];
 		}
-		// TODO: byte-swap? This assumes a Little Endian architecture.
-		[hand getBytes:&pcxHeader length:sizeof(struct PCXHeader)];
+		[fileHandle closeAndReturnError:NULL];
+		fileHandle = nil;
+		return NO;
+	}
+	// TODO: byte-swap? This assumes a Little Endian architecture.
+	[hand getBytes:&pcxHeader length:sizeof(struct PCXHeader)];
 #if __BIG_ENDIAN__
 #error byte-swap pcxHeader before building for big endian architectures!
 #endif
-		
-		if (![self verifyHeaderWithError:outErr]) {
-			return nil;
-		}
-		
-		// Handle 24-bit images
-		if (pcxHeader.version == PCXVersionLaterWindows && pcxHeader.colorPlanes == 3) {
-			if (![self readTrueColorPCXWithError:outErr]) {
-				return nil;
-			}
-		} else if (pcxHeader.colorPlanes == 1 && pcxHeader.bitsPerPlane == 8) {
-			if (![self readVGAPCXWithError:outErr]) {
-				return nil;
-			}
-		} else if (pcxHeader.colorPlanes == 4 && pcxHeader.bitsPerPlane == 1 && pcxHeader.version != PCXVersionNoPalette) {
-			if (![self readEGAPCXWithFixedPalette:NO error:outErr]) {
-				return nil;
-			}
-		} else if (pcxHeader.colorPlanes == 4 && pcxHeader.bitsPerPlane == 1 && pcxHeader.version == PCXVersionNoPalette) {
-			if (![self readEGAPCXWithFixedPalette:YES error:outErr]) {
-				return nil;
-			}
-		} else {
-			if (outErr) {
-				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: url, NSLocalizedFailureReasonErrorKey: @"Unsupported or invalid PCX format."}];
-			}
-			return nil;
-		}
-		[fileHandle closeFile];
+	
+	if (![self verifyHeaderWithError:outErr]) {
+		[fileHandle closeAndReturnError:NULL];
 		fileHandle = nil;
+		return NO;
 	}
-	return self;
+	
+	// Handle 24-bit images
+	if (pcxHeader.version == PCXVersionLaterWindows && pcxHeader.colorPlanes == 3) {
+		if (![self readTrueColorPCXWithError:outErr]) {
+			[fileHandle closeAndReturnError:NULL];
+			fileHandle = nil;
+			return NO;
+		}
+	} else if (pcxHeader.colorPlanes == 1 && pcxHeader.bitsPerPlane == 8) {
+		if (![self readVGAPCXWithError:outErr]) {
+			[fileHandle closeAndReturnError:NULL];
+			fileHandle = nil;
+			return NO;
+		}
+	} else if (pcxHeader.colorPlanes == 4 && pcxHeader.bitsPerPlane == 1 && pcxHeader.version != PCXVersionNoPalette) {
+		if (![self readEGAPCXWithFixedPalette:NO error:outErr]) {
+			[fileHandle closeAndReturnError:NULL];
+			fileHandle = nil;
+			return NO;
+		}
+	} else if (pcxHeader.colorPlanes == 4 && pcxHeader.bitsPerPlane == 1 && pcxHeader.version == PCXVersionNoPalette) {
+		if (![self readEGAPCXWithFixedPalette:YES error:outErr]) {
+			[fileHandle closeAndReturnError:NULL];
+			fileHandle = nil;
+			return NO;
+		}
+	} else {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: fileURL, NSLocalizedFailureReasonErrorKey: @"Unsupported or invalid PCX format."}];
+		}
+		[fileHandle closeAndReturnError:NULL];
+		fileHandle = nil;
+		return NO;
+	}
+	[fileHandle closeAndReturnError:NULL];
+	fileHandle = nil;
+	
+	return YES;
 }
 
 //! Convert packed pixel format in `bitplanes[]` into 1 pixel per byte

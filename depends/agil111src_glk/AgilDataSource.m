@@ -110,6 +110,12 @@ static int decodeImageFormat(glui32 image, int *cmd)
         
         return nil;
       }
+      
+      if (![pcxData parseWithError:&tmpError]) {
+        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: PCX conversion failed: %@", urlPath.path, tmpError.localizedDescription]);
+        
+        return nil;
+      }
       //Write data
       return pcxData.dataRepresentation;
     } else {

@@ -20,6 +20,10 @@ int main(int argc, char *argv[])
 			NSLog(@"%@", err);
 			return EXIT_FAILURE;
 		}
+		if (![aDec parseWithError:&err]) {
+			NSLog(@"%@", err);
+			return EXIT_FAILURE;
+		}
 		NSURL *outURL = [theURL.URLByDeletingPathExtension URLByAppendingPathExtension:@"tiff"];
 		NSData *dat = [aDec dataRepresentation];
 		[dat writeToURL:outURL atomically:YES];
