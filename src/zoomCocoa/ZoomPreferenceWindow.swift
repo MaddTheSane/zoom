@@ -155,7 +155,6 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 	
 	@IBOutlet weak var showMargins: NSButton!
 	@IBOutlet weak var marginWidth: NSSlider!
-	@IBOutlet weak var useScreenFonts: NSButton!
 	@IBOutlet weak var useHyphenation: NSButton!
 	@IBOutlet weak var kerning: NSButton!
 	@IBOutlet weak var ligatures: NSButton!
@@ -191,7 +190,6 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 			organiseDir.string = preferences.organiserDirectory
 			
 			showMargins.state = preferences.textMargin > 0 ? .on : .off
-			useScreenFonts.state = preferences.useScreenFonts ? .on : .off
 			useHyphenation.state = preferences.useHyphenation ? .on : .off
 			kerning.state = preferences.useKerning ? .on : .off
 			ligatures.state = preferences.useLigatures ? .on : .off
@@ -681,14 +679,6 @@ class ZoomPreferenceWindow: NSWindowController, NSToolbarDelegate, NSTableViewDa
 		
 		if newSize != oldSize {
 			preferences.textMargin = newSize
-		}
-	}
-
-	@IBAction func screenFontsChanged(_ sender: Any?) {
-		let newState = useScreenFonts.state == .on
-		
-		if newState != preferences.useScreenFonts {
-			preferences.useScreenFonts = newState
 		}
 	}
 

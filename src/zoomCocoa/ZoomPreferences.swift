@@ -656,23 +656,6 @@ public class ZoomPreferences : NSObject, NSSecureCoding, NSCopying {
 		}
 	}
 	
-	/// macOS no longer uses screen fonts: this will most likely have no effect on
-	/// recent OS releases.
-	@available(*, deprecated, message: "Not used anymore.")
-	open var useScreenFonts: Bool {
-		get {
-			let result: Bool? = prefLock.withLock({
-				return prefs[useScreenFontsKey] as? Bool
-			})
-			
-			return result ?? false
-		}
-		set {
-			prefs[useScreenFontsKey] = newValue
-			preferencesHaveChanged()
-		}
-	}
-	
 	open var useHyphenation: Bool {
 		get {
 			let result: Bool? = prefLock.withLock({

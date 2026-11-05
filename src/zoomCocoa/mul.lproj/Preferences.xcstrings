@@ -1249,42 +1249,6 @@
         }
       }
     },
-    "198.ibShadowedToolTip" : {
-      "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\\n\\nNote that screen fonts have been deprecated for a long time: leave this off.\"; ObjectID = \"198\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Aktivieren Sie diese Option, um Zoom anzuweisen, Bildschirmschriftarten zu verwenden, sofern verfügbar. Dies sind Bitmap-Versionen von Schriftarten, deren Abstand geändert wurde, um sie auf einem Gerät mit niedriger Auflösung wie einem Bildschirm besser anzuzeigen. Wenn Sie diese Option ausschalten, werden Schriftarten genauer gerendert, kann aber die Anzahl der Andeuungsartefakte erhöhen und die Lesbarkeit verringern."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\n\nNote that screen fonts have been deprecated for a long time: leave this off."
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Check this option to tell Zoom to use screen fonts where available. These are bitmapped versions of fonts with their spacing altered to better display on a low-resolution device such as a screen. Turning this option off will cause fonts to be more accurately rendered, but may increase the number of hinting artifacts, reducing readability.\n\nNote that screen fonts have been deprecated for a long time: leave this off."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cochez cette option pour indiquer à Zoom d'utiliser les polices d'écran lorsqu'elles sont disponibles. Il s'agit de versions bitmap de polices dont l'espacement est modifié pour mieux s'afficher sur un appareil à basse résolution tel qu'un écran. La désactivation de cette option entraînera un rendu plus précis des polices, mais peut augmenter le nombre d'artefacts d'insinuation, ce qui réduira la lisibilité."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "利用可能な場合は、画面フォントを使用するようにZoomに指示するには、このオプションをオンにします。これらは、画面などの低解像度デバイスでよりよく表示するように間隔が変更されたフォントのビットマップバージョンです。このオプションをオフにすると、フォントがより正確にレンダリングされますが、ヒントアーティファクトの数が増え、読みやすさが低下する可能性があります。"
-          }
-        }
-      }
-    },
     "199.ibShadowedToolTip" : {
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Turn this option on to instruct Zoom to hyphenate text wherever possible. Note that some types of game may not support hyphenation.\"; ObjectID = \"199\";",
       "extractionState" : "extracted_with_value",
@@ -2531,42 +2495,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "広いマージン"
-          }
-        }
-      }
-    },
-    "480.title" : {
-      "comment" : "Class = \"NSButtonCell\"; title = \"Use screen fonts\"; ObjectID = \"480\";",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Verwenden Sie Bildschirmschriften"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Use screen fonts"
-          }
-        },
-        "en-GB" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Use screen fonts"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Utiliser des polices d'écran"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "画面フォントを使用する"
           }
         }
       }
