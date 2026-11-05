@@ -9,7 +9,7 @@ import Foundation
 import CryptoKit
 import ZoomPlugIns.ZoomDownload
 
-private var localDownloadDirectory: URL = {
+nonisolated(unsafe) private var localDownloadDirectory: URL = {
 	var downloadDir: URL
 	if #available(macOSApplicationExtension 13.0, macOS 13.0, *) {
 		downloadDir = URL.temporaryDirectory
@@ -21,7 +21,7 @@ private var localDownloadDirectory: URL = {
 
 	return downloadDir
 }()
-private var lastDownloadID = 0
+nonisolated(unsafe) private var lastDownloadID = 0
 
 private func fullExtension(forFilename filename: String) -> String? {
 	let filenameNS = filename as NSString
@@ -195,7 +195,10 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 	private func failed(reason: String) {
 		finished()
 		
-		DispatchQueue.main.async {
+		DispatchQueue.main.async { [weak self] in
+			guard let self else {
+				return
+			}
 			self.delegate?.downloadFailed?(self, reason: reason)
 		}
 	}
@@ -207,7 +210,10 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 		task = nil
 		subtasks = nil
 		
-		DispatchQueue.main.async {
+		DispatchQueue.main.async { [weak self] in
+			guard let self else {
+				return
+			}
 			self.delegate?.downloadComplete?(self)
 		}
 	}
@@ -366,7 +372,7 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 
 	// MARK: -
 	
-	public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse) async -> URLSession.ResponseDisposition {
+	@concurrent public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse) async -> URLSession.ResponseDisposition {
 		var status = 200
 		if let response = response as? HTTPURLResponse {
 			status = response.statusCode
@@ -522,8 +528,10 @@ final public class ZoomDownload: NSObject, URLSessionDataDelegate, URLSessionDel
 		if expectedLength != 0 {
 			let proportion = Double(downloadedSoFar)/Double(expectedLength)
 			
-			DispatchQueue.main.async {
-				self.delegate?.download?(self, completed: Float(proportion))
+			DispatchQueue.main.async { [weak self] in
+				if let self {
+					self.delegate?.download?(self, completed: Float(proportion))
+				}
 			}
 		}
 	}

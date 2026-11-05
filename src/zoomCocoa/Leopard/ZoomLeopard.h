@@ -22,7 +22,8 @@ NS_SWIFT_NAME(ZoomLeopardProtocol)
 /// Causes a view to do a 'pop out' animation
 - (void) popOutView: (NSView*) view
 		   duration: (NSTimeInterval) seconds
-		   finished: (void (^ _Nullable)(void)) finished;
+		   finished: (void (^ _Nullable)(void)) finished
+NS_SWIFT_NAME(popOut(_:duration:finished:));
 /// Removes the layers for the specified view
 - (void) clearLayersForView: (NSView*) view;
 

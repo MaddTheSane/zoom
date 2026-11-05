@@ -531,23 +531,23 @@ static NSString* const ZoomOpenPanelLocation = @"ZoomOpenPanelLocation";
 		return YES;
 	}
 	
-	NSString *urlUTI;
-	if (![url getResourceValue:&urlUTI forKey:NSURLTypeIdentifierKey error:NULL]) {
-		urlUTI = CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.pathExtension, isDirectory ? kUTTypeDirectory : kUTTypeData));
+	UTType *urlUTI;
+	if (![url getResourceValue:&urlUTI forKey:NSURLContentTypeKey error:NULL]) {
+		urlUTI = [UTType typeWithFilenameExtension:url.pathExtension conformingToType:isDirectory ? UTTypeDirectory : UTTypeData];
 	}
 	
 	// Show files that we can open with the ZoomClient document type
-	NSString* type = @"public.zcode";
-	if ([urlUTI isEqualToString:type]) return YES;
+	UTType* type = [UTType importedTypeWithIdentifier: @"public.zcode"];
+	if ([urlUTI isEqual:type]) return YES;
 	
-	type = @"public.blorb.zcode";
-	if ([urlUTI isEqualToString:type]) return YES;
+	type = [UTType importedTypeWithIdentifier: @"public.blorb.zcode"];
+	if ([urlUTI isEqual:type]) return YES;
 	
-	type = @"public.blorb.glulx";
-	if ([urlUTI isEqualToString:type]) return YES;
+	type = [UTType importedTypeWithIdentifier: @"public.blorb.glulx"];
+	if ([urlUTI isEqual:type]) return YES;
 	
-	type = @"public.blorb";
-	if ([urlUTI isEqualToString:type]) return YES;
+	type = [UTType importedTypeWithIdentifier: @"public.blorb"];
+	if ([urlUTI isEqual:type]) return YES;
 	
 	return NO;
 }

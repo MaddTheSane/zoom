@@ -377,7 +377,7 @@ private let ZoomIdentityFilename = ".zoomIdentity"
 		return ZoomStoryID(for: filename)
 	}
 	
-	private func preferenceThread() async {
+	@concurrent private func preferenceThread() async {
 		await startedActing()
 		
 		// If story organisation is on, we need to check for any disappeared stories that have appeared in

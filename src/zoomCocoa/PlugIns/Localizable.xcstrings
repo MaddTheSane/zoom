@@ -188,6 +188,12 @@
     "Failed to install" : {
       "comment" : "Failed to install",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to install"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -205,6 +211,12 @@
     "Finish" : {
       "comment" : "Finish",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
+          }
+        },
         "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
@@ -228,6 +240,12 @@
             "value" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost."
           }
         },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -240,6 +258,12 @@
       "comment" : "Finish the game?",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish the game?"
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finish the game?"
@@ -262,6 +286,12 @@
             "value" : "Later"
           }
         },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -279,6 +309,12 @@
             "value" : "Install Now"
           }
         },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install Now"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -291,6 +327,12 @@
       "comment" : "Installation failed",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installation failed"
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Installation failed"
@@ -342,6 +384,12 @@
             "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected."
           }
         },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -377,6 +425,12 @@
       "comment" : "No notes available",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No notes available"
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No notes available"
@@ -458,6 +512,12 @@
             "value" : "Restart Now"
           }
         },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart Now"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -498,6 +558,12 @@
             "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
           }
         },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -516,6 +582,12 @@
           }
         },
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This interpreter is unable to load saved states"
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This interpreter is unable to load saved states"
@@ -607,6 +679,12 @@
             "value" : "You must restart Zoom to complete the update"
           }
         },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must restart Zoom to complete the update"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -624,6 +702,12 @@
             "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
           }
         },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -636,6 +720,12 @@
       "comment" : "Zoom found updates to some of the installed plugins",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom found updates to some of the installed plugins"
+          }
+        },
+        "en-GB" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zoom found updates to some of the installed plugins"

@@ -94,7 +94,7 @@ class ZoomLeopard: NSObject, @preconcurrency ZoomLeopardProtocol, CAAnimationDel
 		}
 	}
 
-	@MainActor func popOutView(_ view: NSView, duration seconds: TimeInterval, finished: (()->Void)?) {
+	@MainActor func popOut(_ view: NSView, duration seconds: TimeInterval, finished: (()->Void)?) {
 		// Set up the layers for this view
 		prepareToAnimate(view)
 		

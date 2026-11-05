@@ -59,7 +59,7 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 //! Will be `nil` if created without a URL.
 @property (readonly, copy, nullable) NSURL *sourceURL;
 
-//! Calls initWithData:fileURL:error:
+//! Calls ``initWithData:fileURL:error:``
 //!
 //! \param xmlData The raw XML data.
 //! \param outError Error value, populated on failure (returned `nil`).

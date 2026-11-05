@@ -4,6 +4,7 @@
 
 #import "ZoomJSError.h"
 #import "ZoomiFictionController.h"
+#import "ZoomLeopard.h"
 
 #import "ZoomAppDelegate.h"
 
