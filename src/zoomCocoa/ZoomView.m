@@ -1180,7 +1180,8 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
         return YES;
     }
 	
-	if (receiving && terminatingChars != nil) {
+	// A dead key has no characters
+	if (receiving && terminatingChars != nil && [[theEvent characters] length] > 0) {
 		// Deal with terminating characters
 		NSString* chars = [theEvent characters];
 		unichar chr = [chars characterAtIndex: 0];
