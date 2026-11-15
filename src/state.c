@@ -441,7 +441,20 @@ int state_decompile(ZByte* st, ZStack* stack, ZDWord* pc, ZDWord len)
     {
       ZDWord blen;
       
+      /* A damaged file can have a length that runs past its end, or that is negative */
+      if (len - pos < 4)
+	{
+	  detail = "Corrupt savefile";
+	  return 0;
+	}
+      
       blen = (st[pos]<<24) | (st[pos+1]<<16) | (st[pos+2]<<8) | (st[pos+3]);
+      
+      if (blen < 0 || blen > len - pos - 4)
+	{
+	  detail = "Corrupt savefile";
+	  return 0;
+	}
 #ifdef DEBUG
       printf_debug("Decompile: found block ");
       {
