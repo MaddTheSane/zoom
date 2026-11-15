@@ -41,6 +41,8 @@
 	NSInteger inputPos;
 	BOOL receiving;
 	BOOL receivingCharacters;
+	/// The display size changed while the Z-Machine wasn't waiting for input
+	BOOL displaySizeChangePending;
 	
 	double morePoint;
 	double moreReferencePoint;
@@ -365,9 +367,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	[self reformatWindow];
 	[self scrollToEnd];
 	
-	if (zMachine) {
-		[zMachine displaySizeHasChanged];
-	}
+	[self sendDisplaySizeChange];
 }
 
 - (void) setZMachine: (id<ZMachine>) machine {
@@ -559,6 +559,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	}
     
     receivingCharacters = YES;
+	if (displaySizeChangePending) [self sendDisplaySizeChange];
 	[self orWaitingForInput];
 	
 	// Position the cursor
@@ -699,6 +700,7 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 	}	
 	
     receiving = YES;
+	if (displaySizeChangePending) [self sendDisplaySizeChange];
 	[self orWaitingForInput];
 	
 	// Dealing with the input source
@@ -786,9 +788,22 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 }
 
 - (void) boundsChanged: (__unused NSNotification*) not {
-    if (zMachine) {
-        [zMachine displaySizeHasChanged];
-    }
+    [self sendDisplaySizeChange];
+}
+
+/// Tells the Z-Machine that the display size has changed. This waits for a reply, and the
+/// server handles messages only while it waits for input or for a reply of its own, so a
+/// story that is busy, or stuck in a loop, would block this thread. While the story is
+/// running, the change is sent when it next asks for input.
+- (void) sendDisplaySizeChange {
+	if (!zMachine) return;
+	
+	if (receiving || receivingCharacters) {
+		displaySizeChangePending = NO;
+		[zMachine displaySizeHasChanged];
+	} else {
+		displaySizeChangePending = YES;
+	}
 }
 
 #pragma mark - Utility functions
