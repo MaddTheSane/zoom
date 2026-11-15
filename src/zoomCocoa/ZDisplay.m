@@ -50,6 +50,7 @@ static int cocoa_to_zscii(int theChar) {
 			
 			// Delete/return
 		case 10: key = 13; break;
+		case NSDeleteCharacter: key = 8; break;
 		case NSDeleteFunctionKey: key = 8; break;
 			
 			// Function keys
