@@ -2805,11 +2805,11 @@ static UTType *getZoomSaveType(void) {
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(windowDidBecomeKey:)
 													 name: NSWindowDidBecomeKeyNotification
-												   object: [self window]];
+												   object: newWindow];
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(windowDidResignKey:)
 													 name: NSWindowDidResignKeyNotification
-												   object: [self window]];		
+												   object: newWindow];		
 	}
 }
 
