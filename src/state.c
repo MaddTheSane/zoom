@@ -572,11 +572,17 @@ int state_decompile(ZByte* st, ZStack* stack, ZDWord* pc, ZDWord len)
 		zmachine_fatal("Corrupt CMem block");
 
 	      len = cmem[++x]+1;
-	      for (y=0; y<len; y++)
-		machine.memory[adr++] = 0;
+	      for (y=0; y<len; y++, adr++)
+		if (adr < machine.dynamic_ceiling)
+		  machine.memory[adr] = 0;
 	    }
 	  else
-	    machine.memory[adr++] = cmem[x];
+	    {
+	      /* Count bytes past the end of dynamic memory, but don't write them */
+	      if (adr < machine.dynamic_ceiling)
+		machine.memory[adr] = cmem[x];
+	      adr++;
+	    }
 	}
 
       if (adr > machine.dynamic_ceiling)
