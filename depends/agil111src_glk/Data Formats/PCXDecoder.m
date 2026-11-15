@@ -207,7 +207,7 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 	return self;
 }
 
-- (BOOL)parseWithError:(NSError *__autoreleasing  _Nullable *)outErr
+- (BOOL)parseWithError:(NSError *__autoreleasing  _Nullable *_Nullable)outErr
 {
 	if (fileHandle == nil) {
 		if (outErr) {
@@ -537,7 +537,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
 		imageNSDat = nil;
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
+		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | (CGBitmapInfo)kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
 		CGDataProviderRelease(imgProvider);
 		CGColorSpaceRelease(colorSpace);
 		NSMutableData *mutDat = [[NSMutableData alloc] init];

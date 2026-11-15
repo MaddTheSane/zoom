@@ -30,7 +30,7 @@ typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
 //! Parses and decodes the passed-in URL, or returns `NO` and populates `outErr` on error.
 //!
 //! The file handler is closed after this method returns.
-- (BOOL)parseWithError:(NSError**)outErr;
+- (BOOL)parseWithError:(NSError *__autoreleasing  _Nullable *_Nullable)outErr;
 
 @property (readonly, copy, nullable) NSData *dataRepresentation;
 

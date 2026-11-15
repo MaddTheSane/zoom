@@ -83,14 +83,8 @@ final public class AGT: ZoomGlkPlugIn, ZoomStoryConverter {
 		
 		do {
 			let file = try FileHandle(forReadingFrom: fileURL)
-			let checkDat: Data
-			if #available(macOS 10.15.4, *) {
-				guard let checkData = try file.read(upToCount: 36) else {
-					return false
-				}
-				checkDat = checkData
-			} else {
-				checkDat = file.readData(ofLength: 36)
+			guard let checkDat = try file.read(upToCount: 36) else {
+				return false
 			}
 			guard checkDat.count >= 36 else {
 				return false
