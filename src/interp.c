@@ -912,6 +912,7 @@ static void zcode_op_output_stream(ZStack* stack,
 	{
 	  machine.memory_on = 0;
 	  zmachine_warning("Tried to stop writing to memory when no memory redirect was in effect");
+	  break;
 	}
 
       if (machine.memory_width[machine.memory_on] != -1)
