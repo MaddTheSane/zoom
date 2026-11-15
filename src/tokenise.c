@@ -277,8 +277,8 @@ void tokenise_string(unsigned int* string,
       wordstart = strpos;
       wordlen = 0;
 
-      /* Read up to the next seperator */
-      while (dict->sep[string[strpos]] == 0)
+      /* Read up to the next seperator (the table covers only 0-255) */
+      while (string[strpos] > 255 || dict->sep[string[strpos]] == 0)
 	{
 	  strpos++;
 	  wordlen++;
