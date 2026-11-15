@@ -6,6 +6,9 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __ZOOMPLUGINS_ZOOMGLKWINDOWCONTROLLER_H__
+#define __ZOOMPLUGINS_ZOOMGLKWINDOWCONTROLLER_H__
+
 #import <Cocoa/Cocoa.h>
 
 #import <GlkView/GlkView.h>
@@ -81,3 +84,5 @@
 @property (copy) NSImage *logo;
 
 @end
+
+#endif

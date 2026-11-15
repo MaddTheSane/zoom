@@ -6,6 +6,9 @@
 //  Copyright 2007 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __ZOOMPLUGINS_ZOOMPLUGININFO_H__
+#define __ZOOMPLUGINS_ZOOMPLUGININFO_H__
+
 #import <Cocoa/Cocoa.h>
 @class ZoomDownload;
 
@@ -78,3 +81,5 @@ typedef NS_ENUM(int, ZoomPlugInStatus) {
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

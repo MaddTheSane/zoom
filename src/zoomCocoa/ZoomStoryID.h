@@ -6,6 +6,9 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __ZOOMPLUGINS_ZOOMSTORYID_H__
+#define __ZOOMPLUGINS_ZOOMSTORYID_H__
+
 #import <Foundation/Foundation.h>
 #include <ZoomPlugIns/ifmetabase.h>
 
@@ -53,3 +56,5 @@ typedef NS_ERROR_ENUM(ZoomStoryIDErrorDomain, ZoomStoryIDError) {
 extern BOOL ZoomIsSpotlightIndexing;
 
 NS_ASSUME_NONNULL_END
+
+#endif

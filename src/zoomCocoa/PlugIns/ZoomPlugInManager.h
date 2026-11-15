@@ -6,6 +6,9 @@
 //  Copyright 2007 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __ZOOMPLUGINS_ZOOMPLUGINMANAGER_H__
+#define __ZOOMPLUGINS_ZOOMPLUGINMANAGER_H__
+
 #import <Cocoa/Cocoa.h>
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
@@ -119,3 +122,5 @@ extern NSNotificationName const ZoomPlugInInformationChangedNotification;
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

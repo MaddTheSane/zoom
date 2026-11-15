@@ -6,6 +6,9 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __ZOOMPLUGINS_ZOOMSTORY_H__
+#define __ZOOMPLUGINS_ZOOMSTORY_H__
+
 #import <Foundation/Foundation.h>
 #import <ZoomPlugins/ifmetabase.h>
 
@@ -96,3 +99,5 @@ typedef NS_ENUM(unsigned, IFMB_Zarfian) {
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

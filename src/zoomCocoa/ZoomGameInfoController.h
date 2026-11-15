@@ -1,5 +1,8 @@
 /* ZoomGameInfoController */
 
+#ifndef __ZOOMPLUGINS_ZOOMGAMEINFOCONTROLLER_H__
+#define __ZOOMPLUGINS_ZOOMGAMEINFOCONTROLLER_H__
+
 #import <Cocoa/Cocoa.h>
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomResourceDrop.h>
@@ -63,3 +66,5 @@
 - (NSDictionary<NSString*,id>*) dictionary;
 
 @end
+
+#endif

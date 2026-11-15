@@ -6,6 +6,9 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __ZOOMPLUGINS_ZOOMRESOURCEDROP_H__
+#define __ZOOMPLUGINS_ZOOMRESOURCEDROP_H__
+
 #import <AppKit/AppKit.h>
 
 
@@ -39,3 +42,5 @@
 - (void) resourceDropDataChanged: (ZoomResourceDrop*) drop;
 
 @end
+
+#endif

@@ -6,6 +6,9 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __ZOOMPLUGINS_ZOOMMETADATA_H__
+#define __ZOOMPLUGINS_ZOOMMETADATA_H__
+
 #import <Foundation/Foundation.h>
 
 #import <ZoomPlugIns/ZoomStory.h>
@@ -96,3 +99,5 @@ typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif
