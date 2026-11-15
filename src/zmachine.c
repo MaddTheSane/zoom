@@ -563,6 +563,9 @@ void zmachine_info(const char* format, ...)
     (v)?machine.heb[p]|(1<<(f)): \
     machine.heb[p]&~(1<<(f))
 
+/* The screen size in lines and columns is a byte: 255 means 255 or more */
+#define ScreenSize(v) ((v) > 255 ? 255 : (v))
+
 void zmachine_setup_header(void)
 {
   machine.dinfo = display_get_info();
@@ -597,8 +600,8 @@ void zmachine_setup_header(void)
 
       machine.memory[ZH_intnumber] = 1;
       machine.memory[ZH_intvers] = 1;
-      machine.memory[ZH_lines] = machine.dinfo->lines;
-      machine.memory[ZH_columns] = machine.dinfo->columns;
+      machine.memory[ZH_lines] = ScreenSize(machine.dinfo->lines);
+      machine.memory[ZH_columns] = ScreenSize(machine.dinfo->columns);
 
       machine.memory[ZH_intnumber] = rc_get_interpreter();
       machine.memory[ZH_intvers] = rc_get_revision();
@@ -704,8 +707,8 @@ void zmachine_setup_header(void)
       Flag(1, 4, machine.dinfo->fixed_space);
       Flag(1, 7, machine.dinfo->timed_input);
 
-      machine.memory[ZH_lines]     = machine.dinfo->lines;
-      machine.memory[ZH_columns]   = machine.dinfo->columns;
+      machine.memory[ZH_lines]     = ScreenSize(machine.dinfo->lines);
+      machine.memory[ZH_columns]   = ScreenSize(machine.dinfo->columns);
 
       machine.memory[ZH_intnumber] = rc_get_interpreter();
       machine.memory[ZH_intvers]   = rc_get_revision();
@@ -763,8 +766,8 @@ void zmachine_resize_display(ZDisplay* dis)
       machine.memory[ZH_fontwidth] = machine.dinfo->font_height;
       machine.memory[ZH_fontheight] = machine.dinfo->font_width;
 
-      machine.memory[ZH_lines] = machine.dinfo->lines;
-      machine.memory[ZH_columns] = machine.dinfo->columns;
+      machine.memory[ZH_lines] = ScreenSize(machine.dinfo->lines);
+      machine.memory[ZH_columns] = ScreenSize(machine.dinfo->columns);
       break;
       
     case 8:
@@ -791,8 +794,8 @@ void zmachine_resize_display(ZDisplay* dis)
 	  machine.memory[ZH_fontheight] = machine.dinfo->font_height;
 	}
     case 4:
-      machine.memory[ZH_lines]     = machine.dinfo->lines;
-      machine.memory[ZH_columns]   = machine.dinfo->columns;
+      machine.memory[ZH_lines]     = ScreenSize(machine.dinfo->lines);
+      machine.memory[ZH_columns]   = ScreenSize(machine.dinfo->columns);
       break;
     }
 }
