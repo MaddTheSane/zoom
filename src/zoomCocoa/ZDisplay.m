@@ -368,8 +368,13 @@ int display_readline(int* buf, int len, long int timeout) {
     NSString* prefix = @"";
 	
     if (buf[0] != 0) {
+        int prefixLen = 0;
+        while (prefixLen < len && buf[prefixLen] != 0) {
+            prefixLen++;
+        }
+
         prefix = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
-                                                                length: len * sizeof(int)]
+                                                                length: prefixLen * sizeof(int)]
                                        encoding: NSUTF32LittleEndianStringEncoding];
         
         if (!prefix) {
