@@ -18,7 +18,8 @@
 @property (class, readonly, strong) ZoomConnector *sharedConnector;
 
 // Adding/removing views from the queue
-- (void) addViewWaitingForServer: (ZoomView*) view;
+/// Pairs \c view with the ZoomServer process it has launched, which connects with its process identifier.
+- (void) addView: (ZoomView*) view waitingForServerWithProcessIdentifier: (int) processIdentifier;
 - (void) removeView: (ZoomView*) view;
 
 @end

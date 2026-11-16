@@ -451,7 +451,9 @@ NS_SWIFT_NAME(ZDisplayProtocol)
 
 //! Connecting to the client
 @protocol ZClient <NSObject>
-- (nullable byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine;
+//! A server connects with its process identifier, so that it's paired with the view that launched it
+- (nullable byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine
+								fromProcess: (int) processIdentifier;
 @end
 
 NS_ASSUME_NONNULL_END

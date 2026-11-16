@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
 	}
 	
 	mainMachine = [[ZoomZMachine alloc] init];
-	if ([client connectToDisplay: mainMachine] == nil) {
+	if ([client connectToDisplay: mainMachine fromProcess: getpid()] == nil) {
 		NSLog(@"Failed to connect to view");
 		abort();
 	}

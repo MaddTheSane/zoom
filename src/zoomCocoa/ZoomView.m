@@ -1773,11 +1773,13 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
                                                  name: NSTaskDidTerminateNotification
                                                object: zoomTask];
 	
-	// Notify the connector that we're waiting for a Z-Machine to arrive on the scene
-	[[ZoomConnector sharedConnector] addViewWaitingForServer: self];
-    
     // Light the blue touch paper
     [zoomTask launch];
+
+	// Notify the connector that we're waiting for this Z-Machine to arrive on the scene. It can't arrive
+	// before this, as the connector hears from it on this thread's run loop.
+	[[ZoomConnector sharedConnector] addView: self
+	   waitingForServerWithProcessIdentifier: [zoomTask processIdentifier]];
 
 	//    \||/
     // ***FOOM***

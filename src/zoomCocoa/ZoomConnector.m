@@ -13,7 +13,8 @@
 
 @implementation ZoomConnector {
 	NSConnection* connection;
-	NSMutableArray<ZoomView*>* waitingViews;
+	/// The views waiting for a server, by the server's process identifier
+	NSMutableDictionary<NSNumber*, ZoomView*>* waitingViews;
 }
 
 #pragma mark - The shared connector
@@ -52,7 +53,7 @@
 			NSLog(@"Uh-oh: failed to register a connection. Games will probably fail to start");
 		}
 		
-		waitingViews = [[NSMutableArray alloc] init];
+		waitingViews = [[NSMutableDictionary alloc] init];
 	}
 	
 	return self;
@@ -64,25 +65,27 @@
 
 #pragma mark - Connecting views to Z-Machines
 
-- (void) addViewWaitingForServer: (ZoomView*) view {
+- (void) addView: (ZoomView*) view waitingForServerWithProcessIdentifier: (int) processIdentifier {
 	[self removeView: view];
-	[waitingViews addObject: view];
+	[waitingViews setObject: view
+					 forKey: @(processIdentifier)];
 }
 
 - (void) removeView: (ZoomView*) view {
-	[waitingViews removeObjectIdenticalTo: view];
+	[waitingViews removeObjectsForKeys: [waitingViews allKeysForObject: view]];
 }
 
-- (byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine {
-	// Get the view that's waiting
-	ZoomView* whichView = [waitingViews lastObject];	
+- (byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine
+							fromProcess: (int) processIdentifier {
+	// Get the view that launched this server
+	ZoomView* whichView = [waitingViews objectForKey: @(processIdentifier)];
 	if (whichView == nil) {
-		NSLog(@"WARNING: attempt to connect to a display when no objects are available to connect to");
+		NSLog(@"WARNING: attempt to connect to a display by a server that no view is waiting for");
 		return nil;
 	}
 	
 	// Remove from the list of waiting views
-	[waitingViews removeLastObject];
+	[waitingViews removeObjectForKey: @(processIdentifier)];
 	
 	// Notify the view that it's gained a Z-Machine
 	[[NSRunLoop currentRunLoop] performSelector: @selector(setZMachine:)
