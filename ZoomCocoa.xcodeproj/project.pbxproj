@@ -226,6 +226,8 @@
 		5508EBC12CCF0ED300F6E090 /* GlkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7CB1C7093634DD00F3B8F6 /* GlkClient.framework */; };
 		5508EBC22CCF0F3B00F6E090 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552CEF2227152C5F009D87A5 /* libglkmain.a */; };
 		5508EC742CCF339D00F6E090 /* Magnetic Scrolls.zoomPlugin in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 5508EB992CCF057D00F6E090 /* Magnetic Scrolls.zoomPlugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		550D2F2430AAC4EB00B034DB /* ZoomView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD274C508701E6800C1AE15 /* ZoomView.framework */; };
+		550D2F2630AAC4F500B034DB /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550D2F2530AAC4F500B034DB /* CoreSpotlight.framework */; };
 		550DD3C62796B191001BD77E /* ZoomPlugInManagerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */; };
 		55101A5A290D06D9003CED21 /* ImportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55101A59290D06D9003CED21 /* ImportExtension.swift */; };
 		55101A5F290D06D9003CED21 /* ZoomNewSpotlight.appex in Copy Plug-ins */ = {isa = PBXBuildFile; fileRef = 55101A57290D06D9003CED21 /* ZoomNewSpotlight.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -1577,6 +1579,7 @@
 		5508EB9E2CCF05C700F6E090 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5508EB9F2CCF073100F6E090 /* MagneticScrolls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticScrolls.swift; sourceTree = "<group>"; };
 		5508EBA52CCF0A5E00F6E090 /* magnetic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = magnetic; sourceTree = BUILT_PRODUCTS_DIR; };
+		550D2F2530AAC4F500B034DB /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		550DD3C52796B191001BD77E /* ZoomPlugInManagerSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPlugInManagerSwift.swift; sourceTree = "<group>"; };
 		55101A57290D06D9003CED21 /* ZoomNewSpotlight.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ZoomNewSpotlight.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55101A59290D06D9003CED21 /* ImportExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExtension.swift; sourceTree = "<group>"; };
@@ -1998,6 +2001,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				550D2F2630AAC4F500B034DB /* CoreSpotlight.framework in Frameworks */,
+				550D2F2430AAC4EB00B034DB /* ZoomView.framework in Frameworks */,
 				55101A65290D096F003CED21 /* ZoomPlugIns.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2257,18 +2262,19 @@
 			children = (
 				55BB924E2048AC4000AB4B5B /* libexpat.tbd */,
 				4BA373A30CD3CB7B00C7B1D4 /* ApplicationServices.framework */,
-				4BA373A40CD3CB7B00C7B1D4 /* CoreServices.framework */,
-				4BA373A50CD3CB7B00C7B1D4 /* QuickLook.framework */,
-				4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */,
-				4B39CA8308EEFE8F00BA5E90 /* CoreServices.framework */,
 				4B5CBB9B069D671200C0AA88 /* Carbon.framework */,
-				4B39CBCA08EF006E00BA5E90 /* CoreFoundation.framework */,
 				4B1E3F60050F7BA000A8E303 /* Cocoa.framework */,
+				4B39CBCA08EF006E00BA5E90 /* CoreFoundation.framework */,
+				4BA373A40CD3CB7B00C7B1D4 /* CoreServices.framework */,
+				4B39CA8308EEFE8F00BA5E90 /* CoreServices.framework */,
+				550D2F2530AAC4F500B034DB /* CoreSpotlight.framework */,
 				4BCF3F2B050F8E2400A8E303 /* Foundation.framework */,
-				4B7284FA0CD383C80079D89B /* QuartzCore.framework */,
-				4B0A32AE06A5966D00BB8878 /* WebKit.framework */,
 				55132C2F28FFE9AB007C87B6 /* Quartz.framework */,
+				4B7284FA0CD383C80079D89B /* QuartzCore.framework */,
+				4BA373A50CD3CB7B00C7B1D4 /* QuickLook.framework */,
 				55A319BF290138F200ABAAA2 /* QuickLookThumbnailing.framework */,
+				4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */,
+				4B0A32AE06A5966D00BB8878 /* WebKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5851,6 +5857,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/src/zoomCocoa",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.zoomserver;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -5883,6 +5890,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/src/zoomCocoa",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.zoomserver;
 				PRODUCT_NAME = ZoomServer;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
