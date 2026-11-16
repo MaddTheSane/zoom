@@ -3491,6 +3491,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BB8C16608C2497700D7D334 /* Build configuration list for PBXNativeTarget "ZoomServer" */;
 			buildPhases = (
+				C0F1A0030000000000000001 /* Generate Interpreter Headers */,
 				4BB8C14608C2497700D7D334 /* Sources */,
 				4BB8C16108C2497700D7D334 /* Frameworks */,
 			);
@@ -3499,7 +3500,6 @@
 			);
 			dependencies = (
 				4BB8C12308C2497700D7D334 /* PBXTargetDependency */,
-				4BB8C12508C2497700D7D334 /* PBXTargetDependency */,
 			);
 			name = ZoomServer;
 			productInstallPath = /usr/local/bin;
@@ -4407,6 +4407,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		C0F1A0030000000000000001 /* Generate Interpreter Headers */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/Builder",
+				"$(SRCROOT)/src/zcode.ops",
+				"$(SRCROOT)/builder/varopdecode.pl",
+				"$(SRCROOT)/ProjectBuilder/build_files.sh",
+			);
+			name = "Generate Interpreter Headers";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/build/interp_gen.h",
+				"$(SRCROOT)/build/interp_z3.h",
+				"$(SRCROOT)/build/interp_z4.h",
+				"$(SRCROOT)/build/interp_z5.h",
+				"$(SRCROOT)/build/interp_z6.h",
+				"$(SRCROOT)/build/varop.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Builder turns zcode.ops into the interpreter's opcode headers. Declaring Builder as an\n# input makes Xcode wait until it has been built.\ncd \"${SRCROOT}\" && /bin/bash ProjectBuilder/build_files.sh build\n";
+		};
 		4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
