@@ -625,13 +625,6 @@
 			remoteGlobalIDString = 4BB8C0DC08C2452E00D7D334;
 			remoteInfo = Builder;
 		};
-		4BB8C12608C2497700D7D334 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4B1E3F67050F7BB700A8E303;
-			remoteInfo = Interpreter;
-		};
 		4BB8C16E08C2498A00D7D334 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B1E3F4B050F7AD000A8E303 /* Project object */;
@@ -4407,6 +4400,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy more plugins, if available";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -e ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE} ]; then\n    echo Installing plugin bundles from ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}\n    #ls ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}/*.plugin\n    #cp -Rf ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}/*.plugin ${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/PlugIns\nfi\n";
+		};
 		C0F1A0030000000000000001 /* Generate Interpreter Headers */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4434,20 +4441,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Builder turns zcode.ops into the interpreter's opcode headers. Declaring Builder as an\n# input makes Xcode wait until it has been built.\ncd \"${SRCROOT}\" && /bin/bash ProjectBuilder/build_files.sh build\n";
-		};
-		4B7FC2380B1F2588004DD113 /* Copy more plugins, if available */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy more plugins, if available";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -e ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE} ]; then\n    echo Installing plugin bundles from ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}\n    #ls ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}/*.plugin\n    #cp -Rf ${SRCROOT}/../ZoomPlugins/build/${BUILD_STYLE}/*.plugin ${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/PlugIns\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -4965,11 +4958,6 @@
 			isa = PBXTargetDependency;
 			target = 4BB8C0DC08C2452E00D7D334 /* Builder */;
 			targetProxy = 4BB8C12408C2497700D7D334 /* PBXContainerItemProxy */;
-		};
-		4BB8C12508C2497700D7D334 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4B1E3F67050F7BB700A8E303 /* Interpreter */;
-			targetProxy = 4BB8C12608C2497700D7D334 /* PBXContainerItemProxy */;
 		};
 		4BB8C16F08C2498A00D7D334 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
