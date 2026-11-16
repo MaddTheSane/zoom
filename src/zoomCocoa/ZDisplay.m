@@ -243,8 +243,11 @@ void display_erase_window(void) {
 void display_erase_line(int val) {
 	NOTE(@"display_erase_line");
 	
-    [[mainMachine buffer] eraseLineInWindow: (id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]
-                                  withStyle: zDisplayCurrentStyle];
+    // Only the upper window can erase a line: the lower window doesn't implement it
+    if (zDisplayCurrentWindow > 0) {
+        [[mainMachine buffer] eraseLineInWindow: (id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]
+                                      withStyle: zDisplayCurrentStyle];
+    }
 }
 
 #pragma mark - Display functions
