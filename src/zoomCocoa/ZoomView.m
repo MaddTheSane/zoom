@@ -752,10 +752,13 @@ NSString*const ZoomStyleAttributeName = @"ZoomStyleAttributeName";
 						@{NSFontAttributeName: [self fontFromStyle:ZFontStyleFixed]}];
     NSRect ourBounds = NSMakeRect(0,0,0,0);
 	
-	if (pixmapWindow == nil)
-		ourBounds = [textView bounds];
-	else
+	if (pixmapWindow == nil) {
+		// The screen is the visible part of the text view: its bounds grow with the text kept for scrolling back
+		ourBounds.size = [textView convertSize: [textScroller contentSize]
+									  fromView: textScroller];
+	} else {
 		ourBounds.size = [[pixmapWindow pixmap] size];
+	}
 
     *xSize = floor(ourBounds.size.width  / fixedSize.width);
     *ySize = floor(ourBounds.size.height / fixedSize.height);
