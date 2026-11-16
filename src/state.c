@@ -441,7 +441,20 @@ int state_decompile(ZByte* st, ZStack* stack, ZDWord* pc, ZDWord len)
     {
       ZDWord blen;
       
+      /* A damaged file can have a length that runs past its end, or that is negative */
+      if (len - pos < 4)
+	{
+	  detail = "Corrupt savefile";
+	  return 0;
+	}
+      
       blen = (st[pos]<<24) | (st[pos+1]<<16) | (st[pos+2]<<8) | (st[pos+3]);
+      
+      if (blen < 0 || blen > len - pos - 4)
+	{
+	  detail = "Corrupt savefile";
+	  return 0;
+	}
 #ifdef DEBUG
       printf_debug("Decompile: found block ");
       {
@@ -559,11 +572,17 @@ int state_decompile(ZByte* st, ZStack* stack, ZDWord* pc, ZDWord len)
 		zmachine_fatal("Corrupt CMem block");
 
 	      len = cmem[++x]+1;
-	      for (y=0; y<len; y++)
-		machine.memory[adr++] = 0;
+	      for (y=0; y<len; y++, adr++)
+		if (adr < machine.dynamic_ceiling)
+		  machine.memory[adr] = 0;
 	    }
 	  else
-	    machine.memory[adr++] = cmem[x];
+	    {
+	      /* Count bytes past the end of dynamic memory, but don't write them */
+	      if (adr < machine.dynamic_ceiling)
+		machine.memory[adr] = cmem[x];
+	      adr++;
+	    }
 	}
 
       if (adr > machine.dynamic_ceiling)
