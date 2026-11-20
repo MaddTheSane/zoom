@@ -27,6 +27,8 @@ static NSString* const xmlCharData   = @"xmlCharData";
 #define NOSTR  @"NO"
 #endif
 
+#define USE_NSXML 1
+
 #define ZoomSkeinActiveNodeKey	@"activeNode"
 #define ZoomSkeinGeneratorKey	@"generator"
 #define ZoomSkeinItemKey		@"item"
@@ -65,9 +67,9 @@ typedef NSDictionary<NSString*,id> SkeinXMLElement;
 
 @end
 
-@implementation ZoomSkein(ZoomSkeinXML)
+#pragma mark - XML output functions
 
-#pragma mark - XML data
+#ifdef USE_NSXML
 
 static NSXMLNode *addAttributeToElement(NSXMLElement *element, NSString *attributeName, NSString *value) {
 	NSXMLNode *attributeNode = [[NSXMLNode alloc] initWithKind: NSXMLAttributeKind options: NSXMLNodePrettyPrint];
@@ -101,6 +103,79 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	return root;
 }
 
+#else
+
+static inline NSString* idForNode(ZoomSkeinItem* item) {
+	return item.nodeIdentifier.UUIDString;
+}
+
+struct xmlEncodeState {
+	int resLen;
+	int maxLen;
+	unichar* res;
+};
+
+static inline void append(unichar chr, struct xmlEncodeState* state) {
+	while (state->resLen >= state->maxLen) {
+		state->maxLen += 256;
+		state->res = realloc(state->res, sizeof(unichar)*state->maxLen);
+	}
+	
+	state->res[state->resLen++] = chr;
+}
+
+static inline void appendStr(NSString* str, struct xmlEncodeState* state) {
+	int x;
+	for (x=0; x<[str length]; x++) {
+		append([str characterAtIndex: x], state);
+	}
+}
+
+static NSString* xmlEncode(NSString* str) {
+	
+	NSInteger x;
+	
+	// Grr, Cocoa has no 'append character' thing in NSMutableString, which is daft
+	// To avoid being slower than a turtle embedded in cement, do everything manually
+	static struct xmlEncodeState state = { 0, 0, nil };
+	
+	state.resLen = 0;
+	
+	// Actually convert the string
+	for (x=0; x<[str length]; x++) {
+		unichar chr = [str characterAtIndex: x];
+		
+		if (chr == '\n') {
+			append('\n', &state);
+		} else if (chr == '&') {
+			appendStr(@"&amp;", &state);
+		} else if (chr == '<') {
+			appendStr(@"&lt;", &state);
+		} else if (chr == '>') {
+			appendStr(@"&gt;", &state);
+		} else if (chr == '"') {
+			appendStr(@"&quot;", &state);
+		} else if (chr == '\'') {
+			appendStr(@"&apos;", &state);
+		} else if (chr < 0x20) {
+			// Ignore (expat can't parse these)
+		} else {
+			// NOTE/FIXME: Surrogate characters are not handled correctly
+			// May, I suppose, cause a problem with chinese IF
+			append(chr, &state);
+		}
+	}
+	
+	return [NSString stringWithCharacters: state.res
+								   length: state.resLen];
+}
+
+#endif
+
+@implementation ZoomSkein(ZoomSkeinXML)
+
+#pragma mark - XML data
+
 #pragma mark Creating XML
 
 /// Creates an XML representation of the Skein.
@@ -129,6 +204,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	// All item fields are optional.
 	// Root item usually has the command '- start -'
 	
+#ifdef USE_NSXML
 	NSXMLElement *root = elementWithNameAndAttribute(@"Skein", ZoomSkeinRootNodeKey, rootItem.nodeIdentifier.UUIDString);
 	[root addNamespace:[NSXMLNode namespaceWithName:@"" stringValue:@"http://www.logicalshift.org.uk/IF/Skein"]];
 	
@@ -203,6 +279,72 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 	}
 	
 	return [xmlDoc XMLStringWithOptions: NSXMLNodePrettyPrint | NSXMLNodeCompactEmptyElement | NSXMLNodePreserveWhitespace];
+#else
+	NSMutableString* result = [[NSMutableString alloc] init];
+	
+	// Write header
+	[result appendFormat:
+		@"<Skein rootNode=\"%@\" xmlns=\"http://www.logicalshift.org.uk/IF/Skein\">\n",
+			rootItem.nodeIdentifier.UUIDString];
+	[result appendString: @"  <generator>Zoom</generator>\n"];
+	[result appendFormat: @"  <activeNode nodeId=\"%@\" />\n",  self.activeItem.nodeIdentifier.UUIDString];
+	
+	// Write items
+	NSMutableArray* itemStack = [NSMutableArray array];
+	[itemStack addObject: rootItem];
+	
+	while ([itemStack count] > 0) {
+		// Pop from the stack
+		ZoomSkeinItem* node = [itemStack lastObject];
+		[itemStack removeLastObject];
+		
+		// Push any children of this node
+		[itemStack addObjectsFromArray:node.children.allObjects];
+		
+		// Generate the XML for this node
+		[result appendFormat: @"  <item nodeId=\"%@\">\n",
+			node.nodeIdentifier.UUIDString];
+		
+		if ([node command] != nil)
+			[result appendFormat: @"    <command xml:space=\"preserve\">%@</command>\n",
+				xmlEncode([node command])];
+		if ([node result] != nil)
+			[result appendFormat: @"    <result xml:space=\"preserve\">%@</result>\n",
+				xmlEncode([node result])];
+		if ([node annotation] != nil)
+			[result appendFormat: @"    <annotation xml:space=\"preserve\">%@</annotation>\n",
+				xmlEncode([node annotation])];
+		if ([node commentary] != nil)
+			[result appendFormat: @"    <commentary xml:space=\"preserve\">%@</commentary>\n",
+				xmlEncode([node commentary])];
+		
+		[result appendFormat: @"    <played>%@</played>\n",
+			[node played]?YESSTR:NOSTR];
+		[result appendFormat: @"    <changed>%@</changed>\n",
+			[node changed]?YESSTR:NOSTR];
+		[result appendFormat: @"    <temporary score=\"%i\">%@</temporary>\n",
+			[node temporaryScore], node.temporary?YESSTR:NOSTR];
+		
+		if ([[node children] count] > 0) {
+			[result appendString: @"    <children>\n"];
+			
+			for (ZoomSkeinItem* childNode in node.children) {
+				[result appendFormat: @"      <child nodeId=\"%@\" />\n",
+				 childNode.nodeIdentifier.UUIDString];
+			}
+			
+			[result appendString: @"    </children>\n"];
+		}
+		
+		[result appendString: @"  </item>\n"];
+	}
+	
+	// Write footer
+	[result appendString: @"</Skein>\n"];
+	
+	return result;
+
+#endif
 }
 
 #pragma mark - Parsing the XML
