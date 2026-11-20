@@ -58,7 +58,7 @@
 	NSLog(@"ZoomSkein: finished loading");
 
 	if (webData) {
-		[self parseXmlData: webData error: NULL];
+		[self parseXMLData: webData error: NULL];
 		webData = nil;
 	}
 }

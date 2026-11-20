@@ -207,7 +207,7 @@ static NSXMLElement *elementWithNameAndValue(NSString *elementName, NSString *va
 
 #pragma mark - Parsing the XML
 
-- (BOOL) parseXmlData: (NSData*) data error: (NSError**) error {
+- (BOOL) parseXMLData: (NSData*) data error: (NSError**) error {
 	ZoomSkeinXMLInput* inputParser = [[ZoomSkeinXMLInput alloc] init];
 	NSError *tmpError = nil;
 	

@@ -483,7 +483,7 @@
 	NSData* skeinArchive = [[[wrapper fileWrappers] objectForKey: @"Skein.skein"] regularFileContents];
 	if (skeinArchive) {
 		NSError *skeinErr;
-		if (![skein parseXmlData: skeinArchive error: &skeinErr]) {
+		if (![skein parseXMLData: skeinArchive error: &skeinErr]) {
 			[self addLoadingError:@"Skein load failed."];
 			[self addLoadingError:skeinErr.localizedDescription];
 		}

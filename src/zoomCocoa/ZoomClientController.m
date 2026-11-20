@@ -192,7 +192,7 @@
 }
 
 - (BOOL) loadedSkeinData: (NSData*) skeinData error:(NSError *__autoreleasing *)error {
-	return [[[self document] skein] parseXmlData: skeinData error: error];
+	return [[[self document] skein] parseXMLData: skeinData error: error];
 }
 
 - (NSString*) defaultSaveDirectory {
