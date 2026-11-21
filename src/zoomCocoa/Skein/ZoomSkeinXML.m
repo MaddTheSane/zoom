@@ -114,6 +114,39 @@ static NSString* xmlEncode(NSString* str) {
 	return escaped;
 }
 
+static NSString *OpenAndClose(int indent, NSString *command, BOOL preserveSpace, NSString *value)
+{
+	NSMutableString * ep =  [NSMutableString stringWithFormat:@"<%1$@%2$@>%3$@</%1$@>\n", command, preserveSpace ? @" xml:space=\"preserve\"" : @"", value];
+	
+	if (indent == 0) {
+		return ep;
+	} else {
+		for (int i = 0; i<indent; i++) {
+			[ep insertString: @" " atIndex:0];
+		}
+		return ep;
+	}
+}
+
+static NSString *selfTerminating(int indent, NSString *command, NSString *nodeID, NSString *value)
+{
+	NSMutableString * ep =  [NSMutableString stringWithFormat:@"<%@ %@=\"%@\" />\n", command, nodeID, value];
+	
+	if (indent == 0) {
+		return ep;
+	} else {
+		for (int i = 0; i<indent; i++) {
+			[ep insertString:@" " atIndex:0];
+		}
+		return ep;
+	}
+}
+
+static NSString *childUUID(int indent, ZoomSkeinItem *value)
+{
+	return selfTerminating(indent, ZoomSkeinChildKey, ZoomSkeinNodeIDKey, value.nodeIdentifier.UUIDString);
+}
+
 #endif
 
 @implementation ZoomSkein(ZoomSkeinXML)
@@ -227,10 +260,11 @@ static NSString* xmlEncode(NSString* str) {
 	NSMutableString* result = [[NSMutableString alloc] init];
 	
 	// Write header
+	[result appendString: @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"]
 	[result appendFormat:
 		@"<Skein rootNode=\"%@\" xmlns=\"http://www.logicalshift.org.uk/IF/Skein\">\n",
 			rootItem.nodeIdentifier.UUIDString];
-	[result appendString: @"  <generator>Zoom</generator>\n"];
+	[result appendString: OpenAndClose(2, ZoomSkeinGeneratorKey, NO, ZoomSkeinGeneratorDefaultValue)];
 	[result appendFormat: @"  <activeNode nodeId=\"%@\" />\n",  self.activeItem.nodeIdentifier.UUIDString];
 	
 	// Write items
@@ -249,23 +283,22 @@ static NSString* xmlEncode(NSString* str) {
 		[result appendFormat: @"  <item nodeId=\"%@\">\n",
 			node.nodeIdentifier.UUIDString];
 		
-		if ([node command] != nil)
-			[result appendFormat: @"    <command xml:space=\"preserve\">%@</command>\n",
-				xmlEncode([node command])];
-		if ([node result] != nil)
-			[result appendFormat: @"    <result xml:space=\"preserve\">%@</result>\n",
-				xmlEncode([node result])];
-		if ([node annotation] != nil)
-			[result appendFormat: @"    <annotation xml:space=\"preserve\">%@</annotation>\n",
-				xmlEncode([node annotation])];
-		if ([node commentary] != nil)
-			[result appendFormat: @"    <commentary xml:space=\"preserve\">%@</commentary>\n",
-				xmlEncode([node commentary])];
+		if ([node command] != nil) {
+			[result appendString: OpenAndClose(4, ZoomSkeinCommandKey, YES, xmlEncode([node command]))];
+		}
+		if ([node result] != nil) {
+			[result appendString: OpenAndClose(4, ZoomSkeinResultKey, YES, xmlEncode([node result]))];
+		}
+		if ([node annotation] != nil) {
+			[result appendString: OpenAndClose(4, ZoomSkeinAnotationKey, YES, xmlEncode([node annotation]))];
+		}
+		if ([node commentary] != nil) {
+			[result appendString: OpenAndClose(4, ZoomSkeinCommentaryKey, YES, xmlEncode([node commentary]))];
+		}
 		
-		[result appendFormat: @"    <played>%@</played>\n",
-			[node played]?YESSTR:NOSTR];
-		[result appendFormat: @"    <changed>%@</changed>\n",
-			[node changed]?YESSTR:NOSTR];
+		
+		[result appendString: OpenAndClose(4, ZoomSkeinPlayedKey, NO, [node played]?YESSTR:NOSTR)];
+		[result appendString: OpenAndClose(4, ZoomSkeinChangedKey, NO, [node changed]?YESSTR:NOSTR)];
 		[result appendFormat: @"    <temporary score=\"%i\">%@</temporary>\n",
 			[node temporaryScore], node.temporary?YESSTR:NOSTR];
 		
@@ -273,8 +306,7 @@ static NSString* xmlEncode(NSString* str) {
 			[result appendString: @"    <children>\n"];
 			
 			for (ZoomSkeinItem* childNode in node.children) {
-				[result appendFormat: @"      <child nodeId=\"%@\" />\n",
-				 childNode.nodeIdentifier.UUIDString];
+				[result appendString: childUUID(6, childNode)];
 			}
 			
 			[result appendString: @"    </children>\n"];
@@ -287,7 +319,6 @@ static NSString* xmlEncode(NSString* str) {
 	[result appendString: @"</Skein>\n"];
 	
 	return result;
-
 #endif
 }
 
