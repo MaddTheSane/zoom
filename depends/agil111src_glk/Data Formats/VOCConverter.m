@@ -6,6 +6,8 @@
 //
 
 #include "VOCConverter.h"
+#import <AVFAudio/AVFAudio.h>
+#include <AudioToolbox/AudioToolbox.h>
 
 
 const NSErrorDomain VOCConverterErrorDomain = @"com.github.MaddTheSane.AGT.VOCErrors";

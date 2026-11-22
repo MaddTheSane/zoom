@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Protocol for files that need conversion before the plug-in can actually use them.
 ///
-/// For convenience sake, the class that implements this protocol must be a subclass of `ZoomPlugIn`.
+/// For convenience sake, the class that implements this protocol must be a subclass of ``ZoomPlugIn``.
 @protocol ZoomStoryConverter <NSObject>
 
 /// Convert a file to a usable format.

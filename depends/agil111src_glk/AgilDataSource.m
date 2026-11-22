@@ -38,6 +38,7 @@ static const char *const gfxext[GFX_EXT_CNT]={".pcx",
           ".p18", /* 640x480x16 */
           ".gif",".png",".bmp",".jpg",".jpeg",".jpe",
           ".fli",".flc",".flic"};
+static_assert(GFX_EXT_CNT == sizeof(gfxext)/sizeof(gfxext[0]), "Update GFX_EXT_CNT");
 
 #define SND_EXT_CNT 8
 // FIXME: Are there more possible formats?
@@ -49,6 +50,7 @@ static const char *const sndext[SND_EXT_CNT]={".muc",
   ".aif",
   ".aiff",
   ".m4a"};
+static_assert(SND_EXT_CNT == sizeof(sndext)/sizeof(sndext[0]), "Update SND_EXT_CNT");
 
 static int decodeImageFormat(glui32 image, int *cmd)
 {
@@ -156,9 +158,15 @@ static int decodeImageFormat(glui32 image, int *cmd)
          */
       {
         NSError *err = nil;
-        NSData *toRet = MUCToRiff(urlPath, &err);
+        NSURL *tmpPath = [[urlPath URLByDeletingPathExtension] URLByAppendingPathExtension:@"m4a"];
+        tmpPath = MUCToURL(urlPath, tmpPath, &err);
+        if (!tmpPath) {
+          cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to convert %@: .MUC coversion failed with error: %@", urlPath.path, err.localizedDescription]);
+          return nil;
+        }
+        NSData *toRet = [[NSData alloc] initWithContentsOfURL:tmpPath options:0 error:&err];
         if (!toRet) {
-          cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: .MUC coversion failed with error: %@", urlPath.path, err.localizedDescription]);
+          cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@ converted to .MUC: %@", tmpPath.path, err.localizedDescription]);
           return nil;
         }
         return toRet;
@@ -171,7 +179,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
         NSError *tmpErr;
         NSData *toRet = convertVOCToRIFF(urlPath, &tmpErr);
         if (!toRet) {
-          cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: Creative Voice conversion failed: %@", urlPath.path, tmpErr.localizedDescription]);
+          cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to convert %@: Creative Voice conversion failed: %@", urlPath.path, tmpErr.localizedDescription]);
         }
         return toRet;
       }
@@ -184,7 +192,7 @@ static int decodeImageFormat(glui32 image, int *cmd)
         
       case 3: //.cmf
         //TODO: read/convert Creative Music Format?
-        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to open %@: No known way to read/convert .cmf files right now!", urlPath.path]);
+        cocoaglk_NSWarning([NSString stringWithFormat:@"Unable to convert %@: No known way to read/convert .cmf files right now!", urlPath.path]);
         return nil;
         break;
         

@@ -8,6 +8,7 @@
 #import "MUCConverter.h"
 #import <AVFAudio/AVFAudio.h>
 #include <AudioToolbox/AudioToolbox.h>
+#include <tgmath.h>
 
 
 /*
@@ -90,34 +91,34 @@ static NSURL *tempAIFFURL(void)
 	return [[NSURL fileURLWithFileSystemRepresentation:fname isDirectory:NO relativeToURL:nil] URLByResolvingSymlinksInPath];
 }
 
-NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
+NSURL *MUCToURL(NSURL *theFile, NSURL *_Nullable outFile, NSError *__autoreleasing*outError) {
 	// Get file path for temporary file first!
-	NSURL *theURL = tempAIFFURL();
+	NSURL *theURL = outFile ? outFile : tempAIFFURL();
 	
 	//Part 1: audio generation
 	{
-	NSArray<AGILMUCEntry*> *entries = mucDecode(theFile, outError);
-	if (!entries) {
-		return nil;
-	}
-	static const double sampleRate = 441000;
-	static const float amplitude = 0.5;
-	AVAudioFormat *format = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32 sampleRate:sampleRate channels:1 interleaved:NO];
-
-	NSTimeInterval estimated = 0;
-	for (AGILMUCEntry* entry in entries) {
-		estimated += entry.toneTime + entry.toneDelay;
-	}
-	
-	AVAudioFrameCount numberOfSamples = ((estimated / 1000 * sampleRate));
-	AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:numberOfSamples];
-	if (!buffer) {
-		if (outError) {
-			*outError = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENOMEM userInfo:nil];
+		NSArray<AGILMUCEntry*> *entries = mucDecode(theFile, outError);
+		if (!entries || entries.count == 0) {
+			return nil;
 		}
-		return nil;
-	}
-		float *const  *channelsData = buffer.floatChannelData;
+		const float sampleRate = 441000;
+		const float amplitude = 0.5;
+		AVAudioFormat *format = [[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatFloat32 sampleRate:sampleRate channels:1 interleaved:NO];
+		
+		NSTimeInterval estimated = 0;
+		for (AGILMUCEntry* entry in entries) {
+			estimated += entry.toneTime + entry.toneDelay;
+		}
+		
+		AVAudioFrameCount numberOfSamples = ceil((estimated / 1000 * sampleRate));
+		AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:format frameCapacity:numberOfSamples];
+		if (!buffer) {
+			if (outError) {
+				*outError = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENOMEM userInfo:nil];
+			}
+			return nil;
+		}
+		float *const *channelsData = buffer.floatChannelData;
 		float *theChannelData = channelsData[0];
 		
 		NSInteger currentSample = 0;
@@ -126,7 +127,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 			NSInteger endSample = currentSample + ((int)(entry.toneTime) * sampleRate / 1000);
 			// Generate and store the sequential samples representing the sine wave of the tone
 			for (NSInteger i = currentSample; i < endSample; i++)  {
-				float waveComponent = sinf(i * angularFrequency / sampleRate);
+				float waveComponent = sin(i * angularFrequency / sampleRate);
 				theChannelData[i] = waveComponent * amplitude;
 			}
 			currentSample += (((int)(entry.toneTime) + entry.toneDelay) * (int)(sampleRate)) / 1000;
@@ -141,7 +142,7 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 										   AVLinearPCMBitDepthKey: @16,
 										   AVLinearPCMIsFloatKey: @NO,
 										   AVFormatIDKey: @(kAudioFormatMPEG4AAC),
-										   AVSampleRateKey: @441000,
+										   AVSampleRateKey: @(sampleRate),
 										   AVEncoderBitRateKey: @64000,
 										   AVNumberOfChannelsKey: @1}
 								error:outError];
@@ -157,6 +158,14 @@ NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
 		}
 		// Deallocating outFile should close it on earlier versions of macOS.
 		outFile = nil;
+	}
+	return theURL;
+}
+
+NSData *MUCToRiff(NSURL *theFile, NSError *__autoreleasing*outError) {
+	NSURL *theURL = MUCToURL(theFile, nil, outError);
+	if (!theURL) {
+		return nil;
 	}
 	
 	// Part 3: read the created file
