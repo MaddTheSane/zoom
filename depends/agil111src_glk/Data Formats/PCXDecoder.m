@@ -444,31 +444,17 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	}
 	dat = nil;
 	
-	NSMutableData *imageNSDat;
 	{
-		imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
-		unsigned char *imageDat = imageNSDat.mutableBytes;
-		int pcx_pos, image_pos;
-		pcx_pos = image_pos = 0;
-		for (int y = 0; y < yFull; y++) {
-			for (int x = 0; x < xFull; x++) {
-				imageDat[image_pos * 3 + 0] = thePalette[bufr[pcx_pos] * 3 + 0];
-				imageDat[image_pos * 3 + 1] = thePalette[bufr[pcx_pos] * 3 + 1];
-				imageDat[image_pos * 3 + 2] = thePalette[bufr[pcx_pos] * 3 + 2];
-				image_pos++;
-				pcx_pos++;
-			}
-		}
-		free(bufr); bufr = NULL;
-	}
-	
-	{
-		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
-		imageNSDat = nil;
-		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | (CGBitmapInfo)kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
-		CGDataProviderRelease(imgProvider);
-		CGColorSpaceRelease(colorSpace);
+		 CGColorSpaceRef baseRef = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+		 CGColorSpaceRef clrSpace = CGColorSpaceCreateIndexed(baseRef, 15, (const unsigned char*)thePalette);
+		 CGColorSpaceRelease(baseRef);
+		 NSData *ourData = [NSData dataWithBytesNoCopy:bufr length:yFull * xFull freeWhenDone:YES];
+		 CGDataProviderRef src = CGDataProviderCreateWithCFData((__bridge CFDataRef)ourData);
+		 
+		 CGImageRef img = CGImageCreate(xFull, yFull, 8, 8, xFull, clrSpace, (CGBitmapInfo)kCGImageAlphaNone | kCGBitmapByteOrderDefault, src, NULL, false, kCGRenderingIntentDefault);
+		 CGColorSpaceRelease(clrSpace);
+		 CGDataProviderRelease(src);
+		 
 		NSMutableData *mutDat = [[NSMutableData alloc] init];
 		CGImageDestinationRef dst = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)mutDat, kUTTypeGIF, 1, NULL);
 		CGImageDestinationAddImage(dst, img, NULL);
