@@ -32,6 +32,9 @@ typedef NS_ERROR_ENUM(PCXDecoderErrorDomain, PCXDecoderErrors) {
 //! The file handler is closed after this method returns.
 - (BOOL)parseWithError:(NSError *__autoreleasing  _Nullable *_Nullable)outErr;
 
+//! The raw data of the image. It could be PNG, GIF, TIFF. The raw data should be parsable by NSImage.
+//!
+//! Will be `nil` if it hasn't been parsed yet, or if parsing failed.
 @property (readonly, copy, nullable) NSData *dataRepresentation;
 
 @end

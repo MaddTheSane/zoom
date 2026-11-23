@@ -268,7 +268,13 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 		}
 	} else {
 		if (outErr) {
-			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: fileURL, NSLocalizedFailureReasonErrorKey: @"Unsupported or invalid PCX format."}];
+			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain
+										  code:NSFileReadCorruptFileError
+									  userInfo:
+					   @{NSURLErrorKey: fileURL,
+						 NSLocalizedFailureReasonErrorKey: @"Unsupported or invalid PCX format.",
+						 NSDebugDescriptionErrorKey: @"Unsupported or invalid PCX format."
+					   }];
 		}
 		[fileHandle closeAndReturnError:NULL];
 		fileHandle = nil;
@@ -282,18 +288,26 @@ static_assert(sizeof(PCXHeader) == 128, "Check alignment!");
 
 //! Convert packed pixel format in `bitplanes[]` into 1 pixel per byte
 //! in `pixels[]`.
-static void
+static bool
 pcxUnpackPixels(unsigned char * const pixels,
 				const unsigned char * const bitplanes,
 				unsigned int    const bytesperline,
 				unsigned int    const planes,
-				unsigned int    const bitsperpixel)
+				unsigned int    const bitsperpixel,
+				NSError *__autoreleasing* outError)
 {
 	unsigned int i;
 	
 	if (planes != 1) {
-		return;
-//		pm_error("can't handle packed pixels with more than 1 plane" );
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain
+											code:NSFileReadCorruptFileError
+										userInfo:
+						 @{NSLocalizedDescriptionKey: @"Can't handle packed pixels with more than 1 plane",
+						   NSDebugDescriptionErrorKey: @"Can't handle packed pixels with more than 1 plane"
+						 }];
+		}
+		return false;
 	}
 	
 	for (i = 0; i < bytesperline; ++i) {
@@ -321,21 +335,28 @@ pcxUnpackPixels(unsigned char * const pixels,
 				pixels[i*8 + 7]  = ((bits & 0x01) != 0);
 				break;
 			default:
-				return;
-//				pm_error("pcxUnpackPixels - can't handle %u bits per pixel",
-//						 bitsperpixel);
+				if (outError) {
+					*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:
+								 @{NSLocalizedDescriptionKey: [NSString localizedStringWithFormat:@"pcxUnpackPixels - can't handle %u bits per pixel", bitsperpixel],
+								   NSDebugDescriptionErrorKey: [NSString stringWithFormat:@"pcxUnpackPixels - can't handle %u bits per pixel", bitsperpixel]
+								 }];
+				}
+				return false;
 				break;
 		}
 	}
+	
+	return true;
 }
 
 //! Convert multi-plane format into 1 pixel per byte.
-static void
+static bool
 pcxPlanesToPixels(unsigned char * const pixels,
 				  const unsigned char * const bitPlanes,
 				  unsigned int    const bytesPerLine,
 				  unsigned int    const planes,
-				  unsigned int    const bitsPerPixel)
+				  unsigned int    const bitsPerPixel,
+				  NSError *__autoreleasing* outError)
 {
 	unsigned int const pixelCt = bytesPerLine * 8;
 	
@@ -345,12 +366,22 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	unsigned int  i;
 	
 	if (planes > 4) {
-		return;
-//		pm_error("can't handle more than 4 planes");
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:
+						 @{NSLocalizedDescriptionKey: @"Can't handle more than 4 planes.",
+						   NSDebugDescriptionErrorKey: @"Can't handle more than 4 planes."
+						 }];
+		}
+		return false;
 	}
 	if (bitsPerPixel != 1) {
-		return;
-//		pm_error("can't handle more than 1 bit per pixel");
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:
+						 @{NSLocalizedDescriptionKey: @"Can't handle more than 1 bit per pixel",
+						   NSDebugDescriptionErrorKey: @"Can't handle more than 1 bit per pixel"
+						 }];
+		}
+		return false;
 	}
 	
 	/* Clear the pixel buffer - initial value */
@@ -381,6 +412,8 @@ pcxPlanesToPixels(unsigned char * const pixels,
 			}
 		}
 	}
+	
+	return true;
 }
 
 - (BOOL)readEGAPCXWithFixedPalette:(BOOL)fixed error:(NSError**)outError
@@ -396,11 +429,17 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	uint8_t *bufr = malloc(xFull * yFull);
 	if (pcxHeader.colorPlanes == 1) {
 		for (int i = 0; i < yFull; i++) {
-			pcxUnpackPixels(&bufr[xFull * i], dat.bytes + pcxHeader.colorPlanes * pcxHeader.colorPlaneBytes * i, pcxHeader.colorPlaneBytes, pcxHeader.colorPlanes, pcxHeader.bitsPerPlane);
+			if (!pcxUnpackPixels(&bufr[xFull * i], dat.bytes + pcxHeader.colorPlanes * pcxHeader.colorPlaneBytes * i, pcxHeader.colorPlaneBytes, pcxHeader.colorPlanes, pcxHeader.bitsPerPlane, outError)) {
+				free(bufr);
+				return NO;
+			}
 		}
 	} else {
 		for (int i = 0; i < yFull; i++) {
-			pcxPlanesToPixels(&bufr[xFull * i], &dat.bytes[pcxHeader.colorPlanes * pcxHeader.colorPlaneBytes * i], pcxHeader.colorPlaneBytes, pcxHeader.colorPlanes, pcxHeader.bitsPerPlane);
+			if (!pcxPlanesToPixels(&bufr[xFull * i], &dat.bytes[pcxHeader.colorPlanes * pcxHeader.colorPlaneBytes * i], pcxHeader.colorPlaneBytes, pcxHeader.colorPlanes, pcxHeader.bitsPerPlane, outError)) {
+				free(bufr);
+				return NO;
+			}
 		}
 	}
 	dat = nil;
@@ -427,7 +466,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
 		imageNSDat = nil;
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
+		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | (CGBitmapInfo)kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
 		CGDataProviderRelease(imgProvider);
 		CGColorSpaceRelease(colorSpace);
 		NSMutableData *mutDat = [[NSMutableData alloc] init];
