@@ -534,37 +534,17 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		}
 		return NO;
 	}
-	int yFull, xFull;
-	NSMutableData *imageNSDat;
 	{
+		int yFull, xFull;
 		NSData *rawPCX = [self readRawDataReturningXFull:&xFull yFull:&yFull];
-		const unsigned char *bufr = rawPCX.bytes;
-		const unsigned char *palette = data.bytes;
-		imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
-		unsigned char *imageDat = imageNSDat.mutableBytes;
-		int pcx_pos, image_pos;
-		pcx_pos = image_pos = 0;
-		for (int y = 0; y < yFull; y++) {
-			for (int x = 0; x < pcxHeader.colorPlaneBytes; x++) {
-				/* the width might be different than 'bytesPerLine */
-				if (x < xFull) {
-					imageDat[image_pos * 3 + 0] = palette[bufr[pcx_pos] * 3 + 0];
-					imageDat[image_pos * 3 + 1] = palette[bufr[pcx_pos] * 3 + 1];
-					imageDat[image_pos * 3 + 2] = palette[bufr[pcx_pos] * 3 + 2];
-					image_pos++;
-				}
-				pcx_pos++;
-			}
-		}
-	}
-	
-	{
-		CGDataProviderRef imgProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)imageNSDat);
-		imageNSDat = nil;
-		CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-		CGImageRef img = CGImageCreate(xFull, yFull, 8, 24, xFull*3, colorSpace, kCGBitmapByteOrderDefault | (CGBitmapInfo)kCGImageAlphaNone, imgProvider, NULL, false, kCGRenderingIntentDefault);
-		CGDataProviderRelease(imgProvider);
-		CGColorSpaceRelease(colorSpace);
+		CGColorSpaceRef baseRef = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+		CGColorSpaceRef clrSpace = CGColorSpaceCreateIndexed(baseRef, 255, (const unsigned char*)data.bytes);
+		CGColorSpaceRelease(baseRef);
+		CGDataProviderRef src = CGDataProviderCreateWithCFData((__bridge CFDataRef)rawPCX);
+		CGImageRef img = CGImageCreate(xFull, yFull, 8, 8, xFull, clrSpace, (CGBitmapInfo)kCGImageAlphaNone | kCGBitmapByteOrderDefault, src, NULL, false, kCGRenderingIntentDefault);
+		CGColorSpaceRelease(clrSpace);
+		CGDataProviderRelease(src);
+		
 		NSMutableData *mutDat = [[NSMutableData alloc] init];
 		CGImageDestinationRef dst = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)mutDat, kUTTypePNG, 1, NULL);
 		CGImageDestinationAddImage(dst, img, NULL);
