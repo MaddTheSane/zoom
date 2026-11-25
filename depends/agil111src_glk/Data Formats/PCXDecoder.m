@@ -537,6 +537,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 	int yFull, xFull;
 	NSMutableData *imageNSDat;
 	{
+		//TODO: alpha channel support?
 		NSData *rawPCX = [self readRawDataReturningXFull:&xFull yFull:&yFull];
 		CGColorSpaceRef baseRef = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
 		CGColorSpaceRef clrSpace = CGColorSpaceCreateIndexed(baseRef, 255, (const unsigned char*)data.bytes);
@@ -545,6 +546,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		CGImageRef img = CGImageCreate(xFull, yFull, 8, 8, xFull, clrSpace, (CGBitmapInfo)kCGImageAlphaNone | kCGBitmapByteOrderDefault, src, NULL, false, kCGRenderingIntentDefault);
 		CGColorSpaceRelease(clrSpace);
 		CGDataProviderRelease(src);
+		// FIXME: specbutt.pcx, from Warlords 2, fails and skips this.
 		if (img != NULL) {
 			NSMutableData *mutDat = [[NSMutableData alloc] init];
 			CGImageDestinationRef dst = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)mutDat, kUTTypePNG, 1, NULL);
@@ -557,6 +559,7 @@ pcxPlanesToPixels(unsigned char * const pixels,
 			
 			return YES;
 		}
+		// The following gets something returned, even if it's not the complete image.
 		const unsigned char *bufr = rawPCX.bytes;
 		const unsigned char *palette = data.bytes;
 		imageNSDat = [[NSMutableData alloc] initWithLength:3 * yFull * xFull];
