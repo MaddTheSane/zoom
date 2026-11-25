@@ -543,9 +543,9 @@ pcxPlanesToPixels(unsigned char * const pixels,
 		CGColorSpaceRelease(baseRef);
 		CGDataProviderRef src = CGDataProviderCreateWithCFData((__bridge CFDataRef)rawPCX);
 		CGImageRef img = CGImageCreate(xFull, yFull, 8, 8, xFull, clrSpace, (CGBitmapInfo)kCGImageAlphaNone | kCGBitmapByteOrderDefault, src, NULL, false, kCGRenderingIntentDefault);
+		CGColorSpaceRelease(clrSpace);
+		CGDataProviderRelease(src);
 		if (img != NULL) {
-			CGColorSpaceRelease(clrSpace);
-			CGDataProviderRelease(src);
 			NSMutableData *mutDat = [[NSMutableData alloc] init];
 			CGImageDestinationRef dst = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)mutDat, kUTTypePNG, 1, NULL);
 			CGImageDestinationAddImage(dst, img, NULL);
